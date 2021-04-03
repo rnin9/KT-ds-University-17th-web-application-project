@@ -21,4 +21,8 @@ public interface MemberController {
                               RedirectAttributes rAttr,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 }
