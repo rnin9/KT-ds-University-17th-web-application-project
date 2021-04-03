@@ -118,10 +118,10 @@ a:link, a:visited, a:hover {
 	<div class="container">
 		<div class="lnb">
 			<ul>
-				<li><a href="http://localhost:8085/springEx/main.do">홈</a></li>
+				<li><a href="/springEx/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
-					href="http://localhost:8085/springEx/courseManagement/courseApplyList.do">FAQ</a></li>
+					href="/springEx/faq.do">FAQ</a></li>
 			</ul>
 		</div>
 
