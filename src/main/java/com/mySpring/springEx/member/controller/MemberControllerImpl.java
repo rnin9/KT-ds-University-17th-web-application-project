@@ -30,7 +30,7 @@ public class MemberControllerImpl   implements MemberController {
 	MemberVO memberVO ;
 	
 	@RequestMapping(value = { "/","/main.do"}, method = RequestMethod.GET)
-	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
+	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
