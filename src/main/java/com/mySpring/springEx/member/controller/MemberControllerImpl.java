@@ -37,6 +37,14 @@ public class MemberControllerImpl   implements MemberController {
 		return mav;
 	}
 	
+	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
+	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
 	@Override
 	@RequestMapping(value="/member/listMembers.do" ,method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {

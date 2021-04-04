@@ -15,7 +15,8 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-		<!-- Spring -->
+
+		<!-- Spring-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -165,7 +166,7 @@
 			<artifactId>OracleDriver</artifactId>
 			<version>12.1.0.2.0</version>
 			<scope>system</scope>
-			<systemPath>C:\Users\rkdal\Downloads\springEx-20210326T022045Z-001\springEx\src\main\webapp\WEB-INF\lib\ojdbc6.jar</systemPath>
+			<systemPath>C:\Users\eunjin\OneDrive\바탕 화면\KT-ds-University-17th-web-application-project\src\main\webapp\WEB-INF\lib\ojdbc6.jar</systemPath>
 		</dependency>
 		<!-- 타일즈 관련 라이브러리 -->
 		<dependency>

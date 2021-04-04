@@ -25,6 +25,12 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/main.jsp" />
 	</definition>
+	
+	<definition name="faq" extends="baseLayout">
+		<put-attribute name="title" value="FAQ" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/faq.jsp" />
+	</definition>
 
 
 	<definition name="/member/listMembers" extends="baseLayout">
