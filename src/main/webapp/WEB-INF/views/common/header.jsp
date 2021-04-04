@@ -70,7 +70,7 @@ request.setCharacterEncoding("UTF-8");
 	<!-- 권한별 다른 메뉴, position별로 기능 추가 필요 -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="${contextPath}/main.do"><img
-			src="${pageContext.request.contextPath}/resources/image/logo/KTds_logo2.png"
+			src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
 			alt="로고" /></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#main_nav" aria-expanded="false"
