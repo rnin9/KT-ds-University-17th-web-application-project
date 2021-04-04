@@ -30,8 +30,13 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous"></script>
 
 <style>
+.bg-primary {
+	background-color: white !important;
+}
+
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
+	width: 80%;
 }
 
 .lnb {
@@ -107,8 +112,9 @@ a:link, a:visited, a:hover {
 }
 
 .file {
-	width: 20px;height: 20px;
-	margin-bottom:5px;
+	width: 20px;
+	height: 20px;
+	margin-bottom: 5px;
 }
 </style>
 
@@ -116,17 +122,20 @@ a:link, a:visited, a:hover {
 
 <body>
 	<div class="container">
+
+		<!-- 최상단바 -->
 		<div class="lnb">
 			<ul>
 				<li><a href="/springEx/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/faq.do">FAQ</a></li>
+				<li class="on"><a href="/springEx/faq.do">FAQ</a></li>
 			</ul>
 		</div>
 
+		<!-- 페이지에 대한 intro -->
 		<div class="faqIntro">자주하는 질문에 대한 답변입니다.</div>
 
+		<!-- FAQ 아코디언, 10개의 질문과 답변 -->
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="flush-headingOne">
@@ -146,16 +155,17 @@ a:link, a:visited, a:hover {
 							국가인적자원개발 컨소시엄 협약체결은 첨부된 컨소시엄 협약서(총 3P)를 작성하셔서 제출하여 주시면 됩니다.<br>(1년에
 							1회 협약체결을 원칙으로 하며 2년간 유효합니다.) <br>(단, 2017년도 이후부터는 타 교육기관과의
 							중복협약이 가능합니다.) <br> - 문의처 : 권철우 과장(070-4268-6187 /
-							82036600@kt.com)<br>
-							<br>
-							<image class="file" src="${pageContext.request.contextPath}/resources/image/icon/icon_file.png"></image>
+							82036600@kt.com)<br> <br>
+							<image class="file"
+								src="${pageContext.request.contextPath}/resources/image/icon/icon_file.png"></image>
+							<!-- 첨부파일 -->
 							<a class="download"
-								href="${pageContext.request.contextPath}/resources/attach/컨소시엄협약서_2018.02.zip" download>컨소시엄협약서_2018.02.zip</a>
+								href="${pageContext.request.contextPath}/resources/attach/컨소시엄협약서_2018.02.zip"
+								download>컨소시엄협약서_2018.02.zip</a>
 						</div>
 					</div>
 				</div>
 			</div>
-
 
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="flush-headingTwo">
@@ -372,7 +382,7 @@ a:link, a:visited, a:hover {
 				</div>
 			</div>
 		</div>
-
+		<!-- 하단 빈 공간 -->
 		<div style="height: 150px;"></div>
 	</div>
 </body>
