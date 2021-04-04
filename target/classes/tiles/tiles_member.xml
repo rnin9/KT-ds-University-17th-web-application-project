@@ -25,12 +25,6 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/main.jsp" />
 	</definition>
-	
-	<definition name="faq" extends="baseLayout">
-		<put-attribute name="title" value="FAQ" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/faq.jsp" />
-	</definition>
 
 
 	<definition name="/member/listMembers" extends="baseLayout">
@@ -47,12 +41,11 @@
 			value="/WEB-INF/views/member/loginForm.jsp" />
 	</definition>
 
-
-	<definition name="/member/memberForm" extends="baseLayout">
-		<put-attribute name="title" value="회원등록창" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/member/memberForm.jsp" />
-	</definition>
+	<!-- 회원가입 -->
+	<definition name="/member/memberJoinForm" extends="baseLayout">
+      <put-attribute name="title" value="회원등록창" />
+      <put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
+   </definition>
 	<!-- <definition name="/member/viewDetail" extends="baseLayout"> <put-attribute 
 		name="title" value="회원상세창" /> <put-attribute name="body" value="/WEB-INF/views/member/viewDetail.jsp" 
 		/> </definition> -->

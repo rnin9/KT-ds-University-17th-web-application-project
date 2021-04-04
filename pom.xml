@@ -166,7 +166,7 @@
 			<artifactId>OracleDriver</artifactId>
 			<version>12.1.0.2.0</version>
 			<scope>system</scope>
-			<systemPath>C:\Users\eunjin\OneDrive\바탕 화면\KT-ds-University-17th-web-application-project\src\main\webapp\WEB-INF\lib\ojdbc6.jar</systemPath>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
 		</dependency>
 		<!-- 타일즈 관련 라이브러리 -->
 		<dependency>
@@ -212,6 +212,13 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
+		</dependency>
+		
+		<!-- mail 인증 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 	<build>

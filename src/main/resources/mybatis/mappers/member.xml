@@ -3,41 +3,64 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- MemberVO에 추가한 object 만큼 resultMap에 추가  -->
 <mapper namespace="mapper.member">
 	<resultMap id="memResult" type="memberVO">
 		<result property="id" column="id" />
         <result property="pwd" column="pwd" />
         <result property="name" column="name" />
         <result property="email" column="email" />
+        <result property="birth" column="birth" />
+        <result property="phone" column="phone" />
+        <result property="address" column="address" />
+        <result property="address_detail" column="address_detail" />
         <result property="joinDate" column="joinDate" />
+        <result property="approval_status" column="approval_status" />
+        <result property="approval_key" column="approval_key" />
 	</resultMap> 
-	<!-- 
-	<resultMap id="memResult" type="java.util.HashMap">
-      <result property="id" column="id" />
-      <result property="pwd" column="pwd" />
-      <result property="name" column="name" />
-      <result property="email" column="email" />
-      <result property="joinDate" column="joinDate" />
-   </resultMap> -->
-
-
+	
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from t_member	order by joinDate desc	 	
+         select * from t_member1 order by joinDate desc	 	
       ]]>
 	</select>
     
-  <insert id="insertMember"  parameterType="memberVO">
+<!--   <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into t_member(id,pwd, name, email)
-		 values(#{id}, #{pwd}, #{name}, #{email})
+		 insert into t_member1(id,pwd, name, email,birth,phone,address,address_detail)
+		 values(#{id}, #{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail})
 		]]>      
+	</insert> -->
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="check_id" parameterType="String" resultType="int">
+		select
+		count(*) from t_member1 where id = #{id}
+	</select>
+
+	<!-- 이메일 중복 검사 -->
+	<select id="check_email" parameterType="String" resultType="int">
+		select count(*) from t_member1 where email = #{email}
+	</select>
+	
+		<!-- 회원 가입 -->
+	<insert id="join_member" parameterType="memberVO">
+		insert into t_member1
+		values(#{id}, #{pwd},#{name}, #{email} ,#{birth},#{phone},#{address},#{address_detail}, to_char(sysdate), 'false', #{approval_key})
 	</insert>
 	
+	<!-- 이메일 인증 -->
+	<update id="approval_member" parameterType="memberVO">
+		update t_member1 set
+		approval_status = 'true' where email = #{email} and
+		approval_key =
+		#{approval_key}
+	</update>
+
    
    <update id="updateMember"  parameterType="memberVO">
      <![CDATA[
-	     update t_member
+	     update t_member1
 	     set pwd=#{pwd}, name=#{name}, email=#{email}
 	     where
 	     id=#{id}
@@ -46,15 +69,16 @@
      
    <delete id="deleteMember"  parameterType="String">
 	<![CDATA[
-	   delete from  t_member
+	   delete from  t_member1
 	   where
 	   id=#{id}
 	]]>      
   </delete>
-  <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+
+  <select id="loginById"  resultType="memberVO"   parameterType="String" >
 	<![CDATA[
-		select * from t_member	
-		where id=#{id} and pwd=#{pwd}		
+		select * from t_member1
+		where id=#{id} and approval_status='true'
 	]]>
   </select>
-</mapper>
+</mapper> 
