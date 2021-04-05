@@ -344,6 +344,46 @@ hr {
 					}else if($.trim($("#pw").val()) !== $("#pw").val() || $.trim($("#email").val()) !== $("#email").val() || $.trim($("#id").val()) !== $("#id").val()){
 						alert("공백은 입력이 불가능합니다.");
 						return false;
+					}else if($("#name").val().length<1){
+						alert("이름을 입력해주세요");
+						$("#name").val("").focus();
+						return false;
+					}else if($("#email").val().length<1){
+						alert("이메일을 입력해주세요");
+						$("#email").val("").focus();
+						return false;
+					}else if($("#datepicker").val().length<1){
+						alert("생년월일을 입력해주세요");
+						$("#datepicker").val("").focus();
+						return false;
+					}else if($("#sex").val().length<1){
+						alert("성별을 선택해주세요");
+						$("#sex").val("").focus();
+						return false;
+					}else if($("#major").val().length<1){
+						alert("전공구분을 선택해주세요");
+						$("#major").val("").focus();
+						return false;
+					}else if($("#position").val().length<1){
+						alert("과정구분을 선택해주세요");
+						$("#position").val("").focus();
+						return false;
+					}else if($("#phone").val().length<1){
+						alert("휴대번호를 입력해주세요");
+						$("#phone").val("").focus();
+						return false;
+					}else if($("#company").val().length<1){
+						alert("회사명을 입력해주세요");
+						$("#company").val("").focus();
+						return false;
+					}else if($("#roadAddress").val().length<1){
+						alert("주소를 입력해주세요");
+						$("#roadAddress").val("").focus();
+						return false;
+					}else if($("#detailAddress").val().length<1){
+						alert("상세주소를 입력해주세요");
+						$("#detailAddress").val("").focus();
+						return false;
 					}
 				});
 				
@@ -471,9 +511,9 @@ hr {
 							class="birth" id="datepicker" placeholder="생년월일">
 
 						<div id="toggle">
-							<input type="radio" id="male" name="userGender" value="남자"> 
+							<input type="radio" id="sex" name="userGender" value="남자"> 
 							<label for="male">남</label> 
-							<input type="radio" id="female" name="userGender" value="여자"> 
+							<input type="radio" id="sex" name="userGender" value="여자"> 
 							<label for="female">여</label>
 						</div>
 					</div>
@@ -482,15 +522,15 @@ hr {
 						<div id="toggle2">
 							<input type="radio" id="major" name="userMajor" value="전공"> 
 							<label for="major">전공</label> 
-							<input type="radio" id="nomajor" name="userMajor" value="비전공"> 
+							<input type="radio" id="major" name="userMajor" value="비전공"> 
 							<label for="nomajor">비전공</label>
 						</div>
 					</div>
 
 					<div>
-						<label class="title">직업</label> <select id="position"
+						<label class="title">직업</label> <select id="job"
 							name="userJob" size='1'>
-							<option value=''>직업선택</option>
+							<option name="userJob" value="무직" >직업선택</option>
 							<option name="userJob" value="학생">학생</option>
 							<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
 							<option name="userJob" value="언론">언론</option>
@@ -506,18 +546,18 @@ hr {
 
 					</div>
 					<div>
-						<label class="title">position</label>
+						<label class="title">과정구분</label>
 						<div id="toggle3">
-							<input type="radio" id="position1" name="userPosition" value="채용예정자"> 
+							<input type="radio" id="position" name="userPosition" value="채용예정자"> 
 							<label for="position1">채용예정자과정</label> 
-							<input type="radio" id="position2" name="userPosition" value="재직자"> 
+							<input type="radio" id="position" name="userPosition" value="재직자"> 
 							<label for="position2">재직자과정</label>
 
 						</div>
 					</div>
 					
 					<div>
-						<label class="title">회사</label> <input type="text" name="userCompany"
+						<label class="title">회사</label> <input type="text" name="userCompany" id="company"
 							placeholder="회사명">
 					</div>
 
