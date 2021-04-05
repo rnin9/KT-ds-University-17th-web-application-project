@@ -38,8 +38,8 @@ request.setCharacterEncoding("UTF-8");
 				<td>비밀번호</td>
 			</tr>
 			<tr align="center">
-				<td><input type="text" name="id" value="" size="20"></td>
-				<td><input type="password" name="pwd" value="" size="20">
+				<td><input type="text" name="userId" value="" size="20"></td>
+				<td><input type="password" name="userPassword" value="" size="20">
 				</td>
 			</tr>
 			<tr align="center">
