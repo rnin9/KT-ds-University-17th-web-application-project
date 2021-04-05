@@ -34,6 +34,26 @@ request.setCharacterEncoding("UTF-8");
 	background-color: white !important;
 }
 
+.sub_visual {
+	font-family: 'Noto Sans KR', sans-serif;
+/* 	background-image:
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	background-color: black;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover; */
+	width: 100%; 
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	border: 0;
+	font-size: 32px;
+	font-weight: 500;
+	height: 190px;
+	padding-top: 69px;
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 80%;
@@ -121,6 +141,11 @@ a:link, a:visited, a:hover {
 </head>
 
 <body>
+	<div class="sub_visual">
+		<span style="color: white;">FAQ</span>
+	</div>
+
+
 	<div class="container">
 
 		<!-- 최상단바 -->
