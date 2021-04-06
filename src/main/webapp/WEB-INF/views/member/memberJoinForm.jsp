@@ -368,6 +368,8 @@ hr {
 						alert("상세주소를 입력해주세요");
 						$("#detailAddress").val("").focus();
 						return false;
+					}else if($("#company1").val()==""){
+						$(#"company1").val("KTDSUNIVERSITY");
 					}
 				});
 				
@@ -550,8 +552,8 @@ hr {
 					</div>
 
 					<div id="company" style="display:none">
-						<label class="title">회사</label> <input type="text"
-							name="userCompany" placeholder="회사명">
+						<label class="title">회사</label> 
+						<input type="text" id="company1" name="userCompany" placeholder="회사명">
 					</div>
 
 					<div>

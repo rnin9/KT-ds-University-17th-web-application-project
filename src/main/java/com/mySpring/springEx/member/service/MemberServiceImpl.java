@@ -2,12 +2,13 @@ package com.mySpring.springEx.member.service;
 
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +19,7 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 @Service("memberService")
 @Transactional(propagation = Propagation.REQUIRED)
+@PropertySource("classpath:mailkey.properties")
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
@@ -43,38 +45,36 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 
-	// ajax 아이디체크를 위한 메소드
+	// 여기부터 수정시작
 	@Override
 	public void check_id(String id, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_id(id));
 		out.close();
 	}
-	
-	// ajax 아이디체크를 위한 메소드
-	@Override 
+
+	@Override
 	public void check_email(String email, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_email(email));
 		System.out.println(out);
 		out.close();
 	}
-	
-	
-	@Override	
+
+	@Override
 	public int join_member(MemberVO member, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		System.out.println("2");
-		if (memberDAO.check_id(member.getUserId()) == 1) { //AJAX로 비동기로 구현해서 필요없는데 그냥 냅둠
+		if (memberDAO.check_id(member.getUserId()) == 1) {
 			out.println("<script>");
 			out.println("alert('동일한 아이디가 있습니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 			return 0;
-		} else if (memberDAO.check_email(member.getUserEmail()) == 1) { //이것도
+		} else if (memberDAO.check_email(member.getUserEmail()) == 1) {
 			out.println("<script>");
 			out.println("alert('동일한 이메일이 있습니다.');");
 			out.println("history.go(-1);");
@@ -83,14 +83,15 @@ public class MemberServiceImpl implements MemberService {
 			return 0;
 		} else {
 
-			//문제없을시 join_member실행과 동시에 send_mail 메소드 호출
+			// 인증키 set
+			/* member.setApproval_key(create_key()); */
 			memberDAO.join_member(member);
 			// 인증 메일 발송
 			send_mail(member);
 			out.println("<script>");
 			out.println("alert('메일 인증을 완료하세요.');");
 			/* out.println("location.href='https://naver.com/';"); */
-			out.println("history.go(-3);"); 
+			out.println("history.go(-2);");
 			out.println("</script>");
 			out.close();
 			return 1;
@@ -123,14 +124,28 @@ public class MemberServiceImpl implements MemberService {
 	 * 
 	 * for (int i = 0; i < 8; i++) { key += rd.nextInt(10); } return key; }
 	 */
+	
+	//mailkey.properties hostSMTPid값을 불러옴
+	@Value
+	("${hostSMTPid}") public String hostSMTPId;
+	  //https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
+	
+	//mailkey.properties hostSMTPpwd값을 불러옴
+	@Value
+	("${hostSMTPpwd}") public String hostSMTPPwd;
+	
+	//mailkey.properties portNum값을 불러옴
+	@Value
+	("${portNum}") public int portNum;
 
 	@Override
 	public void send_mail(MemberVO member) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "네이버id"; //https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
-		String hostSMTPpwd = "네이버비밀번호";
+		String hostSMTPid=hostSMTPId;
+		String hostSMTPpwd=hostSMTPPwd;
+
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "mspak96@naver.com";
@@ -145,14 +160,17 @@ public class MemberServiceImpl implements MemberService {
 		msg += member.getUserId() + "님 회원가입을 환영합니다.</h3>";
 		msg += "<div style='font-size: 130%'>";
 		msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>"; //자신의 서버포트번호로 변경
+		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>";
+		msg += "<form method='post' action='http://localhost:'"+portNum+"'/springEx/member/approval_member.do'>"; //mailkey.properties 의 portNum
 		msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
-		/*
-		 * msg += "<input type='hidden' name='approval_key' value='" +
-		 * member.getApproval_key() + "'>";
-		 */
 		msg += "<input type='submit' value='인증'></form><br/></div>";
-
+		System.out.println(msg);
+		
+		/*
+		 * msg +=
+		 * "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>"
+		 * ; //자신의 서버포트번호로 변경
+		 */
 		// 받는 사람 E-Mail 주소
 		String mail = member.getUserEmail();
 		System.out.println(mail);

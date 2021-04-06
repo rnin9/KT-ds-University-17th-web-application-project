@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
-
 import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface MemberService {
@@ -29,4 +28,5 @@ public interface MemberService {
 	public String create_key() throws Exception;
 
 	public void send_mail(MemberVO member) throws Exception;
+
 }
