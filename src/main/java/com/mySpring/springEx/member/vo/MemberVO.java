@@ -5,62 +5,162 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 @Component("memberVO")
+//멤버 VO birth,phone,adderess,joinDate,approval_status, approval_key(삭제 예정) 추가
 public class MemberVO {
-	private String id;
-	private String pwd;
-	private String name;
-	private String email;
-	private Date joinDate;
-
+	private String userId;
+	private String userPassword;
+	private String userName;
+	private String userEmail;
+	private String birth;
+	private String userGender;
+	private String userMajor;
+	private String userPosition;
+	private String userJob; 
+	private String userCompany;
+	private String userPhoneNumber;
+	private String userAddress1;
+	private String userAddress2;
+	private Date userJoindate;
+	private String approval_status;
+	private String resume;
+	
 	public MemberVO() {
-		
+	}
+	
+	public MemberVO(String userId, String userPassword, String userName, String userEmail) {
+		this.userId = userId;
+		this.userPassword = userPassword;
+		this.userName = userName;
+		this.userEmail = userEmail;
 	}
 
-	public MemberVO(String id, String pwd, String name, String email) {
-		this.id = id;
-		this.pwd = pwd;
-		this.name = name;
-		this.email = email;
+	public String getUserId() {
+		return userId;
 	}
 
-	public String getId() {
-		return id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getName() {
-		return name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public String getBirth() {
+		return birth;
 	}
 
-	public Date getJoinDate() {
-		return joinDate;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 
-	public void setJoinDate(Date joinDate) {
-		this.joinDate = joinDate;
+	public String getUserGender() {
+		return userGender;
 	}
+
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
+
+	public String getUserMajor() {
+		return userMajor;
+	}
+
+	public void setUserMajor(String userMajor) {
+		this.userMajor = userMajor;
+	}
+
+	public String getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(String userPosition) {
+		this.userPosition = userPosition;
+	}
+
+	public String getUserCompany() {
+		return userCompany;
+	}
+
+	public void setUserCompany(String userCompany) {
+		this.userCompany = userCompany;
+	}
+
+	public String getUserPhoneNumber() {
+		return userPhoneNumber;
+	}
+
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
+	}
+
+	public String getUserAddress1() {
+		return userAddress1;
+	}
+
+	public void setUserAddress1(String userAddress1) {
+		this.userAddress1 = userAddress1;
+	}
+
+	public String getUserAddress2() {
+		return userAddress2;
+	}
+
+	public void setUserAddress2(String userAddress2) {
+		this.userAddress2 = userAddress2;
+	}
+
+	public Date getUserJoindate() {
+		return userJoindate;
+	}
+
+	public void setUserJoindate(Date userJoindate) {
+		this.userJoindate = userJoindate;
+	}
+
+	public String getApproval_status() {
+		return approval_status;
+	}
+
+	public void setApproval_status(String approval_status) {
+		this.approval_status = approval_status;
+	}
+
+	public String getResume() {
+		return resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
+	public String getUserJob() {
+		return userJob;
+	}
+
+	public void setUserJob(String userJob) {
+		this.userJob = userJob;
+	}
+
+	
 
 }

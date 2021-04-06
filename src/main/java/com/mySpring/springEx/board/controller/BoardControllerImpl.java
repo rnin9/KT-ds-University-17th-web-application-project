@@ -52,7 +52,7 @@ public class BoardControllerImpl  implements BoardController{
 		
 	}
 	
-	 //한 개 이미지 글쓰기
+	 //�븳 媛� �씠誘몄� 湲��벐湲�
 	@Override
 	@RequestMapping(value="/board/addNewArticle.do" ,method = RequestMethod.POST)
 	@ResponseBody
@@ -70,7 +70,7 @@ public class BoardControllerImpl  implements BoardController{
 		String imageFileName= upload(multipartRequest);
 		HttpSession session = multipartRequest.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String id = memberVO.getId();
+		String id = memberVO.getUserId();
 		articleMap.put("parentNO", 0);
 		articleMap.put("id", id);
 		articleMap.put("imageFileName", imageFileName);
@@ -89,7 +89,7 @@ public class BoardControllerImpl  implements BoardController{
 			}
 	
 			message = "<script>";
-			message += " alert('새글을 추가했습니다.');";
+			message += " alert('�깉湲��쓣 異붽��뻽�뒿�땲�떎.');";
 			message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
 			message +=" </script>";
 		    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -98,7 +98,7 @@ public class BoardControllerImpl  implements BoardController{
 			srcFile.delete();
 			
 			message = " <script>";
-			message +=" alert('오류가 발생했습니다. 다시 시도해 주세요');');";
+			message +=" alert('�삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎. �떎�떆 �떆�룄�빐 二쇱꽭�슂');');";
 			message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
 			message +=" </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -108,7 +108,7 @@ public class BoardControllerImpl  implements BoardController{
 	}
 	
 	
-	//한개의 이미지 보여주기
+	//�븳媛쒖쓽 �씠誘몄� 蹂댁뿬二쇨린
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
                                     HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -121,7 +121,7 @@ public class BoardControllerImpl  implements BoardController{
 	}
 	
 	/*
-	//다중 이미지 보여주기
+	//�떎以� �씠誘몄� 蹂댁뿬二쇨린
 	@RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
 			  HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -136,7 +136,7 @@ public class BoardControllerImpl  implements BoardController{
 	
 
 	
-  //한 개 이미지 수정 기능
+  //�븳 媛� �씠誘몄� �닔�젙 湲곕뒫
   @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
@@ -153,7 +153,7 @@ public class BoardControllerImpl  implements BoardController{
 	String imageFileName= upload(multipartRequest);
 	HttpSession session = multipartRequest.getSession();
 	MemberVO memberVO = (MemberVO) session.getAttribute("member");
-	String id = memberVO.getId();
+	String id = memberVO.getUserId();
 	articleMap.put("id", id);
 	articleMap.put("imageFileName", imageFileName);
 	
@@ -174,7 +174,7 @@ public class BoardControllerImpl  implements BoardController{
          oldFile.delete();
        }	
        message = "<script>";
-	   message += " alert('글을 수정했습니다.');";
+	   message += " alert('湲��쓣 �닔�젙�뻽�뒿�땲�떎.');";
 	   message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 	   message +=" </script>";
        resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -182,7 +182,7 @@ public class BoardControllerImpl  implements BoardController{
       File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
       srcFile.delete();
       message = "<script>";
-	  message += " alert('오류가 발생했습니다.다시 수정해주세요');";
+	  message += " alert('�삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎.�떎�떆 �닔�젙�빐二쇱꽭�슂');";
 	  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+articleNO+"';";
 	  message +=" </script>";
       resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -206,14 +206,14 @@ public class BoardControllerImpl  implements BoardController{
 		FileUtils.deleteDirectory(destDir);
 		
 		message = "<script>";
-		message += " alert('글을 삭제했습니다.');";
+		message += " alert('湲��쓣 �궘�젣�뻽�뒿�땲�떎.');";
 		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 	       
 	}catch(Exception e) {
 		message = "<script>";
-		message += " alert('작업중 오류가 발생했습니다.다시 시도해 주세요.');";
+		message += " alert('�옉�뾽以� �삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎.�떎�떆 �떆�룄�빐 二쇱꽭�슂.');";
 		message += " location.href='"+request.getContextPath()+"/board/listArticles.do';";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -223,7 +223,7 @@ public class BoardControllerImpl  implements BoardController{
   }  
   
 /*
-  //다중 이미지 글 추가하기
+  //�떎以� �씠誘몄� 湲� 異붽��븯湲�
   @Override
   @RequestMapping(value="/board/addNewArticle.do" ,method = RequestMethod.POST)
   @ResponseBody
@@ -239,7 +239,7 @@ public class BoardControllerImpl  implements BoardController{
 		articleMap.put(name,value);
 	}
 	
-	//로그인 시 세션에 저장된 회원 정보에서 글쓴이 아이디를 얻어와서 Map에 저장합니다.
+	//濡쒓렇�씤 �떆 �꽭�뀡�뿉 ���옣�맂 �쉶�썝 �젙蹂댁뿉�꽌 湲��벖�씠 �븘�씠�뵒瑜� �뼸�뼱���꽌 Map�뿉 ���옣�빀�땲�떎.
 	HttpSession session = multipartRequest.getSession();
 	MemberVO memberVO = (MemberVO) session.getAttribute("member");
 	String id = memberVO.getId();
@@ -273,7 +273,7 @@ public class BoardControllerImpl  implements BoardController{
 		}
 		    
 		message = "<script>";
-		message += " alert('새글을 추가했습니다.');";
+		message += " alert('�깉湲��쓣 異붽��뻽�뒿�땲�떎.');";
 		message += " location.href='"+multipartRequest.getContextPath()+"/board/listArticles.do'; ";
 		message +=" </script>";
 	    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -290,7 +290,7 @@ public class BoardControllerImpl  implements BoardController{
 
 		
 		message = " <script>";
-		message +=" alert('오류가 발생했습니다. 다시 시도해 주세요');');";
+		message +=" alert('�삤瑜섍� 諛쒖깮�뻽�뒿�땲�떎. �떎�떆 �떆�룄�빐 二쇱꽭�슂');');";
 		message +=" location.href='"+multipartRequest.getContextPath()+"/board/articleForm.do'; ";
 		message +=" </script>";
 		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -311,7 +311,7 @@ public class BoardControllerImpl  implements BoardController{
 		return mav;
 	}
 
-	//한개 이미지 업로드하기
+	//�븳媛� �씠誘몄� �뾽濡쒕뱶�븯湲�
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		String imageFileName= null;
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -322,19 +322,19 @@ public class BoardControllerImpl  implements BoardController{
 			imageFileName=mFile.getOriginalFilename();
 			File file = new File(ARTICLE_IMAGE_REPO +"\\"+ fileName);
 			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
-					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
-							file.createNewFile(); //이후 파일 생성
+				if(! file.exists()){ //寃쎈줈�긽�뿉 �뙆�씪�씠 議댁옱�븯吏� �븡�쓣 寃쎌슦
+					if(file.getParentFile().mkdirs()){ //寃쎈줈�뿉 �빐�떦�븯�뒗 �뵒�젆�넗由щ뱾�쓣 �깮�꽦
+							file.createNewFile(); //�씠�썑 �뙆�씪 �깮�꽦
 					}
 				}
-				mFile.transferTo(new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+ "\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+				mFile.transferTo(new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+ "\\"+imageFileName)); //�엫�떆濡� ���옣�맂 multipartFile�쓣 �떎�젣 �뙆�씪濡� �쟾�넚
 			}
 		}
 		return imageFileName;
 	}
 	
 	/*
-	//다중 이미지 업로드하기
+	//�떎以� �씠誘몄� �뾽濡쒕뱶�븯湲�
 	private List<String> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<String> fileList= new ArrayList<String>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -345,12 +345,12 @@ public class BoardControllerImpl  implements BoardController{
 			fileList.add(originalFileName);
 			File file = new File(ARTICLE_IMAGE_REPO +"\\"+ fileName);
 			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
-					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
-							file.createNewFile(); //이후 파일 생성
+				if(! file.exists()){ //寃쎈줈�긽�뿉 �뙆�씪�씠 議댁옱�븯吏� �븡�쓣 寃쎌슦
+					if(file.getParentFile().mkdirs()){ //寃쎈줈�뿉 �빐�떦�븯�뒗 �뵒�젆�넗由щ뱾�쓣 �깮�꽦
+							file.createNewFile(); //�씠�썑 �뙆�씪 �깮�꽦
 					}
 				}
-				mFile.transferTo(new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+ "\\"+originalFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+				mFile.transferTo(new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+ "\\"+originalFileName)); //�엫�떆濡� ���옣�맂 multipartFile�쓣 �떎�젣 �뙆�씪濡� �쟾�넚
 			}
 		}
 		return fileList;
