@@ -104,15 +104,40 @@
 	width: 100%;
 	padding-top: 64px;
 	border: 0px solid #bcbcbc;
-	background-color: #e9ebec;
+	background-color: white;
 	padding-bottom: 20px;
 }
 
 #footer {
 	clear: both;
-	width: 100% border: 0px solid #bcbcbc;
+	width: 100%;
+	border: 0px solid #bcbcbc;
 	background-color: #333; /* 
         display:flex; */
+}
+
+.lnb {
+	display: block;
+	border-bottom: 1px solid #eeeeee;
+	padding: 20px 0 0;
+}
+
+.lnb > ul {
+	list-style: none;
+	padding: 0;
+	text-align: left;
+}
+
+.lnb > ul > li {
+	display: inline-block;
+	margin-left: 9px;
+	padding-left: 15px;
+	margin-left: 9px;
+}
+
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
 }
 </style>
 

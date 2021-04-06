@@ -120,7 +120,7 @@ request.setCharacterEncoding("UTF-8");
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a class="nav-link" href="#"> Menu
 						item </a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/location.do"> 오시는길 </a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/location.do"> 교육장 안내 </a></li>
 
 				<c:choose>
 					<c:when test="${isLogOn == true  && member!= null}">

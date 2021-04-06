@@ -33,7 +33,7 @@
 	</definition>
 
 	<definition name="location" extends="baseLayout">
-		<put-attribute name="title" value="Location" />
+		<put-attribute name="title" value="교육장안내" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/location.jsp" />
 	</definition>
