@@ -39,6 +39,11 @@
             margin-left: 9px;
         }
 
+        a:link, a:visited, a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
         .mapIntro {
             margin-top: 50px;
             text-align: center;
@@ -46,44 +51,54 @@
             font-weight: 450;
         }
 
+        .sub_visual {
+            font-family: 'Noto Sans KR', sans-serif;
+            width: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${pageContext.request.contextPath}/resources/image/sub_visual/location.jpg");
+            border: 0;
+            font-size: 32px;
+            font-weight: 500;
+            height: 190px;
+            padding-top: 69px;
+            background-position: 50% 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
     </style>
 </head>
 <body>
+<div class="sub_visual">
+    <span style="color: white;">오시는 길</span>
+</div>
 <div class="mapContiner">
     <div class="lnb">
         <ul>
-            <li><a href="/main.do">홈</a></li>
+            <li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
             <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a
-                    href="/location.do">오시는길</a></li>
+            <li class="on"><a href="${pageContext.request.contextPath}/location.do">오시는 길</a></li>
         </ul>
     </div>
     <div class="mapIntro">
-        오시는 길
+        오시는 길 안내
     </div>
-    <div class="container" style="margin-top: 20px">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-6">
-                <div id="map" style="width:500px;height:400px;"></div>
-            </div>
-            <div class="col-xs-6" style="text-align: left">
-                <div class="col-sm-9" style="float: none; margin: 0 auto;margin-top: 20px; line-height: 34px">
-                    <p>오시는 길 안내</p>
-                    <ul>
-                        <li>
-                            지하철 - 2호선 방배역 1번 출구 우리은행 왼쪽 방향으로 나와 도보로 약 10분 거리
-                            <br>
-                        </li>
-                        <li>
-                            간선버스 - 142번, 363번, 461번, 641번
-                            <br>
-                            지선버스 - 4319번
-                        </li>
-                    </ul>
-                </div>
-            </div>
+
+            <div class="col" style="width:500px;height:400px;background: url("${pageContext.request.contextPath}/resources/image/map/mappic.jpg");">
         </div>
+        <div class="col" id="map" style="width:500px;height:400px;"></div>
+
     </div>
+    <div>
+        <p>
+            지하철 - 2호선 방배역 1번 출구 우리은행 왼쪽 방향으로 나와 도보로 약 10분 거리
+            <br>
+            간선버스 - 142번, 363번, 461번, 641번
+            지선버스 - 4319번
+        </p>
+    </div>
+</div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= map_api_key %>"></script>
 <script>

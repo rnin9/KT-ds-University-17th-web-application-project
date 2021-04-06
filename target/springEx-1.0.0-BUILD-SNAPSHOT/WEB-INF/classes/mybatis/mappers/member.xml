@@ -5,56 +5,85 @@
 
 <mapper namespace="mapper.member">
 	<resultMap id="memResult" type="memberVO">
-		<result property="id" column="id" />
-        <result property="pwd" column="pwd" />
-        <result property="name" column="name" />
-        <result property="email" column="email" />
-        <result property="joinDate" column="joinDate" />
+		<result property="userId" column="userId" />
+        <result property="userPassword" column="userPassword" />
+        <result property="userName" column="userName" />
+        <result property="userEmail" column="userEmail" />
+        <result property="birth" column="birth" />
+        <result property="userGender" column="userGender" />
+        <result property="userMajor" column="userMajor" />
+        <result property="userPosition" column="userPosition" />
+        <result property="userJob" column="userJob" />
+        <result property="userCompany" column="userCompany" />
+        <result property="userPhoneNumber" column="userPhoneNumber" />
+        <result property="userAddress1" column="userAddress1" />
+        <result property="userAddress2" column="userAddress2" />
+        <result property="userJoindate" column="userJoindate" />
+        <result property="approval_status" column="approval_status" />
+        <result property="resume" column="resume" />
 	</resultMap> 
-	<!-- 
-	<resultMap id="memResult" type="java.util.HashMap">
-      <result property="id" column="id" />
-      <result property="pwd" column="pwd" />
-      <result property="name" column="name" />
-      <result property="email" column="email" />
-      <result property="joinDate" column="joinDate" />
-   </resultMap> -->
-
-
+	
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from t_member	order by joinDate desc	 	
+         select * from kt_user2 order by userJoindate desc	 	
       ]]>
 	</select>
     
-  <insert id="insertMember"  parameterType="memberVO">
+<!--   <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
-		 insert into t_member(id,pwd, name, email)
-		 values(#{id}, #{pwd}, #{name}, #{email})
+		 insert into t_member1(id,pwd, name, email,birth,phone,address,address_detail)
+		 values(#{id}, #{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail})
 		]]>      
+	</insert> -->
+	
+	<!-- 아이디 중복 검사 -->
+	<select id="check_id" parameterType="String" resultType="int">
+		select
+		count(*) from kt_user2 where userId = #{userId}
+	</select>
+
+	<!-- 이메일 중복 검사 -->
+	<select id="check_email" parameterType="String" resultType="int">
+		select count(*) from kt_user2 where userEmail = #{userEmail}
+	</select>
+	
+		<!-- 회원 가입 -->
+	<insert id="join_member" parameterType="memberVO">
+		insert into kt_user2
+		values(#{userId},#{userPassword},#{userName},#{userMajor},#{birth},#{userGender},#{userPosition},#{userJob},#{userCompany}, #{userEmail},#{userPhoneNumber} ,#{userAddress1},#{userAddress2}, to_char(sysdate), 'false','N')
 	</insert>
 	
+	<!-- 이메일 인증 -->
+	<update id="approval_member" parameterType="memberVO">
+		update kt_user2 set
+		approval_status = 'true' 
+		where userEmail = #{userEmail} <!-- and
+		approval_key =
+		#{approval_key} -->
+	</update>
+
    
    <update id="updateMember"  parameterType="memberVO">
      <![CDATA[
-	     update t_member
-	     set pwd=#{pwd}, name=#{name}, email=#{email}
+	     update kt_user2
+	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail}
 	     where
-	     id=#{id}
+	     userId=#{userId}
       ]]>      
    </update> 
      
    <delete id="deleteMember"  parameterType="String">
 	<![CDATA[
-	   delete from  t_member
+	   delete from  kt_user2
 	   where
-	   id=#{id}
+	   userId=#{userId}
 	]]>      
   </delete>
-  <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+
+  <select id="loginById"  resultType="memberVO"   parameterType="String" >
 	<![CDATA[
-		select * from t_member	
-		where id=#{id} and pwd=#{pwd}		
+		select * from kt_user2
+		where userId=#{userId} and approval_status='true'
 	]]>
   </select>
-</mapper>
+</mapper> 

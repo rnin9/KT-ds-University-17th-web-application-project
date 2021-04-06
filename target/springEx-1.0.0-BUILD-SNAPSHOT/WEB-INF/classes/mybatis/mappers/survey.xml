@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.survey">
+	<resultMap id="surResult" type="surveyVO">
+		<result property="survey_Id" column="survey_Id" />
+		<result property="survey_Mem" column="survey_Mem" />
+        <result property="survey_Title" column="survey_Title" />
+        <result property="writeDate" column="writeDate" />
+	</resultMap> 
+
+	<select id="selectAllSurveyList" resultMap="surResult">
+      <![CDATA[
+         select * from survey order by survey_Id desc	 	
+      ]]>
+	</select>
+  
+  <insert id="insertSurvey"  parameterType="surveyVO">
+		<![CDATA[
+		 insert into survey(survey_Id,survey_Mem,survey_Title,writedate)
+		 values(seq.nextval,#{survey_Mem},#{survey_Title},to_char(sysdate))
+		]]>      
+	</insert>
+
+  
+
+ 
+ 	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+	<![CDATA[
+		select * from t_member	
+		where id=#{id} and pwd=#{pwd}		
+	]]>
+  </select> -->
+</mapper>

@@ -94,7 +94,6 @@ public class MemberControllerImpl implements MemberController {
 	 */
 	
 	//������������ ȸ������!!!
-	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
 			throws Exception {

@@ -32,17 +32,17 @@ request.setCharacterEncoding("UTF-8");
 		            method: "POST",
 		            url: "${contextPath}/member/login.do",
 		            data: {
-		                id: login,
-		                pwd: password
+		                userId: login,
+		                userPassword: password
 		            },
 		            success: (resp) => {	// 모든 결과를 success로 받음
 		            	if (resp.result == true) {
 		                 const logOn = true;
 		                 return resp.result;	// 결과 반환
-		                } else {
+		                } 
+		            	else {
 		                	const logOn = false;
-			                Swal.showValidationMessage(`Check Your ID & Password!`) // 정보가 없는경우, Error
-		                	
+			                Swal.showValidationMessage(`Check Your ID & Password or E-Mail Check!`) // 정보가 없는경우, Error       	
 		            }},
 		            error: (data) => {
 		                console.log("로그인 실패");
@@ -52,9 +52,9 @@ request.setCharacterEncoding("UTF-8");
     		}).then((result) => {
     			console.log(result);
     			if(result.isConfirmed){			// 확인된 경우, 로그인
-						console.log(result.value.member.id);
+						console.log(result.value.member.userId);
     				   Swal.fire({    					   
-	                      	title: "환영합니다! " + result.value.member.id + " 님!",
+	                      	title: "환영합니다! " + result.value.member.userId + " 님!",
 	                        icon: "success"
 	                    })
  
@@ -66,8 +66,9 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-
+	
 	<!-- 권한별 다른 메뉴, position별로 기능 추가 필요 -->
+	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="${contextPath}/main.do"><img
 			src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
@@ -87,10 +88,10 @@ request.setCharacterEncoding("UTF-8");
 				<li class="nav-item"><a class="nav-link"
 					href="${contextPath}/member/listMembers.do">공지사항</a></li>
 				<c:choose>
-					<c:when test="${isLogOn == true  && member!= null}">
-						<li class="nav-item"><a class="nav-link"
-							href="${contextPath}/member/listMembers.do">공지사항</a></li>
+				<c:when test="${isLogOn == true  && member!= null  && member.userId == 'ADMIN'}">
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/member/listMembers.do">공지사항</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/survey/listSurvey.do">설문조사	</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 								수강관리 </a>
@@ -99,6 +100,19 @@ request.setCharacterEncoding("UTF-8");
 								<li><a class="dropdown-item" href="#"> 재직자 </a></li>
 							</ul></li>
 					</c:when>
+					<c:when test="${isLogOn == true  && member!= null}">
+						<%-- <li class="nav-item"><a class="nav-link"
+							href="${contextPath}/member/listMembers.do">공지사항</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+								수강관리 </a>
+							<ul class="dropdown-menu fade-up">
+								<li><a class="dropdown-item" href="#"> 채용예정자</a></li>
+								<li><a class="dropdown-item" href="#"> 재직자 </a></li>
+							</ul></li> --%>
+					</c:when>
+					
 				</c:choose>
 
 			</ul>
@@ -112,7 +126,7 @@ request.setCharacterEncoding("UTF-8");
 					<c:when test="${isLogOn == true  && member!= null}">
 						<li class="nav-item dropdown"><a
 							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
-								<i class="fas fa-cog"></i> ${member.name} (${member.id})
+								<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
 						</a>
 							<ul class="dropdown-menu dropdown-menu-right fade-down">
 								<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
