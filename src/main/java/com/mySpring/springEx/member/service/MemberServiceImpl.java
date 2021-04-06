@@ -89,7 +89,7 @@ public class MemberServiceImpl implements MemberService {
 			out.println("<script>");
 			out.println("alert('메일 인증을 완료하세요.');");
 			/* out.println("location.href='https://naver.com/';"); */
-			out.println("history.go(-2);");
+			out.println("history.go(-3);"); 
 			out.println("</script>");
 			out.close();
 			return 1;
@@ -128,8 +128,8 @@ public class MemberServiceImpl implements MemberService {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "mspak96@naver.com";
-		String hostSMTPpwd = "Ark121009!";
+		String hostSMTPid = "네이버id"; //https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
+		String hostSMTPpwd = "네이버비밀번호";
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "mspak96@naver.com";
@@ -144,7 +144,7 @@ public class MemberServiceImpl implements MemberService {
 		msg += member.getUserId() + "님 회원가입을 환영합니다.</h3>";
 		msg += "<div style='font-size: 130%'>";
 		msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>";
+		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>"; //자신의 서버포트번호로 변경
 		msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
 		/*
 		 * msg += "<input type='hidden' name='approval_key' value='" +
