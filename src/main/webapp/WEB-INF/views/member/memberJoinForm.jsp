@@ -371,7 +371,7 @@ hr {
 					}
 				});
 				
-				<!--재직자일경우 회사명 추가-->
+				<!--재직자일경우 회사명 추가, 컨테이너 css조정-->
 				$("#position2").click(function(){
 					$("#company").show();
 					$("#container1").css("height","1325px");
@@ -580,7 +580,7 @@ hr {
 	</form>
 
 
-
+	<!-- daum 우편번호,주소 검색 api  -->
 	<script>
 		function sample4_execDaumPostcode() {
 			new daum.Postcode({

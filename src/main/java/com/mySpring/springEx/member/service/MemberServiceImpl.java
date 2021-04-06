@@ -43,36 +43,38 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 
-	// 여기부터 수정시작
+	// ajax 아이디체크를 위한 메소드
 	@Override
 	public void check_id(String id, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_id(id));
 		out.close();
 	}
-
-	@Override
+	
+	// ajax 아이디체크를 위한 메소드
+	@Override 
 	public void check_email(String email, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_email(email));
 		System.out.println(out);
 		out.close();
 	}
-
-	@Override
+	
+	
+	@Override	
 	public int join_member(MemberVO member, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		System.out.println("2");
-		if (memberDAO.check_id(member.getUserId()) == 1) {
+		if (memberDAO.check_id(member.getUserId()) == 1) { //AJAX로 비동기로 구현해서 필요없는데 그냥 냅둠
 			out.println("<script>");
 			out.println("alert('동일한 아이디가 있습니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 			return 0;
-		} else if (memberDAO.check_email(member.getUserEmail()) == 1) {
+		} else if (memberDAO.check_email(member.getUserEmail()) == 1) { //이것도
 			out.println("<script>");
 			out.println("alert('동일한 이메일이 있습니다.');");
 			out.println("history.go(-1);");
@@ -81,8 +83,7 @@ public class MemberServiceImpl implements MemberService {
 			return 0;
 		} else {
 
-			// 인증키 set
-			/* member.setApproval_key(create_key()); */
+			//문제없을시 join_member실행과 동시에 send_mail 메소드 호출
 			memberDAO.join_member(member);
 			// 인증 메일 발송
 			send_mail(member);
