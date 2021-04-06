@@ -1,4 +1,4 @@
 pom.xml
-src/main/webapp/WEB-INF/config/
+src/main/webapp/WEB-INF/config/*
 target/im2e-wtp/web-resources/META-INF/maven/com.mySpring/springEx/pom.properties
 
