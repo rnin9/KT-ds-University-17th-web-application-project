@@ -1,3 +1,4 @@
 pom.xml
 src/main/webapp/WEB-INF/config/jdbc.properties
 target/im2e-wtp/web-resources/META-INF/maven/com.mySpring/springEx/pom.properties
+src\main\resources\mailkey.properties
