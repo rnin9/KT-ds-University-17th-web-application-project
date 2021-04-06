@@ -1,7 +1,5 @@
 package com.mySpring.springEx.member.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,15 +13,19 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface MemberController {
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView addMember(@ModelAttribute("info") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView addMember(@ModelAttribute("member") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
                               RedirectAttributes rAttr,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
+<<<<<<< HEAD
 	
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+=======
+	String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response) throws Exception;
+>>>>>>> 916daa06ad6ea8a921cb58b5239ce1b8b019d034
 }

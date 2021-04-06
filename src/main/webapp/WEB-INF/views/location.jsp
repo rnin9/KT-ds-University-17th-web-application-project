@@ -67,7 +67,7 @@
                 <div id="map" style="width:500px;height:400px;"></div>
             </div>
             <div class="col-xs-6" style="text-align: left">
-                <div class="col-sm-9" style="float: none; margin: 0 auto;margin-top: 140px">
+                <div class="col-sm-9" style="float: none; margin: 0 auto;margin-top: 20px; line-height: 34px">
                     <p>오시는 길 안내</p>
                     <ul>
                         <li>
