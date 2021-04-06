@@ -32,6 +32,12 @@
 			value="/WEB-INF/views/faq.jsp" />
 	</definition>
 
+	<definition name="location" extends="baseLayout">
+		<put-attribute name="title" value="Location" />
+		<put-attribute name="body"
+					   value="/WEB-INF/views/location.jsp" />
+	</definition>
+
 
 	<definition name="/member/listMembers" extends="baseLayout">
 		<put-attribute name="title" value="회원목록창" />

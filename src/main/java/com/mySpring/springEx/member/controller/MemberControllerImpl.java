@@ -36,10 +36,23 @@ public class MemberControllerImpl   implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
+
+	@Override
 	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
+		System.out.println(viewName);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = { "/location.do"}, method = RequestMethod.GET)
+	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+//		System.out.println(viewName);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
