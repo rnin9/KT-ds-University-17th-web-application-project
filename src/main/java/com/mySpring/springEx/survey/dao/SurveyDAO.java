@@ -1,0 +1,13 @@
+package com.mySpring.springEx.survey.dao;
+
+import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+
+import com.mySpring.springEx.survey.vo.SurveyVO;
+
+public interface SurveyDAO {
+	public List selectAllSurveyList() throws DataAccessException;
+
+	public int insertSurvey(SurveyVO surveyVO) throws DataAccessException;
+}
