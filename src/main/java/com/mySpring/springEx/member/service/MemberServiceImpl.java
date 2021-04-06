@@ -43,36 +43,38 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 
-	// 여기부터 수정시작
+	// ajax 아이디체크를 위한 메소드
 	@Override
 	public void check_id(String id, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_id(id));
 		out.close();
 	}
-
-	@Override
+	
+	// ajax 아이디체크를 위한 메소드
+	@Override 
 	public void check_email(String email, HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
 		out.println(memberDAO.check_email(email));
 		System.out.println(out);
 		out.close();
 	}
-
-	@Override
+	
+	
+	@Override	
 	public int join_member(MemberVO member, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		System.out.println("2");
-		if (memberDAO.check_id(member.getUserId()) == 1) {
+		if (memberDAO.check_id(member.getUserId()) == 1) { //AJAX로 비동기로 구현해서 필요없는데 그냥 냅둠
 			out.println("<script>");
 			out.println("alert('동일한 아이디가 있습니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 			return 0;
-		} else if (memberDAO.check_email(member.getUserEmail()) == 1) {
+		} else if (memberDAO.check_email(member.getUserEmail()) == 1) { //이것도
 			out.println("<script>");
 			out.println("alert('동일한 이메일이 있습니다.');");
 			out.println("history.go(-1);");
@@ -81,15 +83,14 @@ public class MemberServiceImpl implements MemberService {
 			return 0;
 		} else {
 
-			// 인증키 set
-			/* member.setApproval_key(create_key()); */
+			//문제없을시 join_member실행과 동시에 send_mail 메소드 호출
 			memberDAO.join_member(member);
 			// 인증 메일 발송
 			send_mail(member);
 			out.println("<script>");
 			out.println("alert('메일 인증을 완료하세요.');");
 			/* out.println("location.href='https://naver.com/';"); */
-			out.println("history.go(-2);");
+			out.println("history.go(-3);"); 
 			out.println("</script>");
 			out.close();
 			return 1;
@@ -128,8 +129,8 @@ public class MemberServiceImpl implements MemberService {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "mspak96@naver.com";
-		String hostSMTPpwd = "Ark121009!";
+		String hostSMTPid = "네이버id"; //https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
+		String hostSMTPpwd = "네이버비밀번호";
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "mspak96@naver.com";
@@ -144,7 +145,7 @@ public class MemberServiceImpl implements MemberService {
 		msg += member.getUserId() + "님 회원가입을 환영합니다.</h3>";
 		msg += "<div style='font-size: 130%'>";
 		msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>";
+		msg += "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>"; //자신의 서버포트번호로 변경
 		msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
 		/*
 		 * msg += "<input type='hidden' name='approval_key' value='" +

@@ -46,6 +46,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/member/loginForm.jsp" />
 	</definition>
+	<!-- faq -->
+	<definition name="faq" extends="baseLayout">
+		<put-attribute name="title" value="FAQ" />
+		<put-attribute name="body" value="/WEB-INF/views/faq.jsp" />
+	</definition>
 
 
 		<!-- 회원가입 -->

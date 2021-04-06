@@ -36,6 +36,15 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName); // mav의 view위치에 request했었던 (/,main.do) viewName을 넣어 해당위치로 이동한다
 		return mav;
 	}
+	//faq이동
+	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
+	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
 
 	// 멤버목록
 	@Override

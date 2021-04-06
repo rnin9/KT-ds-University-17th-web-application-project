@@ -121,6 +121,8 @@ request.setCharacterEncoding("UTF-8");
 				<li class="nav-item"><a class="nav-link" href="#"> Menu
 						item </a></li>
 				<li class="nav-item"><a class="nav-link" href="#"> 오시는길 </a></li>
+				<li class="nav-item"><a href="${contextPath}/member/memberJoinForm.do" class="nav-link"> 회원가입 </a></li>
+
 
 				<c:choose>
 					<c:when test="${isLogOn == true  && member!= null}">
