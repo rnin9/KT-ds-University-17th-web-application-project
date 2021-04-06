@@ -63,7 +63,7 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 	margin-top: 30px;
 	border: 0px solid #bcbcbc;
 	background-color: #fafafa;
-	height: 1325px;
+	height: 1235px;
 	position: relative;
 	border-radius: 3px;
 }
@@ -328,7 +328,7 @@ hr {
 	text-align: center;
 }
 </style>
-<!-- 중복관련 스크립트ajax --> <script type="text/javascript">
+ <script type="text/javascript">
 	$(		
 			function() { 
 				$("#joinForm").submit(function(){ <!--From submit jQuery-->
@@ -356,25 +356,9 @@ hr {
 						alert("생년월일을 입력해주세요");
 						$("#datepicker").val("").focus();
 						return false;
-					}else if($("#sex").val().length<1){
-						alert("성별을 선택해주세요");
-						$("#sex").val("").focus();
-						return false;
-					}else if($("#major").val().length<1){
-						alert("전공구분을 선택해주세요");
-						$("#major").val("").focus();
-						return false;
-					}else if($("#position").val().length<1){
-						alert("과정구분을 선택해주세요");
-						$("#position").val("").focus();
-						return false;
-					}else if($("#phone").val().length<1){
+					} else if($("#phone").val().length<1){
 						alert("휴대번호를 입력해주세요");
 						$("#phone").val("").focus();
-						return false;
-					}else if($("#company").val().length<1){
-						alert("회사명을 입력해주세요");
-						$("#company").val("").focus();
 						return false;
 					}else if($("#roadAddress").val().length<1){
 						alert("주소를 입력해주세요");
@@ -384,9 +368,22 @@ hr {
 						alert("상세주소를 입력해주세요");
 						$("#detailAddress").val("").focus();
 						return false;
+					}else if($("#com").val()==""){
+						$("#com").val("KTDSUNIVERSITY"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
 					}
 				});
 				
+				<!--재직자일경우 회사명 추가, 컨테이너 css조정-->
+				$("#position2").click(function(){
+					$("#company").show();
+					$("#container1").css("height","1325px");
+				});
+				
+				$("#position1").click(function(){
+					$("#company").hide();
+					$("#container1").css("height","1235px");
+				});
+			
 				<!--아이디 관련 jQuery-->
 				$("#id").click(function(){
 					if($("#id").val()==""){
@@ -395,7 +392,7 @@ hr {
 					}
 				});
 				
-
+				<!--ajax-->
 				$("#id").keyup(function() {
 					$.ajax({
 						url : "${contextPath}/member/check_id.do",
@@ -502,8 +499,8 @@ hr {
 						<div class="name regex"></div>
 					</div>
 					<div>
-						<label class="title">이메일</label> <input type="text" name="userEmail"
-							id="email">
+						<label class="title">이메일</label> <input type="text"
+							name="userEmail" id="email">
 						<div class="email regex" id="email_check"></div>
 					</div>
 					<div id="date">
@@ -511,26 +508,24 @@ hr {
 							class="birth" id="datepicker" placeholder="생년월일">
 
 						<div id="toggle">
-							<input type="radio" id="sex" name="userGender" value="남자"> 
-							<label for="male">남</label> 
-							<input type="radio" id="sex" name="userGender" value="여자"> 
-							<label for="female">여</label>
+							<input type="radio" id="male" name="userGender" value="남자">
+							<label for="male">남</label> <input type="radio" id="female"
+								name="userGender" value="여자"> <label for="female">여</label>
 						</div>
 					</div>
 					<div>
 						<label class="title">전공구분</label>
 						<div id="toggle2">
-							<input type="radio" id="major" name="userMajor" value="전공"> 
-							<label for="major">전공</label> 
-							<input type="radio" id="major" name="userMajor" value="비전공"> 
-							<label for="nomajor">비전공</label>
+							<input type="radio" id="major" name="userMajor" value="전공">
+							<label for="major">전공</label> <input type="radio" id="nomajor"
+								name="userMajor" value="비전공"> <label for="nomajor">비전공</label>
 						</div>
 					</div>
 
 					<div>
-						<label class="title">직업</label> <select id="job"
+						<label class="title">직업</label> <select id="position"
 							name="userJob" size='1'>
-							<option name="userJob" value="무직" >직업선택</option>
+							<option value=''>직업선택</option>
 							<option name="userJob" value="학생">학생</option>
 							<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
 							<option name="userJob" value="언론">언론</option>
@@ -546,32 +541,33 @@ hr {
 
 					</div>
 					<div>
-						<label class="title">과정구분</label>
+						<label class="title">position</label>
 						<div id="toggle3">
-							<input type="radio" id="position" name="userPosition" value="채용예정자"> 
-							<label for="position1">채용예정자과정</label> 
-							<input type="radio" id="position" name="userPosition" value="재직자"> 
+							<input type="radio" id="position1" name="userPosition"
+								value="채용예정자"> <label for="position1">채용예정자과정</label> <input
+								type="radio" id="position2" name="userPosition" value="재직자">
 							<label for="position2">재직자과정</label>
 
 						</div>
 					</div>
-					
-					<div>
-						<label class="title">회사</label> <input type="text" name="userCompany" id="company"
-							placeholder="회사명">
+
+					<div id="company" style="display:none">
+						<label class="title">회사</label> 
+						<input type="text" id="com" name="userCompany" placeholder="회사명">
 					</div>
 
 					<div>
-						<label class="title">휴대폰</label> <input type="text" name="userPhoneNumber"
-							id="phone" placeholder="휴대폰 번호 입력" onfocus="this.placeholder=''"
+						<label class="title">휴대폰</label> <input type="text"
+							name="userPhoneNumber" id="phone" placeholder="휴대폰 번호 입력"
+							onfocus="this.placeholder=''"
 							onblur="this.placeholder='휴대폰 번호 입력'">
 						<div class="phone regex"></div>
 					</div>
 
 					<div>
-						<label class="title">주소</label> <input type="text" name="userAddress1"
-							id="roadAddress" placeholder="도로명 주소"> <input
-							type="button" onclick="sample4_execDaumPostcode()"
+						<label class="title">주소</label> <input type="text"
+							name="userAddress1" id="roadAddress" placeholder="도로명 주소">
+						<input type="button" onclick="sample4_execDaumPostcode()"
 							class="address_detail" value="주소 찾기">
 						<div>
 							<input type="text" name="userAddress2" id="detailAddress"
@@ -586,7 +582,7 @@ hr {
 	</form>
 
 
-
+	<!-- daum 우편번호,주소 검색 api  -->
 	<script>
 		function sample4_execDaumPostcode() {
 			new daum.Postcode({

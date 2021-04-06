@@ -32,12 +32,6 @@
 			value="/WEB-INF/views/faq.jsp" />
 	</definition>
 
-	<definition name="location" extends="baseLayout">
-		<put-attribute name="title" value="교육장안내" />
-		<put-attribute name="body"
-					   value="/WEB-INF/views/location.jsp" />
-	</definition>
-
 
 	<definition name="/member/listMembers" extends="baseLayout">
 		<put-attribute name="title" value="회원목록창" />
@@ -51,6 +45,11 @@
 		<put-attribute name="title" value="로그인창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/member/loginForm.jsp" />
+	</definition>
+	<!-- faq -->
+	<definition name="faq" extends="baseLayout">
+		<put-attribute name="title" value="FAQ" />
+		<put-attribute name="body" value="/WEB-INF/views/faq.jsp" />
 	</definition>
 
 

@@ -121,6 +121,8 @@ request.setCharacterEncoding("UTF-8");
 				<li class="nav-item"><a class="nav-link" href="#"> Menu
 						item </a></li>
 				<li class="nav-item"><a class="nav-link" href="${contextPath}/location.do"> 교육장 안내 </a></li>
+				<li class="nav-item"><a href="${contextPath}/member/memberJoinForm.do" class="nav-link"> 회원가입 </a></li>
+
 
 				<c:choose>
 					<c:when test="${isLogOn == true  && member!= null}">
@@ -151,4 +153,5 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 		<!-- navbar-collapse.// -->
 	</nav>
+>>>>>>> c6667ce518f87af0b342a24ca89d7cc9838a9df4
 </body>
