@@ -23,8 +23,13 @@
 		 values(seq.nextval,#{survey_Mem},#{survey_Title},to_char(sysdate))
 		]]>      
 	</insert>
-
-  
+	
+	     
+   <delete id="deleteSurvey"  parameterType="String">
+	   delete from survey
+	   where 
+	   survey_Id=#{survey_Id}
+  </delete>
 
  
  	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
