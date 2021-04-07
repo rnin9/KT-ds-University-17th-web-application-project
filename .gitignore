@@ -197,4 +197,8 @@ buildNumber.properties
 pom.xml
 src/main/webapp/WEB-INF/config/
 target/im2e-wtp/web-resources/META-INF/maven/com.mySpring/springEx/pom.properties
+<<<<<<< HEAD
 
+=======
+src/main/resources/mailkey.properties
+>>>>>>> 7c75f9b1e0875ff857485511dbf60cba487be911

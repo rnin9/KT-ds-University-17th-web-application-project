@@ -16,7 +16,8 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <scripts
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-</script> <!-- <link rel="stylesheet"
+</script> <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <script
+	src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  -->
 <link id="bsdp-css"
@@ -328,7 +329,7 @@ hr {
 	text-align: center;
 }
 </style>
- <script type="text/javascript">
+<script type="text/javascript">
 	$(		
 			function() { 
 				$("#joinForm").submit(function(){ <!--From submit jQuery-->
@@ -345,29 +346,86 @@ hr {
 						alert("공백은 입력이 불가능합니다.");
 						return false;
 					}else if($("#name").val().length<1){
-						alert("이름을 입력해주세요");
-						$("#name").val("").focus();
+						  $("#name").val("").focus();
+						Swal.fire({
+						  icon: 'error',
+						  title: '이름을 입력하세요',
+						  text: 'Something went wrong!',
+						  footer: '<a href>Why do I have this issue?</a>'
+						})
 						return false;
 					}else if($("#email").val().length<1){
-						alert("이메일을 입력해주세요");
-						$("#email").val("").focus();
-						return false;
+						 $("#email").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '이메일을 입력하세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
 					}else if($("#datepicker").val().length<1){
-						alert("생년월일을 입력해주세요");
-						$("#datepicker").val("").focus();
-						return false;
+						 $("#datepicker").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '생년월일을 입력하세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
 					} else if($("#phone").val().length<1){
-						alert("휴대번호를 입력해주세요");
-						$("#phone").val("").focus();
-						return false;
+						 $("#phone").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '전화번호를 입력하세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
 					}else if($("#roadAddress").val().length<1){
-						alert("주소를 입력해주세요");
-						$("#roadAddress").val("").focus();
-						return false;
+						 $("#roadAddress").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '주소를 입력하세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
 					}else if($("#detailAddress").val().length<1){
-						alert("상세주소를 입력해주세요");
-						$("#detailAddress").val("").focus();
-						return false;
+						 $("#detailAddress").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '상세주소를 입력하세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
+					}else if($('input[name="userGender"]:checked').val()===undefined){
+						$("#c1").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '성별을 선택해주세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
+					}else if($('input[name="userMajor"]:checked').val()===undefined){
+						$("#c1").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '전공구분을 선택해주세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
+					}else if($('input[name="userPosition"]:checked').val()===undefined){
+						$("#c1").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '과정구분을 선택해주세요!',
+							  text: 'Something went wrong!',
+							  footer: '<a href>Why do I have this issue?</a>'
+							})
+							return false;
 					}else if($("#com").val()==""){
 						$("#com").val("KTDSUNIVERSITY"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
 					}
@@ -504,7 +562,7 @@ hr {
 						<div class="email regex" id="email_check"></div>
 					</div>
 					<div id="date">
-						<label class="title">생년월일</label> <input type="text" name="birth"
+						<label class="title" id="c1">생년월일</label> <input type="text" name="birth"
 							class="birth" id="datepicker" placeholder="생년월일">
 
 						<div id="toggle">
@@ -541,7 +599,7 @@ hr {
 
 					</div>
 					<div>
-						<label class="title">position</label>
+						<label class="title">과정구분</label>
 						<div id="toggle3">
 							<input type="radio" id="position1" name="userPosition"
 								value="채용예정자"> <label for="position1">채용예정자과정</label> <input
@@ -551,9 +609,9 @@ hr {
 						</div>
 					</div>
 
-					<div id="company" style="display:none">
-						<label class="title">회사</label> 
-						<input type="text" id="com" name="userCompany" placeholder="회사명">
+					<div id="company" style="display: none">
+						<label class="title">회사</label> <input type="text" id="com"
+							name="userCompany" placeholder="회사명">
 					</div>
 
 					<div>

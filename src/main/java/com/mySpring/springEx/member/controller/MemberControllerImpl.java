@@ -28,6 +28,7 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	MemberVO memberVO;
 
+
 	// ����ȭ��
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
@@ -53,9 +54,7 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
 
-	// ������
 	@Override
 	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -67,24 +66,25 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// ���̵� �ߺ� �˻�(AJAX)
+
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		memberService.check_id(id, response);
 	}
 
-	// �̸��� �ߺ� �˻�(AJAX)
+
 	@RequestMapping(value = "/member/check_email.do", method = RequestMethod.POST)
 	public void check_email(@RequestParam("email") String email, HttpServletResponse response) throws Exception {
 		memberService.check_email(email, response);
 	}
 
-	// ȸ������
+
 	/*
 	 * @Override
 	 * 
 	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
+
 	 * modelAttritbute�� ȸ������â���� ���� member������ // MemberVOŬ������ member��ü�� ����
 	 * HttpServletRequest request, HttpServletResponse response) throws Exception {
 	 * request.setCharacterEncoding("utf-8"); int result = 0; result =
@@ -92,7 +92,7 @@ public class MemberControllerImpl implements MemberController {
 	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
 	 */
 	
-	//������������ ȸ������!!!
+
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -105,7 +105,7 @@ public class MemberControllerImpl implements MemberController {
 	
 	
 
-	// ȸ�� ����
+
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -113,7 +113,7 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// ȸ������
+
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -124,7 +124,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 	
-	//�α���
+
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
@@ -155,7 +155,7 @@ public class MemberControllerImpl implements MemberController {
 	return mav;
 	}
 
-	// �α׾ƿ�
+
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -167,7 +167,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// form���� �����°� ���� �Ȱŵ������
+
 	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
@@ -183,7 +183,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// form���� �����°� ���� �Ȱŵ������
+
 	@RequestMapping(value = "/survey/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form2(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
@@ -205,5 +205,6 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

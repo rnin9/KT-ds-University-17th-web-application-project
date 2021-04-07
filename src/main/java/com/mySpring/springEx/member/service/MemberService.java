@@ -16,7 +16,11 @@ public interface MemberService {
 	public MemberVO login(MemberVO memberVO) throws Exception;
 
 	
+<<<<<<< HEAD
 	//ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+=======
+	//»õ·Î Ãß°¡µÈ ³ðµé
+>>>>>>> 7c75f9b1e0875ff857485511dbf60cba487be911
 	public void check_id(String id, HttpServletResponse response) throws Exception;
 
 	public void check_email(String email, HttpServletResponse response) throws Exception;
@@ -29,4 +33,8 @@ public interface MemberService {
 
 	public void send_mail(MemberVO member) throws Exception;
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7c75f9b1e0875ff857485511dbf60cba487be911

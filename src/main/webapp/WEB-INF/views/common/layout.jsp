@@ -105,6 +105,7 @@
 	padding-top: 64px;
 	border: 0px solid #bcbcbc;
 	background-color: white;
+
 	padding-bottom: 20px;
 }
 
@@ -139,6 +140,7 @@ a:link, a:visited, a:hover {
 	color: black;
 	text-decoration: none;
 }
+
 </style>
 
 <%-- =================custom css start========================= --%>
