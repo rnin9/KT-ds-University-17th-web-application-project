@@ -29,15 +29,15 @@ public class MemberControllerImpl implements MemberController {
 	MemberVO memberVO;
 
 
-	// ����ȭ��
+	// 메인화면
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // string���·� request viewName�� ����
-		ModelAndView mav = new ModelAndView(); // mav ����
-		mav.setViewName(viewName); // mav�� view��ġ�� request�߾��� (/,main.do) viewName�� �־� �ش���ġ�� �̵��Ѵ�
+		String viewName = (String) request.getAttribute("viewName"); // string형태로 request viewName을 저장
+		ModelAndView mav = new ModelAndView(); // mav 생성
+		mav.setViewName(viewName); // // mav의 view위치에 request했었던 (/,main.do) viewName을 넣어 해당위치로 이동한다
 		return mav;
 	}
-	//faq�̵�
+	//faq 이동
 	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -79,20 +79,21 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 
+	// 회원가입
 	/*
 	 * @Override
-	 * 
+	 *
 	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-
-	 * modelAttritbute�� ȸ������â���� ���� member������ // MemberVOŬ������ member��ü�� ����
+	 * modelAttritbute로 회원가입창에서 받은 member정보를 // MemberVO클래스의 member객체에 저장
 	 * HttpServletRequest request, HttpServletResponse response) throws Exception {
 	 * request.setCharacterEncoding("utf-8"); int result = 0; result =
 	 * memberService.addMember(member); ModelAndView mav = new
 	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
 	 */
-	
 
+
+	//새로지으려는 회원가입!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -102,10 +103,10 @@ public class MemberControllerImpl implements MemberController {
 
 		return "memberJoinForm.jsp";
 	}
-	
-	
 
 
+
+	// 회원 인증
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -113,7 +114,7 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-
+	// 회원삭제
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -123,8 +124,8 @@ public class MemberControllerImpl implements MemberController {
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
 	}
-	
 
+	//로그인
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
@@ -155,7 +156,7 @@ public class MemberControllerImpl implements MemberController {
 	return mav;
 	}
 
-
+	// 로그아웃
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
