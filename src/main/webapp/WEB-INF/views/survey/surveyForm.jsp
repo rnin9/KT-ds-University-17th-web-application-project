@@ -71,8 +71,12 @@ request.getParameter("survey_Title");
 
 		<div class="card mb-4">
 			<div class="card-header">
+
 				<i class="fa fa-table mr-1"></i> Survey List
 			</div>
+				<a class="navbar-brand2" href="${contextPath}/main.do"><img
+						src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
+						alt="로고" /></a>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered" id="table_course" width="100%"
@@ -83,6 +87,7 @@ request.getParameter("survey_Title");
 								<th>SurveyTitle</th>
 								<th>Start date</th>
 								<th>detail</th>
+								<th>delete</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -91,6 +96,7 @@ request.getParameter("survey_Title");
 								<th>SurveyTitle</th>
 								<th>Start date</th>
 								<th>detail</th>
+								<th>delete</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -100,8 +106,11 @@ request.getParameter("survey_Title");
 									<td>${survey.survey_Mem} ${survey.survey_Title}</td>
 									<td>${survey.writeDate}</td>
 									<td><a
-										href="${contextPath}/survey/survey2Form.do?surveyId=${survey.survey_Id}'">상세</a></td>
+										href="${contextPath}/survey/survey2Form.do?surveyId=${survey.survey_Id}">상세</a></td>
+									<td><a
+										href='${contextPath}/survey/removeSurvey.do?survey_Id=${survey.survey_Id}'>삭제</a></td>
 								</tr>
+						
 								<%-- <tr>
 								<td>1</td>
 								<td class="cursor_test" onclick="location.href='${contextPath}/survey/survey2Form.do?surveyTitle=${survey.surveyTitle}'">웹 어플리케이션 전문가 양성과정</td>
