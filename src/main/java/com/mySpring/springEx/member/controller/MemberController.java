@@ -21,4 +21,6 @@ public interface MemberController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response) throws Exception;
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 }

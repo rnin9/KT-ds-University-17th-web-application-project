@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
 import com.mySpring.springEx.member.vo.MemberVO;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface MemberService {
 	public List listMembers() throws DataAccessException;
 
@@ -16,6 +18,7 @@ public interface MemberService {
 	public MemberVO login(MemberVO memberVO) throws Exception;
 
 	
+
 	//새로 추가된 놈들
 	public void check_id(String id, HttpServletResponse response) throws Exception;
 

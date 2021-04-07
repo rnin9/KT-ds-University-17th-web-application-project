@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+         pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%
-request.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <head>
 <meta charset="UTF-8">
@@ -54,35 +54,6 @@ request.setCharacterEncoding("UTF-8");
 	background-repeat: no-repeat;
 }
 
-.container {
-	font-family: 'Noto Sans KR', sans-serif;
-	width: 80%;
-}
-
-.lnb {
-	display: block;
-	border-bottom: 1px solid #eeeeee;
-	padding: 20px 0 0;
-}
-
-.lnb>ul {
-	list-style: none;
-	padding: 0;
-	text-align: left;
-}
-
-.lnb>ul>li {
-	display: inline-block;
-	margin-left: 9px;
-	padding-left: 15px;
-	margin-left: 9px;
-}
-
-a:link, a:visited, a:hover {
-	color: black;
-	text-decoration: none;
-}
-
 .faqIntro {
 	margin-top: 50px;
 	text-align: center;
@@ -119,6 +90,11 @@ a:link, a:visited, a:hover {
 	line-height: 34px;
 }
 
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 80%;
+}
+
 .letterQ {
 	margin-left: 20px;
 	color: rgba(255, 0, 0, 0.6);
@@ -151,9 +127,9 @@ a:link, a:visited, a:hover {
 		<!-- 최상단바 -->
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
+				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/faq.do">FAQ</a></li>
+				<li class="on"><a href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
 			</ul>
 		</div>
 

@@ -136,7 +136,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//mailkey.properties portNum°ªÀ» ºÒ·¯¿È
 	@Value
-	("${portNum}") public int portNum;
+	("${portNum}") public int portNum; 
 
 	@Override
 	public void send_mail(MemberVO member) throws Exception {
@@ -198,5 +198,6 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

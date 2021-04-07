@@ -120,7 +120,8 @@ request.setCharacterEncoding("UTF-8");
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a class="nav-link" href="#"> Menu
 						item </a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> 오시는길 </a></li>
+				<li class="nav-item"><a class="nav-link" href="${contextPath}/location.do"> 교육장 안내 </a></li>
+
 				<li class="nav-item"><a href="${contextPath}/member/memberJoinForm.do" class="nav-link"> 회원가입 </a></li>
 
 
@@ -153,4 +154,5 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 		<!-- navbar-collapse.// -->
 	</nav>
+
 </body>

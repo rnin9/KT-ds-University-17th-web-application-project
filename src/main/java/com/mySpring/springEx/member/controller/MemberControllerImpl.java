@@ -28,15 +28,16 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	MemberVO memberVO;
 
-	// ¸ŞÀÎÈ­¸é
+
+	// ë©”ì¸í™”ë©´
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // stringÇüÅÂ·Î request viewNameÀ» ÀúÀå
-		ModelAndView mav = new ModelAndView(); // mav »ı¼º
-		mav.setViewName(viewName); // mavÀÇ viewÀ§Ä¡¿¡ requestÇß¾ú´ø (/,main.do) viewNameÀ» ³Ö¾î ÇØ´çÀ§Ä¡·Î ÀÌµ¿ÇÑ´Ù
+		String viewName = (String) request.getAttribute("viewName"); // stringí˜•íƒœë¡œ request viewNameì„ ì €ì¥
+		ModelAndView mav = new ModelAndView(); // mav ìƒì„±
+		mav.setViewName(viewName); // // mavì˜ viewìœ„ì¹˜ì— requestí–ˆì—ˆë˜ (/,main.do) viewNameì„ ë„£ì–´ í•´ë‹¹ìœ„ì¹˜ë¡œ ì´ë™í•œë‹¤
 		return mav;
 	}
-	//faqÀÌµ¿
+	//faq ì´ë™
 	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -44,9 +45,16 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
 
-	// ¸â¹ö¸ñ·Ï
+	@Override
+	@RequestMapping(value = { "/location.do"}, method = RequestMethod.GET)
+	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+
 	@Override
 	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -58,32 +66,34 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// ¾ÆÀÌµğ Áßº¹ °Ë»ç(AJAX)
+
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		memberService.check_id(id, response);
 	}
 
-	// ÀÌ¸ŞÀÏ Áßº¹ °Ë»ç(AJAX)
+
 	@RequestMapping(value = "/member/check_email.do", method = RequestMethod.POST)
 	public void check_email(@RequestParam("email") String email, HttpServletResponse response) throws Exception {
 		memberService.check_email(email, response);
 	}
 
-	// È¸¿ø°¡ÀÔ
+
+	// íšŒì›ê°€ì…
 	/*
 	 * @Override
-	 * 
+	 *
 	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-	 * modelAttritbute·Î È¸¿ø°¡ÀÔÃ¢¿¡¼­ ¹ŞÀº memberÁ¤º¸¸¦ // MemberVOÅ¬·¡½ºÀÇ member°´Ã¼¿¡ ÀúÀå
+	 * modelAttritbuteë¡œ íšŒì›ê°€ì…ì°½ì—ì„œ ë°›ì€ memberì •ë³´ë¥¼ // MemberVOí´ë˜ìŠ¤ì˜ memberê°ì²´ì— ì €ì¥
 	 * HttpServletRequest request, HttpServletResponse response) throws Exception {
 	 * request.setCharacterEncoding("utf-8"); int result = 0; result =
 	 * memberService.addMember(member); ModelAndView mav = new
 	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
 	 */
-	
-	//»õ·ÎÁöÀ¸·Á´Â È¸¿ø°¡ÀÔ!!!
+
+
+	//ìƒˆë¡œì§€ìœ¼ë ¤ëŠ” íšŒì›ê°€ì…!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -93,10 +103,10 @@ public class MemberControllerImpl implements MemberController {
 
 		return "memberJoinForm.jsp";
 	}
-	
-	
 
-	// È¸¿ø ÀÎÁõ
+
+
+	// íšŒì› ì¸ì¦
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -104,7 +114,7 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// È¸¿ø»èÁ¦
+	// íšŒì›ì‚­ì œ
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -114,8 +124,8 @@ public class MemberControllerImpl implements MemberController {
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 		return mav;
 	}
-	
-	//·Î±×ÀÎ
+
+	//ë¡œê·¸ì¸
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
@@ -146,7 +156,7 @@ public class MemberControllerImpl implements MemberController {
 	return mav;
 	}
 
-	// ·Î±×¾Æ¿ô
+	// ë¡œê·¸ì•„ì›ƒ
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -158,7 +168,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// formÀ¸·Î ³¡³ª´Â°Å Àü¼Û ¾È°Åµå·Áµµ‰Î
+
 	@RequestMapping(value = "/member/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
@@ -174,7 +184,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// formÀ¸·Î ³¡³ª´Â°Å Àü¼Û ¾È°Åµå·Áµµ‰Î
+
 	@RequestMapping(value = "/survey/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form2(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
@@ -196,5 +206,6 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
