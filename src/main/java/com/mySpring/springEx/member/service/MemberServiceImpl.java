@@ -148,7 +148,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "mspak96@naver.com";
+		String fromEmail = hostSMTPId;
 		String fromName = "KTDS-Spring Homepage 이메일 인증";
 		String subject = "인증";
 		String msg = "가입을 환영합니다.";
