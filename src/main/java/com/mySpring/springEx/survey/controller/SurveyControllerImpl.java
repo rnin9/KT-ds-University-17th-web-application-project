@@ -35,11 +35,14 @@ public class SurveyControllerImpl implements SurveyController {
             Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		
-		
+		//데이터의 총 갯수를 받아옴 surveyServiceImpl testTableCount()-pagination.xml의 testTableCount 쿼리를 담은 값을 surveyList에 담음(int형)
 		int surveyList = surveyService.testTableCount();
+		//Pagination에 request한 currentPage,cntPerPage,pageSize을 파라미터값으로 받는 객체를 생성
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		//총 레코드 수에 따른 페이지 처리 method에 데이터의 총 갯수를 전달
 		pagination.setTotalRecordCount(surveyList);
 		ModelAndView mav = new ModelAndView(viewName);
+		//처리된 부분을 화면에 전달
 		mav.addObject("pagination",pagination);
 		mav.addObject("surveyList", surveyService.SelectAllList(pagination));
 		/* mav.setViewName(viewName); */
