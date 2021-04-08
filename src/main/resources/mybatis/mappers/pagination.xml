@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
+<resultMap id="surResult" type="surveyVO">
+		<result property="survey_Id" column="survey_Id" />
+		<result property="survey_Mem" column="survey_Mem" />
+        <result property="survey_Title" column="survey_Title" />
+        <result property="writeDate" column="writeDate" />
+	</resultMap> 
+
+
+	<select id="SelectAllList" resultMap="surResult">
+         SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by survey_id DESC) AS
+        row_num
+        ,survey_id
+        ,survey_title
+        ,survey_mem
+        ,writedate
+        FROM survey
+        )
+         <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>	 	
+	</select>
+	
+	 <select id="testTableCount" resultType="int">
+        SELECT count(*) FROM
+        survey
+    </select>
+  
+ 
+ 
+ 
+ 	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+	<![CDATA[
+		select * from t_member	
+		where id=#{id} and pwd=#{pwd}		
+	]]>
+  </select> -->
+</mapper>
