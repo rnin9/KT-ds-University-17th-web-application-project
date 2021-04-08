@@ -32,4 +32,7 @@ public interface MemberService {
 
 	public void send_mail(MemberVO member) throws Exception;
 
+	// methods for partner apply
+	public List listRecruitments() throws DataAccessException;
+
 }

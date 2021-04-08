@@ -21,13 +21,33 @@
         <result property="userJoindate" column="userJoindate" />
         <result property="approval_status" column="approval_status" />
         <result property="resume" column="resume" />
-	</resultMap> 
-	
+	</resultMap>
+
+	<resultMap id="recruitResult" type="partnerVO">
+
+		<result property="partnerName" column="partnerName" />
+		<result property="partnerInformation" column="partnerInformation" />
+		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
+
+	</resultMap>
+
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
          select * from kt_user2 order by userJoindate desc	 	
       ]]>
 	</select>
+
+	<!--  select all recruitments	-->
+	<select id="selectAllRecruitList" resultMap="recruitResult">
+		<![CDATA[
+			select partnerName, partnerInformation, partnerApplyFinishDate
+			from partner
+			where partnerApplyYN is 'Y'
+		]]>
+	</select>
+
+	<!--  select all applies	-->
+
     
 <!--   <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[

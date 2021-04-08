@@ -23,4 +23,6 @@ public interface MemberDAO {
 
 	public int approval_member(MemberVO member) throws Exception;
 
+	public List selectAllRecruitList() throws DataAccessException;
+
 }

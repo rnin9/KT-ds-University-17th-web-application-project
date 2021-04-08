@@ -56,6 +56,18 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 	@Override
+	@RequestMapping(value = { "/member/apply.do"}, method = RequestMethod.GET)
+	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName = (String)request.getAttribute("viewName");
+		List recruitsList = memberService.listRecruitments();
+		System.out.println(recruitsList);
+		System.out.println("appllllllyyyyyyyyy");
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("recruitsList", recruitsList);
+		return mav;
+	}
+
+	@Override
 	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");

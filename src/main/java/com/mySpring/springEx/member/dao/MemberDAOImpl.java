@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 
 
 @Repository("memberDAO")
@@ -21,6 +22,13 @@ public class MemberDAOImpl implements MemberDAO {
 		List<MemberVO> membersList = null;
 		membersList = sqlSession.selectList("mapper.member.selectAllMemberList");
 		return membersList;
+	}
+
+	@Override
+	public  List selectAllRecruitList() throws DataAccessException {
+		List<PartnerVO> partnerList = null;
+		partnerList = sqlSession.selectList("mapper.member.selectAllRecruitList");
+		return partnerList;
 	}
 
 	@Override

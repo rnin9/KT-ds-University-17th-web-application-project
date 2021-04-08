@@ -100,7 +100,8 @@ request.setCharacterEncoding("UTF-8");
 								<li><a class="dropdown-item" href="#"> 재직자 </a></li>
 							</ul></li>
 					</c:when>
-					<c:when test="${isLogOn == true  && member!= null}">
+					<c:when test="${isLogOn == true  && member!= null && member.userPosition == '채용예정자'}">
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">모집공고</a></li>
 						<%-- <li class="nav-item"><a class="nav-link"
 							href="${contextPath}/member/listMembers.do">공지사항</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>

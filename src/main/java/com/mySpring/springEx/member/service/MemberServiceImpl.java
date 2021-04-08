@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.mySpring.springEx.partner.dao.PartnerDAO;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,11 +25,19 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
+
 	@Override
 	public List listMembers() throws DataAccessException {
 		List membersList = null;
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
+	}
+
+	@Override
+	public  List listRecruitments() throws DataAccessException {
+		List recruitmentList = null;
+		recruitmentList = memberDAO.selectAllRecruitList();
+		return recruitmentList;
 	}
 	/*
 	 * @Override public int addMember(MemberVO member) throws DataAccessException {
