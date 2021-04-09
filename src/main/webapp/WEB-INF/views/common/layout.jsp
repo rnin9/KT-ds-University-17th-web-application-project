@@ -173,7 +173,8 @@ a:link, a:visited, a:hover {
 /* ===============font-end=========== */
 
 /* ============ only desktop view ============ */
-@media all and (min-width: 800px) {
+@media all and (min-width: 1100px) {
+
 	.navbar .nav-item .dropdown-menu {
 		opacity: 0;
 		visibility: hidden;
@@ -208,6 +209,7 @@ a:link, a:visited, a:hover {
 		color: rebeccapurple;
 	}
 }
+
 
 .bg-primary {
 	background-color: white !important;

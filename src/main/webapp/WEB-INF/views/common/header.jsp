@@ -72,7 +72,7 @@ request.setCharacterEncoding("UTF-8");
 			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		</c:when>
 		<c:otherwise>
-			<nav class="navbar navbar-expand-lg navbar-dark bg-primary-admin">
+			<nav class="navbar navbar-expand-xl navbar-dark bg-primary-admin">
 		</c:otherwise>
 	</c:choose>
 
