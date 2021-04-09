@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/courseTake/courseApplyList" extends="baseLayout">
+	      <put-attribute name="title" value="수강신청내역" />
+	      <put-attribute name="body" value="/WEB-INF/views/courseTake/courseApplyList.jsp" />
+	</definition>
+	
+	 <definition name="/courseTake/courseCompleteList" extends="baseLayout">
+		<put-attribute name="title" value="수료관리" />
+		<put-attribute name="body" value="/WEB-INF/views/courseTake/courseCompleteList.jsp" />
+	</definition>
+	
+
+</tiles-definitions>
