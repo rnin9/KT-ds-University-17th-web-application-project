@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.mySpring.springEx.partner.dao.PartnerDAO;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +25,18 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 
 
+	@Value("${hostSMTPid}")
+	public String hostSMTPId;
+	// https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
+
+	// mailkey.properties hostSMTPpwd값을 불러옴
+	@Value("${hostSMTPpwd}")
+	public String hostSMTPPwd;
+
+	// mailkey.properties portNum값을 불러옴
+	@Value("${portNum}")
+	public int portNum;
+
 	@Override
 	public List listMembers() throws DataAccessException {
 		List membersList = null;
@@ -34,15 +45,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public  List listRecruitments() throws DataAccessException {
+	public List listRecruitments() throws DataAccessException {
 		List recruitmentList = null;
 		recruitmentList = memberDAO.selectAllRecruitList();
 		return recruitmentList;
 	}
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
 	/*
 	 * @Override public int addMember(MemberVO member) throws DataAccessException {
 	 * return memberDAO.insertMember(member); }
 	 */
+
 
 	@Override
 	public int removeMember(String id) throws DataAccessException {
@@ -76,17 +93,33 @@ public class MemberServiceImpl implements MemberService {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		System.out.println("2");
-		if (memberDAO.check_id(member.getUserId()) == 1) {
-			out.println("<script>");
-			out.println("alert('동일한 아이디가 있습니다.');");
+		if (memberDAO.check_id(member.getUserId()) == 1) {		// 중복된 아이디
+			out.println(
+					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+			out.println("<script language=JavaScript>");
+			out.println("$(document).ready(function(){");
+			out.println("swal('아이디 중복','중복이 아닌 아이디를 입력하세요!','error')");
+			out.println(".then((result) => {");
 			out.println("history.go(-1);");
+			out.println("})");
+			out.println("});");
 			out.println("</script>");
 			out.close();
 			return 0;
-		} else if (memberDAO.check_email(member.getUserEmail()) == 1) {
-			out.println("<script>");
-			out.println("alert('동일한 이메일이 있습니다.');");
+		} else if (memberDAO.check_email(member.getUserEmail()) == 1) { // 중복된 이메일
+			out.println(
+					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+			out.println("<script language=JavaScript>");
+			out.println("$(document).ready(function(){");
+			out.println("swal('이메일 중복',' 중복이 아닌 이메일을 입력하세요!','error')");
+			out.println(".then((result) => {");
 			out.println("history.go(-1);");
+			out.println("})");
+			out.println("});");
 			out.println("</script>");
 			out.close();
 			return 0;
@@ -97,16 +130,23 @@ public class MemberServiceImpl implements MemberService {
 			memberDAO.join_member(member);
 			// 인증 메일 발송
 			send_mail(member);
-			out.println("<script>");
-			out.println("alert('메일 인증을 완료하세요.');");
-			/* out.println("location.href='https://naver.com/';"); */
-			out.println("history.go(-2);");
+			out.println(
+					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+			out.println("<script language=JavaScript>");
+			out.println("$(document).ready(function(){");
+			out.println("swal('메일을 인증을 완료하세요',' 기입한 이메일로 전송되었습니다!','success')");
+			out.println(".then((result) => {");
+			out.println("location.href='http://localhost:" + portNum + "/springEx/main.do';");
+			out.println("})");
+			out.println("});");
 			out.println("</script>");
 			out.close();
 			return 1;
+
 		}
 	}
-	
 
 	@Override
 	public void approval_member(MemberVO member, HttpServletResponse response) throws Exception {
@@ -119,42 +159,32 @@ public class MemberServiceImpl implements MemberService {
 			out.println("</script>");
 			out.close();
 		} else { // 이메일 인증을 성공하였을 경우
-			out.println("<script>");
-			out.println("alert('인증이 완료되었습니다.');");
-			out.println("history.go(-1);");
+			out.println(
+					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+			out.println("<script language=JavaScript>");
+			out.println("$(document).ready(function(){");
+			out.println("swal('인증성공!!',' 인증에 성공하셨습니다','success')");
+			out.println(".then((result) => {");
+			out.println("history.go(-2);");
+			out.println("})");
+			out.println("});");
+			
 			out.println("</script>");
 			out.close();
 		}
 	}
 
-	/*
-	 * @Override public String create_key() throws Exception { // TODO
-	 * Auto-generated method stub String key = ""; Random rd = new Random();
-	 * 
-	 * for (int i = 0; i < 8; i++) { key += rd.nextInt(10); } return key; }
-	 */
 	
-	//mailkey.properties hostSMTPid값을 불러옴
-	@Value
-	("${hostSMTPid}") public String hostSMTPId;
-	  //https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
-	
-	//mailkey.properties hostSMTPpwd값을 불러옴
-	@Value
-	("${hostSMTPpwd}") public String hostSMTPPwd;
-	
-	//mailkey.properties portNum값을 불러옴
-	@Value
-	("${portNum}") public int portNum; 
 
 	@Override
 	public void send_mail(MemberVO member) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid=hostSMTPId;
-		String hostSMTPpwd=hostSMTPPwd;
-
+		String hostSMTPid = hostSMTPId;
+		String hostSMTPpwd = hostSMTPPwd;
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = hostSMTPId;
@@ -169,17 +199,14 @@ public class MemberServiceImpl implements MemberService {
 		msg += member.getUserId() + "님 회원가입을 환영합니다.</h3>";
 		msg += "<div style='font-size: 130%'>";
 		msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-		msg += "<form method='post' action='http://localhost:'"+portNum+"'/springEx/member/approval_member.do'>"; //mailkey.properties 의 portNum
+		msg += "<form method='post' action='http://localhost:" + portNum + "/springEx/member/approval_member.do'>"; // mailkey.properties
+																													// 의
+																													// portNum
 		msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
 		msg += "<input type='submit' value='인증'></form><br/></div>";
 		System.out.println(msg);
-		
-		/*
-		 * msg +=
-		 * "<form method='post' action='http://localhost:8082/springEx/member/approval_member.do'>"
-		 * ; //자신의 서버포트번호로 변경
-		 */
-		// 받는 사람 E-Mail 주소
+
+	
 		String mail = member.getUserEmail();
 		System.out.println(mail);
 		try {
@@ -201,12 +228,5 @@ public class MemberServiceImpl implements MemberService {
 			System.out.println("메일발송 실패 : " + e);
 		}
 	}
-
-	@Override
-	public String create_key() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

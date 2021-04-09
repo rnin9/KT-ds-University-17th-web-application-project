@@ -49,6 +49,17 @@ public class SurveyControllerImpl implements SurveyController {
 		ModelAndView mav = new ModelAndView("redirect:/survey/listSurvey.do");
 		return mav;
 	}
+	
+	//설문조사 삭제
+		@Override
+		@RequestMapping(value = "/survey/removeSurvey.do", method = RequestMethod.GET)
+		public ModelAndView removeMember(@RequestParam("survey_Id") String survey_Id, HttpServletRequest request,
+				HttpServletResponse response) throws Exception {
+			request.setCharacterEncoding("utf-8");
+			surveyService.removeSurvey(survey_Id);
+			ModelAndView mav = new ModelAndView("redirect:/survey/listSurvey.do");
+			return mav;
+		}
 
 	// surveyDetail -> 설문조사항목을 누르면 해당 suveyId의 값을 가진 데이터를 전부다 db에서 뽑아온 다음에 화면에 출력
 	// 해준다 경로는 surveyDtail.do라는 페이지

@@ -20,11 +20,13 @@
         <result property="userAddress2" column="userAddress2" />
         <result property="userJoindate" column="userJoindate" />
         <result property="approval_status" column="approval_status" />
-        <result property="resume" column="resume" />
+<!--	고쳐ㅕㅕ _ 쓰지마셈	-->
+        <result property="resume" column="userResume" />
 	</resultMap>
 
 	<resultMap id="recruitResult" type="partnerVO">
 
+		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
 		<result property="partnerName" column="partnerName" />
 		<result property="partnerInformation" column="partnerInformation" />
 		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
@@ -40,13 +42,23 @@
 	<!--  select all recruitments	-->
 	<select id="selectAllRecruitList" resultMap="recruitResult">
 		<![CDATA[
-			select partnerName, partnerInformation, partnerApplyFinishDate
+			select partnerLicenseNum, partnerName, partnerInformation, partnerApplyFinishDate
 			from partner
-			where partnerApplyYN is 'Y'
+			where partnerApplyYN = 'Y'
 		]]>
 	</select>
 
 	<!--  select all applies	-->
+	<!-- insert apply -->
+	<insert id="user_apply" parameterType="java.util.HashMap">
+		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
+			select resumeID
+			from resume
+			where resumeUser = #{partnerApplyUserID}
+		</selectKey>
+		insert into partner_apply
+		values(#{partnerApplyUserID}, #{partnerApplyPartnerID}, #{partnerApplyResumeID}, sysdate, '진행중')
+	</insert>
 
     
 <!--   <insert id="insertMember"  parameterType="memberVO">
@@ -55,6 +67,11 @@
 		 values(#{id}, #{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail})
 		]]>      
 	</insert> -->
+	<select id="check_resume" parameterType="String" resultType="String">
+		select userresume
+		from kt_user2
+		where userId = #{userId}
+	</select>
 	
 	<!-- 아이디 중복 검사 -->
 	<select id="check_id" parameterType="String" resultType="int">
@@ -76,7 +93,7 @@
 	<!-- 이메일 인증 -->
 	<update id="approval_member" parameterType="memberVO">
 		update kt_user2 set
-		approval_status = 'true' 
+		approval_status = 'true'
 		where userEmail = #{userEmail} <!-- and
 		approval_key =
 		#{approval_key} -->
@@ -106,4 +123,4 @@
 		where userId=#{userId} and approval_status='true'
 	]]>
   </select>
-</mapper> 
+</mapper>

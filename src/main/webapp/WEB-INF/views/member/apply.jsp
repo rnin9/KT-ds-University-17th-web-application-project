@@ -1,6 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+    Date nowTime = new Date();
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss");
+%>
+<%--<%= sf.format(nowTime) %>--%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="nowddate" value="${sf.format(nowTime)}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +20,50 @@
 
     <title>협력사 지원</title>
     <script>
-        function getPartnerInfo() {
-            $.ajax({
-                type: "POST",
-                url: "${contextPath}/member/apply.do",
-                success:
-            })
+        function getPartnerInfo(info) {
+            // document.getElementById("partner_info").innerHTML = info.innerHTML;
+            <%--swal({--%>
+            <%--    text: `${obj.partnerInformation}`,--%>
+            <%--});--%>
+            $("#partner_info").text(info);
+            // $("#myModal").modal('show');
+        }
+    </script>
+    <script>
+        function chk_apply(a,b,c) {
+            <%--                                            <%System.out.println("11111");%>--%>
+            console.log('아아아아아아아ㅏㅏㅏㅏㅏㅏㅏ');
+           <%--console.log(${member.resume});--%>
+           <%--console.log(${member.userId});--%>
+
+            let id = '${member.userId}';
+            <%--let p = '${member.approvalStatus}';--%>
+            let r = '${member.resume}'.toString();
+            if('${member.resume}' === "Y") {
+                console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                console.log('${member.userMajor}');
+                console.log('${member.userJob}');
+                console.log('${member.userAddress2}');
+                console.log('${member.userJoindate}');
+                console.log('${member.approval_status}');
+
+                <%--console.log(${nowdate});--%>
+                location.href = "${contextPath}/member/userApplyPartner.do?partnerApplyUserID="+b+"&partnerApplyPartnerID="+c
+                <%--location.href = "${contextPath}/member/userApplyPartner.do?partnerApplyUserID="+b;--%>
+            } else {
+                console.log('ㄴㄴㄴㄴㄴ');
+                console.log(a);
+                console.log(b);
+                console.log(c);
+                console.log('${member.userMajor}');
+                console.log('${member.userJob}');
+                console.log('${member.userAddress2}');
+                console.log('${member.userJoindate}');
+                console.log('${member.approval_status}');
+            }
         }
     </script>
     <style>
@@ -54,31 +100,32 @@
             <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">협력사 지원</a></li>
         </ul>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+<%--    <!-- Modal -->--%>
+<%--    <div class="modal fade" id="myModal" role="dialog">--%>
+<%--        <div class="modal-dialog">--%>
 
-            <!-- Modal content-->
-            <div class="modal-content">
+<%--            <!-- Modal content-->--%>
+<%--            <div class="modal-content">--%>
+<%--&lt;%&ndash;                <div class="modal-header">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <button type="button" class="close" data-dismiss="modal">×</button>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                    <h4 class="modal-title">기업 정보</h4>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                </div>&ndash;%&gt;--%>
 <%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title">기업 정보</h5>--%>
+<%--&lt;%&ndash;                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>&ndash;%&gt;--%>
 <%--                    <button type="button" class="close" data-dismiss="modal">×</button>--%>
-<%--                    <h4 class="modal-title">기업 정보</h4>--%>
 <%--                </div>--%>
-                <div class="modal-header">
-                    <h5 class="modal-title">기업 정보</h5>
-<%--                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
-                </div>
-            </div>
+<%--                <div class="modal-body">--%>
+<%--&lt;%&ndash;                    <p>Some text in the modal.</p>&ndash;%&gt;--%>
+<%--                    <p id="partner_info"></p>--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+<%--                    <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-        </div>
-    </div>
+<%--        </div>--%>
+<%--    </div>--%>
 <%--    <div class="modal" id="myModal" tabindex="-1">--%>
 <%--        <div class="modal-dialog">--%>
 <%--            <div class="modal-content">--%>
@@ -129,10 +176,35 @@
                                 <tbody>
                                 <c:forEach var="recruit" items="${recruitsList}" >
                                     <tr align="center">
-                                        <td><a data-toggle="modal" href="#myModal" onclick="getPartnerInfo();">${recruit.partnerName}</a></td>
-                                        <td>${recruit.partnerInformation}</td>
+                                        <td><a class="info" data-toggle="modal" href="#myModal">${recruit.partnerName}</a></td>
+<%--                                        <td><a class="info" data-toggle="modal" href="#myModal" onclick="getPartnerInfo(${recruit.partnerInformation});">${recruit.partnerName}</a></td>--%>
+<%--                                        <td><a data-toggle="modal" href="#myModal" onclick="getPartnerInfo(${recruit.partnerInformation});">${recruit.partnerName}</a></td>--%>
                                         <td>${recruit.partnerApplyFinishDate}</td>
+<%--                                        <td>${recruit.partnerApplyFinishDate}</td>--%>
+                                        <td><a href="#" onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');">지원하기</a></td>
+<%--                                        ${date}&partnerApplyState='진행중'"--%>
                                     </tr>
+
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">기업 정보</h5>
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>${recruit.partnerInformation}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </c:forEach>
                                 </tbody>
                             </table>
@@ -147,21 +219,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><a href="#">협력사1</a></td>
-                                    <td>20200408</td>
-                                    <td>진행중</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">협력사2</a></td>
-                                    <td>20200408</td>
-                                    <td>진행중</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">협력사3</a></td>
-                                    <td>20200408</td>
-                                    <td>진행중</td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td><a href="#">협력사1</a></td>--%>
+<%--                                    <td>20200408</td>--%>
+<%--                                    <td>진행중</td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td><a href="#">협력사2</a></td>--%>
+<%--                                    <td>20200408</td>--%>
+<%--                                    <td>진행중</td>--%>
+<%--                                </tr>--%>
+<%--                                <tr>--%>
+<%--                                    <td><a href="#">협력사3</a></td>--%>
+<%--                                    <td>20200408</td>--%>
+<%--                                    <td>진행중</td>--%>
+<%--                                </tr>--%>
                                 </tbody>
                             </table>
                         </div>

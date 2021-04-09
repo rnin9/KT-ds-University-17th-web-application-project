@@ -14,10 +14,12 @@
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<scripts
+<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-</script> <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <script
-	src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- <link rel="stylesheet"
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  -->
 <link id="bsdp-css"
@@ -265,15 +267,15 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 }
 
 .btn {
-	width: 12%;
-	padding: 16px 10px;
-	display: inline-block;
-	border: 1px solid #c8c8c0;
-	box-sizing: border-box;
-	margin-left: -66px;
-	line-height: 13px;
-	color: #DEE1E6;
-	background-color: #FF0000;
+	width: 8.3%;
+    padding: 16px 10px;
+    display: inline-block;
+    border: 1px solid #c8c8c0;
+    box-sizing: border-box;
+    margin-left: 38px;
+    line-height: 13px;
+    color: #DEE1E6;
+    background-color: #FF0000;
 }
 
 #datepicker {
@@ -334,24 +336,50 @@ hr {
 			function() { 
 				$("#joinForm").submit(function(){ <!--From submit jQuery-->
 					if($("#pw").val() !== $("#pw2").val()){
-						alert("비밀번호가 다릅니다.");
 						$("#pw").val("").focus();
 						$("#pw2").val("");
+						Swal.fire({
+							  icon: 'error',
+							  title: '비밀번호가 다릅니다!',
+							  text: 'Something went wrong!'
+							
+							})
 						return false;
 					}else if ($("#pw").val().length < 8) {
-						alert("비밀번호는 8자 이상으로 설정해야 합니다.");
 						$("#pw").val("").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '비밀번호 8자이상!',
+							  text: 'Something went wrong!'
+							 
+							})
+						
 						return false;
 					}else if($.trim($("#pw").val()) !== $("#pw").val() || $.trim($("#email").val()) !== $("#email").val() || $.trim($("#id").val()) !== $("#id").val()){
-						alert("공백은 입력이 불가능합니다.");
+						$("#pw").val("").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '공백은 입력이 불가능합니다!',
+							  text: 'Something went wrong!'
+							 
+							})
 						return false;
+					}else if($("#id").val().length<1){
+						 $("#id").val("").focus();
+							Swal.fire({
+							  icon: 'error',
+							  title: '아이디를 입력하세요!',
+							  text: 'Something went wrong!'
+							 
+							})
+							return false;
 					}else if($("#name").val().length<1){
 						  $("#name").val("").focus();
 						Swal.fire({
 						  icon: 'error',
 						  title: '이름을 입력하세요',
-						  text: 'Something went wrong!',
-						  footer: '<a href>Why do I have this issue?</a>'
+						  text: 'Something went wrong!'
+						 
 						})
 						return false;
 					}else if($("#email").val().length<1){
@@ -359,8 +387,8 @@ hr {
 							Swal.fire({
 							  icon: 'error',
 							  title: '이메일을 입력하세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							  
 							})
 							return false;
 					}else if($("#datepicker").val().length<1){
@@ -368,8 +396,8 @@ hr {
 							Swal.fire({
 							  icon: 'error',
 							  title: '생년월일을 입력하세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							
 							})
 							return false;
 					} else if($("#phone").val().length<1){
@@ -377,8 +405,8 @@ hr {
 							Swal.fire({
 							  icon: 'error',
 							  title: '전화번호를 입력하세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							  
 							})
 							return false;
 					}else if($("#roadAddress").val().length<1){
@@ -386,8 +414,8 @@ hr {
 							Swal.fire({
 							  icon: 'error',
 							  title: '주소를 입력하세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							  
 							})
 							return false;
 					}else if($("#detailAddress").val().length<1){
@@ -395,8 +423,8 @@ hr {
 							Swal.fire({
 							  icon: 'error',
 							  title: '상세주소를 입력하세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							 
 							})
 							return false;
 					}else if($('input[name="userGender"]:checked').val()===undefined){
@@ -404,8 +432,8 @@ hr {
 						Swal.fire({
 							  icon: 'error',
 							  title: '성별을 선택해주세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							
 							})
 							return false;
 					}else if($('input[name="userMajor"]:checked').val()===undefined){
@@ -413,8 +441,17 @@ hr {
 						Swal.fire({
 							  icon: 'error',
 							  title: '전공구분을 선택해주세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							 
+							})
+							return false;
+					}else if($("select[name=userJob]").val()===""){
+						$("#c1").focus();
+						Swal.fire({
+							  icon: 'error',
+							  title: '직업구분을 선택해주세요!',
+							  text: 'Something went wrong!'
+							
 							})
 							return false;
 					}else if($('input[name="userPosition"]:checked').val()===undefined){
@@ -422,8 +459,8 @@ hr {
 						Swal.fire({
 							  icon: 'error',
 							  title: '과정구분을 선택해주세요!',
-							  text: 'Something went wrong!',
-							  footer: '<a href>Why do I have this issue?</a>'
+							  text: 'Something went wrong!'
+							  
 							})
 							return false;
 					}else if($("#com").val()==""){
@@ -562,8 +599,8 @@ hr {
 						<div class="email regex" id="email_check"></div>
 					</div>
 					<div id="date">
-						<label class="title" id="c1">생년월일</label> <input type="text" name="birth"
-							class="birth" id="datepicker" placeholder="생년월일">
+						<label class="title" id="c1">생년월일</label> <input type="text"
+							name="birth" class="birth" id="datepicker" placeholder="생년월일">
 
 						<div id="toggle">
 							<input type="radio" id="male" name="userGender" value="남자">
@@ -583,7 +620,7 @@ hr {
 					<div>
 						<label class="title">직업</label> <select id="position"
 							name="userJob" size='1'>
-							<option value=''>직업선택</option>
+							<option name="userJob" value="">직업선택</option>
 							<option name="userJob" value="학생">학생</option>
 							<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
 							<option name="userJob" value="언론">언론</option>

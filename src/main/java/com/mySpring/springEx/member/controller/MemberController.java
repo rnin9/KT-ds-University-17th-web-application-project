@@ -23,5 +23,8 @@ public interface MemberController {
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public void userApplyPartner(@RequestParam("partnerApplyUserID") String partnerApplyUserID,
+								 @RequestParam("partnerApplyPartnerID") String partnerApplyPartnerID,
+								 HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }

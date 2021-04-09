@@ -55,20 +55,34 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
+	//	list all recruitments
 	@Override
 	@RequestMapping(value = { "/member/apply.do"}, method = RequestMethod.GET)
 	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
-		System.out.println(recruitsList);
-		System.out.println("appllllllyyyyyyyyy");
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("recruitsList", recruitsList);
 		return mav;
 	}
 
+	//	insert into PARTNER_APPLY
 	@Override
-	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/userApplyPartner.do", method = RequestMethod.GET)
+	public void userApplyPartner(@RequestParam("partnerApplyUserID") String partnerApplyUserID,
+								 @RequestParam("partnerApplyPartnerID") String partnerApplyPartnerID,
+								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println("hiiiiiiiiiiiiiiiiiiii@@@@");
+		System.out.println(partnerApplyUserID);
+		System.out.println(partnerApplyPartnerID);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
+		memberService.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+//		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+	}
+
+	@Override
+	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.POST)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		System.out.println(viewName);
@@ -148,9 +162,12 @@ public class MemberControllerImpl implements MemberController {
 	if(memberVO != null) {
 	    HttpSession session = request.getSession();
 	    session.setAttribute("member", memberVO);
+	    System.out.println(memberVO.getResume());
 	    session.setAttribute("isLogOn", true);
 	    mav.addObject("result",true);
 	    mav.setViewName("jsonView");
+	    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
+	    System.out.println(member.getResume());
 		/*
 		 * //mav.setViewName("redirect:/member/listMembers.do"); String action =
 		 * (String)session.getAttribute("action"); session.removeAttribute("action");

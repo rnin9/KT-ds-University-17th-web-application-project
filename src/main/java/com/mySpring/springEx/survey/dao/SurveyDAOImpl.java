@@ -26,5 +26,11 @@ public class SurveyDAOImpl implements SurveyDAO{
 		int result = sqlSession.insert("mapper.survey.insertSurvey", surveyVO);
 		return result;
 	}
+	
+	@Override
+	public int deleteSurvey(String survey_Id) throws DataAccessException {
+		int result = sqlSession.delete("mapper.survey.deleteSurvey", survey_Id);
+		return result;
+	}
 
 }

@@ -17,9 +17,7 @@ public interface MemberService {
 
 	public MemberVO login(MemberVO memberVO) throws Exception;
 
-	
-
-	//새로 추가된 놈들
+	//회원가입
 	public void check_id(String id, HttpServletResponse response) throws Exception;
 
 	public void check_email(String email, HttpServletResponse response) throws Exception;
@@ -28,11 +26,11 @@ public interface MemberService {
 
 	public void approval_member(MemberVO member, HttpServletResponse response) throws Exception;
 
-	public String create_key() throws Exception;
-
 	public void send_mail(MemberVO member) throws Exception;
 
 	// methods for partner apply
 	public List listRecruitments() throws DataAccessException;
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
 }

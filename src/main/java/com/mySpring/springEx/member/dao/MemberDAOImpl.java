@@ -1,5 +1,6 @@
 package com.mySpring.springEx.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,10 +26,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public  List selectAllRecruitList() throws DataAccessException {
+	public List selectAllRecruitList() throws DataAccessException {
 		List<PartnerVO> partnerList = null;
 		partnerList = sqlSession.selectList("mapper.member.selectAllRecruitList");
 		return partnerList;
+	}
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerApplyUserID", partnerApplyUserID);
+		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
+		return sqlSession.insert("mapper.member.user_apply", map);
 	}
 
 	@Override
@@ -40,6 +48,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException {
 		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", memberVO);
+		vo.setResume((String) sqlSession.selectOne("mapper.member.check_resume", vo.getUserId()));
 		return vo;
 	}
 	//test¿ë

@@ -25,4 +25,7 @@ public interface MemberDAO {
 
 	public List selectAllRecruitList() throws DataAccessException;
 
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
+
 }
