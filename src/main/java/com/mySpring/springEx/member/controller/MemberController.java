@@ -23,4 +23,7 @@ public interface MemberController {
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 }

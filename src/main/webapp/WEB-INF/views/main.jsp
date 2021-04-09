@@ -137,7 +137,7 @@ request.setCharacterEncoding("UTF-8");
 						style="animation-delay: 1s;">KT ds 교육센터는 교육의 질을 향상시킵니다</h2>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;"onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
 				</div>
 			</div>
 			<div class="carousel-item">
@@ -152,7 +152,7 @@ request.setCharacterEncoding("UTF-8");
 						계층별 리더십과 마인드를 함양합니다.</h3>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;" onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
 				</div>
 			</div>
 			<div class="carousel-item">
@@ -167,7 +167,7 @@ request.setCharacterEncoding("UTF-8");
 						제시합니다.</h3>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;" onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
 				</div>
 			</div>
 		</div>

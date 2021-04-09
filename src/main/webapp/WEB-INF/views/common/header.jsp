@@ -106,7 +106,7 @@ request.setCharacterEncoding("UTF-8");
 							kt ds Univ. </a>
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="${contextPath}/universityIntro.do"> 회사소개</a></li>
-							<li><a class="dropdown-item" href="#"> 컨소시엄</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/member/listMembers.do">과정신청</a></li>
@@ -215,7 +215,7 @@ request.setCharacterEncoding("UTF-8");
 							${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
@@ -231,7 +231,7 @@ request.setCharacterEncoding("UTF-8");
 							${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
@@ -245,7 +245,7 @@ request.setCharacterEncoding("UTF-8");
 							<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
