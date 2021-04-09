@@ -184,6 +184,10 @@ a:link, a:visited, a:hover {
 		color: rebeccapurple;
 		border-bottom: 2px solid rebeccapurple;
 	}
+	.navbar .nav-item:hover .nav-link-admin:hover {
+		color: rebeccapurple;
+		border-bottom: 2px solid rebeccapurple;
+	}
 	.navbar .dropdown-menu .fade-down {
 		top: 80%;
 		transform: rotateX(-75deg);
@@ -212,10 +216,25 @@ a:link, a:visited, a:hover {
 	-moz-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
 }
 
+.bg-primary-admin {
+	background-color: #212529 !important;
+	box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+	-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+	-moz-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+}
+
 .navbar-dark .navbar-nav .nav-item .nav-link {
 	color: black;
 	font-family: S-CoreDream-3Light;
 	font-weight: bold;
+	transition: color 0.4s; /* For modern browsers */
+}
+
+.navbar-dark .navbar-nav .nav-item .nav-link-admin {
+	color: white;
+	font-family: S-CoreDream-3Light;
+	font-weight: bold;
+	padding:8px;
 	transition: color 0.4s; /* For modern browsers */
 }
 
