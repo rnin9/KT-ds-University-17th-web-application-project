@@ -79,7 +79,7 @@ request.setCharacterEncoding("UTF-8");
 	<c:choose>
 		<c:when
 			test="${ (isLogOn == true && member.userPosition == 'ADMIN') || (isLogOn == true && member.userPosition == 'PARTNER')}">
-				<a class="navbar-brand" href="${contextPath}/main.do"><img
+				<a class="navbar-brand-admin" href="${contextPath}/main.do"><img
 				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo1.png"
 				alt="로고" /></a>
 		</c:when>
@@ -105,7 +105,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							kt ds Univ. </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 회사소개</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item" href="#"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
@@ -177,6 +177,7 @@ request.setCharacterEncoding("UTF-8");
 						data-toggle="dropdown"> 고객지원 </a>
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
@@ -188,6 +189,7 @@ request.setCharacterEncoding("UTF-8");
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
@@ -259,7 +261,6 @@ request.setCharacterEncoding("UTF-8");
 				</c:otherwise>
 			</c:choose>
 		</ul>
-
 	</div>
 	<!-- navbar-collapse.// -->
 	</nav>

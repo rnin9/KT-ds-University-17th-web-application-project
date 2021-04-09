@@ -37,6 +37,12 @@
 		<put-attribute name="body"
 					   value="/WEB-INF/views/location.jsp" />
 	</definition>
+	
+	<definition name="universityIntro" extends="baseLayout">
+		<put-attribute name="title" value="회사소개" />
+		<put-attribute name="body"
+					   value="/WEB-INF/views/university/universityIntro.jsp" />
+	</definition>
 
 	<definition name="/member/listMembers" extends="baseLayout">
 		<put-attribute name="title" value="회원목록창" />
