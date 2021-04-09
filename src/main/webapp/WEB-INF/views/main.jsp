@@ -227,14 +227,16 @@ request.setCharacterEncoding("UTF-8");
 	<!-- card deck 시작 -->
 	<div class="card-deck">
 		<div class="card">
+		<a href="#">
 			<img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/mainPage/cardImage/classPerson.png"
 				alt="Card image cap">
+		</a>
 			<div class="card-body">
 				<h5 class="card-title">채용예정자 과정</h5>
 				<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액 무료의
 					KT ds University의 교육과정입니다.</p>
-
+		
 			</div>
 		</div>
 		<div class="card">
@@ -243,7 +245,7 @@ request.setCharacterEncoding("UTF-8");
 				alt="Card image cap">
 			<div class="card-body">
 				<h5 class="card-title">재직자 과정</h5>
-				<p class="card-text">고용보험이 적용되는 중소기업 또는 우선 지원대상기업, 협력사에 재직중은
+				<p class="card-text">고용보험이 적용되는 중소기업 또는 우선 지원대상기업, 협력사에 재직중인
 					임직원을 위한 교육과정입니다.</p>
 
 			</div>

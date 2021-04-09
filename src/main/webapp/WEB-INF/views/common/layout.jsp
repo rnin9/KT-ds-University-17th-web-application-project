@@ -173,7 +173,8 @@ a:link, a:visited, a:hover {
 /* ===============font-end=========== */
 
 /* ============ only desktop view ============ */
-@media all and (min-width: 800px) {
+@media all and (min-width: 1100px) {
+
 	.navbar .nav-item .dropdown-menu {
 		opacity: 0;
 		visibility: hidden;
@@ -181,6 +182,10 @@ a:link, a:visited, a:hover {
 		margin-top: 0;
 	}
 	.navbar .nav-item:hover .nav-link:hover {
+		color: rebeccapurple;
+		border-bottom: 2px solid rebeccapurple;
+	}
+	.navbar .nav-item:hover .nav-link-admin:hover {
 		color: rebeccapurple;
 		border-bottom: 2px solid rebeccapurple;
 	}
@@ -205,8 +210,16 @@ a:link, a:visited, a:hover {
 	}
 }
 
+
 .bg-primary {
 	background-color: white !important;
+	box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+	-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+	-moz-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
+}
+
+.bg-primary-admin {
+	background-color: #212529 !important;
 	box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
 	-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
 	-moz-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
@@ -216,6 +229,14 @@ a:link, a:visited, a:hover {
 	color: black;
 	font-family: S-CoreDream-3Light;
 	font-weight: bold;
+	transition: color 0.4s; /* For modern browsers */
+}
+
+.navbar-dark .navbar-nav .nav-item .nav-link-admin {
+	color: white;
+	font-family: S-CoreDream-3Light;
+	font-weight: bold;
+	padding:8px;
 	transition: color 0.4s; /* For modern browsers */
 }
 
