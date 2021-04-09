@@ -50,15 +50,13 @@ request.setCharacterEncoding("UTF-8");
 		        })}
     		  }
     		}).then((result) => {
-    			console.log(result);
     			if(result.isConfirmed){			// 확인된 경우, 로그인
-						console.log(result.value.member.userId);
     				   Swal.fire({    					   
-	                      	title: "환영합니다! " + result.value.member.userId + " 님!",
+	                      	title: "환영합니다! " + result.value.member.userName + " 님!",
 	                        icon: "success"
 	                    })
  
-                		setTimeout(() => window.location.reload(), 1000); // 페이지 새로고침
+                		 setTimeout(() => window.location.reload(), 1000); // 페이지 새로고침
     		 	}
     		}) 
      }
@@ -66,93 +64,204 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-	
+
 	<!-- 권한별 다른 메뉴, position별로 기능 추가 필요 -->
-	
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		<a class="navbar-brand" href="${contextPath}/main.do"><img
-			src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
-			alt="로고" /></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#main_nav" aria-expanded="false"
-			aria-label="Toggle navigation" style="background-color: indianred;">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="main_nav">
+	<c:choose>
+		<c:when
+			test="${isLogOn == null || (member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER')}">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		</c:when>
+		<c:otherwise>
+			<nav class="navbar navbar-expand-xl navbar-dark bg-primary-admin">
+		</c:otherwise>
+	</c:choose>
 
-			<ul class="navbar-nav mr-auto">
+	<c:choose>
+		<c:when
+			test="${ (isLogOn == true && member.userPosition == 'ADMIN') || (isLogOn == true && member.userPosition == 'PARTNER')}">
+				<a class="navbar-brand" href="${contextPath}/main.do"><img
+				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo1.png"
+				alt="로고" /></a>
+		</c:when>
+		<c:otherwise>
+			<a class="navbar-brand" href="${contextPath}/main.do"><img
+				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
+				alt="로고" /></a>
+		</c:otherwise>
+	</c:choose>
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#main_nav" aria-expanded="false"
+		aria-label="Toggle navigation" style="background-color: indianred;">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="main_nav">
+		<ul class="navbar-nav mr-auto">
+			<!-- 일반유저, 회원(사용자인 경우 시작) -->
+			<c:choose>
+				<c:when
+					test="${isLogOn == null || (member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER')}">
+					<li class="nav-item dropdown"><a
+						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+							kt ds Univ. </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 회사소개</a></li>
+							<li><a class="dropdown-item" href="#"> 컨소시엄</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${contextPath}/member/listMembers.do">과정신청</a></li>
+				</c:when>
+			</c:choose>
+			<!-- 일반유저, 회원(사용자인 경우 끝) -->
+			<!-- 일반유저, 회원(관리자인 경우 시작) -->
+			<c:choose>
+				<c:when
+					test="${isLogOn == true  && member!= null  && member.userPosition == 'ADMIN'}">
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> 회원관리 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 회원정보관리</a></li>
+							<li><a class="dropdown-item" href="#"> 이력서관리 </a></li>
+							<li><a class="dropdown-item" href="#"> 지원서관리 </a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> 강의관리 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 강의계획서 관리</a></li>
+							<li><a class="dropdown-item" href="#"> 과정관리 </a></li>
+							<li><a class="dropdown-item" href="#"> 수강관리 </a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> 협력사관리 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 기업정보관리</a></li>
+							<li><a class="dropdown-item" href="#"> 모집공고관리 </a></li>
+						</ul></li>
 
 
-				<li class="nav-item"><a class="nav-link" href="#">KT
-						university</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${contextPath}/member/listMembers.do">공지사항</a></li>
-				<c:choose>
-				<c:when test="${isLogOn == true  && member!= null  && member.userId == 'ADMIN'}">
-						<li class="nav-item"><a class="nav-link" href="${contextPath}/member/listMembers.do">공지사항</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextPath}/survey/listSurvey.do">설문조사	</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
-								수강관리 </a>
-							<ul class="dropdown-menu fade-up">
-								<li><a class="dropdown-item" href="#"> 채용예정자</a></li>
-								<li><a class="dropdown-item" href="#"> 재직자 </a></li>
-							</ul></li>
-					</c:when>
-					<c:when test="${isLogOn == true  && member!= null}">
-						<%-- <li class="nav-item"><a class="nav-link"
-							href="${contextPath}/member/listMembers.do">공지사항</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
-								수강관리 </a>
-							<ul class="dropdown-menu fade-up">
-								<li><a class="dropdown-item" href="#"> 채용예정자</a></li>
-								<li><a class="dropdown-item" href="#"> 재직자 </a></li>
-							</ul></li> --%>
-					</c:when>
-					
-				</c:choose>
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/member/listMembers.do">공지사항 관리</a></li>
+					<li class="nav-item"><a class="nav-link-admin" href="#">문의사항
+							관리</a></li>
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/survey/listSurvey.do">설문조사 관리</a></li>
+				</c:when>
+			</c:choose>
+			<!-- 관리자인 경우 끝) -->
+			<!-- 협력사인 경우 시작) -->
+			<c:choose>
+				<c:when
+					test="${isLogOn == true  && member!= null  && member.userPosition == 'PARTNER'}">
+					<li class="nav-item"><a class="nav-link-admin" href="#">기업정보
+							관리</a></li>
+					<li class="nav-item"><a class="nav-link-admin" href="#">지원자
+							관리</a></li>
+					<li class="nav-item"><a class="nav-link-admin" href="#">직원
+							관리</a></li>
+				</c:when>
+			</c:choose>
+			<!-- 협력사인 경우 끝) -->
+		</ul>
 
-			</ul>
+		<ul class="navbar-nav ml-auto">
+			<!-- 관리자가 아닌경우 시작 -->
+			<c:choose>
+				<c:when test="${ member.userPosition == 'PARTNER'}">
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/location.do"> 교육장 안내 </a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> 고객지원 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
+						</ul></li>
+				</c:when>
+				<c:when test="${member.userPosition != 'ADMIN'}">
+					<li class="nav-item"><a class="nav-link"
+						href="${contextPath}/location.do"> 교육장 안내 </a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+							고객지원 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
+						</ul></li>
+				</c:when>
+			</c:choose>
+			<!-- 관리자가 아닌경우 끝 -->
+			<!-- 로그인이 아닌경우 회원가입 보임 -->
+			<c:choose>
+				<c:when test="${isLogOn == null}">
+					<li class="nav-item"><a
+						href="${contextPath}/member/memberJoinForm.do" class="nav-link">
+							회원가입 </a></li>
+				</c:when>
+			</c:choose>
+			<!-- 회원이 아닌경우 회원가입 보임 끝 -->
 
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="#"> Menu
-						item </a></li>
-				<li class="nav-item"><a class="nav-link" href="${contextPath}/location.do"> 교육장 안내 </a></li>
+			<!-- 오른쪽 메뉴 -->
+			<c:choose>
+				<c:when
+					test="${(isLogOn == true  && member.userPosition == 'ADMIN')}">
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> <i class="fas fa-cog"></i>
+							${member.userName} (${member.userId})
+					</a>
+						<ul class="dropdown-menu dropdown-menu-right fade-down">
+							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/member/logout.do"><i
+							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
+					</a></li>
+				</c:when>
+				<c:when
+					test="${ isLogOn == true && member.userPosition == 'PARTNER'}">
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin  dropdown-toggle" href="#"
+						data-toggle="dropdown"> <i class="fas fa-cog"></i>
+							${member.userName} (${member.userId})
+					</a>
+						<ul class="dropdown-menu dropdown-menu-right fade-down">
+							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/member/logout.do"><i
+							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
+					</a></li>
+				</c:when>
+				<c:when test="${isLogOn == true  && member.userPosition!= 'ADMIN'}">
+					<li class="nav-item dropdown"><a
+						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+							<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
+					</a>
+						<ul class="dropdown-menu dropdown-menu-right fade-down">
+							<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${contextPath}/member/logout.do"><i
+							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
+					</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item"><a class="nav-link"
+						onclick="onLoginClicked()"> <span style="margin-right: 5px;">login</span><i
+							class="fas fa-sign-in-alt" style="font-size: 25px"></i>
+					</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 
-				<li class="nav-item"><a href="${contextPath}/member/memberJoinForm.do" class="nav-link"> 회원가입 </a></li>
-
-
-				<c:choose>
-					<c:when test="${isLogOn == true  && member!= null}">
-						<li class="nav-item dropdown"><a
-							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
-								<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
-						</a>
-							<ul class="dropdown-menu dropdown-menu-right fade-down">
-								<li><a class="dropdown-item" href="#"> 내정보 관리</a></li>
-								<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
-							</ul></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${contextPath}/member/logout.do"><i
-								class="fas fa-sign-out-alt" style="font-size: 25px"></i> <i
-								class="fas fa-running"
-								style="font-size: 25px; margin-left: 3px;"></i> </a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link"
-							onclick="onLoginClicked()"> <i class="fas fa-running"
-								style="font-size: 25px; margin-right: 6px;"></i><i
-								class="fas fa-sign-in-alt" style="font-size: 25px"></i>
-						</a></li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-
-		</div>
-		<!-- navbar-collapse.// -->
+	</div>
+	<!-- navbar-collapse.// -->
 	</nav>
 
 </body>

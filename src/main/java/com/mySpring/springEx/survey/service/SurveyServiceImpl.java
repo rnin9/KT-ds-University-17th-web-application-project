@@ -28,4 +28,10 @@ public class SurveyServiceImpl implements SurveyService{
 	public int addSurvey(SurveyVO survey) throws DataAccessException {
 		return surveyDAO.insertSurvey(survey);
 	}
+	
+	//설문조사삭제
+	@Override
+	public int removeSurvey(String survey_Id) throws DataAccessException {
+		return surveyDAO.deleteSurvey(survey_Id);
+	}
 }

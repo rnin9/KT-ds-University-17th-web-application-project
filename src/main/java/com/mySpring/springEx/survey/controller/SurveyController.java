@@ -15,6 +15,10 @@ public interface SurveyController {
 	public ModelAndView addSurvey(@ModelAttribute("survey") SurveyVO surveyVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
+	ModelAndView removeMember(String survey_Id, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+
+
 	/*
 	 * ModelAndView surveyDetail (@RequestParam("surveyId") String surveyId String
 	 * surveyId, HttpServletRequest request, HttpServletResponse response) throws
