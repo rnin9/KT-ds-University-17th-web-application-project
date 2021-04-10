@@ -20,113 +20,9 @@ request.setCharacterEncoding("UTF-8");
 	rel="stylesheet">
 <script
 	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<style>
-.container {
-	width: 80%;
-	font-family: 'Noto Sans KR', sans-serif;
-}
 
-.serarchSubject {
-	display: flex;
-	flex-direction: row;
-}
-
-.subject {
-	display: flex;
-	flex-direction: row;
-}
-
-.col {
-	font-size: 13px;
-}
-
-.table_courseApplyList {
-	border-collapse: collapse;
-	font-size: 14px;
-	line-height: 2.2;
-	text-align: center;
-	/* color: #555; */
-	width: 100%;
-	margin: auto;
-	line-height: 40px;
-}
-
-.table_courseApplyList thead {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	background-color: #f8f8f8;
-	text-align: center;
-}
-
-.well-searchbox {
-	min-height: 20px;
-	min-width: 400px;
-	padding: 19px;
-	top: 90px;
-	background: #f8f8f8;
-	margin-bottom: 20px;
-	padding-bottom: 0px;
-	border: 1px solid #e3e3e3;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	margin-top: 30px;
-}
-
-.well-searchbox label {
-	/* color: #555; */
-	width: 20%;
-	margin: 10px;
-	text-align: right;
-}
-
-.btn {
-	color: white;
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0 .8);
-	display: inline-block;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.form-control {
-	border: hidden;
-	width: 88%;
-}
-
-.form-select {
-	border: hidden;
-	width: 41%;
-	display: inline-block;
-	margin-right: 6%;
-}
-
-.col-md-8 {
-	display: inline-block;
-	text-align: left;
-}
-
-.searchTitle {
-	margin-right: 20px;
-}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 </head>
 
@@ -183,7 +79,7 @@ request.setCharacterEncoding("UTF-8");
 			<form class="form-horizontal" role="form">
 
 				<div class="form-group">
-					<div class="serarchSubject">
+					<div class="searchSubject">
 						<label class="searchTitle">강의명</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" placeholder="강의명">
@@ -191,7 +87,7 @@ request.setCharacterEncoding("UTF-8");
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="serarchSubject">
+					<div class="searchSubject">
 						<label class="searchTitle">수강연월</label>
 						<div class="col-md-8">
 							<div id="sandbox-container">
@@ -203,7 +99,7 @@ request.setCharacterEncoding("UTF-8");
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="serarchSubject">
+					<div class="searchSubject">
 						<label class="searchTitle">소속회사</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" placeholder="소속회사">
@@ -211,7 +107,7 @@ request.setCharacterEncoding("UTF-8");
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="serarchSubject">
+					<div class="searchSubject">
 						<label class="searchTitle">이름</label>
 						<div class="col-md-8">
 							<input type="text" class="form-control" placeholder="이름">
@@ -236,7 +132,7 @@ request.setCharacterEncoding("UTF-8");
 		</ul>
 
 		<!-- 테이블(표, 리스트) -->
-		<table class="table_courseApplyList">
+		<table class="table_">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" class="check-all" /></td>
