@@ -45,7 +45,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	
 	@Override
 	@RequestMapping(value = { "/location.do"}, method = RequestMethod.GET)
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
@@ -54,7 +55,37 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	@Override
+	@RequestMapping(value = { "/universityIntro.do"}, method = RequestMethod.GET)
+	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = { "/universityConsortium.do"}, method = RequestMethod.GET)
+	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = { "/member/myInfo.do"}, method = RequestMethod.GET)
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	
 	@Override
 	@RequestMapping(value = "/member/listMembers.do", method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -207,6 +238,8 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 
 }

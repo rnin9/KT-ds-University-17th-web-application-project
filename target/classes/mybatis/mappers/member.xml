@@ -83,7 +83,7 @@
   <select id="loginById"  resultType="memberVO"   parameterType="String" >
 	<![CDATA[
 		select * from kt_user2
-		where userId=#{userId} and approval_status='true'
+		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
 	]]>
   </select>
 </mapper> 
