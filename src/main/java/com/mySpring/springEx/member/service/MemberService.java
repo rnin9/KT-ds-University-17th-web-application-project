@@ -28,4 +28,5 @@ public interface MemberService {
 
 	public void send_mail(MemberVO member) throws Exception;
 
+	public MemberVO getMyInfo(String userID) throws Exception;
 }

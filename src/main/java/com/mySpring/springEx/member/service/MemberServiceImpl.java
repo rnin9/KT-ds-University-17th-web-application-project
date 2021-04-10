@@ -211,4 +211,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public MemberVO getMyInfo(String userID) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return memberDAO.getMyInformation(userID);
+	}
+	
+	
+
 }

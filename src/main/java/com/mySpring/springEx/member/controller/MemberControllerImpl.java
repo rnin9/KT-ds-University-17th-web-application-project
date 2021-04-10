@@ -77,11 +77,12 @@ public class MemberControllerImpl implements MemberController {
 	
 	@Override
 	@RequestMapping(value = { "/member/myInfo.do"}, method = RequestMethod.GET)
-	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView myInfo(@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
+		memberVO = memberService.getMyInfo(userID);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("myInfo", memberVO);
 		return mav;
 	}
 	

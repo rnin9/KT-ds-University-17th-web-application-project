@@ -67,5 +67,12 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	// 내정보페이지 정보들
+	@Override
+	public MemberVO getMyInformation(String userID) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.member.get_myInformation",userID);
+	}
 
 }
