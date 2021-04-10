@@ -131,7 +131,7 @@ request.setCharacterEncoding("UTF-8");
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="#"> 강의계획서 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 과정관리 </a></li>
-							<li><a class="dropdown-item" href="#"> 수강관리 </a></li>
+							<li><a class="dropdown-item" href="/springEx/courseTake/courseApplyList.do"> 수강관리 </a></li>
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link-admin  dropdown-toggle" href="#"
