@@ -32,7 +32,7 @@ a:link, a:visited, a:hover {
 }
 
 .container {
-   width: 74.61%;
+   width: 74.64%;
    font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -132,17 +132,28 @@ a:link, a:visited, a:hover {
 .searchTitle {
    margin-right: 20px;
 }
-
 </style>
 
 </head>
 
 <script type="text/javascript">
-   $(document).ready(function() {
-      $('.check-all').click(function() {
-         $('.ab').prop('checked', this.checked);
-      });
-   });
+   function checkSelectAll(checkbox)  {
+      const selectall 
+        = document.querySelector('input[name="check-all"]');
+      
+      if(checkbox.checked === false)  {
+        selectall.checked = false;
+      }
+    }
+
+    function selectAll(selectAll)  {
+      const checkboxes 
+         = document.getElementsByName('ab');
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
 </script>
 
 <body>
@@ -213,7 +224,8 @@ a:link, a:visited, a:hover {
          <table class="table_syllabusList">
             <thead>
                <tr align="center">
-                  <td><input type="checkbox" class="check-all" /></td>
+                  <td><input type="checkbox" name="check-all"
+                     onclick='selectAll(this)' /></td>
                   <td><b>번호</b></td>
                   <td><b>분류</b></td>
                   <td><b>강의명</b></td>
@@ -225,9 +237,11 @@ a:link, a:visited, a:hover {
             <tbody id="ajaxTable">
                <c:forEach var="syllabus" items="${syllabusList}">
                   <tr>
-                     <td><input type="checkbox" class="ab"></td>
+                     <td><input type="checkbox" name="ab"
+                        onclick='checkSelectAll(this)' /></td>
                      <td>${syllabus.syllabusID}</td>
-                     <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
+                     <td>${syllabus.syllabusCategory1}>
+                        ${syllabus.syllabusCategory2}</td>
                      <td><a
                         href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
                      <td>${syllabus.syllabusTotalDays}</td>

@@ -16,6 +16,11 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
+	<!-- pagination.mapper의 interface를 읽기 위한 BEAN 등록 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="basePackage" value="com.mySpring.springEx.common.pagination.mapper" />
+	</bean>
+	
 
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -28,5 +33,7 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-
+	
+	
+	
 </beans>
