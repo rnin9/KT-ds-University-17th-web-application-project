@@ -10,7 +10,6 @@
         .container {
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
-            margin-left: 10%;
         }
 
         .mapIntro {
