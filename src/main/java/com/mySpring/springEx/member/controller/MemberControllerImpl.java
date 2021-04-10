@@ -46,6 +46,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
+	// location
 	@Override
 	@RequestMapping(value = { "/location.do"}, method = RequestMethod.GET)
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
@@ -73,10 +74,6 @@ public class MemberControllerImpl implements MemberController {
 								 @RequestParam("partnerApplyPartnerID") String partnerApplyPartnerID,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		System.out.println("hiiiiiiiiiiiiiiiiiiii@@@@");
-		System.out.println(partnerApplyUserID);
-		System.out.println(partnerApplyPartnerID);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!");
 		memberService.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
 //		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 	}
