@@ -74,9 +74,50 @@ request.getParameter("survey_Title");
 
 				<i class="fa fa-table mr-1"></i> Survey List
 			</div>
-				<a class="navbar-brand2" href="${contextPath}/main.do"><img
-						src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
-						alt="로고" /></a>
+			<a class="navbar-brand2" href="${contextPath}/main.do"><img
+				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
+				alt="로고" /></a>
+				<!--paginate -->
+									<div class="paginate">
+										<div class="paging">
+											<a class="direction prev" href="javascript:void(0);"
+												onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
+												&lt;&lt; </a> <a class="direction prev"
+												href="javascript:void(0);"
+												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+												&lt; </a>
+
+											<c:forEach begin="${pagination.firstPage}"
+												end="${pagination.lastPage}" var="idx">
+												<a
+													style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
+													href="javascript:void(0);"
+													onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
+														value="${idx}" /></a>
+											</c:forEach>
+											<a class="direction next" href="javascript:void(0);"
+												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+												&gt; </a> <a class="direction next" href="javascript:void(0);"
+												onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
+												&gt;&gt; </a>
+										</div>
+									</div>
+									<!-- /paginate -->
+
+									<div class="bottom">
+										<div class="bottom-left">
+											<select id="cntSelectBox" name="cntSelectBox"
+												onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
+												class="form-control" style="width: 100px;">
+												<option value="10"
+													<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
+												<option value="20"
+													<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
+												<option value="30"
+													<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
+											</select>
+										</div>
+									</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered" id="table_course" width="100%"
@@ -103,14 +144,14 @@ request.getParameter("survey_Title");
 							<c:forEach var="survey" items="${surveyList}">
 								<tr>
 									<td>${survey.survey_Id}</td>
-									<td>${survey.survey_Mem} ${survey.survey_Title}</td>
+									<td>${survey.survey_Mem}${survey.survey_Title}</td>
 									<td>${survey.writeDate}</td>
 									<td><a
 										href="${contextPath}/survey/survey2Form.do?surveyId=${survey.survey_Id}">상세</a></td>
 									<td><a
 										href='${contextPath}/survey/removeSurvey.do?survey_Id=${survey.survey_Id}'>삭제</a></td>
 								</tr>
-						
+
 								<%-- <tr>
 								<td>1</td>
 								<td class="cursor_test" onclick="location.href='${contextPath}/survey/survey2Form.do?surveyTitle=${survey.surveyTitle}'">웹 어플리케이션 전문가 양성과정</td>
@@ -248,6 +289,25 @@ request.getParameter("survey_Title");
 			</div>
 		</div>
 	</div>
+	<script>
+//10,20,30개씩 selectBox 클릭 이벤트
+function changeSelectBox(currentPage, cntPerPage, pageSize){
+    var selectValue = $("#cntSelectBox").children("option:selected").val();
+    movePage(currentPage, selectValue, pageSize);
+    
+}
+ 
+//페이지 이동
+function movePage(currentPage, cntPerPage, pageSize){
+    var url = "${pageContext.request.contextPath}/survey/listSurvey.do";
+    url = url + "?currentPage="+currentPage;
+    url = url + "&cntPerPage="+cntPerPage;
+    url = url + "&pageSize="+pageSize;
+    
+    location.href=url;
+}
+ 
+</script>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		crossorigin="anonymous"></script>

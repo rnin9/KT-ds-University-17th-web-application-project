@@ -30,7 +30,7 @@
         }
     </script>
     <script>
-        function chk_apply(a,b,c) {
+        function chk_apply (a,b,c) {
             <%--                                            <%System.out.println("11111");%>--%>
             console.log('아아아아아아아ㅏㅏㅏㅏㅏㅏㅏ');
            <%--console.log(${member.resume});--%>
@@ -39,31 +39,66 @@
             let id = '${member.userId}';
             <%--let p = '${member.approvalStatus}';--%>
             let r = '${member.resume}'.toString();
+
             if('${member.resume}' === "Y") {
-                console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
-                console.log(a);
-                console.log(b);
-                console.log(c);
-                console.log('${member.userMajor}');
-                console.log('${member.userJob}');
-                console.log('${member.userAddress2}');
-                console.log('${member.userJoindate}');
-                console.log('${member.approval_status}');
 
                 <%--console.log(${nowdate});--%>
-                location.href = "${contextPath}/member/userApplyPartner.do?partnerApplyUserID="+b+"&partnerApplyPartnerID="+c
+                // const url = "${contextPath}/member/userApplyPartner.do";
+                <%--const url = "${contextPath}/member/userApplyPartner.do";--%>
+                <%--const body = {--%>
+                //     'partnerApplyUserID' : b,
+                //     'partnerApplyPartnerID' : c
+                <%--}--%>
+                // const option = {
+                //     method: "POST",
+                //     mode : "cors",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "accept": "application/json"
+                //     },
+                //     body : JSON.stringify(body)
+                // }
+                fetch("${contextPath}/member/userApplyPartner.do", {
+                    method: "POST",
+                    mode : "cors",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "accept": "application/json"
+                    },
+                    body : JSON.stringify({
+                        partnerApplyUserID : b,
+                        partnerApplyPartnerID : c
+                    })
+                })
+                    .then(res => {
+                        console.log(res)
+                        if(res.status == '500') {
+                            swal("중복 지원.", "중복 지원.", "info");
+                        } else {
+                            swal("지원 완료.", "지원 완료.", "success");
+                        }
+                    })
+                    .catch(e => console.log(e));
+                // fetch(url, option)
+                //     .then((response) => {
+                //         console.log("??");
+                //         console.log(response);
+                //         swal("지원 완료.", "지원 완료.", "success");
+                //     })
+                //     .catch(e => console.log(e));
+                <%--location.href = "${contextPath}/member/userApplyPartner.do?partnerApplyUserID="+b+"&partnerApplyPartnerID="+c--%>
                 <%--location.href = "${contextPath}/member/userApplyPartner.do?partnerApplyUserID="+b;--%>
             } else {
-                console.log('ㄴㄴㄴㄴㄴ');
-                console.log(a);
-                console.log(b);
-                console.log(c);
-                console.log('${member.userMajor}');
-                console.log('${member.userJob}');
-                console.log('${member.userAddress2}');
-                console.log('${member.userJoindate}');
-                console.log('${member.approval_status}');
+                swal("등록 된 이력서 없음.", "이력서가 필요합니다.", "warning");
             }
+            /*
+            *
+            * fetch()
+            * .then(response => {
+            *
+            * }).then.catch
+            *
+            * */
         }
     </script>
     <style>
@@ -181,7 +216,7 @@
 <%--                                        <td><a data-toggle="modal" href="#myModal" onclick="getPartnerInfo(${recruit.partnerInformation});">${recruit.partnerName}</a></td>--%>
                                         <td>${recruit.partnerApplyFinishDate}</td>
 <%--                                        <td>${recruit.partnerApplyFinishDate}</td>--%>
-                                        <td><a href="#" onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');">지원하기</a></td>
+                                        <td><a href="#" onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');return false;">지원하기</a></td>
 <%--                                        ${date}&partnerApplyState='진행중'"--%>
                                     </tr>
 

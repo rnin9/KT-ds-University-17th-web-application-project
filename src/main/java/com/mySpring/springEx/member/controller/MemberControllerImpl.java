@@ -1,6 +1,8 @@
 package com.mySpring.springEx.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,10 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,15 +28,15 @@ public class MemberControllerImpl implements MemberController {
 	MemberVO memberVO;
 
 
-	// 메인화면
+	// 硫붿씤�솕硫�
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // string형태로 request viewName을 저장
-		ModelAndView mav = new ModelAndView(); // mav 생성
-		mav.setViewName(viewName); // // mav의 view위치에 request했었던 (/,main.do) viewName을 넣어 해당위치로 이동한다
+		String viewName = (String) request.getAttribute("viewName"); // string�삎�깭濡� request viewName�쓣 ���옣
+		ModelAndView mav = new ModelAndView(); // mav �깮�꽦
+		mav.setViewName(viewName); // // mav�쓽 view�쐞移섏뿉 request�뻽�뿀�뜕 (/,main.do) viewName�쓣 �꽔�뼱 �빐�떦�쐞移섎줈 �씠�룞�븳�떎
 		return mav;
 	}
-	//faq 이동
+	// faq
 	@RequestMapping(value = { "/faq.do"}, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
@@ -50,6 +49,36 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	@RequestMapping(value = { "/location.do"}, method = RequestMethod.GET)
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+
+
+	@Override
+	@RequestMapping(value = { "/universityIntro.do"}, method = RequestMethod.GET)
+	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = { "/universityConsortium.do"}, method = RequestMethod.GET)
+	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = { "/member/myInfo.do"}, method = RequestMethod.GET)
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
@@ -69,13 +98,16 @@ public class MemberControllerImpl implements MemberController {
 
 	//	insert into PARTNER_APPLY
 	@Override
-	@RequestMapping(value = "/member/userApplyPartner.do", method = RequestMethod.GET)
-	public void userApplyPartner(@RequestParam("partnerApplyUserID") String partnerApplyUserID,
-								 @RequestParam("partnerApplyPartnerID") String partnerApplyPartnerID,
+	@RequestMapping(value = {"/member/userApplyPartner.do"}, method = {RequestMethod.GET, RequestMethod.POST})
+	public void userApplyPartner(@RequestBody Map<String, String> body,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map<String, String> resultMap = new HashMap<String, String>();
 		request.setCharacterEncoding("utf-8");
-		memberService.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+		System.out.println(body.get("partnerApplyUserID"));
+		System.out.println(body.get("partnerApplyPartnerID"));
+		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 //		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+//		return resultMap;
 	}
 
 	@Override
@@ -102,13 +134,13 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 
-	// 회원가입
+	// �쉶�썝媛��엯
 	/*
 	 * @Override
 	 *
 	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-	 * modelAttritbute로 회원가입창에서 받은 member정보를 // MemberVO클래스의 member객체에 저장
+	 * modelAttritbute濡� �쉶�썝媛��엯李쎌뿉�꽌 諛쏆� member�젙蹂대�� // MemberVO�겢�옒�뒪�쓽 member媛앹껜�뿉 ���옣
 	 * HttpServletRequest request, HttpServletResponse response) throws Exception {
 	 * request.setCharacterEncoding("utf-8"); int result = 0; result =
 	 * memberService.addMember(member); ModelAndView mav = new
@@ -116,7 +148,7 @@ public class MemberControllerImpl implements MemberController {
 	 */
 
 
-	//새로지으려는 회원가입!!!
+	//�깉濡쒖��쑝�젮�뒗 �쉶�썝媛��엯!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -129,7 +161,7 @@ public class MemberControllerImpl implements MemberController {
 
 
 
-	// 회원 인증
+	// �쉶�썝 �씤利�
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -137,7 +169,7 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// 회원삭제
+	// �쉶�썝�궘�젣
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -148,7 +180,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	//로그인
+	//濡쒓렇�씤
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
@@ -162,6 +194,7 @@ public class MemberControllerImpl implements MemberController {
 	    System.out.println(memberVO.getResume());
 	    session.setAttribute("isLogOn", true);
 	    mav.addObject("result",true);
+	    mav.addObject("member",memberVO);
 	    mav.setViewName("jsonView");
 	    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
 	    System.out.println(member.getResume());
@@ -182,7 +215,7 @@ public class MemberControllerImpl implements MemberController {
 	return mav;
 	}
 
-	// 로그아웃
+	// 濡쒓렇�븘�썐
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -232,6 +265,8 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 
 }
