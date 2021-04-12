@@ -40,6 +40,7 @@
 	flex-direction: row;
 	justify-content: center;
 	padding: 45px 25px;
+	margin-bottom:0px;
 }
 
 .footer-bottom ul li {

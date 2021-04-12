@@ -59,6 +59,10 @@
 
 <link rel="stylesheet" type="text/css"
 	href="//fonts.googleapis.com/css?family=Droid+Sans" />
+	
+<%-- layou css import --%>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layout.css" />
 <%--폰트 --%>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -70,83 +74,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 
-<%--========================import module end============================= --%>
-
-
-<style>
-#container {
-	width: 100%;
-	text-align: center;
-	border: 0px solid #bcbcbc;
-}
-
-#header {
-	/*  margin-bottom: 5px; */
-	border: 0px solid #bcbcbc;
-	position: fixed;
-	width: 100%;
-	z-index: 997;
-}
-
-#sidebar-left {
-	width: 15%;
-	height: 700px;
-	padding: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	float: left;
-	background-color: yellow;
-	border: 0px solid #bcbcbc;
-	font-size: 10px;
-}
-
-#content {
-	width: 100%;
-	padding-top: 64px;
-	border: 0px solid #bcbcbc;
-	background-color: white;
-
-	padding-bottom: 20px;
-}
-
-#footer {
-	clear: both;
-	width: 100%;
-	border: 0px solid #bcbcbc;
-	background-color: #333; /* 
-        display:flex; */
-}
-
-.lnb {
-	display: block;
-	border-bottom: 1px solid #eeeeee;
-	padding: 20px 0 0;
-}
-
-.lnb > ul {
-	list-style: none;
-	padding: 0;
-	text-align: left;
-}
-
-.lnb > ul > li {
-	display: inline-block;
-	margin-left: 9px;
-	padding-left: 15px;
-	margin-left: 9px;
-}
-
-a:link, a:visited, a:hover {
-	color: black;
-	text-decoration: none;
-}
-
-</style>
-
-<%-- =================custom css start========================= --%>
+<%--=========================font=============================== --%>
 <style type="text/css">
-
-/* =====================font================ */
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .notosanskr * {
@@ -171,64 +100,10 @@ a:link, a:visited, a:hover {
 	font-style: normal;
 }
 /* ===============font-end=========== */
-
-/* ============ only desktop view ============ */
-@media all and (min-width: 800px) {
-	.navbar .nav-item .dropdown-menu {
-		opacity: 0;
-		visibility: hidden;
-		transition: .3s;
-		margin-top: 0;
-	}
-	.navbar .nav-item:hover .nav-link:hover {
-		color: rebeccapurple;
-		border-bottom: 2px solid rebeccapurple;
-	}
-	.navbar .dropdown-menu .fade-down {
-		top: 80%;
-		transform: rotateX(-75deg);
-		transform-origin: 0% 0%;
-		color: rebeccapurple;
-	}
-	.navbar .dropdown-menu .fade-up {
-		top: 180%;
-		color: rebeccapurple;
-	}
-	.navbar .nav-item:hover .dropdown-menu {
-		display: block;
-		transition: .3s;
-		opacity: 1;
-		visibility: visible;
-		top: 100%;
-		transform: rotateX(0deg);
-		color: rebeccapurple;
-	}
-}
-
-.bg-primary {
-	background-color: white !important;
-	box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
-	-webkit-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
-	-moz-box-shadow: 0px 5px 5px -2px rgba(25, 25, 25, 0.15);
-}
-
-.navbar-dark .navbar-nav .nav-item .nav-link {
-	color: black;
-	font-family: S-CoreDream-3Light;
-	font-weight: bold;
-	transition: color 0.4s; /* For modern browsers */
-}
-
-.navbar-brand img {
-	width: 118px;
-	height: 37px;
-	padding-bottom: 1px;
-}
 </style>
-<%-- =================custom css end========================= --%>
+
 
 <title><tiles:insertAttribute name="title" /></title>
-
 </head>
 <body>
 	<div id="container">
