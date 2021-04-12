@@ -227,7 +227,7 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 
 <script>
 function handleModify() { 
-	Swal.fire({
+	Swal.fire({					/* 수정실행 확인 */
 	  title:'정보 수정',
 	  text: '해당 내용으로 수정하시겠습니까?',
 	  showCancelButton: true,
@@ -242,7 +242,7 @@ function handleModify() {
 	    	 $("#modForm").submit();
 	    })
 	  } else{
-			return;  
+			return;  	/* 수정실행 취소 */
 	  }
 	})
 }
@@ -251,7 +251,7 @@ function handleModify() {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">내 정보</span>
+		<span style="color: white;">마이 페이지</span>
 	</div>
 
 	<div class="lnb">
@@ -259,13 +259,13 @@ function handleModify() {
 			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 			<li style="color: grey; font-weight: bold;">〉</li>
 			<li class="on"><a
-				href="${pageContext.request.contextPath}/myInfo.do">내 정보</a></li>
+				href="${pageContext.request.contextPath}/myInfo.do">마이 페이지</a></li>
 		</ul>
 	</div>
 	<!-- 페이지에 대한 intro -->
-	<div class="faqIntro">${myInfo.userId}의정보</div>
+	<div class="faqIntro">${myInfo.userId}의 페이지</div>
 
-
+	<!-- 내정보/수강정보 탭 -->
 	<section id="tabs" class="project-tab">
 		<div class="container">
 			<div class="row">
@@ -273,13 +273,13 @@ function handleModify() {
 					<nav style="margin-top: 50px;">
 						<ul class="nav nav-tabs">
 							<li class="nav-item"><a class="nav-link active"
-								aria-current="page" data-toggle="tab" href="#nav-home">내 정보</a>
+								aria-current="page" data-toggle="tab" href="#nav-home">마이 페이지</a>
 							</li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
 								href="#nav-profile">수강 목록</a></li>
 						</ul>
 					</nav>
-
+					<!-- 마이페이지 탭 시작-->
 					<div class="tab-content" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="nav-home"
 							role="tabpanel" aria-labelledby="nav-home-tab">
@@ -322,6 +322,7 @@ function handleModify() {
 												value='${myInfo.userEmail}'>
 											<div class="email_regex"></div>
 											<c:choose>
+											<!-- 채용예정자인 경우 default 시작 -->
 												<c:when test="${myInfo.userPosition =='채용예정자'}">
 													<div class="toggle">
 														<label class="title" style="margin-right: 5%;">대상</label>
@@ -332,6 +333,8 @@ function handleModify() {
 													</div>
 												</c:when>
 												<c:otherwise>
+												
+											<!-- 재직자인 경우 default 시작 -->
 													<div class="toggle">
 														<label class="title" style="margin-right: 5%;">대상</label>
 														<input type="radio" id="ktu" name="userPosition"
@@ -354,7 +357,7 @@ function handleModify() {
 														value='${myInfo.userAddress2}' placeholder="상세 주소">
 												</div>
 											</div>
-
+											<!-- 전공인경우 default 시작 -->
 											<c:choose>
 												<c:when test="${myInfo.userMajor =='전공'}">
 													<div class="toggle"
@@ -365,6 +368,7 @@ function handleModify() {
 														<label for="nonMajor">비전공</label>
 													</div>
 												</c:when>
+												<!-- 비전공인경우 default 시작 -->
 												<c:otherwise>
 													<div class="toggle"
 														style="transform: translateY(50%); margin-right: 20px">
@@ -377,12 +381,13 @@ function handleModify() {
 											</c:choose>
 										</div>
 									</div>
+							<!-- 마이페이지 탭 끝-->
 								</div>
 								<div id="modifyInfo">
 									<input type="button" value="수정하기" onclick='handleModify()'>
 								</div>
 							</form>
-
+					
 							<script>
 								function sample4_execDaumPostcode() {
 									new daum.Postcode(
@@ -415,6 +420,7 @@ function handleModify() {
 											}).open();
 								}
 								
+								/* 입력유효성 체크 시작 */
 								  $("#name").on("input",function(){
 						                var regex = /[ㄱ-힣]{1,}/;
 						                var result = regex.exec($("#name").val());
@@ -465,8 +471,10 @@ function handleModify() {
 						                        $(".pwd_regex").html("8자리 이상으로 설정하세요.");
 						                    }
 						                })
+						                /* 입력유효성 체크 끝 */
 							</script>
 						</div>
+						<!-- 수강강의 페이지 탭 시작 -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
 							<table class="table" cellspacing="0">
@@ -483,6 +491,7 @@ function handleModify() {
 								</tbody>
 							</table>
 						</div>
+						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
 				</div>
 			</div>
