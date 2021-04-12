@@ -129,7 +129,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link-admin  dropdown-toggle" href="#"
 						data-toggle="dropdown"> 강의관리 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 강의계획서 관리</a></li>
+							<li><a class="dropdown-item" href="/springEx/syllabus/syllabusList.do"> 강의계획서 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 과정관리 </a></li>
 							<li><a class="dropdown-item" href="/springEx/courseTake/courseApplyList.do"> 수강관리 </a></li>
 						</ul></li>

@@ -11,6 +11,12 @@
 	width: 80%;
 }
 
+<<<<<<< HEAD
+        .container {
+            font-family: 'Noto Sans KR', sans-serif;
+            width: 80%;
+        }
+=======
 .mapIntro {
 	margin-top: 50px;
 	text-align: left;
@@ -22,6 +28,7 @@
 	border-bottom: 1px solid #e0e0e0;
 	letter-spacing: 5px;
 }
+>>>>>>> 1042deb2c72d7078447bdab32032cf5189ea9033
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
