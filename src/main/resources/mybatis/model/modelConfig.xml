@@ -8,5 +8,6 @@
 		<typeAlias type="com.mySpring.springEx.board.vo.ArticleVO"  alias="articleVO" />
 		<typeAlias type="com.mySpring.springEx.survey.vo.SurveyVO"  alias="surveyVO" />
 		<typeAlias type="com.mySpring.springEx.board.vo.ImageVO"  alias="imageVO" />
+		<typeAlias type="com.mySpring.springEx.partner.vo.PartnerVO"  alias="partnerVO" />
 	</typeAliases>
 </configuration>

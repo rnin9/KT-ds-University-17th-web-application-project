@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.partner"> 
+	<resultMap id="resResult" type="partnerVO">
+		<result property="partnerLicenseNum" column="partnerLicenseNum" />
+	    <result property="partnerState" column="partnerState" />
+	    <result property="partnerName" column="partnerName" />
+	    <result property="partnerInformation" column="partnerInformation" />
+	    <result property="partnerAddress" column="partnerAddress" />
+	    <result property="partnerPhoneNumber" column="partnerPhoneNumber" />
+	    <result property="partnerEmail" column="partnerEmail" />
+	    <result property="partnerCEO" column="partnerCEO" />
+	    <result property="partnerHeadCount" column="partnerHeadCount" />
+	    <result property="partnerApplyYN" column="partnerApplyYN" />
+	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
+	    <result property="partnerURL" column="partnerURL" />
+	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	</resultMap>
+	
+	<!-- 전체 기업목록 조회 쿼리-->
+	<select id="selectAllPartnerList" resultMap="resResult">
+      <![CDATA[
+         select * from partner 	 	
+      ]]>
+	</select>
+	
+	<!--협력사 count 조회 쿼리 -->
+	<select id="selectCooperationPartner" resultType="int">
+      <![CDATA[
+        select count(*) from partner
+		where partnerState = '협력사'	 	
+      ]]>
+	</select>
+	
+	<!--협약사 count 조회 쿼리 -->
+	<select id="selectConventionPartner" resultType="int">
+      <![CDATA[
+        select count(*) from partner
+		where partnerState = '협약사'	 	
+      ]]>
+	</select>
+	
+	<!--협약 진행중 count 조회 쿼리 -->
+	<select id="selectIngPartner" resultType="int">
+      <![CDATA[
+        select count(*) from partner
+		where partnerState = '협약 진행중'	 	
+      ]]>
+	</select>
+	
+	<!--미협약 count 조회 쿼리 -->
+	<select id="selectNotPartner" resultType="int">
+      <![CDATA[
+        select count(*) from partner
+		where partnerState = '미협약'	 	
+      ]]>
+	</select>
+	
+	
+	<!--기업 정보 입력 쿼리 -->
+	<insert id="addPartner" parameterType="partnerVO">
+	<![CDATA[
+        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerInformation,partnerAddress,partnerPhoneNumber,partnerEmail,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate)
+		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerInformation},#{partnerAddress},#{partnerPhoneNumber},#{partnerEmail},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL},sysdate)
+      ]]>
+	</insert>
+	
+	<!--기업 상세 정보 쿼리 -->
+	<select id="selectDetailPartner" parameterType="String" resultType="partnerVO">
+		<![CDATA[
+        select *
+        from partner
+        where partnerLicenseNum=#{partnerLicenseNum}	 	
+      ]]>
+	
+	</select>
+	
+	<!--기업 정보 업데이트 쿼리 -->
+	<update id="updatePartner" parameterType="partnerVO">
+	<![CDATA[
+        update partner
+        set  partnerState=#{partnerState}, partnerInformation=#{partnerInformation},partnerAddress=#{partnerAddress},partnerPhoneNumber=#{partnerPhoneNumber}, partnerEmail=#{partnerEmail}, partnerCEO=#{partnerCEO},partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}
+        where partnerLicenseNum=#{partnerLicenseNum}      
+      ]]>
+	</update>
+	
+	<!--기업 삭제 쿼리 -->
+	<delete id="deletePartner" parameterType="String">
+	<![CDATA[
+       delete from partner
+	   where
+       partnerLicenseNum=#{partnerLicenseNum}   
+      ]]>
+	</delete>
+	
+	<!-- 기업 이름 불러오는 쿼리 -->
+	<select id="partnerName" parameterType="String" resultType="String">
+      <![CDATA[
+        select partnerName 
+        from partner
+		where partnerLicenseNum=#{partnerLicenseNum}   	
+      ]]>
+	</select>
+	
+</mapper>
