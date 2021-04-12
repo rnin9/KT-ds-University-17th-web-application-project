@@ -132,6 +132,7 @@ a:link, a:visited, a:hover {
 .searchTitle {
    margin-right: 20px;
 }
+
 </style>
 
 </head>
@@ -155,7 +156,22 @@ a:link, a:visited, a:hover {
       })
     }
 </script>
-
+<script type="text/javascript">
+	function filter(){
+	
+	    var value = document.getElementById("value").value.toUpperCase();
+	    var item = document.getElementsByClassName("item");
+	    
+	    for(var i=0;i<item.length;i++){
+	    	var name = item[i].getElementsByClassName("name");
+	    	if(name[0].innerText.toUpperCase().indexOf(value) > -1){
+	    		item[i].style.display="table-row";
+			}else{
+				item[i].style.display="none";
+			}
+	    }	
+	} 
+</script>
 <body>
 
    <div class="container">
@@ -207,7 +223,7 @@ a:link, a:visited, a:hover {
                   <div class="serarchSubject">
                      <label class="searchTitle">강의명</label>
                      <div class="col-md-8">
-                        <input type="text" class="form-control"
+                        <input onkeyup="filter()" type="text" id="value" class="form-control"
                            placeholder="일부 단어만으로도 검색이 가능합니다.">
                      </div>
                   </div>
@@ -236,13 +252,12 @@ a:link, a:visited, a:hover {
 
             <tbody id="ajaxTable">
                <c:forEach var="syllabus" items="${syllabusList}">
-                  <tr>
-                     <td><input type="checkbox" name="ab"
+                  <tr class="item">
+                     <td><input type="checkbox" name="ab" class="name1"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${syllabus.syllabusID}</td>
-                     <td>${syllabus.syllabusCategory1}>
-                        ${syllabus.syllabusCategory2}</td>
-                     <td><a
+                     <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
+                     <td class="name"><a
                         href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
                      <td>${syllabus.syllabusTotalDays}</td>
                      <td>${syllabus.syllabusTotalTime}</td>
@@ -255,7 +270,6 @@ a:link, a:visited, a:hover {
             <button class="btn button_bottom" type="button">선택강의 삭제</button>
             <button class="btn button_bottom"
                onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
-
          </div>
 
          <div>여기에 페이징</div>
