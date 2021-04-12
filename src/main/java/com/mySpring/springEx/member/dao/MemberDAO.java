@@ -24,4 +24,6 @@ public interface MemberDAO {
 	public int approval_member(MemberVO member) throws Exception;
 	
 	public MemberVO getMyInformation(String userID) throws Exception;
+	
+	public int modMyInfo(MemberVO member) throws Exception; 
 }

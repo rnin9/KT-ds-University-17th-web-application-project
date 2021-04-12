@@ -10,6 +10,21 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<!-- <link rel="stylesheet" type="text/css"
+	href="/juliet/resources/juliet.css"> -->
+<link id="bsdp-css"
+	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
+	rel="stylesheet">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
 <style>
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -39,7 +54,7 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 
 #container { /* 이름 밑에 속성들을 감싸서 적용 */
 	background-color: #fafafa;
-	height: 600px;
+	height: 500px;
 	position: relative;
 }
 
@@ -59,6 +74,17 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 }
 
 div input[type="text"] { /* input type text 태그 지정*/
+	width: 250px;
+	padding: 10px 20px;
+	display: inline-block;
+	border: 1px solid #c8c8c0;
+	box-sizing: border-box;
+	margin-left: 8px;
+	margin-right: 10px;
+	line-height: 15px;
+}
+
+div input[type="password"] { /* input type text 태그 지정*/
 	width: 250px;
 	padding: 10px 20px;
 	display: inline-block;
@@ -123,12 +149,10 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 	text-decoration: none;
 }
 
-.regex {
-	font-size: 12px;
+.phone_regex {
 	text-align: center;
-	position: absolute;
 	margin-top: 5px;
-	margin-left: 300px;
+	display: inline-block;
 }
 
 #eng {
@@ -140,7 +164,90 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 	margin-left: 138px;
 	width: 413px;
 }
+
+#date {
+	display: inline-block;
+	width: 51%;
+}
+
+.name_regex, .email_regex {
+	font-size: 12px;
+	text-align: center;
+	position: absolute;
+	margin-top: 5px;
+	margin-left: 350px;
+}
+
+ .phone_regex_valid, .pwd_regex {
+	font-size: 12px;
+	text-align: center;
+	position: absolute;
+	margin-top: 5px;
+	margin-left: 800px;
+	 
+ }
 </style>
+
+<script>
+	$(document).ready(function() {
+		$('#date input').datepicker({
+			format : "yyyymmdd",
+			language : "ko",
+			startView : 2,
+			keyboardNavigation : false,
+			forceParse : false,
+			autoclose : true
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		$('#name').on("blur keyup", function() {
+			$(this).val($(this).val().replace(/[a-zA-Z0-9]/g, ''));
+		});
+	})
+	$(function() {
+		$('#eng_name').on("blur keyup", function() {
+			$(this).val($(this).val().replace(/[ㄱ-힣0-9]/g, ''));
+		});
+	})
+
+	$(function() {
+		$('#phone').on("blur keyup", function() {
+			$(this).val($(this).val().replace(/[ㄱ-힣a-zA-Z-]/g, ''));
+		});
+	})
+	$(function() {
+		$('#nav-profile').on("click", function() {
+			$('.modifyInfo').hide();
+		});
+	})
+</script>
+
+<script>
+function handleModify() { 
+	Swal.fire({
+	  title:'정보 수정',
+	  text: '해당 내용으로 수정하시겠습니까?',
+	  showCancelButton: true,
+	  icon:"warning",
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Save!'
+	}).then((result) => {
+	  /* Read more about isConfirmed, isDenied below */
+	  if (result.isConfirmed) {
+	    Swal.fire('수정완료!', '', 'success').then(()=>{
+	    	 $("#modForm").submit();
+	    })
+	  } else{
+			return;  
+	  }
+	})
+}
+</script>
+
 </head>
 <body>
 	<div class="sub_visual">
@@ -163,7 +270,7 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<nav style="margin-top: 100px;">
+					<nav style="margin-top: 50px;">
 						<ul class="nav nav-tabs">
 							<li class="nav-item"><a class="nav-link active"
 								aria-current="page" data-toggle="tab" href="#nav-home">내 정보</a>
@@ -177,70 +284,198 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 						<div class="tab-pane fade show active" id="nav-home"
 							role="tabpanel" aria-labelledby="nav-home-tab">
 
-							<form action="#" accept-charset="UTF-8" name="basic"
-								method="POST" autocomplete="off">
+							<form action="${contextPath}/member/modMyInfo.do" method="POST"
+								id="modForm">
 								<div id="main">
 									<div id="container">
 										<div>
+											<input type="hidden" name="userId" value='${myInfo.userId}'>
 											<label class="title">성명</label><span class="must">필수</span> <input
-												type="text" name="resume_name" id="name" placeholder="한글명"
+												type="text" name="userName" id="name" placeholder="한글명"
 												onfocus="this.placeholder=''"
-												onblur="this.placeholder='한글명'"> <label
-												class="title">비밀번호</label><span class="must">필수</span> <input
-												type="text" name="resume_name" id="name" placeholder="한글명"
-												onfocus="this.placeholder=''"
-												onblur="this.placeholder='한글명'">
+												onblur="this.placeholder='한글명'" value='${myInfo.userName}'>
+											<div class="name_regex"></div>
+											<label class="title">비밀번호</label><span class="must">필수</span>
+											<input type="password" name="userPassword" id="password"
+												placeholder="한글명" onfocus="this.placeholder=''"
+												onblur="this.placeholder='비밀번호'"
+												value='${myInfo.userPassword}'>
+												<div class="pwd_regex"></div>
 										</div>
 										<div id="date">
-											<label class="title">생년월일</label><span class="must">필수</span>
-											<input type="text" name="resume_date" id="date"
-												placeholder="생년월일"> <label class="title">휴대폰</label><span
-												class="must">필수</span> <input type="text"
-												name="resume_phone" id="phone" placeholder="휴대폰 번호 입력"
-												onfocus="this.placeholder=''"
-												onblur="this.placeholder='휴대폰 번호 입력'">
-											<div class="phone regex"></div>
+											<label class="title" style="margin-left: 0px;">생년월일</label><span
+												class="must">필수</span> <input type="text" name="birth"
+												id="date" placeholder="생년월일" value='${myInfo.birth}'>
 										</div>
+										<div class="phone_regex">
+											<label class="title" style="margin-left: 0px;">휴대폰</label><span
+												class="must">필수</span> <input type="text"
+												name="userPhoneNumber" id="phone" placeholder="휴대폰 번호 입력"
+												onfocus="this.placeholder=''"
+												onblur="this.placeholder='휴대폰 번호 입력'"
+												value='${myInfo.userPhoneNumber}'>
+										</div>
+										<div class="phone_regex_valid"></div>
 										<div>
 											<label class="title">이메일</label><span class="must">필수</span>
-											<input type="text" name="resume_email" id="email">
-											<div class="email regex"></div>
-											<div class="toggle">
-												<label class="title" style="margin-right: 5%;">대상</label> <input
-													type="radio" id="male" name="sex"> <label
-													for="male">채용예정자</label> <input type="radio" id="female"
-													name="sex"> <label for="female">재직자</label>
-											</div>
-
+											<input type="text" name="userEmail" id="email"
+												value='${myInfo.userEmail}'>
+											<div class="email_regex"></div>
+											<c:choose>
+												<c:when test="${myInfo.userPosition =='채용예정자'}">
+													<div class="toggle">
+														<label class="title" style="margin-right: 5%;">대상</label>
+														<input type="radio" id="ktu" name="userPosition"
+															checked="checked" value="채용예정자"> <label for="ktu">채용예정자</label>
+														<input type="radio" id="ktp" name="userPosition"
+															value="재직자"> <label for="ktp">재직자</label>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="toggle">
+														<label class="title" style="margin-right: 5%;">대상</label>
+														<input type="radio" id="ktu" name="userPosition"
+															value="채용예정자"> <label for="ktu">채용예정자</label> <input
+															type="radio" id="ktp" name="userPosition"
+															checked="checked" value="재직자"> <label for="ktp">재직자</label>
+													</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
-										<div style="display:flex;">
-											<div style="transform: translateX(-7%); width:120%;">
+										<div style="display: flex;">
+											<div style="transform: translateX(-6%); width: 120%;">
 												<label class="title">주소</label><span class="must">필수</span>
-												<input type="text" name="roadAddress" id="roadAddress"
-													placeholder="도로명 주소"> <input type="button"
-													onclick="sample4_execDaumPostcode()" value="주소 찾기">
+												<input type="text" name="userAddress1" id="roadAddress"
+													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
+												<input type="button" onclick="sample4_execDaumPostcode()"
+													value="주소 찾기">
 												<div>
-													<input type="text" name="detailAddress" id="detailAddress"
-														placeholder="상세 주소">
+													<input type="text" name="userAddress2" id="detailAddress"
+														value='${myInfo.userAddress2}' placeholder="상세 주소">
 												</div>
 											</div>
-											<div class="toggle" style="transform: translateY(50%);">
-											<input type="radio" id="male" name="sex"> <label
-													for="male">전공</label> <input type="radio" id="female"
-													name="sex"> <label for="female">비전공</label>
-											</div>
+
+											<c:choose>
+												<c:when test="${myInfo.userMajor =='전공'}">
+													<div class="toggle"
+														style="transform: translateY(50%); margin-right: 20px">
+														<input type="radio" id="major" name="userMajor"
+															checked="checked" value="전공"> <label for="major">전공</label>
+														<input type="radio" id="nonMajor" name="userMajor" value="비전공">
+														<label for="nonMajor">비전공</label>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="toggle"
+														style="transform: translateY(50%); margin-right: 20px">
+														<input type="radio" id="major" name="userMajor" value="전공"> <label
+															for="major">전공</label> <input type="radio" id="nonMajor"
+															name="userMajor" value="비전공" checked="checked"> <label
+															for="nonMajor">비전공</label>
+													</div>
+												</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
+								</div>
+								<div id="modifyInfo">
+									<input type="button" value="수정하기" onclick='handleModify()'>
+								</div>
 							</form>
+
+							<script>
+								function sample4_execDaumPostcode() {
+									new daum.Postcode(
+											{
+												oncomplete : function(data) {
+													// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+													// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+													// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+													var roadAddr = data.roadAddress; // 도로명 주소 변수
+													var extraRoadAddr = ''; // 참고 항목 변수
+													// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+													// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+													if (data.bname !== ''
+															&& /[동|로|가]$/g
+																	.test(data.bname)) {
+														extraRoadAddr += data.bname;
+													}
+													// 건물명이 있고, 공동주택일 경우 추가한다.
+													if (data.buildingName !== ''
+															&& data.apartment === 'Y') {
+														extraRoadAddr += (extraRoadAddr !== '' ? ', '
+																+ data.buildingName
+																: data.buildingName);
+													}
+
+													// 우편번호와 주소 정보를 해당 필드에 넣는다.
+													document
+															.getElementById("roadAddress").value = roadAddr;
+												}
+											}).open();
+								}
+								
+								  $("#name").on("input",function(){
+						                var regex = /[ㄱ-힣]{1,}/;
+						                var result = regex.exec($("#name").val());
+						                
+						                if(result != null){
+						                    $(".name_regex").html("");  
+						                }else{
+						                    $(".name_regex").html("한글만 입력 가능합니다.");
+						                }
+						        })
+						        $("#eng_name").on("input",function(){
+						                var regex = /[a-zA-Z]{2,}$/;
+						                var result = regex.exec($("#eng_name").val());
+						                
+						                if(result != null){
+						                    $(".eng_name.regex").html("");  
+						                }else{
+						                    $(".eng_name.regex").html("영어만 입력 가능합니다.");
+						                }
+						        })
+						        $("#phone").on("input",function(){
+						                var regex = /^\d{1,}/;
+						                var result = regex.exec($("#phone").val());
+						                
+						                if(result != null){
+						                    $(".phone_regex_valid").html("");  
+						                }else{
+						                    $(".phone_regex_valid").html("숫자만 입력 가능합니다.");
+						                }
+						        })
+						        $("#email").on("input",function(){
+						                     var regex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
+						                     var result = regex.exec($("#email").val());
+						                    
+						                    if(result != null){
+						                       $(".email_regex").html("");  
+						                    }else{
+						                        $(".email_regex").html("올바른 형식이 아닙니다.");
+						                    }
+						                })
+						                
+						       $("#password").on("input",function(){
+						                     var result = $("#password").val().length;
+						                    
+						                    if(result > 7 ){
+						                       $(".pwd_regex").html("");  
+						                    }else{
+						                        $(".pwd_regex").html("8자리 이상으로 설정하세요.");
+						                    }
+						                })
+							</script>
 						</div>
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
 							<table class="table" cellspacing="0">
 								<thead>
 									<tr>
-										<th>기업명</th>
-										<th>지원 날짜</th>
-										<th>지원 상태</th>
+										<th>강의명</th>
+										<th>교육기간</th>
+										<th>승인상태</th>
+										<th>수료증출력</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -254,5 +489,7 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 		</div>
 	</section>
 </body>
+
+
 </html>
 

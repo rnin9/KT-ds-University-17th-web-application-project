@@ -55,6 +55,12 @@
 		<put-attribute name="body"
 					   value="/WEB-INF/views/member/myInfo.jsp" />
 	</definition>
+	
+	<definition name="/member/modMyInfo" extends="baseLayout">
+		<put-attribute name="title" value="컨소시엄 소개" />
+		<put-attribute name="body"
+					   value="/WEB-INF/views/member/myInfo.jsp" />
+	</definition>
 
 	<definition name="/member/listMembers" extends="baseLayout">
 		<put-attribute name="title" value="회원목록창" />

@@ -68,7 +68,7 @@ request.setCharacterEncoding("UTF-8");
 .card-deck {
 	font-family: S-CoreDream-3Light;
 	font-stlye: bold;
-	margin:20px 20px;
+	margin: 20px 20px;
 }
 
 .card {
@@ -82,12 +82,12 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .notice {
-	display:flex;
+	display: flex;
 	width: 100%;
 	height: 50px;
 	overflow: hidden;
 	background-color: #fff;
-	font-size:20px;
+	font-size: 20px;
 	font-family: 'Noto Sans KR', sans-serif;
 	margin: 10px 5px;
 	border-bottom: 1px solid #e1e1e1;
@@ -103,13 +103,13 @@ request.setCharacterEncoding("UTF-8");
 	width: 70%;
 	height: 50px;
 	line-height: 50px;
-	list-style:none;
+	list-style: none;
 }
 
-.notice > h3{
+.notice>h3 {
 	width: 20%;
-	padding:10px;
-	}
+	padding: 10px;
+}
 </style>
 
 <script type="text/javascript"
@@ -137,7 +137,9 @@ request.setCharacterEncoding("UTF-8");
 						style="animation-delay: 1s;">KT ds 교육센터는 교육의 질을 향상시킵니다</h2>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;"onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;"
+						onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히
+						보기</button>
 				</div>
 			</div>
 			<div class="carousel-item">
@@ -152,7 +154,9 @@ request.setCharacterEncoding("UTF-8");
 						계층별 리더십과 마인드를 함양합니다.</h3>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;" onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;"
+						onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히
+						보기</button>
 				</div>
 			</div>
 			<div class="carousel-item">
@@ -167,7 +171,9 @@ request.setCharacterEncoding("UTF-8");
 						제시합니다.</h3>
 					<button type="button"
 						class="btn btn-danger btn-lg animate__animated animate__fadeInUp"
-						style="animation-delay: 2s; margin-top: 30px;" onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히 보기</button>
+						style="animation-delay: 2s; margin-top: 30px;"
+						onClick="location.href='${pageContext.request.contextPath}/universityIntro.do'">자세히
+						보기</button>
 				</div>
 			</div>
 		</div>
@@ -185,7 +191,7 @@ request.setCharacterEncoding("UTF-8");
 
 	<!-- 공지사항 시작-->
 	<div class="notice">
-		<h3> 공지사항 </h3>
+		<h3>공지사항</h3>
 		<ul class="rolling">
 			<li><a href="#"> 수찬 반장 당선</a></li>
 			<li><a href="#"> (NEW) 와사비 치킨마요 핫해</a></li>
@@ -201,35 +207,38 @@ request.setCharacterEncoding("UTF-8");
 			<a href="#"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/mainPage/cardImage/classPerson.png"
 				alt="Card image cap">
-			</a>
-			<div class="card-body">
-				<h5 class="card-title">채용예정자 과정</h5>
-				<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액 무료의
-					KT ds University의 교육과정입니다.</p>
 
-			</div>
+				<div class="card-body">
+					<h5 class="card-title">채용예정자 과정</h5>
+					<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액
+						무료의 KT ds University의 교육과정입니다.</p>
+
+				</div>
+			</a>
 		</div>
 		<div class="card">
-			<img class="card-img-top"
+			<a href="#"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/mainPage/cardImage/partnerPerson.jpg"
 				alt="Card image cap">
-			<div class="card-body">
-				<h5 class="card-title">재직자 과정</h5>
-				<p class="card-text">고용보험이 적용되는 중소기업 또는 우선 지원대상기업, 협력사에 재직중인
-					임직원을 위한 교육과정입니다.</p>
+				<div class="card-body">
+					<h5 class="card-title">재직자 과정</h5>
+					<p class="card-text">고용보험이 적용되는 중소기업 또는 우선 지원대상기업, 협력사에 재직중인
+						임직원을 위한 교육과정입니다.</p>
 
-			</div>
+				</div>
+			</a>
 		</div>
 		<div class="card">
-			<a><img class="card-img-top"
+			<a href="${contextPath}/location.do">
+			<img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/sub_visual/universityIntroduce.jpg"
-				alt="Card image cap"></a>
+				alt="Card image cap">
 			<div class="card-body">
-				<h5 class="card-title">교육장소 소개</h5>
+				<h5 class="card-title">교육장 안내</h5>
 				<p class="card-text">국내 최고수준의 전문강사진과 신규시설 및 최신장비의 인프라, KT ds의
 					교육장소를 소개합니다.</p>
-
 			</div>
+			</a>
 		</div>
 	</div>
 	<!-- card deck 끝 -->

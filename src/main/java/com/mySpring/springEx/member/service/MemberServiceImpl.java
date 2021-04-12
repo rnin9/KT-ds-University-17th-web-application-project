@@ -218,6 +218,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getMyInformation(userID);
 	}
 	
+	@Override
+	public int modMyInfo(MemberVO member) throws Exception{
+		memberDAO.modMyInfo(member);
+		return 0;
+	}
+	
 	
 
 }
