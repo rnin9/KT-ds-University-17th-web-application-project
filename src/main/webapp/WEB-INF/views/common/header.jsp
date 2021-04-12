@@ -215,7 +215,7 @@ request.setCharacterEncoding("UTF-8");
 							${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
@@ -231,7 +231,7 @@ request.setCharacterEncoding("UTF-8");
 							${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
@@ -245,7 +245,7 @@ request.setCharacterEncoding("UTF-8");
 							<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do"> 내정보 관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
 							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
