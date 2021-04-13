@@ -11,7 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>강의계획서 작성</title>
+<title>강의계획서 관리</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -19,7 +19,8 @@ request.setCharacterEncoding("UTF-8");
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
-
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 .bg-primary {
@@ -27,147 +28,55 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .container {
-	width: 80%;
+	width: 74.62%;
 	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.well-searchbox {
-	min-height: 20px;
-	min-width: 400px;
-	padding: 19px;
-	top: 90px;
-	background: #f8f8f8;
-	margin-bottom: 20px;
-	padding-bottom: 0px;
-	border: 1px solid #e3e3e3;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	margin-top:30px;
-}
-
-.well-searchbox label {
-	/* color: #555; */
-	width: 20%;
-	margin: 10px;
-	text-align: right;
-}
-
-.serarchSubject {
-	display: flex;
-	flex-direction: row;
-}
-
-.subject {
-	display: flex;
-	flex-direction: row;
-}
-
-.btn-success {
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0.8);
-}
-
-
-.table_syllabusList {
-	border-collapse: collapse;
-	font-size: 14px;
-	line-height: 2.2;
-	margin-top: 40px;
-	text-align: center;
-	/* color: #555; */
-	width: 100%;
-	line-height: 40px;
-}
-
-.table_syllabusList thead {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	background-color: #f8f8f8;
-	text-align: center;
-}
-
-
-.button_bottom {
-	display: inline-block;
-	margin-bottom: 0;
-	font-weight: 400;
-	text-align: center;
-	cursor: pointer;
-	background-image: none;
-	border: 1px solid transparent;
-	white-space: nowrap;
-	padding: 6px 20px;
-	font-size: 14px;
-	line-height: 1.428571429;
-	border-radius: 4px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-	color: #fff;
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0.8);
-	float: right;
-	margin-left: 10px;
-}
-
-.form-control {
-	border: hidden;
-}
-
-.form-select {
-	border: hidden;
-	width: 280px;
-	display: inline-block;
 }
 </style>
 
 </head>
 
 <script type="text/javascript">
-	function onlyNumber(event) {
-		event = event || window.event;
-		var keyID = (event.which) ? event.which : event.keyCode;
-		if ((keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105)
-				|| keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
-			return;
-		else
-			return false;
-	}
+//체크박스(개별 체크박스 항목이 선택 해제 될때, '전체선택' 항목도 선택 해제)
+function checkSelectAll(checkbox)  {
+	   const selectall 
+	     = document.querySelector('input[name="check-all"]');
+	   
+	   if(checkbox.checked === false)  {
+	     selectall.checked = false;
+	   }
+	 }
 
-	function removeChar(event) {
-		event = event || window.event;
-		var keyID = (event.which) ? event.which : event.keyCode;
-		if (keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
-			return;
-		else
-			event.target.value = event.target.value.replace(/[^0-9]/g, "");
-	}
+	 function selectAll(selectAll)  {
+	   const checkboxes 
+	      = document.getElementsByName('ab');
+	   
+	   checkboxes.forEach((checkbox) => {
+	     checkbox.checked = selectAll.checked
+	   })
+	 }
 </script>
 
 <body>
-	<form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
 
-		<div class="container">
+	<div class="container">
+		<form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
+
 			<div class="lnb">
 				<ul>
 					<li><a href="/springEx/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서</a></li>
+					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
+							관리</a></li>
 				</ul>
 			</div>
 
 			<div class="well-searchbox">
 				<form class="form-horizontal" role="form">
-
 					<div class="form-group">
-						<div class="serarchSubject">
+						<div class="searchSubject">
 							<label class="searchTitle">강의분류</label>
 							<div class="col-md-8">
-								<select class="form-select" aria-label="Default select example"
-									style="margin-right: 100px;text-align:left;">
+								<select class="form-select" aria-label="Default select example">
 									<option selected>-- 1차 분류를 선택하세요 --</option>
 									<option value="유료과정">유료과정</option>
 									<option value="재직자향상">재직자향상</option>
@@ -195,7 +104,7 @@ request.setCharacterEncoding("UTF-8");
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="serarchSubject">
+						<div class="searchSubject">
 							<label class="searchTitle">강의명</label>
 							<div class="col-md-8">
 								<input type="text" class="form-control"
@@ -205,17 +114,17 @@ request.setCharacterEncoding("UTF-8");
 
 						<div class="col-sm-offset-4 col-sm-5"
 							style="display: inline-block; text-aglin: center;">
-							<button type="submit" class="button_bottom"
-								style="margin-top: 10px; margin-right:50%;">검색</button>
+							<button type="submit" class="btn button_search"
+								style="margin-top: 10px;">검색</button>
 						</div>
 					</div>
 				</form>
 			</div>
 
-			<table class="table_syllabusList">
+			<table class="table_">
 				<thead>
 					<tr align="center">
-						<td><input type="checkbox" /></td>
+						<td><input type="checkbox" name="check-all" /></td>
 						<td><b>번호</b></td>
 						<td><b>분류</b></td>
 						<td><b>강의명</b></td>
@@ -227,7 +136,7 @@ request.setCharacterEncoding("UTF-8");
 				<tbody id="ajaxTable">
 					<c:forEach var="syllabus" items="${syllabusList}">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="ab"></td>
 							<td>${syllabus.syllabusID}</td>
 							<td>${syllabus.syllabusCategory1}>
 								${syllabus.syllabusCategory2}</td>
@@ -237,39 +146,18 @@ request.setCharacterEncoding("UTF-8");
 							<td>${syllabus.syllabusTotalTime}</td>
 						</tr>
 					</c:forEach>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>dddd</td>
-						<td>ddddd</td>
-						<td><a
-							href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">ddddd</a></td>
-						<td>vsvsd</td>
-						<td>adfdsd</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>dddd</td>
-						<td>ddddd</td>
-						<td><a
-							href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">ddddd</a></td>
-						<td>vsvsd</td>
-						<td>adfdsd</td>
-					</tr>
 				</tbody>
 			</table>
 
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="button_bottom" type="button">삭제</button>
-				<button class="button_bottom"
-					onClick="location.href='syllabusForm.do'">등록</button>
+				<button class="btn button_bottom" type="button">선택강의 삭제</button>
+				<button class="btn button_bottom"
+					onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
 
 			</div>
 
 			<div>여기에 페이징</div>
-
-
-		</div>
-	</form>
+		</form>
+	</div>
 </body>
 </html>

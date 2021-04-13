@@ -35,7 +35,41 @@
     </select>
   
  
+ <!-- courseTake pagination -->
  
+ <resultMap id="courseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+		<id property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+	</resultMap>
+	
+
+	<select id="selectAllCourseApplyList" resultMap="courseTakeResult">
+		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
+         <![CDATA[
+            select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
+            m.userEmail, c.courseTake_State, courseTake_ApplyDate
+            from course_Take c join kt_user2 m on (c.userID = m.userId)
+            order by courseTake_ApplyDate desc
+         ]]>
+	</select>
+	
+	 <select id="testTableCountCT" resultType="int">
+        SELECT count(*) FROM course_take
+        
+    </select>
  
  	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
 	<![CDATA[
