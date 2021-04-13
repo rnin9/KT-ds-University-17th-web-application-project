@@ -43,4 +43,52 @@
 		where id=#{id} and pwd=#{pwd}		
 	]]>
   </select> -->
+  <!--*****************************************************파트너 페이징 *****************************************************-->
+<resultMap id="resResult" type="partnerVO">
+		<result property="partnerLicenseNum" column="partnerLicenseNum" />
+	    <result property="partnerState" column="partnerState" />
+	    <result property="partnerName" column="partnerName" />
+	    <result property="partnerInformation" column="partnerInformation" />
+	    <result property="partnerAddress" column="partnerAddress" />
+	    <result property="partnerPhoneNumber" column="partnerPhoneNumber" />
+	    <result property="partnerEmail" column="partnerEmail" />
+	    <result property="partnerCEO" column="partnerCEO" />
+	    <result property="partnerHeadCount" column="partnerHeadCount" />
+	    <result property="partnerApplyYN" column="partnerApplyYN" />
+	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
+	    <result property="partnerURL" column="partnerURL" />
+	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	</resultMap>
+	
+	<select id="SelectAllListPartner" resultMap="resResult">
+         SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
+        row_num
+        ,partnerLicenseNum
+        ,partnerState
+        ,partnerName
+        ,partnerInformation
+        ,partnerPhoneNumber
+        ,partnerAddress
+        ,partnerEmail
+        ,partnerCEO
+        ,partnerHeadCount
+        ,partnerApplyYN
+        ,partnerApplyFinishDate
+        ,partnerURL
+        ,partnerRegisterDate
+        FROM partner
+        )
+         <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>	 	
+	</select>
+	
+	 <select id="testTableCountPartner" resultType="int">
+        SELECT count(*) FROM
+        partner
+    </select>
+  
 </mapper>

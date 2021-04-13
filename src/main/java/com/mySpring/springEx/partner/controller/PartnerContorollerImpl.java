@@ -2,6 +2,7 @@ package com.mySpring.springEx.partner.controller;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 
@@ -33,12 +35,23 @@ public class PartnerContorollerImpl implements PartnerController{
 	//회사 리스트 출력
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
-	public ModelAndView partnerList(HttpServletRequest request, HttpServletResponse response)throws Exception{ 
+	public ModelAndView partnerList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+            Map<String, Object> map, HttpServletRequest request, HttpServletResponse response)throws Exception{ 
 		String viewName = (String)request.getAttribute("viewName");
-		List partnerList = partnerService.listPartner(); // 모든 리시트를 select하는 메소드를 파트너서비스에서 호출하여 리스트 형태로 저장
-		List numPartner = partnerService.listNumPartner(); //협력사, 협약사, 미협약, 협약 진행중 별로 count하는 메소드를 파트너 서비스에서 호출하여 리스트 형태로 저장
+		
+		int partnerList = partnerService.testTableCountPartner();
+		
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		
+		pagination.setTotalRecordCount(partnerList);
 		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("partnerList",partnerList);			//select된 모든 회사 리스트를 바인드
+		mav.addObject("pagination",pagination);
+		mav.addObject("partnerList", partnerService.SelectAllListPartner(pagination));
+		
+		List numPartner = partnerService.listNumPartner(); //협력사, 협약사, 미협약, 협약 진행중 별로 count하는 메소드를 파트너 서비스에서 호출하여 리스트 형태로 저장
+					
 		mav.addObject("numCooperation",numPartner.get(0)); //협력사 count를 바인드
 		mav.addObject("numConvention",numPartner.get(1));  //협약사 count를 바인드
 		mav.addObject("numIng",numPartner.get(2));			//협약 진행중 count를 바인드

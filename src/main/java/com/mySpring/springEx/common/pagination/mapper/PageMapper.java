@@ -17,5 +17,16 @@ public interface PageMapper {
 
 	// count 전체 데이터 갯수를 확인하기 위한 부분으로, 갯수를 확인하기 때문에 int로 받음
 	public int testTableCount() throws Exception;
+	
+	/*----------------------------------------------------------*/
+	/*-------------------파트너-----------------------------------*/
+	/*----------------------------------------------------------*/
+	
+	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
+
+	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
+	
+	public int testTableCountPartner() throws Exception;
+
 
 }
