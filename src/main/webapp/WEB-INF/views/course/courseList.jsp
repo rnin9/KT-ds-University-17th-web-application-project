@@ -11,7 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>강의계획서 관리</title>
+<title>과정 관리</title>
 
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -181,7 +181,7 @@ a:link, a:visited, a:hover {
 </script>
 <script>
 	function deleteCheck(){
-		var url = "/springEx/syllabus/deleteCheck.do";
+		var url = "/springEx/course/deleteCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){
@@ -197,7 +197,7 @@ a:link, a:visited, a:hover {
 			success : function(data){
 				console.log("success");
 				/*window.location.reload();*/
-				$("#container").load("${contextPath}/syllabus/syllabusList.do");
+				$("#container").load("${contextPath}/course/courseList.do");
 			},
 			error : function(data) { 
 	            console.log("fail");
@@ -210,13 +210,13 @@ a:link, a:visited, a:hover {
 <body>
 
    <div class="container">
-      <form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
+      <form method="post" action="${contextPath}/course/insertCourse.do">
 
          <div class="lnb">
             <ul>
                <li><a href="/springEx/main.do">홈</a></li>
                <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
+               <li class="on"><a href="/springEx/course/courseList.do">과정
                      관리</a></li>
             </ul>
          </div>
@@ -256,6 +256,25 @@ a:link, a:visited, a:hover {
                </div>
                <div class="form-group">
                   <div class="serarchSubject">
+                     <label class="searchTitle">마감상태</label>
+                     <div class="col-md-8">
+                        <select class="form-select" aria-label="Default select example">
+                           <option selected>-- 선택 --</option>
+                           <option value="신청">신청</option>
+                           <option value="조기마감">조기마감</option>
+                           <option value="마감">마감</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="serarchSubject">
+                     <label class="searchTitle">날짜검색</label>
+                     
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="serarchSubject">
                      <label class="searchTitle">강의명</label>
                      <div class="col-md-8">
                         <input type="text" id="value" class="form-control" onKeyPress="JavaScript:enter();"
@@ -279,33 +298,34 @@ a:link, a:visited, a:hover {
                   <td><input type="checkbox" name="check-all"
                      onclick='selectAll(this)' /></td>
                   <td><b>번호</b></td>
-                  <td><b>분류</b></td>
-                  <td><b>강의명</b></td>
-                  <td><b>교육일수</b></td>
-                  <td><b>교육시간</b></td>
+                  <td><b>과정명</b></td>
+                  <td><b>수강인원</b></td>
+                  <td><b>교육비</b></td>
+                  <td><b>접수기간</b></td>
+                  <td><b>수강기간</b></td>
                </tr>
             </thead>
 
             <tbody id="ajaxTable">
-               <c:forEach var="syllabus" items="${syllabusList}">
+               <c:forEach var="courseVO" items="${courseList}">
                   <tr class="item">
-                     <td><input type="checkbox" name="ab" value="${syllabus.syllabusID}"
+                     <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
-                     <td>${syllabus.syllabusID}</td>
-                     <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
-                     <td class="name"><a
-                        href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
-                     <td>${syllabus.syllabusTotalDays}</td>
-                     <td>${syllabus.syllabusTotalTime}</td>
+                     <td>${courseVO.courseID}</td>
+                     <td>${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2} <br> ${courseVO.syllabusVO.syllabusName}</td>
+                     <td>${courseVO.coursePeopleMax}</td>
+                     <td>${courseVO.courseFee}</td>
+                     <td>${courseVO.courseApplyStart}~<br>${courseVO.courseApplyEnd}</td>
+                     <td>${courseVO.courseStart}~<br>${courseVO.courseEnd}</td>
                   </tr>
                </c:forEach>
             </tbody>
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택강의 삭제</button>
+            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택과정 삭제</button>
             <button class="btn button_bottom"
-               onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
+               onClick="location.href='courseForm.do'">교육과정 등록</button>
          </div>
 
          <div>여기에 페이징</div>

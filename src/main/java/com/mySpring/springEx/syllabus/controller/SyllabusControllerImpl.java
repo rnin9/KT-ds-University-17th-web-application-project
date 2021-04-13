@@ -1,6 +1,7 @@
 package com.mySpring.springEx.syllabus.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mySpring.springEx.syllabus.service.SyllabusService;
@@ -88,8 +90,7 @@ public class SyllabusControllerImpl implements SyllabusController {
 	@RequestMapping(value="/syllabus/deleteSyllabus.do" ,method = RequestMethod.GET)
 	public ModelAndView deleteSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("utf-8");
-		System.out.println(syllabusID);
-		int result = syllabusService.deleteSyllabus(syllabusID);
+		syllabusService.deleteSyllabus(syllabusID);
 		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
 		return mav;
 	}
@@ -117,6 +118,15 @@ public class SyllabusControllerImpl implements SyllabusController {
 		syllabusVO.setSyllabusContent(syllabusVO.getSyllabusContent().replace("\r\n", "<br>").replace(" ","&nbsp;"));
 		int result = 0;
 		result = syllabusService.modifySyllabus(syllabusVO);
+		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
+		return mav;
+	}
+	
+	@RequestMapping(value="/syllabus/deleteCheck.do", method=RequestMethod.POST)
+	public ModelAndView deleteCheck(@RequestParam List<Integer> valueArr) {
+		for(int i=0; i<valueArr.size(); i++) {
+			syllabusService.deleteSyllabus(valueArr.get(i));
+		}
 		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
 		return mav;
 	}

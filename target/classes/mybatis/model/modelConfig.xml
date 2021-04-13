@@ -10,5 +10,6 @@
 		<typeAlias type="com.mySpring.springEx.board.vo.ImageVO"  alias="imageVO" />
 		<typeAlias type="com.mySpring.springEx.syllabus.vo.SyllabusVO"  alias="syllabusVO" />
 		<typeAlias type="com.mySpring.springEx.courseTake.vo.CourseTakeVO"  alias="courseTakeVO" />
+		<typeAlias type="com.mySpring.springEx.course.vo.CourseVO"  alias="courseVO" />
 	</typeAliases>
 </configuration>
