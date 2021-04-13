@@ -9,6 +9,7 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/university/UniversityConsortium.css"/>
 <style>
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
