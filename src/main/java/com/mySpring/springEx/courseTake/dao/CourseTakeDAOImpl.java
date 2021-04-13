@@ -2,6 +2,7 @@ package com.mySpring.springEx.courseTake.dao;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -22,6 +23,7 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 		return applyList;
 	}
 
+	//Å×½ºÆ®
 	@Override
 	public List selectAllCompleteList() throws DataAccessException {
 		List<CourseTakeVO> completeList = null;

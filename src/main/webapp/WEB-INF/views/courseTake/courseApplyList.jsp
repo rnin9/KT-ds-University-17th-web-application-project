@@ -26,7 +26,7 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 
-<script>
+<script type="text/javascript">
 	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
 	$(document).ready(function() {
 		$('#sandbox-container input').datepicker({
@@ -38,9 +38,27 @@ request.setCharacterEncoding("UTF-8");
 			forceParse : false,
 			autoclose : true
 		});
+		
+		
+		   // 체크박스 전체 선택
+	      $(".join_box").on("click", "#allchx", function () {
+	          $(this).parents(".join_box").find('input').prop("checked", $(this).is(":checked"));
+	      });
+
+	      // 체크박스 개별 선택
+	      // 개별선택을 하나 해제할 경우 전체선택도 해제
+	      $(".join_box").on("click", ".ab", function() {
+	          var is_checked = true;
+
+	          $(".join_box .ab").each(function(){
+	              is_checked = is_checked && $(this).is(":checked");
+	          });
+
+	          $("#allchx").prop("checked", is_checked);
+	      });
 	});
 
-	//체크박스(개별 체크박스 항목이 선택 해제 될때, '전체선택' 항목도 선택 해제)
+	/* //체크박스(개별 체크박스 항목이 선택 해제 될때, '전체선택' 항목도 선택 해제)
 	   function checkSelectAll(checkbox)  {
 		   const selectall 
 		     = document.querySelector('input[name="check-all"]');
@@ -48,6 +66,11 @@ request.setCharacterEncoding("UTF-8");
 		   if(checkbox.checked === false)  {
 		     selectall.checked = false;
 		   }
+		   
+		   
+		   
+		   
+		   
 		 }
 
 		 function selectAll(selectAll)  {
@@ -58,11 +81,22 @@ request.setCharacterEncoding("UTF-8");
 		     checkbox.checked = selectAll.checked
 		   })
 		 }
+		  */
+		 //페이지이동
+		 function movePage(currentPage, cntPerPage, pageSize){
+			    var url = "${pageContext.request.contextPath}/courseTake/courseApplyList.do";
+			    url = url + "?currentPage="+currentPage;
+			    url = url + "&cntPerPage="+cntPerPage;
+			    url = url + "&pageSize="+pageSize;
+			    
+			    location.href=url;
+			}
+		
 </script>
 
 <body>
 	<div class="container">
-	<!-- 홈>강의관리>수강관리 -->
+		<!-- 홈>강의관리>수강관리 -->
 		<div class="lnb">
 			<ul>
 				<li><a href="/springEx/main.do">홈</a></li>
@@ -135,7 +169,7 @@ request.setCharacterEncoding("UTF-8");
 		<table class="table_">
 			<thead>
 				<tr align="center">
-					<td><input type="checkbox" class="check-all" /></td>
+					<td><input type="checkbox" class="join_box" /></td>
 					<td><b>아이디</b></td>
 					<td><b>이름</b></td>
 					<td><b>전화번호</b></td>
@@ -151,13 +185,13 @@ request.setCharacterEncoding("UTF-8");
 			<tbody id="ajaxTable">
 				<c:forEach var="courseTake" items="${courseApplyList}">
 					<tr align="center">
-						<td><input type="checkbox" name="ab" /></td>
+						<td><input type="checkbox" class="ab" /></td>
 						<td>${courseTake.userID}</td>
-						<td>${courseTake.userName}</td>
-						<td>${courseTake.userPhoneNumber}</td>
-						<td>${courseTake.userEmail}</td>
-						<td>${courseTake.userCompany}</td>
-						<td>${courseTake.userEmail}</td>
+						<td>${courseTake.memberVO.userName}</td>
+						<td>${courseTake.memberVO.userPhoneNumber}</td>
+						<td>${courseTake.memberVO.userEmail}</td>
+						<td>${courseTake.memberVO.userCompany}</td>
+						<td>강의명가져오기</td>
 						<td>${courseTake.courseTake_State}</td>
 						<td>${courseTake.courseTake_ApplyDate}</td>
 						<td>${courseTake.courseTake_CompleteDate}</td>
@@ -174,19 +208,35 @@ request.setCharacterEncoding("UTF-8");
 			<button class="btn button_bottom" type="button">신청승인</button>
 		</div>
 
-		<!-- 페이징(미완, 사용하지 말 것) -->
-		<nav aria-label="..."
-			style="display: inline-block; text-aglin: center;">
-			<ul class="pagination">
-				<li class="page-item disabled"><a class="page-link" href="#"
-					tabindex="-1" aria-disabled="true">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item active" aria-current="page"><a
-					class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
-		</nav>
+		<!--paginate -->
+		<div class="paginate">
+			<div class="paging">
+				<a class="direction prev" href="javascript:void(0);"
+					onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
+					<!-- &lt;&lt; -->《
+				</a> <a class="direction prev" href="javascript:void(0);"
+					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+					<!-- &lt; -->〈
+				</a>
+
+				<c:forEach begin="${pagination.firstPage}"
+					end="${pagination.lastPage}" var="idx">
+					<a
+						style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
+						href="javascript:void(0);"
+						onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
+							value="${idx}" /></a>
+				</c:forEach>
+				<a class="direction next" href="javascript:void(0);"
+					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+					<!-- &gt; --> 〉
+				</a> <a class="direction next" href="javascript:void(0);"
+					onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
+					<!-- &gt;&gt; --> 》
+				</a>
+			</div>
+		</div>
+		<!-- /paginate -->
 
 	</div>
 </body>
