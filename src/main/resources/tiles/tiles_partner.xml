@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<!-- 회사 관리 -->
+	<definition name="/partner/partnerList" extends="baseLayout"> 
+	      <put-attribute name="title" value="회사리스트" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/partnerList.jsp" />
+	</definition>
+	
+	<!-- 기업 등록 폼 -->
+	<definition name="/partner/partnerForm" extends="baseLayout">
+	      <put-attribute name="title" value="회사등록" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/partnerForm.jsp" />
+	</definition>
+	
+	<!-- 기업 정보 상세 폼 -->
+	<definition name="/partner/detailInfoPartner" extends="baseLayout">
+	      <put-attribute name="title" value="기업 정보 수정" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/partnerDetailInfo.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
