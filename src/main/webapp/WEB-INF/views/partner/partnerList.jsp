@@ -308,6 +308,22 @@
 
 
 
+
+
+									<div class="bottom">
+										<div class="bottom-left">
+											<select id="cntSelectBox" name="cntSelectBox"
+												onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
+												class="form-control" style="width: 100px;">
+												<option value="10"
+													<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
+												<option value="20"
+													<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
+												<option value="30"
+													<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
+											</select>
+										</div>
+									</div>
     <table class="table_partnerList">
         <thead>
             <tr>
@@ -356,9 +372,53 @@
         <button type="button" class="btn " onClick="location.href='${contextPath}/partner/partnerForm.do'">등록</button>
         <button type="button" class="btn ">삭제</button>
     </div>
- </div>
- </div>
+    <!--paginate -->
+									<div class="paginate">
+										<div class="paging">
+											<a class="direction prev" href="javascript:void(0);"
+												onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
+												&lt;&lt; </a> <a class="direction prev"
+												href="javascript:void(0);"
+												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+												&lt; </a>
 
+											<c:forEach begin="${pagination.firstPage}"
+												end="${pagination.lastPage}" var="idx">
+												<a
+													style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
+													href="javascript:void(0);"
+													onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
+														value="${idx}" /></a>
+											</c:forEach>
+											<a class="direction next" href="javascript:void(0);"
+												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+												&gt; </a> <a class="direction next" href="javascript:void(0);"
+												onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
+												&gt;&gt; </a>
+										</div>
+									</div>
+									<!-- /paginate -->
+ </div>
+ </div>
+<script>
+//10,20,30개씩 selectBox 클릭 이벤트
+function changeSelectBox(currentPage, cntPerPage, pageSize){
+    var selectValue = $("#cntSelectBox").children("option:selected").val();
+    movePage(currentPage, selectValue, pageSize);
+    
+}
+ 
+//페이지 이동
+function movePage(currentPage, cntPerPage, pageSize){
+    var url = "${pageContext.request.contextPath}/partner/partnerList.do";
+    url = url + "?currentPage="+currentPage;
+    url = url + "&cntPerPage="+cntPerPage;
+    url = url + "&pageSize="+pageSize;
+    
+    location.href=url;
+}
+ 
+</script>
 </body>
 
 </html>

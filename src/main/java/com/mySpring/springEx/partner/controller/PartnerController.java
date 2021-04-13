@@ -1,5 +1,7 @@
 package com.mySpring.springEx.partner.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +13,10 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 
 public interface PartnerController {
 	
-	public ModelAndView partnerList(HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView partnerList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+            Map<String, Object> map, HttpServletRequest request, HttpServletResponse response)throws Exception;
 	
 	
 	public ModelAndView addPartner(PartnerVO partner,RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
