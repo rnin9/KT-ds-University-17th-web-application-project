@@ -8,29 +8,33 @@ import com.mySpring.springEx.common.pagination.Pagination;
 
 public interface PageMapper {
 
-	//»ı¼ºÀÚ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public List<Map<String, Object>> SelectAllList() throws Exception;
 
-	// Paging ÀüÃ¼ µ¥ÀÌÅÍ¿¡ ´ëÇÑ ÆäÀÌÂ¡ °´Ã¼¸¦ ³Ö¾î ÆäÀÌÂ¡ Ã³¸®¸¦ ÇÑ ÈÄ MapÇü½ÄÀ¸·Î ¹Ş¾Æ¼­ List¿¡ ÀúÀå
-	// °´Ã¼È­¸¦ ½ÃÄÑµÒÀ¸·Î ÀÎÇØ, ¾ÕÀ¸·Î ÆäÀÌÂ¡ Ã³¸®¿¡ °ü·ÃµÈ ºÎºĞÀ» °´Ã¼ »ğÀÔ¸¸À¸·Î Ã³¸®°¡ °¡´ÉÇÏµµ·Ï ±¸¼º
+	// Paging ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ Mapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½Ã¼È­ï¿½ï¿½ ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception;
 	
-	//¼ö°­½ÅÃ»³»¿ª
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
 	public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception;
 	public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception;
 	public int testTableCountCT() throws Exception;
 	
-	// count ÀüÃ¼ µ¥ÀÌÅÍ °¹¼ö¸¦ È®ÀÎÇÏ±â À§ÇÑ ºÎºĞÀ¸·Î, °¹¼ö¸¦ È®ÀÎÇÏ±â ¶§¹®¿¡ int·Î ¹ŞÀ½
+	// count ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ intï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int testTableCount() throws Exception;
 	
 	/*----------------------------------------------------------*/
-	/*-------------------ÆÄÆ®³Ê-----------------------------------*/
+	/*-------------------ï¿½ï¿½Æ®ï¿½ï¿½-----------------------------------*/
 	/*----------------------------------------------------------*/
 	
-	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
-
-	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
+	//ê³µì§€ì‚¬í•­ í˜ì´ì§•
+		public List<Map<String, Object>> NoticeAllList() throws Exception;
+		public List<Map<String, Object>> NoticeAllList(Pagination pagination) throws Exception;
+		public int testTableCountN() throws Exception;
 	
+	//íŒŒíŠ¸ë„ˆ í˜ì´ì§•
+	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
+	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
 	public int testTableCountPartner() throws Exception;
 
 
