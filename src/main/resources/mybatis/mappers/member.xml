@@ -113,7 +113,7 @@
 		parameterType="String">
 	<![CDATA[
 		select * from partner
-		where partnerLicenseNum=#{userCompany};
+		where partnerLicenseNum=#{userCompany}
 	]]>
 	</select>
 	
