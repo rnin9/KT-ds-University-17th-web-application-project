@@ -196,8 +196,8 @@ a:link, a:visited, a:hover {
 			},
 			success : function(data){
 				console.log("success");
-				/*window.location.reload();*/
-				$("#container").load("${contextPath}/syllabus/syllabusList.do");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
 			},
 			error : function(data) { 
 	            console.log("fail");

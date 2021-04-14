@@ -19,7 +19,8 @@ request.setCharacterEncoding("UTF-8");
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
    crossorigin="anonymous">
 
-
+<!-- <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" /> -->
 
 <style>
 a:link, a:visited, a:hover {
@@ -196,8 +197,8 @@ a:link, a:visited, a:hover {
 			},
 			success : function(data){
 				console.log("success");
-				/*window.location.reload();*/
-				$("#container").load("${contextPath}/course/courseList.do");
+				window.location.reload();
+				
 			},
 			error : function(data) { 
 	            console.log("fail");
@@ -312,7 +313,7 @@ a:link, a:visited, a:hover {
                      <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${courseVO.courseID}</td>
-                     <td>${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2} <br> ${courseVO.syllabusVO.syllabusName}</td>
+                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}<br>${courseVO.syllabusVO.syllabusName}</a></td>
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
                      <td>${courseVO.courseApplyStart}~<br>${courseVO.courseApplyEnd}</td>
@@ -325,7 +326,7 @@ a:link, a:visited, a:hover {
          <div style="margin-top: 50px; padding-bottom: 150px;">
             <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택과정 삭제</button>
             <button class="btn button_bottom"
-               onClick="location.href='courseForm.do'">교육과정 등록</button>
+               onClick="location.href='courseRegister.do'">교육과정 등록</button>
          </div>
 
          <div>여기에 페이징</div>

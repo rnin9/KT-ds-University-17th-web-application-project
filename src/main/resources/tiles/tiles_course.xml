@@ -4,7 +4,19 @@
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>	
 	<definition name="/course/courseList" extends="baseLayout">
-      <put-attribute name="title" value="과정 관리" />
-      <put-attribute name="body" value="/WEB-INF/views/course/courseList.jsp" />
+    	<put-attribute name="title" value="과정 관리" />
+        <put-attribute name="body" value="/WEB-INF/views/course/courseList.jsp" />
+    </definition>
+    <definition name="/course/selectCourse" extends="baseLayout">
+      <put-attribute name="title" value="과정 정보" />
+      <put-attribute name="body" value="/WEB-INF/views/course/courseInformation.jsp" />
+   </definition>
+    <definition name="/course/courseRegister" extends="baseLayout">
+        <put-attribute name="title" value="과정 등록" />
+        <put-attribute name="body" value="/WEB-INF/views/course/courseRegister.jsp" />
+    </definition>
+    <definition name="/course/courseModifyForm" extends="baseLayout">
+      <put-attribute name="title" value="과정 수정" />
+      <put-attribute name="body" value="/WEB-INF/views/course/courseModify.jsp" />
    </definition>
 </tiles-definitions>
