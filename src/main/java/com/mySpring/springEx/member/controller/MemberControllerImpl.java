@@ -175,17 +175,19 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(member);
+			memberVO = memberService.login(member);
 		
 		
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
-			partnerVO = memberService.partnerLogin(member);
+			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("partner", partnerVO);
+			System.out.println("==================="+partnerVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
+			mav.addObject("partner", partnerVO);
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =
@@ -219,6 +221,7 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
+		session.removeAttribute("partner");
 		session.removeAttribute("isLogOn");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/member/listMembers.do");
