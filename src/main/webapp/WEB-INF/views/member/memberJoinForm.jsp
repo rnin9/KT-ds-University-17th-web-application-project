@@ -464,7 +464,7 @@ hr {
 							})
 							return false;
 					}else if($("#com").val()==""){
-						$("#com").val("KTDSUNIVERSITY"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
+						$("#com").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
 					}
 				});
 				
