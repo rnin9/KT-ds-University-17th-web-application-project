@@ -7,8 +7,8 @@ public class ApplicationVO {
     private String partnerApplyUserID;
     private String partnerApplyPartnerID;
     private String partnerApplyResumeID;
-//    private String partnerApplyDate;
-//    private String partnerApplyState;
+    private String partnerApplyDate;
+    private String partnerApplyState;
 
     public ApplicationVO() {
 
@@ -18,8 +18,8 @@ public class ApplicationVO {
         this.partnerApplyUserID = partnerApplyUserID;
         this.partnerApplyPartnerID = partnerApplyPartnerID;
         this.partnerApplyResumeID = partnerApplyResumeID;
-//        this.partnerApplyDate = partnerApplyDate;
-//        this.partnerApplyState = partnerApplyState;
+        this.partnerApplyDate = partnerApplyDate;
+        this.partnerApplyState = partnerApplyState;
     }
 
 
@@ -47,19 +47,19 @@ public class ApplicationVO {
         this.partnerApplyResumeID = partnerApplyResumeID;
     }
 
-//    public String getPartnerApplyDate() {
-//        return partnerApplyDate;
-//    }
-//
-//    public void setPartnerApplyDate(String partnerApplyDate) {
-//        this.partnerApplyDate = partnerApplyDate;
-//    }
-//
-//    public String getPartnerApplyState() {
-//        return partnerApplyState;
-//    }
-//
-//    public void setPartnerApplyState(String partnerApplyState) {
-//        this.partnerApplyState = partnerApplyState;
-//    }
+    public String getPartnerApplyDate() {
+        return partnerApplyDate;
+    }
+
+    public void setPartnerApplyDate(String partnerApplyDate) {
+        this.partnerApplyDate = partnerApplyDate;
+    }
+
+    public String getPartnerApplyState() {
+        return partnerApplyState;
+    }
+
+    public void setPartnerApplyState(String partnerApplyState) {
+        this.partnerApplyState = partnerApplyState;
+    }
 }

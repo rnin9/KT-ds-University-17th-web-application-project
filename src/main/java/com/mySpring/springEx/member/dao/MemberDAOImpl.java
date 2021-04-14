@@ -3,6 +3,7 @@ package com.mySpring.springEx.member.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,6 +31,12 @@ public class MemberDAOImpl implements MemberDAO {
 		List<PartnerVO> partnerList = null;
 		partnerList = sqlSession.selectList("mapper.member.selectAllRecruitList");
 		return partnerList;
+	}
+
+	@Override
+	public List selectAllApplicationList(String id) throws DataAccessException {
+		List<ApplicationVO> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		return applicationList;
 	}
 
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {

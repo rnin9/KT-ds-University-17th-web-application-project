@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,7 +26,7 @@ public interface MemberController {
 	String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response) throws Exception;
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void userApplyPartner(@RequestBody Map<String, String> body,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception;

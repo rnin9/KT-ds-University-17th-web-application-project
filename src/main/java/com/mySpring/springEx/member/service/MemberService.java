@@ -31,6 +31,8 @@ public interface MemberService {
 	// methods for partner apply
 	public List listRecruitments() throws DataAccessException;
 
+	public List listApplications(String id) throws DataAccessException;
+
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
 }

@@ -53,7 +53,7 @@
       <td>${member.approval_status}</td>
       <td><a href="${contextPath}/member/removeMember.do?id=${member.userId }">삭제하기</a></td>
     </tr>
-  </c:forEach>   
+  </c:forEach>
 </table>
 <a  href="${contextPath}/member/memberJoinForm.do"><h1 style="text-align:center">회원가입</h1></a>
 </body>

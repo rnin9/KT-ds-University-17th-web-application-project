@@ -51,6 +51,12 @@ public class MemberServiceImpl implements MemberService {
 		return recruitmentList;
 	}
 
+	@Override
+	public List listApplications(String id) throws DataAccessException {
+		List applicationList = memberDAO.selectAllApplicationList(id);
+		return applicationList;
+	}
+
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
 		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
 	}

@@ -88,10 +88,12 @@ public class MemberControllerImpl implements MemberController {
 	//	list all recruitments
 	@Override
 	@RequestMapping(value = { "/member/apply.do"}, method = RequestMethod.GET)
-	public ModelAndView apply(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
+		List applicationList = memberService.listApplications(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
 		return mav;
 	}

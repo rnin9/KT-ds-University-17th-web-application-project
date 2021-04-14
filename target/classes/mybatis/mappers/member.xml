@@ -24,12 +24,16 @@
 	</resultMap>
 
 	<resultMap id="recruitResult" type="partnerVO">
-
 		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
 		<result property="partnerName" column="partnerName" />
 		<result property="partnerInformation" column="partnerInformation" />
 		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
+	</resultMap>
 
+	<resultMap id="applicationResult" type="applicationVO">
+		<result property="partnerApplyPartnerID" column="Partner_Apply_PartnerID"/>
+		<result property="partnerApplyDate" column="Partner_Apply_Date"/>
+		<result property="partnerApplyState" column="Partner_Apply_State"/>
 	</resultMap>
 
 	<select id="selectAllMemberList" resultMap="memResult">
@@ -48,6 +52,12 @@
 	</select>
 
 	<!--  select all applies	-->
+	<select id="selectAllApplicationList" resultMap="applicationResult">
+		select Partner_Apply_PartnerID, Partner_Apply_Date, Partner_Apply_State
+		from partner_apply
+		where Partner_Apply_UserID = #{id}
+	</select>
+
 	<!-- insert apply -->
 	<insert id="user_apply" parameterType="java.util.HashMap">
 		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
