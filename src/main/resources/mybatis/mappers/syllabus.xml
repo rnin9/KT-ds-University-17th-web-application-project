@@ -46,10 +46,10 @@
 	 	syllabusPurpose=#{syllabusPurpose}, syllabusTarget=#{syllabusTarget}, syllabusContent=#{syllabusContent}
 	 	where syllabusid = #{syllabusID}
 	 ]]> 
-	</update>	
+	</update>
 	<delete id="deleteSyllabus" parameterType="int">
-	  <![CDATA[
-	    delete from syllabus where syllabusID = #{syllabusID}
-	  ]]>
-	</delete>
+     <![CDATA[
+       delete from syllabus where syllabusID = #{syllabusID}
+     ]]>
+    </delete>	
 </mapper>

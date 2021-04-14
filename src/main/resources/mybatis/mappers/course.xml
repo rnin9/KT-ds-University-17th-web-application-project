@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.course">
+	<resultMap id="courseResult" type="courseVO">
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
+		<result property="courseStart" column="courseStart" />
+        <result property="courseEnd" column="courseEnd" />        
+        <result property="courseApplyStart" column="courseApplyStart" />
+        <result property="courseApplyEnd" column="courseApplyEnd" />
+        <result property="courseTime" column="courseTime" />
+        <result property="courseFee" column="courseFee" />
+        <result property="courseRoomNumber" column="courseRoomNumber" />
+        <result property="coursePeopleMax" column="coursePeopleMax" />
+        <result property="coursePeopleApplied" column="coursePeopleApplied" />
+        <result property="courseState" column="courseState" />
+        <result property="courseShow" column="courseShow" />
+        
+        <collection property="syllabusVO" javaType="SyllabusVO">
+        	<result property="syllabusCategory1" column="syllabusCategory1" />
+        	<result property="syllabusCategory2" column="syllabusCategory2" />
+        	<result property="syllabusName" column="syllabusName" />
+        </collection>
+	</resultMap>
+	
+	<select id="selectCourseList" resultMap="courseResult">
+	 <![CDATA[
+	    select courseID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
+	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd
+	    from course c join syllabus s on c.syllabusID = s.syllabusID
+	    order by courseID desc
+	 ]]>
+	</select>
+</mapper>
