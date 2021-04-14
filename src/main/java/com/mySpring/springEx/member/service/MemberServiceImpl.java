@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mySpring.springEx.member.dao.MemberDAO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 
 @Service("memberService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -222,6 +223,12 @@ public class MemberServiceImpl implements MemberService {
 	public int modMyInfo(MemberVO member) throws Exception{
 		memberDAO.modMyInfo(member);
 		return 0;
+	}
+
+	@Override
+	public PartnerVO partnerLogin(MemberVO memberVO) throws Exception {
+		// TODO Auto-generated method stub
+		return memberDAO.partnerLogInById(memberVO);
 	}
 	
 	

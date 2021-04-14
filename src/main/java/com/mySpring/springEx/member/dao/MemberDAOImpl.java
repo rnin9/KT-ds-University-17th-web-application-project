@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 
 
 @Repository("memberDAO")
@@ -80,5 +81,13 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("mapper.member.mod_myInformation", member);
 	}
+
+	@Override
+	public PartnerVO partnerLogInById(MemberVO member) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.member.partnerLoginById",member);
+	}
+	
+	
 
 }
