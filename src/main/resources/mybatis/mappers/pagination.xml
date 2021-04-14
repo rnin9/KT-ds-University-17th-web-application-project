@@ -61,7 +61,7 @@
          <![CDATA[
             select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
             m.userEmail, c.courseTake_State, courseTake_ApplyDate
-            from course_Take c join kt_user2 m on (c.userID = m.userId)
+            from course_Take c join kt_user m on (c.userID = m.userId)
             order by courseTake_ApplyDate desc
          ]]>
 	</select>
