@@ -2,8 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-<tiles-definitions>
-	
+<tiles-definitions>	
 	<definition name="/syllabus/syllabusList" extends="baseLayout">
       <put-attribute name="title" value="강의계획서 관리" />
       <put-attribute name="body" value="/WEB-INF/views/syllabus/syllabusList.jsp" />
