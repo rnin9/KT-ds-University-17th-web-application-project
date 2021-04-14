@@ -37,17 +37,17 @@
 		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
          <![CDATA[
             select m.userId
-            from course_Take c join kt_user2 m on (c.userID = m.userId)
+            from course_Take c join kt_user m on (c.userID = m.userId)
             order by courseTake_ApplyDate
          ]]>
 	</select>
 		<!-- 
 		 select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
             m.userEmail, c.courseTake_State, c.courseTake_ApplyDate, c.courseTake_CompleteDate
-            from course_Take c join kt_user2 m on (c.userID = m.userId)
+            from course_Take c join kt_user m on (c.userID = m.userId)
             order by courseTake_ApplyDate desc -->
 	<!-- <select id="selectAllCompleteList" resultMap="courseTakeResult"> 원래 
 		두번째 m.userEmail 대신 course의 과정명, <![CDATA[ select m.userId, m.userName, m.userPhoneNumber, 
 		m.userEmail, m.userCompany, m.userEmail, c.courseTake_State, courseTake_CompleteDate 
-		from course_Take c join kt_user2 m on (c.userID = m.userId) ]]> </select> -->
+		from course_Take c join kt_user m on (c.userID = m.userId) ]]> </select> -->
 </mapper>

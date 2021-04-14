@@ -23,9 +23,27 @@
 		<result property="resume" column="resume" />
 	</resultMap>
 
+	<resultMap id="resResult" type="partnerVO">
+		<result property="partnerLicenseNum" column="partnerLicenseNum" />
+	    <result property="partnerState" column="partnerState" />
+	    <result property="partnerName" column="partnerName" />
+	    <result property="partnerInformation" column="partnerInformation" />
+	    <result property="partnerAddress" column="partnerAddress" />
+	    <result property="partnerPhoneNumber" column="partnerPhoneNumber" />
+	    <result property="partnerEmail" column="partnerEmail" />
+	    <result property="partnerCEO" column="partnerCEO" />
+	    <result property="partnerHeadCount" column="partnerHeadCount" />
+	    <result property="partnerApplyYN" column="partnerApplyYN" />
+	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
+	    <result property="partnerURL" column="partnerURL" />
+	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	</resultMap>
+
+
+
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from kt_user2 order by userJoindate desc	 	
+         select * from kt_user order by userJoindate desc	 	
       ]]>
 	</select>
 
@@ -37,31 +55,30 @@
 	<!-- 아이디 중복 검사 -->
 	<select id="check_id" parameterType="String" resultType="int">
 		select
-		count(*) from kt_user2 where userId = #{userId}
+		count(*) from kt_user where userId = #{userId}
 	</select>
 
 	<!-- 이메일 중복 검사 -->
 	<select id="check_email" parameterType="String" resultType="int">
-		select count(*) from kt_user2 where userEmail = #{userEmail}
+		select count(*) from kt_user where userEmail = #{userEmail}
 	</select>
 
 	<!-- 내정보 가져오기 -->
 	<select id="get_myInformation" parameterType="String"
 		resultType="memberVO">
-		select * from kt_user2 where userId = #{userID}
+		select * from kt_user where userId = #{userID}
 	</select>
 
 	<!-- 회원 가입 -->
 	<insert id="join_member" parameterType="memberVO">
-		insert into kt_user2
-		values(#{userId},#{userPassword},#{userName},#{userMajor},#{birth},#{userGender},#{userPosition},#{userJob},#{userCompany},
-		#{userEmail},#{userPhoneNumber} ,#{userAddress1},#{userAddress2},
-		to_char(sysdate), 'false','N')
+		insert into kt_user
+		values(#{userId},#{userPassword},#{userName},#{userMajor},#{userGender},#{userPosition},#{userCompany},
+		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false')
 	</insert>
 
 	<!-- 이메일 인증 -->
 	<update id="approval_member" parameterType="memberVO">
-		update kt_user2 set
+		update kt_user set
 		approval_status = 'true'
 		where userEmail = #{userEmail} <!-- and approval_key = #{approval_key} -->
 	</update>
@@ -69,7 +86,7 @@
 
 	<update id="updateMember" parameterType="memberVO">
      <![CDATA[
-	     update kt_user2
+	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail}
 	     where
 	     userId=#{userId}
@@ -78,7 +95,7 @@
 
 	<delete id="deleteMember" parameterType="String">
 	<![CDATA[
-	   delete from  kt_user2
+	   delete from  kt_user
 	   where
 	   userId=#{userId}
 	]]>
@@ -87,14 +104,22 @@
 	<select id="loginById" resultType="memberVO"
 		parameterType="String">
 	<![CDATA[
-		select * from kt_user2
+		select * from kt_user
 		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
+	]]>
+	</select>
+	
+	<select id="partnerLoginById" resultType="partnerVO"
+		parameterType="String">
+	<![CDATA[
+		select * from partner
+		where partnerLicenseNum=#{userCompany};
 	]]>
 	</select>
 	
 	<update id="mod_myInformation" parameterType="memberVO">
      <![CDATA[
-	     update kt_user2
+	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail},
 	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber}, userPosition=#{userPosition},
 	     userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, userMajor=#{userMajor}

@@ -26,5 +26,5 @@ public interface PartnerService {
 
 	public String removePartner(String partnerLicenseNum) throws DataAccessException;
 
-
+	public PartnerVO getCompanyInfo (String partnerLicenseNum) throws DataAccessException;
 }
