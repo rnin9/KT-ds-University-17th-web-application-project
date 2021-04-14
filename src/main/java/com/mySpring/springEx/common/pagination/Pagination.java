@@ -2,39 +2,39 @@ package com.mySpring.springEx.common.pagination;
 
 public class Pagination {
 
-	// ÇöÀçÆäÀÌÁö
+	// í˜„ì¬í˜ì´ì§€
 	private int currentPage;
-	// ÆäÀÌÁö´ç Ãâ·ÂÇÒ ÆäÀÌÁö °¹¼ö
+	// í˜ì´ì§€ë‹¹ ì¶œë ¥í•  í˜ì´ì§€ ê°¯ìˆ˜
 	private int cntPerPage;
-	// È­¸é ÇÏ´Ü ÆäÀÌÁö »çÀÌÁî 1~10, 10~20 20~30 ...
+	// í™”ë©´ í•˜ë‹¨ í˜ì´ì§€ ì‚¬ì´ì¦ˆ 1~10, 10~20 20~30 ...
 	private int pageSize;
-	// ÀüÃ¼ µ¥ÀÌÅÍ °³¼ö
+	// ì „ì²´ ë°ì´í„° ê°œìˆ˜
 	private int totalRecordCount;
-	// ÀüÃ¼ ÆäÀÌÁö °³¼ö
+	// ì „ì²´ í˜ì´ì§€ ê°œìˆ˜
 	private int totalPageCount;
-	// ÆäÀÌÁö ¸®½ºÆ®ÀÇ Ã¹ ÆäÀÌÁö ¹øÈ£
+	// í˜ì´ì§€ ë¦¬ìŠ¤íŠ¸ì˜ ì²« í˜ì´ì§€ ë²ˆí˜¸
 	private int firstPage;
-	// ÆäÀÌÁö ¸®½ºÆ®ÀÇ ¸¶Áö¸· ÆäÀÌÁö ¹øÈ£
+	// í˜ì´ì§€ ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ í˜ì´ì§€ ë²ˆí˜¸
 	private int lastPage;
-	// SQLÀÇ Á¶°ÇÀı¿¡ »ç¿ëµÇ´Â Ã¹ RNUM
+	// SQLì˜ ì¡°ê±´ì ˆì— ì‚¬ìš©ë˜ëŠ” ì²« RNUM
 	private int firstRecordIndex;
-	// SQLÀÇ Á¶°ÇÀı¿¡ »ç¿ëµÇ´Â ¸¶Áö¸· RNUM
+	// SQLì˜ ì¡°ê±´ì ˆì— ì‚¬ìš©ë˜ëŠ” ë§ˆì§€ë§‰ RNUM
 	private int lastRecordIndex;
-	// ÀÌÀü ÆäÀÌÁö Á¸Àç ¿©ºÎ
+	// ì´ì „ í˜ì´ì§€ ì¡´ì¬ ì—¬ë¶€
 	private boolean hasPreviousPage;
-	// ´ÙÀ½ ÆäÀÌÁö Á¸Àç ¿©ºÎ
+	// ë‹¤ìŒ í˜ì´ì§€ ì¡´ì¬ ì—¬ë¶€
 	private boolean hasNextPage;
 
 	public Pagination(int currentPage, int cntPerPage, int pageSize) {
-		// °­Á¦ÀÔ·Â¹æÁö
+		// ê°•ì œì…ë ¥ë°©ì§€
 		if (currentPage < 1) {
 			currentPage = 1;
 		}
-		// 10,20,30°³ ´ÜÀ§ ÀÌ¿Ü Ã³¸® ¹æÁö
+		// 10,20,30ê°œ ë‹¨ìœ„ ì´ì™¸ ì²˜ë¦¬ ë°©ì§€
 		if (cntPerPage != 10 && cntPerPage != 20 && cntPerPage != 30) {
 			cntPerPage = 10;
 		}
-		// ÇÏ´Ü ÆäÀÌÁö °¹¼ö 10°³·Î Á¦ÇÑ
+		// í•˜ë‹¨ í˜ì´ì§€ ê°¯ìˆ˜ 10ê°œë¡œ ì œí•œ
 		if (pageSize != 10) {
 			pageSize = 10;
 		}
@@ -54,28 +54,28 @@ public class Pagination {
 
 	private void calculation() {
 
-		// ÀüÃ¼ ÆäÀÌÁö ¼ö (ÇöÀç ÆäÀÌÁö ¹øÈ£°¡ ÀüÃ¼ ÆäÀÌÁö ¼öº¸´Ù Å©¸é ÇöÀç ÆäÀÌÁö ¹øÈ£¿¡ ÀüÃ¼ ÆäÀÌÁö ¼ö¸¦ ÀúÀå)
+		// ì „ì²´ í˜ì´ì§€ ìˆ˜ (í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸ê°€ ì „ì²´ í˜ì´ì§€ ìˆ˜ë³´ë‹¤ í¬ë©´ í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸ì— ì „ì²´ í˜ì´ì§€ ìˆ˜ë¥¼ ì €ì¥)
 		totalPageCount = ((totalRecordCount - 1) / this.getCntPerPage()) + 1;
 		if (this.getCurrentPage() > totalPageCount) {
 			this.setCurrentPage(totalPageCount);
 		}
 
-		// ÆäÀÌÁö ¸®½ºÆ®ÀÇ Ã¹ ÆäÀÌÁö ¹øÈ£
+		// í˜ì´ì§€ ë¦¬ìŠ¤íŠ¸ì˜ ì²« í˜ì´ì§€ ë²ˆí˜¸
 		firstPage = ((this.getCurrentPage() - 1) / this.getPageSize()) * this.getPageSize() + 1;
 
-		// ÆäÀÌÁö ¸®½ºÆ®ÀÇ ¸¶Áö¸· ÆäÀÌÁö ¹øÈ£ (¸¶Áö¸· ÆäÀÌÁö°¡ ÀüÃ¼ ÆäÀÌÁö ¼öº¸´Ù Å©¸é ¸¶Áö¸· ÆäÀÌÁö¿¡ ÀüÃ¼ ÆäÀÌÁö ¼ö¸¦ ÀúÀå)
+		// í˜ì´ì§€ ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ í˜ì´ì§€ ë²ˆí˜¸ (ë§ˆì§€ë§‰ í˜ì´ì§€ê°€ ì „ì²´ í˜ì´ì§€ ìˆ˜ë³´ë‹¤ í¬ë©´ ë§ˆì§€ë§‰ í˜ì´ì§€ì— ì „ì²´ í˜ì´ì§€ ìˆ˜ë¥¼ ì €ì¥)
 		lastPage = firstPage + this.getPageSize() - 1;
 		if (lastPage > totalPageCount) {
 			lastPage = totalPageCount;
 		}
 
-		// SQLÀÇ Á¶°ÇÀı¿¡ »ç¿ëµÇ´Â Ã¹ RNUM
+		// SQLì˜ ì¡°ê±´ì ˆì— ì‚¬ìš©ë˜ëŠ” ì²« RNUM
 		firstRecordIndex = (this.getCurrentPage() - 1) * this.getCntPerPage();
 
-		// SQLÀÇ Á¶°ÇÀı¿¡ »ç¿ëµÇ´Â ¸¶Áö¸· RNUM
+		// SQLì˜ ì¡°ê±´ì ˆì— ì‚¬ìš©ë˜ëŠ” ë§ˆì§€ë§‰ RNUM
 		lastRecordIndex = this.getCurrentPage() * this.getCntPerPage();
 
-		// ÀÌÀü ÆäÀÌÁö Á¸Àç ¿©ºÎ
+		// ì´ì „ í˜ì´ì§€ ì¡´ì¬ ì—¬ë¶€
 		hasPreviousPage = firstPage == 1 ? false : true;
 		if(hasPreviousPage == false) {
 			if(currentPage != firstPage) {
@@ -84,10 +84,10 @@ public class Pagination {
 				hasPreviousPage = false;
 			}
 		}
-		// ´ÙÀ½ ÆäÀÌÁö Á¸Àç ¿©ºÎ
+		// ë‹¤ìŒ í˜ì´ì§€ ì¡´ì¬ ì—¬ë¶€
 		hasNextPage = (lastPage * this.getCntPerPage()) >= totalRecordCount ? false : true;
 		if (hasNextPage == false) {
-			// ¸¶Áö¸· ÆäÀÌÁö¿¡¼­ ÇöÀçÆäÀÌÁö°¡ ¸¶Áö¸· ÆäÀÌÁö°¡ ¾Æ´Ñ°æ¿ì nextÃ³¸®
+			// ë§ˆì§€ë§‰ í˜ì´ì§€ì—ì„œ í˜„ì¬í˜ì´ì§€ê°€ ë§ˆì§€ë§‰ í˜ì´ì§€ê°€ ì•„ë‹Œê²½ìš° nextì²˜ë¦¬
 			if (currentPage != lastPage) {
 				hasNextPage = true;
 			} else {

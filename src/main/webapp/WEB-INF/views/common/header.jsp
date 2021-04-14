@@ -143,7 +143,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/member/listMembers.do">공지사항 관리</a></li>
+						href="${contextPath}/notice/listNotice.do">">공지사항 관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin" href="#">문의사항
 							관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin"
@@ -176,7 +176,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link-admin  dropdown-toggle" href="#"
 						data-toggle="dropdown"> 고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
 						</ul></li>
@@ -188,7 +188,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
 						</ul></li>

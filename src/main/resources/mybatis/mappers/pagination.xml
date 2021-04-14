@@ -10,6 +10,8 @@
         <result property="survey_Title" column="survey_Title" />
         <result property="writeDate" column="writeDate" />
 	</resultMap> 
+	
+	
 
 
 	<select id="SelectAllList" resultMap="surResult">
@@ -36,6 +38,41 @@
   
  
  
+
+	
+<resultMap id="noticeResult" type="noticeVO">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_category" column="notice_category" />
+        <result property="notice_title" column="notice_title" />
+        <result property="notice_adminID" column="notice_adminID" />
+        <result property="notice_date" column="notice_date" />
+        <result property="notice_hit" column="notice_hit" />
+	</resultMap> 
+
+
+	<select id="NoticeAllList" resultMap="noticeResult">
+         SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
+        row_num
+        ,notice_no
+        ,notice_category
+        ,notice_title
+        ,notice_adminID
+        ,notice_date
+        ,notice_hit
+        FROM notice
+        )
+         <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>	 	
+	</select>
+
+	 <select id="testTableCountN" resultType="int">
+        SELECT count(*) FROM
+        notice
+    </select>
  
  	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
 	<![CDATA[
