@@ -13,10 +13,20 @@ public interface PartnerDAO {
 	public int selectCooperationPartner() throws DataAccessException;
 	
 	public int selectConventionPartner() throws DataAccessException;
+
+	public int selectIngPartner() throws DataAccessException;
 	
 	public int selectNotPartner() throws DataAccessException;
 
 	public int addPartner(PartnerVO partner) throws DataAccessException;
+	
+	public int updatePartner(PartnerVO partner) throws DataAccessException;
+	
+	public PartnerVO selectDetailPartner(String partnerLicenseNum) throws DataAccessException;
+	
+	public void deletePartner(String partnerLicenseNum) throws DataAccessException;
+	
+	public String partnerName(String partnerLicenseNum) throws DataAccessException;
 
 	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 
 public interface MemberDAO {
 	public List selectAllMemberList() throws DataAccessException;
@@ -31,5 +32,9 @@ public interface MemberDAO {
 
 	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
-
+	public MemberVO getMyInformation(String userID) throws Exception;
+	
+	public int modMyInfo(MemberVO member) throws Exception; 
+	
+	public PartnerVO partnerLogInById(MemberVO member) throws Exception;
 }

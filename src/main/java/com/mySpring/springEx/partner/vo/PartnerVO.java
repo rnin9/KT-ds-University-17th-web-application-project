@@ -1,5 +1,6 @@
 package com.mySpring.springEx.partner.vo;
 
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -143,6 +144,5 @@ public class PartnerVO {
 	public void setPartnerRegisterDate(String partnerRegisterDate) {
 		this.partnerRegisterDate = partnerRegisterDate;
 	}
-
 
 }

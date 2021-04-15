@@ -63,7 +63,8 @@
 	
 <%-- layou css import --%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/layout.css" />
+	href="${pageContext.request.contextPath}/resources/css/layout.css" />		
+	
 <%--폰트 --%>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

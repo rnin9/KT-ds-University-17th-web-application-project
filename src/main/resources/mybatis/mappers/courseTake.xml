@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.courseTake">
+	<resultMap id="courseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+
+		<!-- 1 : 다 관계의 경우 데이터 매핑시켜준다. association => 1 : 1 관계 collection => 1 : 
+			다 관계 (한명의 유저가 작성한 글 목록) 일반 컬럼과 pk 구분 가능 pk 칼럼에게는 result 아닌 id 사용 -->
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+			<result property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="userPhoneNumber" column="userPhoneNumber" />
+			<result property="userEmail" column="userEmail" />
+			<result property="userCompany" column="userCompany" />
+		</collection>
+	</resultMap>
+	<!-- pk칼럼에게는 id 사용합니다 -->
+	<resultMap type="memberVO" id="memberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+	</resultMap>
+
+	<select id="SelectAllCourseApplyList" resultMap="courseTakeResult">
+		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
+         <![CDATA[
+            select m.userId
+            from course_Take c join kt_user m on (c.userID = m.userId)
+            order by courseTake_ApplyDate
+         ]]>
+	</select>
+		<!-- 
+		 select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
+            m.userEmail, c.courseTake_State, c.courseTake_ApplyDate, c.courseTake_CompleteDate
+            from course_Take c join kt_user m on (c.userID = m.userId)
+            order by courseTake_ApplyDate desc -->
+	<!-- <select id="selectAllCompleteList" resultMap="courseTakeResult"> 원래 
+		두번째 m.userEmail 대신 course의 과정명, <![CDATA[ select m.userId, m.userName, m.userPhoneNumber, 
+		m.userEmail, m.userCompany, m.userEmail, c.courseTake_State, courseTake_CompleteDate 
+		from course_Take c join kt_user m on (c.userID = m.userId) ]]> </select> -->
+</mapper>

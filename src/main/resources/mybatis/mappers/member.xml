@@ -6,21 +6,21 @@
 <mapper namespace="mapper.member">
 	<resultMap id="memResult" type="memberVO">
 		<result property="userId" column="userId" />
-        <result property="userPassword" column="userPassword" />
-        <result property="userName" column="userName" />
-        <result property="userEmail" column="userEmail" />
-        <result property="birth" column="birth" />
-        <result property="userGender" column="userGender" />
-        <result property="userMajor" column="userMajor" />
-        <result property="userPosition" column="userPosition" />
-        <result property="userJob" column="userJob" />
-        <result property="userCompany" column="userCompany" />
-        <result property="userPhoneNumber" column="userPhoneNumber" />
-        <result property="userAddress1" column="userAddress1" />
-        <result property="userAddress2" column="userAddress2" />
-        <result property="userJoindate" column="userJoindate" />
-        <result property="approval_status" column="approval_status" />
-        <result property="resume" column="userResume" />
+		<result property="userPassword" column="userPassword" />
+		<result property="userName" column="userName" />
+		<result property="userEmail" column="userEmail" />
+		<result property="birth" column="birth" />
+		<result property="userGender" column="userGender" />
+		<result property="userMajor" column="userMajor" />
+		<result property="userPosition" column="userPosition" />
+		<result property="userJob" column="userJob" />
+		<result property="userCompany" column="userCompany" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userAddress1" column="userAddress1" />
+		<result property="userAddress2" column="userAddress2" />
+		<result property="userJoindate" column="userJoindate" />
+		<result property="approval_status" column="approval_status" />
+		<result property="resume" column="resume" />
 	</resultMap>
 
 	<resultMap id="recruitResult" type="partnerVO">
@@ -46,9 +46,10 @@
 		<result property="partnerApplyState" column="Partner_Apply_State"/>
 	</resultMap>
 
+
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from kt_user2 order by userJoindate desc	 	
+         select * from kt_user order by userJoindate desc	 	
       ]]>
 	</select>
 
@@ -100,58 +101,84 @@
 	</insert> -->
 	<select id="check_resume" parameterType="String" resultType="String">
 		select userresume
-		from kt_user2
+		from kt_user
 		where userId = #{userId}
 	</select>
-	
+
 	<!-- 아이디 중복 검사 -->
 	<select id="check_id" parameterType="String" resultType="int">
 		select
-		count(*) from kt_user2 where userId = #{userId}
+		count(*) from kt_user where userId = #{userId}
 	</select>
 
 	<!-- 이메일 중복 검사 -->
 	<select id="check_email" parameterType="String" resultType="int">
-		select count(*) from kt_user2 where userEmail = #{userEmail}
+		select count(*) from kt_user where userEmail = #{userEmail}
 	</select>
-	
-		<!-- 회원 가입 -->
+
+	<!-- 내정보 가져오기 -->
+	<select id="get_myInformation" parameterType="String"
+		resultType="memberVO">
+		select * from kt_user where userId = #{userID}
+	</select>
+
+	<!-- 회원 가입 -->
 	<insert id="join_member" parameterType="memberVO">
-		insert into kt_user2
-		values(#{userId},#{userPassword},#{userName},#{userMajor},#{birth},#{userGender},#{userPosition},#{userJob},#{userCompany}, #{userEmail},#{userPhoneNumber} ,#{userAddress1},#{userAddress2}, to_char(sysdate), 'false','N')
+		insert into kt_user
+		values(#{userId},#{userPassword},#{userName},#{userMajor},#{userGender},#{userPosition},#{userCompany},
+		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false')
 	</insert>
-	
+
 	<!-- 이메일 인증 -->
 	<update id="approval_member" parameterType="memberVO">
-		update kt_user2 set
+
+		update kt_user set
 		approval_status = 'true'
-		where userEmail = #{userEmail} <!-- and
-		approval_key =
-		#{approval_key} -->
+		where userEmail = #{userEmail} <!-- and approval_key = #{approval_key} -->
 	</update>
 
-   
-   <update id="updateMember"  parameterType="memberVO">
+
+	<update id="updateMember" parameterType="memberVO">
      <![CDATA[
-	     update kt_user2
+	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail}
 	     where
 	     userId=#{userId}
-      ]]>      
-   </update> 
-     
-   <delete id="deleteMember"  parameterType="String">
+      ]]>
+	</update>
+
+	<delete id="deleteMember" parameterType="String">
 	<![CDATA[
-	   delete from  kt_user2
+	   delete from  kt_user
 	   where
 	   userId=#{userId}
-	]]>      
-  </delete>
+	]]>
+	</delete>
 
-  <select id="loginById"  resultType="memberVO"   parameterType="String" >
+	<select id="loginById" resultType="memberVO"
+		parameterType="String">
 	<![CDATA[
-		select * from kt_user2
+		select * from kt_user
 		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
 	]]>
-  </select>
-</mapper>
+	</select>
+	
+	<select id="partnerLoginById" resultType="partnerVO"
+		parameterType="String">
+	<![CDATA[
+		select * from partner
+		where partnerLicenseNum=#{userCompany}
+	]]>
+	</select>
+	
+	<update id="mod_myInformation" parameterType="memberVO">
+     <![CDATA[
+	     update kt_user
+	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail},
+	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber}, userPosition=#{userPosition},
+	     userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, userMajor=#{userMajor}
+	     where
+	     userId=#{userId}
+      ]]>
+	</update>
+</mapper> 
