@@ -23,7 +23,7 @@
 		<result property="resume" column="resume" />
 	</resultMap>
 
-	<resultMap id="recruitResult" type="partnerVO">
+	<resultMap id="resResult" type="partnerVO">
 		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
 		<result property="partnerState" column="partnerState"/>
 		<result property="partnerName" column="partnerName" />
@@ -54,7 +54,7 @@
 	</select>
 
 	<!--  select all recruitments	-->
-	<select id="selectAllRecruitList" resultMap="recruitResult">
+	<select id="selectAllRecruitList" resultMap="resResult">
 		<![CDATA[
 			select *
 			from partner
