@@ -1,6 +1,7 @@
 package com.mySpring.springEx.member.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
+
 	@Value("${hostSMTPid}")
 	public String hostSMTPId;
 	// https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
@@ -43,6 +45,34 @@ public class MemberServiceImpl implements MemberService {
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
 	}
+
+	@Override
+	public List listRecruitments() throws DataAccessException {
+		List recruitmentList = null;
+		recruitmentList = memberDAO.selectAllRecruitList();
+		return recruitmentList;
+	}
+
+	@Override
+	public List listApplications(String id) throws DataAccessException {
+		List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
+		return applicationList;
+	}
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+
+	/*
+	 * @Override public int addMember(MemberVO member) throws DataAccessException {
+	 * return memberDAO.insertMember(member); }
+	 */
+
 
 	@Override
 	public int removeMember(String id) throws DataAccessException {

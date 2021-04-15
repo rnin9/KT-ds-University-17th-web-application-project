@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 import com.mySpring.springEx.partner.dao.PartnerDAO;
@@ -19,7 +20,7 @@ public class PartnerServiceImpl implements PartnerService {
 	
 	@Autowired
 	private PartnerDAO partnerDAO;
-	
+
 	@Autowired
 	public PageMapper pageMapper;
 	
