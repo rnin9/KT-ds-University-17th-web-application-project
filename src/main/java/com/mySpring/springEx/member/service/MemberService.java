@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,8 @@ public interface MemberService {
 	public int removeMember(String id) throws DataAccessException;
 
 	public MemberVO login(MemberVO memberVO) throws Exception;
+	
+	public PartnerVO partnerLogin(MemberVO memberVO) throws Exception;
 
 	//회원가입
 	public void check_id(String id, HttpServletResponse response) throws Exception;

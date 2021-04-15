@@ -44,12 +44,6 @@ public class PartnerServiceImpl implements PartnerService {
     }
 	
 	
-	
-	
-	
-	
-	
-	
 	//회사 상태별 count 출력
 	@Override
 	public List listNumPartner() throws DataAccessException {
@@ -87,5 +81,11 @@ public class PartnerServiceImpl implements PartnerService {
 		String partnerName = partnerDAO.partnerName(partnerLicenseNum);
 		partnerDAO.deletePartner(partnerLicenseNum);
 		return partnerName;
+	}
+
+	@Override
+	public PartnerVO getCompanyInfo(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

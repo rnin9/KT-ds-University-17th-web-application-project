@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 
 @Controller("memberController")
 //@EnableAspectJAutoProxy
@@ -25,6 +26,8 @@ public class MemberControllerImpl implements MemberController {
 	private MemberService memberService;
 	@Autowired
 	MemberVO memberVO;
+	@Autowired
+	PartnerVO partnerVO;
 
 	// 硫붿씤�솕硫�
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
@@ -172,13 +175,19 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(member);
-		if (memberVO != null) {
+			memberVO = memberService.login(member);
+		
+		
+		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
+			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
+			session.setAttribute("partner", partnerVO);
+			System.out.println("==================="+partnerVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
+			mav.addObject("partner", partnerVO);
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =
@@ -187,7 +196,16 @@ public class MemberControllerImpl implements MemberController {
 			 * mav.setViewName("redirect:/member/listMembers.do"); }
 			 */
 
-		} else {
+		} else if(memberVO != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", memberVO);
+			session.setAttribute("isLogOn", true);
+			mav.addObject("result", true);
+			mav.addObject("member", memberVO);
+			mav.setViewName("jsonView");
+			
+		}
+		else {
 			rAttr.addAttribute("result", "loginFailed");/*
 														 * mav.setViewName("redirect:/member/loginForm.do");
 														 */
@@ -203,6 +221,7 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
+		session.removeAttribute("partner");
 		session.removeAttribute("isLogOn");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/member/listMembers.do");
