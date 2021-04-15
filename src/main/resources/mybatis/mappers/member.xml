@@ -30,8 +30,9 @@
 		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
 	</resultMap>
 
-	<resultMap id="applicationResult" type="applicationVO">
-		<result property="partnerApplyPartnerID" column="Partner_Apply_PartnerID"/>
+	<resultMap id="applicationResult" type="HashMap">
+		<result property="partnerName" column="PartnerName"/>
+		<result property="partnerID" column="PARTNER_APPLY_PARTNERID"/>
 		<result property="partnerApplyDate" column="Partner_Apply_Date"/>
 		<result property="partnerApplyState" column="Partner_Apply_State"/>
 	</resultMap>
@@ -51,9 +52,15 @@
 		]]>
 	</select>
 
-	<!--  select all applies	-->
+	<!--  select all applies   -->
 	<select id="selectAllApplicationList" resultMap="applicationResult">
-		select Partner_Apply_PartnerID, Partner_Apply_Date, Partner_Apply_State
+		select (select PARTNERNAME
+				from partner
+				where PARTNERLICENSENUM = PARTNER_APPLY_PARTNERID
+		    	)as partnerName,
+			   PARTNER_APPLY_PARTNERID,
+			   Partner_Apply_Date,
+		       Partner_Apply_State
 		from partner_apply
 		where Partner_Apply_UserID = #{id}
 	</select>
@@ -68,6 +75,11 @@
 		insert into partner_apply
 		values(#{partnerApplyUserID}, #{partnerApplyPartnerID}, #{partnerApplyResumeID}, sysdate, '진행중')
 	</insert>
+
+	<delete id="deleteApplication" parameterType="String">
+		delete from partner_apply
+		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
+	</delete>
 
     
 <!--   <insert id="insertMember"  parameterType="memberVO">

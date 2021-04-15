@@ -35,7 +35,15 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List selectAllApplicationList(String id) throws DataAccessException {
-		List<ApplicationVO> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		List<HashMap<String, String>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+//		for (HashMap<String, String> stringStringHashMap : applicationList) {
+//			System.out.println("------------------------------------");
+//			System.out.println(stringStringHashMap.get("partnerName"));
+//			System.out.println(stringStringHashMap.get("partnerID"));
+//			System.out.println(stringStringHashMap.get("partnerApplyDate"));
+//			System.out.println(stringStringHashMap.get("partnerApplyState"));
+//			System.out.println("------------------------------------");
+//		}
 		return applicationList;
 	}
 
@@ -44,6 +52,13 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("partnerApplyUserID", partnerApplyUserID);
 		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
 		return sqlSession.insert("mapper.member.user_apply", map);
+	}
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerApplyUserID", partnerApplyUserID);
+		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
+		return sqlSession.delete("mapper.member.deleteApplication", map);
 	}
 
 	@Override

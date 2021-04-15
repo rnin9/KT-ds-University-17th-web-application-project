@@ -91,8 +91,16 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
-		List applicationList = memberService.listApplications(member.getUserId());
+		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
+//		for(int i = 0; i < applicationList.size(); i++) {
+//			System.out.println("------------------------------------");
+//			System.out.println(applicationList.get(i).get("partnerName"));
+//			System.out.println(applicationList.get(i).get("partnerID"));
+//			System.out.println(applicationList.get(i).get("partnerApplyDate"));
+//			System.out.println(applicationList.get(i).get("partnerApplyState"));
+//			System.out.println("------------------------------------");
+//		}
 		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
 		return mav;
@@ -105,11 +113,18 @@ public class MemberControllerImpl implements MemberController {
 								 HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, String> resultMap = new HashMap<String, String>();
 		request.setCharacterEncoding("utf-8");
-		System.out.println(body.get("partnerApplyUserID"));
-		System.out.println(body.get("partnerApplyPartnerID"));
 		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 //		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
 //		return resultMap;
+	}
+
+	@Override
+	@RequestMapping(value = {"/member/deleteApplication.do"}, method = {RequestMethod.POST})
+	public void deleteApplication(@RequestBody Map<String, String> body,
+								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println(body.get("partnerApplyUserID") + " yeeeeeeeeeeeeeeeeees");
+		System.out.println(body.get("partnerApplyPartnerID"));
+		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 
 	@Override

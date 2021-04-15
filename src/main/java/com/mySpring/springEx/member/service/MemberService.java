@@ -35,4 +35,6 @@ public interface MemberService {
 
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
 }

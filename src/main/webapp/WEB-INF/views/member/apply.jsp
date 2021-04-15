@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<%--    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />--%>
     <%--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
     <%--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
     <%--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>--%>
@@ -13,17 +16,118 @@
 
 
     <title>협력사 지원</title>
+    <style>
+        /*.fouc {*/
+        /*    display: none;*/
+        /*}*/
+    </style>
+<%--    <script>--%>
+
+
+<%--            &lt;%&ndash;let hash = window.location.hash;&ndash;%&gt;--%>
+
+<%--            &lt;%&ndash;if (hash == '' || hash == null) {&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    window.location = "#nav-home";&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    hash = window.location.hash;&ndash;%&gt;--%>
+<%--            &lt;%&ndash;}&ndash;%&gt;--%>
+
+<%--            &lt;%&ndash;console.log('ddddddddddddddddddddddd');&ndash;%&gt;--%>
+<%--            &lt;%&ndash;console.log(hash);&ndash;%&gt;--%>
+
+<%--            &lt;%&ndash;$('a[data-toggle="tab"]').cilck(function () {&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    window.location.hash =&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    ${this}.&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    arrt("href").substr(1);&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    console.log('wwwwwwwwwwwwwwwwwwwwww');&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    console.log(hash);&ndash;%&gt;--%>
+<%--            &lt;%&ndash;});&ndash;%&gt;--%>
+<%--            &lt;%&ndash;$('myTab a').on('shown.bs.tab', function(){&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    alert("showwwwww?");&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    $(".fouc").show();&ndash;%&gt;--%>
+<%--            &lt;%&ndash;})&ndash;%&gt;--%>
+
+
+
+<%--        function getPartnerInfo(info) {--%>
+<%--            // document.getElementById("partner_info").innerHTML = info.innerHTML;--%>
+<%--            &lt;%&ndash;swal({&ndash;%&gt;--%>
+<%--            &lt;%&ndash;    text: `${obj.partnerInformation}`,&ndash;%&gt;--%>
+<%--            &lt;%&ndash;});&ndash;%&gt;--%>
+<%--            $("#partner_info").text(info);--%>
+<%--            // $("#myModal").modal('show');--%>
+<%--        }--%>
+<%--    </script>--%>
     <script>
-        function getPartnerInfo(info) {
-            // document.getElementById("partner_info").innerHTML = info.innerHTML;
-            <%--swal({--%>
-            <%--    text: `${obj.partnerInformation}`,--%>
-            <%--});--%>
-            $("#partner_info").text(info);
-            // $("#myModal").modal('show');
+        // $(document).ready(function(){
+        //     console.log('heeeeerrrreeeeeee');
+        //     console.log(activeTab);
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+            console.log(activeTab+"yeeeeeeeeeee");
+        });
+        let activeTab = localStorage.getItem('activeTab');
+        console.log('eeeeerrrrrrrrrrhhhh');
+        console.log(activeTab);
+        if(activeTab){
+            console.log(activeTab + 'oooooooooooooooooo');
+            // $('.nav-tabs [href="' + activeTab + '"]').tab("show");
+            // $('#myTab a[href="' + activeTab + '"]').tab('show');
+            // $(activeTab).tab("show");
+            // $('ul.nav-tabs li:eq(1)').tab('show');
+            // $('.nav-tabs a[href="#nav-profile"]').tab('show');
+            $('#myTab a[href="' + activeTab + '"]').trigger('click');
+            console.log('.nav-tabs a[href="' + activeTab + '"]');
         }
-    </script>
-    <script>
+        // });
+
+        if(activeTab == "#nav-profile"){
+            console.log('gㅏ................');
+            $("#firstNav").attr('class', 'nav-link');
+            $("#secondNav").attr('class', 'nav-link active');
+        }
+
+        function tabtab(h) {
+            localStorage.setItem('activeTab', h);
+            console.log('href   yyyy' + h);
+        }
+
+        function deleteApplication(partnerApplyPartnerID) {
+            const id = '${member.userId}';
+            console.log(partnerApplyPartnerID + 'yeeeeeeeeeee' + id);
+            fetch("${contextPath}/member/deleteApplication.do", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "accept": "application/json"
+                },
+                body: JSON.stringify({
+                    partnerApplyUserID: '${member.userId}',
+                    partnerApplyPartnerID: partnerApplyPartnerID
+                })
+            })
+                .then(res => {
+                    console.log(res);
+
+                    swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
+                    setTimeout(function() {
+                        console.log('Works!');
+                        location.reload();
+                        if(activeTab == "#nav-profile"){
+                            $("#one1").attr('class', 'nav-link');
+                            $("#two2").attr('class', 'nav-link active');
+                        }
+                    }, 1000);
+
+
+                    <%--$("#container").load("${contextPath}/member/apply.do", function () {--%>
+                    <%--    console.log("success");--%>
+                    <%--});--%>
+
+                })
+                .catch(e => console.log(e));
+        }
+
         function chk_apply(a, b, c) {
             <%--                                            <%System.out.println("11111");%>--%>
             console.log('아아아아아아아ㅏㅏㅏㅏㅏㅏㅏ');
@@ -71,12 +175,21 @@
                             swal("중복 지원.", "중복 지원.", "info");
                         } else {
                             swal("지원 완료.", "지원 완료.", "success");
-                            $("#container").load("${contextPath}/member/apply.do", function () {
-                                console.log("success");
-                            });
+                            setTimeout(function() {
+                                console.log('Works!');
+                                location.reload();
+                                $('#myTab a[href="' + activeTab + '"]').trigger('click');
+                            }, 1000);
+
+
+                            <%--$("#container").load("${contextPath}/member/apply.do", function () {--%>
+                            <%--    console.log("success");--%>
+                            <%--});--%>
                         }
                     })
                     .catch(e => console.log(e));
+
+
                 // fetch(url, option)
                 //     .then((response) => {
                 //         console.log("??");
@@ -187,16 +300,19 @@
                             <%--                            <a class="nav-item" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">진행중</a>--%>
                             <%--                            <a class="nav-item" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">마감</a>--%>
                             <%--                        </div>--%>
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" data-toggle="tab" href="#nav-home">지원
+                                    <a id="firstNav" href="#nav-home" data-toggle="tab" onclick="tabtab('#nav-home')" class="nav-link active">지원
                                         가능</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#nav-profile">지원 완료</a>
+                                    <a id="secondNav" href="#nav-profile" data-toggle="tab" onclick="tabtab('#nav-profile')" class="nav-link">지원 완료</a>
                                 </li>
                             </ul>
                         </nav>
+<%--                        <c:when test="${localStorage.getItem('activeTab') == '#nav-profile'}">--%>
+
+<%--                        </c:when>--%>
 
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
@@ -266,10 +382,15 @@
                                     <tbody>
                                     <c:forEach var="application" items="${applicationList}">
                                         <tr>
-                                            <td>${application.partnerApplyPartnerID}</td>
+                                            <td>${application.partnerName}</td>
+<%--                                            <td>${application.PARTNRENAME}</td>--%>
                                             <td>${application.partnerApplyDate}</td>
+<%--                                            <td>${application.PARTNERAPPLYDATE}</td>--%>
                                             <td>${application.partnerApplyState}</td>
-                                            <td><a>지원서 삭제</a></td>
+<%--                                            <td>${application.PARTNERAPPLYSTATE}</td>--%>
+                                            <td><a onclick="deleteApplication('${application.partnerID}')">지원서
+                                                삭제</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

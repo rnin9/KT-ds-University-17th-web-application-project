@@ -29,6 +29,8 @@ public interface MemberController {
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void userApplyPartner(@RequestBody Map<String, String> body,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public void deleteApplication(@RequestBody Map<String, String> body,
+								  HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) throws Exception;

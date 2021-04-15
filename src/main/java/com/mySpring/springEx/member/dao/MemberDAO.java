@@ -29,5 +29,7 @@ public interface MemberDAO {
 
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
 
 }

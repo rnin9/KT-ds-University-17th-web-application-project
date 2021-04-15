@@ -1,6 +1,7 @@
 package com.mySpring.springEx.member.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -53,13 +54,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List listApplications(String id) throws DataAccessException {
-		List applicationList = memberDAO.selectAllApplicationList(id);
+		List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
 		return applicationList;
 	}
 
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
 		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
 	}
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		System.out.println("@@@@@@@@@@@@@@@");
+		System.out.println(partnerApplyUserID);
+		System.out.println(partnerApplyPartnerID);
+		System.out.println("@@@@@@@@@@@@@@@@");
+
+		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
 
 	/*
 	 * @Override public int addMember(MemberVO member) throws DataAccessException {
