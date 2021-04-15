@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeController {
 

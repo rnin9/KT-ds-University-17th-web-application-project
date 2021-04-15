@@ -3,6 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <!-- survey List pagination -->
 <mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
 	<resultMap id="surResult" type="surveyVO">
@@ -55,6 +56,7 @@
 	
 
 
+
 	<!-- courseTake pagination -->
 
 	<resultMap id="courseTakeResult" type="courseTakeVO">
@@ -65,6 +67,7 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
+
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
 			<id property="userId" column="userId" />
@@ -73,20 +76,40 @@
 			<result property="userEmail" column="userEmail" />
 			<result property="userCompany" column="userCompany" />
 		</collection>
-	</resultMap>
 
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+		</collection>
+
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
+	</resultMap>
 
 	<select id="selectAllCourseApplyList"
 		resultMap="courseTakeResult">
-		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
-         <![CDATA[
-            select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
-            m.userEmail, c.courseTake_State, courseTake_ApplyDate
-            from course_Take c join kt_user m on (c.userID = m.userId)
-            order by courseTake_ApplyDate desc
+         <![CDATA[select m.userId, m.userName, m.userPhoneNumber,m.userEmail, m.userCompany,
+         s.syllabusName, ct.courseId, courseTake_State, courseTake_ApplyDate
+         from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid)
+         order by courseTake_ApplyDate desc
          ]]>
 	</select>
-
+	
+<!-- 	<update id="updateApplyConsent" parameterType="CouseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '승인'
+			where courseTake_State = '승인대기'
+         ]]>
+	</update> -->
+	<update id="updateApplyConsent" parameterType="CourseTakeVO">
+	<![CDATA[
+			update course_Take
+			set courseTake_State = '승인'
+			where courseTake_State = '승인대기' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
 	<select id="testTableCountCT" resultType="int">
 		SELECT count(*) FROM course_take
 
@@ -141,9 +164,44 @@
 		</if>
 	</select>
 
-	<select id="testTableCountPartner" resultType="int">
-		SELECT count(*) FROM
-		partner
+	
+	 <select id="testTableCountPartner" resultType="int">
+        SELECT count(*) FROM
+        partner
+    </select>
+    
+    
+    <!-- 공지사항 -->
+    <resultMap id="noticeResult" type="noticeVO">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_category" column="notice_category" />
+        <result property="notice_title" column="notice_title" />
+        <result property="notice_adminID" column="notice_adminID" />
+        <result property="notice_date" column="notice_date" />
+        <result property="notice_hit" column="notice_hit" />
+	</resultMap> 
+
+	<select id="NoticeAllList" resultMap="noticeResult">
+         SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
+        row_num
+        ,notice_no
+        ,notice_category
+        ,notice_title
+        ,notice_adminID
+        ,notice_date
+        ,notice_hit
+        FROM notice
+        )
+         <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>	 	
 	</select>
 
+	 <select id="testTableCountN" resultType="int">
+        SELECT count(*) FROM
+        notice
+    </select>
 </mapper>

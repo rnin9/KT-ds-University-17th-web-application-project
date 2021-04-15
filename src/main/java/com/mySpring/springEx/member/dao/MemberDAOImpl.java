@@ -1,7 +1,9 @@
 package com.mySpring.springEx.member.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -35,6 +37,33 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
+	public List selectAllRecruitList() throws DataAccessException {
+		List<PartnerVO> partnerList = null;
+		partnerList = sqlSession.selectList("mapper.member.selectAllRecruitList");
+		return partnerList;
+	}
+
+	@Override
+	public List selectAllApplicationList(String id) throws DataAccessException {
+		List<HashMap<String, String>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		return applicationList;
+	}
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerApplyUserID", partnerApplyUserID);
+		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
+		return sqlSession.insert("mapper.member.user_apply", map);
+	}
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerApplyUserID", partnerApplyUserID);
+		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
+		return sqlSession.delete("mapper.member.deleteApplication", map);
+	}
+
+	@Override
 	public int deleteMember(String id) throws DataAccessException {
 		int result = sqlSession.delete("mapper.member.deleteMember", id);
 		return result;
@@ -43,6 +72,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException {
 		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", memberVO);
+		vo.setResume((String) sqlSession.selectOne("mapper.member.check_resume", vo.getUserId()));
 		return vo;
 	}
 	//test¿ë

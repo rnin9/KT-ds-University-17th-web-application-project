@@ -5,7 +5,9 @@ import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
 public class CourseTakeVO {
@@ -22,42 +24,30 @@ public class CourseTakeVO {
 	 * userEmail; private String userCompany;
 	 */
 
-	// kt_user와 join하기 위해 memberVO 객체를 멤버변수로 선언한다.
+	// kt_user와 join하기 위해 memberVO, courseVO, syllabusVO 객체를 멤버변수로 선언한다.
 	@Autowired
 	private MemberVO memberVO;
-/*
-	public String getUserPhoneNumber() {
-		return userPhoneNumber;
+	@Autowired
+	private CourseVO courseVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+
+	public CourseVO getCourseVO() {
+		return courseVO;
 	}
 
-	public void setUserPhoneNumber(String userPhoneNumber) {
-		this.userPhoneNumber = userPhoneNumber;
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public SyllabusVO getSyllabusVO() {
+		return syllabusVO;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setSyllabusVO(SyllabusVO syllabusVO) {
+		this.syllabusVO = syllabusVO;
 	}
 
-	public String getUserCompany() {
-		return userCompany;
-	}
-
-	public void setUserCompany(String userCompany) {
-		this.userCompany = userCompany;
-	}
-	
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	*/
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}

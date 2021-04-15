@@ -5,12 +5,15 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.mySpring.springEx.member.vo.MemberVO"  alias="memberVO" />
+		<typeAlias type="com.mySpring.springEx.partner.vo.PartnerVO" alias="partnerVO"/>
 		<typeAlias type="com.mySpring.springEx.board.vo.ArticleVO"  alias="articleVO" />
 		<typeAlias type="com.mySpring.springEx.survey.vo.SurveyVO"  alias="surveyVO" />
 		<typeAlias type="com.mySpring.springEx.board.vo.ImageVO"  alias="imageVO" />
+		<typeAlias type="com.mySpring.springEx.application.vo.ApplicationVO" alias="applicationVO"/>
 		<typeAlias type="com.mySpring.springEx.partner.vo.PartnerVO"  alias="partnerVO" />
 		<typeAlias type="com.mySpring.springEx.syllabus.vo.SyllabusVO"  alias="syllabusVO" />
 		<typeAlias type="com.mySpring.springEx.courseTake.vo.CourseTakeVO"  alias="courseTakeVO" />
 		<typeAlias type="com.mySpring.springEx.course.vo.CourseVO"  alias="courseVO" />
+		<typeAlias type="com.mySpring.springEx.notice.vo.NoticeVO"  alias="noticeVO" />
 	</typeAliases>
 </configuration>

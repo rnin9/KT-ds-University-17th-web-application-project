@@ -23,7 +23,15 @@ public interface MemberDAO {
 	public int join_member(MemberVO member) throws Exception;
 
 	public int approval_member(MemberVO member) throws Exception;
-	
+
+	public List selectAllRecruitList() throws DataAccessException;
+
+	public List selectAllApplicationList(String id) throws DataAccessException;
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
 	public MemberVO getMyInformation(String userID) throws Exception;
 	
 	public int modMyInfo(MemberVO member) throws Exception; 

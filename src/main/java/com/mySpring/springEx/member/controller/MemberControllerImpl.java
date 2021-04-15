@@ -1,6 +1,8 @@
 package com.mySpring.springEx.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,10 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,17 +28,16 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
-	// 筌롫뗄�뵥占쎌넅筌롳옙
+
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // string占쎌굨占쎄묶嚥∽옙 request viewName占쎌뱽 占쏙옙占쎌삢
-		ModelAndView mav = new ModelAndView(); // mav 占쎄문占쎄쉐
-		mav.setViewName(viewName); // // mav占쎌벥 view占쎌맄燁살꼷肉� request占쎈뻥占쎈�占쎈쐲 (/,main.do) viewName占쎌뱽 占쎄퐫占쎈선 占쎈퉸占쎈뼣占쎌맄燁살꼶以�
-									// 占쎌뵠占쎈짗占쎈립占쎈뼄
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
 		return mav;
 	}
 
-	// faq 占쎌뵠占쎈짗
+	// faq
 	@RequestMapping(value = { "/faq.do" }, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -48,6 +46,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
+	// location
 	@Override
 	@RequestMapping(value = { "/location.do" }, method = RequestMethod.GET)
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
@@ -56,6 +55,7 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+
 
 	@Override
 	@RequestMapping(value = { "/universityIntro.do" }, method = RequestMethod.GET)
@@ -85,6 +85,36 @@ public class MemberControllerImpl implements MemberController {
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("myInfo", memberVO);
 		return mav;
+	}
+
+	//	list all recruitments
+	@Override
+	@RequestMapping(value = { "/member/apply.do"}, method = RequestMethod.GET)
+	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName = (String)request.getAttribute("viewName");
+		List recruitsList = memberService.listRecruitments();
+		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("applicationList", applicationList);
+		mav.addObject("recruitsList", recruitsList);
+		return mav;
+	}
+
+	//	insert into PARTNER_APPLY
+	@Override
+	@RequestMapping(value = {"/member/userApplyPartner.do"}, method = {RequestMethod.GET, RequestMethod.POST})
+	public void userApplyPartner(@RequestBody Map<String, String> body,
+								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	// delete from PARTNER_APPLY
+	@Override
+	@RequestMapping(value = {"/member/deleteApplication.do"}, method = {RequestMethod.POST})
+	public void deleteApplication(@RequestBody Map<String, String> body,
+								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
@@ -141,20 +171,7 @@ public class MemberControllerImpl implements MemberController {
 		memberService.check_email(email, response);
 	}
 
-	// 占쎌돳占쎌뜚揶쏉옙占쎌뿯
-	/*
-	 * @Override
-	 *
-	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
-	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-	 * modelAttritbute嚥∽옙 占쎌돳占쎌뜚揶쏉옙占쎌뿯筌≪럩肉됵옙苑� 獄쏆룇占� member占쎌젟癰귣�占쏙옙 // MemberVO占쎄깻占쎌삋占쎈뮞占쎌벥
-	 * member揶쏆빘猿쒙옙肉� 占쏙옙占쎌삢 HttpServletRequest request, HttpServletResponse response)
-	 * throws Exception { request.setCharacterEncoding("utf-8"); int result = 0;
-	 * result = memberService.addMember(member); ModelAndView mav = new
-	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
-	 */
 
-	// 占쎄퉱嚥≪뮇占쏙옙�몵占쎌젻占쎈뮉 占쎌돳占쎌뜚揶쏉옙占쎌뿯!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -165,7 +182,7 @@ public class MemberControllerImpl implements MemberController {
 		return "memberJoinForm.jsp";
 	}
 
-	// 占쎌돳占쎌뜚 占쎌뵥筌앾옙
+
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -173,7 +190,6 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// 占쎌돳占쎌뜚占쎄텣占쎌젫
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -184,7 +200,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 嚥≪뮄�젃占쎌뵥
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
@@ -233,7 +248,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 嚥≪뮄�젃占쎈툡占쎌뜍
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -242,7 +256,7 @@ public class MemberControllerImpl implements MemberController {
 		session.removeAttribute("partner");
 		session.removeAttribute("isLogOn");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/member/listMembers.do");
+		mav.setViewName("redirect:/main.do");
 		return mav;
 	}
 
@@ -282,7 +296,5 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }
