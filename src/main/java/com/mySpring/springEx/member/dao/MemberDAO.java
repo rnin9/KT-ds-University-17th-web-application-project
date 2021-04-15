@@ -37,4 +37,8 @@ public interface MemberDAO {
 	public int modMyInfo(MemberVO member) throws Exception; 
 	
 	public PartnerVO partnerLogInById(MemberVO member) throws Exception;
+
+	public List listPartners() throws DataAccessException;
+
+
 }

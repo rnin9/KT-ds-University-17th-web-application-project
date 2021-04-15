@@ -45,6 +45,13 @@ public class MemberServiceImpl implements MemberService {
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
 	}
+	
+	@Override
+	public List listPartners() throws DataAccessException {
+		List partnersName = null;
+		partnersName = memberDAO.listPartners();
+		return partnersName;
+	}
 
 	@Override
 	public List listRecruitments() throws DataAccessException {
@@ -260,6 +267,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDAO.partnerLogInById(memberVO);
 	}
+
+
+
+
 	
 	
 

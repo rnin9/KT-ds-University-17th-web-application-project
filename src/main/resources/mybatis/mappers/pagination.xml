@@ -3,37 +3,58 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
+
+<!-- survey List pagination -->
+<mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
 	<resultMap id="surResult" type="surveyVO">
-		<result property="survey_Id" column="survey_Id" />
-		<result property="survey_Mem" column="survey_Mem" />
+		<id property="survey_Id" column="survey_Id" />
+		<result property="courseID" column="courseID" />
 		<result property="survey_Title" column="survey_Title" />
 		<result property="writeDate" column="writeDate" />
+		<!-- courseTake join -->
+		<collection property="courseTakeVO" javaType="CourseTakeVO">
+			<result property="userID" column="userID" />
+			<result property="courseID" column="courseID" />
+		</collection>
+		<!-- course join -->
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseShow" column="courseShow" />
+		</collection>
+		<!-- syllabus join -->
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
 	</resultMap>
 
-
 	<select id="SelectAllList" resultMap="surResult">
-		SELECT *
-		FROM (
-		SELECT ROW_NUMBER() OVER(ORDER by survey_id DESC) AS
-		row_num
-		,survey_id
-		,survey_title
-		,survey_mem
-		,writedate
-		FROM survey
-		)
+		SELECT * FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER by survey_Id DESC) AS row_num
+		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate
+		FROM COURSE A, SYLLABUS B, SURVEY1 S
+		WHERE A.syllabusID = B.syllabusID
+		AND A.courseID = S.courseID)
 		<if test="firstRecordIndex !=null and lastRecordIndex != null">
 			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex}
+			#{lastRecordIndex} 
 		</if>
+		order by survey_Id DESC	
 	</select>
+	
+	<select id="SelectAllList2" resultMap="surResult">
+	SELECT s.syllabusName,  c.courseID  FROM COURSE C INNER JOIN SYLLABUS S ON C.syllabusID = S.syllabusID WHERE courseShow='Y' 
+	</select>
+	
+	
 
 	<select id="testTableCount" resultType="int">
 		SELECT count(*) FROM
-		survey
+		survey1
 	</select>
+	
+
 
 
 	<!-- courseTake pagination -->
@@ -66,7 +87,6 @@
 			<result property="syllabusName" column="syllabusName" />
 		</collection>
 	</resultMap>
-
 
 	<select id="selectAllCourseApplyList"
 		resultMap="courseTakeResult">
@@ -184,6 +204,4 @@
         SELECT count(*) FROM
         notice
     </select>
-    
-    
 </mapper>

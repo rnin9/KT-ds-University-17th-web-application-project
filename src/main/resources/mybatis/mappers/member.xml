@@ -52,6 +52,12 @@
          select * from kt_user order by userJoindate desc	 	
       ]]>
 	</select>
+	
+	<select id="selectAllPartnerList" resultMap="resResult">
+      <![CDATA[
+         select partnerlicensenum from partner 	
+      ]]>
+	</select>
 
 	<!--  select all recruitments	-->
 	<select id="selectAllRecruitList" resultMap="resResult">
@@ -170,6 +176,9 @@
 		where partnerLicenseNum=#{userCompany}
 	]]>
 	</select>
+
+
+	
 	
 	<update id="mod_myInformation" parameterType="memberVO">
      <![CDATA[

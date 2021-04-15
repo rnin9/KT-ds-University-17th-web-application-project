@@ -23,7 +23,7 @@ public interface MemberController {
                               RedirectAttributes rAttr,
                               HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response) throws Exception;
+	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response) throws Exception;
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -35,5 +35,5 @@ public interface MemberController {
 	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView myInfo(@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modMyInfo(@ModelAttribute MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

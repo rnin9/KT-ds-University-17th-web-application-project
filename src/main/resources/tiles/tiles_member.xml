@@ -90,20 +90,25 @@
 
 	<!-- 회원가입 -->
 	<definition name="/member/memberJoinForm" extends="baseLayout">
-		<put-attribute name="title" value="회원등록창" />
-		<put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
-	</definition>
-
-	<!-- 설문조사 -->
-	<definition name="/survey/listSurvey" extends="baseLayout">
-		<put-attribute name="title" value="설문조사홈" />
-		<put-attribute name="body" value="/WEB-INF/views/survey/surveyForm.jsp" />
-	</definition>
-
-	<definition name="/survey/survey2Form" extends="baseLayout">
-		<put-attribute name="title" value="설문조사상세" />
-		<put-attribute name="body" value="/WEB-INF/views/survey/surveyForm2.jsp" />
-	</definition>
+      <put-attribute name="title" value="회원등록창" />
+      <put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
+   </definition>
+   
+   <!-- 설문조사 -->
+   <definition name="/survey/listSurvey" extends="baseLayout">
+      <put-attribute name="title" value="설문조사홈" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyForm.jsp" />
+   </definition>
+   
+   <definition name="/survey/survey2Form" extends="baseLayout">
+      <put-attribute name="title" value="설문조사상세" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyForm2.jsp" />
+   </definition>
+   
+   <definition name="/member/joinAgreeForm" extends="baseLayout">
+      <put-attribute name="title" value="회원약관동의" />
+      <put-attribute name="body" value="/WEB-INF/views/member/joinAgreeForm.jsp" />
+   </definition>
 	<!-- <definition name="/member/viewDetail" extends="baseLayout"> <put-attribute
        name="title" value="회원상세창" /> <put-attribute name="body" value="/WEB-INF/views/member/viewDetail.jsp"
        /> </definition> -->

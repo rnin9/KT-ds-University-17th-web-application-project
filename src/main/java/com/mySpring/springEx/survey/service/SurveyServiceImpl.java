@@ -58,4 +58,9 @@ public class SurveyServiceImpl implements SurveyService {
 		return surveyDAO.deleteSurvey(survey_Id);
 	}
 
+	@Override
+	public List<Map<String, Object>> SelectInsertList() throws Exception {
+		return pageMapper.SelectAllList2();
+	}
+
 }

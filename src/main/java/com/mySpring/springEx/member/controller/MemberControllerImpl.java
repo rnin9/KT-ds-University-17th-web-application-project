@@ -28,6 +28,7 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
+
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -142,8 +143,23 @@ public class MemberControllerImpl implements MemberController {
 		List membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("membersList", membersList);
+		System.out.println(membersList);
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value = "/member/memberJoinForm.do", method = RequestMethod.GET)
+	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		System.out.println(viewName);
+		List partnersName = memberService.listPartners();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnersName", partnersName);
+		System.out.println(partnersName);
+		System.out.println(partnersName.get(0));
+		return mav;
+	}
+
 
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
@@ -162,9 +178,10 @@ public class MemberControllerImpl implements MemberController {
 			throws Exception {
 
 		rttr.addFlashAttribute("result", memberService.join_member(member, response));
-
+	
 		return "memberJoinForm.jsp";
 	}
+
 
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
@@ -189,6 +206,7 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
+			System.out.println(memberVO.getUserJob());
 		
 		
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
@@ -196,7 +214,6 @@ public class MemberControllerImpl implements MemberController {
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("partner", partnerVO);
-			System.out.println("==================="+partnerVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
@@ -211,8 +228,11 @@ public class MemberControllerImpl implements MemberController {
 
 		} else if(memberVO != null) {
 			HttpSession session = request.getSession();
+			partnerVO = memberService.partnerLogin(memberVO);
+			session.setAttribute("partner", partnerVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
+			System.out.println(partnerVO.getPartnerLicenseNum());
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
