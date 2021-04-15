@@ -36,14 +36,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List selectAllApplicationList(String id) throws DataAccessException {
 		List<HashMap<String, String>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
-//		for (HashMap<String, String> stringStringHashMap : applicationList) {
-//			System.out.println("------------------------------------");
-//			System.out.println(stringStringHashMap.get("partnerName"));
-//			System.out.println(stringStringHashMap.get("partnerID"));
-//			System.out.println(stringStringHashMap.get("partnerApplyDate"));
-//			System.out.println(stringStringHashMap.get("partnerApplyState"));
-//			System.out.println("------------------------------------");
-//		}
 		return applicationList;
 	}
 

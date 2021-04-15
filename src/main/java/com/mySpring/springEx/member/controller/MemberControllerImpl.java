@@ -93,14 +93,6 @@ public class MemberControllerImpl implements MemberController {
 		List recruitsList = memberService.listRecruitments();
 		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
-//		for(int i = 0; i < applicationList.size(); i++) {
-//			System.out.println("------------------------------------");
-//			System.out.println(applicationList.get(i).get("partnerName"));
-//			System.out.println(applicationList.get(i).get("partnerID"));
-//			System.out.println(applicationList.get(i).get("partnerApplyDate"));
-//			System.out.println(applicationList.get(i).get("partnerApplyState"));
-//			System.out.println("------------------------------------");
-//		}
 		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
 		return mav;

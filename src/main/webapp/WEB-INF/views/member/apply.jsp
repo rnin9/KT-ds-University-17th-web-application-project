@@ -8,7 +8,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<%--    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />--%>
+    <%--    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />--%>
     <%--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
     <%--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
     <%--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>--%>
@@ -21,69 +21,91 @@
         /*    display: none;*/
         /*}*/
     </style>
-<%--    <script>--%>
+    <%--    <script>--%>
 
 
-<%--            &lt;%&ndash;let hash = window.location.hash;&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;let hash = window.location.hash;&ndash;%&gt;--%>
 
-<%--            &lt;%&ndash;if (hash == '' || hash == null) {&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    window.location = "#nav-home";&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    hash = window.location.hash;&ndash;%&gt;--%>
-<%--            &lt;%&ndash;}&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;if (hash == '' || hash == null) {&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    window.location = "#nav-home";&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    hash = window.location.hash;&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;}&ndash;%&gt;--%>
 
-<%--            &lt;%&ndash;console.log('ddddddddddddddddddddddd');&ndash;%&gt;--%>
-<%--            &lt;%&ndash;console.log(hash);&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;console.log('ddddddddddddddddddddddd');&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;console.log(hash);&ndash;%&gt;--%>
 
-<%--            &lt;%&ndash;$('a[data-toggle="tab"]').cilck(function () {&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    window.location.hash =&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    ${this}.&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    arrt("href").substr(1);&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    console.log('wwwwwwwwwwwwwwwwwwwwww');&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    console.log(hash);&ndash;%&gt;--%>
-<%--            &lt;%&ndash;});&ndash;%&gt;--%>
-<%--            &lt;%&ndash;$('myTab a').on('shown.bs.tab', function(){&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    alert("showwwwww?");&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    $(".fouc").show();&ndash;%&gt;--%>
-<%--            &lt;%&ndash;})&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;$('a[data-toggle="tab"]').cilck(function () {&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    window.location.hash =&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    ${this}.&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    arrt("href").substr(1);&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    console.log('wwwwwwwwwwwwwwwwwwwwww');&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    console.log(hash);&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;});&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;$('myTab a').on('shown.bs.tab', function(){&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    alert("showwwwww?");&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;    $(".fouc").show();&ndash;%&gt;--%>
+    <%--            &lt;%&ndash;})&ndash;%&gt;--%>
 
 
-
-<%--        function getPartnerInfo(info) {--%>
-<%--            // document.getElementById("partner_info").innerHTML = info.innerHTML;--%>
-<%--            &lt;%&ndash;swal({&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    text: `${obj.partnerInformation}`,&ndash;%&gt;--%>
-<%--            &lt;%&ndash;});&ndash;%&gt;--%>
-<%--            $("#partner_info").text(info);--%>
-<%--            // $("#myModal").modal('show');--%>
-<%--        }--%>
-<%--    </script>--%>
+    <%--            function getPartnerInfo(info) {--%>
+    <%--                // document.getElementById("partner_info").innerHTML = info.innerHTML;--%>
+    <%--                &lt;%&ndash;swal({&ndash;%&gt;--%>
+    <%--                &lt;%&ndash;    text: `${obj.partnerInformation}`,&ndash;%&gt;--%>
+    <%--                &lt;%&ndash;});&ndash;%&gt;--%>
+    <%--                $("#partner_info").text(info);--%>
+    <%--                // $("#myModal").modal('show');--%>
+    <%--            }--%>
+    <%--    </script>--%>
     <script>
-        // $(document).ready(function(){
-        //     console.log('heeeeerrrreeeeeee');
-        //     console.log(activeTab);
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-            localStorage.setItem('activeTab', $(e.target).attr('href'));
-            console.log(activeTab+"yeeeeeeeeeee");
-        });
-        let activeTab = localStorage.getItem('activeTab');
-        console.log('eeeeerrrrrrrrrrhhhh');
-        console.log(activeTab);
-        if(activeTab){
-            console.log(activeTab + 'oooooooooooooooooo');
-            // $('.nav-tabs [href="' + activeTab + '"]').tab("show");
-            // $('#myTab a[href="' + activeTab + '"]').tab('show');
-            // $(activeTab).tab("show");
-            // $('ul.nav-tabs li:eq(1)').tab('show');
-            // $('.nav-tabs a[href="#nav-profile"]').tab('show');
+        $(document).ready(function () {
+            //     console.log('heeeeerrrreeeeeee');
+            //     console.log(activeTab);
+            // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            //     localStorage.setItem('activeTab', $(e.target).attr('href'));
+            //     console.log(activeTab + "yeeeeeeeeeee");
+            // });
+            let activeTab = localStorage.getItem('activeTab');
+            // console.log('eeeeerrrrrrrrrrhhhh');
+            // console.log(activeTab);
+            // if (activeTab) {
+            //     console.log(activeTab + 'oooooooooooooooooo');
+            //     // $('.nav-tabs [href="' + activeTab + '"]').tab("show");
+            //     // $('#myTab a[href="' + activeTab + '"]').tab('show');
+            //     // $(activeTab).tab("show");
+            //     // $('ul.nav-tabs li:eq(1)').tab('show');
+            //     // $('.nav-tabs a[href="#nav-profile"]').tab('show');
+            //     // $('#myTab a[href="' + activeTab + '"]').trigger('click');
+            //     console.log('.nav-tabs a[href="' + activeTab + '"]');
+            // }
+            $("span:contains('진행중')").css({color:"green"});
+            $("span:contains('불합격')").css({color:"blue"});
+            $("span:contains('합격')").css({color:"red"});
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
-            console.log('.nav-tabs a[href="' + activeTab + '"]');
-        }
-        // });
 
-        if(activeTab == "#nav-profile"){
-            console.log('gㅏ................');
-            $("#firstNav").attr('class', 'nav-link');
-            $("#secondNav").attr('class', 'nav-link active');
+        });
+
+
+        // if(activeTab == "#nav-profile"){
+        //     console.log('gㅏ................');
+        //     $("#firstNav").attr('class', 'nav-link');
+        //     $("#secondNav").attr('class', 'nav-link active');
+        // }
+
+        // ${recruit.partnerAddress}', ${recruit.partnerEmail}, '${recruit.partnerHeadCount}', '${recruit.partnerURL}
+
+        function getPartnerInfo(name, info, addr, email, headcnt, purl) {
+            // document.getElementById("partner_info").innerHTML = info.innerHTML;
+            <%--swal({--%>
+            <%--    text: `${obj.partnerInformation}`,--%>
+            <%--});--%>
+            $("#modal_title").text(name);
+            $("#partner_info").text(info);
+            $("#partner_addr").text(addr);
+            $("#partner_email").text(email);
+            $("#partner_headcnt").text(headcnt);
+            $("#partner_purl").text(purl);
+            // console.log(info + 'rrrrrr' + addr + 'rrrrrr' + email + 'rrrrrr' + headcnt + 'rrrrrr' + purl);
+            // $("#myModal").modal('show');
         }
 
         function tabtab(h) {
@@ -110,15 +132,15 @@
                     console.log(res);
 
                     swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
-                    setTimeout(function() {
+                    setTimeout(function () {
                         console.log('Works!');
                         location.reload();
-                        if(activeTab == "#nav-profile"){
-                            $("#one1").attr('class', 'nav-link');
-                            $("#two2").attr('class', 'nav-link active');
-                        }
-                    }, 1000);
-
+                        // if(activeTab == "#nav-profile"){
+                        //     $("#firstNav").attr('class', 'nav-link');
+                        //     $("#secondNav").attr('class', 'nav-link active');
+                        // }
+                        // $('#myTab a[href="' + activeTab + '"]').trigger('click');
+                    }, 900);
 
                     <%--$("#container").load("${contextPath}/member/apply.do", function () {--%>
                     <%--    console.log("success");--%>
@@ -175,11 +197,11 @@
                             swal("중복 지원.", "중복 지원.", "info");
                         } else {
                             swal("지원 완료.", "지원 완료.", "success");
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 console.log('Works!');
                                 location.reload();
-                                $('#myTab a[href="' + activeTab + '"]').trigger('click');
-                            }, 1000);
+                                // $('#myTab a[href="' + activeTab + '"]').trigger('click');
+                            }, 900);
 
 
                             <%--$("#container").load("${contextPath}/member/apply.do", function () {--%>
@@ -247,32 +269,49 @@
                 <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">협력사 지원</a></li>
             </ul>
         </div>
-        <%--    <!-- Modal -->--%>
-        <%--    <div class="modal fade" id="myModal" role="dialog">--%>
-        <%--        <div class="modal-dialog">--%>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
 
-        <%--            <!-- Modal content-->--%>
-        <%--            <div class="modal-content">--%>
-        <%--&lt;%&ndash;                <div class="modal-header">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;                    <button type="button" class="close" data-dismiss="modal">×</button>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;                    <h4 class="modal-title">기업 정보</h4>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;                </div>&ndash;%&gt;--%>
-        <%--                <div class="modal-header">--%>
-        <%--                    <h5 class="modal-title">기업 정보</h5>--%>
-        <%--&lt;%&ndash;                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>&ndash;%&gt;--%>
-        <%--                    <button type="button" class="close" data-dismiss="modal">×</button>--%>
-        <%--                </div>--%>
-        <%--                <div class="modal-body">--%>
-        <%--&lt;%&ndash;                    <p>Some text in the modal.</p>&ndash;%&gt;--%>
-        <%--                    <p id="partner_info"></p>--%>
-        <%--                </div>--%>
-        <%--                <div class="modal-footer">--%>
-        <%--                    <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>--%>
-        <%--                </div>--%>
-        <%--            </div>--%>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <%--                <div class="modal-header">--%>
+                    <%--                    <button type="button" class="close" data-dismiss="modal">×</button>--%>
+                    <%--                    <h4 class="modal-title">기업 정보</h4>--%>
+                    <%--                </div>--%>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_title"></h5>
+                        <%--                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <%--                    <p>Some text in the modal.</p>--%>
+                        <div class="partnerInfoModalBody" style="text-align: left">
+                            <div class="row">
+                                <div class="col-3" style="color: #444444; font-weight: bold">
+                                    <p>소개</p>
+                                    <p>주소</p>
+                                    <p>사원수</p>
+                                    <p>이메일</p>
+                                    <p>웹사이트</p>
+                                </div>
+                                <div class="col-8">
+                                    <p id="partner_info"></p>
+                                    <p id="partner_addr"></p>
+                                    <p id="partner_headcnt"></p>
+                                    <p id="partner_email"></p>
+                                    <p id="partner_purl"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                    </div>
+                </div>
 
-        <%--        </div>--%>
-        <%--    </div>--%>
+            </div>
+        </div>
         <%--    <div class="modal" id="myModal" tabindex="-1">--%>
         <%--        <div class="modal-dialog">--%>
         <%--            <div class="modal-content">--%>
@@ -302,17 +341,18 @@
                             <%--                        </div>--%>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a id="firstNav" href="#nav-home" data-toggle="tab" onclick="tabtab('#nav-home')" class="nav-link active">지원
-                                        가능</a>
+                                    <a id="firstNav" href="#nav-home" data-toggle="tab" onclick="tabtab('#nav-home')"
+                                       class="nav-link active">지원 가능</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="secondNav" href="#nav-profile" data-toggle="tab" onclick="tabtab('#nav-profile')" class="nav-link">지원 완료</a>
+                                    <a id="secondNav" href="#nav-profile" data-toggle="tab"
+                                       onclick="tabtab('#nav-profile')" class="nav-link">지원 완료</a>
                                 </li>
                             </ul>
                         </nav>
-<%--                        <c:when test="${localStorage.getItem('activeTab') == '#nav-profile'}">--%>
+                        <%--                        <c:when test="${localStorage.getItem('activeTab') == '#nav-profile'}">--%>
 
-<%--                        </c:when>--%>
+                        <%--                        </c:when>--%>
 
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
@@ -328,42 +368,50 @@
                                     <tbody>
                                     <c:forEach var="recruit" items="${recruitsList}">
                                         <tr align="center">
-                                            <td><a class="info" data-toggle="modal"
-                                                   href="#myModal">${recruit.partnerName}</a></td>
+                                                <%--                                            <td><a title="기업 정보 보기" style="text-decoration: underline" class="info" data-toggle="modal"--%>
+                                                <%--                                                   href="#myModal">${recruit.partnerName}</a></td>--%>
                                                 <%--                                        <td><a class="info" data-toggle="modal" href="#myModal" onclick="getPartnerInfo(${recruit.partnerInformation});">${recruit.partnerName}</a></td>--%>
-                                                <%--                                        <td><a data-toggle="modal" href="#myModal" onclick="getPartnerInfo(${recruit.partnerInformation});">${recruit.partnerName}</a></td>--%>
+                                            <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                                                   data-toggle="modal" href="#myModal"
+                                                   onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
+                                            </td>
                                             <td>${recruit.partnerApplyFinishDate}</td>
                                                 <%--                                        <td>${recruit.partnerApplyFinishDate}</td>--%>
-                                            <td><a href="#"
+                                            <td><a style="text-decoration: underline" href="#"
                                                    onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');return false;">지원하기</a>
                                             </td>
                                                 <%--                                        ${date}&partnerApplyState='진행중'"--%>
                                         </tr>
 
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="myModal" role="dialog">
-                                            <div class="modal-dialog">
+                                        <%--                                        <!-- Modal -->--%>
+                                        <%--                                        <div class="modal fade" id="myModal" role="dialog">--%>
+                                        <%--                                            <div class="modal-dialog">--%>
 
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">기업 정보</h5>
-                                                        <button type="button" class="close" data-dismiss="modal">×
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>${recruit.partnerInformation}</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">
-                                                            확인
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <%--                                                <!-- Modal content-->--%>
+                                        <%--                                                <div class="modal-content">--%>
+                                        <%--                                                    <div class="modal-header">--%>
+                                        <%--                                                        <h5 class="modal-title">기업 정보</h5>--%>
+                                        <%--                                                        <button type="button" class="close" data-dismiss="modal">×--%>
+                                        <%--                                                        </button>--%>
+                                        <%--                                                    </div>--%>
+                                        <%--                                                    <div class="modal-body">--%>
+                                        <%--                                                        <p>기업정보: ${recruit.partnerInformation}</p>--%>
+                                        <%--                                                        <p>주소: ${recruit.partnerAddress}</p>--%>
+                                        <%--                                                        <p>이메일: ${recruit.partnerEmail}</p>--%>
+                                        <%--                                                        <p>인원 규모: ${recruit.partnerHeadCount}</p>--%>
+                                        <%--                                                        <p>사이트: ${recruit.partnerURL}</p>--%>
+
+                                        <%--                                                    </div>--%>
+                                        <%--                                                    <div class="modal-footer">--%>
+                                        <%--                                                        <button type="button" class="btn btn-default"--%>
+                                        <%--                                                                data-dismiss="modal">--%>
+                                        <%--                                                            확인--%>
+                                        <%--                                                        </button>--%>
+                                        <%--                                                    </div>--%>
+                                        <%--                                                </div>--%>
+                                        <%--                                            </div>--%>
+                                        <%--                                        </div>--%>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -383,12 +431,13 @@
                                     <c:forEach var="application" items="${applicationList}">
                                         <tr>
                                             <td>${application.partnerName}</td>
-<%--                                            <td>${application.PARTNRENAME}</td>--%>
+                                                <%--                                            <td>${application.PARTNRENAME}</td>--%>
                                             <td>${application.partnerApplyDate}</td>
-<%--                                            <td>${application.PARTNERAPPLYDATE}</td>--%>
-                                            <td>${application.partnerApplyState}</td>
-<%--                                            <td>${application.PARTNERAPPLYSTATE}</td>--%>
-                                            <td><a onclick="deleteApplication('${application.partnerID}')">지원서
+                                                <%--                                            <td>${application.PARTNERAPPLYDATE}</td>--%>
+                                            <td ><span>${application.partnerApplyState}</span></td>
+                                                <%--                                            <td>${application.PARTNERAPPLYSTATE}</td>--%>
+                                            <td><a style="text-decoration: underline" href="#"
+                                                   onclick="deleteApplication('${application.partnerID}');return false;">지원서
                                                 삭제</a>
                                             </td>
                                         </tr>
