@@ -9,13 +9,16 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/university/UniversityConsortium.css"/>
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/university/UniversityConsortium.css" />
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/layout.css" />
 <style>
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortiums.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -51,6 +54,18 @@ request.setCharacterEncoding("UTF-8");
 	padding-bottom: 1px;
 }
 
+.pageIntro {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	text-align: left;
+	font-size: 34px;
+	font-weight: 450;
+	background:
+		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+		no-repeat;
+	background-repeat: no-repeat;
+}
+
 .intro-explain>h2, .intro-explain>h3 {
 	font-family: 'Wemakeprice-Bold';
 	text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -3px 20px
@@ -62,7 +77,35 @@ request.setCharacterEncoding("UTF-8");
 
 .introImage {
 	max-height: 350px;
-	margin-top: 80px;
+	width: 60%;
+	height: 60%;
+	margin-right: 20px;
+}
+
+.main-intro>dl>dt {
+	float: left;
+}
+
+.main-intro>dl {
+	width: 70%
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 80%;
+}
+
+.lnb>ul {
+	list-style: none;
+	padding: 0;
+	text-align: left;
+}
+
+.lnb>ul>li {
+	display: inline-block;
+	margin-left: 9px;
+	padding-left: 15px;
+	margin-left: 9px;
 }
 </style>
 </head>
@@ -70,47 +113,60 @@ request.setCharacterEncoding("UTF-8");
 	<div class="sub_visual">
 		<span style="color: white;">컨소시엄</span>
 	</div>
-	
-	<div class="lnb">
+	<div class="container">
+		<div class="lnb">
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/universityConsortium.do">컨소시엄</a></li>
 			</ul>
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="faqIntro">컨소시엄</div>
-		
-	<!-- 사업 소개 -->
-	<div class="main-intro">
-		<div class="intro-explain">
-			<h2>IT 분야 HRD 업무노하우를 바탕으로,</h2>
-			<h3>
-				<span
-					style="color: red; margin-right: 5px; font-style: normal; text-shadow: none;">IT
-					전문 교육기관</span>으로 신뢰받는 기업
-			</h3>
-			<p>
-				IT 분야 HRD 업무노하우를 바탕으로 IT 전문 교육기관으로 신뢰받는 기업입니다. KTDS는 KT 정보시스템 구축 기술과
-				노하우를 기반으로 <span>새로운 IT 서비스를 창출하고 우수한 인재를 양성하여 고객의 가치를 최고로
-					실현하는 IT 서비서 전문 기업입니다.</span>
-			</p>
+		<div class="pageIntro">컨소시엄</div>
 
-			<p>ktds University는 2012년 ktds 교육센터의 새로운 이름으로 시설 및 최신장비 구축 등 최고의
-				인프라와 함께 새롭게 런칭하였으며, 그 동안 축적된 IT분야 HRD업무 노하우를 바탕으로 인재육성 전략 요구에 부응하는
-				최신 HRD Trend가 적용된 커리큘럼 및 Learning Solution으로 그룹사 및 협력사 외 교육을 필요로 하는
-				모든 기업 재직자를 대상으로 교육서비스를 제공합니다.</p>
+		<!-- 사업 소개 -->
 
-			<p>
-				국내 최고 수준의 전문강사진과 신규 시설 및 최신 장비의 인프라로 보다 <span>쾌적한 교육환경으로
-					IT분야의 새로운 Trend에 앞장서며 IT 전문 교육기관으로서 고객에게 신뢰받는 기업이 될 것입니다.</span>
-			</p>
+		<div class="main-intro">
+			<dl>
+				<dt>대상기업</dt>
+				<dd>고용보험이 적용되는 중소기업 또는 우선지원대상기업 (제조업 500인 이하)</dd>
+				<dt>대상자</dt>
+				<dd>상기 기업에 재직중인 임직원 (고용보험 가입자)</dd>
+				<dt>제출서류</dt>
+				<dd>-국가인적자원개발 컨소시엄 협약서(1회 체결시 1년 지속)</dd>
+				<dt></dt>
+				<dd>-국가인적자원개발 컨소시엄 협약서(1회 체결시 1년 지속)</dd>
+				<dt>본사</dt>
+				<dd>(06707) 서울 서초구 효령로 176</dd>
+				<dt>대표전화</dt>
+				<dd>02-523-7029</dd>
+			</dl>
 		</div>
-		<img class="img-fluid introImage"
-			src="${pageContext.request.contextPath}/resources/image/mainPage/Introduce/mainIntroduce.png" />
-
+		<div class="main-intro">
+			<img class="img-fluid introImage"
+				src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium1.png" />
+		</div>
+		<div class="main-intro">
+			<dl>
+				<dt>설립연월</dt>
+				<dd>2008년 8월 1일</dd>
+				<dt>회사명</dt>
+				<dd>kt ds</dd>
+				<dt>대표이사</dt>
+				<dd>우정민</dd>
+				<dt>본사</dt>
+				<dd>(06707) 서울 서초구 효령로 176</dd>
+				<dt>대표전화</dt>
+				<dd>02-523-7029</dd>
+			</dl>
+		</div>
+		<div class="main-intro">
+			<img class="img-fluid introImage"
+				src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium2.png" />
+		</div>
+		<!-- 사업 끝 -->
 	</div>
-	<!-- 사업 끝 -->
 </body>
 </html>

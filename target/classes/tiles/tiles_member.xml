@@ -16,12 +16,12 @@
 	</definition>
 
 	<definition name="main" extends="baseLayout">
-		<put-attribute name="title" value="KT ds University" />
+		<put-attribute name="title" value="kt ds University" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/main.jsp" />
 	</definition>
 	<definition name="" extends="baseLayout">
-		<put-attribute name="title" value="KT ds University" />
+		<put-attribute name="title" value="kt ds University" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/main.jsp" />
 	</definition>

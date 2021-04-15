@@ -56,20 +56,20 @@
 	<div class="footer-upper">
 		<ul class="upper-left">
 			<li><h5>
-					<a href="https://recruit.kt.com/privacy/privacy" target="_blank"
+					<a href="https://www.ktds.com/etc/privacy_new.jsp" target="_blank"
 						style="color: red; text-decoration: none;">개인정보 처리방침</a>
 				</h5></li>
 		</ul>
 		<ul class="upper-right">
 			<li>
 				<h3>
-					<a href="https://twitter.com/?lang=ko/" target="_blank"
+					<a href="https://twitter.com/ktds_university" target="_blank"
 						style="color: #dee1e6;"><i class="fab fa-twitter-square"></i></a>
 				</h3>
 			</li>
 			<li>
 				<h3>
-					<a href="https://www.facebook.com/" target="_blank"
+					<a href="https://www.facebook.com/ktdsuniversity/" target="_blank"
 						style="color: #dee1e6;"><i class="fab fa-facebook-square"></i></a>
 				</h3>
 			</li>
@@ -99,10 +99,9 @@
 					style="width: 140px; height: 100px; float: left; margin-left: 40px;" />
 			</div>
 			<ul>
-				<li>(주)케이티 대표이사 구현모</li>
-				<li>사업자등록번호 102-81-42945</li>
-				<li>13606 경기도 성남시 분당구 불정로 90 (정자동 206번지)</li>
-				<li>ⓒ Copyright 2017 by KT corp. All Right Reserved.</li>
+				<li>대표이사 우정민</li>
+				<li>(06707) 서울 서초구 효령로 176, 02-523-7029</li>
+				<li>COPYRIGHT 2018 kt ds ALL RIGHTS RESERVED</li>
 			</ul>
 		</div>
 	</div>
