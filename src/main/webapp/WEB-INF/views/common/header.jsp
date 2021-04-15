@@ -199,7 +199,7 @@ request.setCharacterEncoding("UTF-8");
 			<c:choose>
 				<c:when test="${isLogOn == null}">
 					<li class="nav-item"><a
-						href="${contextPath}/member/memberJoinForm.do" class="nav-link">
+						href="${contextPath}/member/joinAgreeForm.do" class="nav-link">
 							회원가입 </a></li>
 				</c:when>
 			</c:choose>

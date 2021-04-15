@@ -57,16 +57,44 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 	line-height: 15px;
 }
 
+.bg-primary {
+	background-color: white !important;
+}
+
+.sub_visual {
+	font-family: 'Noto Sans KR', sans-serif;
+/* 	background-image:
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	background-color: black;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover; */
+	width: 100%; 
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	border: 0;
+	font-size: 32px;
+	font-weight: 500;
+	height: 190px;
+	padding-top: 69px;
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 80%;
+}
+
 #container1 { /* 이름 밑에 속성들을 감싸서 적용 */
 	width: 64%;
 	margin: 10px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 30px;
 	border: 0px solid #bcbcbc;
-	background-color: #fafafa;
-	height: 1235px;
+	background-color: #f7f7f7;
+	height: 1175px;
 	position: relative;
 	border-radius: 3px;
 }
@@ -321,15 +349,13 @@ hr {
 	margin-left: -15px;
 }
 
-.navbar-brand2 img {
+/* .navbar-brand2 img {
 	width: 200px;
-	height: 80px;
 	padding-bottom: -9px;
 	padding-top: 17px;
-	margin-left: 150px;
-	margin-bottom: -8px; /*
+	margin-bottom: -8px; 
 	text-align: center;
-}
+} */
 </style>
 <script type="text/javascript">
 	$(		
@@ -558,7 +584,14 @@ hr {
 
 
 <body>
+<div class="sub_visual">
+	<span style="color: white;">회원가입</span>
+</div>
+<div class="container">
 
+<%-- 	<a class="navbar-brand2" href="${contextPath}/main.do"><img
+						src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
+						alt="로고" /></a> --%>
 	<form action="${contextPath}/member/join_member.do" id="joinForm"
 		accept-charset="UTF-8" name="basic" method="POST">
 		<div id="main">
@@ -568,9 +601,7 @@ hr {
 				<div id="container2">
 
 
-					<a class="navbar-brand2" href="${contextPath}/main.do"><img
-						src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
-						alt="로고" /></a>
+					
 					<div>
 						<label class="title">아이디</label> <input type="text" name="userId"
 							id="id">
@@ -618,8 +649,8 @@ hr {
 					</div>
 
 					<div>
-						<label class="title">직업</label> <select id="position"
-							name="userJob" size='1'>
+						<label class="title">직업</label> 
+						<select id="position" name="userJob" size='1'>
 							<option name="userJob" value="">직업선택</option>
 							<option name="userJob" value="학생">학생</option>
 							<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
@@ -645,10 +676,18 @@ hr {
 
 						</div>
 					</div>
-
+					
 					<div id="company" style="display: none">
-						<label class="title">회사</label> <input type="text" id="com"
-							name="userCompany" placeholder="회사명">
+						<label class="title">회사</label> <!-- <input type="text" id="com"
+							name="userCompany" placeholder="회사명"> -->
+							
+							
+							<select name="userCompany">
+							<c:forEach var="partner" items="${partnersName}" >
+							<option id="com" name="userCompany" value='${partner.partnerLicenseNum}'>${partner.partnerLicenseNum}</option>
+							</c:forEach>
+							</select>
+							
 					</div>
 
 					<div>
@@ -744,6 +783,6 @@ hr {
 			}
 		})
 	</script>
-
+</div>
 </body>
 </html>

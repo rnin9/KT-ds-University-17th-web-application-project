@@ -10,18 +10,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.survey.vo.SurveyVO;
 
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private PartnerVO partnerVO;
 
 	@Override
 	public List selectAllMemberList() throws DataAccessException {
 		List<MemberVO> membersList = null;
 		membersList = sqlSession.selectList("mapper.member.selectAllMemberList");
 		return membersList;
+	}
+	@Override
+	public List listPartners() throws DataAccessException {
+		List<SurveyVO> partnersName = null;
+		partnersName = sqlSession.selectList("mapper.member.selectAllPartnerList");
+		return partnersName;
 	}
 
 	@Override
@@ -87,6 +97,10 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.member.partnerLoginById",member);
 	}
+
+
+
+
 	
 	
 

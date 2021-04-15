@@ -35,4 +35,7 @@ public interface MemberService {
 	public MemberVO getMyInfo(String userID) throws Exception;
 
 	public int modMyInfo(MemberVO member) throws Exception;
+
+	public List listPartners() throws DataAccessException;
+
 }

@@ -29,17 +29,17 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
-	// 硫붿씤�솕硫�
+	// 筌롫뗄�뵥占쎌넅筌롳옙
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // string�삎�깭濡� request viewName�쓣 ���옣
-		ModelAndView mav = new ModelAndView(); // mav �깮�꽦
-		mav.setViewName(viewName); // // mav�쓽 view�쐞移섏뿉 request�뻽�뿀�뜕 (/,main.do) viewName�쓣 �꽔�뼱 �빐�떦�쐞移섎줈
-									// �씠�룞�븳�떎
+		String viewName = (String) request.getAttribute("viewName"); // string占쎌굨占쎄묶嚥∽옙 request viewName占쎌뱽 占쏙옙占쎌삢
+		ModelAndView mav = new ModelAndView(); // mav 占쎄문占쎄쉐
+		mav.setViewName(viewName); // // mav占쎌벥 view占쎌맄燁살꼷肉� request占쎈뻥占쎈�占쎈쐲 (/,main.do) viewName占쎌뱽 占쎄퐫占쎈선 占쎈퉸占쎈뼣占쎌맄燁살꼶以�
+									// 占쎌뵠占쎈짗占쎈립占쎈뼄
 		return mav;
 	}
 
-	// faq �씠�룞
+	// faq 占쎌뵠占쎈짗
 	@RequestMapping(value = { "/faq.do" }, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -113,8 +113,23 @@ public class MemberControllerImpl implements MemberController {
 		List membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("membersList", membersList);
+		System.out.println(membersList);
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value = "/member/memberJoinForm.do", method = RequestMethod.GET)
+	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		System.out.println(viewName);
+		List partnersName = memberService.listPartners();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnersName", partnersName);
+		System.out.println(partnersName);
+		System.out.println(partnersName.get(0));
+		return mav;
+	}
+
 
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
@@ -126,31 +141,31 @@ public class MemberControllerImpl implements MemberController {
 		memberService.check_email(email, response);
 	}
 
-	// �쉶�썝媛��엯
+	// 占쎌돳占쎌뜚揶쏉옙占쎌뿯
 	/*
 	 * @Override
 	 *
 	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
 	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-	 * modelAttritbute濡� �쉶�썝媛��엯李쎌뿉�꽌 諛쏆� member�젙蹂대�� // MemberVO�겢�옒�뒪�쓽
-	 * member媛앹껜�뿉 ���옣 HttpServletRequest request, HttpServletResponse response)
+	 * modelAttritbute嚥∽옙 占쎌돳占쎌뜚揶쏉옙占쎌뿯筌≪럩肉됵옙苑� 獄쏆룇占� member占쎌젟癰귣�占쏙옙 // MemberVO占쎄깻占쎌삋占쎈뮞占쎌벥
+	 * member揶쏆빘猿쒙옙肉� 占쏙옙占쎌삢 HttpServletRequest request, HttpServletResponse response)
 	 * throws Exception { request.setCharacterEncoding("utf-8"); int result = 0;
 	 * result = memberService.addMember(member); ModelAndView mav = new
 	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
 	 */
 
-	// �깉濡쒖��쑝�젮�뒗 �쉶�썝媛��엯!!!
+	// 占쎄퉱嚥≪뮇占쏙옙�몵占쎌젻占쎈뮉 占쎌돳占쎌뜚揶쏉옙占쎌뿯!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
 			throws Exception {
 
 		rttr.addFlashAttribute("result", memberService.join_member(member, response));
-
+	
 		return "memberJoinForm.jsp";
 	}
 
-	// �쉶�썝 �씤利�
+	// 占쎌돳占쎌뜚 占쎌뵥筌앾옙
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -158,7 +173,7 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// �쉶�썝�궘�젣
+	// 占쎌돳占쎌뜚占쎄텣占쎌젫
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -169,13 +184,14 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 濡쒓렇�씤
+	// 嚥≪뮄�젃占쎌뵥
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
+			System.out.println(memberVO.getUserJob());
 		
 		
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
@@ -183,7 +199,6 @@ public class MemberControllerImpl implements MemberController {
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("partner", partnerVO);
-			System.out.println("==================="+partnerVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
@@ -198,8 +213,11 @@ public class MemberControllerImpl implements MemberController {
 
 		} else if(memberVO != null) {
 			HttpSession session = request.getSession();
+			partnerVO = memberService.partnerLogin(memberVO);
+			session.setAttribute("partner", partnerVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
+			System.out.println(partnerVO.getPartnerLicenseNum());
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
@@ -215,7 +233,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 濡쒓렇�븘�썐
+	// 嚥≪뮄�젃占쎈툡占쎌뜍
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -264,5 +282,7 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

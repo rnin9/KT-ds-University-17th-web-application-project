@@ -46,6 +46,12 @@
          select * from kt_user order by userJoindate desc	 	
       ]]>
 	</select>
+	
+	<select id="selectAllPartnerList" resultMap="resResult">
+      <![CDATA[
+         select partnerlicensenum from partner 	
+      ]]>
+	</select>
 
 	<!-- <insert id="insertMember" parameterType="memberVO"> <![CDATA[ insert 
 		into t_member1(id,pwd, name, email,birth,phone,address,address_detail) values(#{id}, 
@@ -116,6 +122,9 @@
 		where partnerLicenseNum=#{userCompany}
 	]]>
 	</select>
+
+
+	
 	
 	<update id="mod_myInformation" parameterType="memberVO">
      <![CDATA[
