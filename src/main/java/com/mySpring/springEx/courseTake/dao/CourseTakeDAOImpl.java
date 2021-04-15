@@ -31,4 +31,9 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 		return completeList;
 	}
 
+	@Override
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception {
+		return sqlSession.update("mapper.courseTake.updateApplyConsent", courseTakeVO);
+	}
+
 }

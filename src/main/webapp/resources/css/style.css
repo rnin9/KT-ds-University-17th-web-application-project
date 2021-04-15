@@ -1,3 +1,5 @@
+/*°Ë»ö¹Ú½º °Ô½ÃÆÇÅ×ÀÌºí, ¹öÆ°*/
+
 @charset "UTF-8";
 
 .container {
@@ -5,7 +7,7 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*ê²€ìƒ‰ë°•ìŠ¤*/
+/*°Ë»ö¹Ú½º*/
 .well-searchbox {
 	min-height: 20px;
 	min-width: 400px;
@@ -60,7 +62,7 @@
 } */
 
 
-/*í…Œì´ë¸”*/
+/*°Ô½ÃÆÇ Å×ÀÌºí*/
 .table_ {
 	border-collapse: collapse;
 	font-size: 14px;
@@ -79,7 +81,7 @@
 	text-align: center;
 }
 
-/*ë²„íŠ¼*/
+/*¹öÆ°*/
 .btn {
 	color: white;
 	background-color: tomato;
