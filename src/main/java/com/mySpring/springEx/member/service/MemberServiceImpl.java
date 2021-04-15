@@ -63,11 +63,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
-		System.out.println("@@@@@@@@@@@@@@@");
-		System.out.println(partnerApplyUserID);
-		System.out.println(partnerApplyPartnerID);
-		System.out.println("@@@@@@@@@@@@@@@@");
-
 		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
 	}
 

@@ -103,19 +103,15 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = {"/member/userApplyPartner.do"}, method = {RequestMethod.GET, RequestMethod.POST})
 	public void userApplyPartner(@RequestBody Map<String, String> body,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, String> resultMap = new HashMap<String, String>();
 		request.setCharacterEncoding("utf-8");
 		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
-//		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
-//		return resultMap;
 	}
 
+	// delete from PARTNER_APPLY
 	@Override
 	@RequestMapping(value = {"/member/deleteApplication.do"}, method = {RequestMethod.POST})
 	public void deleteApplication(@RequestBody Map<String, String> body,
 								 HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(body.get("partnerApplyUserID") + " yeeeeeeeeeeeeeeeeees");
-		System.out.println(body.get("partnerApplyPartnerID"));
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 

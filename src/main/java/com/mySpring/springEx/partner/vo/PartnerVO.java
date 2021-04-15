@@ -1,6 +1,5 @@
 package com.mySpring.springEx.partner.vo;
 
-import java.util.Date;
 
 import org.springframework.stereotype.Component;
 

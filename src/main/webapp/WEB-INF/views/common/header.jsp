@@ -100,8 +100,9 @@ request.setCharacterEncoding("UTF-8");
 		<ul class="navbar-nav mr-auto">
 			<!-- 일반유저, 회원(사용자인 경우 시작) -->
 			<c:choose>
+				<%--	  로그인 전		--%>
 				<c:when
-					test="${isLogOn == null || (member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER')}">
+					test="${isLogOn == null && (member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER')}">
 					<li class="nav-item dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							kt ds Univ. </a>
@@ -111,8 +112,36 @@ request.setCharacterEncoding("UTF-8");
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/member/listMembers.do">과정신청</a></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">모집공고</a></li>
 				</c:when>
+  				<%--	  로그인 후		--%>
+				<%--		채용예정자		--%>
+				<c:when
+						test="${isLogOn != null && member.userPosition == '채용예정자'}">
+					<li class="nav-item dropdown"><a
+							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+						kt ds Univ. </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="${contextPath}/universityIntro.do"> 회사소개</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link"
+											href="${contextPath}/member/listMembers.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용공고</a></li>
+				</c:when>
+				<%--		재직자		--%>
+				<c:when
+						test="${isLogOn != null && member.userPosition == '재직자'}">
+					<li class="nav-item dropdown"><a
+							class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+						kt ds Univ. </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="${contextPath}/universityIntro.do"> 회사소개</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link"
+											href="${contextPath}/member/listMembers.do">과정신청</a></li>
+				</c:when>
+
 			</c:choose>
 			<!-- 일반유저, 회원(사용자인 경우 끝) -->
 			<!-- 일반유저, 회원(관리자인 경우 시작) -->

@@ -61,7 +61,7 @@
 		]]>
 	</select>
 
-	<!--  select all applies   -->
+	<!--  select all applications   -->
 	<select id="selectAllApplicationList" resultMap="applicationResult">
 		select (select PARTNERNAME
 				from partner
@@ -74,7 +74,7 @@
 		where Partner_Apply_UserID = #{id}
 	</select>
 
-	<!-- insert apply -->
+	<!-- insert application -->
 	<insert id="user_apply" parameterType="java.util.HashMap">
 		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
 			select resumeID
@@ -85,6 +85,7 @@
 		values(#{partnerApplyUserID}, #{partnerApplyPartnerID}, #{partnerApplyResumeID}, sysdate, '진행중')
 	</insert>
 
+	<!--  delete application	-->
 	<delete id="deleteApplication" parameterType="String">
 		delete from partner_apply
 		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
