@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeService {
 
@@ -17,6 +18,9 @@ public interface CourseTakeService {
 
 	public int testTableCountCT() throws Exception;
 
+	
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception;
+	
 	// 테스트페이지
 	public List courseCompleteList() throws DataAccessException;
 

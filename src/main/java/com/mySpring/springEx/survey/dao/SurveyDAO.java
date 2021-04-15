@@ -7,10 +7,12 @@ import org.springframework.dao.DataAccessException;
 import com.mySpring.springEx.survey.vo.SurveyVO;
 
 public interface SurveyDAO {
-	public List selectAllSurveyList() throws DataAccessException;
+
 
 	public int insertSurvey(SurveyVO surveyVO) throws DataAccessException;
 
 	public int deleteSurvey(String survey_Id) throws DataAccessException;
+
+
 
 }
