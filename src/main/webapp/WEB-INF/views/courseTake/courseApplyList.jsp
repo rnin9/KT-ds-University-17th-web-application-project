@@ -39,49 +39,58 @@ request.setCharacterEncoding("UTF-8");
 			autoclose : true
 		});
 		
+</script>
+<script type="text/javascript">
+		   function checkSelectAll(checkbox)  {
+		      const selectall 
+		        = document.querySelector('input[name="check-all"]');
+		      if(checkbox.checked == false)  {
+		        selectall.checked = false;
+		      }
+		    }
+
+		    function selectAll(selectAll)  {
+		      const checkboxes 
+		         = document.getElementsByName('ab');
+		      
+		      checkboxes.forEach((checkbox) => {
+		        checkbox.checked = selectAll.checked
+		      })
+		    }
+</script>
+
+<script>
+	function consentCheck(){
+		var url = "/springEx/courseTake/updateConsentCheck.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
 		
-		   // 체크박스 전체 선택
-	      $(".join_box").on("click", "#allchx", function () {
-	          $(this).parents(".join_box").find('input').prop("checked", $(this).is(":checked"));
-	      });
-
-	      // 체크박스 개별 선택
-	      // 개별선택을 하나 해제할 경우 전체선택도 해제
-	      $(".join_box").on("click", ".ab", function() {
-	          var is_checked = true;
-
-	          $(".join_box .ab").each(function(){
-	              is_checked = is_checked && $(this).is(":checked");
-	          });
-
-	          $("#allchx").prop("checked", is_checked);
-	      });
-	});
-
-	/* //체크박스(개별 체크박스 항목이 선택 해제 될때, '전체선택' 항목도 선택 해제)
-	   function checkSelectAll(checkbox)  {
-		   const selectall 
-		     = document.querySelector('input[name="check-all"]');
-		   
-		   if(checkbox.checked === false)  {
-		     selectall.checked = false;
-		   }
-		   
-		   
-		   
-		   
-		   
-		 }
-
-		 function selectAll(selectAll)  {
-		   const checkboxes 
-		      = document.getElementsByName('ab');
-		   
-		   checkboxes.forEach((checkbox) => {
-		     checkbox.checked = selectAll.checked
-		   })
-		 }
-		  */
+		console.log(valueArr);
+		
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+<script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){
 			    var url = "${pageContext.request.contextPath}/courseTake/courseApplyList.do";
@@ -169,7 +178,8 @@ request.setCharacterEncoding("UTF-8");
 		<table class="table_">
 			<thead>
 				<tr align="center">
-					<td><input type="checkbox" class="join_box" /></td>
+					<td><input type="checkbox" name="check-all"
+						onclick='selectAll(this)' /></td>
 					<td><b>아이디</b></td>
 					<td><b>이름</b></td>
 					<td><b>전화번호</b></td>
@@ -185,13 +195,14 @@ request.setCharacterEncoding("UTF-8");
 			<tbody id="ajaxTable">
 				<c:forEach var="courseTake" items="${courseApplyList}">
 					<tr align="center">
-						<td><input type="checkbox" class="ab" /></td>
+						<td><input type="checkbox" name="ab" value="${courseTake.userID} ${courseTake.courseID}"
+							onclick='checkSelectAll(this)' /></td>
 						<td>${courseTake.userID}</td>
 						<td>${courseTake.memberVO.userName}</td>
 						<td>${courseTake.memberVO.userPhoneNumber}</td>
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.memberVO.userCompany}</td>
-						<td>강의명가져오기</td>
+						<td>${courseTake.syllabusVO.syllabusName}</td>
 						<td>${courseTake.courseTake_State}</td>
 						<td>${courseTake.courseTake_ApplyDate}</td>
 						<td>${courseTake.courseTake_CompleteDate}</td>
@@ -205,7 +216,7 @@ request.setCharacterEncoding("UTF-8");
 		<div style="margin-top: 40px; padding-bottom: 150px;">
 			<button class="btn button_bottom" type="button">수료증출력</button>
 			<button class="btn button_bottom" type="button">수료완료</button>
-			<button class="btn button_bottom" type="button">신청승인</button>
+			<button class="btn button_bottom" type="button" onClick="consentCheck();">신청승인</button>
 		</div>
 
 		<!--paginate -->
