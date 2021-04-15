@@ -1,114 +1,213 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
+
 <html>
 <head>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>게시판</title>
+<meta charset=UTF-8">
+<title>공지사항 정보</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<style>
+.bg-primary {
+	background-color: white !important;
+}
+
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.table_notice {
+	margin-top: 30px;
+	border-collapse: collapse;
+	text-align: center;
+	/* color: #555; */
+	width: 100%;
+	line-height: 40px;
+}
+
+.table_notice th {
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	background-color: #f8f8f8;
+	text-align: center;
+	font-size: 15px;
+	width: 30%;
+}
+
+.table_notice td {
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	text-align: center;
+	font-size: 15px;
+}
+
+.informTitle {
+	margin-top: 20px;
+	text-align: left;
+	font-size: 18px;
+	font-weight: 600;
+	padding-left: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e0e0e0;
+	letter-spacing: 5px;
+	padding-bottom: 20px;
+	background-color: #f8f8f8;
+}
+
+.informBox {
+	overflow: hidden;
+	height: auto;
+	text-align: left;
+	font-size: 16px;
+	line-height: 30px;
+	padding: 20px 60px 20px 60px;
+	margin-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.button_bottom_U {
+	background-color: tomato;
+	float: right;
+	margin-left: 10px;
+}
+
+.button_bottom_D {
+	background-color: tomato;
+	float: right;
+	margin-left: 10px;
+}
+
+.button_bottom_C {
+	background-color: tomato;
+	float: right;
+	margin-left: 10px;
+}
+</style>
+
+
 </head>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document)
+			.ready(
+					function() {
 
-		var formObj = $("form[name='readForm']");
+						var formObj = $("form[name='readForm']");
 
-		// 수정 
-		$(".update_btn").on("click", function() {
-			formObj.attr("action", "${contextPath}/notice/updateView.do");
-			formObj.attr("method", "get");
-			formObj.submit();
-		})
+						// 수정 
+						$(".button_bottom_U")
+								.on(
+										"click",
+										function() {
+											formObj
+													.attr("action",
+															"${contextPath}/notice/updateView.do");
+											formObj.attr("method", "get");
+											formObj.submit();
+										})
 
-		// 삭제
-		$(".delete_btn").on("click", function() {
-			
-			var deleteYN = confirm("삭제하시겠습니까?");
-			if(deleteYN == true){
-			
-			formObj.attr("action", "${contextPath}/notice/deleteNotice.do");
-			formObj.attr("method", "post");
-			formObj.submit();
-			}
-		})
+						// 삭제
+						$(".button_bottom_D")
+								.on(
+										"click",
+										function() {
 
-		// 취소
-		$(".list_btn").on("click", function() {
+											var deleteYN = confirm("삭제하시겠습니까?");
+											if (deleteYN == true) {
 
-			location.href = "${contextPath}/notice/listNotice.do";
-		})
-	})
+												formObj
+														.attr("action",
+																"${contextPath}/notice/deleteNotice.do");
+												formObj.attr("method", "post");
+												formObj.submit();
+											}
+										})
+
+						// 취소
+						$(".button_bottom_C")
+								.on(
+										"click",
+										function() {
+
+											location.href = "${contextPath}/notice/listNotice.do";
+										})
+					})
 </script>
 
 
-
-
-
-
 <body>
-
-	<div id="root">
-		<header>
-			<h1>게시판</h1>
-		</header>
-		<hr />
-
-		<nav>홈 - 글 작성</nav>
-		<hr />
-		<div>
-			<%@include file="noticeNav.jsp"%>
+	<div class="container">
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/notice/readNotice.do?notice_no=${noticeList.notice_no}">공지사항
+						정보</a></li>
+			</ul>
 		</div>
-		<section id="container">
-			<form name="readForm" role="form" method="post">
-				<input type="hidden" id="notice_no" name="notice_no"
-					value="${readNotice.notice_no}" />
-			</form>
-			<table>
-				<tbody>
-					<tr>
-						<td><label for="notice_category">분류</label><input type="text"
-							id="notice_category" name="notice_category"
-							value="${readNotice.notice_category}" readonly="readonly" /></td>
-					</tr>
-					<tr>
-						<td><label for="notice_title">제목</label><input type="text"
-							id="notice_title" name="notice_title"
-							value="${readNotice.notice_title}" readonly="readonly" /></td>
-					</tr>
-					<tr>
-						<td><label for="notice_contents">내용</label> <textarea
-								id="notice_contents" name="notice_contents" readonly="readonly"><c:out
-									value="${readNotice.notice_contents}" /></textarea></td>
-					</tr>
-					<tr>
-						<td><label for="notice_adminID">작성자</label><input type="text"
-							id="notice_adminID" name="notice_adminID"
-							value="${readNotice.notice_adminID}" readonly="readonly" /></td>
-					</tr>
-					<tr>
-						<td><label for="notice_date">작성날짜</label> <fmt:formatDate
-								value="${readNotice.notice_date}" pattern="yyyy-MM-dd" /></td>
-					</tr>
-					<tr>
-						<td><label for="notice_hit">조회수</label><input type="text"
-							id="notice_hit" name="notice_hit"
-							value="${readNotice.notice_hit}" readonly="readonly" /></td>
-					</tr>
-				</tbody>
+
+		<form name="readForm" role="form" method="post">
+			<input type="hidden" id="notice_no" name="notice_no"
+				value="${readNotice.notice_no}" />
+
+			<table class="table_notice">
+				<tr>
+					<th>분류</th>
+					<td>${readNotice.notice_category}</td>
+				</tr>
+
+				<tr>
+					<th>제목</th>
+					<td>${readNotice.notice_title}</td>
+				</tr>
+
+				<tr>
+					<th>작성자</th>
+					<td>${readNotice.notice_adminID}</td>
+				</tr>
+
+				<tr>
+					<th>작성일</th>
+					<td>${readNotice.notice_date}</td>
+				</tr>
 			</table>
-			<div>
-				<button type="submit" class="update_btn">수정</button>
-				<button type="submit" class="delete_btn">삭제</button>
-				<button type="submit" class="list_btn">목록</button>
+
+			<div class="containerLower" style="margin-top: 30px;">
+				<div class="inform">
+					<div class="informTitle">
+						<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
+					</div>
+					<div class="informBox">${readNotice.notice_contents}</div>
+				</div>
 			</div>
-		</section>
-		<hr />
+		</form>
+
+		<div style="margin-top: 50px; padding-bottom: 150px;">
+			<button type="submit" class="btn button_bottom_C">취소</button>
+			<button type="submit" class="btn button_bottom_D">삭제</button>
+			<button type="submit" class="btn button_bottom_U">수정</button>
+		</div>
+
 	</div>
 </body>
 </html>

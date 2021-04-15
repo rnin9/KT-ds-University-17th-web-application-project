@@ -1,143 +1,250 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<%@page import="java.util.*" %>
+
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-<!DOCTYPE html>
-<html>
 
+
+<html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<title>공지사항 목록창</title>
+<meta charset=UTF-8">
+<title>공지사항 관리</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+	
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<style>
+.bg-primary {
+   background-color: white !important;
+}
+
+a:link, a:visited, a:hover {
+   color: black;
+   text-decoration: none;
+}
+
+</style>
+
+
 </head>
 
-<body>
-	<div>
-		<%@include file="noticeNav.jsp"%>
-	</div>
-	<!--paginate -->
-									<div class="paginate">
-										<div class="paging">
-											<a class="direction prev" href="javascript:void(0);"
-												onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-												&lt;&lt; </a> <a class="direction prev"
-												href="javascript:void(0);"
-												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-												&lt; </a>
+<script type="text/javascript">
+   function checkSelectAll(checkbox)  {
+      const selectall 
+        = document.querySelector('input[name="check-all"]');
+      if(checkbox.checked == false)  {
+        selectall.checked = false;
+      }
+    }
 
-											<c:forEach begin="${pagination.firstPage}"
-												end="${pagination.lastPage}" var="idx">
-												<a
-													style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-													href="javascript:void(0);"
-													onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-														value="${idx}" /></a>
-											</c:forEach>
-											<a class="direction next" href="javascript:void(0);"
-												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-												&gt; </a> <a class="direction next" href="javascript:void(0);"
-												onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-												&gt;&gt; </a>
-										</div>
-									</div>
-									<!-- /paginate -->
-
-									<div class="bottom">
-										<div class="bottom-left">
-											<select id="cntSelectBox" name="cntSelectBox"
-												onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});" class="form-control" style="width: 100px;">
-												<option value="10"
-													<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
-												<option value="20"
-													<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
-												<option value="30"
-													<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
-											</select>
-										</div>
-									</div>
+    function selectAll(selectAll)  {
+      const checkboxes 
+         = document.getElementsByName('ab');
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
+</script>
+<script type="text/javascript">
+	function filter(){
 	
-	
-	<table class="table table-hover">
-		<form class='search'>
-			<select class="form-select form-select-sm"
-				aria-label=".form-select-sm example">
-				<option value='' selected>-- 선택 --</option>
-				<option value='notice'>일반공지</option>
-				<option value='prospective'>채용예정자</option>
-				<option value='in office'>재직자</option>
-				<div>
-					<input type="text" class="form-control" placeholder="제목으로 검색"
-						style="text-align: center; width: 300px; display: inline-block;">
-					<!-- Indicates a successful or positive action -->
-					<button type="button" class="btn btn-primary"
-						style="width: 80px; display: inline-block;">검색</button>
-				</div>
-			</select>
-		</form>
+	    var value = document.getElementById("value").value.toUpperCase();
+	    var item = document.getElementsByClassName("item");
+	    
+	    for(var i=0;i<item.length;i++){
+	    	var name = item[i].getElementsByClassName("name");
+	    	if(name[0].innerText.toUpperCase().indexOf(value) > -1){
+	    		item[i].style.display="table-row";
+			}else{
+				item[i].style.display="none";
+			}
+	    }	
+	} 
+</script>
 
-		<tr>
-			<th><input type="checkbox" name="checkAll" onclick="CheckAll();" /></th>
-			<th>분류</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회</th>
+<script type="text/javascript">
+	function enter(){
+	    // 엔터키의 코드는 13입니다.
+		if(event.keyCode == 13){
+			filter()  // 실행할 이벤트
+		}
+	}		
+</script>
 
-		</tr>
-		<c:forEach var="noticeList" items="${noticeList}">
-			<tr>
-				<th><label><input type="checkbox"></label></th>
-				<td>${noticeList.notice_category}</td>
-				<td><a
-					href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">
-						<c:out value="${noticeList.notice_title}" />
-				</a></td>
-				<!--  <td>${notice.notice_title}</td> -->
-				<td>${noticeList.notice_adminID}</td>
-				<td>${noticeList.notice_date}</td>
-				<td>${noticeList.notice_hit}</td>
-
-			</tr>
-		</c:forEach>
-
-		<tr>
-			<td colspan="7" style="text-align: right;"><a
-				href="${contextPath}/notice/noticeForm.do">글쓰기</a></td>
-		</tr>
-
-		<tr>
-			<td colspan="7">
-				<center>
-					<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a>
-					<a href="#">5</a> <a href="#">다음▶</a>
-				</center>
-			</td>
-		</tr>
-	</table>
-
-
-
-	<!-- 부가적인 테마 -->
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	
-	
-	
 <script>
+	function deleteCheck(){
+		var url = "/springEx/notice/deleteNotice.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				/*window.location.reload();*/
+				$("#container").load("${contextPath}/notice/insertNotice.do");
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+</script>
+
+<body>
+
+	<div class="container">
+		<form method="post" action="${contextPath}/notice/insertNotice.do">
+
+			<div class="lnb">
+				<ul>
+					<li><a href="/springEx/main.do">홈</a></li>
+					<li style="color: grey; font-weight: bold;">〉</li>
+					<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
+							관리</a></li>
+				</ul>
+			</div>
+
+			<div class="well-searchbox">
+				<form class="form-horizontal" role="form">
+				<div class="form-group">
+                  <div class="serarchSubject">
+                     <label class="searchTitle">분류</label>
+                     <div class="col-md-8">
+                        <select class="form-select" aria-label="Default select example">
+                           <option selected>-- 분류를 선택하세요 --</option>
+                           <option value="유료과정">일반</option>
+                           <option value="재직자향상">채용예정자</option>
+                           <option value="채용예정자과정">긴급</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+					<div class="form-group">
+						<div class="serarchSubject">
+							<label class="searchTitle">검색</label>
+							<div class="col-md-8">
+								<input type="text" id="value" class="form-control"
+									onKeyPress="JavaScript:enter();" placeholder="제목으로 검색">
+								<input type="text" style="display: none;" />
+							</div>
+						</div>
+
+						<div class="col-sm-offset-4 col-sm-5"
+							style="display: inline-block; text-aglin: center;">
+							<button type="button" class="btn button_search"
+								onClick="filter()" style="margin-top: 10px;">검색</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+			<div class="bottom">
+				<div class="bottom-left">
+					<select id="cntSelectBox" name="cntSelectBox"
+						onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
+						class="form-control" style="width: 100px;">
+						<option value="10"
+							<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
+						<option value="20"
+							<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
+						<option value="30"
+							<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
+					</select>
+				</div>
+			</div>
+			<table class="table_">
+				<thead>
+					<tr align="center">
+						<td><input type="checkbox" name="check-all"
+							onclick='selectAll(this)' /></td>
+						<td><b>분류</b></td>
+						<td><b>제목</b></td>
+						<td><b>작성자</b></td>
+						<td><b>작성일</b></td>
+						<td><b>조회</b></td>
+					</tr>
+				</thead>
+
+				<tbody id="ajaxTable">
+					<c:forEach var="noticeList" items="${noticeList}">
+						<tr class="item">
+							<td><input type="checkbox" name="ab"
+								value="${noticeList.notice_no}" onclick='checkSelectAll(this)' /></td>
+							<td>${noticeList.notice_category}</td>
+							<td class="name"><a
+								href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">${noticeList.notice_title}</a></td>
+							<td>${noticeList.notice_adminID}</td>
+							<td>${noticeList.notice_date}</td>
+							<td>${noticeList.notice_hit}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				
+			</table>
+
+
+
+			<div style="margin-top: 50px; padding-bottom: 150px;">
+				<button class="btn button_bottom" type="button"
+					onClick="deleteCheck();">선택강의 삭제</button>
+				<button class="btn button_bottom"
+					onClick="location.href='noticeForm.do'">공지사항 등록</button>
+			</div>
+
+		
+			
+
+
+			<!--paginate -->
+			<div class="paginate">
+				<div class="paging">
+					<a class="direction prev" href="javascript:void(0);"
+						onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
+						&lt;&lt; </a> <a class="direction prev" href="javascript:void(0);"
+						onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+						&lt; </a>
+
+					<c:forEach begin="${pagination.firstPage}"
+						end="${pagination.lastPage}" var="idx">
+						<a
+							style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
+							href="javascript:void(0);"
+							onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
+								value="${idx}" /></a>
+					</c:forEach>
+					<a class="direction next" href="javascript:void(0);"
+						onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
+						&gt; </a> <a class="direction next" href="javascript:void(0);"
+						onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
+						&gt;&gt; </a>
+				</div>
+			</div>
+			<!-- /paginate -->
+
+
+
+
+
+			<script>
 function changeSelectBox(currentPage, cntPerPage, pageSize){
     var selectValue = $("#cntSelectBox").children("option:selected").val();
     movePage(currentPage, selectValue, pageSize);
@@ -155,5 +262,8 @@ function movePage(currentPage, cntPerPage, pageSize){
 }
  
 </script>
+
+		</form>
+	</div>
 </body>
 </html>

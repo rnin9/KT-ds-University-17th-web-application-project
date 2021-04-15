@@ -38,7 +38,7 @@
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="com.mySpring.springEx.notice.vo.NoticeVO">
 	 <![CDATA[
-		update notice set notice_category = #{notice_category}, notice_title = #{notice_title}, notice_contents = #{notice_contents}
+		update notice set notice_category = #{notice_category}, notice_title = #{notice_title}, notice_adminID = #{notice_adminID}, notice_contents = #{notice_contents}
 		where notice_no = #{notice_no} 
 	]]>
 	</update>
