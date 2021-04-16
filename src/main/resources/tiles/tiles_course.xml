@@ -19,4 +19,12 @@
       <put-attribute name="title" value="과정 수정" />
       <put-attribute name="body" value="/WEB-INF/views/course/courseModify.jsp" />
    </definition>
+   
+   <!-- 타일즈 제외 -->
+   <definition name="empty" template ="/WEB-INF/views/common/empty.jsp">
+		<put-attribute name="content" value =""/>
+	</definition>
+	<definition name="/course/syllabusList" extends="empty">
+    	<put-attribute name="content" value="/WEB-INF/views/course/syllabusList.jsp" />         
+	</definition>
 </tiles-definitions>

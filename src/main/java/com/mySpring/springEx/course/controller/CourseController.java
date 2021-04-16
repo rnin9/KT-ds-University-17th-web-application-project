@@ -21,4 +21,6 @@ public interface CourseController {
 	public ModelAndView modifyCourse(CourseVO courseVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView courseModifyForm(@RequestParam("courseID") int courseID, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

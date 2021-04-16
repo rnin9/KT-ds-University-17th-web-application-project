@@ -138,24 +138,6 @@ a:link, a:visited, a:hover {
 </head>
 
 <script type="text/javascript">
-   function checkSelectAll(checkbox)  {
-      const selectall 
-        = document.querySelector('input[name="check-all"]');
-      if(checkbox.checked == false)  {
-        selectall.checked = false;
-      }
-    }
-
-    function selectAll(selectAll)  {
-      const checkboxes 
-         = document.getElementsByName('ab');
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked
-      })
-    }
-</script>
-<script type="text/javascript">
 	function filter(){
 	
 	    var value = document.getElementById("value").value.toUpperCase();
@@ -215,10 +197,7 @@ a:link, a:visited, a:hover {
 
          <div class="lnb">
             <ul>
-               <li><a href="/springEx/main.do">홈</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
-                     관리</a></li>
+               <li>강의계획서 리스트</li>
             </ul>
          </div>
 
@@ -277,8 +256,6 @@ a:link, a:visited, a:hover {
          <table class="table_syllabusList">
             <thead>
                <tr align="center">
-                  <td><input type="checkbox" name="check-all"
-                     onclick='selectAll(this)' /></td>
                   <td><b>번호</b></td>
                   <td><b>분류</b></td>
                   <td><b>강의명</b></td>
@@ -290,9 +267,7 @@ a:link, a:visited, a:hover {
             <tbody id="ajaxTable">
                <c:forEach var="syllabus" items="${syllabusList}">
                   <tr class="item">
-                     <td><input type="checkbox" name="ab" value="${syllabus.syllabusID}"
-                        onclick='checkSelectAll(this)' /></td>
-                     <td>${syllabus.syllabusID}</td>
+                     <td id="syllabusID">${syllabus.syllabusID}</td>
                      <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
                      <td class="name"><a
                         href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
@@ -302,14 +277,6 @@ a:link, a:visited, a:hover {
                </c:forEach>
             </tbody>
          </table>
-
-         <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택강의 삭제</button>
-            <button class="btn button_bottom"
-               onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
-         </div>
-
-         <div>여기에 페이징</div>
       </form>
    </div>
 </body>

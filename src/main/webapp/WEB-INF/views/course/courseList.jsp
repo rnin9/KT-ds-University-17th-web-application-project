@@ -18,9 +18,17 @@ request.setCharacterEncoding("UTF-8");
    rel="stylesheet"
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
    crossorigin="anonymous">
-
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" /> -->
+
+
+<link id="bsdp-css"
+	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
+	rel="stylesheet">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -173,12 +181,43 @@ a:link, a:visited, a:hover {
 	} 
 </script>
 <script type="text/javascript">
+	function filterDate(){
+		
+		var value = document.getElementById("date").value /* 2021-04  */
+		console.log(value);
+	    var item = document.getElementsByClassName("item");
+	    for(var i=0;i<item.length;i++){
+	    	var date = item[i].getElementsByClassName("date");
+	    	
+	    	if(date[0].innerText.toUpperCase().indexOf(value) > -1){
+	    		item[i].style.display="table-row";
+			}else{
+				item[i].style.display="none";
+			}
+	    }	
+	} 
+</script>
+<script type="text/javascript">
 	function enter(){
 	    // 엔터키의 코드는 13입니다.
 		if(event.keyCode == 13){
 			filter()  // 실행할 이벤트
 		}
 	}
+</script>
+<script type="text/javascript">
+	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
+	$(document).ready(function() {
+		$('#sandbox-container input').datepicker({
+			format : "yyyy-mm",
+			startView : 1,
+			minViewMode : 1,
+			language : "ko",
+			keyboardNavigation : false,
+			forceParse : false,
+			autoclose : true
+		});
+	});
 </script>
 <script>
 	function deleteCheck(){
@@ -188,6 +227,7 @@ a:link, a:visited, a:hover {
 		$("input[name='ab']:checked").each(function(i){
 			valueArr.push($(this).val());
 		});
+		console.log(valueArr);
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -271,7 +311,13 @@ a:link, a:visited, a:hover {
                <div class="form-group">
                   <div class="serarchSubject">
                      <label class="searchTitle">날짜검색</label>
-                     
+						<div class="col-md-8">
+							<div id="sandbox-container">
+								<div class="input-group date" style="width: 88%;">
+									<input type="text" id="date" class="form-control" placeholder="연/월을 선택해주세요." onchange="filterDate()">
+								</div>
+							</div>
+						</div>       
                   </div>
                </div>
                <div class="form-group">
@@ -317,7 +363,7 @@ a:link, a:visited, a:hover {
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
                      <td>${courseVO.courseApplyStart}~<br>${courseVO.courseApplyEnd}</td>
-                     <td>${courseVO.courseStart}~<br>${courseVO.courseEnd}</td>
+                     <td class="date">${courseVO.courseStart}~<br>${courseVO.courseEnd}</td>
                   </tr>
                </c:forEach>
             </tbody>

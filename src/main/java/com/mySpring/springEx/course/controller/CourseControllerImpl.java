@@ -16,12 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mySpring.springEx.course.service.CourseService;
 import com.mySpring.springEx.course.vo.CourseVO;
-import com.mySpring.springEx.syllabus.vo.SyllabusVO;
+import com.mySpring.springEx.syllabus.service.SyllabusService;
 
 @Controller("courseController")
 public class CourseControllerImpl implements CourseController {
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private SyllabusService syllabusService;
 	
 	@Autowired
 	CourseVO courseVO;
@@ -114,4 +117,14 @@ public class CourseControllerImpl implements CourseController {
 		mav.addObject("courseVO", courseVO);
 		return mav;
 	}
+
+	 @Override
+	 @RequestMapping(value="/course/syllabusList.do", method=RequestMethod.GET)
+	 public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	    String viewName = (String)request.getAttribute("viewName");
+	    List syllabusList = syllabusService.syllabusList();
+	    ModelAndView mav = new ModelAndView(viewName);
+	    mav.addObject("syllabusList", syllabusList);
+	    return mav;
+	 }
 }

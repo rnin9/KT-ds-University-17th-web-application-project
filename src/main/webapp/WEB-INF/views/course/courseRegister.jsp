@@ -12,12 +12,18 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset=UTF-8">
 <title>과정 등록</title>
-
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+   rel="stylesheet"
+   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+   crossorigin="anonymous">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<link id="bsdp-css"
+	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
+	rel="stylesheet">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -184,7 +190,30 @@ a:link, a:visited, a:hover {
 			event.target.value = event.target.value.replace(/[^0-9]/g, "");
 	}
 </script>
-
+<script type="text/javascript">
+	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
+	$(document).ready(function() {
+		$('#sandbox-container input').datepicker({
+			format: "yyyy-mm-dd",
+            language: "ko",
+            startView: 2,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+		});
+	});
+</script>
+<script>
+	function showPopup() { 
+	  window.open("/springEx/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); 
+	}
+</script>
+<script>
+	$(document).on('click','#popBtn',function(){
+		$(opener.document).find("#syllabusID").val();
+		var courseName = document.getElementByClassName("name");
+	}
+</script>
 <body>
 	<form method="post" action="${contextPath}/course/insertCourse.do">
 
@@ -205,7 +234,7 @@ a:link, a:visited, a:hover {
 				<tr>
 					<th>강의명</th>
 					<td><input type="text" class="form-control"
-						placeholder="검색" name=""></td>
+						placeholder="검색" id="syllabusID" name="syllabusID" onclick="showPopup();" value="courseName"></td>
                <td></td>
                <td></td>
 				</tr>
@@ -216,17 +245,21 @@ a:link, a:visited, a:hover {
                      name="courseTime">
                      <option selected>-- 강의시간을 선택하세요 --</option>
                      <option value="09:00-18:00">09:00-18:00</option>
-                     <option value="19:00-22:00">19:00-22:00</option>          
+                     <option value="19:00-22:00">19:00-22:00</option>
+                   </select>      
                </div></td>
                <th>교육비</th>
-               <td><input type="text" class="form-control"
+               <td><input type="text" class="form-control" value="무료"
 						placeholder="무료" name="courseFee"></td>
 				</tr>
 				<tr>
 					<th>수강신청일</th>
-					<td>datepicker datepicker</td>
-               <th>교육기간</th>
-					<td>datepicker datepicker</td>
+					<td id="sandbox-container"><input type="text" class="form-control" placeholder="연/월을 선택해주세요." name="courseApplyStart"> 
+					<input type="text" class="form-control" placeholder="연/월을 선택해주세요." name="courseApplyEnd"></td>
+				
+               		<th>교육기간</th>
+					<td id="sandbox-container"><input type="text" class="form-control" placeholder="연/월을 선택해주세요." name="courseStart"> 
+					<input type="text" class="form-control" placeholder="연/월을 선택해주세요." name="courseEnd"></td>
 				</tr>
 				<tr>
 					<th>강의실정보</th>
