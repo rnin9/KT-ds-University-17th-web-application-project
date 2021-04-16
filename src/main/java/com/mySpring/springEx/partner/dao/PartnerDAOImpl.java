@@ -75,6 +75,28 @@ public class PartnerDAOImpl implements PartnerDAO{
 		System.out.println("dao이름"+sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum));
 		return sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum);
 	}
-	
 
+
+	
+	/* 기업관련 함수 */
+	@Override
+	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.partner.getCompanyInfo",partnerLicenseNum);
+	}
+
+	//회사 회원 수
+	@Override
+	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.companyUserNumber",partnerLicenseNum);
+	}
+
+	//회사 수강 회원 수
+	@Override
+	public int companyCourseUserNumber() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
+	}
+	
+	/* 기업관련 함수 끝*/
 }

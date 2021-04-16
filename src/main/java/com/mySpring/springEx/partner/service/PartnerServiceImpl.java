@@ -83,9 +83,51 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerName;
 	}
 
-	@Override
-	public PartnerVO getCompanyInfo(String partnerLicenseNum) throws DataAccessException {
+	
+	/* =================================기업 관련 시작======================= */
+	@Override						 
+	public List<Map<String, Object>> SelectAllListCompanyEmployee(Pagination pagination, String partnerLicenseNum) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<Map<String, Object>>list = pageMapper.SelectAllListCompanyEmployee(pagination.getFirstRecordIndex(),pagination.getLastRecordIndex(),partnerLicenseNum);
+		return list;}
+
+	@Override
+	public int companyEmployeeTableCount(String partnerLicenseNum) throws Exception {
+		return pageMapper.companyEmployeeTableCount(partnerLicenseNum);
 	}
+
+	@Override
+	public int companyUserNum(String partnerLicenseNum) throws Exception {
+		return partnerDAO.companyUserNumber(partnerLicenseNum);
+	}
+
+	@Override
+	public int companyCourseUserNum() throws Exception {
+		return partnerDAO.companyCourseUserNumber();
+	}
+
+	@Override
+	public int searchEmployeeTableCount(String partnerLicenseNum, String userName, String syllabusName,
+			String courseStartDate, String completionDate) throws Exception {
+		System.out.println(courseStartDate+"값은==================이건데요유"+completionDate);
+		return pageMapper.searchEmployeeTableCount(partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
+	}
+
+	@Override
+	public List<Map<String, Object>> SearchListCompanyEmployee(Pagination pagination, String partnerLicenseNum,
+			String userName, String syllabusName, String courseStartDate, String completionDate) throws Exception {
+		return pageMapper.SearchListCompanyEmployee(pagination.getFirstRecordIndex(),pagination.getLastRecordIndex(), partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
+	}
+	
+	
+
+	/*
+	 * @Override public PartnerVO getCompanyInfo(String partnerLicenseNum) throws
+	 * DataAccessException { // TODO Auto-generated method stub return
+	 * partnerDAO.getCompanyInformation(partnerLicenseNum); }
+	 */
+	
+	
+	/* =================================기업 관련 끝======================= */
+	
 }

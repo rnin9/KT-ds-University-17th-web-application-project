@@ -5,7 +5,9 @@ import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
 public class CourseTakeVO {
@@ -25,6 +27,10 @@ public class CourseTakeVO {
 	// kt_user와 join하기 위해 memberVO 객체를 멤버변수로 선언한다.
 	@Autowired
 	private MemberVO memberVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+	@Autowired
+	private CourseVO courseVO;
 /*
 	public String getUserPhoneNumber() {
 		return userPhoneNumber;
@@ -60,6 +66,22 @@ public class CourseTakeVO {
 	*/
 	public MemberVO getMemberVO() {
 		return memberVO;
+	}
+
+	public SyllabusVO getSyllabusVO() {
+		return syllabusVO;
+	}
+
+	public void setSyllabusVO(SyllabusVO syllabusVO) {
+		this.syllabusVO = syllabusVO;
+	}
+
+	public CourseVO getCourseVO() {
+		return courseVO;
+	}
+
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
 	}
 
 	public void setMemberVO(MemberVO memberVO) {
