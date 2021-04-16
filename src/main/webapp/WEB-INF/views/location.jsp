@@ -11,12 +11,11 @@
 	width: 80%;
 }
 
-<<<<<<< HEAD
-        .container {
-            font-family: 'Noto Sans KR', sans-serif;
-            width: 80%;
-        }
-=======
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 80%;
+}
+
 .mapIntro {
 	margin-top: 50px;
 	text-align: left;
@@ -28,7 +27,6 @@
 	border-bottom: 1px solid #e0e0e0;
 	letter-spacing: 5px;
 }
->>>>>>> 1042deb2c72d7078447bdab32032cf5189ea9033
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -42,6 +40,18 @@
 	padding-top: 69px;
 	background-position: 50% 50%;
 	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.pageIntro {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	text-align: left;
+	font-size: 34px;
+	font-weight: 450;
+	background:
+		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+		no-repeat;
 	background-repeat: no-repeat;
 }
 </style>
@@ -60,10 +70,7 @@
 			</ul>
 		</div>
 		<div class="mapContainer" style="background-color: white">
-			<div class="mapIntro">
-				<i class="fas fa-chevron-right" style="margin-right: 8px"></i>오시는 길
-				안내
-			</div>
+			<div class="pageIntro">오시는 길 안내</div>
 			<div class="row" style="padding-top: 50px">
 				<div class="col">
 					<%--        약도 이미지        --%>
@@ -127,28 +134,28 @@
 	</div>
 	</div>
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key %>"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key%>"></script>
 	<script>
-    var container = document.getElementById('map');
-    var options = {
-        // 서울 서초구 효령로 174 (37.481961, 127.003104)
-        center: new kakao.maps.LatLng(37.481961, 127.003104),
-        level: 3
-    };
+		var container = document.getElementById('map');
+		var options = {
+			// 서울 서초구 효령로 174 (37.481961, 127.003104)
+			center : new kakao.maps.LatLng(37.481961, 127.003104),
+			level : 3
+		};
 
-    var map = new kakao.maps.Map(container, options);
+		var map = new kakao.maps.Map(container, options);
 
-    // 마커가 표시될 위치입니다
-    var markerPosition = new kakao.maps.LatLng(37.481961, 127.003104);
+		// 마커가 표시될 위치입니다
+		var markerPosition = new kakao.maps.LatLng(37.481961, 127.003104);
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+			position : markerPosition
+		});
 
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-</script>
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+	</script>
 
 </body>
 </html>

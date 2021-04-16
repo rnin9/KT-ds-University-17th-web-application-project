@@ -32,7 +32,19 @@ public interface MemberService {
 
 	public void send_mail(MemberVO member) throws Exception;
 
+	// methods for partner apply
+	public List listRecruitments() throws DataAccessException;
+
+	public List listApplications(String id) throws DataAccessException;
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
 	public MemberVO getMyInfo(String userID) throws Exception;
 
 	public int modMyInfo(MemberVO member) throws Exception;
+
+	public List listPartners() throws DataAccessException;
+
 }

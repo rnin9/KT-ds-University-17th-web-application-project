@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: user
 Build-Jdk: 15.0.1
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: eunjin
+Build-Jdk: 11.0.9
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> 9ae7ef04f769f7b66ddd0df2d5c721647d18cc3e

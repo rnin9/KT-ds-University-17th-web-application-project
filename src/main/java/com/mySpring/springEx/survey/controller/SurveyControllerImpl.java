@@ -1,6 +1,7 @@
 
 package com.mySpring.springEx.survey.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,8 @@ public class SurveyControllerImpl implements SurveyController {
 
 	@Autowired
 	SurveyVO surveyVO;
-
+	
+	//리스트
 	@Override
 	@RequestMapping(value = "/survey/listSurvey.do", method = RequestMethod.GET)
 	public ModelAndView listSurvey(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
@@ -34,7 +36,6 @@ public class SurveyControllerImpl implements SurveyController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
             Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		
 		//데이터의 총 갯수를 받아옴 surveyServiceImpl testTableCount()-pagination.xml의 testTableCount 쿼리를 담은 값을 surveyList에 담음(int형)
 		int surveyList = surveyService.testTableCount();
 		//Pagination에 request한 currentPage,cntPerPage,pageSize을 파라미터값으로 받는 객체를 생성
@@ -42,13 +43,17 @@ public class SurveyControllerImpl implements SurveyController {
 		//총 레코드 수에 따른 페이지 처리 method에 데이터의 총 갯수를 전달
 		pagination.setTotalRecordCount(surveyList);
 		ModelAndView mav = new ModelAndView(viewName);
+		//추가할 항목을 미리 세션에 저장시키기 위한 surveyList= insertList
+		mav.addObject("insertSurvey",surveyService.SelectInsertList());
 		//처리된 부분을 화면에 전달
 		mav.addObject("pagination",pagination);
 		mav.addObject("surveyList", surveyService.SelectAllList(pagination));
-		/* mav.setViewName(viewName); */
+		/* mav.setViewName(viewName); */	
 		return mav;
 	}
+	
 
+	//추가
 	@Override
 	@RequestMapping(value = "/survey/addSurvey.do", method = RequestMethod.POST)
 	public ModelAndView addSurvey(@ModelAttribute("survey") SurveyVO survey, // modelAttritbute로 회원가입창에서 받은 member정보를 //
@@ -58,7 +63,7 @@ public class SurveyControllerImpl implements SurveyController {
 		int result = 0;
 		result = surveyService.addSurvey(survey);
 		ModelAndView mav = new ModelAndView("redirect:/survey/listSurvey.do");
-		return mav;
+		return mav;		
 	}
 
 	// 설문조사 삭제
@@ -72,24 +77,5 @@ public class SurveyControllerImpl implements SurveyController {
 		return mav;
 	}
 
-	/*
-	 * @Override public ModelAndView listSurvey(HttpServletRequest request,
-	 * HttpServletResponse response) throws Exception { // TODO Auto-generated
-	 * method stub return null; }
-	 */
-
-	// surveyDetail -> 설문조사항목을 누르면 해당 suveyId의 값을 가진 데이터를 전부다 db에서 뽑아온 다음에 화면에 출력
-	// 해준다 경로는 surveyDtail.do라는 페이지
-	/*
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/survey/surveyDetail.do", method =
-	 * RequestMethod.POST) public ModelAndView
-	 * surveyDetail(@RequestParam("surveyId") String surveyId, HttpServletRequest
-	 * request, HttpServletResponse response) throws Exception {
-	 * request.setCharacterEncoding("utf-8"); List surveyList =
-	 * surveyService.searchSurvey(surveyId); ModelAndView mav = new
-	 * ModelAndView("redirect:/survey/surveyDetail.do"); mav.addObject("detailList",
-	 * surveyList); return mav; }
-	 */
+	
 }
