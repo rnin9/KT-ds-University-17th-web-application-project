@@ -137,7 +137,6 @@
 
 	<!-- 이메일 인증 -->
 	<update id="approval_member" parameterType="memberVO">
-
 		update kt_user set
 		approval_status = 'true'
 		where userEmail = #{userEmail} <!-- and approval_key = #{approval_key} -->
@@ -176,9 +175,6 @@
 		where partnerLicenseNum=#{userCompany}
 	]]>
 	</select>
-
-
-	
 	
 	<update id="mod_myInformation" parameterType="memberVO">
      <![CDATA[

@@ -138,6 +138,34 @@
 			column="partnerRegisterDate" />
 	</resultMap>
 
+ <resultMap id="companyCourseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+		
+		<collection property="courseVO" javaType="CourseVO">
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
+		</collection>
+		
+		<collection property="syllabusVO" javaType="SyllabusVO">
+		<result	property="syllabusID" column="syllabusID"/>
+		<result property="syllabusName" column="syllabusName" />
+		</collection>
+	</resultMap>
+
 	<select id="SelectAllListPartner" resultMap="resResult">
 		SELECT *
 		FROM (
@@ -171,7 +199,7 @@
     </select>
     
     
-    <!-- 공지사항 -->
+    <!-- 공지사항 시작-->
     <resultMap id="noticeResult" type="noticeVO">
 		<result property="notice_no" column="notice_no" />
 		<result property="notice_category" column="notice_category" />
@@ -199,9 +227,150 @@
             #{lastRecordIndex}
         </if>	 	
 	</select>
-
-	 <select id="testTableCountN" resultType="int">
+	
+	<select id="testTableCountN" resultType="int">
         SELECT count(*) FROM
         notice
     </select>
+	
+	
+	 <select id="testTableCountPartner" resultType="int">
+        SELECT count(*) FROM 
+        partner
+    </select>
+  	<!-- 공지사항 끝-->
+  	
+  	<!-- 협력사관련 -->
+  	
+  	<select id="companyEmployeeTableCount" resultType="int">
+  	SELECT count(*) from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
+  	 				 m.userId,
+  	 				 m.userName,
+  	 				 m.userPhoneNumber,
+  	 				 m.userEmail,
+  	 				 s.syllabusName,
+  	 				 ct.courseTake_State,
+  	 				 ct.courseTake_ApplyDate,
+  	 				 ct.courseTake_CompleteDate
+  	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
+  	 				 where p.partnerLicenseNum=#{partnerLicenseNum})
+        </select>
+    
+  	<select id="SelectAllListCompanyEmployee" resultMap="companyCourseTakeResult">
+  	
+  	SELECT * from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
+  	 				 m.userId,
+  	 				 m.userName,
+  	 				 m.userPhoneNumber,
+  	 				 m.userEmail,
+  	 				 s.syllabusName, 
+  	 				 ct.courseID,
+  	 				 ct.courseTake_State,
+  	 				 ct.courseTake_ApplyDate,
+  	 				 ct.courseTake_CompleteDate
+  	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
+  	 				 where p.partnerLicenseNum=#{partnerLicenseNum}) 
+     <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>
+	</select>
+	
+	<select id="searchEmployeeTableCount" resultType="int">
+  	select count(*) 
+    from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
+  	 				 m.userId,
+  	 				 m.userName,
+  	 				 m.userPhoneNumber,
+  	 				 m.userEmail,
+  	 				 s.syllabusName, 
+  	 				 ct.courseID,
+  	 				 ct.courseTake_State,
+  	 				 ct.courseTake_ApplyDate,
+  	 				 ct.courseTake_CompleteDate
+  	 				 from course_take ct join course c on c.courseid = ct.courseid join syllabus s on s.syllabusid= c.syllabusid join kt_user m on m.userid = ct.userid 
+    				 where 
+    				 <if test="syllabusName == ''">
+    				 s.syllabusName like '%'||''||'%'
+    				 </if>
+    				 <if test="syllabusName != ''">
+    				 s.syllabusName like '%'||#{syllabusName}||'%'
+    				 </if>
+    				 <if test="courseStartDate == ''">
+    				 <![CDATA[
+        			 and to_char(c.courseStart,'YYMMDD') - '000101' > 0
+    				 ]]>
+    				 </if>
+    				 <if test="courseStartDate != ''">
+    				  <![CDATA[
+        			 and to_char(c.courseStart,'YYMMDD') - #{courseStartDate} > 0
+    				 ]]>
+    				 </if>
+    				 <if test="completionDate == ''">
+    				 <![CDATA[
+        			 and to_char(ct.coursetake_completedate,'YYMMDD') IS NULL
+    				 ]]>
+    				 </if>
+    				 <if test="completionDate != ''">
+    				 <![CDATA[
+        			 and to_char(ct.coursetake_completedate,'YYMMDD') - #{completionDate} > 0
+    				 ]]>
+    				 </if>
+    				 <if test="userName == ''">
+    				 and m.userName like '%'||''||'%' 
+    				 </if>
+    				 <if test="userName != ''">
+    				 and m.userName like '%'||#{userName}||'%' 
+    				 </if>
+    				 and m.usercompany =#{partnerLicenseNum})
+        </select>
+    
+    <select id="SearchListCompanyEmployee" resultMap="companyCourseTakeResult">
+  	select * 
+    from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
+  	 				 m.userId,
+  	 				 m.userName,
+  	 				 m.userPhoneNumber,
+  	 				 m.userEmail,
+  	 				 s.syllabusName, 
+  	 				 ct.courseID,
+  	 				 ct.courseTake_State,
+  	 				 ct.courseTake_ApplyDate,
+  	 				 ct.courseTake_CompleteDate
+  	 				 from course_take ct join course c on c.courseid = ct.courseid join syllabus s on s.syllabusid= c.syllabusid join kt_user m on m.userid = ct.userid 
+    				 where
+    				 <if test="syllabusName == ''">
+    				 s.syllabusName like '%'||''||'%'
+    				 </if>
+    				 <if test="syllabusName != ''">
+    				 s.syllabusName like '%'||#{syllabusName}||'%'
+    				 </if>
+    				 <if test="courseStartDate == ''">
+    				 <![CDATA[
+        			 and to_char(c.courseStart,'YYMMDD') - '000101' > 0
+    				 ]]>
+    				 </if>
+    				 <if test="courseStartDate != ''">
+    				  <![CDATA[
+        			 and to_char(c.courseStart,'YYMMDD') - #{courseStartDate} > 0
+    				 ]]>
+    				 </if>
+    				 <if test="completionDate == ''">
+    				 <![CDATA[
+        			 and to_char(ct.coursetake_completedate,'YYMMDD') IS NULL
+    				 ]]>
+    				 </if>
+    				 <if test="completionDate != ''">
+    				 <![CDATA[
+        			 and to_char(ct.coursetake_completedate,'YYMMDD') - #{completionDate} > 0
+    				 ]]>
+    				 </if>
+    				 <if test="userName == ''">
+    				 and m.userName like '%'||''||'%' 
+    				 </if>
+    				 <if test="userName != ''">
+    				 and m.userName like '%'||#{userName}||'%' 
+    				 </if>
+    				 and m.usercompany =#{partnerLicenseNum})
+        </select>
 </mapper>

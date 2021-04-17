@@ -109,7 +109,4 @@ public class CourseTakeVO {
 	public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
-
-	
-
 }

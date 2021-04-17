@@ -105,4 +105,29 @@
       ]]>
 	</select>
 	
+	<!--  ================== 우리 기업 관련====================== -->
+	<!--  기업정보 가져오는 쿼리 -->
+	<select id="getCompanyInfo" parameterType="String" resultType="partnerVO">
+      <![CDATA[
+        select *
+        from partner
+		where partnerLicenseNum=#{partnerLicenseNum}   	
+      ]]>
+	</select>
+	<!--  우리회사 회원 수 -->
+	<select id="companyUserNumber" parameterType="String" resultType="int">
+      <![CDATA[
+        select count(distinct(userid)) from kt_user where userCompany=#{partnerLicenseNum}   	
+      ]]>
+	</select>
+	
+	<!--  우리회사 회원 수 -->
+	<select id="companyCourseUserNumber" resultType="int">
+      <![CDATA[
+       select count(distinct(userid)) from course_take   	
+      ]]>
+	</select>
+	
+	
+	
 </mapper>

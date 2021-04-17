@@ -22,5 +22,21 @@
 	      <put-attribute name="body" value="/WEB-INF/views/partner/partnerDetailInfo.jsp" />
 	</definition>
 	
+	<!-- 협력사 모든 기업 정보 -->
+	<definition name="/partner/company/companyInfo" extends="baseLayout">
+	      <put-attribute name="title" value="기업 정보관리" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/company/companyInfo.jsp" />
+	</definition>
+	
+	<definition name="/partner/company/companyEmployee" extends="baseLayout">
+	      <put-attribute name="title" value="직원 관리" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/company/companyEmployee.jsp"/>
+	</definition>
+	
+	<definition name="/partner/company/searchEmployee" extends="baseLayout">
+	      <put-attribute name="title" value="직원 관리" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/company/companyEmployee.jsp"/>
+	</definition>
+	
 	
 </tiles-definitions>
