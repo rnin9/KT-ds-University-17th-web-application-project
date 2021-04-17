@@ -1,5 +1,7 @@
 package com.mySpring.springEx.survey.vo;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("detailVO")
@@ -27,6 +29,17 @@ public class DetailVO {
 	private String answer18;
 	private String answer19;
 	private String answer20;
+	
+
+	public DetailVO() {
+	}
+	
+	public DetailVO(String answer_Id, String survey_Id, String userId) {
+		this.answer_Id = answer_Id;
+		this.survey_Id = survey_Id;
+		this.userId = userId;
+	}
+	
 	public String getAnswer_Id() {
 		return answer_Id;
 	}

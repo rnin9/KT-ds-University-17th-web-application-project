@@ -147,12 +147,14 @@ public class MemberVO {
 	}
 
 	public String getResume() {
+		System.out.println("getresume " + resume);
 		return resume;
 	}
 
 	public void setResume(String resume) {
 		this.resume = resume;
 	}
+
 	public String getUserJob() {
 		return userJob;
 	}

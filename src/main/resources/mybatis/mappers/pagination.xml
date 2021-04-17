@@ -3,41 +3,63 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
-<resultMap id="surResult" type="surveyVO">
-		<result property="survey_Id" column="survey_Id" />
-		<result property="survey_Mem" column="survey_Mem" />
-        <result property="survey_Title" column="survey_Title" />
-        <result property="writeDate" column="writeDate" />
-	</resultMap> 
 
+<!-- survey List pagination -->
+<mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
+	<resultMap id="surResult" type="surveyVO">
+		<id property="survey_Id" column="survey_Id" />
+		<result property="courseID" column="courseID" />
+		<result property="survey_Title" column="survey_Title" />
+		<result property="writeDate" column="writeDate" />
+		<!-- courseTake join -->
+		<collection property="courseTakeVO" javaType="CourseTakeVO">
+			<result property="userID" column="userID" />
+			<result property="courseID" column="courseID" />
+		</collection>
+		<!-- course join -->
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseShow" column="courseShow" />
+		</collection>
+		<!-- syllabus join -->
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
+	</resultMap>
 
 	<select id="SelectAllList" resultMap="surResult">
-         SELECT *
-        FROM (
-        SELECT ROW_NUMBER() OVER(ORDER by survey_id DESC) AS
-        row_num
-        ,survey_id
-        ,survey_title
-        ,survey_mem
-        ,writedate
-        FROM survey
-        )
-         <if test="firstRecordIndex !=null and lastRecordIndex != null">
-            WHERE row_num BETWEEN #{firstRecordIndex} AND
-            #{lastRecordIndex}
-        </if>	 	
+		SELECT * FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER by survey_Id DESC) AS row_num
+		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate
+		FROM COURSE A, SYLLABUS B, SURVEY1 S
+		WHERE A.syllabusID = B.syllabusID
+		AND A.courseID = S.courseID)
+		<if test="firstRecordIndex !=null and lastRecordIndex != null">
+			WHERE row_num BETWEEN #{firstRecordIndex} AND
+			#{lastRecordIndex} 
+		</if>
+		order by survey_Id DESC	
 	</select>
 	
-	 <select id="testTableCount" resultType="int">
-        SELECT count(*) FROM
-        survey
-    </select>
-  
- 
- <!-- courseTake pagination -->
- 
- <resultMap id="courseTakeResult" type="courseTakeVO">
+	<select id="SelectAllList2" resultMap="surResult">
+	SELECT s.syllabusName,  c.courseID  FROM COURSE C INNER JOIN SYLLABUS S ON C.syllabusID = S.syllabusID WHERE courseShow='Y' 
+	</select>
+	
+	
+
+	<select id="testTableCount" resultType="int">
+		SELECT count(*) FROM
+		survey1
+	</select>
+	
+
+
+
+	<!-- courseTake pagination -->
+
+	<resultMap id="courseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -45,53 +67,75 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
+
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
-		<id property="userId" column="userId" />
-		<result property="userName" column="userName" />
-		<result property="userPhoneNumber" column="userPhoneNumber" />
-		<result property="userEmail" column="userEmail" />
-		<result property="userCompany" column="userCompany" />
+			<id property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="userPhoneNumber" column="userPhoneNumber" />
+			<result property="userEmail" column="userEmail" />
+			<result property="userCompany" column="userCompany" />
+		</collection>
+
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+		</collection>
+
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
 		</collection>
 	</resultMap>
-	
 
-	<select id="selectAllCourseApplyList" resultMap="courseTakeResult">
-		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
-         <![CDATA[
-            select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
-            m.userEmail, c.courseTake_State, courseTake_ApplyDate
-            from course_Take c join kt_user m on (c.userID = m.userId)
-            order by courseTake_ApplyDate desc
+	<select id="selectAllCourseApplyList"
+		resultMap="courseTakeResult">
+         <![CDATA[select m.userId, m.userName, m.userPhoneNumber,m.userEmail, m.userCompany,
+         s.syllabusName, ct.courseId, courseTake_State, courseTake_ApplyDate
+         from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid)
+         order by courseTake_ApplyDate desc
          ]]>
 	</select>
 	
-	 <select id="testTableCountCT" resultType="int">
-        SELECT count(*) FROM course_take
-        
-    </select>
- 
- 	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
+<!-- 	<update id="updateApplyConsent" parameterType="CouseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '승인'
+			where courseTake_State = '승인대기'
+         ]]>
+	</update> -->
+	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[
-		select * from t_member	
-		where id=#{id} and pwd=#{pwd}		
-	]]>
-  </select> -->
-  <!--*****************************************************파트너 페이징 *****************************************************-->
-<resultMap id="resResult" type="partnerVO">
+			update course_Take
+			set courseTake_State = '승인'
+			where courseTake_State = '승인대기' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+	<select id="testTableCountCT" resultType="int">
+		SELECT count(*) FROM course_take
+
+	</select>
+
+	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 
+		> <![CDATA[ select * from t_member where id=#{id} and pwd=#{pwd} ]]> </select> -->
+	<!--*****************************************************파트너 페이징 ***************************************************** -->
+	<resultMap id="resResult" type="partnerVO">
 		<result property="partnerLicenseNum" column="partnerLicenseNum" />
-	    <result property="partnerState" column="partnerState" />
-	    <result property="partnerName" column="partnerName" />
-	    <result property="partnerInformation" column="partnerInformation" />
-	    <result property="partnerAddress" column="partnerAddress" />
-	    <result property="partnerPhoneNumber" column="partnerPhoneNumber" />
-	    <result property="partnerEmail" column="partnerEmail" />
-	    <result property="partnerCEO" column="partnerCEO" />
-	    <result property="partnerHeadCount" column="partnerHeadCount" />
-	    <result property="partnerApplyYN" column="partnerApplyYN" />
-	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
-	    <result property="partnerURL" column="partnerURL" />
-	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+		<result property="partnerState" column="partnerState" />
+		<result property="partnerName" column="partnerName" />
+		<result property="partnerInformation"
+			column="partnerInformation" />
+		<result property="partnerAddress" column="partnerAddress" />
+		<result property="partnerPhoneNumber"
+			column="partnerPhoneNumber" />
+		<result property="partnerEmail" column="partnerEmail" />
+		<result property="partnerCEO" column="partnerCEO" />
+		<result property="partnerHeadCount" column="partnerHeadCount" />
+		<result property="partnerApplyYN" column="partnerApplyYN" />
+		<result property="partnerApplyFinishDate"
+			column="partnerApplyFinishDate" />
+		<result property="partnerURL" column="partnerURL" />
+		<result property="partnerRegisterDate"
+			column="partnerRegisterDate" />
 	</resultMap>
 
  <resultMap id="companyCourseTakeResult" type="courseTakeVO">
@@ -122,27 +166,61 @@
 		</collection>
 	</resultMap>
 
+	<select id="SelectAllListPartner" resultMap="resResult">
+		SELECT *
+		FROM (
+		SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
+		row_num
+		,partnerLicenseNum
+		,partnerState
+		,partnerName
+		,partnerInformation
+		,partnerPhoneNumber
+		,partnerAddress
+		,partnerEmail
+		,partnerCEO
+		,partnerHeadCount
+		,partnerApplyYN
+		,partnerApplyFinishDate
+		,partnerURL
+		,partnerRegisterDate
+		FROM partner
+		)
+		<if test="firstRecordIndex !=null and lastRecordIndex != null">
+			WHERE row_num BETWEEN #{firstRecordIndex} AND
+			#{lastRecordIndex}
+		</if>
+	</select>
 
 	
-	<select id="SelectAllListPartner" resultMap="resResult">
+	 <select id="testTableCountPartner" resultType="int">
+        SELECT count(*) FROM
+        partner
+    </select>
+    
+    
+    <!-- 공지사항 시작-->
+    <resultMap id="noticeResult" type="noticeVO">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_category" column="notice_category" />
+        <result property="notice_title" column="notice_title" />
+        <result property="notice_adminID" column="notice_adminID" />
+        <result property="notice_date" column="notice_date" />
+        <result property="notice_hit" column="notice_hit" />
+	</resultMap> 
+
+	<select id="NoticeAllList" resultMap="noticeResult">
          SELECT *
         FROM (
-        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
+        SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
         row_num
-        ,partnerLicenseNum
-        ,partnerState
-        ,partnerName
-        ,partnerInformation
-        ,partnerPhoneNumber
-        ,partnerAddress
-        ,partnerEmail
-        ,partnerCEO
-        ,partnerHeadCount
-        ,partnerApplyYN
-        ,partnerApplyFinishDate
-        ,partnerURL
-        ,partnerRegisterDate
-        FROM partner
+        ,notice_no
+        ,notice_category
+        ,notice_title
+        ,notice_adminID
+        ,notice_date
+        ,notice_hit
+        FROM notice
         )
          <if test="firstRecordIndex !=null and lastRecordIndex != null">
             WHERE row_num BETWEEN #{firstRecordIndex} AND
@@ -150,11 +228,18 @@
         </if>	 	
 	</select>
 	
+	<select id="testTableCountN" resultType="int">
+        SELECT count(*) FROM
+        notice
+    </select>
+	
+	
 	 <select id="testTableCountPartner" resultType="int">
         SELECT count(*) FROM 
         partner
     </select>
-  
+  	<!-- 공지사항 끝-->
+  	
   	<!-- 협력사관련 -->
   	
   	<select id="companyEmployeeTableCount" resultType="int">
@@ -287,5 +372,5 @@
     				 and m.userName like '%'||#{userName}||'%' 
     				 </if>
     				 and m.usercompany =#{partnerLicenseNum})
-        </select>  
+        </select>
 </mapper>

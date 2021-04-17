@@ -13,7 +13,7 @@ public interface PartnerDAO {
 	public int selectCooperationPartner() throws DataAccessException;
 	
 	public int selectConventionPartner() throws DataAccessException;
-	
+
 	public int selectIngPartner() throws DataAccessException;
 	
 	public int selectNotPartner() throws DataAccessException;

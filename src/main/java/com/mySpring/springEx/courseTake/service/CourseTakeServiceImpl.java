@@ -46,6 +46,13 @@ public class CourseTakeServiceImpl implements CourseTakeService {
         return pageMapper.testTableCountCT();
     }
     
+    //승인대기->승인으로 update
+    public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception{
+    	System.out.println("서비스부분입니다.");
+		return courseTakeDAO.updateApplyConsent(courseTakeVO);
+    }
+    
+    
     //테스트페이지
 	public List courseCompleteList() throws DataAccessException {
 		List completeList = null;
@@ -53,6 +60,7 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 		return completeList;
 	}
 
+	
 	
 
 }

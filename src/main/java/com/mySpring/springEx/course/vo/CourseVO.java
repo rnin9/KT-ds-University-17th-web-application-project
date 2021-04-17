@@ -10,7 +10,6 @@ import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 public class CourseVO {
 	private int courseID;
 	private int syllabusID;
-	
 	private Date courseStart;
 	private Date courseEnd;
 	private Date courseApplyStart;

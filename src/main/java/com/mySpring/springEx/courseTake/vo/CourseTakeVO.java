@@ -24,48 +24,20 @@ public class CourseTakeVO {
 	 * userEmail; private String userCompany;
 	 */
 
-	// kt_user와 join하기 위해 memberVO 객체를 멤버변수로 선언한다.
+	// kt_user와 join하기 위해 memberVO, courseVO, syllabusVO 객체를 멤버변수로 선언한다.
 	@Autowired
 	private MemberVO memberVO;
 	@Autowired
-	private SyllabusVO syllabusVO;
-	@Autowired
 	private CourseVO courseVO;
-/*
-	public String getUserPhoneNumber() {
-		return userPhoneNumber;
+	@Autowired
+	private SyllabusVO syllabusVO;
+
+	public CourseVO getCourseVO() {
+		return courseVO;
 	}
 
-	public void setUserPhoneNumber(String userPhoneNumber) {
-		this.userPhoneNumber = userPhoneNumber;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getUserCompany() {
-		return userCompany;
-	}
-
-	public void setUserCompany(String userCompany) {
-		this.userCompany = userCompany;
-	}
-	
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	*/
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
 	}
 
 	public SyllabusVO getSyllabusVO() {
@@ -76,12 +48,8 @@ public class CourseTakeVO {
 		this.syllabusVO = syllabusVO;
 	}
 
-	public CourseVO getCourseVO() {
-		return courseVO;
-	}
-
-	public void setCourseVO(CourseVO courseVO) {
-		this.courseVO = courseVO;
+	public MemberVO getMemberVO() {
+		return memberVO;
 	}
 
 	public void setMemberVO(MemberVO memberVO) {
@@ -141,7 +109,4 @@ public class CourseTakeVO {
 	public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
-
-	
-
 }

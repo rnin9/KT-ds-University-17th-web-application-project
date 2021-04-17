@@ -13,6 +13,7 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 
 public interface PartnerController {
 
+
 	public ModelAndView partnerList(
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,

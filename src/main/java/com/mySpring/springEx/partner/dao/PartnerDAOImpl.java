@@ -14,7 +14,7 @@ public class PartnerDAOImpl implements PartnerDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	
 	//회사 리스트 출력
 	@Override
@@ -24,7 +24,7 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return partnerList;
 		
 	}
-	
+
 	
 	//협력사 count
 	public int selectCooperationPartner() throws DataAccessException {
@@ -61,7 +61,7 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return result;
 	}
 	
-	
+
 	public PartnerVO selectDetailPartner(String partnerLicenseNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.partner.selectDetailPartner",partnerLicenseNum);      
 			
@@ -76,8 +76,6 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum);
 	}
 
-
-	
 	/* 기업관련 함수 */
 	@Override
 	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException {
@@ -97,6 +95,5 @@ public class PartnerDAOImpl implements PartnerDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
 	}
-	
 	/* 기업관련 함수 끝*/
 }
