@@ -1,0 +1,59 @@
+/*thead가 왼쪽부터 30%인 테이블, 넓은 내용입출력칸*/
+
+
+@charset "UTF-8";
+
+/*html은 syllabus/syllabusInformation.jsp 에서 찾아서 복붙하세요*/
+/*관리자페이지-강의계획서관리-강의명클릭*/
+
+
+.table_syllabus {
+   margin-top: 30px;
+   border-collapse: collapse;
+   text-align: center;
+   /* color: #555; */
+   width: 100%;
+   line-height: 40px;
+   
+}
+
+.table_syllabus th {
+   border-top: 1px solid #e4e4e4;
+   border-bottom: 1px solid #e4e4e4;
+   background-color: #f8f8f8;
+   text-align: center;
+   font-size: 15px;
+   width:30%;
+}
+
+.table_syllabus td {
+   border-top: 1px solid #e4e4e4;
+   border-bottom: 1px solid #e4e4e4;
+   text-align: center;
+   font-size: 15px;
+}
+
+.informTitle {
+   margin-top: 20px;
+   text-align: left;
+   font-size: 18px;
+   font-weight: 600;
+   padding-left: 30px;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid #e0e0e0;
+   letter-spacing: 5px;
+   padding-bottom: 20px;
+   background-color: #f8f8f8;
+}
+
+.informBox {
+   overflow: hidden;
+   height: auto;
+   text-align: left;
+   font-size: 16px;
+   line-height: 30px;
+   padding: 20px 60px 20px 60px;
+   margin-bottom: 20px;
+   margin-bottom: 20px;
+}
