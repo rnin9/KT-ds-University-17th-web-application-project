@@ -232,12 +232,6 @@
         SELECT count(*) FROM
         notice
     </select>
-	
-	
-	 <select id="testTableCountPartner" resultType="int">
-        SELECT count(*) FROM 
-        partner
-    </select>
   	<!-- 공지사항 끝-->
   	
   	<!-- 협력사관련 -->
