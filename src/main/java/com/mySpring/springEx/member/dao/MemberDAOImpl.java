@@ -14,12 +14,11 @@ import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.survey.vo.SurveyVO;
 
-
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Autowired
 	private PartnerVO partnerVO;
 
@@ -29,6 +28,7 @@ public class MemberDAOImpl implements MemberDAO {
 		membersList = sqlSession.selectList("mapper.member.selectAllMemberList");
 		return membersList;
 	}
+
 	@Override
 	public List listPartners() throws DataAccessException {
 		List<SurveyVO> partnersName = null;
@@ -45,7 +45,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List selectAllApplicationList(String id) throws DataAccessException {
-		List<HashMap<String, String>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		List<HashMap<String, String>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList",
+				id);
 		return applicationList;
 	}
 
@@ -72,10 +73,13 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException {
 		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", memberVO);
-		vo.setResume((String) sqlSession.selectOne("mapper.member.check_resume", vo.getUserId()));
+		if (vo != null) {
+			vo.setResume((String) sqlSession.selectOne("mapper.member.check_resume", vo.getUserId()));
+		}
 		return vo;
 	}
-	//test용
+
+	// test용
 	// 아이디 중복 검사
 	@Override
 	public int check_id(String id) throws Exception {
@@ -102,20 +106,19 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("mapper.member.approval_member", member);
 	}
 
-
 	@Override
 	public int insertMember(MemberVO memberVO) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	// 내정보페이지 정보들
 	@Override
 	public MemberVO getMyInformation(String userID) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.member.get_myInformation",userID);
+		return sqlSession.selectOne("mapper.member.get_myInformation", userID);
 	}
-	
+
 	@Override
 	public int modMyInfo(MemberVO member) throws Exception {
 		// TODO Auto-generated method stub
@@ -125,13 +128,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public PartnerVO partnerLogInById(MemberVO member) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.member.partnerLoginById",member);
+		return sqlSession.selectOne("mapper.member.partnerLoginById", member);
 	}
-
-
-
-
-	
-	
 
 }

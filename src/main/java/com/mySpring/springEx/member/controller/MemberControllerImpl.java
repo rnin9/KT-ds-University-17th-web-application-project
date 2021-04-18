@@ -206,9 +206,7 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
-			System.out.println(memberVO.getUserJob());
-		
-		
+					
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
@@ -232,16 +230,13 @@ public class MemberControllerImpl implements MemberController {
 			session.setAttribute("partner", partnerVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
-			System.out.println(partnerVO.getPartnerLicenseNum());
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
 			
 		}
 		else {
-			rAttr.addAttribute("result", "loginFailed");/*
-														 * mav.setViewName("redirect:/member/loginForm.do");
-														 */
+			rAttr.addAttribute("result", "loginFailed");
 			mav.addObject("result", false);
 			mav.setViewName("jsonView");
 		}
