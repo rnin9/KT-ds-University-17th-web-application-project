@@ -25,6 +25,8 @@
 		<collection property="courseVO" javaType="CourseVO">
 			<id property="courseID" column="courseID" />
 			<result property="syllabusID" column="syllabusID" />
+			<result property="courseStart" column="courseStart" />
+			<result property="courseEnd" column="courseEnd" />
 		</collection>
 
 		<collection property="syllabusVO" javaType="SyllabusVO">
@@ -32,12 +34,33 @@
 			<result property="syllabusName" column="syllabusName" />
 		</collection>
 	</resultMap>
-	
-		<update id="updateApplyConsent" parameterType="CourseTakeVO">
+
+	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[update course_Take
 			set courseTake_State = '승인'
 			where courseTake_State = '승인대기' and userID = #{userID} and courseID=#{courseID}
          ]]>
 	</update>
-	
+
+	<update id="updateCompletion" parameterType="CourseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '수료'
+			where courseTake_State = '수료대기' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+
+	<!-- 나의 수강내역 가져오기  -->
+	<select id="get_myCourseInformation" parameterType="String"
+		 resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
+	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, c.courseID, m.userID, s.syllabusID, m.userName
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	where ct.userId = #{userID} 
+	order by courseTake_ApplyDate desc
+	]]>
+	</select>
+
+	<!-- <select id="selectCompleteStudent" parameterType="CourseTakeVO"> <![CDATA[select 
+		set courseTake_State = '수료' where courseTake_State = '수료대기' and userID = 
+		#{userID} and courseID=#{courseID} ]]> </select> -->
+
 </mapper>

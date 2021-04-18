@@ -23,17 +23,22 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 		return applyList;
 	}
 
+	@Override
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception {
+		return sqlSession.update("mapper.courseTake.updateApplyConsent", courseTakeVO);
+	}
+	
+	@Override
+	   public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.update("mapper.courseTake.updateCompletion", courseTakeVO);
+	   }
+
 	//Å×½ºÆ®
 	@Override
 	public List selectAllCompleteList() throws DataAccessException {
 		List<CourseTakeVO> completeList = null;
 		completeList = sqlSession.selectList("mapper.courseTake.selectAllCompleteList");
 		return completeList;
-	}
-
-	@Override
-	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception {
-		return sqlSession.update("mapper.courseTake.updateApplyConsent", courseTakeVO);
 	}
 
 }

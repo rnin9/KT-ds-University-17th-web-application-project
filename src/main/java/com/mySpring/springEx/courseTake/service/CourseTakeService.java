@@ -20,7 +20,10 @@ public interface CourseTakeService {
 
 	
 	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception;
-	
+	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception;
+	 
+	 
+	 
 	// 테스트페이지
 	public List courseCompleteList() throws DataAccessException;
 

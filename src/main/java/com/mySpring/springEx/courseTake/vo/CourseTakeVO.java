@@ -30,7 +30,17 @@ public class CourseTakeVO {
 	@Autowired
 	private CourseVO courseVO;
 	@Autowired
+	private CourseTakeVO courseTakeVO;
+	@Autowired
 	private SyllabusVO syllabusVO;
+
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
+	}
+
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
+	}
 
 	public CourseVO getCourseVO() {
 		return courseVO;

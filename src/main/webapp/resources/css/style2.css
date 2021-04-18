@@ -1,13 +1,15 @@
-/*thead°¡ ¿ŞÂÊºÎÅÍ 30%ÀÎ Å×ÀÌºí, ³ĞÀº ³»¿ëÀÔÃâ·ÂÄ­*/
+/*theadë¶€ë¶„ì´ 30%ì¸ í…Œì´ë¸”, informì¶œë ¥ë°•ìŠ¤, informì…ë ¥ë°•ìŠ¤*/
+/*htmlíƒœê·¸ëŠ” syllabus/syllabusInformation.jsp ì°¸ê³ */
+/*informì…ë ¥ë°•ìŠ¤(ì¶œë ¥ë°•ìŠ¤ì˜ div íƒœê·¸ë§Œ input íƒœê·¸ë¡œ ë°”ë€ê²ƒ)ì‚¬ìš©ì‹œ syllabus/syllabusRegister.jsp ì°¸ê³ */
+/*html íƒœê·¸ ë³µì‚¬ í›„ íƒœê·¸ class(table_ ë“±) ë°”ê¾¸ì§€ë§ê²ƒ. ì´ë¦„ ë°”ê¾¸ë©´ ì ìš©ì•ˆë¨!*/
+/*<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />*/
 
 
 @charset "UTF-8";
 
-/*htmlÀº syllabus/syllabusInformation.jsp ¿¡¼­ Ã£¾Æ¼­ º¹ºÙÇÏ¼¼¿ä*/
-/*°ü¸®ÀÚÆäÀÌÁö-°­ÀÇ°èÈ¹¼­°ü¸®-°­ÀÇ¸íÅ¬¸¯*/
 
-
-.table_syllabus {
+.table_ {
    margin-top: 30px;
    border-collapse: collapse;
    text-align: center;
@@ -17,7 +19,7 @@
    
 }
 
-.table_syllabus th {
+.table_ th {
    border-top: 1px solid #e4e4e4;
    border-bottom: 1px solid #e4e4e4;
    background-color: #f8f8f8;
@@ -26,7 +28,7 @@
    width:30%;
 }
 
-.table_syllabus td {
+.table_ td {
    border-top: 1px solid #e4e4e4;
    border-bottom: 1px solid #e4e4e4;
    text-align: center;
@@ -56,4 +58,17 @@
    padding: 20px 60px 20px 60px;
    margin-bottom: 20px;
    margin-bottom: 20px;
+}
+
+.informInputBox {
+	/* overflow: hidden; */
+	min-height: 220px;
+	text-align: left;
+	font-size: 16px;
+	line-height: 30px;
+	padding: 20px 60px 20px 60px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	width: 100%;
+	border: 1px solid #e4e4e4;
 }
