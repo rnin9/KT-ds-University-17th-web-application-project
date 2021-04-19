@@ -75,27 +75,27 @@ public class MemberDAOImpl implements MemberDAO {
 		vo.setResume((String) sqlSession.selectOne("mapper.member.check_resume", vo.getUserId()));
 		return vo;
 	}
-	//test¿ë
-	// ¾ÆÀÌµğ Áßº¹ °Ë»ç
+	//testìš©
+	// ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬
 	@Override
 	public int check_id(String id) throws Exception {
 		return sqlSession.selectOne("mapper.member.check_id", id);
 	}
 
-	// ÀÌ¸ŞÀÏ Áßº¹ °Ë»ç
+	// ì´ë©”ì¼ ì¤‘ë³µ ê²€ì‚¬
 	@Override
 	public int check_email(String email) throws Exception {
 		return sqlSession.selectOne("mapper.member.check_email", email);
 	}
 
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	@Transactional
 	@Override
 	public int join_member(MemberVO member) throws Exception {
 		return sqlSession.insert("mapper.member.join_member", member);
 	}
 
-	// ÀÌ¸ŞÀÏ ÀÎÁõ
+	// ì´ë©”ì¼ ì¸ì¦
 	@Transactional
 	@Override
 	public int approval_member(MemberVO member) throws Exception {
@@ -109,7 +109,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return 0;
 	}
 	
-	// ³»Á¤º¸ÆäÀÌÁö Á¤º¸µé
+	// ë‚´ì •ë³´í˜ì´ì§€ ì •ë³´ë“¤
 	@Override
 	public MemberVO getMyInformation(String userID) throws Exception {
 		// TODO Auto-generated method stub

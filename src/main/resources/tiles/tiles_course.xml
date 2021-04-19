@@ -21,10 +21,10 @@
    </definition>
    
    <!-- 타일즈 제외 -->
-   <definition name="empty" template ="/WEB-INF/views/common/empty.jsp">
+	<definition name="empty" template ="/WEB-INF/views/common/empty.jsp">
 		<put-attribute name="content" value =""/>
 	</definition>
 	<definition name="/course/syllabusList" extends="empty">
-    	<put-attribute name="content" value="/WEB-INF/views/course/syllabusList.jsp" />         
+    	<put-attribute name="content" value="/WEB-INF/views/course/courseSyllabusList.jsp" />
 	</definition>
 </tiles-definitions>

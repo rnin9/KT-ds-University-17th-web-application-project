@@ -181,6 +181,11 @@ a:link, a:visited, a:hover {
 		});
 	});
 </script>
+<script>
+	function showPopup() { 
+	  window.open("/springEx/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); 
+	}
+</script>
 <script type="text/javascript">
 	//교육일수랑 교육시간에 숫자만 들어가게 하는 함수
 	function onlyNumber(event) {
@@ -224,8 +229,8 @@ a:link, a:visited, a:hover {
 			<table class="table_syllabus">
 				<tr>
 					<th>강의명</th>
-					<td><input type="text" class="form-control"
-						placeholder="검색" name="" onclick="showPopup();"></td>
+					<td><input type="text" class="form-control" placeholder="검색" id="hiddenThanksTogangsanim" onclick="showPopup();" value="${courseVO.syllabusVO.syllabusName}">
+						<input type="text" class="form-control" id="syllabusID" name="syllabusID" style="display: none;" value="${courseVO.syllabusID}"></td>
                <td></td>
                <td></td>
 				</tr>
@@ -233,8 +238,8 @@ a:link, a:visited, a:hover {
 					<th>강의시간</th>
 					<td><div class="selectBox" style="text-align: left;">
                   <select class="form-select" aria-label="Default select example" name="courseTime">
-                     <option value="09:00-18:00" <c:if test="${courseVO.courseTime eq '09:00-18:00'}">selected</c:if>>09:00-18:00</option>
-                     <option value="19:00-22:00" <c:if test="${courseVO.courseTime eq '19:00-22:00'}">selected</c:if>>19:00-22:00</option>          
+                     <option value="09:00~18:00" <c:if test="${courseVO.courseTime eq '09:00~18:00'}">selected</c:if>>09:00~18:00</option>
+                     <option value="19:00~22:00" <c:if test="${courseVO.courseTime eq '19:00~22:00'}">selected</c:if>>19:00~22:00</option>          
                </div></td>
                <th>교육비</th>
                <td><input type="text" class="form-control"
@@ -254,7 +259,7 @@ a:link, a:visited, a:hover {
 					<td><input type="text" class="form-control"
 						onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"
 						placeholder="강의실(숫자)을 입력하세요." name="courseRoomNumber" value="${courseVO.courseRoomNumber}"></td>
-               <th>수강인원수</th>
+              	 	<th>수강인원수</th>
 					<td><input type="text" class="form-control"
 						onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"
 						placeholder="수강인원수(숫자)를 입력하세요." name="coursePeopleMax" value="${courseVO.coursePeopleMax}"></td>

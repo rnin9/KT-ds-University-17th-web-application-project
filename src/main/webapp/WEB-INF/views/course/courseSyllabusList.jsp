@@ -19,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
    crossorigin="anonymous">
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -161,44 +161,39 @@ a:link, a:visited, a:hover {
 		}
 	}
 </script>
+
 <script>
-	function deleteCheck(){
-		var url = "/springEx/syllabus/deleteCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		console.log(valueArr);
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
-	};
+$(document).on("click","input[class=checkBtn]",function(){	
+	console.log(123123);
+	var checkBtn = $(this);
+	var tr = checkBtn.parent().parent();
+	var td = tr.children();
+	var no = td.eq(0).text();
+	var name = td.eq(2).text();
+	opener.document.getElementById("syllabusID").value = no;
+	opener.document.getElementById("hiddenThanksTogangsanim").value = name;
+	self.close();
+});
+	/*function getSyllabusID(){
 		
-		
+		var checkBtn = $(this);
+		var tr = checkBtn.parent().parent();
+		console.log(tr);
+		var td = tr.children();
+		var no = td.eq(0).text();
+		console.log(no);
+		opener.document.getElementById("syllabusID").value = no;
+		self.close();
+	}*/
 </script>
+
 <body>
 
    <div class="container">
       <form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
 
          <div class="lnb">
-            <ul>
-               <li>강의계획서 리스트</li>
-            </ul>
+               <h2>강의계획서 리스트</h2>
          </div>
 
          <div class="well-searchbox">
@@ -261,6 +256,7 @@ a:link, a:visited, a:hover {
                   <td><b>강의명</b></td>
                   <td><b>교육일수</b></td>
                   <td><b>교육시간</b></td>
+                  <td><b>선택</b></td>
                </tr>
             </thead>
 
@@ -269,10 +265,11 @@ a:link, a:visited, a:hover {
                   <tr class="item">
                      <td id="syllabusID">${syllabus.syllabusID}</td>
                      <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
-                     <td class="name"><a
-                        href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
+                     <td class="name">${syllabus.syllabusName}</td>
                      <td>${syllabus.syllabusTotalDays}</td>
                      <td>${syllabus.syllabusTotalTime}</td>
+                     <!--<td><input type="button" value="선택" onclick="getSyllabusID()"></td>-->
+                     <td><input type="button" value="선택" class="checkBtn"></td>
                   </tr>
                </c:forEach>
             </tbody>

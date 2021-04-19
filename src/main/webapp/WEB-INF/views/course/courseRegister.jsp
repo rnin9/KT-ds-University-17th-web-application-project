@@ -208,12 +208,7 @@ a:link, a:visited, a:hover {
 	  window.open("/springEx/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); 
 	}
 </script>
-<script>
-	$(document).on('click','#popBtn',function(){
-		$(opener.document).find("#syllabusID").val();
-		var courseName = document.getElementByClassName("name");
-	}
-</script>
+
 <body>
 	<form method="post" action="${contextPath}/course/insertCourse.do">
 
@@ -233,8 +228,8 @@ a:link, a:visited, a:hover {
 			<table class="table_syllabus">
 				<tr>
 					<th>강의명</th>
-					<td><input type="text" class="form-control"
-						placeholder="검색" id="syllabusID" name="syllabusID" onclick="showPopup();" value="courseName"></td>
+					<td><input type="text" class="form-control" placeholder="검색" id="hiddenThanksTogangsanim" onclick="showPopup();">
+						<input type="text" class="form-control" id="syllabusID" name="syllabusID" style="display: none;"></td>
                <td></td>
                <td></td>
 				</tr>
@@ -244,8 +239,8 @@ a:link, a:visited, a:hover {
                   <select class="form-select" aria-label="Default select example"
                      name="courseTime">
                      <option selected>-- 강의시간을 선택하세요 --</option>
-                     <option value="09:00-18:00">09:00-18:00</option>
-                     <option value="19:00-22:00">19:00-22:00</option>
+                     <option value="09:00~18:00">09:00~18:00</option>
+                     <option value="19:00~22:00">19:00~22:00</option>
                    </select>      
                </div></td>
                <th>교육비</th>

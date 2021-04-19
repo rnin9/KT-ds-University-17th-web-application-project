@@ -32,7 +32,7 @@
 	
 	<select id="selectCourseList" resultMap="courseResult">
 	 <![CDATA[
-	    select courseID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
+	    select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
 	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd
 	    from course c join syllabus s on c.syllabusID = s.syllabusID
 	    order by courseID desc
@@ -40,18 +40,18 @@
 	</select>
 	<select id="selectCourse" parameterType="int" resultMap="courseResult">
 	 <![CDATA[
-	 	select courseID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
-	 			courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee,
+	 	select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
+	 			courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax,
 	 			syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent
 	 	from course c join syllabus s on c.syllabusID = s.syllabusID
 	 	where courseID = #{courseID}
 	 ]]>
 	</select>
-	<!-- syllabusID 가져오는 거랑 Date 가져오는 거 -->
-	<insert id="insertSyllabus" parameterType="syllabusVO">
+	<!-- 왜 YYYY로 하면 안 되지......? -->
+	<insert id="insertCourse" parameterType="courseVO">
 	  <![CDATA[
 	  	insert into course (courseid, syllabusid, coursestart, courseend, courseapplystart, courseapplyend, coursetime, coursefee, courseroomnumber, coursepeoplemax)
-		values(course_seq.NEXTVAL, 103, TO_DATE('21/04/26', 'YYYY/MM/DD'), TO_DATE('21/04/26', 'YYYY/MM/DD'), TO_DATE('21/04/26', 'YYYY/MM/DD'), TO_DATE('21/04/26', 'YYYY/MM/DD'),#{courseTime},#{courseFee},#{courseRoomNumber},#{coursePeopleMax})
+		values(course_seq.NEXTVAL, #{syllabusID}, TO_DATE(#{courseStart}, 'YY-MM-DD'), TO_DATE(#{courseEnd}, 'YY-MM-DD'), TO_DATE(#{courseApplyStart}, 'YY-MM-DD'), TO_DATE(#{courseApplyEnd}, 'YY-MM-DD'),#{courseTime},#{courseFee},#{courseRoomNumber},#{coursePeopleMax})
 	  ]]>
 	</insert>
 	<delete id="deleteCourse" parameterType="int">
@@ -62,9 +62,8 @@
     <!-- syllabus, course 둘 다 업데이트 할 수 있을까,,, -->
 	<update id="modifyCourse" parameterType="courseVO">
 	 <![CDATA[
-	 	update course set syllabusCategory1=#{syllabusCategory1}, syllabusCategory2=#{syllabusCategory2}, syllabusName=#{syllabusName},
-	 	syllabusReportName=#{syllabusReportName}, syllabusTotalTime=#{syllabusTotalTime}, syllabusTotalDays=#{syllabusTotalDays}, syllabusOutline=#{syllabusOutline},
-	 	syllabusPurpose=#{syllabusPurpose}, syllabusTarget=#{syllabusTarget}, syllabusContent=#{syllabusContent}
+	 	update course set syllabusID=#{syllabusID}, coursestart=#{coursestart}, courseend=#{courseend}, courseapplystart=#{courseapplystart}, 
+	 	courseapplyend=#{courseapplyend}, coursetime=#{coursetime}, coursefee=#{coursefee}, courseroomnumber=#{courseroomnumber}, coursepeoplemax=#{coursepeoplemax}
 	 	where courseid = #{courseID}
 	 ]]> 
 	</update>

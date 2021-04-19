@@ -241,6 +241,7 @@ a:link, a:visited, a:hover {
 				
 			},
 			error : function(data) { 
+				alert("설문조사에서 이 강의를 사용하고 있습니다.");
 	            console.log("fail");
 	        }
 		});
@@ -301,7 +302,7 @@ a:link, a:visited, a:hover {
                      <div class="col-md-8">
                         <select class="form-select" aria-label="Default select example">
                            <option selected>-- 선택 --</option>
-                           <option value="신청">신청</option>
+                           <option value="신청">신청중</option>
                            <option value="조기마감">조기마감</option>
                            <option value="마감">마감</option>
                         </select>
@@ -314,7 +315,7 @@ a:link, a:visited, a:hover {
 						<div class="col-md-8">
 							<div id="sandbox-container">
 								<div class="input-group date" style="width: 88%;">
-									<input type="text" id="date" class="form-control" placeholder="연/월을 선택해주세요." onchange="filterDate()">
+									<input type="text" id="date" class="form-control" placeholder="수강기간을 선택해주세요." onchange="filterDate()">
 								</div>
 							</div>
 						</div>       
@@ -359,11 +360,11 @@ a:link, a:visited, a:hover {
                      <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}<br>${courseVO.syllabusVO.syllabusName}</a></td>
+                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</a></td>
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
-                     <td>${courseVO.courseApplyStart}~<br>${courseVO.courseApplyEnd}</td>
-                     <td class="date">${courseVO.courseStart}~<br>${courseVO.courseEnd}</td>
+                     <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
+                     <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
                   </tr>
                </c:forEach>
             </tbody>
