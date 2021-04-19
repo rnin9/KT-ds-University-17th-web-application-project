@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -80,10 +81,12 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
 	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
+		String viewName = (String)request.getAttribute("viewName");
 		memberVO = memberService.getMyInfo(userID);
+		List myCourseList = memberService.listMyCourse(userID);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("myInfo", memberVO);
+		mav.addObject("myCourseInfo", myCourseList);
 		return mav;
 	}
 
@@ -206,9 +209,7 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
-			System.out.println(memberVO.getUserJob());
-		
-		
+					
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
@@ -232,16 +233,13 @@ public class MemberControllerImpl implements MemberController {
 			session.setAttribute("partner", partnerVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
-			System.out.println(partnerVO.getPartnerLicenseNum());
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
 			
 		}
 		else {
-			rAttr.addAttribute("result", "loginFailed");/*
-														 * mav.setViewName("redirect:/member/loginForm.do");
-														 */
+			rAttr.addAttribute("result", "loginFailed");
 			mav.addObject("result", false);
 			mav.setViewName("jsonView");
 		}
@@ -296,5 +294,7 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

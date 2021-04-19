@@ -186,11 +186,11 @@ request.setCharacterEncoding("UTF-8");
 			<c:choose>
 				<c:when
 					test="${isLogOn == true  && member!= null  && member.userPosition == 'PARTNER'}">
-					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyInfo.do?partnerLicenseNum=${member}">기업정보
+					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyInfo.do">기업정보
 							관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin" href="#">지원자
 							관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin" href="#">직원
+					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyEmployee.do?partnerLicenseNum=${partner.partnerLicenseNum}">직원
 							관리</a></li>
 				</c:when>
 			</c:choose>

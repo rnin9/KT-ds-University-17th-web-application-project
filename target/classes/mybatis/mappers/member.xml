@@ -24,26 +24,31 @@
 	</resultMap>
 
 	<resultMap id="resResult" type="partnerVO">
-		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
-		<result property="partnerState" column="partnerState"/>
+		<result property="partnerLicenseNum" column="partnerLicenseNum" />
+		<result property="partnerState" column="partnerState" />
 		<result property="partnerName" column="partnerName" />
-		<result property="partnerInformation" column="partnerInformation" />
-		<result property="partnerAddress" column="partnerAddress"/>
-		<result property="partnerPhoneNumber" column="partnerPhoneNumber"/>
-		<result property="partnerEmail" column="partnerEmail"/>
-		<result property="partnerCEO" column="partnerCEO"/>
-		<result property="partnerHeadCount" column="partnerHeadCount"/>
-		<result property="partnerApplyYN" column="partnerApplyYN"/>
-		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
-		<result property="partnerURL" column="partnerURL"/>
-		<result property="partnerRegisterDate" column="partnerRegisterDate"/>
+		<result property="partnerInformation"
+			column="partnerInformation" />
+		<result property="partnerAddress" column="partnerAddress" />
+		<result property="partnerPhoneNumber"
+			column="partnerPhoneNumber" />
+		<result property="partnerEmail" column="partnerEmail" />
+		<result property="partnerCEO" column="partnerCEO" />
+		<result property="partnerHeadCount" column="partnerHeadCount" />
+		<result property="partnerApplyYN" column="partnerApplyYN" />
+		<result property="partnerApplyFinishDate"
+			column="partnerApplyFinishDate" />
+		<result property="partnerURL" column="partnerURL" />
+		<result property="partnerRegisterDate"
+			column="partnerRegisterDate" />
 	</resultMap>
 
 	<resultMap id="applicationResult" type="HashMap">
-		<result property="partnerName" column="PartnerName"/>
-		<result property="partnerID" column="PARTNER_APPLY_PARTNERID"/>
-		<result property="partnerApplyDate" column="Partner_Apply_Date"/>
-		<result property="partnerApplyState" column="Partner_Apply_State"/>
+		<result property="partnerName" column="PartnerName" />
+		<result property="partnerID" column="PARTNER_APPLY_PARTNERID" />
+		<result property="partnerApplyDate" column="Partner_Apply_Date" />
+		<result property="partnerApplyState"
+			column="Partner_Apply_State" />
 	</resultMap>
 
 
@@ -52,14 +57,14 @@
          select * from kt_user order by userJoindate desc	 	
       ]]>
 	</select>
-	
+
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
          select partnerlicensenum from partner 	
       ]]>
 	</select>
 
-	<!--  select all recruitments	-->
+	<!-- select all recruitments -->
 	<select id="selectAllRecruitList" resultMap="resResult">
 		<![CDATA[
 			select *
@@ -68,44 +73,49 @@
 		]]>
 	</select>
 
-	<!--  select all applications   -->
-	<select id="selectAllApplicationList" resultMap="applicationResult">
+	<!-- select all applications -->
+	<select id="selectAllApplicationList"
+		resultMap="applicationResult">
 		select (select PARTNERNAME
-				from partner
-				where PARTNERLICENSENUM = PARTNER_APPLY_PARTNERID
-		    	)as partnerName,
-			   PARTNER_APPLY_PARTNERID,
-			   Partner_Apply_Date,
-		       Partner_Apply_State
+		from partner
+		where PARTNERLICENSENUM = PARTNER_APPLY_PARTNERID
+		)as partnerName,
+		PARTNER_APPLY_PARTNERID,
+		Partner_Apply_Date,
+		Partner_Apply_State
 		from partner_apply
 		where Partner_Apply_UserID = #{id}
 	</select>
 
 	<!-- insert application -->
 	<insert id="user_apply" parameterType="java.util.HashMap">
-		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
+		<selectKey keyProperty="partnerApplyResumeID"
+			resultType="String" order="BEFORE">
 			select resumeID
 			from resume
-			where resumeUser = #{partnerApplyUserID}
+			where resumeUser
+			= #{partnerApplyUserID}
 		</selectKey>
 		insert into partner_apply
-		values(#{partnerApplyUserID}, #{partnerApplyPartnerID}, #{partnerApplyResumeID}, sysdate, '진행중')
+		values(#{partnerApplyUserID},
+		#{partnerApplyPartnerID}, #{partnerApplyResumeID}, sysdate, '진행중')
 	</insert>
 
-	<!--  delete application	-->
+	<!-- delete application -->
 	<delete id="deleteApplication" parameterType="String">
-		delete from partner_apply
-		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
+		delete from
+		partner_apply
+		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and
+		PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
 	</delete>
 
-    
-<!--   <insert id="insertMember"  parameterType="memberVO">
-		<![CDATA[
-		 insert into t_member1(id,pwd, name, email,birth,phone,address,address_detail)
-		 values(#{id}, #{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail})
-		]]>      
-	</insert> -->
-	<select id="check_resume" parameterType="String" resultType="String">
+
+	<!-- <insert id="insertMember" parameterType="memberVO"> <![CDATA[ insert 
+		into t_member1(id,pwd, name, email,birth,phone,address,address_detail) values(#{id}, 
+		#{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail}) 
+		]]> </insert> -->
+	<select id="check_resume" parameterType="String"
+		resultType="String">
 		select userresume
 		from kt_user
 		where userId = #{userId}
@@ -140,7 +150,8 @@
 
 		update kt_user set
 		approval_status = 'true'
-		where userEmail = #{userEmail} <!-- and approval_key = #{approval_key} -->
+		where userEmail =
+		#{userEmail} <!-- and approval_key = #{approval_key} -->
 	</update>
 
 
@@ -168,7 +179,7 @@
 		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
 	]]>
 	</select>
-	
+
 	<select id="partnerLoginById" resultType="partnerVO"
 		parameterType="String">
 	<![CDATA[
@@ -178,8 +189,8 @@
 	</select>
 
 
-	
-	
+
+
 	<update id="mod_myInformation" parameterType="memberVO">
      <![CDATA[
 	     update kt_user

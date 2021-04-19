@@ -3,6 +3,8 @@ package com.mySpring.springEx.common.pagination.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mySpring.springEx.common.pagination.Pagination;
 
 
@@ -35,5 +37,16 @@ public interface PageMapper {
 	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
 	public int testTableCountPartner() throws Exception;
 
+	/*기업관련 시작*/
+	public List<Map<String, Object>> SelectAllListCompanyEmployee(@Param("firstRecordIndex") int firstRecordIndex,@Param("lastRecordIndex") int lastRecordIndex, @Param("partnerLicenseNum")String partnerLicenseNum);
+
+	public int companyEmployeeTableCount(String partnerLicenseNum);
+	public int searchEmployeeTableCount(@Param("partnerLicenseNum") String partnerLicenseNum, @Param("userName") String userName,
+			@Param("syllabusName")String syllabusName, @Param("courseStartDate")String courseStartDate, @Param("completionDate")String completionDate);
+	
+	public List<Map<String, Object>> SearchListCompanyEmployee(@Param("firstRecordIndex") int firstRecordIndex,@Param("lastRecordIndex") int lastRecordIndex, @Param("partnerLicenseNum")String partnerLicenseNum,
+			@Param("userName") String userName, @Param("syllabusName")String syllabusName, @Param("courseStartDate")String courseStartDate, @Param("completionDate")String completionDate);
+	/*기업관련 끝*/
+	
 
 }

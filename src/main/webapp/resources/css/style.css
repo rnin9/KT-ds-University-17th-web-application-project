@@ -1,5 +1,8 @@
-/*°Ë»ö¹Ú½º °Ô½ÃÆÇÅ×ÀÌºí, ¹öÆ°*/
-
+/*ê²€ìƒ‰ë°•ìŠ¤, ê²Œì‹œíŒí˜•ì‹ í…Œì´ë¸”, ë²„íŠ¼*/
+/*courseTake/courseApplyList.jspì—ì„œ htmlíƒœê·¸ ë³µì‚¬í•´ê°€ì„¸ìš”*/
+/*<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />*/
+	
 @charset "UTF-8";
 
 .container {
@@ -7,7 +10,7 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-/*°Ë»ö¹Ú½º*/
+/*ê²€ìƒ‰ë°•ìŠ¤*/
 .well-searchbox {
 	min-height: 20px;
 	min-width: 400px;
@@ -62,7 +65,7 @@
 } */
 
 
-/*°Ô½ÃÆÇ Å×ÀÌºí*/
+/*ê²Œì‹œíŒ í…Œì´ë¸”*/
 .table_ {
 	border-collapse: collapse;
 	font-size: 14px;
@@ -81,7 +84,7 @@
 	text-align: center;
 }
 
-/*¹öÆ°*/
+/*ë²„íŠ¼*/
 .btn {
 	color: white;
 	background-color: tomato;
@@ -106,30 +109,5 @@
 	background-color: tomato;
 	float: right;
 	margin-left: 10px;
-}
-
-.informTitle {
-   margin-top: 20px;
-   text-align: left;
-   font-size: 18px;
-   font-weight: 600;
-   padding-left: 30px;
-   padding-top: 20px;
-   padding-bottom: 20px;
-   border-bottom: 1px solid #e0e0e0;
-   letter-spacing: 5px;
-   padding-bottom: 20px;
-   background-color: #f8f8f8;
-}
-
-.informBox {
-   overflow: hidden;
-   height: auto;
-   text-align: left;
-   font-size: 16px;
-   line-height: 30px;
-   padding: 20px 60px 20px 60px;
-   margin-bottom: 20px;
-   margin-bottom: 20px;
 }
 

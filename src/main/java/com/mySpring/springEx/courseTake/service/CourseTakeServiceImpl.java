@@ -48,9 +48,13 @@ public class CourseTakeServiceImpl implements CourseTakeService {
     
     //승인대기->승인으로 update
     public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception{
-    	System.out.println("서비스부분입니다.");
 		return courseTakeDAO.updateApplyConsent(courseTakeVO);
     }
+    //수료대기->수료로 update
+    public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception{
+        return courseTakeDAO.updateCompletion(courseTakeVO);
+      }
+
     
     
     //테스트페이지

@@ -2,7 +2,13 @@ package com.mySpring.springEx.member.vo;
 
 import java.sql.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mySpring.springEx.course.vo.CourseVO;
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
+
 
 @Component("memberVO")
 //멤버 VO birth,phone,adderess,joinDate,approval_status, approval_key(삭제 예정) 추가
@@ -23,6 +29,38 @@ public class MemberVO {
 	private Date userJoindate;
 	private String approval_status;
 	private String resume;
+
+	@Autowired
+	private CourseVO courseVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+	@Autowired
+	private CourseTakeVO courseTakeVO;
+	
+	public CourseVO getCourseVO() {
+		return courseVO;
+	}
+
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
+	}
+
+	public SyllabusVO getSyllabusVO() {
+		return syllabusVO;
+	}
+
+	public void setSyllabusVO(SyllabusVO syllabusVO) {
+		this.syllabusVO = syllabusVO;
+	}
+
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
+	}
+
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
+	}
+
 	
 	public MemberVO() {
 	}
