@@ -50,6 +50,18 @@ public interface PartnerController {
 			@RequestParam(value="courseStartDate")String courseStartDate, @RequestParam(value="completionDate")String completionDate,
 			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public ModelAndView companyApplyManage(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
+			/*
+			 * @RequestParam(value = "currentPage", required = false, defaultValue = "1")
+			 * int currentPage,
+			 * 
+			 * @RequestParam(value = "cntPerPage", required = false, defaultValue = "10")
+			 * int cntPerPage,
+			 * 
+			 * @RequestParam(value = "pageSize", required = false, defaultValue = "10") int
+			 * pageSize, Map<String, Object> map,
+			 */ HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 	/* 기업관련 끝 */
 	
 

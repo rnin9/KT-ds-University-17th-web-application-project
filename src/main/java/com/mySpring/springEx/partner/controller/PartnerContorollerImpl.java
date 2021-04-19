@@ -184,6 +184,17 @@ public class PartnerContorollerImpl implements PartnerController {
 		
 		return mav;
 	}
+
+	@Override
+	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
+	public ModelAndView companyApplyManage(String partnerLicenseNum,
+			/*
+			 * int currentPage, int cntPerPage, int pageSize, Map<String, Object> map,
+			 */ HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
+		
+		return mav;
+	}
 	
 	/* ===================================협력사 관련 끝==============================*/
 	

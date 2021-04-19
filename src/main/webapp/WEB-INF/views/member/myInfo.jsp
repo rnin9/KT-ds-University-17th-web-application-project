@@ -30,7 +30,7 @@ request.setCharacterEncoding("UTF-8");
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/myPage.png");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;

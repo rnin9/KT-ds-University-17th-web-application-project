@@ -12,34 +12,45 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <style>
-.partnerInfo>dl>dt {
-	float: left;
-}
 </style>
 </head>
 <body>
 	<div class="container">
-		<div class="partnerInfo">
-			<dl>
-				<dt>회사 이름</dt>
-				<dd>${partner.partnerName}</dd>
-				<dt>협약 상태</dt>
-				<dd>${partner.partnerState}</dd>
-				<dt>회사 주소</dt>
-				<dd>${partner.partnerAddress}</dd>
-				<dt>회사 전화번호</dt>
-				<dd>${partner.partnerPhoneNumber}</dd>
-				<dt>회사 정보</dt>
-				<dd>${partner.partnerInformation}</dd>
-				<dt>인원 규모</dt>
-				<dd>${partner.partnerHeadCount}</dd>
-				<dt>회사 홈페이지</dt>
-				<dd><a href="https://${partner.partnerURL}" target="_blank">${partner.partnerURL}</a></dd>
-			</dl>
-		</div>
+		<h2>회사 정보</h2>
+		<table class="table_">
+			<tr>
+				<th>회사 이름</th>
+				<td>${partner.partnerName}</td>
+			</tr>
+			<tr>
+				<th>협약 상태</th>
+				<td>${partner.partnerState}</td>
+			</tr>
+			<tr>
+				<th>회사 주소</th>
+				<td>${partner.partnerAddress}</td>
+			</tr>
+			<tr>
+				<th>회사 전화번호</th>
+				<td>${partner.partnerPhoneNumber}</td>
+			</tr>
+			<tr>
+				<th>회사 정보</th>
+				<td>${partner.partnerInformation}</td>
+			</tr>
+			<tr>
+				<th>인원 규모</th>
+				<td>${partner.partnerHeadCount}</td>
+			</tr>
+			<tr>
+				<th>회사 홈페이지</th>
+				<td><a href="https://${partner.partnerURL}" target="_blank">${partner.partnerURL}</a></td>
+			</tr>
+		</table>
 	</div>
-
 </body>
 </html>

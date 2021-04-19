@@ -188,7 +188,7 @@ request.setCharacterEncoding("UTF-8");
 					test="${isLogOn == true  && member!= null  && member.userPosition == 'PARTNER'}">
 					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyInfo.do">기업정보
 							관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin" href="#">지원자
+					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyApplyManage.do?partnerLicenseNum=${partner.partnerLicenseNum}">지원자
 							관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/partner/company/companyEmployee.do?partnerLicenseNum=${partner.partnerLicenseNum}">직원
 							관리</a></li>

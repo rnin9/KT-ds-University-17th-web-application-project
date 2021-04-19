@@ -132,7 +132,7 @@ function handleSearch(){
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-5"
-						style="display: inline-block; text-aglin: center;">
+						style="display: inline-block; text-aglin: center; transform: translateX(80%);">
 						
 						<input type="text" name="currentPage" value="${pagination.currentPage}" style="display:none;">
 						<input type="text" name="cntPerPage" value="${pagination.cntPerPage}" style="display:none;">

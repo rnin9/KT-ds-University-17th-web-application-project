@@ -38,5 +38,12 @@
 	      <put-attribute name="body" value="/WEB-INF/views/partner/company/companyEmployee.jsp"/>
 	</definition>
 	
+	<definition name="/partner/company/companyApplyManage" extends="baseLayout">
+	      <put-attribute name="title" value="직원 관리" />
+	      <put-attribute name="body" value="/WEB-INF/views/partner/company/companyApplyManage.jsp"/>
+	</definition>
+	
+	
+	
 	
 </tiles-definitions>
