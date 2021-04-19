@@ -21,7 +21,7 @@ request.setCharacterEncoding("UTF-8");
 <script
 	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" /> -->
+	href="${pageContext.request.contextPath}/resources/css/style.css" />aaa -->
 
 
 <link id="bsdp-css"
