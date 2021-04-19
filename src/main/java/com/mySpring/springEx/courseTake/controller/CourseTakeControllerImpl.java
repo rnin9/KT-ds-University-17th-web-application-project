@@ -43,7 +43,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/courseApplyList.do", method = RequestMethod.GET)
 	public ModelAndView courseApplyList(
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "cntPerPage", required = false, defaultValue = "20") int cntPerPage,
+			@RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
 			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -65,41 +65,47 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 
 	// 승인대기->승인으로 update
 
-	@RequestMapping(value="/courseTake/updateConsentCheck.do",method=RequestMethod.POST)
-	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO, @RequestParam List<String> valueArr) throws Exception {
-		
-		for(int i=0; i<valueArr.size(); i++) {
+	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
+	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
+			@RequestParam List<String> valueArr) throws Exception {
+
+		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
 			courseTakeService.updateApplyConsent(courseTakeVO);
 		}
-		
+
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
 		return mav;
-		
+
 	}
-	
-	/*
-	 * @RequestMapping(value="/courseTake/courseCompleteList.do",
-	 * method=RequestMethod.POST) public ModelAndView
-	 * updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO) {
-	 * for(int i=0; i<valueArr.size(); i++) {
-	 * 
-	 * courseTakeService.updateApplyConsent();
-	 * syllabusService.deleteSyllabus(valueArr.get(i)); } ModelAndView mav = new
-	 * ModelAndView("redirect:/syllabus/syllabusList.do"); return mav; }
-	 */
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// 수료대기->수료로 update
+	@RequestMapping(value = "/courseTake/updateCompletionCheck.do", method = RequestMethod.POST)
+	public ModelAndView updateCompletion(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
+			@RequestParam List<String> valueArr) throws Exception {
+
+		for (int i = 0; i < valueArr.size(); i++) {
+			String arr[] = valueArr.get(i).split(" ");
+			courseTakeVO.setUserID(arr[0]);
+			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			courseTakeService.updateCompletion(courseTakeVO);
+		}
+
+		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		return mav;
+
+	}
+
+	//수료증 페이지
+	@RequestMapping(value = "/courseTake/certificate.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		return mav;
+	}
+
 	// 테스트페이지
 	@RequestMapping(value = "/courseTake/courseCompleteList.do", method = RequestMethod.GET)
 	public ModelAndView courseCompleteList(HttpServletRequest request, HttpServletResponse response) {

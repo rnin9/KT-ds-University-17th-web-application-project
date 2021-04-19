@@ -21,6 +21,7 @@ public interface CourseTakeController {
 			 Map<String, Object> map,
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	
 	//테스트 페이지

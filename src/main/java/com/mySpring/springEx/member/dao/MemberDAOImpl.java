@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.mySpring.springEx.application.vo.ApplicationVO;
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -123,6 +125,14 @@ public class MemberDAOImpl implements MemberDAO {
 	public int modMyInfo(MemberVO member) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.update("mapper.member.mod_myInformation", member);
+	}
+	
+	//나의 수강신청내역
+	@Override
+	public List selectAllMyCourseList(String userID) throws DataAccessException {
+		List myCourseList = null;
+		myCourseList = sqlSession.selectList("mapper.courseTake.get_myCourseInformation", userID);
+		return myCourseList;
 	}
 
 	@Override

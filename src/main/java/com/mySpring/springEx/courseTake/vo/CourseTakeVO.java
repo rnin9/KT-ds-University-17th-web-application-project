@@ -30,7 +30,17 @@ public class CourseTakeVO {
 	@Autowired
 	private CourseVO courseVO;
 	@Autowired
+	private CourseTakeVO courseTakeVO;
+	@Autowired
 	private SyllabusVO syllabusVO;
+
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
+	}
+
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
+	}
 
 	public CourseVO getCourseVO() {
 		return courseVO;
@@ -109,4 +119,5 @@ public class CourseTakeVO {
 	public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
+
 }

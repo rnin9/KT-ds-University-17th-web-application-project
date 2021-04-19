@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -80,10 +81,12 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
 	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
+		String viewName = (String)request.getAttribute("viewName");
 		memberVO = memberService.getMyInfo(userID);
+		List myCourseList = memberService.listMyCourse(userID);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("myInfo", memberVO);
+		mav.addObject("myCourseInfo", myCourseList);
 		return mav;
 	}
 
@@ -291,5 +294,7 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

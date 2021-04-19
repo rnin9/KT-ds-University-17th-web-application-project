@@ -59,6 +59,7 @@ request.setCharacterEncoding("UTF-8");
 		    }
 </script>
 
+<!-- 승인대기->승인 -->
 <script>
 	function consentCheck(){
 		var url = "/springEx/courseTake/updateConsentCheck.do";
@@ -90,6 +91,39 @@ request.setCharacterEncoding("UTF-8");
 		
 		
 </script>
+
+<!-- 수료대기->수료 -->
+<script>
+   function completionCheck(){
+      var url = "/springEx/courseTake/updateCompletionCheck.do";
+      var cnt = $("input[name='ab']:checked").length;
+      var valueArr = new Array();
+      $("input[name='ab']:checked").each(function(i){
+         valueArr.push($(this).val());
+      });
+      
+      console.log(valueArr);
+      
+      $.ajax({
+         url : url,
+         type : 'POST',
+         traditional : true,
+         data : {
+            valueArr : valueArr
+         },
+         success : function(data){
+            console.log("success");
+            window.location.reload();
+            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+         },
+         error : function(data) { 
+               console.log("fail");
+           }
+      });
+   };
+      
+      
+</script>
 <script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){
@@ -103,7 +137,21 @@ request.setCharacterEncoding("UTF-8");
 		
 </script>
 
+<script type="text/javascript">
+function popup(frm)
+{
+  var url    ="/springEx/courseTake/certificate.do";
+  var title  = "certificate";
+  var status = "width=500px, height=600px, status=no, menubar=no, toolbar=no, resizable=no"; 
+  window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기
+  frm.target = title;                    //form.target 이 부분이 빠지면 form값 전송이 되지 않습니다. 
+  frm.action = url;                    //form.action 이 부분이 빠지면 action값을 찾지 못해서 제대로 된 팝업이 뜨질 않습니다.
+  frm.method = "post";
+  frm.submit();
+  }
+</script>
 <body>
+
 	<div class="container">
 		<!-- 홈>강의관리>수강관리 -->
 		<div class="lnb">
@@ -167,12 +215,6 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 
 		<br>
-		<ul class="nav justify-content-end"
-			style="display: flex; float: right;">
-			<li class="nav-item"><a class="nav-link active" href="#">신청일순</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">이름순</a></li>
-			<!-- <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li> -->
-		</ul>
 
 		<!-- 테이블(표, 리스트) -->
 		<table class="table_">
@@ -186,16 +228,17 @@ request.setCharacterEncoding("UTF-8");
 					<td><b>이메일</b></td>
 					<td><b>소속회사</b></td>
 					<td><b>강의명</b></td>
-					<td><b>수강상태</b></td>
 					<td><b>신청일</b></td>
-					<td><b>수료일</b></td>
+					<td><b>수강상태</b></td>
+					<!-- <td><b>수료증</b></td> -->
 				</tr>
 			</thead>
 
 			<tbody id="ajaxTable">
 				<c:forEach var="courseTake" items="${courseApplyList}">
 					<tr align="center">
-						<td><input type="checkbox" name="ab" value="${courseTake.userID} ${courseTake.courseID}"
+						<td><input type="checkbox" name="ab"
+							value="${courseTake.userID} ${courseTake.courseID}"
 							onclick='checkSelectAll(this)' /></td>
 						<td>${courseTake.userID}</td>
 						<td>${courseTake.memberVO.userName}</td>
@@ -203,9 +246,27 @@ request.setCharacterEncoding("UTF-8");
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.memberVO.userCompany}</td>
 						<td>${courseTake.syllabusVO.syllabusName}</td>
-						<td>${courseTake.courseTake_State}</td>
 						<td>${courseTake.courseTake_ApplyDate}</td>
-						<td>${courseTake.courseTake_CompleteDate}</td>
+						<c:choose>
+							<c:when test="${courseTake.courseTake_State eq '수료'}">
+								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
+									<form name="formForCertificate" action="certificate.jsp"
+										method="post">
+										<input type=text name="test1"
+											value="${courseTake.memberVO.userName}"
+											style="display: none;" /> <input type=text name="test2"
+											value="${courseTake.syllabusVO.syllabusName}"
+											style="display: none;" /> <input type="image"
+											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
+											style="width: 17px; margin-top: 12px; margin-left: 5px;"
+											onclick="javascript:popup(this.form);">
+									</form>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: center;">${courseTake.courseTake_State}</td>
+							</c:otherwise>
+						</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -214,9 +275,10 @@ request.setCharacterEncoding("UTF-8");
 
 		<!-- 버튼 -->
 		<div style="margin-top: 40px; padding-bottom: 150px;">
-			<button class="btn button_bottom" type="button">수료증출력</button>
-			<button class="btn button_bottom" type="button">수료완료</button>
-			<button class="btn button_bottom" type="button" onClick="consentCheck();">신청승인</button>
+			<button class="btn button_bottom" type="button"
+				onClick="completionCheck();">수료완료</button>
+			<button class="btn button_bottom" type="button"
+				onClick="consentCheck();">신청승인</button>
 		</div>
 
 		<!--paginate -->
@@ -248,7 +310,7 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 		</div>
 		<!-- /paginate -->
-
 	</div>
+
 </body>
 </html>

@@ -3,15 +3,29 @@
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-	<definition name="/courseTake/courseApplyList" extends="baseLayout">
-	      <put-attribute name="title" value="수강관리" />
-	      <put-attribute name="body" value="/WEB-INF/views/courseTake/courseApplyList.jsp" />
+	<definition name="/courseTake/courseApplyList"
+		extends="baseLayout">
+		<put-attribute name="title" value="수강관리" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/courseTake/courseApplyList.jsp" />
 	</definition>
-	
-	 <definition name="/courseTake/courseCompleteList" extends="baseLayout">
+
+	<definition name="/courseTake/courseCompleteList"
+		extends="baseLayout">
 		<put-attribute name="title" value="수료관리" />
-		<put-attribute name="body" value="/WEB-INF/views/courseTake/courseCompleteList.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/courseTake/courseCompleteList.jsp" />
 	</definition>
-	
+
+
+	<!--  타일즈 제외 -->
+	<definition name="empty"
+		template="/WEB-INF/views/common/empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	<definition name="/courseTake/certificate" extends="empty">
+		<put-attribute name="content"
+			value="/WEB-INF/views/courseTake/certificate.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.dao.MemberDAO;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -260,6 +261,13 @@ public class MemberServiceImpl implements MemberService {
 	public int modMyInfo(MemberVO member) throws Exception{
 		memberDAO.modMyInfo(member);
 		return 0;
+	}
+	
+	@Override
+	public List listMyCourse(String userID) throws DataAccessException {
+		List myCourseList = null;
+		myCourseList = memberDAO.selectAllMyCourseList(userID);
+		return myCourseList;
 	}
 
 	@Override
