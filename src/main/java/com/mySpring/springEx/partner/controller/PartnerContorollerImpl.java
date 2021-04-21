@@ -60,40 +60,22 @@ public class PartnerContorollerImpl implements PartnerController {
     @Override
     @RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
     public ModelAndView jobOpeningPost(
-            @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
             Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
 
-        int partnerApplyNList = partnerService.testTableCountPartnerApplyN();
-
-        Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-
-        pagination.setTotalRecordCount(partnerApplyNList);
         ModelAndView mav = new ModelAndView(viewName);
-        mav.addObject("pagination", pagination);
-        mav.addObject("partnerApplyNList", partnerService.selectPartnerApplyN(pagination));
+        mav.addObject("partnerApplyNList", partnerService.selectPartnerApplyN());
 
         return mav;
     }
 
     @Override
     @RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
-    public ModelAndView jobOpeningList (@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-                                        @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
-                                        @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                                        Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String viewName = (String) request.getAttribute("viewName");
 
-        int jobOpeningList = partnerService.testTableCountJobOpeningList();
-
-        Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-
-        pagination.setTotalRecordCount(jobOpeningList);
         ModelAndView mav = new ModelAndView(viewName);
-        mav.addObject("pagination", pagination);
-        mav.addObject("jobOpeningList", partnerService.selectJobOpeningList(pagination));
+        mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
 //        mav.addObject("applicantNum", partnerService.getApplicantNum());
         return mav;
     }

@@ -29,17 +29,16 @@
         </collection>
     </resultMap>
 
-    <resultMap id="jobOpeningList" type="partnerVO">
-        <result property="partnerName" column="partnerName"/>
-        <result property="partnerLicenseNum" column="partnerLicenseNum"/>
-        <result property="partnerApplyFinishDate" column="partnerApplyFinishDate"/>
-<!--        <result property="applicantNum" column="applicantNum"/>-->
+<!--    <resultMap id="jobOpeningList" type="partnerVO">-->
+<!--        <result property="partnerName" column="partnerName"/>-->
+<!--        <result property="partnerLicenseNum" column="partnerLicenseNum"/>-->
+<!--        <result property="partnerApplyFinishDate" column="partnerApplyFinishDate"/>-->
 
-        <collection property="applicationVO" javaType="ApplicationVO">
-            <result property="partnerApplyUserID" column="PARTNER_APPLY_USERID"/>
-            <result property="applicantNum" column="applicantNum"/>
-        </collection>
-    </resultMap>
+<!--        <collection property="applicationVO" javaType="ApplicationVO">-->
+<!--            <result property="partnerApplyUserID" column="PARTNER_APPLY_USERID"/>-->
+<!--            <result property="applicantNum" column="applicantNum"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
 
     <select id="SelectAllList" resultMap="surResult">
         SELECT * FROM
@@ -190,70 +189,70 @@
         </if>
     </select>
 
-    <select id="selectPartnerApplyN" resultMap="resResult">
-        SELECT *
-        FROM (
-        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
-        row_num
-        ,partnerLicenseNum
-        ,partnerState
-        ,partnerName
-        ,partnerInformation
-        ,partnerPhoneNumber
-        ,partnerAddress
-        ,partnerEmail
-        ,partnerCEO
-        ,partnerHeadCount
-        ,partnerApplyYN
-        ,partnerApplyFinishDate
-        ,partnerURL
-        ,partnerRegisterDate
-        FROM partner
-        WHERE partnerApplyYN = 'N'
-        )
-        <if test="firstRecordIndex !=null and lastRecordIndex != null">
-            WHERE row_num BETWEEN #{firstRecordIndex} AND
-            #{lastRecordIndex}
-        </if>
-    </select>
+<!--    <select id="selectPartnerApplyN" resultMap="resResult">-->
+<!--        SELECT *-->
+<!--        FROM (-->
+<!--        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS-->
+<!--        row_num-->
+<!--        ,partnerLicenseNum-->
+<!--        ,partnerState-->
+<!--        ,partnerName-->
+<!--        ,partnerInformation-->
+<!--        ,partnerPhoneNumber-->
+<!--        ,partnerAddress-->
+<!--        ,partnerEmail-->
+<!--        ,partnerCEO-->
+<!--        ,partnerHeadCount-->
+<!--        ,partnerApplyYN-->
+<!--        ,partnerApplyFinishDate-->
+<!--        ,partnerURL-->
+<!--        ,partnerRegisterDate-->
+<!--        FROM partner-->
+<!--        WHERE partnerApplyYN = 'N'-->
+<!--        )-->
+<!--        <if test="firstRecordIndex !=null and lastRecordIndex != null">-->
+<!--            WHERE row_num BETWEEN #{firstRecordIndex} AND-->
+<!--            #{lastRecordIndex}-->
+<!--        </if>-->
+<!--    </select>-->
 
-    <select id="selectJobOpeningList" resultMap="jobOpeningList">
-        SELECT *
-        FROM (
-        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
-        row_num
-        ,p.partnerName
-        ,p.partnerLicenseNum
-        ,p.partnerApplyFinishDate
-        ,count(a.PARTNER_APPLY_USERID) as applicantNum
-        FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
-        where p.PARTNERAPPLYYN = 'Y'
-        group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate
-        order by p.partnerName
-        )
-        <if test="firstRecordIndex !=null and lastRecordIndex != null">
-            WHERE row_num BETWEEN #{firstRecordIndex} AND
-            #{lastRecordIndex}
-        </if>
-    </select>
+<!--    <select id="selectJobOpeningList" resultMap="jobOpeningList">-->
+<!--        SELECT *-->
+<!--        FROM (-->
+<!--        SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS-->
+<!--        row_num-->
+<!--        ,p.partnerName-->
+<!--        ,p.partnerLicenseNum-->
+<!--        ,p.partnerApplyFinishDate-->
+<!--        ,count(a.PARTNER_APPLY_USERID) as applicantNum-->
+<!--        FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID-->
+<!--        where p.PARTNERAPPLYYN = 'Y'-->
+<!--        group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate-->
+<!--        order by p.partnerName-->
+<!--        )-->
+<!--        <if test="firstRecordIndex !=null and lastRecordIndex != null">-->
+<!--            WHERE row_num BETWEEN #{firstRecordIndex} AND-->
+<!--            #{lastRecordIndex}-->
+<!--        </if>-->
+<!--    </select>-->
 
 
-    <select id="testTableCountPartnerApplyN" resultType="int">
-        SELECT count(*)
-        FROM partner
-        WHERE partnerApplyYN = 'N'
-    </select>
+<!--    <select id="testTableCountPartnerApplyN" resultType="int">-->
+<!--        SELECT count(*)-->
+<!--        FROM partner-->
+<!--        WHERE partnerApplyYN = 'N'-->
+<!--    </select>-->
 
     <select id="testTableCountPartner" resultType="int">
         SELECT count(*)
         FROM partner
     </select>
 
-    <select id="testTableCountJobOpeningList" resultType="int">
-        SELECT count(*)
-        FROM partner
-        WHERE partnerApplyYN = 'Y'
-    </select>
+<!--    <select id="testTableCountJobOpeningList" resultType="int">-->
+<!--        SELECT count(*)-->
+<!--        FROM partner-->
+<!--        WHERE partnerApplyYN = 'Y'-->
+<!--    </select>-->
 
 
     <!-- 공지사항 -->

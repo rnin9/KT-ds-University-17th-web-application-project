@@ -2,6 +2,7 @@ package com.mySpring.springEx.partner.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,15 @@ public class PartnerDAOImpl implements PartnerDAO{
 	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
 		int result = sqlSession.update("mapper.partner.deleteJobOpening", partnerLicenseNum);
 		return result;
+	}
+
+	public List<Map<String, Object>> selectPartnerApplyN() throws DataAccessException {
+//		List<HashMap<String, Object>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		return sqlSession.selectList("mapper.partner.selectPartnerApplyN");
+	}
+
+	public List<Map<String, Object>> selectJobOpeningList() throws DataAccessException {
+		return sqlSession.selectList("mapper.partner.selectJobOpeningList");
 	}
 
 

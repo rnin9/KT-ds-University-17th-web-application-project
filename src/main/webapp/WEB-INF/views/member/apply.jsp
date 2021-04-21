@@ -7,6 +7,8 @@
 <html>
 <head>
 <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
+    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <title>채용공고</title>
@@ -22,6 +24,8 @@
 
             // 새로고침 후 탭 상태 보존
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
+
+            $('#myTable').DataTable();
         });
 
         // 모달 body text 설정
@@ -201,7 +205,7 @@
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                  aria-labelledby="nav-home-tab">
                                 <%--                첫번째 탭의 테이블                --%>
-                                <table class="table" cellspacing="0">
+                                <table class="table" cellspacing="0" id="myTable">
                                     <thead>
                                     <tr>
                                         <th>기업명</th>

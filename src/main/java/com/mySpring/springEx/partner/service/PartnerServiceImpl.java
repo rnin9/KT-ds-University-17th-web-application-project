@@ -46,41 +46,14 @@ public class PartnerServiceImpl implements PartnerService {
 
 	@Override
 	public List<Map<String, Object>> selectPartnerApplyN() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.selectPartnerApplyN();
-	}
-
-	@Override
-	public List<Map<String, Object>> selectPartnerApplyN(Pagination pagination) throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.selectPartnerApplyN(pagination);
-	}
-
-	@Override
-	public int testTableCountPartnerApplyN() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.testTableCountPartnerApplyN();
-	}
-
-	@Override
-	public int testTableCountJobOpeningList() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.testTableCountJobOpeningList();
+		return partnerDAO.selectPartnerApplyN();
 	}
 
 	@Override
 	public List<Map<String, Object>> selectJobOpeningList() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.selectJobOpeningList();
+		return partnerDAO.selectJobOpeningList();
 	}
 
-	@Override
-	public List<Map<String, Object>> selectJobOpeningList(Pagination pagination) throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.selectJobOpeningList(pagination);
-	}
-
-	
 	
 	//회사 상태별 count 출력
 	@Override
