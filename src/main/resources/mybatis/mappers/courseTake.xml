@@ -58,9 +58,13 @@
 	order by courseTake_ApplyDate desc
 	]]>
 	</select>
-
-	<!-- <select id="selectCompleteStudent" parameterType="CourseTakeVO"> <![CDATA[select 
-		set courseTake_State = '수료' where courseTake_State = '수료대기' and userID = 
-		#{userID} and courseID=#{courseID} ]]> </select> -->
+	
+	<!-- YYYY 적용 안 됨,, -->
+	<insert id="insertCourseTake" parameterType="courseTakeVO">
+	  <![CDATA[
+	  	insert into course_take (userid, courseid, coursetake_state,coursetake_applydate)
+		values (#{userID}, #{courseID}, '승인대기', to_date(sysdate,'YYYY-MM-DD'))
+	  ]]>
+	</insert>
 
 </mapper>

@@ -11,24 +11,15 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>과정 관리</title>
+<title>강의계획서 관리</title>
 
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
    rel="stylesheet"
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
    crossorigin="anonymous">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />aaa -->
 
-
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -147,24 +138,6 @@ a:link, a:visited, a:hover {
 </head>
 
 <script type="text/javascript">
-   function checkSelectAll(checkbox)  {
-      const selectall 
-        = document.querySelector('input[name="check-all"]');
-      if(checkbox.checked == false)  {
-        selectall.checked = false;
-      }
-    }
-
-    function selectAll(selectAll)  {
-      const checkboxes 
-         = document.getElementsByName('ab');
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked
-      })
-    }
-</script>
-<script type="text/javascript">
 	function filter(){
 	
 	    var value = document.getElementById("value").value.toUpperCase();
@@ -181,23 +154,6 @@ a:link, a:visited, a:hover {
 	} 
 </script>
 <script type="text/javascript">
-	function filterDate(){
-		
-		var value = document.getElementById("date").value /* 2021-04  */
-		console.log(value);
-	    var item = document.getElementsByClassName("item");
-	    for(var i=0;i<item.length;i++){
-	    	var date = item[i].getElementsByClassName("date");
-	    	
-	    	if(date[0].innerText.toUpperCase().indexOf(value) > -1){
-	    		item[i].style.display="table-row";
-			}else{
-				item[i].style.display="none";
-			}
-	    }	
-	} 
-</script>
-<script type="text/javascript">
 	function enter(){
 	    // 엔터키의 코드는 13입니다.
 		if(event.keyCode == 13){
@@ -205,90 +161,39 @@ a:link, a:visited, a:hover {
 		}
 	}
 </script>
-<script type="text/javascript">
-	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
-	$(document).ready(function() {
-		$('#sandbox-container input').datepicker({
-			format : "yyyy-mm",
-			startView : 1,
-			minViewMode : 1,
-			language : "ko",
-			keyboardNavigation : false,
-			forceParse : false,
-			autoclose : true
-		});
-	});
-</script>
+
 <script>
-	function closeCheck(){
-		var url = "/springEx/course/closeCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		console.log(valueArr);
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
-	};
+$(document).on("click","input[class=checkBtn]",function(){	
+	console.log(123123);
+	var checkBtn = $(this);
+	var tr = checkBtn.parent().parent();
+	var td = tr.children();
+	var no = td.eq(0).text();
+	var name = td.eq(2).text();
+	opener.document.getElementById("syllabusID").value = no;
+	opener.document.getElementById("hiddenThanksTogangsanim").value = name;
+	self.close();
+});
+	/*function getSyllabusID(){
 		
-		
+		var checkBtn = $(this);
+		var tr = checkBtn.parent().parent();
+		console.log(tr);
+		var td = tr.children();
+		var no = td.eq(0).text();
+		console.log(no);
+		opener.document.getElementById("syllabusID").value = no;
+		self.close();
+	}*/
 </script>
-<script>
-	function openCheck(){
-		var url = "/springEx/course/openCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		console.log(valueArr);
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
-	};
-		
-		
-</script>
+
 <body>
 
    <div class="container">
-      <form method="post" action="${contextPath}/course/insertCourse.do">
+      <form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
 
          <div class="lnb">
-            <ul>
-               <li><a href="/springEx/main.do">홈</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/course/courseList.do">과정
-                     관리</a></li>
-            </ul>
+               <h2>강의계획서 리스트</h2>
          </div>
 
          <div class="well-searchbox">
@@ -326,31 +231,6 @@ a:link, a:visited, a:hover {
                </div>
                <div class="form-group">
                   <div class="serarchSubject">
-                     <label class="searchTitle">마감상태</label>
-                     <div class="col-md-8">
-                        <select class="form-select" aria-label="Default select example">
-                           <option selected>-- 선택 --</option>
-                           <option value="신청">신청중</option>
-                           <option value="조기마감">조기마감</option>
-                           <option value="마감">마감</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">날짜검색</label>
-						<div class="col-md-8">
-							<div id="sandbox-container">
-								<div class="input-group date" style="width: 88%;">
-									<input type="text" id="date" class="form-control" placeholder="수강기간을 선택해주세요." onchange="filterDate()">
-								</div>
-							</div>
-						</div>       
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="serarchSubject">
                      <label class="searchTitle">강의명</label>
                      <div class="col-md-8">
                         <input type="text" id="value" class="form-control" onKeyPress="JavaScript:enter();"
@@ -371,43 +251,29 @@ a:link, a:visited, a:hover {
          <table class="table_syllabusList">
             <thead>
                <tr align="center">
-                  <td><input type="checkbox" name="check-all"
-                     onclick='selectAll(this)' /></td>
                   <td><b>번호</b></td>
-                  <td><b>과정명</b></td>
-                  <td><b>수강인원</b></td>
-                  <td><b>교육비</b></td>
-                  <td><b>접수기간</b></td>
-                  <td><b>수강기간</b></td>
-                  <td><b>상태</b></td>
+                  <td><b>분류</b></td>
+                  <td><b>강의명</b></td>
+                  <td><b>교육일수</b></td>
+                  <td><b>교육시간</b></td>
+                  <td><b>선택</b></td>
                </tr>
             </thead>
 
             <tbody id="ajaxTable">
-               <c:forEach var="courseVO" items="${courseList}">
+               <c:forEach var="syllabus" items="${syllabusList}">
                   <tr class="item">
-                     <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
-                        onclick='checkSelectAll(this)' /></td>
-                     <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</a></td>
-                     <td>${courseVO.coursePeopleMax}</td>
-                     <td>${courseVO.courseFee}</td>
-                     <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
-                     <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
-                     <td>${courseVO.courseState}</td>
+                     <td id="syllabusID">${syllabus.syllabusID}</td>
+                     <td>${syllabus.syllabusCategory1} > ${syllabus.syllabusCategory2}</td>
+                     <td class="name">${syllabus.syllabusName}</td>
+                     <td>${syllabus.syllabusTotalDays}</td>
+                     <td>${syllabus.syllabusTotalTime}</td>
+                     <!--<td><input type="button" value="선택" onclick="getSyllabusID()"></td>-->
+                     <td><input type="button" value="선택" class="checkBtn"></td>
                   </tr>
                </c:forEach>
             </tbody>
          </table>
-
-         <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
-            <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
-            <button class="btn button_bottom"
-               onClick="location.href='courseRegister.do'">교육과정 등록</button>
-         </div>
-
-         <div>여기에 페이징</div>
       </form>
    </div>
 </body>

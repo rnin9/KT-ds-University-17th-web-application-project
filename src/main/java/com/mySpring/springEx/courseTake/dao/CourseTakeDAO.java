@@ -18,4 +18,6 @@ public interface CourseTakeDAO {
 	// Å×½ºÆ®
 	public List selectAllCompleteList() throws DataAccessException;
 
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
+
 }

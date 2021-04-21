@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -114,6 +115,18 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("courseCompleteList", courseCompleteList);
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/course/insertCourseTable.do", method=RequestMethod.POST)
+	public ModelAndView insertCourseTable(@RequestParam List<String> valueArr) throws Exception {
+		courseTakeVO.setCourseID(Integer.parseInt(valueArr.get(0)));
+		courseTakeVO.setUserID(valueArr.get(1));
+		System.out.println(courseTakeVO.getCourseID());
+		System.out.println(courseTakeVO.getUserID());
+		courseTakeService.insertCourseTake(courseTakeVO);
+		ModelAndView mav = new ModelAndView("redirect:/course/userCourseList.do");
 		return mav;
 	}
 

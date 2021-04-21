@@ -26,5 +26,9 @@ public interface CourseTakeService {
 	 
 	// 테스트페이지
 	public List courseCompleteList() throws DataAccessException;
+	
+	
+	// 수강신청한 사람 insert
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
 
 }
