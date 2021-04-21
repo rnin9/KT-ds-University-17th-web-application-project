@@ -229,6 +229,7 @@
         FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
         where p.PARTNERAPPLYYN = 'Y'
         group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate
+        order by p.partnerName
         )
         <if test="firstRecordIndex !=null and lastRecordIndex != null">
             WHERE row_num BETWEEN #{firstRecordIndex} AND

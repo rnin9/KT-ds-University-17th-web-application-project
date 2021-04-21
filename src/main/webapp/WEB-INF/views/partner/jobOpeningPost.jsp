@@ -11,16 +11,19 @@
 <html>
 <head>
     <title>채용공고 등록</title>
+    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <link id="bsdp-css"
           href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
     <script
             src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
     <style>
         .container {
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
-            margin-left: 10%;
+
         }
 
         .well-searchbox label {
@@ -42,7 +45,6 @@
             font-size: 14px;
             line-height: 2.2;
             margin-top: 12px;
-            text-align: center;
             color: #555;
             width: 100%;
             margin: auto;
@@ -53,7 +55,6 @@
             border-top: 1px solid #e4e4e4;
             border-bottom: 1px solid #e4e4e4;
             background-color: #f8f8f8;
-            text-align: center;
         }
 
         .form-control {
@@ -134,6 +135,8 @@
                 forceParse : false,
                 autoclose : true
             });
+
+            $('#myTable').DataTable();
 
 
             // 모달이 닫힐때 실행
@@ -290,7 +293,7 @@
             </select>
         </div>
     </div>
-    <table class="table_partnerList">
+    <table class="table_partnerList" id="myTable">
         <thead>
         <tr>
             <%--            <th><input type="checkbox"/></th>--%>
@@ -307,7 +310,7 @@
 
         <tbody>
         <c:forEach var="partner" items="${partnerApplyNList}">
-            <tr align="center">
+            <tr>
                 <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"/></td>
                 <td>${partner.partnerName}</td>
                 <td>${partner.partnerEmail}</td>
@@ -330,56 +333,7 @@
         </button>
         <button type="button" class="btn ">삭제</button>
     </div>
-    <!--paginate -->
-    <div class="paginate">
-        <div class="paging">
-            <a class="direction prev" href="javascript:void(0);"
-               onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-                &lt;&lt; </a> <a class="direction prev"
-                                 href="javascript:void(0);"
-                                 onclick="movePage(${pagination.currentPage}<c:if
-                                         test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-            &lt; </a>
 
-            <c:forEach begin="${pagination.firstPage}"
-                       end="${pagination.lastPage}" var="idx">
-                <a
-                        style="color:
-                            <c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-                        href="javascript:void(0);"
-                        onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-                        value="${idx}"/></a>
-            </c:forEach>
-            <a class="direction next" href="javascript:void(0);"
-               onclick="movePage(${pagination.currentPage}<c:if
-                       test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-                &gt; </a> <a class="direction next" href="javascript:void(0);"
-                             onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-            &gt;&gt; </a>
-        </div>
-    </div>
-    <!-- /paginate -->
 </div>
-</div>
-</div>
-<script>
-    //10,20,30개씩 selectBox 클릭 이벤트
-    function changeSelectBox(currentPage, cntPerPage, pageSize) {
-        var selectValue = $("#cntSelectBox").children("option:selected").val();
-        movePage(currentPage, selectValue, pageSize);
-
-    }
-
-    //페이지 이동
-    function movePage(currentPage, cntPerPage, pageSize) {
-        var url = "${pageContext.request.contextPath}/partner/jobOpeningPost.do";
-        url = url + "?currentPage=" + currentPage;
-        url = url + "&cntPerPage=" + cntPerPage;
-        url = url + "&pageSize=" + pageSize;
-
-        location.href = url;
-    }
-
-</script>
 </body>
 </html>

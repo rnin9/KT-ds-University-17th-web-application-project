@@ -9,13 +9,15 @@
 %>
 <html>
 <head>
+    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
     <title>채용공고 관리</title>
 
     <style>
         .container {
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
-            margin-left: 10%;
         }
 
         .well-searchbox label {
@@ -37,7 +39,6 @@
             font-size: 14px;
             line-height: 2.2;
             margin-top: 12px;
-            text-align: center;
             color: #555;
             width: 100%;
             margin: auto;
@@ -48,7 +49,6 @@
             border-top: 1px solid #e4e4e4;
             border-bottom: 1px solid #e4e4e4;
             background-color: #f8f8f8;
-            text-align: center;
         }
 
         .form-control {
@@ -64,7 +64,6 @@
             color: white;
             display: inline-block;
             font-weight: 400;
-            text-align: center;
             vertical-align: middle;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -83,12 +82,16 @@
         const url = "${contextPath}/partner/deleteJobOpening.do";
         let valueArr;
 
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
         deleteJobOpening = () => {
             console.log('111111111');
             const cnt = $("input[name='cb']:checked").length;
             // $('#myModal').modal('show');
             if (cnt === 0) {
-                swal("선택한거없음..", "선택한거없음.", "warning");
+                swal("선택한거없음.", "선택한거없음.", "warning");
                 return;
             } else {
                 deleteJobOpening2();
@@ -153,25 +156,7 @@
         <%--        </div>--%>
     </div>
 
-
-    <div class="bottom">
-        <div class="bottom-left">
-            <select id="cntSelectBox" name="cntSelectBox"
-                    onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
-                    class="form-control" style="width: 100px;">
-                <option value="10"
-                        <c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩
-                </option>
-                <option value="20"
-                        <c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩
-                </option>
-                <option value="30"
-                        <c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩
-                </option>
-            </select>
-        </div>
-    </div>
-    <table class="table_partnerList">
+    <table class="table_partnerList" id="myTable">
         <thead>
         <tr>
             <%--            <th><input type="checkbox"/></th>--%>
@@ -186,7 +171,7 @@
 
         <tbody>
         <c:forEach var="partner" items="${jobOpeningList}">
-            <tr align="center">
+            <tr>
                 <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"/></td>
                 <td>${partner.partnerName}</td>
                 <td>${partner.partnerApplyFinishDate}</td>
@@ -198,57 +183,8 @@
     <div class="buttonGroups">
         <button type="button" class="btn" onclick="deleteJobOpening()">삭제</button>
     </div>
-    <!--paginate -->
-    <div class="paginate">
-        <div class="paging">
-            <a class="direction prev" href="javascript:void(0);"
-               onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-                &lt;&lt; </a> <a class="direction prev"
-                                 href="javascript:void(0);"
-                                 onclick="movePage(${pagination.currentPage}<c:if
-                                         test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-            &lt; </a>
 
-            <c:forEach begin="${pagination.firstPage}"
-                       end="${pagination.lastPage}" var="idx">
-                <a
-                        style="color:
-                            <c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-                        href="javascript:void(0);"
-                        onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-                        value="${idx}"/></a>
-            </c:forEach>
-            <a class="direction next" href="javascript:void(0);"
-               onclick="movePage(${pagination.currentPage}<c:if
-                       test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-                &gt; </a> <a class="direction next" href="javascript:void(0);"
-                             onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-            &gt;&gt; </a>
-        </div>
-    </div>
-    <!-- /paginate -->
 </div>
-</div>
-</div>
-<script>
-    //10,20,30개씩 selectBox 클릭 이벤트
-    function changeSelectBox(currentPage, cntPerPage, pageSize) {
-        var selectValue = $("#cntSelectBox").children("option:selected").val();
-        movePage(currentPage, selectValue, pageSize);
 
-    }
-
-    //페이지 이동
-    function movePage(currentPage, cntPerPage, pageSize) {
-        var url = "${pageContext.request.contextPath}/partner/jobOpeningPost.do";
-        url = url + "?currentPage=" + currentPage;
-        url = url + "&cntPerPage=" + cntPerPage;
-        url = url + "&pageSize=" + pageSize;
-
-        location.href = url;
-    }
-
-</script>
-</div>
 </body>
 </html>
