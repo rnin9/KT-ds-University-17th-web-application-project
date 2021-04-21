@@ -104,5 +104,21 @@
 		where partnerLicenseNum=#{partnerLicenseNum}   	
       ]]>
 	</select>
+
+	<update id="postJobOpening" parameterType="java.util.HashMap">
+	<![CDATA[
+		update partner
+		set PARTNERAPPLYYN='Y', PARTNERAPPLYFINISHDATE = #{date}
+		where partnerLicenseNum = #{partnerLicenseNum}
+		]]>
+	</update>
+
+	<update id="deleteJobOpening" parameterType="String">
+	<![CDATA[
+		update partner
+		set PARTNERAPPLYYN='N', PARTNERAPPLYFINISHDATE = null
+		where partnerLicenseNum = #{partnerLicenseNum}
+		]]>
+	</update>
 	
 </mapper>

@@ -43,6 +43,43 @@ public class PartnerServiceImpl implements PartnerService {
         // TODO Auto-generated method stub
         return pageMapper.testTableCountPartner();
     }
+
+	@Override
+	public List<Map<String, Object>> selectPartnerApplyN() throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.selectPartnerApplyN();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPartnerApplyN(Pagination pagination) throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.selectPartnerApplyN(pagination);
+	}
+
+	@Override
+	public int testTableCountPartnerApplyN() throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.testTableCountPartnerApplyN();
+	}
+
+	@Override
+	public int testTableCountJobOpeningList() throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.testTableCountJobOpeningList();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectJobOpeningList() throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.selectJobOpeningList();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectJobOpeningList(Pagination pagination) throws Exception {
+		// TODO Auto-generated method stub
+		return pageMapper.selectJobOpeningList(pagination);
+	}
+
 	
 	
 	//회사 상태별 count 출력
@@ -82,6 +119,16 @@ public class PartnerServiceImpl implements PartnerService {
 		String partnerName = partnerDAO.partnerName(partnerLicenseNum);
 		partnerDAO.deletePartner(partnerLicenseNum);
 		return partnerName;
+	}
+
+	@Override
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException{
+		return partnerDAO.postJobOpening(partnerLicenseNum, date);
+	}
+
+	@Override
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
+		return partnerDAO.deleteJobOpening(partnerLicenseNum);
 	}
 
 	@Override

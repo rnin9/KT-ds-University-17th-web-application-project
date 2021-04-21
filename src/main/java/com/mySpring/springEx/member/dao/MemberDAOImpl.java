@@ -53,7 +53,7 @@ public class MemberDAOImpl implements MemberDAO {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("partnerApplyUserID", partnerApplyUserID);
 		map.put("partnerApplyPartnerID", partnerApplyPartnerID);
-		return sqlSession.insert("mapper.member.user_apply", map);
+		return sqlSession.insert("mapper.member.userApplyPartner", map);
 	}
 
 	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {

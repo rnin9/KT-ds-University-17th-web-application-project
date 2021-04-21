@@ -9,6 +9,16 @@
 	      <put-attribute name="title" value="회사리스트" />
 	      <put-attribute name="body" value="/WEB-INF/views/partner/partnerList.jsp" />
 	</definition>
+
+	<definition name="/partner/jobOpeningPost" extends="baseLayout">
+		<put-attribute name="title" value="채용공고 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/partner/jobOpeningPost.jsp" />
+	</definition>
+
+	<definition name="/partner/jobOpeningList" extends="baseLayout">
+		<put-attribute name="title" value="채용공고 관리" />
+		<put-attribute name="body" value="/WEB-INF/views/partner/jobOpeningList.jsp" />
+	</definition>
 	
 	<!-- 기업 등록 폼 -->
 	<definition name="/partner/partnerForm" extends="baseLayout">

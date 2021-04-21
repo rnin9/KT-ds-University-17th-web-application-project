@@ -28,6 +28,10 @@ public interface PartnerDAO {
 	
 	public String partnerName(String partnerLicenseNum) throws DataAccessException;
 
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException;
+
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException;
+
 	
 
 }

@@ -3,6 +3,7 @@ package com.mySpring.springEx.partner.vo;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import com.mySpring.springEx.application.vo.ApplicationVO;
 
 @Component("partnerVO")
 public class PartnerVO {
@@ -19,13 +20,15 @@ public class PartnerVO {
 	private String partnerApplyFinishDate;          /*모집 마감 날짜*/
 	private String partnerURL;                    /*회사 홈페이지*/
 	private String partnerRegisterDate;           /*등록날짜*/
+	private ApplicationVO applicationVO;
+	private String partnerApplyUserID;
 
 
 	public PartnerVO(){
 
 	}
 
-	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate){
+	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate, String partnerApplyUserID, ApplicationVO applicationVO){
 		this.partnerLicenseNum = partnerLicenseNum;
 		this.partnerName = partnerName;
 		this.partnerInformation = partnerInformation;
@@ -37,8 +40,9 @@ public class PartnerVO {
 		this.partnerApplyYN = partnerApplyYN;
 		this.partnerURL = partnerURL;
 		this.partnerApplyFinishDate = partnerApplyFinishDate;
-		this.partnerRegisterDate = partnerRegisterDate;
-
+		this.partnerRegisterDate = partnerRegisterDate ;
+		this.applicationVO = applicationVO;
+		this.partnerApplyUserID = partnerApplyUserID;
 
 	}
 
@@ -143,6 +147,22 @@ public class PartnerVO {
 
 	public void setPartnerRegisterDate(String partnerRegisterDate) {
 		this.partnerRegisterDate = partnerRegisterDate;
+	}
+
+	public String getPartnerApplyUserID() {
+		return partnerApplyUserID;
+	}
+
+	public void setPartnerApplyUserID(String partnerApplyUserID) {
+		this.partnerApplyUserID = partnerApplyUserID;
+	}
+
+	public ApplicationVO getApplicationVO() {
+		return applicationVO;
+	}
+
+	public void setApplicationVO(ApplicationVO applicationVO) {
+		this.applicationVO = applicationVO;
 	}
 
 }

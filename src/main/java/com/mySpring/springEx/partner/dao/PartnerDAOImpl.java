@@ -1,5 +1,6 @@
 package com.mySpring.springEx.partner.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -74,6 +75,19 @@ public class PartnerDAOImpl implements PartnerDAO{
 	public String partnerName(String partnerLicenseNum) throws DataAccessException{
 		System.out.println("dao¿Ã∏ß"+sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum));
 		return sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum);
+	}
+
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException{
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerLicenseNum", partnerLicenseNum);
+		map.put("date", date);
+		int result = sqlSession.update("mapper.partner.postJobOpening", map);
+		return result;
+	}
+
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
+		int result = sqlSession.update("mapper.partner.deleteJobOpening", partnerLicenseNum);
+		return result;
 	}
 
 

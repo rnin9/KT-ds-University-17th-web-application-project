@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <title>채용공고</title>
@@ -16,7 +16,7 @@
             let activeTab = sessionStorage.getItem('activeTab');
 
             // 지원 상태 별로 색 설정
-            $("span:contains('진행중')").css({color: "green"});
+            $("span:contains('진행중')").css({color: "limegreen"});
             $("span:contains('불합격')").css({color: "blue"});
             $("span:contains('합격')").css({color: "red"});
 
