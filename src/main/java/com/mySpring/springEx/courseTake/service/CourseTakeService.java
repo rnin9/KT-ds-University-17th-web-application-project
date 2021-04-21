@@ -12,19 +12,15 @@ import com.mySpring.springEx.member.vo.MemberVO;
 public interface CourseTakeService {
 
 	// 수강신청내역 페이지네이션
-	public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception;
+	public List SelectAllCourseApplyList() throws Exception;
 
-	public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception;
 
-	public int testTableCountCT() throws Exception;
-
-	
 	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception;
+
+	public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception;
+
 	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception;
-	 
-	 
-	 
-	// 테스트페이지
-	public List courseCompleteList() throws DataAccessException;
+
+	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception;
 
 }

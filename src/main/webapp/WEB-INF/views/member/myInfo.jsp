@@ -489,10 +489,10 @@ function handleModify() {
 											<td>${myCourse.courseTake_State}</td>
 											<c:choose>
 												<c:when test="${myCourse.courseTake_State eq '수료'}">
-													<form name="formForCertificate" action="${pageContext.request.contextPath}/courseTake/certificate.jsp"
+													<form name="formForCertificate" action="myCertificate.jsp"
 														method="post">
-														<input type=text name="test1" value="${myCourse.memberVO.userName}"
-															style="display: none;" /> <input type=text name="test2"
+														<input type=text name="test3" value="${myCourse.syllabusVO.syllabusName}"
+															style="display: none;" /> <input type=text name="test4"
 															value="${myCourse.syllabusVO.syllabusName}"
 															style="display: none;" />
 														<td><a style="text-decoration: underline" href="#"
@@ -500,7 +500,7 @@ function handleModify() {
 													</form>
 												</c:when>
 												<c:otherwise>
-													<td style="text-align: center;"></td>
+													<td style="text-align: center;color:red;">미수료</td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
@@ -518,10 +518,10 @@ function handleModify() {
 <script type="text/javascript">
 function popup(frm)
 {
-  var url    ="/springEx/courseTake/certificate.do";
+  var url    ="/springEx/member/myCertificate.do";
   var title  = "certificate2";
   var status = "width=500px, height=600px, status=no, menubar=no, toolbar=no, resizable=no"; 
-  window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기
+  window.open('${pageContext.request.contextPath}/member/myCertificate.do', title,status); //popup 열기
   frm.target = title;                    //form.target 이 부분이 빠지면 form값 전송이 되지 않습니다. 
   frm.action = url;                    //form.action 이 부분이 빠지면 action값을 찾지 못해서 제대로 된 팝업이 뜨질 않습니다.
   frm.method = "post";

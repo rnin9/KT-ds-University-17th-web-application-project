@@ -29,7 +29,6 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
-
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -57,7 +56,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-
 	@Override
 	@RequestMapping(value = { "/universityIntro.do" }, method = RequestMethod.GET)
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -81,7 +79,7 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
 	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+		String viewName = (String) request.getAttribute("viewName");
 		memberVO = memberService.getMyInfo(userID);
 		List myCourseList = memberService.listMyCourse(userID);
 		ModelAndView mav = new ModelAndView(viewName);
@@ -90,11 +88,20 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	//	list all recruitments
+	// 수료증 페이지
+	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		return mav;
+	}
+
+	// list all recruitments
 	@Override
-	@RequestMapping(value = { "/member/apply.do"}, method = RequestMethod.GET)
-	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String viewName = (String)request.getAttribute("viewName");
+	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
+	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
 		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
@@ -103,26 +110,26 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	//	insert into PARTNER_APPLY
+	// insert into PARTNER_APPLY
 	@Override
-	@RequestMapping(value = {"/member/userApplyPartner.do"}, method = {RequestMethod.GET, RequestMethod.POST})
-	public void userApplyPartner(@RequestBody Map<String, String> body,
-								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = { "/member/userApplyPartner.do" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public void userApplyPartner(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 
 	// delete from PARTNER_APPLY
 	@Override
-	@RequestMapping(value = {"/member/deleteApplication.do"}, method = {RequestMethod.POST})
-	public void deleteApplication(@RequestBody Map<String, String> body,
-								 HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = { "/member/deleteApplication.do" }, method = { RequestMethod.POST })
+	public void deleteApplication(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
-	public ModelAndView modMyInfo(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView modMyInfo(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -149,7 +156,7 @@ public class MemberControllerImpl implements MemberController {
 		System.out.println(membersList);
 		return mav;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/member/memberJoinForm.do", method = RequestMethod.GET)
 	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -163,7 +170,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		memberService.check_id(id, response);
@@ -174,17 +180,15 @@ public class MemberControllerImpl implements MemberController {
 		memberService.check_email(email, response);
 	}
 
-
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
 			throws Exception {
 
 		rttr.addFlashAttribute("result", memberService.join_member(member, response));
-	
+
 		return "memberJoinForm.jsp";
 	}
-
 
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
@@ -208,8 +212,8 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-			memberVO = memberService.login(member);
-					
+		memberVO = memberService.login(member);
+
 		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
@@ -227,7 +231,7 @@ public class MemberControllerImpl implements MemberController {
 			 * mav.setViewName("redirect:/member/listMembers.do"); }
 			 */
 
-		} else if(memberVO != null) {
+		} else if (memberVO != null) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("partner", partnerVO);
@@ -236,9 +240,8 @@ public class MemberControllerImpl implements MemberController {
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
-			
-		}
-		else {
+
+		} else {
 			rAttr.addAttribute("result", "loginFailed");
 			mav.addObject("result", false);
 			mav.setViewName("jsonView");
@@ -294,7 +297,5 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }
