@@ -45,4 +45,10 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	   }
 
 
+	@Override
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
+		System.out.println(courseTakeVO.getUserID());
+		return sqlSession.insert("mapper.courseTake.insertCourseTake", courseTakeVO);
+	}
+
 }

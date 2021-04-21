@@ -21,4 +21,6 @@ public interface CourseTakeDAO {
 	// 삭제하기
 	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception;
 
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
+
 }

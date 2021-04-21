@@ -45,6 +45,12 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception {
 		return courseTakeDAO.updateCompletion(courseTakeVO);
 	}
+	
+	
+	@Override
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.insertCourseTake(courseTakeVO);
+	}
 
 	// 수료대기->수료로 update
 	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception {
