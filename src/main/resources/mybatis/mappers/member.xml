@@ -88,9 +88,8 @@
 	</select>
 
 	<!-- insert application -->
-	<insert id="user_apply" parameterType="java.util.HashMap">
-		<selectKey keyProperty="partnerApplyResumeID"
-			resultType="String" order="BEFORE">
+	<insert id="userApplyPartner" parameterType="java.util.HashMap">
+		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
 			select resumeID
 			from resume
 			where resumeUser

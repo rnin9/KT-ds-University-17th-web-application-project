@@ -50,4 +50,5 @@ public interface PageMapper {
 			@Param("courseStartDate") String courseStartDate, @Param("completionDate") String completionDate);
 	/* 기업관련 끝 */
 
+
 }

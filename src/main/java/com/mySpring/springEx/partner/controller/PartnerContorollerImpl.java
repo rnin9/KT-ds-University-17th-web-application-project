@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -184,8 +180,53 @@ public class PartnerContorollerImpl implements PartnerController {
 		
 		return mav;
 	}
-	
 	/* ===================================협력사 관련 끝==============================*/
+
+	//	post job opening
+	@Override
+	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
+	public ModelAndView jobOpeningPost(
+			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnerApplyNList", partnerService.selectPartnerApplyN());
+
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
+	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
+//        mav.addObject("applicantNum", partnerService.getApplicantNum());
+		return mav;
+	}
+
+
+	@Override
+	@RequestMapping(value = "/partner/postJobOpening.do", method = RequestMethod.POST)
+	public ModelAndView postJobOpening(@RequestParam List<String> valueArr) {
+		String date = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			partnerService.postJobOpening(valueArr.get(i), date);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningPost.do");
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/partner/deleteJobOpening.do", method = RequestMethod.POST)
+	public ModelAndView deleteJobOpening(@RequestParam List<String> valueArr) {
+		for (int i = 0; i < valueArr.size(); i++) {
+			partnerService.deleteJobOpening(valueArr.get(i));
+		}
+		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
+		return mav;
+	}
 	
 	
 }
