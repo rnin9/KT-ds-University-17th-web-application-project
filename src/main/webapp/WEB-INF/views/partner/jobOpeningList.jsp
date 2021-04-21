@@ -141,21 +141,6 @@
         </ul>
     </div>
 
-    <div class="rightButtonGroup">
-        <div class="serarchSubject">
-            <input type="text" class="form-control" placeholder="기업명">
-            <button type="submit" class="btn btn-success">검색</button>
-        </div>
-        <br>
-        <br>
-
-        <%--        <div class="buttonGroups">--%>
-        <%--            <button type="button" class="btn" onClick="location.href='${contextPath}/partner/partnerForm.do'">등록--%>
-        <%--            </button>--%>
-        <%--            <button type="button" class="btn">삭제</button>--%>
-        <%--        </div>--%>
-    </div>
-
     <table class="table_partnerList" id="myTable">
         <thead>
         <tr>

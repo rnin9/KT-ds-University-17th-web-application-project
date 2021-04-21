@@ -260,39 +260,6 @@
         </div>
     </div>
 
-    <div class="rightButtonGroup">
-        <div class="serarchSubject">
-            <input type="text" class="form-control" placeholder="기업명">
-            <button type="submit" class="btn btn-success">검색</button>
-        </div>
-        <br>
-        <br>
-
-<%--        <div class="buttonGroups">--%>
-<%--            <button type="button" class="btn" onClick="location.href='${contextPath}/partner/partnerForm.do'">등록--%>
-<%--            </button>--%>
-<%--            <button type="button" class="btn">삭제</button>--%>
-<%--        </div>--%>
-    </div>
-
-
-    <div class="bottom">
-        <div class="bottom-left">
-            <select id="cntSelectBox" name="cntSelectBox"
-                    onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
-                    class="form-control" style="width: 100px;">
-                <option value="10"
-                        <c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩
-                </option>
-                <option value="20"
-                        <c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩
-                </option>
-                <option value="30"
-                        <c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩
-                </option>
-            </select>
-        </div>
-    </div>
     <table class="table_partnerList" id="myTable">
         <thead>
         <tr>
