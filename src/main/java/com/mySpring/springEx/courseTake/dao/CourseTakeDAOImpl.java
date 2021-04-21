@@ -19,7 +19,7 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	@Override
 	public List selectAllApplyList() throws DataAccessException {
 		List<CourseTakeVO> applyList = null;
-		applyList = sqlSession.selectList("mapper.courseTake.selectAllApplyList");
+		applyList = sqlSession.selectList("mapper.courseTake.selectAllCourseApplyList");
 		return applyList;
 	}
 
@@ -29,17 +29,21 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	}
 	
 	@Override
+	   public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.update("mapper.courseTake.updateApplyConsentCancel", courseTakeVO);
+	   }
+
+	
+	@Override
 	   public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception {
 	      return sqlSession.update("mapper.courseTake.updateCompletion", courseTakeVO);
 	   }
-
-	//Å×½ºÆ®
+	
 	@Override
-	public List selectAllCompleteList() throws DataAccessException {
-		List<CourseTakeVO> completeList = null;
-		completeList = sqlSession.selectList("mapper.courseTake.selectAllCompleteList");
-		return completeList;
-	}
+	   public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.delete("mapper.courseTake.deleteCourseTake", courseTakeVO);
+	   }
+
 
 	@Override
 	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {

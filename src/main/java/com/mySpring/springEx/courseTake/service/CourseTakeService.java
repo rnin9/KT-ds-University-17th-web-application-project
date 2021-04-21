@@ -11,24 +11,21 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeService {
 
-	// ¼ö°­½ÅÃ»³»¿ª ÆäÀÌÁö³×ÀÌ¼Ç
-	public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception;
+	// ìˆ˜ê°•ì‹ ì²­ë‚´ì—­ í˜ì´ì§€ë„¤ì´ì…˜
+	public List SelectAllCourseApplyList() throws Exception;
 
-	public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception;
 
-	public int testTableCountCT() throws Exception;
-
-	
 	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception;
+
+	public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception;
+
 	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception;
-	 
-	 
-	 
-	// Å×½ºÆ®ÆäÀÌÁö
+
+	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception;
+ 
+	// í…ŒìŠ¤íŠ¸í˜ì´ì§€
 	public List courseCompleteList() throws DataAccessException;
 	
-	
-	// ¼ö°­½ÅÃ»ÇÑ »ç¶÷ insert
+	// ìˆ˜ê°•ì‹ ì²­í•œ ì‚¬ëŒ insert
 	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
-
 }

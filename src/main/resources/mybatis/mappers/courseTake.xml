@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.courseTake">
-	<resultMap id="courseTakeResult2" type="courseTakeVO">
+	<resultMap id="courseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -12,6 +12,7 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
 
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
@@ -35,6 +36,21 @@
 		</collection>
 	</resultMap>
 
+	<!-- ====================================ADMIN==================================== -->
+
+	<select id="selectAllCourseApplyList"
+		resultMap="courseTakeResult">
+		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
+		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
+		courseTake_ApplyDate
+		from course_Take ct join kt_user m on (ct.userID =
+		m.userId) join course c
+		on (c.courseid=ct.courseid) join syllabus s on
+		(s.syllabusid =
+		c.syllabusid)
+		order by courseTake_ApplyDate DESC
+	</select>
+
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[update course_Take
 			set courseTake_State = '승인'
@@ -49,16 +65,31 @@
          ]]>
 	</update>
 
-	<!-- 나의 수강내역 가져오기  -->
+	<update id="updateApplyConsentCancel"
+		parameterType="CourseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '승인대기'
+			where courseTake_State = '승인' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+
+	<delete id="deleteCourseTake" parameterType="CourseTakeVO">
+     <![CDATA[
+       delete from course_Take where userID = #{userID} and courseID=#{courseID}
+     ]]>
+	</delete>
+
+	<!-- ====================================USER==================================== -->
+	<!-- 나의 수강내역 가져오기 -->
 	<select id="get_myCourseInformation" parameterType="String"
-		 resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
-	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, c.courseID, m.userID, s.syllabusID, m.userName
+		resultMap="courseTakeResult">
+	<![CDATA[select * 
 	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
 	where ct.userId = #{userID} 
 	order by courseTake_ApplyDate desc
 	]]>
 	</select>
-	
+  
 	<!-- YYYY 적용 안 됨,, -->
 	<insert id="insertCourseTake" parameterType="courseTakeVO">
 	  <![CDATA[
@@ -66,5 +97,4 @@
 		values (#{userID}, #{courseID}, '승인대기', to_date(sysdate,'YYYY-MM-DD'))
 	  ]]>
 	</insert>
-
 </mapper>

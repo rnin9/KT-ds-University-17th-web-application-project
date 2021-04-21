@@ -16,11 +16,7 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeController {
 
-	public ModelAndView courseApplyList(@RequestParam(value = "currentPage", required = false, defaultValue = "1")int currentPage, 
-			@RequestParam(value = "cntPerPage", required = false, defaultValue = "10")int cntPerPage,
-			 @RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize, 
-			 Map<String, Object> map,
-			HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView courseCApplyList(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	

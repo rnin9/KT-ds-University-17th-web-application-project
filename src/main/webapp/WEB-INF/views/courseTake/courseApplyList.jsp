@@ -14,7 +14,11 @@ request.setCharacterEncoding("UTF-8");
 <title>수강관리</title>
 
 <link rel="stylesheet" type="text/css"
-	href="/juliet/resources/juliet.css">
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
 <link id="bsdp-css"
 	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
 	rel="stylesheet">
@@ -25,6 +29,51 @@ request.setCharacterEncoding("UTF-8");
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 </head>
+
+
+<style>
+.pageIntro {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	text-align: left;
+	font-size: 34px;
+	font-weight: 450;
+	background:
+		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+		no-repeat;
+	background-repeat: no-repeat;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#myTable').DataTable({
+
+	
+		language: {
+			info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+			sInfoFiltered : '',
+			infoEmpty : '',
+			emptyTable : '데이터가 없습니다.',
+			thousands : ',',
+			lengthMenu : '_MENU_ 개씩 보기',
+			loadingRecords : '데이터를 불러오는 중',
+			processing : '처리 중',
+			zeroRecords : '검색 결과 없음',
+			paginate : {
+				first : '처음',
+				last : '끝',
+				next : '다음',
+				previous : '이전'
+			},
+			search: '',
+			sSearchPlaceholder: '통합 검색',
+		
+		}
+	});
+});
+</script>
 
 <script type="text/javascript">
 	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
@@ -92,6 +141,39 @@ request.setCharacterEncoding("UTF-8");
 		
 </script>
 
+<!--  잘못 승인을 눌렀을 때를 위한 승인->승인대기  -->
+<script>
+	function consentCancelCheck(){
+		var url = "/springEx/courseTake/updateConsentCancelCheck.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		
+		console.log(valueArr);
+		
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+
 <!-- 수료대기->수료 -->
 <script>
    function completionCheck(){
@@ -124,6 +206,40 @@ request.setCharacterEncoding("UTF-8");
       
       
 </script>
+
+<!-- 삭제 -->
+<script>
+	function deleteCheck(){
+		var url = "/springEx/courseTake/deleteCourseTake.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		
+		console.log(valueArr);
+		
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+
 <script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){
@@ -165,8 +281,12 @@ function popup(frm)
 					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
 			</ul>
 		</div>
+
+
+
+
 		<!-- 검색박스 -->
-		<div class="well-searchbox">
+		<!-- <div class="well-searchbox">
 			<form class="form-horizontal" role="form">
 
 				<div class="form-group">
@@ -212,12 +332,13 @@ function popup(frm)
 					</div>
 				</div>
 			</form>
-		</div>
+		</div> -->
 
-		<br>
+		<div class="pageIntro">수강관리</div>
+
 
 		<!-- 테이블(표, 리스트) -->
-		<table class="table_">
+		<table class="table_" id="myTable">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"
@@ -276,40 +397,16 @@ function popup(frm)
 		<!-- 버튼 -->
 		<div style="margin-top: 40px; padding-bottom: 150px;">
 			<button class="btn button_bottom" type="button"
+				onClick="deleteCheck();">삭제</button>
+			<button class="btn button_bottom" type="button"
 				onClick="completionCheck();">수료완료</button>
+			<button class="btn button_bottom" type="button"
+				onClick="consentCancelCheck();">승인대기</button>
 			<button class="btn button_bottom" type="button"
 				onClick="consentCheck();">신청승인</button>
 		</div>
 
-		<!--paginate -->
-		<div class="paginate">
-			<div class="paging">
-				<a class="direction prev" href="javascript:void(0);"
-					onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-					<!-- &lt;&lt; -->《
-				</a> <a class="direction prev" href="javascript:void(0);"
-					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-					<!-- &lt; -->〈
-				</a>
 
-				<c:forEach begin="${pagination.firstPage}"
-					end="${pagination.lastPage}" var="idx">
-					<a
-						style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-						href="javascript:void(0);"
-						onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-							value="${idx}" /></a>
-				</c:forEach>
-				<a class="direction next" href="javascript:void(0);"
-					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-					<!-- &gt; --> 〉
-				</a> <a class="direction next" href="javascript:void(0);"
-					onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-					<!-- &gt;&gt; --> 》
-				</a>
-			</div>
-		</div>
-		<!-- /paginate -->
 	</div>
 
 </body>
