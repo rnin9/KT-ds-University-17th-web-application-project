@@ -18,7 +18,16 @@
     <definition name="/course/courseModifyForm" extends="baseLayout">
       <put-attribute name="title" value="과정 수정" />
       <put-attribute name="body" value="/WEB-INF/views/course/courseModify.jsp" />
-   </definition>
+    </definition>
+   
+    <definition name="/course/userCourseList" extends="baseLayout">
+      <put-attribute name="title" value="과정 리스트" />
+      <put-attribute name="body" value="/WEB-INF/views/course/userCourseList.jsp" />
+    </definition>
+    <definition name="/course/selectUserCourse" extends="baseLayout">
+      <put-attribute name="title" value="과정 정보" />
+      <put-attribute name="body" value="/WEB-INF/views/course/userCourseInformation.jsp" />
+    </definition>
    
    <!-- 타일즈 제외 -->
 	<definition name="empty" template ="/WEB-INF/views/common/empty.jsp">

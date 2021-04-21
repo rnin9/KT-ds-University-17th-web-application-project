@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mySpring.springEx.course.service.CourseService;
@@ -78,15 +79,6 @@ public class CourseControllerImpl implements CourseController {
 		ModelAndView mav = new ModelAndView("redirect:/course/courseList.do");
 		return mav;
 	}
-	
-	@RequestMapping(value="/course/deleteCheck.do", method=RequestMethod.POST)
-	public ModelAndView deleteCheck(@RequestParam List<Integer> valueArr) {
-		for(int i=0; i<valueArr.size(); i++) {
-			courseService.deleteCourse(valueArr.get(i));
-		}
-		ModelAndView mav = new ModelAndView("redirect:/course/courseList.do");
-		return mav;
-	}
 
 	@Override
 	@RequestMapping(value="/course/insertCourse.do", method=RequestMethod.POST)
@@ -127,4 +119,72 @@ public class CourseControllerImpl implements CourseController {
 	    mav.addObject("syllabusList", syllabusList);
 	    return mav;
 	 }
+	 
+	@Override
+	@RequestMapping(value="/course/closeCheck.do", method=RequestMethod.POST)
+		public ModelAndView closeCheck(@RequestParam List<Integer> valueArr) {
+			for(int i=0; i<valueArr.size(); i++) {
+				courseService.closeCourse(valueArr.get(i));
+			}
+			ModelAndView mav = new ModelAndView("redirect:/course/courseList.do");
+			return mav;
+	 }
+	 
+	@Override
+	@RequestMapping(value="/course/openCheck.do", method=RequestMethod.POST)
+		public ModelAndView openCheck(@RequestParam List<Integer> valueArr) {
+			for(int i=0; i<valueArr.size(); i++) {
+				courseService.openCourse(valueArr.get(i));
+			}
+			ModelAndView mav = new ModelAndView("redirect:/course/courseList.do");
+			return mav;
+	 }
+
+	@Override
+	@RequestMapping(value="/course/userCourseList.do", method=RequestMethod.GET)
+	public ModelAndView courseUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		List courseUserList = courseService.courseUserList();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("courseUserList", courseUserList);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/course/selectUserCourse.do", method=RequestMethod.GET)
+	public ModelAndView selectUserCourse(int courseID, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		CourseVO courseVO= courseService.selectUserCourse(courseID);
+		mav.addObject("courseVO",courseVO);
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/course/updateCoursePeopleApplied.do", method=RequestMethod.POST)
+	public ModelAndView updateCoursePeopleApplied(@RequestParam List<String> valueArr) throws Exception {
+		int courseID = Integer.parseInt(valueArr.get(0));
+		System.out.println(courseID);
+		courseService.updateCourse(courseID);
+		ModelAndView mav = new ModelAndView("redirect:/course/userCourseList.do");
+		return mav;
+	}
+	
+	
+	
+	
+//	@Override
+//	@RequestMapping(value="/course/updateCoursePeopleAppliedInsertCourseTable.do", method=RequestMethod.GET)
+//	public ModelAndView updateCoursePeopleApplied(int courseID, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		request.setCharacterEncoding("utf-8");
+//		String viewName = (String)request.getAttribute("viewName");
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName(viewName);
+//		CourseVO courseVO= courseService.selectUserCourse(courseID);
+//		mav.addObject("courseVO",courseVO);
+//		return mav;
+//	}
 }

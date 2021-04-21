@@ -20,6 +20,13 @@ request.setCharacterEncoding("UTF-8");
    crossorigin="anonymous">
 
 
+ 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+ 
+
+
 
 <style>
 a:link, a:visited, a:hover {
@@ -132,10 +139,18 @@ a:link, a:visited, a:hover {
 .searchTitle {
    margin-right: 20px;
 }
-
 </style>
 
 </head>
+<!-- 
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+ -->
+
+
 
 <script type="text/javascript">
    function checkSelectAll(checkbox)  {
@@ -144,6 +159,7 @@ a:link, a:visited, a:hover {
       if(checkbox.checked == false)  {
         selectall.checked = false;
       }
+      
     }
 
     function selectAll(selectAll)  {
@@ -187,7 +203,6 @@ a:link, a:visited, a:hover {
 		$("input[name='ab']:checked").each(function(i){
 			valueArr.push($(this).val());
 		});
-		console.log(valueArr);
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -202,16 +217,41 @@ a:link, a:visited, a:hover {
 			},
 			error : function(data) { 
 	            console.log("fail");
+	            console.log(${syllabusList});
 	        }
 		});
 	};
 		
 		
 </script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#table_id').DataTable({
+		language: {
+			info : '',
+			infoEmpty : '데이터가 없습니다.',
+			emptyTable : '데이터가 없습니다.',
+			thousands : ',',
+			lengthMenu : '_MENU_',
+			loadingRecords : '데이터를 불러오는 중',
+			processing : '처리 중',
+			zeroRecords : '검색 결과 없음',
+			paginate : {
+				first : '처음',
+				last : '끝',
+				next : '다음',
+				previous : '이전'
+			},
+			search : '검색:'
+		}
+	
+	});
+});
+</script>
 <body>
 
    <div class="container">
-      <form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
+      <form method="get" action="${contextPath}/syllabus/syllabusForm.do">
 
          <div class="lnb">
             <ul>
@@ -221,7 +261,7 @@ a:link, a:visited, a:hover {
                      관리</a></li>
             </ul>
          </div>
-
+<!-- 
          <div class="well-searchbox">
             <form class="form-horizontal" role="form">
                <div class="form-group">
@@ -273,8 +313,8 @@ a:link, a:visited, a:hover {
                </div>
             </form>
          </div>
-
-         <table class="table_syllabusList">
+ -->
+         <table class="table_syllabusList" id="table_id">
             <thead>
                <tr align="center">
                   <td><input type="checkbox" name="check-all"
@@ -309,8 +349,9 @@ a:link, a:visited, a:hover {
                onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
          </div>
 
-         <div>여기에 페이징</div>
       </form>
    </div>
-</body>
+   
+   
+  </body>
 </html>

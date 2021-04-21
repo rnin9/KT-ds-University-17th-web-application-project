@@ -43,4 +43,31 @@ public class CourseServiceImpl implements CourseService{
 	public int modifyCourse(CourseVO courseVO) throws DataAccessException {
 		return courseDAO.modifyCourse(courseVO);
 	}
+
+	@Override
+	public int closeCourse(int courseID) throws DataAccessException {
+		return courseDAO.closeCourse(courseID);
+	}
+
+	@Override
+	public int openCourse(int courseID) throws DataAccessException {
+		return courseDAO.openCourse(courseID);
+	}
+
+	@Override
+	public List courseUserList() throws DataAccessException {
+		
+		List courseUserList = courseDAO.selectCourseUserList();
+		return courseUserList;
+	}
+
+	@Override
+	public CourseVO selectUserCourse(int courseID) throws DataAccessException {
+		return courseDAO.selectUserCourse(courseID);
+	}
+
+	@Override
+	public int updateCourse(int courseID) throws DataAccessException {
+		return courseDAO.updateCourse(courseID);
+	}
 }

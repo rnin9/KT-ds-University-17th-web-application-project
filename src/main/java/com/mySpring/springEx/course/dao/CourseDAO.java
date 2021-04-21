@@ -17,4 +17,14 @@ public interface CourseDAO {
 
 	public int modifyCourse(CourseVO courseVO) throws DataAccessException;
 
+	public int closeCourse(int courseID)throws DataAccessException;
+
+	public int openCourse(int courseID)throws DataAccessException;
+
+	public List selectCourseUserList() throws DataAccessException;
+
+	public CourseVO selectUserCourse(int courseID) throws DataAccessException;
+
+	public int updateCourse(int courseID) throws DataAccessException;
+
 }

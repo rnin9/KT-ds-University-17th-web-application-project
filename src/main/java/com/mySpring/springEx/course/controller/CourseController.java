@@ -1,5 +1,7 @@
 package com.mySpring.springEx.course.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,4 +25,12 @@ public interface CourseController {
 	public ModelAndView courseModifyForm(@RequestParam("courseID") int courseID, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	ModelAndView closeCheck(@RequestParam List<Integer> valueArr);
+
+	ModelAndView openCheck(@RequestParam List<Integer> valueArr);
+	
+	public ModelAndView courseUserList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ModelAndView selectUserCourse(int courseID, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

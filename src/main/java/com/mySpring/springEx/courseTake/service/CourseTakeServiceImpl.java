@@ -63,6 +63,12 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 		completeList = courseTakeDAO.selectAllCompleteList();
 		return completeList;
 	}
+	
+	
+	@Override
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.insertCourseTake(courseTakeVO);
+	}
 
 	
 	

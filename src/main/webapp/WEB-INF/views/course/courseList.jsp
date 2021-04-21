@@ -220,8 +220,8 @@ a:link, a:visited, a:hover {
 	});
 </script>
 <script>
-	function deleteCheck(){
-		var url = "/springEx/course/deleteCheck.do";
+	function closeCheck(){
+		var url = "/springEx/course/closeCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){
@@ -241,7 +241,35 @@ a:link, a:visited, a:hover {
 				
 			},
 			error : function(data) { 
-				alert("설문조사에서 이 강의를 사용하고 있습니다.");
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+<script>
+	function openCheck(){
+		var url = "/springEx/course/openCheck.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		console.log(valueArr);
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				window.location.reload();
+				
+			},
+			error : function(data) { 
 	            console.log("fail");
 	        }
 		});
@@ -351,6 +379,7 @@ a:link, a:visited, a:hover {
                   <td><b>교육비</b></td>
                   <td><b>접수기간</b></td>
                   <td><b>수강기간</b></td>
+                  <td><b>상태</b></td>
                </tr>
             </thead>
 
@@ -365,13 +394,15 @@ a:link, a:visited, a:hover {
                      <td>${courseVO.courseFee}</td>
                      <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
                      <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
+                     <td>${courseVO.courseState}</td>
                   </tr>
                </c:forEach>
             </tbody>
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택과정 삭제</button>
+            <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
+            <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
             <button class="btn button_bottom"
                onClick="location.href='courseRegister.do'">교육과정 등록</button>
          </div>

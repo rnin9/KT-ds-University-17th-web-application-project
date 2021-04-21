@@ -49,4 +49,34 @@ public class CourseDAOImpl implements CourseDAO{
 		int result = sqlSession.update("mapper.course.modifyCourse", courseVO);
 		return result;
 	}
+
+	@Override
+	public int closeCourse(int courseID) throws DataAccessException {
+		int result = sqlSession.update("mapper.course.closeCourse", courseID);
+		return result;
+	}
+
+	@Override
+	public int openCourse(int courseID) throws DataAccessException {
+		int result = sqlSession.update("mapper.course.openCourse", courseID);
+		return result;
+	}
+
+	@Override
+	public List selectCourseUserList() throws DataAccessException {
+		List<CourseVO> CourseUserList = null;
+		CourseUserList = sqlSession.selectList("mapper.course.selectUserCourseList");
+		return CourseUserList;
+	}
+
+	@Override
+	public CourseVO selectUserCourse(int courseID) throws DataAccessException {
+		CourseVO courseVO = sqlSession.selectOne("mapper.course.selectUserCourse",courseID);
+		return courseVO;
+	}
+
+	@Override
+	public int updateCourse(int courseID) throws DataAccessException {
+		return sqlSession.update("mapper.course.updateCourse", courseID);
+	}
 }

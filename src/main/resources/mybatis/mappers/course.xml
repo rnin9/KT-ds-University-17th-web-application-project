@@ -33,7 +33,7 @@
 	<select id="selectCourseList" resultMap="courseResult">
 	 <![CDATA[
 	    select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
-	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd
+	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState
 	    from course c join syllabus s on c.syllabusID = s.syllabusID
 	    order by courseID desc
 	 ]]>
@@ -41,12 +41,32 @@
 	<select id="selectCourse" parameterType="int" resultMap="courseResult">
 	 <![CDATA[
 	 	select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
-	 			courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax,
+	 			courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax, courseState,
 	 			syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent
 	 	from course c join syllabus s on c.syllabusID = s.syllabusID
 	 	where courseID = #{courseID}
 	 ]]>
 	</select>
+	
+	<select id="selectUserCourseList" resultMap="courseResult">
+	 <![CDATA[
+	    select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
+	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState
+	    from course c join syllabus s on c.syllabusID = s.syllabusID
+	    where courseState = '접수중'
+	    order by courseID desc
+	 ]]>
+	 </select>
+	<select id="selectUserCourse" parameterType="int" resultMap="courseResult">
+	 <![CDATA[
+	 	select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
+	 			courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax, courseState,
+	 			syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent
+	 	from course c join syllabus s on c.syllabusID = s.syllabusID
+	 	where courseID = #{courseID}
+	 ]]>
+	</select>
+	 
 	<!-- 왜 YYYY로 하면 안 되지......? -->
 	<insert id="insertCourse" parameterType="courseVO">
 	  <![CDATA[
@@ -59,12 +79,30 @@
        delete from course where courseID = #{courseID}
      ]]>
     </delete>
-    <!-- syllabus, course 둘 다 업데이트 할 수 있을까,,, -->
 	<update id="modifyCourse" parameterType="courseVO">
 	 <![CDATA[
 	 	update course set syllabusID=#{syllabusID}, coursestart=#{coursestart}, courseend=#{courseend}, courseapplystart=#{courseapplystart}, 
 	 	courseapplyend=#{courseapplyend}, coursetime=#{coursetime}, coursefee=#{coursefee}, courseroomnumber=#{courseroomnumber}, coursepeoplemax=#{coursepeoplemax}
 	 	where courseid = #{courseID}
+	 ]]> 
+	</update>
+	
+	<update id="closeCourse" parameterType="int">
+	 <![CDATA[
+	 	update course set courseState='조기마감'
+	 	where courseid = #{courseID}
+	 ]]> 
+	</update>
+	<update id="openCourse" parameterType="int">
+	 <![CDATA[
+	 	update course set courseState='접수중'
+	 	where courseid = #{courseID}
+	 ]]> 
+	</update>
+	<update id="updateCourse" parameterType="int">
+	 <![CDATA[
+	 	update course set coursepeopleapplied = coursepeopleapplied+1
+		where courseid=#{courseID}
 	 ]]> 
 	</update>
 </mapper>
