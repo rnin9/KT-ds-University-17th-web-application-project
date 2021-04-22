@@ -15,5 +15,6 @@
 		<typeAlias type="com.mySpring.springEx.courseTake.vo.CourseTakeVO"  alias="courseTakeVO" />
 		<typeAlias type="com.mySpring.springEx.course.vo.CourseVO"  alias="courseVO" />
 		<typeAlias type="com.mySpring.springEx.notice.vo.NoticeVO"  alias="noticeVO" />
+		<typeAlias type="com.mySpring.springEx.question.vo.QuestionVO" alias="questionVO"/>
 	</typeAliases>
 </configuration>
