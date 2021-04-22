@@ -107,7 +107,6 @@ a:link, a:visited, a:hover {
 	$(document)
 			.ready(
 					function() {
-
 						var formObj = $("form[name='readForm']");
 
 						// 수정 
@@ -150,25 +149,43 @@ a:link, a:visited, a:hover {
 					})
 </script>
 
+<script type="text/javascript">
+	// 첨부파일 다운로드
+	function fn_fileDown(nt_file_no) {
+		var formObj = $("form[name='readForm']");
+		$("#NT_FILE_NO").attr("value", nt_file_no);
+		console.log('yeeeeeee' + nt_file_no);
+		formObj.attr("action", "${contextPath}/notice/fileDown.do");
+		formObj.submit();
+	}
+	
+	chk = (num, name) => {
+		console.log(num + 'meeeeeeeeeee' + name);
+	}
+</script>
+
 
 <body>
-	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
-						관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/notice/readNotice.do?notice_no=${noticeList.notice_no}">공지사항
-						정보</a></li>
-			</ul>
-		</div>
+	<form name="readForm" role="form" method="post">
+		<input type="hidden" id="notice_no" name="notice_no"
+			value="${readNotice.notice_no}" /> <input type="hidden"
+			id="NT_FILE_NO" name="NT_FILE_NO" value="">
 
-		<form name="readForm" role="form" method="post">
-			<input type="hidden" id="notice_no" name="notice_no"
-				value="${readNotice.notice_no}" />
+		<div class="container">
+			<div class="lnb">
+				<ul>
+					<li><a href="/springEx/main.do">홈</a></li>
+					<li style="color: grey; font-weight: bold;">〉</li>
+					<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
+							관리</a></li>
+					<li style="color: grey; font-weight: bold;">〉</li>
+					<li class="on"><a
+						href="/springEx/notice/readNotice.do?notice_no=${readNotice.notice_no}">공지사항
+							정보</a></li>
+				</ul>
+			</div>
+
+
 
 			<table class="table_notice">
 				<tr>
@@ -190,6 +207,23 @@ a:link, a:visited, a:hover {
 					<th>작성일</th>
 					<td>${readNotice.notice_date}</td>
 				</tr>
+
+
+				<tr>
+					<th>조회수</th>
+					<td>${readNotice.notice_hit}</td>
+				</tr>
+
+				<tr>
+					<th>파일</th>
+					<td><c:forEach var="fileVO" items="${fileList}">
+						<!--  	<a href="#"
+								onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;">${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.FILE_NT_SIZE}kb)<br> -->
+					
+							<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
+						</c:forEach></td>
+				</tr>
+
 			</table>
 
 			<div class="containerLower" style="margin-top: 30px;">
@@ -200,14 +234,14 @@ a:link, a:visited, a:hover {
 					<div class="informBox">${readNotice.notice_contents}</div>
 				</div>
 			</div>
-		</form>
 
-		<div style="margin-top: 50px; padding-bottom: 150px;">
-			<button type="submit" class="btn button_bottom_C">취소</button>
-			<button type="submit" class="btn button_bottom_D">삭제</button>
-			<button type="submit" class="btn button_bottom_U">수정</button>
+
+			<div style="margin-top: 50px; padding-bottom: 150px;">
+				<button type="submit" class="btn button_bottom_C">취소</button>
+				<button type="submit" class="btn button_bottom_D">삭제</button>
+				<button type="submit" class="btn button_bottom_U">수정</button>
+			</div>
 		</div>
-
-	</div>
+	</form>
 </body>
 </html>

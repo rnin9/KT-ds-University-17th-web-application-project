@@ -18,20 +18,20 @@ request.setCharacterEncoding("UTF-8");
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-	
-	<link rel="stylesheet" type="text/css"
+
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 
 <style>
 .bg-primary {
-   background-color: white !important;
+	background-color: white !important;
 }
 
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
-
 </style>
 
 
@@ -83,12 +83,13 @@ a:link, a:visited, a:hover {
 
 <script>
 	function deleteCheck(){
-		var url = "/springEx/notice/deleteNotice.do";
+		var url = "/springEx/notice/deleteCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){
 			valueArr.push($(this).val());
 		});
+		console.log(valueArr);
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -98,8 +99,8 @@ a:link, a:visited, a:hover {
 			},
 			success : function(data){
 				console.log("success");
-				/*window.location.reload();*/
-				$("#container").load("${contextPath}/notice/insertNotice.do");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/notice/listNotice.do");*/
 			},
 			error : function(data) { 
 	            console.log("fail");
@@ -124,19 +125,19 @@ a:link, a:visited, a:hover {
 
 			<div class="well-searchbox">
 				<form class="form-horizontal" role="form">
-				<div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">분류</label>
-                     <div class="col-md-8">
-                        <select class="form-select" aria-label="Default select example">
-                           <option selected>-- 분류를 선택하세요 --</option>
-                           <option value="유료과정">일반</option>
-                           <option value="재직자향상">채용예정자</option>
-                           <option value="채용예정자과정">긴급</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
+					<div class="form-group">
+						<div class="serarchSubject">
+							<label class="searchTitle">분류</label>
+							<div class="col-md-8">
+								<select class="form-select" aria-label="Default select example">
+									<option selected>-- 분류를 선택하세요 --</option>
+									<option value="유료과정">일반</option>
+									<option value="재직자향상">채용예정자</option>
+									<option value="채용예정자과정">긴급</option>
+								</select>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<div class="serarchSubject">
 							<label class="searchTitle">검색</label>
@@ -198,7 +199,7 @@ a:link, a:visited, a:hover {
 						</tr>
 					</c:forEach>
 				</tbody>
-				
+
 			</table>
 
 
@@ -210,8 +211,8 @@ a:link, a:visited, a:hover {
 					onClick="location.href='noticeForm.do'">공지사항 등록</button>
 			</div>
 
-		
-			
+
+
 
 
 			<!--paginate -->

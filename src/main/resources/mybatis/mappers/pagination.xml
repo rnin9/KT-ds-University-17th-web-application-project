@@ -160,5 +160,20 @@
         notice
     </select>
     
+    <select id="NoticefixList" resultMap="noticeResult">
+      SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
+        row_num
+        ,notice_no
+        ,notice_category
+        ,notice_title
+        ,notice_adminID
+        ,notice_date
+        ,notice_hit
+        FROM notice
+        where notice.notice_category = '[공지]'
+        );
+    </select>
     
 </mapper>

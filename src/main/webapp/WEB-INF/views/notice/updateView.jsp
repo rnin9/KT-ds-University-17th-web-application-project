@@ -81,6 +81,12 @@ request.setCharacterEncoding("UTF-8");
 	margin-left: 10px;
 }
 
+.update_btn {
+	background-color: tomato;
+	float: right;
+	margin-left: 10px;
+}
+
 .informTitle {
 	margin-top: 20px;
 	text-align: left;
@@ -127,9 +133,15 @@ request.setCharacterEncoding("UTF-8");
 	$(document).ready(function() {
 		var formObj = $("form[name='updateForm']");
 
+		$(document).on("click", "#fileDel", function() {
+			$(this).parent().remove();
+		})
+
+		fn_addFile();
+
 		$(".cancel_btn").on("click", function() {
 			event.preventDefault();
-			location.href = "${contextPath}/notice/listNotice.do";
+			location.href = "${contextPath}/notice/listNotice.do"
 		})
 
 		$(".update_btn").on("click", function() {
@@ -151,7 +163,38 @@ request.setCharacterEncoding("UTF-8");
 			}
 		}
 	}
+	function fn_addFile() {
+		var fileIndex = 1;
+		//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
+		$(".fileAdd_btn")
+				.on(
+						"click",
+						function() {
+							$("#fileIndex")
+									.append(
+											"<div><input type='file' style='float:left;' name='file_"
+													+ (fileIndex++)
+													+ "'>"
+													+ "</button>"
+													+ "<button type='button' style='float:right;' id='fileDelBtn'>"
+													+ "삭제" + "</button></div>");
+						});
+		$(document).on("click", "#fileDelBtn", function() {
+			$(this).parent().remove();
+
+		});
+	}
+	var fileNoArry = new Array();
+	var fileNameArry = new Array();
+	function fn_del(value, name) {
+
+		fileNoArry.push(value);
+		fileNameArry.push(name);
+		$("#fileNoDel").attr("value", fileNoArry);
+		$("#fileNameDel").attr("value", fileNameArry);
+	}
 </script>
+
 
 
 <body>
@@ -172,7 +215,9 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 
 			<input type="hidden" name="notice_no"
-				value="${updateNotice.notice_no}">
+				value="${updateNotice.notice_no}"> <input type="hidden"
+				id="fileNoDel" name="fileNoDel[]" value=""> <input
+				type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
 			<table class="table_notice">
 				<tr>
 					<th>강의분류</th>
@@ -180,7 +225,7 @@ request.setCharacterEncoding("UTF-8");
 					<td><div class="selectBox" style="text-align: left;">
 							<select class="form-select" aria-label="Default select example"
 								style="margin-right: 50px;" name="notice_category"
-								oninvalid="this.setCustomValidity('분류를 선택해주세요')" 
+								oninvalid="this.setCustomValidity('분류를 선택해주세요')"
 								oninput="this.setCustomValidity('')" required>
 								<option value="일반"
 									<c:if test="${updateNotice.notice_category eq '일반'}">selected</c:if>>일반</option>
@@ -195,18 +240,32 @@ request.setCharacterEncoding("UTF-8");
 					<th>제목</th>
 					<td><input type="text" class="form-control"
 						placeholder="제목을 입력하세요" name="notice_title"
-						oninvalid="this.setCustomValidity('제목을 입력해주세요')" 
-								oninput="this.setCustomValidity('')" required
+						oninvalid="this.setCustomValidity('제목을 입력해주세요')"
+						oninput="this.setCustomValidity('')" required
 						value="${updateNotice.notice_title}"></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" class="form-control"
 						placeholder="작성자를 입력하세요" name="notice_adminID"
-						oninvalid="this.setCustomValidity('작성자를 입력해주세요')" 
-								oninput="this.setCustomValidity('')" required
+						oninvalid="this.setCustomValidity('작성자를 입력해주세요')"
+						oninput="this.setCustomValidity('')" required
 						value="${updateNotice.notice_adminID}" readonly></td>
 				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td id="fileIndex"><c:forEach var="file" items="${file}"
+							varStatus="var">
+							<div>
+								<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.NT_FILE_NO}"> 
+								<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="NT_FILE_NO_${var.index}">
+								<a href="#" id="fileName" onclick="return false;">${file.ORG_NT_FILE_NAME}</a>(${file.NT_FILE_SIZE}kb)
+								<button id="fileDel"
+									onclick="fn_del('${file.NT_FILE_NO}','NT_FILE_NO_${var.index}');"
+									type="button">삭제</button>
+								<br>
+							</div>
+						</c:forEach>
 			</table>
 			<div class="containerLower" style="margin-top: 30px;">
 				<div class="inform">
@@ -214,15 +273,17 @@ request.setCharacterEncoding("UTF-8");
 						<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
 					</div>
 					<textarea class="informInputBox" placeholder="내용을 입력하세요."
-					oninvalid="this.setCustomValidity('내용을 입력해주세요')" 
-								oninput="this.setCustomValidity('')" required
+						oninvalid="this.setCustomValidity('내용을 입력해주세요')"
+						oninput="this.setCustomValidity('')" required
 						name="notice_contents">${updateNotice.notice_contents}</textarea>
 				</div>
 			</div>
+
 			<div style="margin-top: 50px; padding-bottom: 150px;">
 				<button class="btn button_bottom" type="button"
 					onclick="history.back()">취소</button>
-				<button class="btn button_bottom" type="submit">수정</button>
+				<button class="update_btn" type="submit">수정</button>
+				<button type="button" class="fileAdd_btn">파일추가</button>
 			</div>
 		</div>
 	</form>
