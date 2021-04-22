@@ -131,9 +131,9 @@ public class PartnerContorollerImpl implements PartnerController {
 	
 	
 	/* ===================================협력사 관련 시작==============================*/
-	@RequestMapping(value = "/partner/company/companyInfo.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/partner/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("/partner/company/companyInfo");
+		ModelAndView mav = new ModelAndView("/partner/main");
 		return mav;
 	}
 	
@@ -193,6 +193,18 @@ public class PartnerContorollerImpl implements PartnerController {
 			 */ HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
 		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/partner/company/infoGraph.do", method = RequestMethod.GET)
+	
+	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		ModelAndView mav = new ModelAndView();
+		List list = partnerService.infoGraph(partnerLicenseNum);
+		mav.addObject("datas",list);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	

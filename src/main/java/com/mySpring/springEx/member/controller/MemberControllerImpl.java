@@ -219,6 +219,7 @@ public class MemberControllerImpl implements MemberController {
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.addObject("partner", partnerVO);
+			mav.addObject("url", request.getServletPath());
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =

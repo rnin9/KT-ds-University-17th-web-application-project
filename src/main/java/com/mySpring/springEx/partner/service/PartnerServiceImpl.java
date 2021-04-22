@@ -119,6 +119,13 @@ public class PartnerServiceImpl implements PartnerService {
 			String userName, String syllabusName, String courseStartDate, String completionDate) throws Exception {
 		return pageMapper.SearchListCompanyEmployee(pagination.getFirstRecordIndex(),pagination.getLastRecordIndex(), partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
 	}
+
+	//graph information ajax
+	@Override
+	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getInfoGraph(partnerLicenseNum);
+	}
 	
 	
 

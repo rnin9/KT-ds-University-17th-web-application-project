@@ -7,8 +7,15 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
+<style>
+</style>
+<script>
+	$(document).ready(function() {
+		$('#myModal').appendTo("body").modal('show');
+	})
+</script>
 <body>
-	<div class="container">
+	<div class="container" style="float: left; transform: translateY(20%);">
 		<h2>지원자 관리</h2>
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-dialog-scrollable">
@@ -71,7 +78,6 @@
 										<tr>
 											<th>이름</th>
 											<th>이력서</th>
-											<th>수강정보</th>
 											<th>합격여부</th>
 										</tr>
 									</thead>
@@ -83,10 +89,6 @@
 												style="text-decoration: underline" class="info"
 												data-toggle="modal" href="#myModal"><i
 													class="fas fa-file-alt"></i></a></td>
-											<td><a title="기업정보 보기"
-												style="text-decoration: underline" class="info"
-												data-toggle="modal" href="#myModal"><i
-													class="fas fa-user-graduate"></i></a></td>
 											<td><select class="form-select"
 												style="border: solid 1px black;">
 													<option selected>대기</option>

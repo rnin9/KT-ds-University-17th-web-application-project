@@ -20,6 +20,36 @@
 	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
 	</resultMap>
 	
+<resultMap id="companyCourseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate" column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate" column="courseTake_CompleteDate" />
+		<result property="takeY" column="takeY" />
+		<result property="takeN" column="takeN" />
+		<result property="takeYear" column="takeYear" />
+		
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+		
+		<collection property="courseVO" javaType="CourseVO">
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
+		</collection>
+		
+		<collection property="syllabusVO" javaType="SyllabusVO">
+		<result	property="syllabusID" column="syllabusID"/>
+		<result property="syllabusName" column="syllabusName" />
+		</collection>
+	</resultMap>
+	
 	<!-- 전체 기업목록 조회 쿼리-->
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
@@ -128,6 +158,14 @@
       ]]>
 	</select>
 	
+	<select id="companyGraphInfo" parameterType="String" resultMap="companyCourseTakeResult">
+	 <![CDATA[
+     select SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'),1, 5) as takeYear, count(CASE WHEN ct.courseTake_state='수료' THEN 1 END) as takeY,count(CASE WHEN ct.courseTake_state!='수료' THEN 1 END) as takeN
+		from course_take ct join kt_user m on ct.userId = m.userID join course c on c.courseID = ct.courseID 
+		where m.userCompany=#{partnerLicenseNum}
+		group by SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'), 1, 5) order by takeYear
+	]]>
+	</select>
 	
 	
 </mapper>

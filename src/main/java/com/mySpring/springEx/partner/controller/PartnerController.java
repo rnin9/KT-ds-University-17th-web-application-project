@@ -62,6 +62,8 @@ public interface PartnerController {
 			 * pageSize, Map<String, Object> map,
 			 */ HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 	/* 기업관련 끝 */
 	
 

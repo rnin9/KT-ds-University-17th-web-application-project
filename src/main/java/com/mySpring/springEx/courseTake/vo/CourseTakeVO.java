@@ -19,6 +19,34 @@ public class CourseTakeVO {
 	private String courseTake_State;
 	private Date courseTake_ApplyDate;
 	private Date courseTake_CompleteDate;
+	private int takeY;	// 총 수료인원
+	private int takeN;	// 총 미수료 인원
+	private String takeYear; // 년도 기준
+	
+	
+	public int getTakeY() {
+		return takeY;
+	}
+
+	public void setTakeY(int takeY) {
+		this.takeY = takeY;
+	}
+
+	public int getTakeN() {
+		return takeN;
+	}
+
+	public void setTakeN(int takeN) {
+		this.takeN = takeN;
+	}
+
+	public String getTakeYear() {
+		return takeYear;
+	}
+
+	public void setTakeYear(String takeYear) {
+		this.takeYear = takeYear;
+	}
 	/*
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;

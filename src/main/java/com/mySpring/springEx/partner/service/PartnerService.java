@@ -46,5 +46,7 @@ public interface PartnerService {
 
 	public int companyCourseUserNum() throws Exception;
 
+	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception;
+	
 	/* 기업관련 끝 */
 }
