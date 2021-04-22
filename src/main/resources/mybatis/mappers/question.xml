@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.question">
+
+
+
+	<!-- 질문 리스트 -->
+	<select id="selectAllQuestionList" resultType="com.mySpring.springEx.question.vo.QuestionVO">
+	 <![CDATA[
+		 select questionNum, questionType, questionTitle, userId, questionRegDate, question_del_YN, questionCommentRegDate
+		 from question 
+		 order by questionNum desc
+	]]>
+	</select>
+	<!--  유저 질문 리스트 -->
+	<select id="userListQuestion" parameterType="questionVO" resultType="questionVO">
+	<![CDATA[
+		select questionNum, questionType, questionTitle, questionRegDate, questionCommentRegDate
+		from question
+		where userId=#{userId} and question_del_YN='N'
+		order by questionRegdate desc
+	]]>
+	</select>
+
+	<!-- 질문 글 작성 -->
+	<insert id="insertQuestion" parameterType="questionVO">
+	 <![CDATA[
+		insert into question(questionNum, questionType, questionTitle,
+		questionContent, userId)
+		VALUES (questionNum_seq.nextval, #{questionType}, #{questionTitle},
+		#{questionContent}, #{userId})
+	]]>
+	</insert>
+
+	<!-- 답변 작성 -->
+	<update id="addComment" parameterType="questionVO">
+	<![CDATA[
+		update question
+		set questionCommentTitle = #{questionCommentTitle},
+			questionCommentContent = #{questionCommentContent},
+			questionCommentRegDate = sysdate
+		where questionNum = #{questionNum}
+	]]>
+	</update>
+	<!-- 질문 조회 -->
+	<select id="readQuestion" parameterType="int"
+		resultType="questionVO">
+	 <![CDATA[
+		 select *
+		 from question
+		 where questionNum = #{questionNum} 
+	]]>
+	</select>
+	<!--questionNum, questionType, questionTitle, questionContent, userID, questionRegDate-->
+	<!-- 질문 수정 -->
+	<update id="modQuestion" parameterType="questionVO">
+	<![CDATA[
+		update question
+		set questionType=#{questionType, jdbcType=VARCHAR},
+			questionTitle=#{questionTitle, jdbcType=VARCHAR},
+			questionContent=#{questionContent, jdbcType=VARCHAR},
+			userId=#{userId, jdbcType=VARCHAR},
+			questionRegDate=sysdate
+		where questionNum=#{questionNum}			
+	]]>
+	</update>
+	
+	<!--ADMIN 질문 DB 삭제 -->
+	<delete id="deleteQuestion" parameterType="int">
+	 <![CDATA[
+		 delete from question
+		 where questionNum = #{questionNum}	
+	]]>
+	</delete>
+	
+	<!-- 이용자 질문 삭제 및 ADMIN 비공개 처리-->
+	<update id="userDeleteQuestion" parameterType="int">
+	<![CDATA[
+		update question
+		set question_del_YN ='Y'
+		where questionNum = #{questionNum}
+	]]>
+	</update>
+	<!-- ADMIN 공개 처리 권한 -->
+	<update id="adminShowQuestion" parameterType="int">
+	<![CDATA[
+		update question
+		set question_del_YN = 'N'
+		where questionNum = #{questionNum}
+	]]>
+	</update>
+</mapper>

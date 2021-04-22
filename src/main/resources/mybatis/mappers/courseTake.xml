@@ -12,42 +12,89 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
 
-		<!-- 1 : 다 관계의 경우 데이터 매핑시켜준다. association => 1 : 1 관계 collection => 1 : 
-			다 관계 (한명의 유저가 작성한 글 목록) 일반 컬럼과 pk 구분 가능 pk 칼럼에게는 result 아닌 id 사용 -->
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
-			<result property="userId" column="userId" />
+			<id property="userId" column="userId" />
 			<result property="userName" column="userName" />
 			<result property="userPhoneNumber" column="userPhoneNumber" />
 			<result property="userEmail" column="userEmail" />
 			<result property="userCompany" column="userCompany" />
 		</collection>
-	</resultMap>
-	<!-- pk칼럼에게는 id 사용합니다 -->
-	<resultMap type="memberVO" id="memberVO">
-		<result property="userId" column="userId" />
-		<result property="userName" column="userName" />
-		<result property="userPhoneNumber" column="userPhoneNumber" />
-		<result property="userEmail" column="userEmail" />
-		<result property="userCompany" column="userCompany" />
+
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseStart" column="courseStart" />
+			<result property="courseEnd" column="courseEnd" />
+		</collection>
+
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
 	</resultMap>
 
-	<select id="SelectAllCourseApplyList" resultMap="courseTakeResult">
-		<!-- 원래 두번째 m.userEmail 대신 course의 과정명, -->
-         <![CDATA[
-            select m.userId
-            from course_Take c join kt_user m on (c.userID = m.userId)
-            order by courseTake_ApplyDate
-         ]]>
+	<!-- ====================================ADMIN==================================== -->
+
+	<select id="selectAllCourseApplyList"
+		resultMap="courseTakeResult">
+		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
+		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
+		courseTake_ApplyDate
+		from course_Take ct join kt_user m on (ct.userID =
+		m.userId) join course c
+		on (c.courseid=ct.courseid) join syllabus s on
+		(s.syllabusid =
+		c.syllabusid)
+		order by courseTake_ApplyDate DESC
 	</select>
-		<!-- 
-		 select m.userId, m.userName, m.userPhoneNumber, m.userCompany,
-            m.userEmail, c.courseTake_State, c.courseTake_ApplyDate, c.courseTake_CompleteDate
-            from course_Take c join kt_user m on (c.userID = m.userId)
-            order by courseTake_ApplyDate desc -->
-	<!-- <select id="selectAllCompleteList" resultMap="courseTakeResult"> 원래 
-		두번째 m.userEmail 대신 course의 과정명, <![CDATA[ select m.userId, m.userName, m.userPhoneNumber, 
-		m.userEmail, m.userCompany, m.userEmail, c.courseTake_State, courseTake_CompleteDate 
-		from course_Take c join kt_user m on (c.userID = m.userId) ]]> </select> -->
+
+	<update id="updateApplyConsent" parameterType="CourseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '승인'
+			where courseTake_State = '승인대기' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+
+	<update id="updateCompletion" parameterType="CourseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '수료'
+			where courseTake_State = '수료대기' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+
+	<update id="updateApplyConsentCancel"
+		parameterType="CourseTakeVO">
+	<![CDATA[update course_Take
+			set courseTake_State = '승인대기'
+			where courseTake_State = '승인' and userID = #{userID} and courseID=#{courseID}
+         ]]>
+	</update>
+
+	<delete id="deleteCourseTake" parameterType="CourseTakeVO">
+     <![CDATA[
+       delete from course_Take where userID = #{userID} and courseID=#{courseID}
+     ]]>
+	</delete>
+
+	<!-- ====================================USER==================================== -->
+	<!-- 나의 수강내역 가져오기 -->
+	<select id="get_myCourseInformation" parameterType="String"
+		resultMap="courseTakeResult">
+	<![CDATA[select * 
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	where ct.userId = #{userID} 
+	order by courseTake_ApplyDate desc
+	]]>
+	</select>
+  
+	<!-- YYYY 적용 안 됨,, -->
+	<insert id="insertCourseTake" parameterType="courseTakeVO">
+	  <![CDATA[
+	  	insert into course_take (userid, courseid, coursetake_state,coursetake_applydate)
+		values (#{userID}, #{courseID}, '승인대기', to_date(sysdate,'YYYY-MM-DD'))
+	  ]]>
+	</insert>
 </mapper>

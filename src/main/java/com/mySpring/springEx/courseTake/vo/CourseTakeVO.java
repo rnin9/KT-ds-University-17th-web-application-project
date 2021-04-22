@@ -5,7 +5,9 @@ import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
 public class CourseTakeVO {
@@ -17,47 +19,54 @@ public class CourseTakeVO {
 	private String courseTake_State;
 	private Date courseTake_ApplyDate;
 	private Date courseTake_CompleteDate;
+	private String surveyYN;
 	/*
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;
 	 */
 
-	// kt_user와 join하기 위해 memberVO 객체를 멤버변수로 선언한다.
+	// kt_user와 join하기 위해 memberVO, courseVO, syllabusVO 객체를 멤버변수로 선언한다.
 	@Autowired
 	private MemberVO memberVO;
-/*
-	public String getUserPhoneNumber() {
-		return userPhoneNumber;
+	@Autowired
+	private CourseVO courseVO;
+	@Autowired
+	private CourseTakeVO courseTakeVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+
+	public String getSurveyYN() {
+		return surveyYN;
 	}
 
-	public void setUserPhoneNumber(String userPhoneNumber) {
-		this.userPhoneNumber = userPhoneNumber;
+	public void setSurveyYN(String surveyYN) {
+		this.surveyYN = surveyYN;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
 	}
 
-	public String getUserCompany() {
-		return userCompany;
+	public CourseVO getCourseVO() {
+		return courseVO;
 	}
 
-	public void setUserCompany(String userCompany) {
-		this.userCompany = userCompany;
-	}
-	
-	public String getUserName() {
-		return userName;
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public SyllabusVO getSyllabusVO() {
+		return syllabusVO;
 	}
-	*/
+
+	public void setSyllabusVO(SyllabusVO syllabusVO) {
+		this.syllabusVO = syllabusVO;
+	}
+
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
@@ -119,7 +128,5 @@ public class CourseTakeVO {
 	public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
-
-	
 
 }

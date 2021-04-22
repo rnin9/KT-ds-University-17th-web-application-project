@@ -16,12 +16,12 @@
 	</definition>
 
 	<definition name="main" extends="baseLayout">
-		<put-attribute name="title" value="KT ds University" />
+		<put-attribute name="title" value="kt ds University" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/main.jsp" />
 	</definition>
 	<definition name="" extends="baseLayout">
-		<put-attribute name="title" value="KT ds University" />
+		<put-attribute name="title" value="kt ds University" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/main.jsp" />
 	</definition>
@@ -51,15 +51,21 @@
 	</definition>
 	
 	<definition name="/member/myInfo" extends="baseLayout">
-		<put-attribute name="title" value="컨소시엄 소개" />
+		<put-attribute name="title" value="마이페이지" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/member/myInfo.jsp" />
 	</definition>
 	
 	<definition name="/member/modMyInfo" extends="baseLayout">
-		<put-attribute name="title" value="컨소시엄 소개" />
+		<put-attribute name="title" value="마이페이지" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/member/myInfo.jsp" />
+	</definition>
+
+	<definition name="/member/apply" extends="baseLayout">
+		<put-attribute name="title" value="협력사 지원" />
+		<put-attribute name="body"
+					   value="/WEB-INF/views/member/apply.jsp" />
 	</definition>
 
 	<definition name="/member/listMembers" extends="baseLayout">
@@ -84,21 +90,36 @@
 
 	<!-- 회원가입 -->
 	<definition name="/member/memberJoinForm" extends="baseLayout">
-		<put-attribute name="title" value="회원등록창" />
-		<put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
-	</definition>
-
-	<!-- 설문조사 -->
-	<definition name="/survey/listSurvey" extends="baseLayout">
-		<put-attribute name="title" value="설문조사홈" />
-		<put-attribute name="body" value="/WEB-INF/views/survey/surveyForm.jsp" />
-	</definition>
-
-	<definition name="/survey/survey2Form" extends="baseLayout">
-		<put-attribute name="title" value="설문조사상세" />
-		<put-attribute name="body" value="/WEB-INF/views/survey/surveyForm2.jsp" />
-	</definition>
+      <put-attribute name="title" value="회원등록창" />
+      <put-attribute name="body" value="/WEB-INF/views/member/memberJoinForm.jsp" />
+   </definition>
+   
+   <!-- 설문조사 -->
+   <definition name="/survey/listSurvey" extends="baseLayout">
+      <put-attribute name="title" value="설문조사홈" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyForm.jsp" />
+   </definition>
+   
+   <definition name="/survey/survey2Form" extends="baseLayout">
+      <put-attribute name="title" value="설문조사상세" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyForm2.jsp" />
+   </definition>
+   
+   <definition name="/member/joinAgreeForm" extends="baseLayout">
+      <put-attribute name="title" value="회원약관동의" />
+      <put-attribute name="body" value="/WEB-INF/views/member/joinAgreeForm.jsp" />
+   </definition>
 	<!-- <definition name="/member/viewDetail" extends="baseLayout"> <put-attribute
        name="title" value="회원상세창" /> <put-attribute name="body" value="/WEB-INF/views/member/viewDetail.jsp"
        /> </definition> -->
+       
+       	<!--  타일즈 제외 -->
+	<definition name="empty"
+		template="/WEB-INF/views/common/empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	<definition name="/member/certificate" extends="empty">
+		<put-attribute name="content"
+			value="/WEB-INF/views/member/myCertificate.jsp" />
+	</definition>
 </tiles-definitions>

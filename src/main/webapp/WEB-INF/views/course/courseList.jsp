@@ -18,8 +18,17 @@ request.setCharacterEncoding("UTF-8");
    rel="stylesheet"
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
    crossorigin="anonymous">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />aaa -->
 
 
+<link id="bsdp-css"
+	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
+	rel="stylesheet">
+<script
+	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -172,6 +181,23 @@ a:link, a:visited, a:hover {
 	} 
 </script>
 <script type="text/javascript">
+	function filterDate(){
+		
+		var value = document.getElementById("date").value /* 2021-04  */
+		console.log(value);
+	    var item = document.getElementsByClassName("item");
+	    for(var i=0;i<item.length;i++){
+	    	var date = item[i].getElementsByClassName("date");
+	    	
+	    	if(date[0].innerText.toUpperCase().indexOf(value) > -1){
+	    		item[i].style.display="table-row";
+			}else{
+				item[i].style.display="none";
+			}
+	    }	
+	} 
+</script>
+<script type="text/javascript">
 	function enter(){
 	    // 엔터키의 코드는 13입니다.
 		if(event.keyCode == 13){
@@ -179,14 +205,29 @@ a:link, a:visited, a:hover {
 		}
 	}
 </script>
+<script type="text/javascript">
+	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
+	$(document).ready(function() {
+		$('#sandbox-container input').datepicker({
+			format : "yyyy-mm",
+			startView : 1,
+			minViewMode : 1,
+			language : "ko",
+			keyboardNavigation : false,
+			forceParse : false,
+			autoclose : true
+		});
+	});
+</script>
 <script>
-	function deleteCheck(){
-		var url = "/springEx/course/deleteCheck.do";
+	function closeCheck(){
+		var url = "/springEx/course/closeCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){
 			valueArr.push($(this).val());
 		});
+		console.log(valueArr);
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -196,8 +237,37 @@ a:link, a:visited, a:hover {
 			},
 			success : function(data){
 				console.log("success");
-				/*window.location.reload();*/
-				$("#container").load("${contextPath}/course/courseList.do");
+				window.location.reload();
+				
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+<script>
+	function openCheck(){
+		var url = "/springEx/course/openCheck.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		console.log(valueArr);
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				window.location.reload();
+				
 			},
 			error : function(data) { 
 	            console.log("fail");
@@ -260,7 +330,7 @@ a:link, a:visited, a:hover {
                      <div class="col-md-8">
                         <select class="form-select" aria-label="Default select example">
                            <option selected>-- 선택 --</option>
-                           <option value="신청">신청</option>
+                           <option value="신청">신청중</option>
                            <option value="조기마감">조기마감</option>
                            <option value="마감">마감</option>
                         </select>
@@ -270,7 +340,13 @@ a:link, a:visited, a:hover {
                <div class="form-group">
                   <div class="serarchSubject">
                      <label class="searchTitle">날짜검색</label>
-                     
+						<div class="col-md-8">
+							<div id="sandbox-container">
+								<div class="input-group date" style="width: 88%;">
+									<input type="text" id="date" class="form-control" placeholder="수강기간을 선택해주세요." onchange="filterDate()">
+								</div>
+							</div>
+						</div>       
                   </div>
                </div>
                <div class="form-group">
@@ -303,6 +379,7 @@ a:link, a:visited, a:hover {
                   <td><b>교육비</b></td>
                   <td><b>접수기간</b></td>
                   <td><b>수강기간</b></td>
+                  <td><b>상태</b></td>
                </tr>
             </thead>
 
@@ -312,20 +389,22 @@ a:link, a:visited, a:hover {
                      <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${courseVO.courseID}</td>
-                     <td>${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2} <br> ${courseVO.syllabusVO.syllabusName}</td>
+                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</a></td>
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
-                     <td>${courseVO.courseApplyStart}~<br>${courseVO.courseApplyEnd}</td>
-                     <td>${courseVO.courseStart}~<br>${courseVO.courseEnd}</td>
+                     <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
+                     <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
+                     <td>${courseVO.courseState}</td>
                   </tr>
                </c:forEach>
             </tbody>
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택과정 삭제</button>
+            <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
+            <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
             <button class="btn button_bottom"
-               onClick="location.href='courseForm.do'">교육과정 등록</button>
+               onClick="location.href='courseRegister.do'">교육과정 등록</button>
          </div>
 
          <div>여기에 페이징</div>

@@ -1,6 +1,7 @@
 package com.mySpring.springEx.member.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.dao.MemberDAO;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -24,6 +26,7 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
+
 
 	@Value("${hostSMTPid}")
 	public String hostSMTPId;
@@ -43,6 +46,41 @@ public class MemberServiceImpl implements MemberService {
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
 	}
+	
+	@Override
+	public List listPartners() throws DataAccessException {
+		List partnersName = null;
+		partnersName = memberDAO.listPartners();
+		return partnersName;
+	}
+
+	@Override
+	public List listRecruitments() throws DataAccessException {
+		List recruitmentList = null;
+		recruitmentList = memberDAO.selectAllRecruitList();
+		return recruitmentList;
+	}
+
+	@Override
+	public List listApplications(String id) throws DataAccessException {
+		List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
+		return applicationList;
+	}
+
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+
+	/*
+	 * @Override public int addMember(MemberVO member) throws DataAccessException {
+	 * return memberDAO.insertMember(member); }
+	 */
+
 
 	@Override
 	public int removeMember(String id) throws DataAccessException {
@@ -224,12 +262,23 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.modMyInfo(member);
 		return 0;
 	}
+	
+	@Override
+	public List listMyCourse(String userID) throws DataAccessException {
+		List myCourseList = null;
+		myCourseList = memberDAO.selectAllMyCourseList(userID);
+		return myCourseList;
+	}
 
 	@Override
 	public PartnerVO partnerLogin(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
 		return memberDAO.partnerLogInById(memberVO);
 	}
+
+
+
+
 	
 	
 

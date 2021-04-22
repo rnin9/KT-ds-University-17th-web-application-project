@@ -13,7 +13,7 @@ public interface PartnerDAO {
 	public int selectCooperationPartner() throws DataAccessException;
 	
 	public int selectConventionPartner() throws DataAccessException;
-	
+
 	public int selectIngPartner() throws DataAccessException;
 	
 	public int selectNotPartner() throws DataAccessException;
@@ -28,6 +28,11 @@ public interface PartnerDAO {
 	
 	public String partnerName(String partnerLicenseNum) throws DataAccessException;
 
+	/*기업관련*/
+	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException;
+	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException;
+	public int companyCourseUserNumber() throws DataAccessException;
+	/*기업관련 끝*/
 	
 
 }

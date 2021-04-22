@@ -19,16 +19,36 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	@Override
 	public List selectAllApplyList() throws DataAccessException {
 		List<CourseTakeVO> applyList = null;
-		applyList = sqlSession.selectList("mapper.courseTake.selectAllApplyList");
+		applyList = sqlSession.selectList("mapper.courseTake.selectAllCourseApplyList");
 		return applyList;
 	}
 
-	//Å×½ºÆ®
 	@Override
-	public List selectAllCompleteList() throws DataAccessException {
-		List<CourseTakeVO> completeList = null;
-		completeList = sqlSession.selectList("mapper.courseTake.selectAllCompleteList");
-		return completeList;
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception {
+		return sqlSession.update("mapper.courseTake.updateApplyConsent", courseTakeVO);
+	}
+	
+	@Override
+	   public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.update("mapper.courseTake.updateApplyConsentCancel", courseTakeVO);
+	   }
+
+	
+	@Override
+	   public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.update("mapper.courseTake.updateCompletion", courseTakeVO);
+	   }
+	
+	@Override
+	   public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception {
+	      return sqlSession.delete("mapper.courseTake.deleteCourseTake", courseTakeVO);
+	   }
+
+
+	@Override
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
+		System.out.println(courseTakeVO.getUserID());
+		return sqlSession.insert("mapper.courseTake.insertCourseTake", courseTakeVO);
 	}
 
 }

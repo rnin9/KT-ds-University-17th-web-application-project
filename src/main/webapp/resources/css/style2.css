@@ -1,0 +1,74 @@
+/*thead부분이 30%인 테이블, inform출력박스, inform입력박스*/
+/*html태그는 syllabus/syllabusInformation.jsp 참고*/
+/*inform입력박스(출력박스의 div 태그만 input 태그로 바뀐것)사용시 syllabus/syllabusRegister.jsp 참고*/
+/*html 태그 복사 후 태그 class(table_ 등) 바꾸지말것. 이름 바꾸면 적용안됨!*/
+/*<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />*/
+
+
+@charset "UTF-8";
+
+
+.table_ {
+   margin-top: 30px;
+   border-collapse: collapse;
+   text-align: center;
+   /* color: #555; */
+   width: 100%;
+   line-height: 40px;
+   
+}
+
+.table_ th {
+   border-top: 1px solid #e4e4e4;
+   border-bottom: 1px solid #e4e4e4;
+   background-color: #f8f8f8;
+   text-align: center;
+   font-size: 15px;
+   width:30%;
+}
+
+.table_ td {
+   border-top: 1px solid #e4e4e4;
+   border-bottom: 1px solid #e4e4e4;
+   text-align: center;
+   font-size: 15px;
+}
+
+.informTitle {
+   margin-top: 20px;
+   text-align: left;
+   font-size: 18px;
+   font-weight: 600;
+   padding-left: 30px;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid #e0e0e0;
+   letter-spacing: 5px;
+   padding-bottom: 20px;
+   background-color: #f8f8f8;
+}
+
+.informBox {
+   overflow: hidden;
+   height: auto;
+   text-align: left;
+   font-size: 16px;
+   line-height: 30px;
+   padding: 20px 60px 20px 60px;
+   margin-bottom: 20px;
+   margin-bottom: 20px;
+}
+
+.informInputBox {
+	/* overflow: hidden; */
+	min-height: 220px;
+	text-align: left;
+	font-size: 16px;
+	line-height: 30px;
+	padding: 20px 60px 20px 60px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	width: 100%;
+	border: 1px solid #e4e4e4;
+}
