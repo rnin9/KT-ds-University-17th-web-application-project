@@ -111,7 +111,7 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/member/listMembers.do">과정신청</a></li>
+						href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 				</c:when>
   				<%--	  로그인 후		--%>
 				<%--		채용예정자		--%>
@@ -125,7 +125,7 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
-											href="${contextPath}/member/listMembers.do">과정신청</a></li>
+											href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용공고</a></li>
 				</c:when>
 				<%--		재직자		--%>
@@ -139,7 +139,7 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item" href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
-											href="${contextPath}/member/listMembers.do">과정신청</a></li>
+											href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 				</c:when>
 
 			</c:choose>

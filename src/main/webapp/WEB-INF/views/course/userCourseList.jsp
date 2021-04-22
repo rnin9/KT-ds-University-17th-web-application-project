@@ -49,8 +49,8 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <script>
 function deleteCheck(){
-   console.log(${courseList});
-   console.log(123);
+	console.log(${courseList});
+	console.log(123);
 };
 </script>
 
@@ -66,7 +66,7 @@ function deleteCheck(){
                href="/springEx/course/userCourseList.do">과정신청</a></li>
          </ul>
       </div>
-   <div style="width: 80%; display: flex; flex-direction: row;"> 
+	<div style="width: 80%; display: flex; flex-direction: row;"> 
     <c:forEach var="courseVO" items="${courseUserList}">
          <div class="card" style="display:inline-block">
             <div class="card-body">

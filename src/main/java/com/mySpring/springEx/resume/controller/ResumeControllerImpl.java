@@ -46,8 +46,4 @@ public class ResumeControllerImpl implements ResumeController{
 		
 	}
 }
-	
-	
-	
-	
 

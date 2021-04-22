@@ -19,6 +19,7 @@ public class CourseTakeVO {
 	private String courseTake_State;
 	private Date courseTake_ApplyDate;
 	private Date courseTake_CompleteDate;
+	private String surveyYN;
 	/*
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;
@@ -33,6 +34,14 @@ public class CourseTakeVO {
 	private CourseTakeVO courseTakeVO;
 	@Autowired
 	private SyllabusVO syllabusVO;
+
+	public String getSurveyYN() {
+		return surveyYN;
+	}
+
+	public void setSurveyYN(String surveyYN) {
+		this.surveyYN = surveyYN;
+	}
 
 	public CourseTakeVO getCourseTakeVO() {
 		return courseTakeVO;

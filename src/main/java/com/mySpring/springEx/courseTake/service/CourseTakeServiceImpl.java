@@ -17,54 +17,44 @@ import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 
-
 @Service("courseTakeService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class CourseTakeServiceImpl implements CourseTakeService {
 	@Autowired
 	private CourseTakeDAO courseTakeDAO;
-	
+
 	@Autowired
 	public PageMapper pageMapper;
 
-
-	 @Override
-	    public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception {
-	        // TODO Auto-generated method stub
-	        return pageMapper.SelectAllCourseApplyList();
-	    }
-    @Override
-    public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception {
-        // TODO Auto-generated method stub
-    	return pageMapper.selectAllCourseApplyList(pagination);
-		}
-    
-
-    @Override
-    public int testTableCountCT() throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.testTableCountCT();
-    }
-    
-    //승인대기->승인으로 update
-    public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception{
-		return courseTakeDAO.updateApplyConsent(courseTakeVO);
-    }
-    //수료대기->수료로 update
-    public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception{
-        return courseTakeDAO.updateCompletion(courseTakeVO);
-      }
-
-    
-    
-    //테스트페이지
-	public List courseCompleteList() throws DataAccessException {
-		List completeList = null;
-		completeList = courseTakeDAO.selectAllCompleteList();
-		return completeList;
+	@Override
+	public List SelectAllCourseApplyList() throws Exception {
+		return courseTakeDAO.selectAllApplyList();
 	}
 
+	// 승인대기->승인으로 update
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception {
+		return courseTakeDAO.updateApplyConsent(courseTakeVO);
+	}
+
+	// 승인->승인대기로 update
+	public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception {
+		return courseTakeDAO.updateApplyConsentCancel(courseTakeVO);
+	}
+
+	// 수료대기->수료로 update
+	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception {
+		return courseTakeDAO.updateCompletion(courseTakeVO);
+	}
 	
 	
+	@Override
+	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.insertCourseTake(courseTakeVO);
+	}
+
+	// 수료대기->수료로 update
+	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception {
+		return courseTakeDAO.deleteCourseTake(courseTakeVO);
+	}
 
 }
