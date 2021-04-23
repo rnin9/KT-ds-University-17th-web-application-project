@@ -57,11 +57,12 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
-
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			System.out.println("_____________________________"+arr[0]);
+			System.out.println("_____________________________"+arr[1]);
 			courseTakeService.updateApplyConsent(courseTakeVO);
 		}
 

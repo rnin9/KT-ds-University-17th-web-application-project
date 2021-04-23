@@ -211,7 +211,7 @@ a:link, a:visited, a:hover {
   function showPopup() { window.open("/springEx/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); }
 </script>
 <body>
-	<form method="post" action="${contextPath}/course/insertCourse.do">
+	<form method="post" action="${contextPath}/course/modifyCourse.do">
 
 		<div class="container">
 			<div class="lnb">
@@ -225,7 +225,7 @@ a:link, a:visited, a:hover {
 							수정</a></li>
 				</ul>
 			</div>
-
+			<input type="hidden" name="courseID" value="${courseVO.courseID}">
 			<table class="table_syllabus">
 				<tr>
 					<th>강의명</th>

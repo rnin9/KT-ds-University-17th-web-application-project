@@ -13,6 +13,11 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>과정 관리</title>
 
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
    rel="stylesheet"
@@ -145,7 +150,34 @@ a:link, a:visited, a:hover {
 </style>
 
 </head>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#myTable').DataTable({
 
+	
+		language: {
+			info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+			sInfoFiltered : '',
+			infoEmpty : '',
+			emptyTable : '데이터가 없습니다.',
+			thousands : ',',
+			lengthMenu : '_MENU_ 개씩 보기',
+			loadingRecords : '데이터를 불러오는 중',
+			processing : '처리 중',
+			zeroRecords : '검색 결과 없음',
+			paginate : {
+				first : '처음',
+				last : '끝',
+				next : '다음',
+				previous : '이전'
+			},
+			search: '',
+			sSearchPlaceholder: '통합 검색',
+		
+		}
+	});
+});
+</script>
 <script type="text/javascript">
    function checkSelectAll(checkbox)  {
       const selectall 
@@ -199,14 +231,14 @@ a:link, a:visited, a:hover {
 </script>
 <script type="text/javascript">
 	function enter(){
-	    // 엔터키의 코드는 13입니다.
+	    /* 엔터키의 코드는 13입니다. */
 		if(event.keyCode == 13){
-			filter()  // 실행할 이벤트
+			filter()  /* 실행할 이벤트 */
 		}
 	}
 </script>
 <script type="text/javascript">
-	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
+	/* 달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 */ 
 	$(document).ready(function() {
 		$('#sandbox-container input').datepicker({
 			format : "yyyy-mm",
@@ -221,66 +253,92 @@ a:link, a:visited, a:hover {
 </script>
 <script>
 	function closeCheck(){
-		var url = "/springEx/course/closeCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		console.log(valueArr);
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		/*if (${isLogOn == true}){*/
+			var url = "/springEx/course/closeCheck.do";
+			var cnt = $("input[name='ab']:checked").length;
+			var valueArr = new Array();
+			$("input[name='ab']:checked").each(function(i){
+				valueArr.push($(this).val());
+			});
+			if(cnt==0){
+				Swal.fire("선택된 과정이 없습니다.","","warning");
+			}
+			else{	
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						window.location.reload();
+						
+					},
+					error : function(data) { 
+			            console.log("fail");
+			        }
+				})
+			}
+		/*}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
 	};
-		
-		
 </script>
 <script>
 	function openCheck(){
-		var url = "/springEx/course/openCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		console.log(valueArr);
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
-	};
-		
-		
+		/*if (${isLogOn == true}){*/
+			var url = "/springEx/course/openCheck.do";
+			var cnt = $("input[name='ab']:checked").length;
+			var valueArr = new Array();
+			$("input[name='ab']:checked").each(function(i){
+				valueArr.push($(this).val());
+			});
+			
+			if(cnt==0){
+				Swal.fire("선택된 과정이 없습니다.","","warning");
+			}
+			else{
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						window.location.reload();
+						
+					},
+					error : function(data) { 
+			            console.log("fail");
+			        }
+				})
+			}
+		/*}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
+	};	
 </script>
+<script>
+function register(){
+	location.href='${contextPath}/course/courseRegister.do'
+	/*if (${isLogOn == true}){
+		location.href='${contextPath}/course/courseRegister.do'
+	}
+	else{
+		alert("로그인 후 시도해주세요.");
+	}*/
+};
+</script>
+
 <body>
 
    <div class="container">
-      <form method="post" action="${contextPath}/course/insertCourse.do">
 
          <div class="lnb">
             <ul>
@@ -290,7 +348,7 @@ a:link, a:visited, a:hover {
                      관리</a></li>
             </ul>
          </div>
-
+<!-- 
          <div class="well-searchbox">
             <form class="form-horizontal" role="form">
                <div class="form-group">
@@ -367,8 +425,8 @@ a:link, a:visited, a:hover {
                </div>
             </form>
          </div>
-
-         <table class="table_syllabusList">
+ -->
+         <table class="table_syllabusList" id="myTable">
             <thead>
                <tr align="center">
                   <td><input type="checkbox" name="check-all"
@@ -404,11 +462,9 @@ a:link, a:visited, a:hover {
             <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
             <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
             <button class="btn button_bottom"
-               onClick="location.href='courseRegister.do'">교육과정 등록</button>
+               onClick="register()">교육과정 등록</button>
          </div>
-
-         <div>여기에 페이징</div>
-      </form>
+      
    </div>
 </body>
 </html>

@@ -118,24 +118,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -151,24 +155,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -184,24 +192,28 @@ $(document).ready(function(){
          valueArr.push($(this).val());
       });
       
-      console.log(valueArr);
       
-      $.ajax({
-         url : url,
-         type : 'POST',
-         traditional : true,
-         data : {
-            valueArr : valueArr
-         },
-         success : function(data){
-            console.log("success");
-            window.location.reload();
-            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-         },
-         error : function(data) { 
-               console.log("fail");
-           }
-      });
+      if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+	  else{
+	      $.ajax({
+	         url : url,
+	         type : 'POST',
+	         traditional : true,
+	         data : {
+	            valueArr : valueArr
+	         },
+	         success : function(data){
+	            console.log("success");
+	            window.location.reload();
+	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+	         },
+	         error : function(data) { 
+	               console.log("fail");
+	           }
+	      })
+	  }
    };
       
       
@@ -217,24 +229,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -273,9 +289,6 @@ function popup(frm)
 		<div class="lnb">
 			<ul>
 				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">강의관리</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
 					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>

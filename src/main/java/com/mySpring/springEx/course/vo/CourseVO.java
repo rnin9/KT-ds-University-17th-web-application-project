@@ -15,23 +15,34 @@ public class CourseVO {
 	private Date courseApplyStart;
 	private Date courseApplyEnd;
 	private String courseTime;
-    private String courseFee;
-    private int courseRoomNumber;
-    private int coursePeopleMax;
-    private int coursePeopleApplied;
-    private String courseState;
+	private String courseFee;
+	private int courseRoomNumber;
+	private int coursePeopleMax;
+	private int coursePeopleApplied;
+	private String courseState;
 	private char courseShow;
-    private SyllabusVO syllabusVO;
-	
-    public CourseVO() {
-		
+	private SyllabusVO syllabusVO;
+
+	private String dday;
+
+	public String getDday() {
+		return dday;
 	}
-	
-	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart, Date courseApplyEnd, String courseTime,
-					String courseFee, int courseRoomNumber, int coursePeopleMax, int coursePeopleApplied, String courseState, char courseShow , SyllabusVO syllabusVO) {
-		this.courseID = courseID; 
+
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
+
+	public CourseVO() {
+
+	}
+
+	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart,
+			Date courseApplyEnd, String courseTime, String courseFee, int courseRoomNumber, int coursePeopleMax,
+			int coursePeopleApplied, String courseState, char courseShow, SyllabusVO syllabusVO) {
+		this.courseID = courseID;
 		this.syllabusID = syllabusID;
-		
+
 		this.courseStart = courseStart;
 		this.courseEnd = courseEnd;
 		this.courseApplyStart = courseApplyStart;
@@ -43,7 +54,7 @@ public class CourseVO {
 		this.coursePeopleApplied = coursePeopleApplied;
 		this.courseState = courseState;
 		this.courseShow = courseShow;
-		this.syllabusVO = syllabusVO; 
+		this.syllabusVO = syllabusVO;
 	}
 
 	public SyllabusVO getSyllabusVO() {
@@ -157,6 +168,5 @@ public class CourseVO {
 	public void setCourseShow(char courseShow) {
 		this.courseShow = courseShow;
 	}
-	
-	
+
 }

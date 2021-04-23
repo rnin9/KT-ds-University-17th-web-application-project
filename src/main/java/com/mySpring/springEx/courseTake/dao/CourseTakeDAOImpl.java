@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import com.mySpring.springEx.courseTake.dao.CourseTakeDAO;
@@ -49,6 +50,18 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException {
 		System.out.println(courseTakeVO.getUserID());
 		return sqlSession.insert("mapper.courseTake.insertCourseTake", courseTakeVO);
+	}
+	
+	@Scheduled(cron="0 0 0 * * *")
+	public void autoUpdate1() {
+		System.out.println("123123");
+		sqlSession.update("mapper.courseTake.autoUpdateCourseTake1");
+	}
+	
+	@Scheduled(cron="0 0 0 * * *")
+	public void autoUpdate2() {
+		System.out.println("123123");
+		sqlSession.update("mapper.courseTake.autoUpdateCourseTake2");
 	}
 
 }

@@ -258,7 +258,7 @@ function handleModify() {
 			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 			<li style="color: grey; font-weight: bold;">〉</li>
 			<li class="on"><a
-				href="${pageContext.request.contextPath}/myInfo.do">마이 페이지</a></li>
+				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이 페이지</a></li>
 		</ul>
 	</div>
 	<!-- 페이지에 대한 intro -->
