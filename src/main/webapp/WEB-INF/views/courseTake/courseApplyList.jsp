@@ -32,19 +32,164 @@ request.setCharacterEncoding("UTF-8");
 
 
 <style>
-.pageIntro {
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	text-align: left;
-	font-size: 34px;
-	font-weight: 450;
-	background:
-		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
-		no-repeat;
-	background-repeat: no-repeat;
-}
 </style>
+
+
+<body>
+
+	<div class="container">
+		<!-- 홈>강의관리>수강관리 -->
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/courseTake/courseApplyList.do">강의관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
+			</ul>
+		</div>
+
+
+
+
+		<!-- 검색박스 -->
+		<!-- <div class="well-searchbox">
+			<form class="form-horizontal" role="form">
+
+				<div class="form-group">
+					<div class="searchSubject">
+						<label class="searchTitle">강의명</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" placeholder="강의명">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="searchSubject">
+						<label class="searchTitle">수강연월</label>
+						<div class="col-md-8">
+							<div id="sandbox-container">
+								<div class="input-group date" style="width: 88%;">
+									<input type="text" class="form-control" placeholder="연/월 입력">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="searchSubject">
+						<label class="searchTitle">소속회사</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" placeholder="소속회사">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="searchSubject">
+						<label class="searchTitle">이름</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" placeholder="이름">
+						</div>
+					</div>
+
+					<div class="col-sm-offset-4 col-sm-5"
+						style="display: inline-block; text-aglin: center;">
+						<button type="submit" class="btn button_search"
+							style="margin-top: 10px;">검색</button>
+					</div>
+				</div>
+			</form>
+		</div> -->
+
+		<div class="pageIntro">수강관리</div>
+
+
+		<!-- 테이블(표, 리스트) -->
+		<table class="table_" id="myTable"">
+			<thead>
+				<tr align="center">
+					<td><input type="checkbox" name="check-all"
+						onclick='selectAll(this)' /></td>
+					<td><b>아이디</b></td>
+					<td><b>이름</b></td>
+					<td><b>전화번호</b></td>
+					<td><b>이메일</b></td>
+					<td><b>소속회사</b></td>
+					<td><b>강의명</b></td>
+					<td><b>신청일</b></td>
+					<td><b>수강상태</b></td>
+					<!-- <td><b>수료증</b></td> -->
+				</tr>
+			</thead>
+
+			<tbody id="ajaxTable">
+				<c:forEach var="courseTake" items="${courseApplyList}">
+					<tr align="center">
+						<td><input type="checkbox" name="ab"
+							value="${courseTake.userID} ${courseTake.courseID}"
+							onclick='checkSelectAll(this)' /></td>
+						<td>${courseTake.userID}</td>
+						<td>${courseTake.memberVO.userName}</td>
+						<td>${courseTake.memberVO.userPhoneNumber}</td>
+						<td>${courseTake.memberVO.userEmail}</td>
+						<td>${courseTake.memberVO.userCompany}</td>
+						<td>${courseTake.syllabusVO.syllabusName}</td>
+						<td>${courseTake.courseTake_ApplyDate}</td>
+						<c:choose>
+							<c:when test="${courseTake.courseTake_State eq '수료'}">
+								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
+									<form name="formForCertificate" action="certificate.jsp"
+										method="post">
+										<input type=text name="userName"
+											value="${courseTake.memberVO.userName}"
+											style="display: none;" /> <input type=text name="courseName"
+											value="${courseTake.syllabusVO.syllabusName}"
+											style="display: none;" /> 
+											<input type=text name="userCompany"
+											value="${courseTake.memberVO.userCompany}"
+											style="display: none;" /> <input type=text
+											name="courseStart" value="${courseTake.courseVO.courseStart}"
+											style="display: none;" /> <input type=text name="courseEnd"
+											value="${courseTake.courseVO.courseEnd}" /> <input type=text
+											name="syllabusTotalTime"
+											value="${courseTake.syllabusVO.syllabusTotalTime}"
+											style="display: none;" /> <input type=text
+											name="userBirthday" value="${courseTake.memberVO.birth}" />
+										<input type="image"
+											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
+											style="width: 17px; margin-top: 12px; margin-left: 5px;"
+											onclick="javascript:popup(this.form);">
+									</form>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: center;">${courseTake.courseTake_State}</td>
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<br> <br>
+
+		<!-- 버튼 -->
+		<div style="margin-top: 40px; padding-bottom: 150px;">
+			<button class="btn button_bottom" type="button"
+				onClick="deleteCheck();">삭제</button>
+			<button class="btn button_bottom" type="button"
+				onClick="completionCheck();">수료완료</button>
+			<button class="btn button_bottom" type="button"
+				onClick="consentCancelCheck();">승인대기</button>
+			<button class="btn button_bottom" type="button"
+				onClick="consentCheck();">신청승인</button>
+		</div>
+
+
+	</div>
+
+</body>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -253,9 +398,7 @@ $(document).ready(function(){
 		}
 	};
 		
-		
 </script>
-
 <script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){
@@ -282,145 +425,4 @@ function popup(frm)
   frm.submit();
   }
 </script>
-<body>
-
-	<div class="container">
-		<!-- 홈>강의관리>수강관리 -->
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
-			</ul>
-		</div>
-
-
-
-
-		<!-- 검색박스 -->
-		<!-- <div class="well-searchbox">
-			<form class="form-horizontal" role="form">
-
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">강의명</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="강의명">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">수강연월</label>
-						<div class="col-md-8">
-							<div id="sandbox-container">
-								<div class="input-group date" style="width: 88%;">
-									<input type="text" class="form-control" placeholder="연/월 입력">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">소속회사</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="소속회사">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">이름</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="이름">
-						</div>
-					</div>
-
-					<div class="col-sm-offset-4 col-sm-5"
-						style="display: inline-block; text-aglin: center;">
-						<button type="submit" class="btn button_search"
-							style="margin-top: 10px;">검색</button>
-					</div>
-				</div>
-			</form>
-		</div> -->
-
-		<div class="pageIntro">수강관리</div>
-
-
-		<!-- 테이블(표, 리스트) -->
-		<table class="table_" id="myTable">
-			<thead>
-				<tr align="center">
-					<td><input type="checkbox" name="check-all"
-						onclick='selectAll(this)' /></td>
-					<td><b>아이디</b></td>
-					<td><b>이름</b></td>
-					<td><b>전화번호</b></td>
-					<td><b>이메일</b></td>
-					<td><b>소속회사</b></td>
-					<td><b>강의명</b></td>
-					<td><b>신청일</b></td>
-					<td><b>수강상태</b></td>
-					<!-- <td><b>수료증</b></td> -->
-				</tr>
-			</thead>
-
-			<tbody id="ajaxTable">
-				<c:forEach var="courseTake" items="${courseApplyList}">
-					<tr align="center">
-						<td><input type="checkbox" name="ab"
-							value="${courseTake.userID} ${courseTake.courseID}"
-							onclick='checkSelectAll(this)' /></td>
-						<td>${courseTake.userID}</td>
-						<td>${courseTake.memberVO.userName}</td>
-						<td>${courseTake.memberVO.userPhoneNumber}</td>
-						<td>${courseTake.memberVO.userEmail}</td>
-						<td>${courseTake.memberVO.userCompany}</td>
-						<td>${courseTake.syllabusVO.syllabusName}</td>
-						<td>${courseTake.courseTake_ApplyDate}</td>
-						<c:choose>
-							<c:when test="${courseTake.courseTake_State eq '수료'}">
-								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
-									<form name="formForCertificate" action="certificate.jsp"
-										method="post">
-										<input type=text name="test1"
-											value="${courseTake.memberVO.userName}"
-											style="display: none;" /> <input type=text name="test2"
-											value="${courseTake.syllabusVO.syllabusName}"
-											style="display: none;" /> <input type="image"
-											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
-											style="width: 17px; margin-top: 12px; margin-left: 5px;"
-											onclick="javascript:popup(this.form);">
-									</form>
-							</c:when>
-							<c:otherwise>
-								<td style="text-align: center;">${courseTake.courseTake_State}</td>
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<br> <br>
-
-		<!-- 버튼 -->
-		<div style="margin-top: 40px; padding-bottom: 150px;">
-			<button class="btn button_bottom" type="button"
-				onClick="deleteCheck();">삭제</button>
-			<button class="btn button_bottom" type="button"
-				onClick="completionCheck();">수료완료</button>
-			<button class="btn button_bottom" type="button"
-				onClick="consentCancelCheck();">승인대기</button>
-			<button class="btn button_bottom" type="button"
-				onClick="consentCheck();">신청승인</button>
-		</div>
-
-
-	</div>
-
-</body>
 </html>

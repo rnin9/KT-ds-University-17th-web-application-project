@@ -25,12 +25,12 @@
    integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
    crossorigin="anonymous"></script>
 <script
-   src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
-   integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
-   crossorigin="anonymous"></script>
-   
-   <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+	integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+	crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 .bg-primary {
@@ -135,65 +135,41 @@
             <li class="on"><a href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
          </ul>
       </div>
-
-      <!-- 페이지에 대한 intro -->
-      <!-- <div class="faqIntro">자주하는 질문에 대한 답변입니다.</div> -->
-      <div class="pageIntro">FAQ</div>
-      
-      <!-- FAQ 아코디언, 10개의 질문과 답변 -->
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-         <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
-               <button class="accordion-button collapsed" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-                  aria-expanded="false" aria-controls="flush-collapseOne">
-                  <div class="letterQ">Q</div>
-                  <div class="faqQuestion">컨소시엄 협약은 어떻게 체결하나요?</div>
-               </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse"
-               aria-labelledby="flush-headingOne"
-               data-bs-parent="#accordionFlushExample">
-               <div class="accordion-body">
-                  <div class="letterA">A</div>
-                  <div class="faqAnswer">
-                     국가인적자원개발 컨소시엄 협약체결은 첨부된 컨소시엄 협약서(총 3P)를 작성하셔서 제출하여 주시면 됩니다.<br>(1년에
-                     1회 협약체결을 원칙으로 하며 2년간 유효합니다.) <br>(단, 2017년도 이후부터는 타 교육기관과의
-                     중복협약이 가능합니다.) <br> - 문의처 : 권철우 과장(070-4268-6187 /
-                     82036600@kt.com)<br> <br>
-                     <image class="file"
-                        src="${pageContext.request.contextPath}/resources/image/icon/icon_file.png"></image>
-                     <!-- 첨부파일 -->
-                     <a class="download"
-                        href="${pageContext.request.contextPath}/resources/attach/컨소시엄협약서_2018.02.zip"
-                        download>컨소시엄협약서_2018.02.zip</a>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingTwo">
-               <button class="accordion-button collapsed" type="button"
-                  data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-                  aria-expanded="false" aria-controls="flush-collapseTwo">
-                  <div class="letterQ">Q</div>
-                  <div class="faqQuestion">수료증을 받으려면 어떻게 해야하나요?</div>
-               </button>
-            </h2>
-            <div id="flush-collapseTwo" class="accordion-collapse collapse"
-               aria-labelledby="flush-headingTwo"
-               data-bs-parent="#accordionFlushExample">
-               <div class="accordion-body">
-                  <div class="letterA">A</div>
-                  <div class="faqAnswer">
-                     일정시간이상 출석(80%)하시어 교육을 수료하셨다면, 홈페이지에서 수료증 다운로드 및 출력이 가능합니다. <br>
-                     - 홈페이지 개인회원 로그인 => 마이페이지 => 수강완료 과정 => 수료증 다운로드
-                  </div>
-               </div>
-            </div>
-         </div>
-
+		<!-- 페이지에 대한 intro -->
+		<!-- <div class="faqIntro">자주하는 질문에 대한 답변입니다.</div> -->
+		<div class="pageIntro">FAQ</div>
+		
+		<!-- FAQ 아코디언, 10개의 질문과 답변 -->
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingOne">
+					<button class="accordion-button collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+						aria-expanded="false" aria-controls="flush-collapseOne">
+						<div class="letterQ">Q</div>
+						<div class="faqQuestion">컨소시엄 협약은 어떻게 체결하나요?</div>
+					</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse"
+					aria-labelledby="flush-headingOne"
+					data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="letterA">A</div>
+						<div class="faqAnswer">
+							국가인적자원개발 컨소시엄 협약체결은 첨부된 컨소시엄 협약서(총 3P)를 작성하셔서 제출하여 주시면 됩니다.<br>(1년에
+							1회 협약체결을 원칙으로 하며 2년간 유효합니다.) <br>(단, 2017년도 이후부터는 타 교육기관과의
+							중복협약이 가능합니다.) <br> - 문의처 : 권철우 과장(070-4268-6187 /
+							82036600@kt.com)<br> <br>
+							<image class="file"
+								src="${pageContext.request.contextPath}/resources/image/icon/icon_file.png"></image>
+							<!-- 첨부파일 -->
+							<a class="download"
+								href="${pageContext.request.contextPath}/resources/attach/컨소시엄협약서_2018.02.zip"
+								download>컨소시엄협약서_2018.02.zip</a>
+						</div>
+					</div>
+				</div>
+			</div>
          <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingThree">
                <button class="accordion-button collapsed" type="button"

@@ -491,16 +491,29 @@ function handleModify() {
 												<c:when test="${myCourse.courseTake_State eq '수료'}">
 													<form name="formForCertificate" action="myCertificate.jsp"
 														method="post">
-														<input type=text name="test3" value="${myCourse.syllabusVO.syllabusName}"
-															style="display: none;" /> <input type=text name="test4"
-															value="${myCourse.syllabusVO.syllabusName}"
-															style="display: none;" />
+														<input type=text name="userName"
+															value="${courseTake.memberVO.userName}"
+															style="display: none;" /> <input type=text
+															name="courseName"
+															value="${courseTake.syllabusVO.syllabusName}"
+															style="display: none;" /> <input type=text
+															name="userCompany"
+															value="${courseTake.memberVO.userCompany}"
+															style="display: none;" /> <input type=text
+															name="courseStart"
+															value="${courseTake.courseVO.courseStart}"
+															style="display: none;" /> <input type=text
+															name="courseEnd" value="${courseTake.courseVO.courseEnd}" />
+														<input type=text name="syllabusTotalTime"
+															value="${courseTake.syllabusVO.syllabusTotalTime}"
+															style="display: none;" /> <input type=text
+															name="userBirthday" value="${courseTake.memberVO.birth}" />
 														<td><a style="text-decoration: underline" href="#"
 															onclick="javascript:popup(this.form);">출력하기</a></td>
 													</form>
 												</c:when>
 												<c:otherwise>
-													<td style="text-align: center;color:red;">미수료</td>
+													<td style="text-align: center; color: red;">미수료</td>
 												</c:otherwise>
 											</c:choose>
 										</tr>

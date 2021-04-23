@@ -1,193 +1,193 @@
 .tabs {
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-    position: relative;
-    background: white;
-    padding: 20px 50px;
-    width: 100%;
-    border-radius: 5px;
-    min-width: 240px;
-     min-height: 500px;
-    overflow: auto;
+	 left: 50%;
+	 -webkit-transform: translateX(-50%);
+	         transform: translateX(-50%);
+	 position: relative;
+	 background: white;
+	 padding: 20px 50px;
+	 width: 100%;
+	 border-radius: 5px;
+	 min-width: 240px;
+   min-height: 500px;
+   overflow: auto;
 }
  .tabs input[name="tab-control"] {
-    display: none;
+	 display: none;
 }
  .tabs .content section h2, .tabs ul li label {
-    font-size: 18px;
-    color: #428bff;
+	 font-size: 18px;
+	 color: #428bff;
 }
  .tabs ul {
-    list-style-type: none;
-    padding-left: 0;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-            flex-direction: row;
-    margin-bottom: 10px;
-    -webkit-box-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: end;
-            align-items: flex-end;
-    flex-wrap: wrap;
+	 list-style-type: none;
+	 padding-left: 0;
+	 display: -webkit-box;
+	 display: flex;
+	 -webkit-box-orient: horizontal;
+	 -webkit-box-direction: normal;
+	         flex-direction: row;
+	 margin-bottom: 10px;
+	 -webkit-box-pack: justify;
+	         justify-content: space-between;
+	 -webkit-box-align: end;
+	         align-items: flex-end;
+	 flex-wrap: wrap;
 }
  .tabs ul li {
-    box-sizing: border-box;
-    -webkit-box-flex: 1;
-            flex: 1;
-    width: 25%;
-    padding: 0 10px;
-    text-align: center;
+	 box-sizing: border-box;
+	 -webkit-box-flex: 1;
+	         flex: 1;
+	 width: 25%;
+	 padding: 0 10px;
+	 text-align: center;
 }
  .tabs ul li label {
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    color: #929daf;
-    padding: 5px auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-    white-space: nowrap;
-    -webkit-touch-callout: none;
+	 -webkit-transition: all 0.3s ease-in-out;
+	 transition: all 0.3s ease-in-out;
+	 color: #929daf;
+	 padding: 5px auto;
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 display: block;
+	 cursor: pointer;
+	 -webkit-transition: all 0.2s ease-in-out;
+	 transition: all 0.2s ease-in-out;
+	 white-space: nowrap;
+	 -webkit-touch-callout: none;
      user-select: none;
 }
  .tabs ul li label:hover, .tabs ul li label:focus, .tabs ul li label:active {
-    outline: 0;
-    color: #bec5cf;
+	 outline: 0;
+	 color: #bec5cf;
 }
 
  .tabs .slider {
-    position: relative;
-    width: 33.3%;
-    -webkit-transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
-    transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+	 position: relative;
+	 width: 33.3%;
+	 -webkit-transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
+	 transition: all 0.33s cubic-bezier(0.38, 0.8, 0.32, 1.07);
 }
  .tabs .slider .indicator {
-    position: relative;
-    width: 50px;
-    max-width: 100%;
-    margin: 0 auto;
-    height: 4px;
-    background: #EB3349;
-    border-radius: 1px;
+	 position: relative;
+	 width: 50px;
+	 max-width: 100%;
+	 margin: 0 auto;
+	 height: 4px;
+	 background: #EB3349;
+	 border-radius: 1px;
 }
  .tabs .content {
-    margin-top: 30px;
+	 margin-top: 30px;
 }
  .tabs .content section {
-    display: none;
-    -webkit-animation-name: content;
-            animation-name: content;
-    -webkit-animation-direction: normal;
-            animation-direction: normal;
-    -webkit-animation-duration: 0.3s;
-            animation-duration: 0.3s;
-    -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: 1;
-            animation-iteration-count: 1;
-    line-height: 1.4;
+	 display: none;
+	 -webkit-animation-name: content;
+	         animation-name: content;
+	 -webkit-animation-direction: normal;
+	         animation-direction: normal;
+	 -webkit-animation-duration: 0.3s;
+	         animation-duration: 0.3s;
+	 -webkit-animation-timing-function: ease-in-out;
+	         animation-timing-function: ease-in-out;
+	 -webkit-animation-iteration-count: 1;
+	         animation-iteration-count: 1;
+	 line-height: 1.4;
 }
 
  .tabs input[name="tab-control"]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
-    cursor: default;
-    color: #EB3349;
+	 cursor: default;
+	 color: #EB3349;
 }
 
  @media (max-width: 600px) {
-    .tabs input[name="tab-control"]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
-       background: rgba(0, 0, 0, 0.08);
-   }
+	 .tabs input[name="tab-control"]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
+		 background: rgba(0, 0, 0, 0.08);
+	}
 }
  .tabs input[name="tab-control"]:nth-of-type(1):checked ~ .slider {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+	 -webkit-transform: translateX(0%);
+	         transform: translateX(0%);
 }
  .tabs input[name="tab-control"]:nth-of-type(1):checked ~ .content > section:nth-child(1) {
-    display: block;
+	 display: block;
 }
  .tabs input[name="tab-control"]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
-    cursor: default;
-    color: #EB3349;
+	 cursor: default;
+	 color: #EB3349;
 }
 
  @media (max-width: 600px) {
-    .tabs input[name="tab-control"]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
-       background: rgba(0, 0, 0, 0.08);
-   }
+	 .tabs input[name="tab-control"]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
+		 background: rgba(0, 0, 0, 0.08);
+	}
 }
  .tabs input[name="tab-control"]:nth-of-type(2):checked ~ .slider {
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+	 -webkit-transform: translateX(100%);
+	         transform: translateX(100%);
 }
  .tabs input[name="tab-control"]:nth-of-type(2):checked ~ .content > section:nth-child(2) {
-    display: block;
+	 display: block;
 }
  .tabs input[name="tab-control"]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
-    cursor: default;
-    color: #EB3349;
+	 cursor: default;
+	 color: #EB3349;
 }
 
  @media (max-width: 600px) {
-    .tabs input[name="tab-control"]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
-       background: rgba(0, 0, 0, 0.08);
-   }
+	 .tabs input[name="tab-control"]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
+		 background: rgba(0, 0, 0, 0.08);
+	}
 }
  .tabs input[name="tab-control"]:nth-of-type(3):checked ~ .slider {
-    -webkit-transform: translateX(200%);
-            transform: translateX(200%);
+	 -webkit-transform: translateX(200%);
+	         transform: translateX(200%);
 }
  .tabs input[name="tab-control"]:nth-of-type(3):checked ~ .content > section:nth-child(3) {
-    display: block;
+	 display: block;
 }
  .tabs input[name="tab-control"]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
-    cursor: default;
-    color: #EB3349;
+	 cursor: default;
+	 color: #EB3349;
 }
 
  @media (max-width: 600px) {
-    .tabs input[name="tab-control"]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
-       background: rgba(0, 0, 0, 0.08);
-   }
+	 .tabs input[name="tab-control"]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
+		 background: rgba(0, 0, 0, 0.08);
+	}
 }
  .tabs input[name="tab-control"]:nth-of-type(4):checked ~ .slider {
-    -webkit-transform: translateX(300%);
-            transform: translateX(300%);
+	 -webkit-transform: translateX(300%);
+	         transform: translateX(300%);
 }
  .tabs input[name="tab-control"]:nth-of-type(4):checked ~ .content > section:nth-child(4) {
-    display: block;
+	 display: block;
 }
  @-webkit-keyframes content {
-    from {
-       opacity: 0;
-       -webkit-transform: translateY(5%);
-               transform: translateY(5%);
-   }
-    to {
-       opacity: 1;
-       -webkit-transform: translateY(0%);
-               transform: translateY(0%);
-   }
+	 from {
+		 opacity: 0;
+		 -webkit-transform: translateY(5%);
+		         transform: translateY(5%);
+	}
+	 to {
+		 opacity: 1;
+		 -webkit-transform: translateY(0%);
+		         transform: translateY(0%);
+	}
 }
  @keyframes content {
-    from {
-       opacity: 0;
-       -webkit-transform: translateY(5%);
-               transform: translateY(5%);
-   }
-    to {
-       opacity: 1;
-       -webkit-transform: translateY(0%);
-               transform: translateY(0%);
-   }
+	 from {
+		 opacity: 0;
+		 -webkit-transform: translateY(5%);
+		         transform: translateY(5%);
+	}
+	 to {
+		 opacity: 1;
+		 -webkit-transform: translateY(0%);
+		         transform: translateY(0%);
+	}
 }
  @media (max-width: 1000px) {
-    .tabs ul li label {
-       white-space: initial;
-   }
+	 .tabs ul li label {
+		 white-space: initial;
+	}
 }

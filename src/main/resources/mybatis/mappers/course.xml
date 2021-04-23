@@ -29,6 +29,7 @@
            <result property="syllabusTarget" column="syllabusTarget" />
            <result property="syllabusContent" column="syllabusContent" />
         </collection>
+     
    </resultMap>
    
    <select id="selectCourseList" resultMap="courseResult">
@@ -76,6 +77,7 @@
      ]]>
    </insert>
    <delete id="deleteCourse" parameterType="int">
+
      <![CDATA[
        delete from course where courseID = #{courseID}
      ]]>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -14,6 +14,7 @@ request.setCharacterEncoding("UTF-8");
 <title>수강관리</title>
 
 <link rel="stylesheet" type="text/css"
+
    href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/css/styleTab.css" />
@@ -27,23 +28,23 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .btn {
-   color: white;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	color: white;
+	background-color: tomato;
+	border-color: rgba(247, 94, 94, 0 .8);
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 p {
@@ -62,7 +63,6 @@ p {
 </head>
 
 <body>
-
    <div class="container">
       <!-- 홈>강의관리>수강관리 -->
       <div class="lnb">
@@ -239,8 +239,6 @@ p {
          </div>
       </div>
       <!-- End Tabs HTML -->
-
-
    </div>
 </body>
 </html>

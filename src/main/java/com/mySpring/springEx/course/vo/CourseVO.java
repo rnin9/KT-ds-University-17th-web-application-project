@@ -22,7 +22,6 @@ public class CourseVO {
 	private String courseState;
 	private char courseShow;
 	private SyllabusVO syllabusVO;
-
 	private String dday;
 
 	public String getDday() {
@@ -34,7 +33,6 @@ public class CourseVO {
 	}
 
 	public CourseVO() {
-
 	}
 
 	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart,
@@ -42,7 +40,6 @@ public class CourseVO {
 			int coursePeopleApplied, String courseState, char courseShow, SyllabusVO syllabusVO) {
 		this.courseID = courseID;
 		this.syllabusID = syllabusID;
-
 		this.courseStart = courseStart;
 		this.courseEnd = courseEnd;
 		this.courseApplyStart = courseApplyStart;
