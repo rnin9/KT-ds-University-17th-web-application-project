@@ -94,7 +94,23 @@
 	<insert id="insertCourseTake" parameterType="courseTakeVO">
 	  <![CDATA[
 	  	insert into course_take (userid, courseid, coursetake_state,coursetake_applydate)
-		values (#{userID}, #{courseID}, '승인대기', to_date(sysdate,'YYYY-MM-DD'))
+		values (#{userID}, #{courseID}, '승인대기', to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd'))
 	  ]]>
 	</insert>
+	
+	<!-- 승인 -> 수강중 -->
+	<update id="autoUpdateCourseTake1">
+    <![CDATA[
+       update course_take set coursetake_state = '수강중'
+		where (courseid in (select courseid from course where coursestart <= sysdate)) and coursetake_state='승인'
+    ]]> 
+   </update>
+   
+   <!-- 수강중 -> 수료대기 -->
+   <update id="autoUpdateCourseTake2">
+    <![CDATA[
+       update course_take set coursetake_state = '수료대기'
+		where (courseid in (select courseid from course where courseend < sysdate)) and coursetake_state='수강중'
+    ]]> 
+   </update>
 </mapper>

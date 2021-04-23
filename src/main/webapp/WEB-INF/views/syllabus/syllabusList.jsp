@@ -197,32 +197,51 @@ $(document).ready( function () {
 </script>
 <script>
 	function deleteCheck(){
-		var url = "/springEx/syllabus/deleteCheck.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	            console.log(${syllabusList});
-	        }
-		});
-	};
 		
-		
+		/*if (${isLogOn == true}){*/
+			var url = "/springEx/syllabus/deleteCheck.do";
+			var cnt = $("input[name='ab']:checked").length;
+			var valueArr = new Array();
+			$("input[name='ab']:checked").each(function(i){
+				valueArr.push($(this).val());
+			});
+			if (cnt==0){
+				Swal.fire("선택된 강의계획서가 없습니다.","","warning");
+			}else{
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						window.location.reload();
+						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+					},
+					error : function(data) {
+						Swal.fire("선택한 강의계획서를 사용하는 강의가 있습니다.","","error");
+						console.log("fail");
+			        }
+				})
+			}
+		/*}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
+	};		
+</script>
+<script>
+	function register(){
+		location.href='${contextPath}/syllabus/syllabusForm.do'
+		/*if (${isLogOn == true}){
+			location.href='${contextPath}/syllabus/syllabusForm.do'
+		}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
+	}
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -251,7 +270,7 @@ $(document).ready(function(){
 <body>
 
    <div class="container">
-      <form method="get" action="${contextPath}/syllabus/syllabusForm.do">
+      <!-- <form method="get" action="${contextPath}/syllabus/syllabusForm.do"> -->
 
          <div class="lnb">
             <ul>
@@ -344,12 +363,12 @@ $(document).ready(function(){
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">선택강의 삭제</button>
-            <button class="btn button_bottom"
-               onClick="location.href='syllabusForm.do'">강의계획서 등록</button>
+            <button class="btn button_bottom" type="button" onClick="deleteCheck()">선택강의 삭제</button>
+            <button class="btn button_bottom" type="button"
+               onClick="register()">강의계획서 등록</button>
          </div>
 
-      </form>
+     <!--  </form> -->
    </div>
    
    

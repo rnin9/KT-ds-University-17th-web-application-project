@@ -263,24 +263,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -296,24 +300,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -329,24 +337,28 @@ $(document).ready(function(){
          valueArr.push($(this).val());
       });
       
-      console.log(valueArr);
       
-      $.ajax({
-         url : url,
-         type : 'POST',
-         traditional : true,
-         data : {
-            valueArr : valueArr
-         },
-         success : function(data){
-            console.log("success");
-            window.location.reload();
-            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-         },
-         error : function(data) { 
-               console.log("fail");
-           }
-      });
+      if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+	  else{
+	      $.ajax({
+	         url : url,
+	         type : 'POST',
+	         traditional : true,
+	         data : {
+	            valueArr : valueArr
+	         },
+	         success : function(data){
+	            console.log("success");
+	            window.location.reload();
+	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+	         },
+	         error : function(data) { 
+	               console.log("fail");
+	           }
+	      })
+	  }
    };
       
       
@@ -362,29 +374,31 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
-		
 </script>
-
 <script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){

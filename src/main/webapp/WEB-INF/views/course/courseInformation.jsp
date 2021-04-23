@@ -110,7 +110,48 @@ a:link, a:visited, a:hover {
 </style>
 
 </head>
+<script>
 
+function deleteCourse(){
+	/*location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'*/
+
+	var courseID = ${courseVO.courseID};
+	url="/springEx/course/deleteCourse.do";
+	$.ajax({
+		url : url,
+		type : 'POST',
+		data : {
+			courseID : courseID
+		},
+		success : function(data){
+			console.log("success");
+			location.href='${contextPath}/course/courseList.do';
+			/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+		},
+		error : function(data) {
+			Swal.fire("과정을 신청한 사용자가 있습니다.","","error");
+			console.log("fail");
+	    }
+	})
+	/*if (${isLogOn == true}){
+		location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'
+	}
+	else{
+		alert("로그인 후 시도해주세요.");
+	}*/
+}
+</script>
+<script>
+function modifyCourse(){
+	location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
+	/*if (${isLogOn == true}){
+		location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
+	}
+	else{
+		alert("로그인 후 시도해주세요.");
+	}*/
+}
+</script>
 <body>
    <div class="container">
       <div class="lnb">
@@ -179,8 +220,8 @@ a:link, a:visited, a:hover {
          </div>
       </div>
       <div style="margin-top: 50px; padding-bottom: 150px;">
-         <button class="btn button_bottom" type="button" onClick="location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'">삭제</button>
-         <button class="btn button_bottom" type="button" onClick="location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'">수정</button>
+         <button class="btn button_bottom" type="button" onClick="deleteCourse()">삭제</button>
+         <button class="btn button_bottom" type="button" onClick="modifyCourse()">수정</button>
       </div>
 
    </div>

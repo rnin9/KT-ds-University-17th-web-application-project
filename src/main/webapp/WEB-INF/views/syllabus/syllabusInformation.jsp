@@ -107,7 +107,47 @@ a:link, a:visited, a:hover {
 </style>
 
 </head>
-
+<script>
+function deleteSyllabus(){
+	/*location.href='${contextPath}/syllabus/deleteSyllabus.do?syllabusID=${syllabusVO.syllabusID}'*/
+		console.log(${syllabusVO.syllabusID});
+		var syllabusID = ${syllabusVO.syllabusID};
+		url="/springEx/syllabus/deleteSyllabus.do";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			data : {
+				syllabusID : syllabusID
+			},
+			success : function(data){
+				console.log("success");
+				location.href='${contextPath}/syllabus/syllabusList.do';
+				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+			},
+			error : function(data) {
+				Swal.fire("강의계획서를 사용하는 강의가 있습니다.","","error");
+				console.log("fail");
+	        }
+		})
+	/*if (${isLogOn == true}){
+		location.href='${contextPath}/syllabus/deleteSyllabus.do?syllabusID=${syllabusVO.syllabusID}'
+	}
+	else{
+		alert("로그인 후 시도해주세요.");
+	}*/
+}
+</script>
+<script>
+function modifySyllabus(){
+	location.href='${contextPath}/syllabus/syllabusModifyForm.do?syllabusID=${syllabusVO.syllabusID}'
+	/*if (${isLogOn == true}){
+		location.href='${contextPath}/syllabus/syllabusModifyForm.do?syllabusID=${syllabusVO.syllabusID}'
+	}
+	else{
+		alert("로그인 후 시도해주세요.");
+	}*/
+}
+</script>
 <body>
    <div class="container">
       <div class="lnb">
@@ -178,8 +218,8 @@ a:link, a:visited, a:hover {
          </div>
       </div>
       <div style="margin-top: 50px; padding-bottom: 150px;">
-         <button class="btn button_bottom" type="button" onClick="location.href='${contextPath}/syllabus/deleteSyllabus.do?syllabusID=${syllabusVO.syllabusID}'">삭제</button>
-         <button class="btn button_bottom" type="button" onClick="location.href='${contextPath}/syllabus/syllabusModifyForm.do?syllabusID=${syllabusVO.syllabusID}'">수정</button>
+         <button class="btn button_bottom" type="button" onClick="deleteSyllabus()">삭제</button>
+         <button class="btn button_bottom" type="button" onClick="modifySyllabus()">수정</button>
       </div>
 
    </div>

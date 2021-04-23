@@ -129,4 +129,31 @@ public class CourseTakeVO {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
 
+	  private String courseApplyEndYear;
+	    private String courseApplyEndMonth;
+	    private String courseApplyEndDay;
+	   
+	    public String getCourseApplyEndYear() {
+	      return courseApplyEndYear;
+	   }
+
+	   public void setCourseApplyEndYear(String courseApplyEndYear) {
+	      this.courseApplyEndYear = courseApplyEndYear;
+	   }
+
+	   public String getCourseApplyEndMonth() {
+	      return courseApplyEndMonth;
+	   }
+
+	   public void setCourseApplyEndMonth(String courseApplyEndMonth) {
+	      this.courseApplyEndMonth = courseApplyEndMonth;
+	   }
+
+	   public String getCourseApplyEndDay() {
+	      return courseApplyEndDay;
+	   }
+
+	   public void setCourseApplyEndDay(String courseApplyEndDay) {
+	      this.courseApplyEndDay = courseApplyEndDay;
+	   }
 }
