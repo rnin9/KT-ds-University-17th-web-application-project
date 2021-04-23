@@ -147,6 +147,7 @@ public class CourseControllerImpl implements CourseController {
 		List courseUserList = courseService.courseUserList();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("courseUserList", courseUserList);
+		System.out.println("======================================================"+courseUserList.size());
 		return mav;
 	}
 
