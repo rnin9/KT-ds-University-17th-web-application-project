@@ -175,7 +175,7 @@ request.setCharacterEncoding("UTF-8");
 
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/notice/listNotice.do">공지사항 관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin" href="#">문의사항
+					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/question/listQuestion.do">문의사항
 							관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/survey/listSurvey.do">설문조사 관리</a></li>
@@ -209,7 +209,7 @@ request.setCharacterEncoding("UTF-8");
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
-							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
 				<c:when test="${member.userPosition != 'ADMIN'}">
@@ -221,7 +221,7 @@ request.setCharacterEncoding("UTF-8");
 						<ul class="dropdown-menu fade-up">
 							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
-							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
 			</c:choose>
