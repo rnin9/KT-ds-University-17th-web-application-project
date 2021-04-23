@@ -22,8 +22,18 @@ public class CourseVO {
     private String courseState;
 	private char courseShow;
     private SyllabusVO syllabusVO;
+    
+    private String dday;
 	
-    public CourseVO() {
+	public String getDday() {
+		return dday;
+	}
+
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
+
+	public CourseVO() {
 		
 	}
 	

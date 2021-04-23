@@ -11,7 +11,7 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeService {
 
-	// 수강신청내역 페이지네이션
+	// ��媛���泥��댁�� ���댁��ㅼ�댁��
 	public List SelectAllCourseApplyList() throws Exception;
 
 
@@ -23,9 +23,7 @@ public interface CourseTakeService {
 
 	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception;
  
-	// 테스트페이지
-	public List courseCompleteList() throws DataAccessException;
 	
-	// 수강신청한 사람 insert
+	// ��媛���泥��� �щ�� insert
 	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
 }

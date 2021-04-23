@@ -18,6 +18,7 @@
         <result property="coursePeopleApplied" column="coursePeopleApplied" />
         <result property="courseState" column="courseState" />
         <result property="courseShow" column="courseShow" />
+        <result property="dday" column="dday" />
         
         <collection property="syllabusVO" javaType="SyllabusVO">
         	<result property="syllabusCategory1" column="syllabusCategory1" />
@@ -51,10 +52,10 @@
 	<select id="selectUserCourseList" resultMap="courseResult">
 	 <![CDATA[
 	    select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
-	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState
+	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState, to_char(courseApplyEnd - TRUNC(SYSDATE)) as dday
 	    from course c join syllabus s on c.syllabusID = s.syllabusID
-	    where courseState = '접수중'
-	    order by courseID desc
+	    where courseApplyStart <= sysdate and sysdate <= courseStart
+	    order by dday desc
 	 ]]>
 	 </select>
 	<select id="selectUserCourse" parameterType="int" resultMap="courseResult">
