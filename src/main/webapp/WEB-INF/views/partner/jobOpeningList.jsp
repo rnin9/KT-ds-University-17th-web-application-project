@@ -2,9 +2,17 @@
          pageEncoding="UTF-8"
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="now" value="<%=new java.util.Date()%>"/>
+<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
+
+<c:set var="ymd" value="<%=new java.util.Date()%>"/>
+<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>
+
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -302,7 +310,14 @@
                        data-toggle="modal" href="#myModal"
                        onclick="getPartnerInfo('${partner.partnerName}', '${partner.partnerInformation}', '${partner.partnerAddress}', '${partner.partnerEmail}', '${partner.partnerHeadCount}', '${partner.partnerURL}');">${partner.partnerName}</a>
                 </td>
-                <td>${fn:substring(partner.partnerApplyFinishDate, 0, 11)}</td>
+                <c:set var="date" value="${fn:substring(partner.partnerApplyFinishDate, 0, 11)}"/>
+                <c:if test="${date >= sysYear}">
+                    <td>${date}</td>
+                </c:if>
+                <c:if test="${date < sysYear}">
+                    <%--         마감된 공고는 빨강           --%>
+                    <td><a style="color: #fc0038">${date}</a></td>
+                </c:if>
                 <td>${partner.applicationVO.applicantNum}</td>
             </tr>
         </c:forEach>
