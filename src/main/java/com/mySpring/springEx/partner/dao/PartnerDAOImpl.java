@@ -96,4 +96,18 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
 	}
 	/* 기업관련 함수 끝*/
+
+	//graph information ajax
+	@Override
+	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyGraphInfo", partnerLicenseNum);
+	}
+
+
+	@Override
+	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyEmployeeList",partnerLicenseNum);
+	}
 }

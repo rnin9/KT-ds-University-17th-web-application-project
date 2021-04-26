@@ -131,57 +131,41 @@ public class PartnerContorollerImpl implements PartnerController {
 	
 	
 	/* ===================================협력사 관련 시작==============================*/
-	@RequestMapping(value = "/partner/company/companyInfo.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/partner/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("/partner/company/companyInfo");
+		ModelAndView mav = new ModelAndView("/partner/main");
 		return mav;
 	}
 	
 	@Override
 	@RequestMapping(value = "/partner/company/companyEmployee.do", method = RequestMethod.GET)
 	public ModelAndView companyEmployee(
-			@RequestParam("partnerLicenseNum") String partnerLicenseNum,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int employeeList = partnerService.companyEmployeeTableCount(partnerLicenseNum); // 전체 수강중인 직원
-		int companyUser = partnerService.companyUserNum(partnerLicenseNum);	// 우리 협력사 회원 수
-		int companyCourseUser = partnerService.companyCourseUserNum(); // 수강중인 우리회사 회원 수
-		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-		pagination.setTotalRecordCount(employeeList);
+			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
-		mav.addObject("pagination", pagination);
-		mav.addObject("userNum", companyUser);
-		mav.addObject("courseUserNum", companyCourseUser);
-		mav.addObject("pagination", pagination);
-		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(pagination, partnerLicenseNum)); // 수강중인 회원 리스트데이터
+		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // 수강중인 회원 리스트데이터
 		return mav;
 	}
 
 	@Override
-	@RequestMapping(value="/partner/company/searchEmployee.do", method = RequestMethod.GET)
-	public ModelAndView searchCompanyEmployee(String partnerLicenseNum, int currentPage, int cntPerPage, int pageSize,
-			String userName, String syllabusName, String courseStartDate, String completionDate,
-			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int searchList = partnerService.searchEmployeeTableCount(partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
-		int companyUser = partnerService.companyUserNum(partnerLicenseNum);
-		int companyCourseUser = partnerService.companyCourseUserNum();
+	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
+	public ModelAndView companyApplyManage(String partnerLicenseNum,
+			/*
+			 * int currentPage, int cntPerPage, int pageSize, Map<String, Object> map,
+			 */ HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
 		
-		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-		pagination.setTotalRecordCount(searchList);
-		
-		ModelAndView mav = new ModelAndView("/partner/company/searchEmployee");
-		mav.addObject("pagination", pagination);
-		mav.addObject("userNum", companyUser);
-		mav.addObject("courseUserNum", companyCourseUser);
-		mav.addObject("companyEmployeeList", partnerService.SearchListCompanyEmployee(pagination, partnerLicenseNum,userName, syllabusName, courseStartDate, completionDate)); //찾은 직원 리스트
-		mav.addObject("userName",userName);
-		mav.addObject("syllName",syllabusName);
-		mav.addObject("startDate",courseStartDate);
-		mav.addObject("p_num",partnerLicenseNum);
-		mav.addObject("completionDate",completionDate);
-		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/partner/company/infoGraph.do", method = RequestMethod.GET)
+	
+	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		ModelAndView mav = new ModelAndView();
+		List list = partnerService.infoGraph(partnerLicenseNum);
+		mav.addObject("datas",list);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	

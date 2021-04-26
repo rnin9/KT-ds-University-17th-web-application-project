@@ -88,7 +88,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// ºˆ∑·¡ı ∆‰¿Ã¡ˆ
+	// ¬º√∂¬∑√°√Å√µ √Ü√§√Ä√å√Å√∂
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -212,9 +212,11 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(member);
+			memberVO = memberService.login(member);
+					
+		if ( (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) ||
+				(memberVO != null && memberVO.getUserPosition().equals("ADMIN"))) {
 
-		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
@@ -223,6 +225,7 @@ public class MemberControllerImpl implements MemberController {
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.addObject("partner", partnerVO);
+			mav.addObject("url", request.getServletPath());
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =
