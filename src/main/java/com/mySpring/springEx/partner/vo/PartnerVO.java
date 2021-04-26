@@ -19,7 +19,15 @@ public class PartnerVO {
 	private String partnerApplyFinishDate;          /*모집 마감 날짜*/
 	private String partnerURL;                    /*회사 홈페이지*/
 	private String partnerRegisterDate;           /*등록날짜*/
+	private String partnerIndustryType;			 /*업종*/
 
+	public String getPartnerIndustryType() {
+		return partnerIndustryType;
+	}
+
+	public void setPartnerIndustryType(String partnerIndustryType) {
+		this.partnerIndustryType = partnerIndustryType;
+	}
 
 	public PartnerVO(){
 
