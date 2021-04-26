@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,19 +43,12 @@ public interface PartnerController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView companyApplyManage(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
-			/*
-			 * @RequestParam(value = "currentPage", required = false, defaultValue = "1")
-			 * int currentPage,
-			 * 
-			 * @RequestParam(value = "cntPerPage", required = false, defaultValue = "10")
-			 * int cntPerPage,
-			 * 
-			 * @RequestParam(value = "pageSize", required = false, defaultValue = "10") int
-			 * pageSize, Map<String, Object> map,
-			 */ HttpServletRequest request, HttpServletResponse response) throws Exception;
+			HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	public ModelAndView getResumeByID(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 	/* 기업관련 끝 */
 	
 

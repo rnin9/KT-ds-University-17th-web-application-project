@@ -2,6 +2,7 @@ package com.mySpring.springEx.partner.controller;
 
 
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -149,11 +151,14 @@ public class PartnerContorollerImpl implements PartnerController {
 	@Override
 	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
 	public ModelAndView companyApplyManage(String partnerLicenseNum,
-			/*
-			 * int currentPage, int cntPerPage, int pageSize, Map<String, Object> map,
-			 */ HttpServletRequest request, HttpServletResponse response) throws Exception {
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
-		
+		mav.addObject("applyList", partnerService.selectApplyList(partnerLicenseNum));
+		List list = partnerService.selectApplyList(partnerLicenseNum);
+		/*
+		 * mav.addObject("suggestList",
+		 * partnerService.selectSuggestList(partnerLicenseNum));
+		 */
 		return mav;
 	}
 
@@ -169,6 +174,17 @@ public class PartnerContorollerImpl implements PartnerController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value="/partner/getResumeByID.do", method = RequestMethod.GET)
+	public ModelAndView getResumeByID(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("datas",partnerService.getUserResume(body.get("partnerApplyResumeID")));
+		mav.setViewName("jsonView");
+		return mav;
+	}
+
 	/* ===================================협력사 관련 끝==============================*/
 	
 	

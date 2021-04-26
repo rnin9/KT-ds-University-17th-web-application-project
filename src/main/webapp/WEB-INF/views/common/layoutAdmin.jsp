@@ -109,9 +109,8 @@
 
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function(){  
-    $('#content').css('height', $(window).height()); 
     $(window).resize(function() { 
-        $('#sidebar-left').css('height', $(window).height()); 
+        $('#sidebar-left').css('height', $('#content').height()); 
     }); 
 });
 </script>

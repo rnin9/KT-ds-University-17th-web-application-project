@@ -1,6 +1,7 @@
 package com.mySpring.springEx.partner.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 @Repository("partnerDAO")
 public class PartnerDAOImpl implements PartnerDAO{
@@ -82,21 +84,6 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return sqlSession.selectOne("mapper.partner.getCompanyInfo",partnerLicenseNum);
 	}
 
-	//회사 회원 수
-	@Override
-	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.partner.companyUserNumber",partnerLicenseNum);
-	}
-
-	//회사 수강 회원 수
-	@Override
-	public int companyCourseUserNumber() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
-	}
-	/* 기업관련 함수 끝*/
-
 	//graph information ajax
 	@Override
 	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException {
@@ -110,4 +97,30 @@ public class PartnerDAOImpl implements PartnerDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mapper.partner.companyEmployeeList",partnerLicenseNum);
 	}
+
+
+	@Override
+	public List<Map<String, Object>> getApplyList(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyApplyList",partnerLicenseNum);
+	}
+
+
+	@Override
+	public List getSuggestList(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companySuggestList",partnerLicenseNum);
+	}
+
+
+	@Override
+	public ResumeVO getUserResume(String resumeID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.getResume",resumeID);
+	}
+	
+	
+	/* 기업관련 함수 끝*/
+
+	
 }

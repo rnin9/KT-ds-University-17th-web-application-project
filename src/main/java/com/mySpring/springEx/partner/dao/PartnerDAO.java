@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 public interface PartnerDAO {
 
@@ -31,10 +32,14 @@ public interface PartnerDAO {
 	/*기업관련*/
 	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException;
 	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException;
-	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException;
-	public int companyCourseUserNumber() throws DataAccessException;
 	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException;
+	public List getApplyList(String partnerLicenseNum) throws DataAccessException;
+	public List getSuggestList(String partnerLicenseNum) throws DataAccessException;
+	
+	public ResumeVO getUserResume(String resumeID) throws DataAccessException;
 	/*기업관련 끝*/
+
+	
 	
 
 }
