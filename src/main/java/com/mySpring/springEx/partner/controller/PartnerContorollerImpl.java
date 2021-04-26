@@ -2,6 +2,7 @@ package com.mySpring.springEx.partner.controller;
 
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -199,13 +201,14 @@ public class PartnerContorollerImpl implements PartnerController {
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-
+//		List<Map<String, Object>> jobOpeningList = partnerService.selectJobOpeningList();
+//		for(int i = 0; i < jobOpeningList.size(); i++) {
+//			jobOpeningList.get(i).put("partnerApplyFinishDate", String.valueOf(jobOpeningList.get(i).get("partnerApplyFinishDate")).substring(0, 11));
+//		}
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
-//        mav.addObject("applicantNum", partnerService.getApplicantNum());
 		return mav;
 	}
-
 
 	@Override
 	@RequestMapping(value = "/partner/postJobOpening.do", method = RequestMethod.POST)
@@ -227,6 +230,16 @@ public class PartnerContorollerImpl implements PartnerController {
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
 		return mav;
 	}
-	
+
+//	@Scheduled(cron="0 0/1 * * * *")
+//	public void jobOpeningDueDate() throws Exception {
+//		Date today = new Date();
+//		List jobOpeningList = partnerService.selectPartnerApplyN();
+//
+//		for(Object obj : jobOpeningList) {
+//
+//		}
+//	}
+
 	
 }

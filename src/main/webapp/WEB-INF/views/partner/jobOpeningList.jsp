@@ -2,6 +2,8 @@
          pageEncoding="UTF-8"
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <%
@@ -9,8 +11,12 @@
 %>
 <html>
 <head>
-    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <title>채용공고 관리</title>
 
@@ -25,13 +31,6 @@
             width: 20%;
             margin: 10px;
             text-align: right;
-        }
-
-        .serarchSubject {
-            display: flex;
-            flex-direction: row;
-            width: 250px;
-            float: right;
         }
 
         .table_partnerList {
@@ -50,11 +49,6 @@
             border-bottom: 1px solid #e4e4e4;
             background-color: #f8f8f8;
         }
-
-        .form-control {
-            width: 180px;
-        }
-
 
         .buttonGroups {
             float: right;
@@ -77,28 +71,112 @@
             border-radius: .25rem;
             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
+
+        .tableList {
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: 2.2;
+            margin-top: 40px;
+            text-align: center;
+            /* color: #555; */
+            width: 100%;
+            line-height: 40px;
+        }
+
+        .tableList thead {
+            border-top: 1px solid #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .pageIntro {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: left;
+            font-size: 34px;
+            font-weight: 450;
+            background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
+            background-repeat: no-repeat;
+        }
     </style>
     <script>
         const url = "${contextPath}/partner/deleteJobOpening.do";
         let valueArr;
 
-        $(document).ready(function () {
-            $('#myTable').DataTable();
+        $(document).ready(() => {
+            $('#myTable').DataTable({
+
+                language: {
+                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    sInfoFiltered: '',
+                    infoEmpty: '',
+                    emptyTable: '데이터가 없습니다.',
+                    thousands: ',',
+                    lengthMenu: '_MENU_ 개씩 보기',
+                    loadingRecords: '데이터를 불러오는 중',
+                    processing: '처리 중',
+                    zeroRecords: '검색 결과 없음',
+                    paginate: {
+                        first: '처음',
+                        last: '끝',
+                        next: '다음',
+                        previous: '이전'
+                    },
+                    search: '',
+                    sSearchPlaceholder: '통합 검색',
+
+                }
+            });
         });
 
         deleteJobOpening = () => {
-            console.log('111111111');
             const cnt = $("input[name='cb']:checked").length;
             // $('#myModal').modal('show');
             if (cnt === 0) {
-                swal("선택한거없음.", "선택한거없음.", "warning");
+                swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
                 return;
             } else {
-                deleteJobOpening2();
+                Swal.fire({
+                    title: '공고를 삭제하시겠습니까?',
+                    text: "삭제하면 다시 복구할 수 없습니다.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '삭제',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.value) {
+                        valueArr = [];
+                        $("input[name='cb']:checked").each(function (i) {
+                            valueArr.push($(this).val());
+                        });
+
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            traditional: true,
+                            data: {
+                                valueArr: valueArr
+                            },
+                            success: (data) => {
+
+                                Swal.fire("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
+                                setTimeout(function () { // 0.9초뒤 실행
+                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                }, 900);
+                            },
+                            error: (data) => {
+                                console.log("fail");
+                            }
+                        });
+                    }
+                })
             }
         }
         deleteJobOpening2 = () => {
-            console.log('22222222');
             valueArr = [];
             $("input[name='cb']:checked").each(function (i) {
                 valueArr.push($(this).val());
@@ -112,11 +190,7 @@
                     valueArr: valueArr
                 },
                 success: function (data) {
-                    console.log('3333333333');
-
-                    // window.location.reload();
-                    <%--$("#container").load("${contextPath}/course/courseList.do");--%>
-                    swal("공고 삭제 성공.", "공고 삭제 성공.", "success");
+                    swal("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
                     setTimeout(function () { // 0.9초뒤 실행
                         location.reload(); // 새로고침 -> list 다시 불러옴
                     }, 900);
@@ -126,6 +200,34 @@
                 }
             });
 
+        }
+
+        // 모달 body text 설정
+        function getPartnerInfo(name, info, addr, email, headcnt, purl) {
+            $("#modal_title").text(name);
+            $("#partner_info").text(info);
+            $("#partner_addr").text(addr);
+            $("#partner_email").text(email);
+            $("#partner_headcnt").text(headcnt);
+            $("#partner_purl").text(purl);
+        }
+    </script>
+    <script>
+        checkSelectAll = (checkbox) => {
+            const selectall
+                = document.querySelector('input[name="check-all"]');
+            if (checkbox.checked == false) {
+                selectall.checked = false;
+            }
+        }
+
+        selectAll = (selectAll) => {
+            const checkboxes
+                = document.getElementsByName('cb');
+
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = selectAll.checked
+            })
         }
     </script>
 </head>
@@ -141,31 +243,72 @@
         </ul>
     </div>
 
-    <table class="table_partnerList" id="myTable">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="partnerInfoModalBody" style="text-align: left">
+                        <div class="row">
+                            <div class="col-3" style="color: #444444; font-weight: bold">
+                                <p>소개</p>
+                                <p>주소</p>
+                                <p>사원수</p>
+                                <p>이메일</p>
+                                <p>웹사이트</p>
+                            </div>
+                            <div class="col-8">
+                                <p id="partner_info"></p>
+                                <p id="partner_addr"></p>
+                                <p id="partner_headcnt"></p>
+                                <p id="partner_email"></p>
+                                <p id="partner_purl"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="pageIntro">채용공고 관리</div>
+
+    <table class="tableList" id="myTable">
         <thead>
         <tr>
-            <%--            <th><input type="checkbox"/></th>--%>
-            <%--        <th width="100"><b>상태</b></th>--%>
-            <th width="40"></th>
-            <th width="200"><b>기업명</b></th>
-            <th><b>마감일</b></th>
-            <th><b>지원자 수</b></th>
-
+            <td><input type="checkbox" name="check-all"
+                       onclick='selectAll(this)'/></td>
+            <td><b>기업명</b></td>
+            <td><b>마감일</b></td>
+            <td><b>지원자 수</b></td>
         </tr>
         </thead>
 
-        <tbody>
+        <tbody id="ajaxTable">
         <c:forEach var="partner" items="${jobOpeningList}">
             <tr>
-                <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"/></td>
-                <td>${partner.partnerName}</td>
-                <td>${partner.partnerApplyFinishDate}</td>
+                <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"
+                           onclick='checkSelectAll(this)'/></td>
+                <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                       data-toggle="modal" href="#myModal"
+                       onclick="getPartnerInfo('${partner.partnerName}', '${partner.partnerInformation}', '${partner.partnerAddress}', '${partner.partnerEmail}', '${partner.partnerHeadCount}', '${partner.partnerURL}');">${partner.partnerName}</a>
+                </td>
+                <td>${fn:substring(partner.partnerApplyFinishDate, 0, 11)}</td>
                 <td>${partner.applicationVO.applicantNum}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <div class="buttonGroups">
+    <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
         <button type="button" class="btn" onclick="deleteJobOpening()">삭제</button>
     </div>
 

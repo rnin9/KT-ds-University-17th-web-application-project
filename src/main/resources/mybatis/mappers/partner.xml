@@ -24,6 +24,11 @@
 		<result property="partnerName" column="partnerName"/>
 		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
 		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate"/>
+		<result property="partnerInformation" column="partnerInformation"/>
+		<result property="partnerAddress" column="partnerAddress"/>
+		<result property="partnerEmail" column="partnerEmail"/>
+		<result property="partnerHeadCount" column="partnerHeadCount"/>
+		<result property="partnerURL" column="partnerURL"/>
 
 		<collection property="applicationVO" javaType="ApplicationVO">
 			<result property="partnerApplyUserID" column="PARTNER_APPLY_USERID"/>
@@ -138,7 +143,7 @@
 	</select>
 
 	<update id="postJobOpening" parameterType="java.util.HashMap">
-	<![CDATA[
+		<![CDATA[
 		update partner
 		set PARTNERAPPLYYN='Y', PARTNERAPPLYFINISHDATE = #{date}
 		where partnerLicenseNum = #{partnerLicenseNum}
@@ -146,7 +151,7 @@
 	</update>
 
 	<update id="deleteJobOpening" parameterType="String">
-	<![CDATA[
+		<![CDATA[
 		update partner
 		set PARTNERAPPLYYN='N', PARTNERAPPLYFINISHDATE = null
 		where partnerLicenseNum = #{partnerLicenseNum}
@@ -175,10 +180,19 @@
 		SELECT p.partnerName
 		,p.partnerLicenseNum
 		,p.partnerApplyFinishDate
+		,p.partnerInformation
+		,p.partnerAddress
+		,p.partnerEmail
+		,p.partnerHeadCount
+		,p.partnerURL
 		,count(a.PARTNER_APPLY_USERID) as applicantNum
 		FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
 		where p.PARTNERAPPLYYN = 'Y'
-		group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate
+		group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate,p.partnerInformation
+							  ,p.partnerAddress
+							  ,p.partnerEmail
+							  ,p.partnerHeadCount
+							  ,p.partnerURL
 		order by p.partnerName
 	</select>
 	

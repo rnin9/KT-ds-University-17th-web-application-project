@@ -11,19 +11,24 @@
 <html>
 <head>
     <title>채용공고 등록</title>
-    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
     <link id="bsdp-css"
           href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
           rel="stylesheet">
     <script
             src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <style>
         .container {
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
-
         }
 
         .well-searchbox label {
@@ -31,13 +36,6 @@
             width: 20%;
             margin: 10px;
             text-align: right;
-        }
-
-        .serarchSubject {
-            display: flex;
-            flex-direction: row;
-            width: 250px;
-            float: right;
         }
 
         .table_partnerList {
@@ -56,11 +54,6 @@
             border-bottom: 1px solid #e4e4e4;
             background-color: #f8f8f8;
         }
-
-        .form-control {
-            width: 180px;
-        }
-
 
         .buttonGroups {
             float: right;
@@ -96,131 +89,170 @@
             line-height: 15px;
             border-radius: 3px;
         }
+
+        .tableList {
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: 2.2;
+            margin-top: 40px;
+            text-align: center;
+            /* color: #555; */
+            width: 100%;
+            line-height: 40px;
+        }
+
+        .tableList thead {
+            border-top: 1px solid #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            border-color: #fc0038;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .pageIntro {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: left;
+            font-size: 34px;
+            font-weight: 450;
+            background:
+                    url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+                    no-repeat;
+            background-repeat: no-repeat;
+        }
     </style>
 
-    <script type="text/javascript">
-        const result = '${msg}';
-        const name = '${partnerName}';
-
-        if (result == 'modSuccess') {
-            window.onload = function () {
-                swal("수정 완료", (name + " 기업 수정 완료"), "success");
-
-            }
-        } else if (result == 'removeSuccess') {
-            window.onload = function () {
-                swal("삭제 완료", (name + " 기업 삭제 완료"), "success");
-            }
-        } else if (result == 'addSuccess') {
-            window.onload = function () {
-                swal("등록 완료", (name + " 기업 등록 완료"), "success");
-            }
-        }
-    </script>
     <script>
         let date;
         let formatted;
         const url = "${contextPath}/partner/postJobOpening.do";
         let valueArr;
 
-        $(document).ready(function(){
+        $(document).ready(() => {
 
             <!--날짜 선택-->
             $("#datepicker").datepicker({
-                viewMode : 'years',
-                format : "yyyymmdd",
-                language : "ko",
-                startView : 2,
-                keyboardNavigation : false,
-                forceParse : false,
-                autoclose : true
+                viewMode: 'years',
+                format: "yyyymmdd",
+                language: "ko",
+                startView: 2,
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
             });
 
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                language: {
+                    info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    sInfoFiltered : '',
+                    infoEmpty : '',
+                    emptyTable : '데이터가 없습니다.',
+                    thousands : ',',
+                    lengthMenu : '_MENU_ 개씩 보기',
+                    loadingRecords : '데이터를 불러오는 중',
+                    processing : '처리 중',
+                    zeroRecords : '검색 결과 없음',
+                    paginate : {
+                        first : '처음',
+                        last : '끝',
+                        next : '다음',
+                        previous : '이전'
+                    },
+                    search: '',
+                    sSearchPlaceholder: '통합 검색',
+
+                }
+            });
 
 
             // 모달이 닫힐때 실행
-            $('#myModal').on('hide.bs.modal', function(e){
+            $('#myModal').on('hide.bs.modal', function (e) {
 
                 date = $("#datepicker").data("datepicker").getDate();
-                formatted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-
-                // + '' + date.getHours + ":" + date.getMinutes() + ":" + date.getSeconds()
-                // alert(formatted);
-                window['postJobOpening2']();
-                // e.stopImmediatePropagation();
+                // window['postJobOpening2']();
 
             });
 
-        })
+        });
 
         postJobOpening = () => {
-            // if(date == null) {
-            //     console.log('날짜를 선택하세요.');
-            //     return;
-            // } else {
-            //     console.log('meeeeee?');
-            //     console.log(date);
-            //     return;
-            // }
             const cnt = $("input[name='cb']:checked").length;
-            console.log('yeeeeeeeeeeeeeeeeees');
-            // $('#myModal').modal('show');
             if (cnt === 0) {
-                swal("선택한거없음..", "선택한거없음.", "warning");
-                console.log('선택한거없음.');
+                swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
                 return;
             } else {
                 $("#modalLink").attr("href", "#myModal");
             }
-
-
         }
 
         postJobOpening2 = () => {
-            console.log("22222222222");
-            if(date == null) {
-                console.log('날짜를 선택하세요.');
-                swal("날짜를 선택하세요.", "날짜를 선택하세요.", "info");
+            if (date == null || date.length < 6) {
+                swal("올바른 날짜를 선택하세요.", "", "info");
                 return;
             } else {
-                console.log('3333333333');
+                formatted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
                 valueArr = [];
                 valueArr.push(formatted);
-                formatted = '';
                 $("input[name='cb']:checked").each(function (i) {
                     valueArr.push($(this).val());
                 });
+                Swal.fire({
+                    title: '선택한 날짜로 등록 합니다.',
+                    text: formatted,
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '등록',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            traditional: true,
+                            data: {
+                                valueArr: valueArr
+                            },
+                            success: (data) => {
 
+                                console.log(formatted);
+
+                                Swal.fire("공고 등록 성공.", "공고가 등록되었습니다.", "success");
+                                setTimeout(() => { // 0.9초뒤 실행
+                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                }, 900);
+                            },
+                            error: (data) => {
+                                console.log("fail");
+                            }
+                        });
+                    }
+                })
+                formatted = '';
             }
-            console.log("444444444");
         }
 
-        postJobOpening3 = () => {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                traditional: true,
-                data: {
-                    valueArr: valueArr
-                },
-                success: function (data) {
+    </script>
 
-                    console.log(formatted);
-                    // window.location.reload();
-                    <%--$("#container").load("${contextPath}/course/courseList.do");--%>
-                    swal("공고 등록 성공.", "공고 등록 성공.", "success");
-                    setTimeout(function () { // 0.9초뒤 실행
-                        location.reload(); // 새로고침 -> list 다시 불러옴
-                    }, 900);
-                },
-                error: function (data) {
-                    console.log("fail");
-                }
-            });
+    <script>
+        checkSelectAll = (checkbox) => {
+            const selectall
+                = document.querySelector('input[name="check-all"]');
+            if (checkbox.checked == false) {
+                selectall.checked = false;
+            }
         }
 
+        selectAll = (selectAll) => {
+            const checkboxes
+                = document.getElementsByName('cb');
 
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = selectAll.checked
+            })
+        }
     </script>
 </head>
 <body>
@@ -238,67 +270,59 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
-
             <!-- Modal content-->
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_title"></h5>
+                    <h5 class="modal-title" id="modal_title">공고 마감 날짜 선택</h5>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="partnerInfoModalBody" style="text-align: left">
                         <label class="title" id="c1">공고 마감 날짜</label> <input type="text"
-                                                                         name="birth" class="birth" id="datepicker">
+                                                                             name="birth" class="birth" id="datepicker">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="postJobOpening3();">확인</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="postJobOpening2();">확인
+                    </button>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <table class="table_partnerList" id="myTable">
+    <div class="pageIntro">채용공고 등록</div>
+
+    <table class="tableList" id="myTable" rules="groups">
         <thead>
-        <tr>
-            <%--            <th><input type="checkbox"/></th>--%>
-            <%--        <th width="100"><b>상태</b></th>--%>
-            <th width="40"></th>
-            <th width="200"><b>기업명</b></th>
-            <th><b>이메일</b></th>
-            <th><b>전화번호</b></th>
-            <th><b>사업자등록번호</b></th>
-            <th><b>등록일</b></th>
-            <th><b>상세정보</b></th>
+        <tr align="center">
+            <td><input type="checkbox" name="check-all"
+                       onclick='selectAll(this)'/></td>
+            <td><b>기업명</b></td>
+            <td><b>이메일</b></td>
+            <td><b>전화번호</b></td>
+            <td><b>사업자등록번호</b></td>
         </tr>
         </thead>
 
-        <tbody>
+        <tbody id="ajaxTable">
         <c:forEach var="partner" items="${partnerApplyNList}">
             <tr>
-                <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"/></td>
-                <td>${partner.partnerName}</td>
+                <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"
+                           onclick='checkSelectAll(this)'/></td>
+                <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                       onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">${partner.partnerName}</a></td>
                 <td>${partner.partnerEmail}</td>
                 <td>${partner.partnerPhoneNumber}</td>
                 <td>${partner.partnerLicenseNum}</td>
-                <td>${partner.partnerRegisterDate}</td>
-                <td>
-                    <button type="button" class="btn" style="background-color: rgb(0 0 0 / 25 %);"
-                            onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">
-                        상세정보
-                    </button>
-                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <div class="buttonGroups">
-        <button type="button" class="btn">
-            <a id="modalLink" data-toggle="modal" href="#" onclick="postJobOpening()">등록</a>
+    <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
+        <button type="button" class="btn" id="modalLink" data-toggle="modal" href="#" onclick="postJobOpening()">
+            공고 등록
         </button>
-        <button type="button" class="btn ">삭제</button>
     </div>
 
 </div>

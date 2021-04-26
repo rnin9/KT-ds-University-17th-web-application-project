@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -84,6 +85,22 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return sqlSession.selectOne("mapper.partner.getCompanyInfo",partnerLicenseNum);
 	}
 
+	//회사 회원 수
+	@Override
+	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.companyUserNumber",partnerLicenseNum);
+	}
+
+	//회사 수강 회원 수
+	@Override
+	public int companyCourseUserNumber() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
+	}
+	/* 기업관련 함수 끝*/
+
+	//	post job opening
 	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException{
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("partnerLicenseNum", partnerLicenseNum);
@@ -106,19 +123,9 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return sqlSession.selectList("mapper.partner.selectJobOpeningList");
 	}
 
-
-	//회사 회원 수
-	@Override
-	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.partner.companyUserNumber",partnerLicenseNum);
-	}
-
-	//회사 수강 회원 수
-	@Override
-	public int companyCourseUserNumber() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mapper.partner.companyCourseUserNumber");
-	}
-	/* 기업관련 함수 끝*/
+//	@Scheduled(cron="0 0/1 * * * *")
+//	public void autoUpdate() {
+//		System.out.println("123123");
+//		sqlSession.update("mapper.course.autoUpdateCourse");
+//	}
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -7,8 +8,9 @@
 <html>
 <head>
 <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
-    <script src="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <title>채용공고</title>
@@ -25,7 +27,27 @@
             // 새로고침 후 탭 상태 보존
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
 
-            $('#myTable').DataTable();
+            $('#myTable').DataTable({
+                language: {
+                    info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    sInfoFiltered : '',
+                    infoEmpty : '',
+                    emptyTable : '데이터가 없습니다.',
+                    thousands : ',',
+                    lengthMenu : '_MENU_ 개씩 보기',
+                    loadingRecords : '데이터를 불러오는 중',
+                    processing : '처리 중',
+                    zeroRecords : '검색 결과 없음',
+                    paginate : {
+                        first : '처음',
+                        last : '끝',
+                        next : '다음',
+                        previous : '이전'
+                    },
+                    search: '',
+                    sSearchPlaceholder: '통합 검색',
+                }
+            });
         });
 
         // 모달 body text 설정
@@ -128,12 +150,43 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+        .tableList {
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: 2.2;
+            margin-top: 40px;
+            text-align: center;
+            /* color: #555; */
+            width: 100%;
+            line-height: 40px;
+        }
+
+        .tableList thead {
+            border-top: 1px solid #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .pageIntro {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: left;
+            font-size: 34px;
+            font-weight: 450;
+            background:
+                    url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+                    no-repeat;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
 <body>
 <div id="applyContents">
     <div class="sub_visual">
-        <span style="color: white;">협력사 지원</span>
+<%--        <span style="color: white;">협력사 지원</span>--%>
     </div>
     <div class="container">
         <div class="lnb">
@@ -143,6 +196,8 @@
                 <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용공고</a></li>
             </ul>
         </div>
+
+        <div class="pageIntro">협력사 지원</div>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -187,7 +242,7 @@
             <div>
                 <div class="row">
                     <div class="col-md-12">
-                        <nav style="margin-top: 100px;">
+                        <nav style="margin-bottom: 40px;">
 
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -205,12 +260,12 @@
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                  aria-labelledby="nav-home-tab">
                                 <%--                첫번째 탭의 테이블                --%>
-                                <table class="table" cellspacing="0" id="myTable">
+                                <table class="tableList" cellspacing="0" id="myTable">
                                     <thead>
                                     <tr>
-                                        <th>기업명</th>
-                                        <th>마감 날짜</th>
-                                        <th>지원하기</th>
+                                        <td>기업명</td>
+                                        <td>마감 날짜</td>
+                                        <td>지원하기</td>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -220,7 +275,7 @@
                                                    data-toggle="modal" href="#myModal"
                                                    onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
                                             </td>
-                                            <td>${recruit.partnerApplyFinishDate}</td>
+                                            <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
                                             <td><a style="text-decoration: underline" href="#"
                                                    onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');return false;">지원하기</a>
                                             </td>
@@ -232,20 +287,20 @@
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                  aria-labelledby="nav-profile-tab">
                                 <%--                두번째 탭의 테이블                --%>
-                                <table class="table" cellspacing="0">
+                                <table class="tableList" cellspacing="0" id="myTable">
                                     <thead>
                                     <tr>
-                                        <th>기업명</th>
-                                        <th>지원 날짜</th>
-                                        <th>지원 상태</th>
-                                        <th>삭제하기</th>
+                                        <td>기업명</td>
+                                        <td>지원 날짜</td>
+                                        <td>지원 상태</td>
+                                        <td>삭제하기</td>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <c:forEach var="application" items="${applicationList}">
                                         <tr>
                                             <td>${application.partnerName}</td>
-                                            <td>${application.partnerApplyDate}</td>
+                                            <td>${fn:substring(application.partnerApplyDate, 0, 11)}</td>
                                             <td><span>${application.partnerApplyState}</span></td>
                                             <td><a style="text-decoration: underline" href="#"
                                                    onclick="deleteApplication('${application.partnerID}');return false;">지원서
