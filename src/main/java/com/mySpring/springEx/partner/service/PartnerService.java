@@ -36,23 +36,12 @@ public interface PartnerService {
 
 	/* 기업관련 */
 
-	public List<Map<String, Object>> SelectAllListCompanyEmployee(Pagination pagination, String partnerLicenseNum)
+	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum)
 			throws Exception;
 
-	public int companyEmployeeTableCount(String partnerLicenseNum) throws Exception;
-
-	// 직원찾기
-
-	public List<Map<String, Object>> SearchListCompanyEmployee(Pagination pagination, String partnerLicenseNum,String userName,
-										String syllabusName, String courseStartDate, String completionDate)	throws Exception;
-
-	public int searchEmployeeTableCount(String partnerLicenseNum, String userName, String syllabusName,
-			String courseStartDate, String completionDate) throws Exception;
-
 	// 직원 수 계산
-	public int companyUserNum(String partnerLicenseNum) throws Exception;
 
-	public int companyCourseUserNum() throws Exception;
-
+	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception;
+	
 	/* 기업관련 끝 */
 }

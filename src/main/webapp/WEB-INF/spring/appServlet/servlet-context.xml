@@ -4,17 +4,17 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:beans="http://www.springframework.org/schema/beans"
 		xmlns:mvc="http://www.springframework.org/schema/mvc"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:task="http://www.springframework.org/schema/task"
-		xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-      http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
-
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+	
 	<task:annotation-driven />
-
-	<!-- DispatcherServlet Context: defines this servlet's request-processing
-       infrastructure -->
+	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -61,13 +61,13 @@
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	<beans:bean id="beanNameResolver"
-				class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<beans:property name="order" value="0" />
-	</beans:bean>
-	<beans:bean id="jsonView"
-				class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-		<beans:property name="contentType"
-						value="application/json;charset=UTF-8"></beans:property>
-	</beans:bean>
 
+      class="org.springframework.web.servlet.view.BeanNameViewResolver">
+      <beans:property name="order" value="0" />
+   </beans:bean>
+   <beans:bean id="jsonView"
+      class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+      <beans:property name="contentType"
+         value="application/json;charset=UTF-8"></beans:property>
+   </beans:bean>
 </beans:beans>

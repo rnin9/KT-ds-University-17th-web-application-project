@@ -29,6 +29,15 @@ public class MemberVO {
 	private Date userJoindate;
 	private String approval_status;
 	private String resume;
+	private String toCharBirth;
+
+	public String getToCharBirth() {
+		return toCharBirth;
+	}
+
+	public void setToCharBirth(String toCharBirth) {
+		this.toCharBirth = toCharBirth;
+	}
 
 	@Autowired
 	private CourseVO courseVO;

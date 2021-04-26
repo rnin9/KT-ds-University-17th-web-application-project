@@ -25,7 +25,7 @@ public class PartnerServiceImpl implements PartnerService {
 	public PageMapper pageMapper;
 	
 	
-	//È¸»ç ¸®½ºÆ® Ãâ·Â
+	//íšŒì‚¬ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	@Override
     public List<Map<String, Object>> SelectAllListPartner() throws Exception {
         // TODO Auto-generated method stub
@@ -55,38 +55,38 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	
-	//È¸»ç »óÅÂº° count Ãâ·Â
+	//íšŒì‚¬ ìƒíƒœë³„ count ì¶œë ¥
 	@Override
 	public List listNumPartner() throws DataAccessException {
 		List<Integer> listNumPartner = new ArrayList<Integer>();;
-		listNumPartner.add(partnerDAO.selectCooperationPartner());  //Çù·Â»ç count
-		listNumPartner.add(partnerDAO.selectConventionPartner());   //Çù¾à»ç count
-		listNumPartner.add(partnerDAO.selectIngPartner());			//Çù¾à ÁøÇàÁß count
-		listNumPartner.add(partnerDAO.selectNotPartner());			//¹ÌÇù¾à count
+		listNumPartner.add(partnerDAO.selectCooperationPartner());  //í˜‘ë ¥ì‚¬ count
+		listNumPartner.add(partnerDAO.selectConventionPartner());   //í˜‘ì•½ì‚¬ count
+		listNumPartner.add(partnerDAO.selectIngPartner());			//í˜‘ì•½ ì§„í–‰ì¤‘ count
+		listNumPartner.add(partnerDAO.selectNotPartner());			//ë¯¸í˜‘ì•½ count
 		return listNumPartner;
 	}
 	
-	//È¸»ç Á¤º¸ ÀÔ·Â
+	//íšŒì‚¬ ì •ë³´ ì…ë ¥
 	@Override
 	public void addPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.addPartner(partner);
 	}
 	
 	
-	//±â¾÷ ¼öÁ¤
+	//ê¸°ì—… ìˆ˜ì •
 	@Override
 	public void modPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.updatePartner(partner);
 	}
 	
 	
-	//±â¾÷ Á¤º¸ »ó¼¼ Æû 
+	//ê¸°ì—… ì •ë³´ ìƒì„¸ í¼ 
 	@Override
 	public PartnerVO partnerDetailInfo(String partnerLicenseNum) throws DataAccessException {
 		return partnerDAO.selectDetailPartner(partnerLicenseNum);
 	}
 	
-	//±â¾÷ »èÁ¦ 
+	//ê¸°ì—… ì‚­ì œ 
 	@Override
 	public String removePartner(String partnerLicenseNum) throws DataAccessException{
 		String partnerName = partnerDAO.partnerName(partnerLicenseNum);
@@ -104,40 +104,19 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDAO.deleteJobOpening(partnerLicenseNum);
 	}
 
-	/* =================================±â¾÷ °ü·Ã ½ÃÀÛ======================= */
-	@Override
-	public List<Map<String, Object>> SelectAllListCompanyEmployee(Pagination pagination, String partnerLicenseNum) throws Exception {
+	/* =================================ê¸°ì—… ê´€ë ¨ ì‹œì‘======================= */
+	@Override						 
+	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum) throws Exception {
 		// TODO Auto-generated method stub
-		List<Map<String, Object>>list = pageMapper.SelectAllListCompanyEmployee(pagination.getFirstRecordIndex(),pagination.getLastRecordIndex(),partnerLicenseNum);
+		List list = partnerDAO.SelectAllListCompanyEmployee(partnerLicenseNum);
 		return list;
 	}
 
+	//graph information ajax
 	@Override
-	public int companyEmployeeTableCount(String partnerLicenseNum) throws Exception {
-		return pageMapper.companyEmployeeTableCount(partnerLicenseNum);
-	}
-
-	@Override
-	public int companyUserNum(String partnerLicenseNum) throws Exception {
-		return partnerDAO.companyUserNumber(partnerLicenseNum);
-	}
-
-	@Override
-	public int companyCourseUserNum() throws Exception {
-		return partnerDAO.companyCourseUserNumber();
-	}
-
-	@Override
-	public int searchEmployeeTableCount(String partnerLicenseNum, String userName, String syllabusName,
-			String courseStartDate, String completionDate) throws Exception {
-		System.out.println(courseStartDate+"°ªÀº==================ÀÌ°Çµ¥¿äÀ¯"+completionDate);
-		return pageMapper.searchEmployeeTableCount(partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
-	}
-
-	@Override
-	public List<Map<String, Object>> SearchListCompanyEmployee(Pagination pagination, String partnerLicenseNum,
-			String userName, String syllabusName, String courseStartDate, String completionDate) throws Exception {
-		return pageMapper.SearchListCompanyEmployee(pagination.getFirstRecordIndex(),pagination.getLastRecordIndex(), partnerLicenseNum, userName, syllabusName, courseStartDate, completionDate);
+	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getInfoGraph(partnerLicenseNum);
 	}
 	
 	
@@ -149,6 +128,6 @@ public class PartnerServiceImpl implements PartnerService {
 	 */
 	
 	
-	/* =================================±â¾÷ °ü·Ã ³¡======================= */
+	/* =================================ê¸°ì—… ê´€ë ¨ ë======================= */
 	
 }

@@ -11,6 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
+
 <title>강의계획서 정보</title>
 
 <!-- <link rel="stylesheet" type="text/css"
@@ -109,47 +110,102 @@ a:link, a:visited, a:hover {
 }
 </style>
 <script type="text/javascript">
-	function deleteCheck(){
-				console.log(${courseVO.courseID});
-				console.log("${member.userId}");
-				var valueArr = new Array();
-				valueArr.push(${courseVO.courseID});
-				valueArr.push("${member.userId}");
-				$.ajax({
-					url : "/springEx/course/insertCourseTable.do",
-					type : 'POST',
-					traditional : true,
-					data : {
-						valueArr : valueArr
-					},
-					success : function(data){
-						console.log("success");
-						alert("신청이 완료되었습니다.");
-						window.location.reload();
-						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-					},
-					error : function(data) { 
-						alert("신청에 실패했습니다.");
-			            console.log("fail");
-			        }
-				});
-				$.ajax({
-					url : "/springEx/course/updateCoursePeopleApplied.do",
-					type : 'POST',
-					traditional : true,
-					data : {
-						valueArr : valueArr
-					},
-					success : function(data){
-						console.log("success");
-						window.location.reload();
-						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-					},
-					error : function(data) { 
-			            console.log("fail");
-			        }
-				});
-			};
+     function onLoginClicked(){ 				/* 로그인 operation Sweet alert 사용 */
+    	 Swal.fire({
+    		  html: `<img
+    				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
+    				alt="로고" style="width:200px; height:60px;"/><input type="text" id="login" class="swal2-input" placeholder="Username">
+    		  <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+    		  confirmButtonText: 'Sign in',
+    		  showCancelButton: true,
+    		  showCloseButton: true,
+    		  focusConfirm: false,
+    		  preConfirm: () => {			// 로그인 process 이전 체크 
+    		    const login = Swal.getPopup().querySelector('#login').value
+    		    const password = Swal.getPopup().querySelector('#password').value
+    		    if (!login || !password) {
+    		      Swal.showValidationMessage(`Please enter login and password`)	// id & pw가 없는 경우
+    		    }
+    		     else{
+    
+    		   return $.ajax({				// 비동기통신, ID와 비밀번호가 있는지 확인함, 결과는 json으로 반환
+		            method: "POST",
+		            url: "${contextPath}/member/login.do",
+		            data: {
+		                userId: login,
+		                userPassword: password
+		            },
+		            success: (resp) => {	// 모든 결과를 success로 받음
+		            	if (resp.result == true) {
+		                 const logOn = true;
+		                 return resp.result;	// 결과 반환
+		                } 
+		            	else {
+		                	const logOn = false;
+			                Swal.showValidationMessage(`Check Your ID & Password or E-Mail Check!`) // 정보가 없는경우, Error       	
+		            }},
+		            error: (data) => {
+		                console.log("로그인 실패");
+		     	}
+		        })}
+    		  }
+    		}).then((result) => {
+    			if(result.isConfirmed){			// 확인된 경우, 로그인
+    				   Swal.fire({    					   
+	                      	title: "환영합니다! " + result.value.member.userName + " 님!",
+	                        icon: "success"
+	                    })
+ 
+                		 setTimeout(() => window.location.reload(), 1000); // 페이지 새로고침
+    		 	}
+    		}) 
+     }
+</script>
+<script type="text/javascript">
+	function apply(){
+				
+		if (${isLogOn == true}){
+			var valueArr = new Array();
+			valueArr.push(${courseVO.courseID});
+			valueArr.push("${member.userId}");
+			$.ajax({
+				url : "/springEx/course/insertCourseTable.do",
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					Swal.fire('신청이 완료되었습니다.','','success')
+					/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+				},
+				error : function(data) { 
+		            Swal.fire('이미 신청한 강의입니다.','','warning');
+		        }
+			});
+			$.ajax({
+				url : "/springEx/course/updateCoursePeopleApplied.do",
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			});
+		}
+		else{
+			Swal.fire('로그인 후 이용해주세요.','','warning')
+			.then(()=>{
+				onLoginClicked();
+			});
+			}
+	};
 </script>
 </head>
 
@@ -224,7 +280,7 @@ a:link, a:visited, a:hover {
       <div style="margin-top: 50px; padding-bottom: 150px;">
      		 <button class="btn button_bottom" type="button"
                onClick="location.href='/springEx/course/userCourseList.do'">목록</button>
-            <button class="btn button_bottom" type="button" onClick="deleteCheck();">신청</button>
+            <button class="btn button_bottom" type="button" onClick="apply();">신청</button>
       </div>
    </div>
    </form>

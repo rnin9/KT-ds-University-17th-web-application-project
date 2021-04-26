@@ -13,46 +13,157 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>수강관리</title>
 
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
 
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 </head>
 
 
 <style>
-.pageIntro {
-	font-family: 'Noto Sans KR', sans-serif;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	text-align: left;
-	font-size: 34px;
-	font-weight: 450;
-	background:
-		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
-		no-repeat;
-	background-repeat: no-repeat;
+button {
+	float: right;
+	margin-right: 10px;
 }
 </style>
 
+
+<body>
+
+	<div class="container">
+		<!-- 홈>강의관리>수강관리 -->
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/courseTake/courseApplyList.do">강의관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
+			</ul>
+		</div>
+
+
+		<!-- 테이블(표, 리스트) -->
+		<table class="table_" id="myTable">
+			<thead>
+				<tr align="center">
+					<td style="width: 10px;"><input type="checkbox"
+						name="check-all" onclick='selectAll(this)' /></td>
+					<td><b>아이디</b></td>
+					<td><b>이름</b></td>
+					<td><b>전화번호</b></td>
+					<td><b>이메일</b></td>
+					<td><b>소속회사</b></td>
+					<td><b>강의명</b></td>
+					<td style="width: 70px;"><b>신청일</b></td>
+					<td style="width: 50px;"><b>수강상태</b></td>
+					<!-- <td><b>수료증</b></td> -->
+				</tr>
+			</thead>
+
+			<tbody id="ajaxTable">
+				<c:forEach var="courseTake" items="${courseApplyList}">
+					<tr align="center">
+						<td><input type="checkbox" name="ab"
+							value="${courseTake.userID} ${courseTake.courseID}"
+							onclick='checkSelectAll(this)' /></td>
+						<td>${courseTake.userID}</td>
+						<td>${courseTake.memberVO.userName}</td>
+						<td>${courseTake.memberVO.userPhoneNumber}</td>
+						<td>${courseTake.memberVO.userEmail}</td>
+						<td>${courseTake.partnerVO.partnerName}</td>
+						<td>${courseTake.syllabusVO.syllabusName}</td>
+						<td>${courseTake.applyDate}</td>
+						<c:choose>
+							<c:when test="${courseTake.courseTake_State eq '수료'}">
+								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
+									<form name="formForCertificate"
+										action="${contextPath}/courseTake/certificate.do"
+										method="post">
+										<input type=text name="userName"
+											value="${courseTake.memberVO.userName}"
+											style="display: none;" /> <input type=text name="courseName"
+											value="${courseTake.syllabusVO.syllabusName}"
+											style="display: none;" /> <input type=text
+											name="userCompany"
+											value="${courseTake.partnerVO.partnerName}"
+											style="display: none;" /> <input type=text
+											name="courseStart" value="${courseTake.courseVO.courseStart}"
+											style="display: none;" /> <input type=text name="courseEnd"
+											value="${courseTake.courseVO.courseEnd}"
+											style="display: none;" /> <input type=text
+											name="syllabusTotalTime"
+											value="${courseTake.syllabusVO.syllabusTotalTime}"
+											style="display: none;" /> <input type=text
+											name="userBirthday" value="${courseTake.memberVO.birth}"
+											style="display: none;" /> <input type="image"
+											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
+											style="width: 17px; margin-top: 12px; margin-left: 5px;"
+											onclick="javascript:popup(this.form);">
+									</form>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: center;">${courseTake.courseTake_State}</td>
+							</c:otherwise>
+						</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<br> <br>
+
+		<!-- 버튼 -->
+		<div style="margin-top: 40px; padding-bottom: 150px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="deleteCheck();">삭제</button>
+			<button class="btn btn-outline-danger" type="button"
+				onClick="completionCheck();">수료완료</button>
+			<button class="btn btn-outline-danger" type="button"
+				onClick="consentCancelCheck();">승인대기</button>
+			<button class="btn btn-outline-danger" type="button"
+				onClick="consentCheck();">신청승인</button>
+		</div>
+
+
+
+	</div>
+
+</body>
+
 <script type="text/javascript">
+
+
 $(document).ready(function(){
 	$('#myTable').DataTable({
+		
+		dom : 'lBfrtip',
+		buttons: ['excel'],
 
-	
+		
 		language: {
-			info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+			info : '',
 			sInfoFiltered : '',
 			infoEmpty : '',
 			emptyTable : '데이터가 없습니다.',
@@ -70,24 +181,11 @@ $(document).ready(function(){
 			search: '',
 			sSearchPlaceholder: '통합 검색',
 		
-		}
+		},
+	
+	
 	});
 });
-</script>
-
-<script type="text/javascript">
-	//달력picker, 키보드로도 입력가능[ex)2021/4], format: "mm/yyyy" 등 으로 변경가능 
-	$(document).ready(function() {
-		$('#sandbox-container input').datepicker({
-			format : "yyyy/mm",
-			startView : 1,
-			minViewMode : 1,
-			language : "ko",
-			keyboardNavigation : false,
-			forceParse : false,
-			autoclose : true
-		});
-		
 </script>
 <script type="text/javascript">
 		   function checkSelectAll(checkbox)  {
@@ -118,24 +216,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -151,24 +253,28 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
 		
@@ -184,24 +290,28 @@ $(document).ready(function(){
          valueArr.push($(this).val());
       });
       
-      console.log(valueArr);
       
-      $.ajax({
-         url : url,
-         type : 'POST',
-         traditional : true,
-         data : {
-            valueArr : valueArr
-         },
-         success : function(data){
-            console.log("success");
-            window.location.reload();
-            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-         },
-         error : function(data) { 
-               console.log("fail");
-           }
-      });
+      if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+	  else{
+	      $.ajax({
+	         url : url,
+	         type : 'POST',
+	         traditional : true,
+	         data : {
+	            valueArr : valueArr
+	         },
+	         success : function(data){
+	            console.log("success");
+	            window.location.reload();
+	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+	         },
+	         error : function(data) { 
+	               console.log("fail");
+	           }
+	      })
+	  }
    };
       
       
@@ -217,29 +327,31 @@ $(document).ready(function(){
 			valueArr.push($(this).val());
 		});
 		
-		console.log(valueArr);
 		
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	        }
-		});
+		if(cnt==0){
+			Swal.fire("선택된 항목이 없습니다.","","warning");
+		}
+		else{
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(data){
+					console.log("success");
+					window.location.reload();
+					/*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+				},
+				error : function(data) { 
+		            console.log("fail");
+		        }
+			})
+		}
 	};
 		
-		
 </script>
-
 <script type="text/javascript">
 		 //페이지이동
 		 function movePage(currentPage, cntPerPage, pageSize){
@@ -266,148 +378,4 @@ function popup(frm)
   frm.submit();
   }
 </script>
-<body>
-
-	<div class="container">
-		<!-- 홈>강의관리>수강관리 -->
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">강의관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
-			</ul>
-		</div>
-
-
-
-
-		<!-- 검색박스 -->
-		<!-- <div class="well-searchbox">
-			<form class="form-horizontal" role="form">
-
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">강의명</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="강의명">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">수강연월</label>
-						<div class="col-md-8">
-							<div id="sandbox-container">
-								<div class="input-group date" style="width: 88%;">
-									<input type="text" class="form-control" placeholder="연/월 입력">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">소속회사</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="소속회사">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="searchSubject">
-						<label class="searchTitle">이름</label>
-						<div class="col-md-8">
-							<input type="text" class="form-control" placeholder="이름">
-						</div>
-					</div>
-
-					<div class="col-sm-offset-4 col-sm-5"
-						style="display: inline-block; text-aglin: center;">
-						<button type="submit" class="btn button_search"
-							style="margin-top: 10px;">검색</button>
-					</div>
-				</div>
-			</form>
-		</div> -->
-
-		<div class="pageIntro">수강관리</div>
-
-
-		<!-- 테이블(표, 리스트) -->
-		<table class="table_" id="myTable">
-			<thead>
-				<tr align="center">
-					<td><input type="checkbox" name="check-all"
-						onclick='selectAll(this)' /></td>
-					<td><b>아이디</b></td>
-					<td><b>이름</b></td>
-					<td><b>전화번호</b></td>
-					<td><b>이메일</b></td>
-					<td><b>소속회사</b></td>
-					<td><b>강의명</b></td>
-					<td><b>신청일</b></td>
-					<td><b>수강상태</b></td>
-					<!-- <td><b>수료증</b></td> -->
-				</tr>
-			</thead>
-
-			<tbody id="ajaxTable">
-				<c:forEach var="courseTake" items="${courseApplyList}">
-					<tr align="center">
-						<td><input type="checkbox" name="ab"
-							value="${courseTake.userID} ${courseTake.courseID}"
-							onclick='checkSelectAll(this)' /></td>
-						<td>${courseTake.userID}</td>
-						<td>${courseTake.memberVO.userName}</td>
-						<td>${courseTake.memberVO.userPhoneNumber}</td>
-						<td>${courseTake.memberVO.userEmail}</td>
-						<td>${courseTake.memberVO.userCompany}</td>
-						<td>${courseTake.syllabusVO.syllabusName}</td>
-						<td>${courseTake.courseTake_ApplyDate}</td>
-						<c:choose>
-							<c:when test="${courseTake.courseTake_State eq '수료'}">
-								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
-									<form name="formForCertificate" action="certificate.jsp"
-										method="post">
-										<input type=text name="test1"
-											value="${courseTake.memberVO.userName}"
-											style="display: none;" /> <input type=text name="test2"
-											value="${courseTake.syllabusVO.syllabusName}"
-											style="display: none;" /> <input type="image"
-											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
-											style="width: 17px; margin-top: 12px; margin-left: 5px;"
-											onclick="javascript:popup(this.form);">
-									</form>
-							</c:when>
-							<c:otherwise>
-								<td style="text-align: center;">${courseTake.courseTake_State}</td>
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<br> <br>
-
-		<!-- 버튼 -->
-		<div style="margin-top: 40px; padding-bottom: 150px;">
-			<button class="btn button_bottom" type="button"
-				onClick="deleteCheck();">삭제</button>
-			<button class="btn button_bottom" type="button"
-				onClick="completionCheck();">수료완료</button>
-			<button class="btn button_bottom" type="button"
-				onClick="consentCancelCheck();">승인대기</button>
-			<button class="btn button_bottom" type="button"
-				onClick="consentCheck();">신청승인</button>
-		</div>
-
-
-	</div>
-
-</body>
 </html>

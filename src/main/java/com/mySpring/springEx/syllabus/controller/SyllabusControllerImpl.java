@@ -87,9 +87,10 @@ public class SyllabusControllerImpl implements SyllabusController {
    }
    
    @Override
-   @RequestMapping(value="/syllabus/deleteSyllabus.do" ,method = RequestMethod.GET)
+   @RequestMapping(value="/syllabus/deleteSyllabus.do" ,method = RequestMethod.POST)
    public ModelAndView deleteSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request, HttpServletResponse response) throws Exception{
       request.setCharacterEncoding("utf-8");
+      System.out.println("-----------------------------------------"+syllabusID);
       syllabusService.deleteSyllabus(syllabusID);
       ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
       return mav;
@@ -103,6 +104,10 @@ public class SyllabusControllerImpl implements SyllabusController {
       ModelAndView mav = new ModelAndView();
       mav.setViewName(viewName);
       SyllabusVO syllabusVO = syllabusService.selectSyllabus(syllabusID);
+      syllabusVO.setSyllabusOutline(syllabusVO.getSyllabusOutline().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusPurpose(syllabusVO.getSyllabusPurpose().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusTarget(syllabusVO.getSyllabusTarget().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusContent(syllabusVO.getSyllabusContent().replace("<br>", "\r\n"));
       mav.addObject("syllabusVO", syllabusVO);
       return mav;
    }

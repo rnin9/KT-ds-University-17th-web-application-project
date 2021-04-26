@@ -72,7 +72,7 @@ public class CourseControllerImpl implements CourseController {
 	}
 	
 	@Override
-	@RequestMapping(value="/course/deleteCourse.do" ,method = RequestMethod.GET)
+	@RequestMapping(value="/course/deleteCourse.do" ,method = RequestMethod.POST)
 	public ModelAndView deleteCourse(@RequestParam("courseID") int courseID, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		courseService.deleteCourse(courseID);
@@ -147,6 +147,7 @@ public class CourseControllerImpl implements CourseController {
 		List courseUserList = courseService.courseUserList();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("courseUserList", courseUserList);
+		System.out.println("======================================================"+courseUserList.size());
 		return mav;
 	}
 

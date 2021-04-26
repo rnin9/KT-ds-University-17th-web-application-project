@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <html>
 <head>
 
@@ -30,7 +31,7 @@ request.setCharacterEncoding("UTF-8");
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/myPage.png");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -258,7 +259,8 @@ function handleModify() {
 			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 			<li style="color: grey; font-weight: bold;">〉</li>
 			<li class="on"><a
-				href="${pageContext.request.contextPath}/myInfo.do">마이 페이지</a></li>
+				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
+					페이지</a></li>
 		</ul>
 	</div>
 	<!-- 페이지에 대한 intro -->
@@ -321,29 +323,30 @@ function handleModify() {
 												value='${myInfo.userEmail}'>
 											<div class="email_regex"></div>
 											<c:choose>
-												<c:when test="${myInfo.userPosition =='채용예정자'}">
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															checked="checked" value="채용예정자"> <label for="ktu">채용예정자</label>
-														<input type="radio" id="ktp" name="userPosition"
-															value="재직자"> <label for="ktp">재직자</label>
+												<c:when test="${myInfo.userMajor =='전공'}">
+													<div class="toggle"
+														style=" margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor"
+															checked="checked" value="전공"> <label for="major">전공</label>
+														<input type="radio" id="nonMajor" name="userMajor"
+															value="비전공"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:when>
 												<c:otherwise>
-
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															value="채용예정자"> <label for="ktu">채용예정자</label> <input
-															type="radio" id="ktp" name="userPosition"
-															checked="checked" value="재직자"> <label for="ktp">재직자</label>
+													<div class="toggle"
+														style="margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor" value="전공">
+														<label for="major">전공</label> <input type="radio"
+															id="nonMajor" name="userMajor" value="비전공"
+															checked="checked"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:otherwise>
 											</c:choose>
 										</div>
 										<div style="display: flex;">
-											<div style="transform: translateX(-6%); width: 120%;">
+											<div style="transform: translateX(-20%); width: 120%;">
 												<label class="title">주소</label><span class="must">필수</span>
 												<input type="text" name="userAddress1" id="roadAddress"
 													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
@@ -354,10 +357,11 @@ function handleModify() {
 														value='${myInfo.userAddress2}' placeholder="상세 주소">
 												</div>
 											</div>
-											<c:choose>
+											<%-- <c:choose>
 												<c:when test="${myInfo.userMajor =='전공'}">
 													<div class="toggle"
 														style="transform: translateY(50%); margin-right: 20px">
+														<label class="title" style="margin-right: 5%;">전공여부</label>
 														<input type="radio" id="major" name="userMajor"
 															checked="checked" value="전공"> <label for="major">전공</label>
 														<input type="radio" id="nonMajor" name="userMajor"
@@ -367,13 +371,14 @@ function handleModify() {
 												<c:otherwise>
 													<div class="toggle"
 														style="transform: translateY(50%); margin-right: 20px">
+														<label class="title" style="margin-right: 5%;">전공여부</label>
 														<input type="radio" id="major" name="userMajor" value="전공">
 														<label for="major">전공</label> <input type="radio"
 															id="nonMajor" name="userMajor" value="비전공"
 															checked="checked"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:otherwise>
-											</c:choose>
+											</c:choose> --%>
 										</div>
 									</div>
 									<!-- 마이페이지 탭 끝-->
@@ -489,18 +494,33 @@ function handleModify() {
 											<td>${myCourse.courseTake_State}</td>
 											<c:choose>
 												<c:when test="${myCourse.courseTake_State eq '수료'}">
-													<form name="formForCertificate" action="myCertificate.jsp"
+													<form name="formForCertificate" action="${contextPath}/member/myCertificate.do"
 														method="post">
-														<input type=text name="test3" value="${myCourse.syllabusVO.syllabusName}"
-															style="display: none;" /> <input type=text name="test4"
+														<input type=text name="userName"
+															value="${myCourse.memberVO.userName}"
+															style="display: none;" /> <input type=text
+															name="courseName"
 															value="${myCourse.syllabusVO.syllabusName}"
+															style="display: none;" /> <input type=text
+															name="userCompany"
+															value="${myCourse.partnerVO.partnerName}"
+															style="display: none;" /> <input type=text
+															name="courseStart"
+															value="${myCourse.courseVO.courseStart}"
+															style="display: none;" /> <input type=text
+															name="courseEnd" value="${myCourse.courseVO.courseEnd}"
+															style="display: none;" /> <input type=text
+															name="syllabusTotalTime"
+															value="${myCourse.syllabusVO.syllabusTotalTime}"
+															style="display: none;" /> <input type=text
+															name="userBirthday" value="${myCourse.memberVO.birth}"
 															style="display: none;" />
 														<td><a style="text-decoration: underline" href="#"
 															onclick="javascript:popup(this.form);">출력하기</a></td>
 													</form>
 												</c:when>
 												<c:otherwise>
-													<td style="text-align: center;color:red;">미수료</td>
+													<td style="text-align: center; color: red;">미수료</td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
