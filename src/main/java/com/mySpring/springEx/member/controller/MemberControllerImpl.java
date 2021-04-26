@@ -79,14 +79,16 @@ public class MemberControllerImpl implements MemberController {
 
 	@Override
 	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
-	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
+	public ModelAndView myInfo(@SessionAttribute("member") MemberVO member,@RequestParam("userID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
 		String viewName = (String)request.getAttribute("viewName");
-		memberVO = memberService.getMyInfo(userID);
 		List myCourseList = memberService.listMyCourse(userID);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("myInfo", memberVO);
+		System.out.println("myInfo에 들어갈떄"+memberVO.getUserId());
 		mav.addObject("myCourseInfo", myCourseList);
+		session.setAttribute("myCourseList", myCourseList);
 		return mav;
 	}
 
@@ -161,6 +163,7 @@ public class MemberControllerImpl implements MemberController {
 		System.out.println(partnersName);
 		System.out.println(partnersName.get(0));
 		return mav;
+	
 	}
 
 
@@ -277,7 +280,6 @@ public class MemberControllerImpl implements MemberController {
 	private ModelAndView form2(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
 		String viewName = (String) request.getAttribute("viewName");
 		System.out.println(viewName);
 		HttpSession session = request.getSession();
@@ -287,7 +289,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	//수료과목 설문조사 뽑기
 	@Override
 	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {

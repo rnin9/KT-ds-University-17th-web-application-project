@@ -21,6 +21,7 @@
 			<id property="courseID" column="courseID" />
 			<result property="syllabusID" column="syllabusID" />
 			<result property="courseShow" column="courseShow" />
+			<result property="questionYN" column="questionYN" />
 		</collection>
 		<!-- syllabus join -->
 		<collection property="syllabusVO" javaType="SyllabusVO">
@@ -32,15 +33,15 @@
 	<select id="SelectAllList" resultMap="surResult">
 		SELECT * FROM 
 		(SELECT ROW_NUMBER() OVER(ORDER by survey_Id DESC) AS row_num
-		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate
+		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate,A.questionYN
 		FROM COURSE A, SYLLABUS B, SURVEY1 S
 		WHERE A.syllabusID = B.syllabusID
 		AND A.courseID = S.courseID)
 		<if test="firstRecordIndex !=null and lastRecordIndex != null">
 			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex} 
+			#{lastRecordIndex} AND questionYN = 'Y'
 		</if>
-		order by survey_Id DESC	
+		order by courseID DESC
 	</select>
 	
 	<select id="SelectAllList2" resultMap="surResult">
@@ -97,12 +98,7 @@
          ]]>
 	</select>
 	
-<!-- 	<update id="updateApplyConsent" parameterType="CouseTakeVO">
-	<![CDATA[update course_Take
-			set courseTake_State = '승인'
-			where courseTake_State = '승인대기'
-         ]]>
-	</update> -->
+
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[
 			update course_Take
@@ -112,7 +108,6 @@
 	</update>
 	<select id="testTableCountCT" resultType="int">
 		SELECT count(*) FROM course_take
-
 	</select>
 
 	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 

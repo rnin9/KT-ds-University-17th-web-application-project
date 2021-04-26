@@ -16,14 +16,21 @@
         <result property="syllabusPurpose" column="syllabusPurpose" />
         <result property="syllabusTarget" column="syllabusTarget" />
         <result property="syllabusContent" column="syllabusContent" />
-	</resultMap>
 
+	<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseStart" column="courseStart" />
+			<result property="courseEnd" column="courseEnd" />
+			<result property="questionYN" column="questionYN" />
+		</collection>
+	</resultMap>
 	 
 	<select id="selectSyllabusList" resultMap="syllabusResult">
 	 <![CDATA[
-	    select syllabusID, syllabusCategory1, syllabusCategory2, syllabusName, syllabusTotalDays, syllabusTotalTime
-	    from syllabus
-	    order by syllabusID desc
+	    select a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN
+	    from syllabus a left outer join course b on a.syllabusID = b.syllabusID
+	    order by a.syllabusID desc
 	 ]]>
 	</select>
 	<select id="selectSyllabus" parameterType="int" resultMap="syllabusResult">

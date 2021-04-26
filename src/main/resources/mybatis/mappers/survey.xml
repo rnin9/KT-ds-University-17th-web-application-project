@@ -7,35 +7,144 @@
 	<resultMap id="surResult" type="surveyVO">
 		<result property="survey_Id" column="survey_Id" />
 		<result property="courseID" column="courseID" />
-        <result property="survey_Title" column="survey_Title" />
-        <result property="writeDate" column="writeDate" />
-	</resultMap> 
-<!-- 
-	<select id="selectAllSurveyList" resultMap="surResult">
-      <![CDATA[
-         select * from survey order by survey_Id desc	 	
-      ]]>
-	</select> -->
-  
-  <insert id="insertSurvey"  parameterType="surveyVO">
+		<result property="q1" column="q1" />
+		<result property="q2" column="q2" />
+		<result property="q3" column="q3" />
+		<result property="q4" column="q4" />
+		<result property="q5" column="q5" />
+		<result property="q6" column="q6" />
+		<result property="q7" column="q7" />
+		<result property="q8" column="q8" />
+		<result property="q9" column="q9" />
+		<result property="q10" column="q10" />
+		<result property="q11" column="q11" />
+		<result property="q12" column="q12" />
+		<result property="q13" column="q13" />
+		<result property="q14" column="q14" />
+		<result property="q15" column="q15" />
+		<!-- courseTake join -->
+		<collection property="courseTakeVO" javaType="CourseTakeVO">
+			<result property="userID" column="userID" />
+			<result property="courseID" column="courseID" />
+		</collection>
+		<!-- course join -->
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseShow" column="courseShow" />
+			<result property="questionYN" column="questionYN" />
+		</collection>
+		<!-- syllabus join -->
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
+		
+	</resultMap>
+
+	<resultMap id="answerResult" type="detailVO">
+		<result property="answer_Id" column="answer_Id" />
+		<result property="userId" column="userId" />
+		<result property="courseID" column="courseID" />
+		<result property="answer1" column="answer1" />
+		<result property="answer2" column="answer2" />
+		<result property="answer3" column="answer3" />
+		<result property="answer4" column="answer4" />
+		<result property="answer5" column="answer5" />
+		<result property="answer6" column="answer6" />
+		<result property="answer7" column="answer7" />
+		<result property="answer8" column="answer8" />
+		<result property="answer9" column="answer9" />
+		<result property="answer10" column="answer10" />
+		<result property="answer11" column="answer11" />
+		<result property="answer12" column="answer12" />
+		<result property="answer13" column="answer13" />
+		<result property="answer14" column="answer14" />
+		<result property="answer15" column="answer15" />
+	</resultMap>
+
+	<resultMap id="courseTakeResult2" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
+	</resultMap>
+	
+	<resultMap id="courseResult" type="courseVO">
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
+		<result property="courseStart" column="courseStart" />
+        <result property="courseEnd" column="courseEnd" />        
+        <result property="courseApplyStart" column="courseApplyStart" />
+        <result property="courseApplyEnd" column="courseApplyEnd" />
+        <result property="courseTime" column="courseTime" />
+        <result property="courseFee" column="courseFee" />
+        <result property="courseRoomNumber" column="courseRoomNumber" />
+        <result property="coursePeopleMax" column="coursePeopleMax" />
+        <result property="coursePeopleApplied" column="coursePeopleApplied" />
+        <result property="courseState" column="courseState" />
+        <result property="courseShow" column="courseShow" />
+        <result property="questionYN" column="questionYN" />
+       </resultMap>
+	<!-- <select id="selectAllSurveyList" resultMap="surResult"> <![CDATA[ select 
+		* from survey order by survey_Id desc ]]> </select> -->
+
+	<!-- <insert id="insertSurvey" parameterType="surveyVO">
 		<![CDATA[
 		 insert into survey1(survey_Id,courseID,writedate)
 		 values(seq.nextval,#{courseID},to_char(sysdate))
-		]]>      
-	</insert> 
-	
-	     
-   <delete id="deleteSurvey"  parameterType="String">
-	   delete from survey1
-	   where 
-	   survey_Id=#{survey_Id}
-  </delete>
+		]]>
+	</insert> -->
 
- 
- 	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
-	<![CDATA[
-		select * from t_member	
-		where id=#{id} and pwd=#{pwd}		
-	]]>
-  </select> -->
+
+	<delete id="deleteSurvey" parameterType="String">
+		delete from survey1
+		where
+		survey_Id=#{survey_Id}
+	</delete>
+
+	<insert id="insertSurveyAnswer" parameterType="detailVO">
+		{
+		CALL
+		DECLARE
+		BEGIN
+		insert into survey_answer1
+		values(survey_answer_seq.nextval,#{courseID},#{answer1},#{answer2},#{answer3},#{answer4},#{answer5},#{answer6},
+		#{answer7},#{answer8},#{answer9},#{answer10},#{answer11},#{answer12},#{answer13},#{answer14},#{answer15},#{userId},'Y');
+		<if test="true">
+			update course_take
+			set surveyYN = 'Y'
+			where userId=#{userId} and courseID=#{courseID};
+		</if>
+		END
+		}
+	</insert>
+	
+		<insert id="insertSurveyQuestion" parameterType="surveyVO">
+		{
+		CALL
+		DECLARE
+		BEGIN
+		insert into survey1
+		values(survey_question_seq.nextval,#{courseID},to_char(sysdate),#{q1},#{q2},#{q3},#{q4},#{q5},
+		#{q6},#{q7},#{q8},#{q9},#{q10},#{q11},#{q12},#{q13},#{q14},#{q15});
+			<if test="true">
+			update course
+			set questionYN = 'Y'	
+			where courseID=#{courseID};
+		</if>
+		END
+		}
+	</insert>
+	
+	<select id="getQuestion" parameterType="surveyVO" resultMap="surResult">
+		select * from survey1 where courseID=#{courseID}
+	</select>
+	
+	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 
+		> <![CDATA[ select * from t_member where id=#{id} and pwd=#{pwd} ]]> </select> -->
 </mapper>

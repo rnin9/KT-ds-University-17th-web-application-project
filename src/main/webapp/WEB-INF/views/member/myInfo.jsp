@@ -488,10 +488,13 @@ function handleModify() {
 											<td>${myCourse.courseVO.courseStart}~${myCourse.courseVO.courseEnd}</td>
 											<td>${myCourse.courseTake_State}</td>
 											<c:choose>
-												<c:when test="${myCourse.courseTake_State eq '수료'}">
-													<form name="formForCertificate" action="${pageContext.request.contextPath}/courseTake/certificate.jsp"
+												<c:when
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'Y'}">
+													<form name="formForCertificate"
+														action="${pageContext.request.contextPath}/courseTake/certificate.jsp"
 														method="post">
-														<input type=text name="test1" value="${myCourse.memberVO.userName}"
+														<input type=text name="test1"
+															value="${myCourse.memberVO.userName}"
 															style="display: none;" /> <input type=text name="test2"
 															value="${myCourse.syllabusVO.syllabusName}"
 															style="display: none;" />
@@ -499,19 +502,26 @@ function handleModify() {
 															onclick="javascript:popup(this.form);">출력하기</a></td>
 													</form>
 												</c:when>
+												<c:when
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N'}">
+													<td style="text-align: center;">
+													<a href="${pageContext.request.contextPath}/survey/surveyWriteForm.do?courseID=${myCourse.courseID}&userID=${myCourse.userID}">설문조사</a></td>
+												</c:when>
 												<c:otherwise>
-													<td style="text-align: center;"></td>
+													<td style="text-align: center; color: red;">미수료</td>
 												</c:otherwise>
 											</c:choose>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
+							<b style="float:right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b style="float:right; color:red;">*수료 상태</b>
 						</div>
-						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
+					<!-- 수강강의 페이지 탭 끝 -->
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 </body>

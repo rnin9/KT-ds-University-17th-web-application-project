@@ -12,6 +12,7 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
 
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
@@ -27,6 +28,7 @@
 			<result property="syllabusID" column="syllabusID" />
 			<result property="courseStart" column="courseStart" />
 			<result property="courseEnd" column="courseEnd" />
+			<result property="questionYN" column="questionYN" />
 		</collection>
 
 		<collection property="syllabusVO" javaType="SyllabusVO">
@@ -49,15 +51,37 @@
          ]]>
 	</update>
 
-	<!-- 나의 수강내역 가져오기  -->
+	<!-- 나의 수강내역 가져오기 -->
 	<select id="get_myCourseInformation" parameterType="String"
-		 resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
-	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, c.courseID, m.userID, s.syllabusID, m.userName
+		resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
+	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, ct.surveyYN, c.courseID, m.userID, s.syllabusID, m.userName
 	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
 	where ct.userId = #{userID} 
 	order by courseTake_ApplyDate desc
 	]]>
 	</select>
+
+	<select id="get_SurveyItem" parameterType="CourseTakeVO"
+		resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
+	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, ct.surveyYN, c.courseID, m.userID, s.syllabusID, m.userName
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	where ct.userId = #{userID} and c.courseID=#{courseID} 
+	]]>
+	</select>
+	
+	<select id="get_SurveyList" parameterType="CourseTakeVO"
+		resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
+	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, ct.surveyYN, c.courseID, m.userID, s.syllabusID, m.userName
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	where ct.courseTake_State = '수료'
+	order by courseTake_ApplyDate desc
+	]]>
+	</select>
+
+	<!-- <select id="get_SurveyItem" parameterType="CourseTakeVO" resultMap="courseTakeResult2"> 
+		<![CDATA[ select * from course_Take where courseID=#{courseID} and userID=#{userID} 
+		]]> </select> -->
+
 
 	<!-- <select id="selectCompleteStudent" parameterType="CourseTakeVO"> <![CDATA[select 
 		set courseTake_State = '수료' where courseTake_State = '수료대기' and userID = 

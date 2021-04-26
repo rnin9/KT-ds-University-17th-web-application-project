@@ -33,7 +33,7 @@ public interface MemberController {
 								  HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView myInfo(@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView myInfo(@SessionAttribute("member") MemberVO member,@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modMyInfo(@ModelAttribute MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

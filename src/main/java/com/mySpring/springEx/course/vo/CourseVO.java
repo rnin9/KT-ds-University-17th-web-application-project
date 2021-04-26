@@ -15,20 +15,21 @@ public class CourseVO {
 	private Date courseApplyStart;
 	private Date courseApplyEnd;
 	private String courseTime;
-    private String courseFee;
-    private int courseRoomNumber;
-    private int coursePeopleMax;
-    private int coursePeopleApplied;
-    private String courseState;
+	private String courseFee;
+	private int courseRoomNumber;
+	private int coursePeopleMax;
+	private int coursePeopleApplied;
+	private String courseState;
 	private char courseShow;
-    private SyllabusVO syllabusVO;
-	
-    public CourseVO() {
-		
+	private String questionYN;
+	private SyllabusVO syllabusVO;
+
+	public CourseVO() {
+
 	}
-	
+
 	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart, Date courseApplyEnd, String courseTime,
-					String courseFee, int courseRoomNumber, int coursePeopleMax, int coursePeopleApplied, String courseState, char courseShow , SyllabusVO syllabusVO) {
+					String courseFee, int courseRoomNumber, int coursePeopleMax, int coursePeopleApplied, String courseState, char courseShow ,String questionYN, SyllabusVO syllabusVO) {
 		this.courseID = courseID; 
 		this.syllabusID = syllabusID;
 		
@@ -43,6 +44,7 @@ public class CourseVO {
 		this.coursePeopleApplied = coursePeopleApplied;
 		this.courseState = courseState;
 		this.courseShow = courseShow;
+		this.questionYN = questionYN;
 		this.syllabusVO = syllabusVO; 
 	}
 
@@ -157,6 +159,13 @@ public class CourseVO {
 	public void setCourseShow(char courseShow) {
 		this.courseShow = courseShow;
 	}
-	
-	
+
+	public String getQuestionYN() {
+		return questionYN;
+	}
+
+	public void setQuestionYN(String questionYN) {
+		this.questionYN = questionYN;
+	}
+
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -289,40 +289,29 @@ a:link, a:visited, a:hover {
 		<table class="table_syllabusList">
 			<thead>
 				<tr align="center">
-					<th>surveyId</th>
-					<th>courseID</th>
-					<th>SurveyTitle</th>
-					<th>Start date</th>
+
+					<th>번호</th>
+					<th>강의명</th>
+					<th>시작일</th>
 					<th>detail</th>
-					<th>delete</th>
+			
 				</tr>
 			</thead>
-			<tfoot>
-				<tr align="center">
-					<th>surveyId</th>
-					<th>courseID</th>
-					<th>SurveyTitle</th>
-					<th>Start date</th>
-					<th>detail</th>
-					<th>delete</th>
-				</tr>
-			</tfoot>
+			
 			<tbody id="ajaxTable">
 				<c:forEach var="survey" items="${surveyList}">
 					<tr class="item">
-						<td>${survey.survey_Id}</td>
 						<td>${survey.courseID}</td>
 						<td class="name">${survey.syllabusVO.syllabusName}</td>
 						<td>${survey.writeDate}</td>
 						<td><a
-							href="${contextPath}/survey/survey2Form.do?surveyId=${survey.survey_Id}">상세</a></td>
-						<td><a
-							href='${contextPath}/survey/removeSurvey.do?survey_Id=${survey.survey_Id}'>삭제</a></td>
+							href="${contextPath}/survey/surveyDetailForm.do?courseID=${survey.courseID}">상세</a></td>
+				
 					</tr>
 				</c:forEach>
 
 			</tbody>
-			
+
 		</table>
 		<br>
 		<button type="button"
@@ -344,16 +333,14 @@ a:link, a:visited, a:hover {
 							<table id="modalTable">
 								<tr>
 									<th>surveyTitle</th>
-									<th>
-								    <select name="courseID">
+									<th><select name="courseID">
 											<c:forEach var="insertList" items="${insertSurvey}">
 												<option id="com" onchange="alert_select_value(this);"
 													value='${insertList.courseVO.courseID}'>${insertList.courseVO.courseID},${insertList.syllabusVO.syllabusName}</option>
-											</c:forEach> 
-									</select>
-									</th>
+											</c:forEach>
+									</select></th>
 								</tr>
-								
+
 							</table>
 						</div>
 						<div class="modal-footer">
@@ -372,9 +359,7 @@ a:link, a:visited, a:hover {
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
+
 	<script>
 //10,20,30개씩 selectBox 클릭 이벤트
 function changeSelectBox(currentPage, cntPerPage, pageSize){
