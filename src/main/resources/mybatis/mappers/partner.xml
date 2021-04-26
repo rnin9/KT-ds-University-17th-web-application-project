@@ -34,6 +34,8 @@
 		<collection property="memberVO" javaType="MemberVO">
 		<result property="userId" column="userId" />
 		<result property="userName" column="userName" />
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
 		<result property="userPhoneNumber" column="userPhoneNumber" />
 		<result property="userEmail" column="userEmail" />
 		<result property="userCompany" column="userCompany" />
@@ -41,6 +43,8 @@
 		
 		<collection property="courseVO" javaType="CourseVO">
 		<result property="courseID" column="courseID" />
+		<result property="courseStart" column="courseStart" />
+		<result property="courseEnd" column="courseEnd" />
 		<result property="syllabusID" column="syllabusID" />
 		</collection>
 		
@@ -145,26 +149,22 @@
       ]]>
 	</select>
 	<!--  우리회사 회원 수 -->
-	<select id="companyUserNumber" parameterType="String" resultType="int">
-      <![CDATA[
-        select count(distinct(userid)) from kt_user where userCompany=#{partnerLicenseNum}   	
-      ]]>
-	</select>
-	
-	<!--  우리회사 회원 수 -->
-	<select id="companyCourseUserNumber" resultType="int">
-      <![CDATA[
-       select count(distinct(userid)) from course_take   	
-      ]]>
-	</select>
 	
 	<select id="companyGraphInfo" parameterType="String" resultMap="companyCourseTakeResult">
 	 <![CDATA[
-     select SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'),1, 5) as takeYear, count(CASE WHEN ct.courseTake_state='수료' THEN 1 END) as takeY,count(CASE WHEN ct.courseTake_state!='수료' THEN 1 END) as takeN
+     select SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'),1, 5) as takeYear, count(CASE WHEN ct.courseTake_state in('수료') THEN 1 END) as takeY,count(CASE WHEN ct.courseTake_state not in('수료') THEN 1 END) as takeN
 		from course_take ct join kt_user m on ct.userId = m.userID join course c on c.courseID = ct.courseID 
 		where m.userCompany=#{partnerLicenseNum}
 		group by SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'), 1, 5) order by takeYear
 	]]>
+	</select>
+	
+	<select id="companyEmployeeList" parameterType="String" resultMap="companyCourseTakeResult">
+	 <![CDATA[
+	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName,s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
+  	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
+  	 				 where p.partnerLicenseNum=#{partnerLicenseNum}
+  	 ]]>
 	</select>
 	
 	

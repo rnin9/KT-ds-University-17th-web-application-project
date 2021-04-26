@@ -29,6 +29,7 @@ public interface PartnerDAO {
 	public String partnerName(String partnerLicenseNum) throws DataAccessException;
 
 	/*기업관련*/
+	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException;
 	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException;
 	public int companyUserNumber(String partnerLicenseNum) throws DataAccessException;
 	public int companyCourseUserNumber() throws DataAccessException;

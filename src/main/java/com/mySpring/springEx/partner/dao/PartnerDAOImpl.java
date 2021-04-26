@@ -103,4 +103,11 @@ public class PartnerDAOImpl implements PartnerDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("mapper.partner.companyGraphInfo", partnerLicenseNum);
 	}
+
+
+	@Override
+	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyEmployeeList",partnerLicenseNum);
+	}
 }

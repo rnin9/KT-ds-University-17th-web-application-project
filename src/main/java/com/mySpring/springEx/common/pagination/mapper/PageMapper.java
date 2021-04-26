@@ -10,43 +10,33 @@ import com.mySpring.springEx.common.pagination.Pagination;
 
 public interface PageMapper {
 
-	//생성자
+	//�깮�꽦�옄
 	public List<Map<String, Object>> SelectAllList() throws Exception;
 	public List<Map<String, Object>> SelectAllList2() throws Exception;
 	
-	// Paging 전체 데이터에 대한 페이징 객체를 넣어 페이징 처리를 한 후 Map형식으로 받아서 List에 저장
-		// 객체화를 시켜둠으로 인해, 앞으로 페이징 처리에 관련된 부분을 객체 삽입만으로 처리가 가능하도록 구성
+	// Paging �쟾泥� �뜲�씠�꽣�뿉 ���븳 �럹�씠吏� 媛앹껜瑜� �꽔�뼱 �럹�씠吏� 泥섎━瑜� �븳 �썑 Map�삎�떇�쑝濡� 諛쏆븘�꽌 List�뿉 ���옣
+		// 媛앹껜�솕瑜� �떆耳쒕몺�쑝濡� �씤�빐, �븵�쑝濡� �럹�씠吏� 泥섎━�뿉 愿��젴�맂 遺�遺꾩쓣 媛앹껜 �궫�엯留뚯쑝濡� 泥섎━媛� 媛��뒫�븯�룄濡� 援ъ꽦
 	public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception;
 	
-	//수강신청내역
+	//�닔媛뺤떊泥��궡�뿭
 	public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception;
 	public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception;
 	public int testTableCountCT() throws Exception;
 	
-	// count 전체 데이터 갯수를 확인하기 위한 부분으로, 갯수를 확인하기 때문에 int로 받음
+	// count �쟾泥� �뜲�씠�꽣 媛��닔瑜� �솗�씤�븯湲� �쐞�븳 遺�遺꾩쑝濡�, 媛��닔瑜� �솗�씤�븯湲� �븣臾몄뿉 int濡� 諛쏆쓬
 	public int testTableCount() throws Exception;
 	
 	
-	//공지사항 페이징
+	//怨듭��궗�빆 �럹�씠吏�
 		public List<Map<String, Object>> NoticeAllList() throws Exception;
 		public List<Map<String, Object>> NoticeAllList(Pagination pagination) throws Exception;
 		public int testTableCountN() throws Exception;
 	
-	//파트너 페이징
+	//�뙆�듃�꼫 �럹�씠吏�
 	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
 	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
 	public int testTableCountPartner() throws Exception;
 
-	/*������� ����*/
-	public List<Map<String, Object>> SelectAllListCompanyEmployee(@Param("firstRecordIndex") int firstRecordIndex,@Param("lastRecordIndex") int lastRecordIndex, @Param("partnerLicenseNum")String partnerLicenseNum);
-
-	public int companyEmployeeTableCount(String partnerLicenseNum);
-	public int searchEmployeeTableCount(@Param("partnerLicenseNum") String partnerLicenseNum, @Param("userName") String userName,
-			@Param("syllabusName")String syllabusName, @Param("courseStartDate")String courseStartDate, @Param("completionDate")String completionDate);
-	
-	public List<Map<String, Object>> SearchListCompanyEmployee(@Param("firstRecordIndex") int firstRecordIndex,@Param("lastRecordIndex") int lastRecordIndex, @Param("partnerLicenseNum")String partnerLicenseNum,
-			@Param("userName") String userName, @Param("syllabusName")String syllabusName, @Param("courseStartDate")String courseStartDate, @Param("completionDate")String completionDate);
-	/*������� ��*/
 	
 
 }

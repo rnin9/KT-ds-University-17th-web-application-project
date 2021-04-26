@@ -210,7 +210,8 @@ public class MemberControllerImpl implements MemberController {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
 					
-		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
+		if ( (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) ||
+				(memberVO != null && memberVO.getUserPosition().equals("ADMIN"))) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);

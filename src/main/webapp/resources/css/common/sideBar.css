@@ -87,7 +87,7 @@
 	background-color: #020203;
 }
 
-.nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
+/* .nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
 	{
 	font-family: Fontawesome;
 	content: "\f105";
@@ -95,7 +95,7 @@
 	padding-left: 20px;
 	padding-right: 10px;
 	vertical-align: middle;
-}
+} */
 
 .nav-side-menu li {
 	background-color: gray;
@@ -178,6 +178,7 @@ body {
 }
 
 .nav-side-menu .sub-menu li a {
+	margin-right: 20px;
 	text-decoration: none;
 	color: #e1ffff;
 }

@@ -55,7 +55,7 @@ request.setCharacterEncoding("UTF-8");
 				data.addColumn('number', '수료');
 				data.addColumn('number', '미수료');
 
-				result.datas.forEach(function(row) {
+				result.datas.forEach((row)=> {
 					data.addRow([ row.takeYear, row.takeY, row.takeN ]);
 				});
 
@@ -97,7 +97,14 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<div class="container" style="float:left; transform:translateY(10%);">
+			<c:choose>
+			<c:when test="${partner.partnerName =='university'}">
+				<h2>kt ds University</h2>
+			</c:when>
+			<c:otherwise>
 			<h2>회사 정보</h2>
+			</c:otherwise>
+			</c:choose>
 			
 			<div>
 			<div class="wrap-loading">
@@ -111,6 +118,10 @@ request.setCharacterEncoding("UTF-8");
 					<td>${partner.partnerName}</td>
 				</tr>
 				<tr>
+					<th>업종 · 업태</th>
+					<td>${partner.partnerIndustryType}</td>
+				</tr>
+				<tr>
 					<th>협약 상태</th>
 					<td>${partner.partnerState}</td>
 				</tr>
@@ -121,10 +132,6 @@ request.setCharacterEncoding("UTF-8");
 				<tr>
 					<th>회사 전화번호</th>
 					<td>${partner.partnerPhoneNumber}</td>
-				</tr>
-				<tr>
-					<th>회사 정보</th>
-					<td>${partner.partnerInformation}</td>
 				</tr>
 				<tr>
 					<th>인원 규모</th>

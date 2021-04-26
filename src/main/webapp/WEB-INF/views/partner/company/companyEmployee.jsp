@@ -53,6 +53,7 @@ request.setCharacterEncoding("UTF-8");
 		    } );
 		 
 		 var table = $('#myTable').DataTable({
+			 
 			initComplete: function () {
 	            // Apply the search
 	            this.api().columns().every( function () {
@@ -101,25 +102,27 @@ request.setCharacterEncoding("UTF-8");
 		<table id="myTable">
 			<thead>
 				<tr>
-					<td><b>아이디</b></td>
 					<td><b>이름</b></td>
-					<td><b>전화번호</b></td>
-					<td><b>이메일</b></td>
+					<td><b>생년월일</b></td>
 					<td><b>과정명</b></td>
-					<td><b>이수일</b></td>
+					<td><b>이수시간</b></td>
+					<td><b>시작날짜</b></td>
+					<td><b>종료날짜</b></td>
+					<td><b>수료일</b></td>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="eList" items="${companyEmployeeList}">
 					<tr class="item">
-						<td>${eList.memberVO.userId}</td>
 						<td>${eList.memberVO.userName}</td>
-						<td>${eList.memberVO.userPhoneNumber}</td>
-						<td>${eList.memberVO.userEmail}</td>
+						<td>${eList.memberVO.toCharBirth}</td>
 						<td>${eList.syllabusVO.syllabusName}</td>
+						<td>${eList.syllabusVO.syllabusTotalTime}</td>
+						<td>${eList.courseVO.courseStart}</td>
+						<td>${eList.courseVO.courseEnd}</td>
 						<c:choose>
 							<c:when test="${eList.courseTake_CompleteDate == null}">
-								<td style="color: red;">미이수</td>
+								<td style="color: red;">미수료</td>
 							</c:when>
 							<c:otherwise>
 								<td>${eList.courseTake_CompleteDate}</td>
@@ -130,12 +133,13 @@ request.setCharacterEncoding("UTF-8");
 			</tbody>
 			<tfoot>
             <tr>
-                <th>ID</th>
                 <th>이름</th>
                 <th>휴대폰</th>
                 <th>이메일</th>
                 <th>과정 명</th>
-                <th>Salary</th>
+                <th>시작</th>
+                <th>종료</th>
+                <th>수료일</th>
             </tr>
         </tfoot>
 		</table>

@@ -31,18 +31,18 @@
 						<div class="partnerInfoModalBody" style="text-align: left">
 							<div class="row">
 								<div class="col-3" style="color: #444444; font-weight: bold">
-									<p>소개</p>
+									<p>이름</p>
 									<p>주소</p>
-									<p>사원수</p>
 									<p>이메일</p>
-									<p>웹사이트</p>
+									<p>자기소개</p>
+									<p>보유기술</p>
 								</div>
 								<div class="col-8">
-									<p>qqq</p>
-									<p>qqq</p>
-									<p>qqq</p>
-									<p>qqq</p>
-									<p>qqq</p>
+									<p>강민주</p>
+									<p>서울 서초구 방배동 방배역 1번출구</p>
+									<p>rkdalswn1209@naver.com</p>
+									<p>뽑아만 주신다면 회사를 위해 분골 쇄신하며 열심히 회사에 다니도록 하겠읍니다.</p>
+									<p>Spring, Oracle</p>
 								</div>
 							</div>
 						</div>

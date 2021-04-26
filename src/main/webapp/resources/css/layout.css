@@ -113,7 +113,6 @@ a:link, a:visited, a:hover {
 
 @media ( min-width : 1200px) {
 	.navbar-expand-xl .navbar-collapse {
-		padding: 10px;
 		display: -ms-flexbox !important;
 		display: flex !important;
 		-ms-flex-preferred-size: auto;

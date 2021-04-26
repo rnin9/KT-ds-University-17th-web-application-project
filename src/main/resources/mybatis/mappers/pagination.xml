@@ -138,7 +138,7 @@
 			column="partnerRegisterDate" />
 	</resultMap>
 
- <resultMap id="companyCourseTakeResult" type="courseTakeVO">
+ <!-- <resultMap id="companyCourseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -146,10 +146,11 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
-		<!-- join 할 VO를 데이터매핑 -->
+		join 할 VO를 데이터매핑
 		<collection property="memberVO" javaType="MemberVO">
 		<result property="userId" column="userId" />
 		<result property="userName" column="userName" />
+		<result property="birth" column="birth" />
 		<result property="userPhoneNumber" column="userPhoneNumber" />
 		<result property="userEmail" column="userEmail" />
 		<result property="userCompany" column="userCompany" />
@@ -163,8 +164,9 @@
 		<collection property="syllabusVO" javaType="SyllabusVO">
 		<result	property="syllabusID" column="syllabusID"/>
 		<result property="syllabusName" column="syllabusName" />
+		<result property="syllabusTotalTime" column="syllabusTotalTime" />
 		</collection>
-	</resultMap>
+	</resultMap> -->
 
 	<select id="SelectAllListPartner" resultMap="resResult">
 		SELECT *
@@ -235,14 +237,17 @@
   	<!-- 공지사항 끝-->
   	
   	<!-- 협력사관련 -->
+  	<!-- 
   	
   	<select id="companyEmployeeTableCount" resultType="int">
   	SELECT count(*) from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.userPhoneNumber,
+  	 				 m.birth,
   	 				 m.userEmail,
   	 				 s.syllabusName,
+  	 				 s.syllabusTotalTime,
+  	 				 ct.courseID,
   	 				 ct.courseTake_State,
   	 				 ct.courseTake_ApplyDate,
   	 				 ct.courseTake_CompleteDate
@@ -255,9 +260,10 @@
   	SELECT * from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.userPhoneNumber,
+  	 				 m.birth,
   	 				 m.userEmail,
-  	 				 s.syllabusName, 
+  	 				 s.syllabusName,
+  	 				 s.syllabusTotalTime,
   	 				 ct.courseID,
   	 				 ct.courseTake_State,
   	 				 ct.courseTake_ApplyDate,
@@ -275,7 +281,7 @@
     from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.userPhoneNumber,
+  	 				 m.birth,
   	 				 m.userEmail,
   	 				 s.syllabusName, 
   	 				 ct.courseID,
@@ -324,7 +330,7 @@
     from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.userPhoneNumber,
+  	 				 m.birth,
   	 				 m.userEmail,
   	 				 s.syllabusName, 
   	 				 ct.courseID,
@@ -366,5 +372,5 @@
     				 and m.userName like '%'||#{userName}||'%' 
     				 </if>
     				 and m.usercompany =#{partnerLicenseNum})
-        </select>
+        </select> -->
 </mapper>

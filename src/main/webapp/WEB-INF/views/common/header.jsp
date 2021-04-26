@@ -56,7 +56,8 @@ request.setCharacterEncoding("UTF-8");
 	                        icon: "success"
 	                    })
  						 
-                		if(result.value.member.userPosition =='PARTNER' && result.value.url =='/member/login.do'){
+                		if((result.value.member.userPosition =='PARTNER' && result.value.url =='/member/login.do')
+                			|| (result.value.member.userPosition =='ADMIN' && result.value.url =='/member/login.do')){
                 			 setTimeout(() => window.location.href = '${contextPath}/partner/main.do', 1000); // 페이지 새로고침
                 		 } else{
                 			 setTimeout(() => window.location.reload(), 1000);
@@ -72,15 +73,15 @@ request.setCharacterEncoding("UTF-8");
 	<!-- 권한별 다른 메뉴, position별로 기능 추가 필요 -->
 	<c:choose>
 		<c:when
-			test="${isLogOn != null || member.userPosition == 'PARTNER'}">
+			test="${isLogOn != null && member.userPosition == 'PARTNER'}">
 			<nav class="navbar navbar-expand-sm navbar-dark bg-primary-admin">
 		</c:when>
 		<c:when
-			test="${isLogOn == null || member.userPosition != 'ADMIN'}">
-			<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			test="${isLogOn != null && member.userPosition == 'ADMIN'}">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-primary-admin">
 		</c:when>
 		<c:otherwise>
-			<nav class="navbar navbar-expand-xl navbar-dark bg-primary-admin">
+			<nav class="navbar navbar-expand-xl navbar-dark bg-primary">
 		</c:otherwise>
 	</c:choose>
 
@@ -88,7 +89,7 @@ request.setCharacterEncoding("UTF-8");
 	<c:choose>
 		<c:when
 			test="${ (isLogOn == true && member.userPosition == 'ADMIN') }">
-			<a class="navbar-brand-admin" href="${contextPath}/main.do"><img
+			<a class="navbar-brand-admin" href="${contextPath}/partner/main.do"><img
 				src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo1.png"
 				alt="로고" /></a>
 		</c:when>
@@ -164,7 +165,7 @@ request.setCharacterEncoding("UTF-8");
 			</c:choose>
 			<!-- 일반유저, 회원(사용자인 경우 끝) -->
 			<!-- 일반유저, 회원(관리자인 경우 시작) -->
-			<c:choose>
+			<%-- <c:choose>
 				<c:when
 					test="${isLogOn == true  && member!= null  && member.userPosition == 'ADMIN'}">
 					<li class="nav-item dropdown"><a
@@ -202,7 +203,7 @@ request.setCharacterEncoding("UTF-8");
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/survey/listSurvey.do">설문조사 관리</a></li>
 				</c:when>
-			</c:choose>
+			</c:choose> --%>
 			<!-- 관리자인 경우 끝) -->
 			<!-- 협력사인 경우 시작) -->
 			<%-- <c:choose>
@@ -233,7 +234,7 @@ request.setCharacterEncoding("UTF-8");
 								href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do">
 									FAQ</a></li>
-							<li><a class="dropdown-item" href="#"> 1:1문의</a></li>
+							<li><a class="dropdown-item" href="#"> Q&A </a></li>
 						</ul></li>
 				</c:when>
 			</c:choose>
