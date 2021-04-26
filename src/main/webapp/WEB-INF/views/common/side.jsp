@@ -41,8 +41,8 @@ request.setCharacterEncoding("UTF-8");
 			</li>
 			<ul class="sub-menu collapse" id="partner">
 				<li><a href="#"> 기업정보</a></li>
-				<li><a href="#"> 모집공고</a></li>
-				<li><a href="#"> 수강 관리</a></li>
+				<li><a href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록</a></li>
+				<li><a href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리</a></li>
 			</ul>
 			
 			<li data-toggle="collapse" data-target="#course" class="collapsed">

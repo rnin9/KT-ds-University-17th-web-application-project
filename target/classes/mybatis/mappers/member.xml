@@ -51,6 +51,17 @@
 			column="Partner_Apply_State" />
 	</resultMap>
 
+	<resultMap id="suggestionResult" type="HashMap">
+<!--		partnerName,-->
+<!--		PARTNERID,-->
+<!--		SUGGESTDESCRIPTION,-->
+<!--		SUGGESTIONDATE-->
+		<result property="partnerName" column="PartnerName" />
+		<result property="partnerID" column="PARTNERID" />
+		<result property="suggestDescription" column="SUGGESTDESCRIPTION" />
+		<result property="suggestionDate" column="SUGGESTIONDATE" />
+	</resultMap>
+
 
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
@@ -87,6 +98,19 @@
 		where Partner_Apply_UserID = #{id}
 	</select>
 
+	<select id="selectAllSuggestionList"
+			resultMap="suggestionResult">
+		select (select PARTNERNAME
+				from partner
+				where PARTNERLICENSENUM = PARTNERID
+			   )as partnerName,
+			   PARTNERID,
+			   SUGGESTDESCRIPTION,
+			   SUGGESTIONDATE
+		from Partner_Suggestion
+		where userid = #{id} and USERDELETION = 'Y'
+	</select>
+
 	<!-- insert application -->
 	<insert id="userApplyPartner" parameterType="java.util.HashMap">
 		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
@@ -107,6 +131,12 @@
 		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and
 		PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
 	</delete>
+
+	<update id="deleteSuggestion" parameterType="String">
+		update Partner_Suggestion set
+		USERDELETION = 'N'
+		where PARTNERID = #{partnerID} and USERID = #{userID}
+	</update>
 
 
 	<!-- <insert id="insertMember" parameterType="memberVO"> <![CDATA[ insert 

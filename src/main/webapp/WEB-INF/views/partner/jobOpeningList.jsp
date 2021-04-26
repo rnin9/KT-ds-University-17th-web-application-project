@@ -30,6 +30,8 @@
 
     <style>
         .container {
+            margin-left:15%;
+            position:relative;
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
         }
@@ -184,31 +186,31 @@
                 })
             }
         }
-        deleteJobOpening2 = () => {
-            valueArr = [];
-            $("input[name='cb']:checked").each(function (i) {
-                valueArr.push($(this).val());
-            });
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                traditional: true,
-                data: {
-                    valueArr: valueArr
-                },
-                success: function (data) {
-                    swal("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
-                    setTimeout(function () { // 0.9초뒤 실행
-                        location.reload(); // 새로고침 -> list 다시 불러옴
-                    }, 900);
-                },
-                error: function (data) {
-                    console.log("fail");
-                }
-            });
-
-        }
+        // deleteJobOpening2 = () => {
+        //     valueArr = [];
+        //     $("input[name='cb']:checked").each(function (i) {
+        //         valueArr.push($(this).val());
+        //     });
+        //
+        //     $.ajax({
+        //         url: url,
+        //         type: 'POST',
+        //         traditional: true,
+        //         data: {
+        //             valueArr: valueArr
+        //         },
+        //         success: function (data) {
+        //             swal("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
+        //             setTimeout(function () { // 0.9초뒤 실행
+        //                 location.reload(); // 새로고침 -> list 다시 불러옴
+        //             }, 900);
+        //         },
+        //         error: function (data) {
+        //             console.log("fail");
+        //         }
+        //     });
+        //
+        // }
 
         // 모달 body text 설정
         function getPartnerInfo(name, info, addr, email, headcnt, purl) {

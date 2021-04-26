@@ -104,9 +104,11 @@ public class MemberControllerImpl implements MemberController {
 		String viewName = (String) request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
 		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
+		List<HashMap<String, String>> suggestionList = memberService.listSuggestions(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
+		mav.addObject("suggestionList", suggestionList);
 		return mav;
 	}
 
@@ -125,6 +127,18 @@ public class MemberControllerImpl implements MemberController {
 	public void deleteApplication(@RequestBody Map<String, String> body, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	@Override
+	@RequestMapping(value = "/member/deleteSuggestion.do", method = RequestMethod.POST)
+	public void deleteSuggestion(@RequestParam List<String> valueArr) throws Exception {
+		String userID = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			System.out.println(valueArr.get(i)+"----------"+ userID);
+			memberService.deleteSuggestion(valueArr.get(i), userID);
+		}
+//		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
+//		return mav;
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)

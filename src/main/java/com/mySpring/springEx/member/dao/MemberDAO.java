@@ -29,9 +29,13 @@ public interface MemberDAO {
 
 	public List selectAllApplicationList(String id) throws DataAccessException;
 
+	public List selectAllSuggestionList(String id) throws DataAccessException;
+
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
 
 	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception;
+
+	public int deleteSuggestion(String partnerID, String userID) throws Exception;
 
 	public MemberVO getMyInformation(String userID) throws Exception;
 	
