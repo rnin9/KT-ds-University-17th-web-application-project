@@ -105,16 +105,13 @@
 </style>
 
 
-<title><tiles:insertAttribute name="title" /></title>
+<title><tiles:insertAttribute name="title"/></title>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
-		<%--   <div id="sidebar-left">
-          <tiles:insertAttribute name="side"/> 
-      </div> --%>
 		<div id="content">
 			<tiles:insertAttribute name="body" />
 		</div>

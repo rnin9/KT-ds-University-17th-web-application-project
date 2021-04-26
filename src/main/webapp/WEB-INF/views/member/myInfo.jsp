@@ -30,7 +30,7 @@ request.setCharacterEncoding("UTF-8");
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/myPage.png");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -321,29 +321,30 @@ function handleModify() {
 												value='${myInfo.userEmail}'>
 											<div class="email_regex"></div>
 											<c:choose>
-												<c:when test="${myInfo.userPosition =='채용예정자'}">
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															checked="checked" value="채용예정자"> <label for="ktu">채용예정자</label>
-														<input type="radio" id="ktp" name="userPosition"
-															value="재직자"> <label for="ktp">재직자</label>
+												<c:when test="${myInfo.userMajor =='전공'}">
+													<div class="toggle"
+														style=" margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor"
+															checked="checked" value="전공"> <label for="major">전공</label>
+														<input type="radio" id="nonMajor" name="userMajor"
+															value="비전공"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:when>
 												<c:otherwise>
-
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															value="채용예정자"> <label for="ktu">채용예정자</label> <input
-															type="radio" id="ktp" name="userPosition"
-															checked="checked" value="재직자"> <label for="ktp">재직자</label>
+													<div class="toggle"
+														style="margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor" value="전공">
+														<label for="major">전공</label> <input type="radio"
+															id="nonMajor" name="userMajor" value="비전공"
+															checked="checked"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:otherwise>
 											</c:choose>
 										</div>
 										<div style="display: flex;">
-											<div style="transform: translateX(-6%); width: 120%;">
+											<div style="transform: translateX(-20%); width: 120%;">
 												<label class="title">주소</label><span class="must">필수</span>
 												<input type="text" name="userAddress1" id="roadAddress"
 													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
@@ -354,10 +355,11 @@ function handleModify() {
 														value='${myInfo.userAddress2}' placeholder="상세 주소">
 												</div>
 											</div>
-											<c:choose>
+											<%-- <c:choose>
 												<c:when test="${myInfo.userMajor =='전공'}">
 													<div class="toggle"
 														style="transform: translateY(50%); margin-right: 20px">
+														<label class="title" style="margin-right: 5%;">전공여부</label>
 														<input type="radio" id="major" name="userMajor"
 															checked="checked" value="전공"> <label for="major">전공</label>
 														<input type="radio" id="nonMajor" name="userMajor"
@@ -367,13 +369,14 @@ function handleModify() {
 												<c:otherwise>
 													<div class="toggle"
 														style="transform: translateY(50%); margin-right: 20px">
+														<label class="title" style="margin-right: 5%;">전공여부</label>
 														<input type="radio" id="major" name="userMajor" value="전공">
 														<label for="major">전공</label> <input type="radio"
 															id="nonMajor" name="userMajor" value="비전공"
 															checked="checked"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:otherwise>
-											</c:choose>
+											</c:choose> --%>
 										</div>
 									</div>
 									<!-- 마이페이지 탭 끝-->

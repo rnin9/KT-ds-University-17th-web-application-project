@@ -19,13 +19,17 @@ public class CourseTakeVO {
 	private String courseTake_State;
 	private Date courseTake_ApplyDate;
 	private Date courseTake_CompleteDate;
+
+	private int takeY;	// ì´ ìˆ˜ë£Œì¸ì›
+	private int takeN;	// ì´ ë¯¸ìˆ˜ë£Œ ì¸ì›
+	private String takeYear; // ë…„ë„ ê¸°ì¤€
 	private String surveyYN;
 	/*
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;
 	 */
 
-	// kt_user¿Í joinÇÏ±â À§ÇØ memberVO, courseVO, syllabusVO °´Ã¼¸¦ ¸â¹öº¯¼ö·Î ¼±¾ğÇÑ´Ù.
+	// kt_userì™€ joiní•˜ê¸° ìœ„í•´ memberVO, courseVO, syllabusVO ê°ì²´ë¥¼ ë©¤ë²„ë³€ìˆ˜ë¡œ ì„ ì–¸í•œë‹¤.
 	@Autowired
 	private MemberVO memberVO;
 	@Autowired
@@ -34,7 +38,30 @@ public class CourseTakeVO {
 	private CourseTakeVO courseTakeVO;
 	@Autowired
 	private SyllabusVO syllabusVO;
+  
+  public int getTakeY() {
+		return takeY;
+	}
 
+	public void setTakeY(int takeY) {
+		this.takeY = takeY;
+	}
+
+	public int getTakeN() {
+		return takeN;
+	}
+
+	public void setTakeN(int takeN) {
+		this.takeN = takeN;
+	}
+
+	public String getTakeYear() {
+		return takeYear;
+	}
+
+	public void setTakeYear(String takeYear) {
+		this.takeYear = takeYear;
+	}
 	public String getSurveyYN() {
 		return surveyYN;
 	}
