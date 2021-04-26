@@ -25,4 +25,5 @@ public interface CourseTakeService {
 
   //courseTake insert
   public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
+
 }
