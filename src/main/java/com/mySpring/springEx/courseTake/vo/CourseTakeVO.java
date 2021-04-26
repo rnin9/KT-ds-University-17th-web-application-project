@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
@@ -19,9 +20,9 @@ public class CourseTakeVO {
    private Date courseTake_ApplyDate;
    private Date courseTake_CompleteDate;
 
-   private int takeY;   // 총 수료인원
-   private int takeN;   // 총 미수료 인원
-   private String takeYear; // 년도 기준
+   private int takeY;   // 珥� ��猷��몄��
+   private int takeN;   // 珥� 誘몄��猷� �몄��
+   private String takeYear; // ���� 湲곗�
    private String surveyYN;
    /*
     * private String userName; private String userPhoneNumber; private String
@@ -37,7 +38,7 @@ public class CourseTakeVO {
       this.applyDate = applyDate;
    }
 
-   // kt_user와 join하기 위해 memberVO, courseVO, syllabusVO 객체를 멤버변수로 선언한다.
+   // kt_user�� join��湲� ���� memberVO, courseVO, syllabusVO 媛�泥대�� 硫ㅻ�蹂���濡� ���명����.
    @Autowired
    private MemberVO memberVO;
    @Autowired

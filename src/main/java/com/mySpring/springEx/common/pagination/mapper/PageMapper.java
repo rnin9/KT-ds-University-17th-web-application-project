@@ -26,15 +26,6 @@ public interface PageMapper {
 		public List<Map<String, Object>> NoticeAllList(Pagination pagination) throws Exception;
 		public int testTableCountN() throws Exception;
 	
-	
-	public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception;
-
-	public int testTableCount() throws Exception;
-
-	public List<Map<String, Object>> NoticeAllList() throws Exception;
-	public List<Map<String, Object>> NoticeAllList(Pagination pagination) throws Exception;
-	public int testTableCountN() throws Exception;
-
 
 	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
 	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
