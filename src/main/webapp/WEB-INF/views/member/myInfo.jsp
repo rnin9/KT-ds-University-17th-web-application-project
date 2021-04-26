@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <html>
 <head>
 
@@ -258,7 +259,8 @@ function handleModify() {
 			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 			<li style="color: grey; font-weight: bold;">〉</li>
 			<li class="on"><a
-				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이 페이지</a></li>
+				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
+					페이지</a></li>
 		</ul>
 	</div>
 	<!-- 페이지에 대한 intro -->
@@ -489,25 +491,27 @@ function handleModify() {
 											<td>${myCourse.courseTake_State}</td>
 											<c:choose>
 												<c:when test="${myCourse.courseTake_State eq '수료'}">
-													<form name="formForCertificate" action="myCertificate.jsp"
+													<form name="formForCertificate" action="${contextPath}/member/myCertificate.do"
 														method="post">
 														<input type=text name="userName"
-															value="${courseTake.memberVO.userName}"
+															value="${myCourse.memberVO.userName}"
 															style="display: none;" /> <input type=text
 															name="courseName"
-															value="${courseTake.syllabusVO.syllabusName}"
+															value="${myCourse.syllabusVO.syllabusName}"
 															style="display: none;" /> <input type=text
 															name="userCompany"
-															value="${courseTake.memberVO.userCompany}"
+															value="${myCourse.partnerVO.partnerName}"
 															style="display: none;" /> <input type=text
 															name="courseStart"
-															value="${courseTake.courseVO.courseStart}"
+															value="${myCourse.courseVO.courseStart}"
 															style="display: none;" /> <input type=text
-															name="courseEnd" value="${courseTake.courseVO.courseEnd}" />
-														<input type=text name="syllabusTotalTime"
-															value="${courseTake.syllabusVO.syllabusTotalTime}"
+															name="courseEnd" value="${myCourse.courseVO.courseEnd}"
 															style="display: none;" /> <input type=text
-															name="userBirthday" value="${courseTake.memberVO.birth}" />
+															name="syllabusTotalTime"
+															value="${myCourse.syllabusVO.syllabusTotalTime}"
+															style="display: none;" /> <input type=text
+															name="userBirthday" value="${myCourse.memberVO.birth}"
+															style="display: none;" />
 														<td><a style="text-decoration: underline" href="#"
 															onclick="javascript:popup(this.form);">출력하기</a></td>
 													</form>

@@ -97,7 +97,7 @@ p {
             <section>
                <h2></h2>
                <div
-                  style="width: 80%; display: flex; flex-direction: inherit; justify-content: space-between; flex-wrap: wrap; min-width: 800px;">
+                  style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
                   <c:forEach var="courseVO" items="${courseUserList}">
                      <a
                         href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
@@ -24,6 +25,16 @@ public class CourseTakeVO {
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;
 	 */
+	
+	private String applyDate;
+
+	public String getApplyDate() {
+		return applyDate;
+	}
+
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
+	}
 
 	// kt_user와 join하기 위해 memberVO, courseVO, syllabusVO 객체를 멤버변수로 선언한다.
 	@Autowired
@@ -34,6 +45,16 @@ public class CourseTakeVO {
 	private CourseTakeVO courseTakeVO;
 	@Autowired
 	private SyllabusVO syllabusVO;
+	@Autowired
+	private PartnerVO partnerVO;
+
+	public PartnerVO getPartnerVO() {
+		return partnerVO;
+	}
+
+	public void setPartnerVO(PartnerVO partnerVO) {
+		this.partnerVO = partnerVO;
+	}
 
 	public String getSurveyYN() {
 		return surveyYN;

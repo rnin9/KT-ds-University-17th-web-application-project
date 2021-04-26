@@ -13,6 +13,8 @@
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
 		<result property="surveyYN" column="surveyYN" />
+		<result property="applyDate"
+			column="applyDate" />
 
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
@@ -34,6 +36,11 @@
 			<id property="syllabusID" column="syllabusID" />
 			<result property="syllabusName" column="syllabusName" />
 		</collection>
+		
+		<collection property="partnerVO" javaType="PartnerVO">
+			<id property="partnerLicenseNum" column="partnerLicenseNum" />
+	    	<result property="partnerName" column="partnerName" />
+		</collection>
 	</resultMap>
 
 	<!-- ====================================ADMIN==================================== -->
@@ -42,13 +49,13 @@
 		resultMap="courseTakeResult">
 		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
 		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
-		courseTake_ApplyDate
+		to_char(courseTake_ApplyDate,'yyyy-mm-dd') as applyDate, p.partnerLicenseNum ,p.partnerName
 		from course_Take ct join kt_user m on (ct.userID =
 		m.userId) join course c
 		on (c.courseid=ct.courseid) join syllabus s on
 		(s.syllabusid =
-		c.syllabusid)
-		order by courseTake_ApplyDate DESC
+		c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany)
+		order by courseTake_ApplyDate desc
 	</select>
 
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
@@ -84,7 +91,7 @@
 	<select id="get_myCourseInformation" parameterType="String"
 		resultMap="courseTakeResult">
 	<![CDATA[select * 
-	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany) 
 	where ct.userId = #{userID} 
 	order by courseTake_ApplyDate desc
 	]]>
@@ -94,7 +101,7 @@
 	<insert id="insertCourseTake" parameterType="courseTakeVO">
 	  <![CDATA[
 	  	insert into course_take (userid, courseid, coursetake_state,coursetake_applydate)
-		values (#{userID}, #{courseID}, '승인대기', to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd'))
+		values (#{userID}, #{courseID}, '승인대기', to_date(to_char(sysdate,'yyyy-mm-dd HH24:MI:SS'),'yyyy-mm-dd HH24:MI:SS'))
 	  ]]>
 	</insert>
 	
