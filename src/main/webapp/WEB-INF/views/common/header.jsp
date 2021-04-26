@@ -128,7 +128,7 @@ request.setCharacterEncoding("UTF-8");
 								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/member/listMembers.do">과정신청</a></li>
+						href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 				</c:when>
 				<%--	  로그인 후		--%>
 				<%--		채용예정자		--%>
@@ -142,10 +142,9 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/member/listMembers.do">과정신청</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/member/apply.do">채용공고</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용공고</a></li>
+
 				</c:when>
 				<%--		재직자		--%>
 				<c:when test="${isLogOn != null && member.userPosition == '재직자'}">
@@ -158,8 +157,7 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/member/listMembers.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 				</c:when>
 
 			</c:choose>
@@ -198,7 +196,7 @@ request.setCharacterEncoding("UTF-8");
 
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/notice/listNotice.do">공지사항 관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin" href="#">문의사항
+					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/question/listQuestion.do">문의사항
 							관리</a></li>
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/survey/listSurvey.do">설문조사 관리</a></li>
@@ -230,11 +228,9 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item"
-								href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
-							<li><a class="dropdown-item" href="${contextPath}/faq.do">
-									FAQ</a></li>
-							<li><a class="dropdown-item" href="#"> Q&A </a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
 			</c:choose>

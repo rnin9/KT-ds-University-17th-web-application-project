@@ -112,4 +112,14 @@
 	<!-- <definition name="/member/viewDetail" extends="baseLayout"> <put-attribute
        name="title" value="회원상세창" /> <put-attribute name="body" value="/WEB-INF/views/member/viewDetail.jsp"
        /> </definition> -->
+       
+       	<!--  타일즈 제외 -->
+	<definition name="empty"
+		template="/WEB-INF/views/common/empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	<definition name="/member/certificate" extends="empty">
+		<put-attribute name="content"
+			value="/WEB-INF/views/member/myCertificate.jsp" />
+	</definition>
 </tiles-definitions>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,25 +42,13 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 
 	@Override
 	@RequestMapping(value = "/courseTake/courseApplyList.do", method = RequestMethod.GET)
-	public ModelAndView courseApplyList(
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
-			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	public ModelAndView courseCApplyList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String) request.getAttribute("viewName");
-
-		// 데이터의 총 갯수를 받아옴 courseTakeServiceImpl testTableCountCT()-pagination.xml의
-		// testTableCountCT 쿼리를 담은 값을 courseApplyList에 담음(int형)
-		int courseApplyList = courseTakeService.testTableCountCT();
-		// Pagination에 request한 currentPage,cntPerPage,pageSize을 파라미터값으로 받는 객체를 생성
-		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-		// 총 레코드 수에 따른 페이지 처리 method에 데이터의 총 갯수를 전달
-		pagination.setTotalRecordCount(courseApplyList);
+		List courseApplyList =  courseTakeService.SelectAllCourseApplyList();
 		ModelAndView mav = new ModelAndView(viewName);
 		// 처리된 부분을 화면에 전달
-		mav.addObject("pagination", pagination);
-		mav.addObject("courseApplyList", courseTakeService.selectAllCourseApplyList(pagination));
-		/* mav.setViewName(viewName); */
+		mav.addObject("courseApplyList", courseApplyList);
 		return mav;
 	}
 
@@ -68,12 +57,31 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
+		for (int i = 0; i < valueArr.size(); i++) {
+			String arr[] = valueArr.get(i).split(" ");
+			courseTakeVO.setUserID(arr[0]);
+			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			System.out.println("_____________________________"+arr[0]);
+			System.out.println("_____________________________"+arr[1]);
+			courseTakeService.updateApplyConsent(courseTakeVO);
+		}
+
+		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		return mav;
+
+	}
+	
+	// 승인->승인대기로 update
+
+	@RequestMapping(value = "/courseTake/updateConsentCancelCheck.do", method = RequestMethod.POST)
+	public ModelAndView updateApplyConsentCancel(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
+			@RequestParam List<String> valueArr) throws Exception {
 
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-			courseTakeService.updateApplyConsent(courseTakeVO);
+			courseTakeService.updateApplyConsentCancel(courseTakeVO);
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
@@ -98,6 +106,22 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 
 	}
 
+	// 행 삭제
+	@RequestMapping(value = "/courseTake/deleteCourseTake.do", method = RequestMethod.POST)
+	public ModelAndView deleteCourseTake(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
+			@RequestParam List<String> valueArr) throws Exception {
+
+		for (int i = 0; i < valueArr.size(); i++) {
+			String arr[] = valueArr.get(i).split(" ");
+			courseTakeVO.setUserID(arr[0]);
+			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			courseTakeService.deleteCourseTake(courseTakeVO);
+		}
+
+		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		return mav;
+
+	}
 	//수료증 페이지
 	@RequestMapping(value = "/courseTake/certificate.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -109,11 +133,20 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	// 테스트페이지
 	@RequestMapping(value = "/courseTake/courseCompleteList.do", method = RequestMethod.GET)
 	public ModelAndView courseCompleteList(HttpServletRequest request, HttpServletResponse response) {
-		List courseCompleteList = courseTakeService.courseCompleteList();
 		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		mav.addObject("courseCompleteList", courseCompleteList);
+		ModelAndView mav = new ModelAndView(viewName);
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/course/insertCourseTable.do", method=RequestMethod.POST)
+	public ModelAndView insertCourseTable(@RequestParam List<String> valueArr) throws Exception {
+		courseTakeVO.setCourseID(Integer.parseInt(valueArr.get(0)));
+		courseTakeVO.setUserID(valueArr.get(1));
+		System.out.println(courseTakeVO.getCourseID());
+		System.out.println(courseTakeVO.getUserID());
+		courseTakeService.insertCourseTake(courseTakeVO);
+		ModelAndView mav = new ModelAndView("redirect:/course/userCourseList.do");
 		return mav;
 	}
 

@@ -19,12 +19,27 @@ public class CourseTakeVO {
 	private String courseTake_State;
 	private Date courseTake_ApplyDate;
 	private Date courseTake_CompleteDate;
-	private int takeY;	// ÃÑ ¼ö·áÀÎ¿ø
-	private int takeN;	// ÃÑ ¹Ì¼ö·á ÀÎ¿ø
-	private String takeYear; // ³âµµ ±âÁØ
-	
-	
-	public int getTakeY() {
+
+	private int takeY;	// ì´ ìˆ˜ë£Œì¸ì›
+	private int takeN;	// ì´ ë¯¸ìˆ˜ë£Œ ì¸ì›
+	private String takeYear; // ë…„ë„ ê¸°ì¤€
+	private String surveyYN;
+	/*
+	 * private String userName; private String userPhoneNumber; private String
+	 * userEmail; private String userCompany;
+	 */
+
+	// kt_userì™€ joiní•˜ê¸° ìœ„í•´ memberVO, courseVO, syllabusVO ê°ì²´ë¥¼ ë©¤ë²„ë³€ìˆ˜ë¡œ ì„ ì–¸í•œë‹¤.
+	@Autowired
+	private MemberVO memberVO;
+	@Autowired
+	private CourseVO courseVO;
+	@Autowired
+	private CourseTakeVO courseTakeVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+  
+  public int getTakeY() {
 		return takeY;
 	}
 
@@ -47,20 +62,13 @@ public class CourseTakeVO {
 	public void setTakeYear(String takeYear) {
 		this.takeYear = takeYear;
 	}
-	/*
-	 * private String userName; private String userPhoneNumber; private String
-	 * userEmail; private String userCompany;
-	 */
+	public String getSurveyYN() {
+		return surveyYN;
+	}
 
-	// kt_user¿Í joinÇÏ±â À§ÇØ memberVO, courseVO, syllabusVO °´Ã¼¸¦ ¸â¹öº¯¼ö·Î ¼±¾ğÇÑ´Ù.
-	@Autowired
-	private MemberVO memberVO;
-	@Autowired
-	private CourseVO courseVO;
-	@Autowired
-	private CourseTakeVO courseTakeVO;
-	@Autowired
-	private SyllabusVO syllabusVO;
+	public void setSurveyYN(String surveyYN) {
+		this.surveyYN = surveyYN;
+	}
 
 	public CourseTakeVO getCourseTakeVO() {
 		return courseTakeVO;
@@ -148,4 +156,31 @@ public class CourseTakeVO {
 		this.courseTake_CompleteDate = courseTake_CompleteDate;
 	}
 
+	  private String courseApplyEndYear;
+	    private String courseApplyEndMonth;
+	    private String courseApplyEndDay;
+	   
+	    public String getCourseApplyEndYear() {
+	      return courseApplyEndYear;
+	   }
+
+	   public void setCourseApplyEndYear(String courseApplyEndYear) {
+	      this.courseApplyEndYear = courseApplyEndYear;
+	   }
+
+	   public String getCourseApplyEndMonth() {
+	      return courseApplyEndMonth;
+	   }
+
+	   public void setCourseApplyEndMonth(String courseApplyEndMonth) {
+	      this.courseApplyEndMonth = courseApplyEndMonth;
+	   }
+
+	   public String getCourseApplyEndDay() {
+	      return courseApplyEndDay;
+	   }
+
+	   public void setCourseApplyEndDay(String courseApplyEndDay) {
+	      this.courseApplyEndDay = courseApplyEndDay;
+	   }
 }
