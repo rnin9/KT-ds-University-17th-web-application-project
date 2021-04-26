@@ -11,6 +11,7 @@ request.setCharacterEncoding("UTF-8");
 String userName = request.getParameter("userName");
 String courseName = request.getParameter("courseName");
 String courseStart = request.getParameter("courseStart");
+System.out.println("_______________"+courseStart);
 String courseEnd = request.getParameter("courseEnd");
 String syllabusTotalTime = request.getParameter("syllabusTotalTime");
 String userBirthday = request.getParameter("userBirthday");

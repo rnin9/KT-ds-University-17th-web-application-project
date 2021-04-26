@@ -64,6 +64,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 			System.out.println("_____________________________"+arr[0]);
 			System.out.println("_____________________________"+arr[1]);
 			courseTakeService.updateApplyConsent(courseTakeVO);
+			courseTakeService.updatePosition(courseTakeVO);
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");

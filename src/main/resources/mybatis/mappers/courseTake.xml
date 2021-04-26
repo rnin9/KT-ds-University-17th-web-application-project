@@ -21,6 +21,7 @@
 			<result property="userPhoneNumber" column="userPhoneNumber" />
 			<result property="userEmail" column="userEmail" />
 			<result property="userCompany" column="userCompany" />
+			<result property="userPosition" column="userPosition" />
 		</collection>
 
 		<collection property="courseVO" javaType="CourseVO">
@@ -78,6 +79,14 @@
        delete from course_Take where userID = #{userID} and courseID=#{courseID}
      ]]>
 	</delete>
+	
+	<!-- 일반회원 -> 채용예정자 -->
+	<update id="updatePosition" parameterType="CourseTakeVO">
+	<![CDATA[
+		update kt_user set userPosition='채용예정자'
+		where userPosition='일반회원' and userid = #{userID}
+    ]]>
+	</update>
 
 	<!-- ====================================USER==================================== -->
 	<!-- 나의 수강내역 가져오기 -->

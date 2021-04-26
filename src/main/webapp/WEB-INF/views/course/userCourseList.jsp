@@ -107,10 +107,10 @@ p {
                                  style="margin: 1% 1% 1% 1%; height: 25px;"><span
                                  style="float: left; font-size: 18px; margin-top: 5px;">
                                     <c:if
-                                       test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자과정'}">
+                                       test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
                               채용예정자
                               </c:if> <c:if
-                                       test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자과정'}">
+                                       test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
                               ${courseVO.syllabusVO.syllabusCategory1}</c:if>
                               </span><span style="float: right;"><span
                                     style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>
@@ -156,10 +156,10 @@ p {
                                     style="margin: 1% 1% 1% 1%; height: 25px;"><span
                                     style="float: left; font-size: 18px; margin-top: 5px;">
                                        <c:if
-                                          test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자과정'}">
+                                          test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
                               채용예정자
                               </c:if> <c:if
-                                          test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자과정'}">
+                                          test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
                               ${courseVO.syllabusVO.syllabusCategory1}</c:if>
                                  </span><span style="float: right;"><span
                                        style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>
@@ -194,7 +194,7 @@ p {
                <div
                   style="width: 80%; display: flex; flex-direction: inherit; justify-content: space-between; flex-wrap: wrap; min-width: 800px;">
                   <c:forEach var="courseVO" items="${courseUserList}">
-                     <c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자과정'}">
+                     <c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
                         <a
                            href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
                            <div class="card">
@@ -203,9 +203,9 @@ p {
                                     style="margin: 1% 1% 1% 1%; height: 25px;"><span
                                     style="float: left; font-size: 18px; margin-top: 5px;">
                                        <c:if
-                                          test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자과정'}">채용예정자</c:if>
+                                          test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">채용예정자</c:if>
                                        <c:if
-                                          test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자과정'}">
+                                          test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
                               ${courseVO.syllabusVO.syllabusCategory1}</c:if>
                                  </span><span style="float: right;"><span
                                        style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>

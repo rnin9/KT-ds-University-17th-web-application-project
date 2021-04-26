@@ -70,4 +70,5 @@ public class CourseServiceImpl implements CourseService{
 	public int updateCourse(int courseID) throws DataAccessException {
 		return courseDAO.updateCourse(courseID);
 	}
+	
 }
