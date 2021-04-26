@@ -247,30 +247,25 @@ request.setCharacterEncoding("UTF-8");
 
 			<!-- 오른쪽 메뉴 -->
 			<c:choose>
-				<c:when
+				 <c:when
 					test="${(isLogOn == true  && member.userPosition == 'ADMIN')}">
-					<li class="nav-item dropdown"><a
-						class="nav-link-admin  dropdown-toggle" href="#"
-						data-toggle="dropdown"> <i class="fas fa-cog"></i>
-							${member.userName} (${member.userId})
-					</a>
-						<ul class="dropdown-menu dropdown-menu-right fade-down">
-							<li><a class="dropdown-item"
-								href="${contextPath}/member/myInfo.do?userID=${member.userId}">
-									내정보 관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/member/logout.do"><i
-							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
-					</a></li>
-				</c:when>
-				<c:when
-					test="${ (isLogOn == true && member.userPosition == 'PARTNER') || (isLogOn == true  && member.userPosition == 'ADMIN')}">
 					<li class="nav-item dropdown"><a
 						class="nav-link-admin" href="#"
 						data-toggle="dropdown">
 							${member.userName} (${member.userId})
+					</a>
+					</li>
+					<li class="nav-item"><a class="nav-link-admin"
+						href="${contextPath}/member/logout.do"><i
+							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
+					</a></li>
+				</c:when> 
+				<c:when
+					test="${ (isLogOn == true && member.userPosition == 'PARTNER') }">
+					<li class="nav-item dropdown"><a
+						class="nav-link-admin" href="#"
+						data-toggle="dropdown">
+							${partner.partnerLicenseNum} (${partner.partnerName})
 					</a>
 					</li>
 					<li class="nav-item"><a class="nav-link-admin"
