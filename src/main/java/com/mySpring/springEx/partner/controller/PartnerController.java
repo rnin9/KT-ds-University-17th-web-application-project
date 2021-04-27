@@ -47,7 +47,7 @@ public interface PartnerController {
 	
 	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	public ModelAndView getResumeByID(@RequestBody Map<String, String> body, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	/* 기업관련 끝 */
 	

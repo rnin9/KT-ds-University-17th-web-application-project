@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 @Controller("partnerController")
 public class PartnerContorollerImpl implements PartnerController {
@@ -32,7 +33,11 @@ public class PartnerContorollerImpl implements PartnerController {
 
 	@Autowired
 	PartnerVO partnervo;
-
+	
+	@Autowired
+	ResumeVO resumeVO;
+	
+	
 	// 회사 리스트 출력
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
@@ -176,11 +181,12 @@ public class PartnerContorollerImpl implements PartnerController {
 	
 	
 	@RequestMapping(value="/partner/getResumeByID.do", method = RequestMethod.GET)
-	public ModelAndView getResumeByID(@RequestBody Map<String, String> body, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("datas",partnerService.getUserResume(body.get("partnerApplyResumeID")));
+		resumeVO = partnerService.getUserResume(resumeID);
+		mav.addObject("resume", resumeVO);
 		mav.setViewName("jsonView");
 		return mav;
 	}
