@@ -525,7 +525,7 @@ hr {
 							if (result == 1) {
 								$("#id_check").html("중복된 아이디가 있습니다.");
 								$("#joinBtn").attr("disabled", "disabled");
-							}else {
+							} else {
 								if($("#id").val()==""){
 									$("#id_check").html("필수 항목입니다.");
 									$("#joinBtn").attr("disabled", "disabled");

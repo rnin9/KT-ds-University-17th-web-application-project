@@ -2,6 +2,7 @@ package com.mySpring.springEx.partner.controller;
 
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,12 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +29,7 @@ public class PartnerContorollerImpl implements PartnerController {
 	@Autowired
 	PartnerVO partnervo;
 
-	// È¸»ç ¸®½ºÆ® Ãâ·Â
+	// íšŒì‚¬ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
 	public ModelAndView partnerList(
@@ -50,47 +48,47 @@ public class PartnerContorollerImpl implements PartnerController {
 		mav.addObject("pagination", pagination);
 		mav.addObject("partnerList", partnerService.SelectAllListPartner(pagination));
 
-		List numPartner = partnerService.listNumPartner(); // Çù·Â»ç, Çù¾à»ç, ¹ÌÇù¾à, Çù¾à ÁøÇàÁß º°·Î countÇÏ´Â ¸Ş¼Òµå¸¦ ÆÄÆ®³Ê ¼­ºñ½º¿¡¼­ È£ÃâÇÏ¿© ¸®½ºÆ®
-															// ÇüÅÂ·Î ÀúÀå
+		List numPartner = partnerService.listNumPartner(); // í˜‘ë ¥ì‚¬, í˜‘ì•½ì‚¬, ë¯¸í˜‘ì•½, í˜‘ì•½ ì§„í–‰ì¤‘ ë³„ë¡œ countí•˜ëŠ” ë©”ì†Œë“œë¥¼ íŒŒíŠ¸ë„ˆ ì„œë¹„ìŠ¤ì—ì„œ í˜¸ì¶œí•˜ì—¬ ë¦¬ìŠ¤íŠ¸
+															// í˜•íƒœë¡œ ì €ì¥
 
-		mav.addObject("numCooperation", numPartner.get(0)); // Çù·Â»ç count¸¦ ¹ÙÀÎµå
-		mav.addObject("numConvention", numPartner.get(1)); // Çù¾à»ç count¸¦ ¹ÙÀÎµå
-		mav.addObject("numIng", numPartner.get(2)); // Çù¾à ÁøÇàÁß count¸¦ ¹ÙÀÎµå
-		mav.addObject("numNot", numPartner.get(3)); // ¹ÌÇù¾à count¸¦ ¹ÙÀÎµå
+		mav.addObject("numCooperation", numPartner.get(0)); // í˜‘ë ¥ì‚¬ countë¥¼ ë°”ì¸ë“œ
+		mav.addObject("numConvention", numPartner.get(1)); // í˜‘ì•½ì‚¬ countë¥¼ ë°”ì¸ë“œ
+		mav.addObject("numIng", numPartner.get(2)); // í˜‘ì•½ ì§„í–‰ì¤‘ countë¥¼ ë°”ì¸ë“œ
+		mav.addObject("numNot", numPartner.get(3)); // ë¯¸í˜‘ì•½ countë¥¼ ë°”ì¸ë“œ
 		return mav;
 	}
 
-	// È¸»ç Á¤º¸ ÀÔ·Â
+	// íšŒì‚¬ ì •ë³´ ì…ë ¥
 	@Override
 	@RequestMapping(value = "/partner/addPartner.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addPartner(@ModelAttribute("partner") PartnerVO partner, RedirectAttributes rttr,
-			HttpServletRequest request, HttpServletResponse response) throws Exception { // partnerVO¸¦ °´Ã¼·Î ¹Ş¾Æ¼­ db¿¡ ÀúÀåÇÏ´Â
-																							// ¸Ş¼Òµå
+			HttpServletRequest request, HttpServletResponse response) throws Exception { // partnerVOë¥¼ ê°ì²´ë¡œ ë°›ì•„ì„œ dbì— ì €ì¥í•˜ëŠ”
+																							// ë©”ì†Œë“œ
 		request.setCharacterEncoding("utf-8");
-		partnerService.addPartner(partner); // ÆÄÆ®³Ê¼­ºñ½ºÀÇ addPartner¸¦ È£Ãâ
+		partnerService.addPartner(partner); // íŒŒíŠ¸ë„ˆì„œë¹„ìŠ¤ì˜ addPartnerë¥¼ í˜¸ì¶œ
 		rttr.addFlashAttribute("msg", "addSuccess");
 		rttr.addFlashAttribute("partnerName", partner.getPartnerName());
-		ModelAndView mav = new ModelAndView("redirect:/partner/partnerList.do"); // addpartner¸¦ ÇÑ ÈÄ ´Ù½Ã partnerList·Î µ¹¾Æ°¡°Ô
-																					// ¼³Á¤
+		ModelAndView mav = new ModelAndView("redirect:/partner/partnerList.do"); // addpartnerë¥¼ í•œ í›„ ë‹¤ì‹œ partnerListë¡œ ëŒì•„ê°€ê²Œ
+																					// ì„¤ì •
 		return mav;
 	}
 
-	// È¸»ç Á¤º¸ ÀÔ·Â Æû
+	// íšŒì‚¬ ì •ë³´ ì…ë ¥ í¼
 	@Override
 	@RequestMapping(value = "/partner/partnerForm.do", method = RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { // formÀ¸·Î ÀÌµ¿ÇÏ´Â
-																											// ¸Ş¼Òµå
+	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { // formìœ¼ë¡œ ì´ë™í•˜ëŠ”
+																											// ë©”ì†Œë“œ
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
 
-	// ±â¾÷ »ó¼¼ Á¤º¸
+	// ê¸°ì—… ìƒì„¸ ì •ë³´
 	@Override
 	@RequestMapping(value = "/partner/detailInfoPartner.do", method = RequestMethod.GET)
 	public ModelAndView detailInfoPartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
-			HttpServletRequest request, HttpServletResponse response) throws Exception { // modformÀ¸·Î ÀÌµ¿ÇÏ´Â ¸Ş¼Òµå
+			HttpServletRequest request, HttpServletResponse response) throws Exception { // modformìœ¼ë¡œ ì´ë™í•˜ëŠ” ë©”ì†Œë“œ
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		PartnerVO partnerVO;
@@ -100,7 +98,7 @@ public class PartnerContorollerImpl implements PartnerController {
 		return mav;
 	}
 
-	// È¸»ç Á¤º¸ ¼öÁ¤
+	// íšŒì‚¬ ì •ë³´ ìˆ˜ì •
 	@Override
 	@RequestMapping(value = "/partner/modPartner.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView modPartner(@ModelAttribute("partner") PartnerVO partner, RedirectAttributes rttr,
@@ -114,14 +112,14 @@ public class PartnerContorollerImpl implements PartnerController {
 		return mav;
 	}
 
-	// ±â¾÷ »èÁ¦
+	// ê¸°ì—… ì‚­ì œ
 	@Override
 	@RequestMapping(value = "/partner/deletePartner.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView removePartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
 			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String partnerName = partnerService.removePartner(partnerLicenseNum);
-		System.out.println("ÀÌ¸§" + partnerName);
+		System.out.println("ì´ë¦„" + partnerName);
 		rttr.addFlashAttribute("msg", "removeSuccess");
 		rttr.addFlashAttribute("partnerName", partnerName);
 		ModelAndView mav = new ModelAndView("redirect:/partner/partnerList.do");
@@ -130,7 +128,7 @@ public class PartnerContorollerImpl implements PartnerController {
 
 	
 	
-	/* ===================================Çù·Â»ç °ü·Ã ½ÃÀÛ==============================*/
+	/* ===================================í˜‘ë ¥ì‚¬ ê´€ë ¨ ì‹œì‘==============================*/
 	@RequestMapping(value = "/partner/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/main");
@@ -142,7 +140,7 @@ public class PartnerContorollerImpl implements PartnerController {
 	public ModelAndView companyEmployee(
 			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
-		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // ¼ö°­ÁßÀÎ È¸¿ø ¸®½ºÆ®µ¥ÀÌÅÍ
+		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // ìˆ˜ê°•ì¤‘ì¸ íšŒì› ë¦¬ìŠ¤íŠ¸ë°ì´í„°
 		return mav;
 	}
 
@@ -156,7 +154,7 @@ public class PartnerContorollerImpl implements PartnerController {
 		
 		return mav;
 	}
-
+  
 	@Override
 	@RequestMapping(value="/partner/company/infoGraph.do", method = RequestMethod.GET)
 	
@@ -168,8 +166,64 @@ public class PartnerContorollerImpl implements PartnerController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
-	/* ===================================Çù·Â»ç °ü·Ã ³¡==============================*/
-	
+	/* ===================================í˜‘ë ¥ì‚¬ ê´€ë ¨ ë==============================*/
+
+	//	post job opening
+	@Override
+	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
+	public ModelAndView jobOpeningPost(
+			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnerApplyNList", partnerService.selectPartnerApplyN());
+
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
+	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+//		List<Map<String, Object>> jobOpeningList = partnerService.selectJobOpeningList();
+//		for(int i = 0; i < jobOpeningList.size(); i++) {
+//			jobOpeningList.get(i).put("partnerApplyFinishDate", String.valueOf(jobOpeningList.get(i).get("partnerApplyFinishDate")).substring(0, 11));
+//		}
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/partner/postJobOpening.do", method = RequestMethod.POST)
+	public ModelAndView postJobOpening(@RequestParam List<String> valueArr) {
+		String date = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			partnerService.postJobOpening(valueArr.get(i), date);
+		}
+		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningPost.do");
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/partner/deleteJobOpening.do", method = RequestMethod.POST)
+	public ModelAndView deleteJobOpening(@RequestParam List<String> valueArr) {
+		for (int i = 0; i < valueArr.size(); i++) {
+			partnerService.deleteJobOpening(valueArr.get(i));
+		}
+		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
+		return mav;
+	}
+
+//	@Scheduled(cron="0 0/1 * * * *")
+//	public void jobOpeningDueDate() throws Exception {
+//		Date today = new Date();
+//		List jobOpeningList = partnerService.selectPartnerApplyN();
+//
+//		for(Object obj : jobOpeningList) {
+//
+//		}
+//	}
+
 	
 }
