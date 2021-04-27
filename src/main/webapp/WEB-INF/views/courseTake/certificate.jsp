@@ -22,9 +22,9 @@ String strDate = dateFormat.format(date);
 String userName = request.getParameter("userName");
 String courseName = request.getParameter("courseName");
 String courseStart = request.getParameter("courseStart");
-System.out.println("_______________"+courseStart);
 String courseEnd = request.getParameter("courseEnd");
 String syllabusTotalTime = request.getParameter("syllabusTotalTime");
+System.out.println("_______________"+syllabusTotalTime);
 String userBirthday = request.getParameter("userBirthday");
 String userCompany = request.getParameter("userCompany");
 %>
@@ -41,7 +41,7 @@ String userCompany = request.getParameter("userCompany");
 	border: 0;
 	font-size: 32px;
 	border: 10px double gold;
-	width: 800px;
+	width: 1000px;
 	height: 1168px;
 	margin: 30px;
 	font-family: 궁서;
@@ -58,7 +58,6 @@ th {
 </style>
 
 </head>
-
 
 <body>
 

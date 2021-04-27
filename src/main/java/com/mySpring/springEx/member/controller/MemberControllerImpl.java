@@ -88,11 +88,12 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// ¼ö·áÁõ ÆäÀÌÁö
+	// 쩌철쨌찼횁천 횈채�횑횁철
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userBirthday"));
 		return mav;
 	}
 

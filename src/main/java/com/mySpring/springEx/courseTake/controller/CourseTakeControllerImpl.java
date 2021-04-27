@@ -128,6 +128,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userName"));
 		return mav;
 	}
 

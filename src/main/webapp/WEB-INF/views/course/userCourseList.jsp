@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+   pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -28,23 +28,23 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .btn {
-	color: white;
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0 .8);
-	display: inline-block;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+   color: white;
+   background-color: tomato;
+   border-color: rgba(247, 94, 94, 0 .8);
+   display: inline-block;
+   font-weight: 400;
+   text-align: center;
+   vertical-align: middle;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   padding: .375rem .75rem;
+   font-size: 1rem;
+   line-height: 1.5;
+   border-radius: .25rem;
+   transition: color .15s ease-in-out, background-color .15s ease-in-out,
+      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 p {
@@ -117,11 +117,11 @@ p {
                                     <span class="dday"
                                     style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
                                        <c:choose>
-                                          <c:when test="${courseVO.dday > 0}">
+                                          <c:when test="${courseVO.dday >= 0}">
                                     D-${courseVO.dday}
                                     </c:when>
                                           <c:when
-                                             test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+                                             test="${courseVO.dday >= 0 and courseState eq '조기마감'}">
                                     조기마감
                                     </c:when>
                                           <c:otherwise>
@@ -145,7 +145,7 @@ p {
 
             <section>
                <div
-                  style="width: 80%; display: flex; flex-direction: inherit; justify-content: space-between; flex-wrap: wrap; min-width: 800px;">
+                  style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
                   <c:forEach var="courseVO" items="${courseUserList}">
                      <c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
                         <a
@@ -166,11 +166,11 @@ p {
                                        <span class="dday"
                                        style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
                                           <c:choose>
-                                             <c:when test="${courseVO.dday > 0}">
+                                             <c:when test="${courseVO.dday >= 0}">
                                     D-${courseVO.dday}
                                     </c:when>
                                              <c:when
-                                                test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+                                                test="${courseVO.dday >= 0 and courseState eq '조기마감'}">
                                     조기마감
                                     </c:when>
                                              <c:otherwise>
@@ -192,7 +192,7 @@ p {
             </section>
             <section>
                <div
-                  style="width: 80%; display: flex; flex-direction: inherit; justify-content: space-between; flex-wrap: wrap; min-width: 800px;">
+                  style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
                   <c:forEach var="courseVO" items="${courseUserList}">
                      <c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
                         <a
@@ -212,11 +212,11 @@ p {
                                        <span class="dday"
                                        style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
                                           <c:choose>
-                                             <c:when test="${courseVO.dday > 0}">
+                                             <c:when test="${courseVO.dday >= 0}">
                                     D-${courseVO.dday}
                                     </c:when>
                                              <c:when
-                                                test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+                                                test="${courseVO.dday >= 0 and courseState eq '조기마감'}">
                                     조기마감
                                     </c:when>
                                              <c:otherwise>

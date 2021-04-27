@@ -24,6 +24,7 @@
 			<result property="userEmail" column="userEmail" />
 			<result property="userCompany" column="userCompany" />
 			<result property="userPosition" column="userPosition" />
+			<result property="birth" column="birth" />
 		</collection>
 
 		<collection property="courseVO" javaType="CourseVO">
@@ -36,6 +37,7 @@
 		<collection property="syllabusVO" javaType="SyllabusVO">
 			<id property="syllabusID" column="syllabusID" />
 			<result property="syllabusName" column="syllabusName" />
+			<result property="syllabusTotalTime" column="syllabusTotalTime" />
 		</collection>
 		
 		<collection property="partnerVO" javaType="PartnerVO">
@@ -50,7 +52,8 @@
 		resultMap="courseTakeResult">
 		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
 		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
-		to_char(courseTake_ApplyDate,'yyyy-mm-dd') as applyDate, p.partnerLicenseNum ,p.partnerName
+		to_char(courseTake_ApplyDate,'yyyy-mm-dd') as applyDate, p.partnerLicenseNum ,p.partnerName,
+		to_char(c.coursestart, 'yyyy-mm-dd') as courseStart, to_char(c.courseend,'yyyy-mm-dd') as courseEnd, m.birth, s.syllabustotaltime
 		from course_Take ct join kt_user m on (ct.userID =
 		m.userId) join course c
 		on (c.courseid=ct.courseid) join syllabus s on

@@ -46,7 +46,6 @@ button {
 }
 </style>
 
-
 <body>
 
 	<div class="container">
@@ -110,14 +109,14 @@ button {
 											value="${courseTake.partnerVO.partnerName}"
 											style="display: none;" /> <input type=text
 											name="courseStart" value="${courseTake.courseVO.courseStart}"
-											style="display: none;" /> <input type=text name="courseEnd"
+											style="display: none;"/> <input type=text name="courseEnd"
 											value="${courseTake.courseVO.courseEnd}"
-											style="display: none;" /> <input type=text
+											style="display: none;"/> <input type=text
 											name="syllabusTotalTime"
 											value="${courseTake.syllabusVO.syllabusTotalTime}"
-											style="display: none;" /> <input type=text
+											style="display: none;"/> <input type=text
 											name="userBirthday" value="${courseTake.memberVO.birth}"
-											style="display: none;" /> <input type="image"
+											style="display: none;"/> <input type="image"
 											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
 											style="width: 17px; margin-top: 12px; margin-left: 5px;"
 											onclick="javascript:popup(this.form);">
@@ -370,7 +369,7 @@ function popup(frm)
 {
   var url    ="/springEx/courseTake/certificate.do";
   var title  = "certificate";
-  var status = "width=830px, height=1000px, status=no, menubar=no, toolbar=no, resizable=no"; 
+  var status = "width=1000px, height=1000px, status=no, menubar=no, toolbar=no, resizable=no"; 
   window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기
   frm.target = title;                    //form.target 이 부분이 빠지면 form값 전송이 되지 않습니다. 
   frm.action = url;                    //form.action 이 부분이 빠지면 action값을 찾지 못해서 제대로 된 팝업이 뜨질 않습니다.
@@ -378,4 +377,5 @@ function popup(frm)
   frm.submit();
   }
 </script>
+
 </html>
