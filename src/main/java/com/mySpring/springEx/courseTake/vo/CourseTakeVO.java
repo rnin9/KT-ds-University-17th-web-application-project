@@ -20,9 +20,10 @@ public class CourseTakeVO {
    private Date courseTake_ApplyDate;
    private Date courseTake_CompleteDate;
 
-   private int takeY;   // 珥� ��猷��몄��
-   private int takeN;   // 珥� 誘몄��猷� �몄��
-   private String takeYear; // ���� 湲곗�
+
+   private int takeY;   // Course Completion
+   private int takeN;   // Course inCompletion
+   private String takeYear; //Employee's courseTake Year
    private String surveyYN;
    /*
     * private String userName; private String userPhoneNumber; private String
@@ -38,7 +39,7 @@ public class CourseTakeVO {
       this.applyDate = applyDate;
    }
 
-   // kt_user�� join��湲� ���� memberVO, courseVO, syllabusVO 媛�泥대�� 硫ㅻ�蹂���濡� ���명����.
+   // courseTake join table
    @Autowired
    private MemberVO memberVO;
    @Autowired

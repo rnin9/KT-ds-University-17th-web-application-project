@@ -235,7 +235,7 @@
             $("#suggestion_partner").text(name);
             $("#suggestion_date").text(date);
             $("#suggestion_description").text(description);
-            if(acception === '수락' || acception === '거절') {
+            if (acception === '수락' || acception === '거절') {
                 // console.log('수락거절ㄹㄹㄹㄹ');
                 $('#accept').attr('style', "display:none;");
                 $('#reject').attr('style', "display:none;");
@@ -256,43 +256,43 @@
 
             const url = "${contextPath}/member/acceptSuggestion.do";
 
-                Swal.fire({
-                    title: '받은 제안을 수락하시겠습니까?',
-                    text: "",
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '수락',
-                    cancelButtonText: '취소'
-                }).then((result) => {
-                    if (result.value) {
+            Swal.fire({
+                title: '받은 제안을 수락하시겠습니까?',
+                text: "",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '수락',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.value) {
 
-                        fetch(url, {
-                            method: "POST",
-                            mode: "cors",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "accept": "application/json"
-                            },
-                            body: JSON.stringify({
-                                partnerID: partnerID,
-                                userId: userId
-                            })
+                    fetch(url, {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            partnerID: partnerID,
+                            userId: userId
                         })
-                            .then(res => {
-                                if (res.status == '500') {
-                                    // mybatis 오류 시 500 error
-                                    // console.log("failㅣㅣㅣㅣㅣ");
-                                } else {
-                                    Swal.fire("제안 수락.", "받은 제안을 수락했습니다.", "success");
-                                    setTimeout(() => { // 0.9초뒤 실행
-                                        location.reload(); // 새로고침 -> list 다시 불러옴
-                                    }, 900);
-                                }
-                            })
-                    }
-                })
+                    })
+                        .then(res => {
+                            if (res.status == '500') {
+                                // mybatis 오류 시 500 error
+                                // console.log("failㅣㅣㅣㅣㅣ");
+                            } else {
+                                Swal.fire("제안 수락.", "받은 제안을 수락했습니다.", "success");
+                                setTimeout(() => { // 0.9초뒤 실행
+                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                }, 900);
+                            }
+                        })
+                }
+            })
         }
 
         suggestReject = () => {
@@ -522,7 +522,7 @@
                         <button type="button" class="btn btn-default" id="accept" onclick="suggestAccept()">수락</button>
                         <button type="button" class="btn btn-default" id="reject" onclick="suggestReject()">거절</button>
                         <a id="alreadyApply">이미 응답한 제안입니다.</a>
-<%--                        <button type="button" class="btn btn-default" id="alreadyApply">이미 응답한 제안입니다.</button>--%>
+                        <%--                        <button type="button" class="btn btn-default" id="alreadyApply">이미 응답한 제안입니다.</button>--%>
                     </div>
                 </div>
 
@@ -624,8 +624,9 @@
                             <tbody>
                             <c:forEach var="suggestion" items="${suggestionList}">
                                 <tr onclick="suggestionModal('${suggestion.partnerID}', '${suggestion.partnerName}', '${suggestion.suggestionDate}', '${suggestion.suggestDescription}', '${suggestion.acception}');">
-                                    <td onclick="event.cancelBubble=true"><input type="checkbox" name="cb" value="${suggestion.partnerID}"
-                                               onclick='checkSelectAll(this)'/></td>
+                                    <td onclick="event.cancelBubble=true"><input type="checkbox" name="cb"
+                                                                                 value="${suggestion.partnerID}"
+                                                                                 onclick='checkSelectAll(this)'/></td>
                                     <td>${suggestion.partnerName}</td>
                                     <td>${fn:substring(suggestion.suggestDescription, 0, 15)}...</td>
                                         <%--                                    <td style="display: none">${suggestion.suggestDescription}</td>--%>

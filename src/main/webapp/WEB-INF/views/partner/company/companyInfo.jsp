@@ -23,6 +23,10 @@ request.setCharacterEncoding("UTF-8");
 .wrap-loading{
 	transform: translateY(100px);
 }
+
+#chart_div text{
+	transform:none;
+}
 	
 </style>
 <script type="text/javascript"
@@ -61,7 +65,7 @@ request.setCharacterEncoding("UTF-8");
 
 				var options = {
 					hAxis : {
-						title : '년도',
+						title : '연/월',
 						titleTextStyle : {
 							fontSize : 15, // or the number you want
 							fontName : 'Noto Sans KR',
@@ -70,7 +74,7 @@ request.setCharacterEncoding("UTF-8");
 						}
 					},
 					vAxis : {
-						title : '인원',
+						title : '인원(명)',
 						titleTextStyle : {
 							fontSize : 15, // or the number you want
 							fontName : 'Noto Sans KR',
@@ -96,7 +100,12 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-	<div class="container" style="float:left; transform:translateY(10%);">
+	<div class="container" style="display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-bottom:200px;">
 			<c:choose>
 			<c:when test="${partner.partnerName =='university'}">
 				<h2>kt ds University</h2>

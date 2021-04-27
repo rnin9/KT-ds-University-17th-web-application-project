@@ -11,10 +11,16 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>강의계획서 정보</title>
+<title>과정 정보</title>
 
-<!-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" /> -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <style>
 a:link, a:visited, a:hover {
@@ -22,91 +28,24 @@ a:link, a:visited, a:hover {
    text-decoration: none;
 }
 
-.bg-primary {
-   background-color: white !important;
-}
-
 .container {
-   width: 80%;
-   font-family: 'Noto Sans KR', sans-serif;
-}
- 
-.btn {
-   color: white;
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-left: 15%;
+	position: relative;
 }
 
-.button_bottom {
-   background-color: tomato;
-   float: right;
-   margin-left: 10px;
+button {
+	float: right;
+	margin-right: 10px;
 }
 
-.table_syllabus {
-   margin-top: 30px;
-   border-collapse: collapse;
-   text-align: center;
-   /* color: #555; */
-   width: 100%;
-   line-height: 40px;
-   
+.table_ th {
+	width: 15%;
+}
+.table_ td {
+	width: 40%;
 }
 
-.table_syllabus th {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   background-color: #f8f8f8;
-   text-align: center;
-   font-size: 15px;
-   width:30%;
-}
-
-.table_syllabus td {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   text-align: center;
-   font-size: 15px;
-}
-
-.informTitle {
-   margin-top: 20px;
-   text-align: left;
-   font-size: 18px;
-   font-weight: 600;
-   padding-left: 30px;
-   padding-top: 20px;
-   padding-bottom: 20px;
-   border-bottom: 1px solid #e0e0e0;
-   letter-spacing: 5px;
-   padding-bottom: 20px;
-   background-color: #f8f8f8;
-}
-
-.informBox {
-   overflow: hidden;
-   height: auto;
-   text-align: left;
-   font-size: 16px;
-   line-height: 30px;
-   padding: 20px 60px 20px 60px;
-   margin-bottom: 20px;
-   margin-bottom: 20px;
-}
 </style>
 
 </head>
@@ -164,10 +103,10 @@ function modifyCourse(){
          </ul>
       </div>
 
-      <table class="table_syllabus">
+      <table class="table_">
          <tr>
             <th>과정명</th>
-            <td>[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</td>
+            <td style="line-height:25px;">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}]<br>${courseVO.syllabusVO.syllabusName}</td>
             <th>강의실</th>
             <td>${courseVO.courseRoomNumber}호</td>
          </tr>
@@ -220,8 +159,8 @@ function modifyCourse(){
          </div>
       </div>
       <div style="margin-top: 50px; padding-bottom: 150px;">
-         <button class="btn button_bottom" type="button" onClick="deleteCourse()">삭제</button>
-         <button class="btn button_bottom" type="button" onClick="modifyCourse()">수정</button>
+         <button class="btn btn-outline-danger" type="button" onClick="deleteCourse()">삭제</button>
+         <button class="btn btn-outline-danger" type="button" onClick="modifyCourse()">수정</button>
       </div>
 
    </div>

@@ -26,4 +26,5 @@ public interface CourseService {
 	public CourseVO selectUserCourse(int courseID) throws DataAccessException;
 
 	public int updateCourse(int courseID) throws DataAccessException;
+
 }

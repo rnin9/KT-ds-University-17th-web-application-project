@@ -56,7 +56,7 @@
 				column="partnerRegisterDate"/>
 	</resultMap>
 
-<resultMap id="companyCourseTakeResult" type="courseTakeVO">
+	<resultMap id="companyCourseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -87,13 +87,86 @@
 		<collection property="syllabusVO" javaType="SyllabusVO">
 		<result	property="syllabusID" column="syllabusID"/>
 		<result property="syllabusName" column="syllabusName" />
+		<result property="syllabusTotalTime" column="syllabusTotalTime" />
 		</collection>
 	</resultMap>
+		
+	<!-- 지원자목록 -->	
+	<resultMap id="applicationResult" type="applicationVO">
+		<result property="partnerApplyUserID" column="PARTNER_APPLY_PARTNERID" />
+		<result property="partnerApplyResumeID" column="PARTNER_APPLY_RESUMEID" />
+		<result property="partnerApplyDate" column="Partner_Apply_Date" />
+		<result property="partnerApplyState" column="Partner_Apply_State" />
+		
+		<collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+	</resultMap>
+	
+		
+	<resultMap id="resumeResult" type="resumeVO">
+		<!-- Resume 테이블 관련 -->
+       <result property="resumeID" column="resumeID" />
+       <result property="resumeUser" column="resumeUser" />
+       <result property="resumeForeign" column="resumeForeign" />
+       <result property="resumeIDnumber" column="resumeIDnumber" />
+       <result property="resumePic" column="resumePic" />
+       <result property="resumeSchool" column="resumeSchool" />
+       <result property="resumeGrade" column="resumeGrade" />
+       <result property="resumeContext1" column="resumeContext1" />
+       <result property="resumeContext2" column="resumeContext2" />
+       <result property="resumeContext3" column="resumeContext3" />
+       <result property="resumeContext4" column="resumeContext4" />
+       <result property="resumeContext5" column="resumeContext5" />
+       <result property="resumeDate" column="resumeDate" />
+       <result property="resumeCheck" column="resumeCheck" />
+       <!-- Resume_Career 관련 -->
+       <result property="careerID" column="careerID" />
+       <result property="careerUser" column="careerUser" />
+       <result property="careerCenter" column="careerCenter" />
+       <result property="careerStartdate" column="careerStartdate" />
+       <result property="careerEnddate" column="careerEnddate" />
+       <result property="careerContent" column="careerContent" />
+       <result property="careerHour" column="careerHour" />
+       <result property="careerType" column="careerType" />
+       <result property="careerPosition" column="careerPosition" />
+       <result property="careerOther" column="careerOther" />
+       <result property="careerCheck" column="careerCheck" />
+       <result property="careerID" column="careerID" />
+       <!-- Resume_Certificate 관련 -->
+       <result property="certificateUser" column="certificateUser" />
+       <result property="certificateName" column="certificateName" />
+       <result property="certificateEnforcement" column="certificateEnforcement" />
+       <result property="certificateDate" column="certificateDate" />
+       <result property="certificateSEQ" column="certificateSEQ"/>
+       <!-- Resume_Foreign 관련 -->
+       <result property="foreignUser" column="foreignUser" />
+       <result property="foreignCriteria" column="foreignCriteria" />
+       <result property="foreignName" column="foreignName" />
+       <result property="foreignScore" column="foreignScore" />
+       <result property="foreignDate" column="foreignDate" />
+       <result property="foreignOther" column="foreignOther" />
+       <!-- Resume_Project 관련 -->
+       <result property="projectUser" column="projectUser" />
+       <result property="projectEnforcement" column="projectEnforcement" />
+       <result property="projectName" column="projectName" />
+       <result property="projectDev" column="projectDev" />
+       <result property="projectContent" column="projectContent" />
+       <result property="projectRole" column="projectRole" />
+       <result property="projectURL" column="projectURL" />
+	   </resultMap>
 
 	<!-- 전체 기업목록 조회 쿼리-->
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select * from partner 	 	
+         select * from partn
+         er 	 	
       ]]>
 	</select>
 	
@@ -251,11 +324,22 @@
 	
 	<select id="companyEmployeeList" parameterType="String" resultMap="companyCourseTakeResult">
 	 <![CDATA[
-	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName,s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
+	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName, s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
   	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
   	 				 where p.partnerLicenseNum=#{partnerLicenseNum}
   	 ]]>
 	</select>
 	
+	<select id="companyApplyList" parameterType="String" resultMap="applicationResult">
+	 <![CDATA[
+	 select m.userID, m.userName, pa.partner_apply_partnerID, pa.partner_apply_resumeID from kt_user m join partner_apply pa on pa.partner_apply_userID = m.userID 
+  	 				 where pa.partner_apply_partnerID =#{partnerLicenseNum}
+  	 ]]>
+	</select>
 	
+	<select id="getResume" parameterType="String" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from Resume where resumeID = #{resumeID}
+	]]>
+	</select>
 </mapper>

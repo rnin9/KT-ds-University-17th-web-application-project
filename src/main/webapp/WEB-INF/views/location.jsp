@@ -55,7 +55,7 @@
 </head>
 <body>
 <div class="sub_visual">
-<%--    <span style="color: white;">교육장 안내</span>--%>
+    <%--    <span style="color: white;">교육장 안내</span>--%>
 </div>
 <div class="container">
     <div class="lnb">
@@ -69,7 +69,7 @@
     <div class="mapContainer" style="background-color: white">
 
 
-<%--        <span id="scrollClass"></span>--%>
+        <%--        <span id="scrollClass"></span>--%>
         <div style="margin-top: 20px; text-align: left">
             <div></div>
         </div>
@@ -81,7 +81,7 @@
                     width="800" height="646">
         </div>
 
-<%--        <span id="scrollLocation"></span>--%>
+        <%--        <span id="scrollLocation"></span>--%>
         <div class="pageIntro">오시는 길 안내</div>
         <div class="row" style="padding-top: 50px">
             <div class="col">

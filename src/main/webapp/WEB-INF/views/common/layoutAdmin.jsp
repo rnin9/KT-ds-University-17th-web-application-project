@@ -109,10 +109,7 @@
 
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function(){  
-    $('#content').css('height', $(window).height()); 
-    $(window).resize(function() { 
-        $('#sidebar-left').css('height', $(window).height()); 
-    }); 
+	 $('#sidebar-left').css('height', $('#container').height()+38)
 });
 </script>
 
@@ -122,11 +119,13 @@ $(document).ready(function(){
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
+		<div>
 		<div id="sidebar-left">
           <tiles:insertAttribute name="side"/> 
       	</div>
 		<div id="content">
 			<tiles:insertAttribute name="body" />
+		</div>
 		</div>
 		<div id="footer">
 			<tiles:insertAttribute name="footer" />

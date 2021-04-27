@@ -174,7 +174,14 @@ public class CourseControllerImpl implements CourseController {
 		return mav;
 	}
 	
-	
+	@RequestMapping(value="/course/deleteCheck.do", method=RequestMethod.POST)
+	   public ModelAndView deleteCheck(@RequestParam List<Integer> valueArr) {
+	      for(int i=0; i<valueArr.size(); i++) {
+	         courseService.deleteCourse(valueArr.get(i));
+	      }
+	      ModelAndView mav = new ModelAndView("redirect:/course/courseList.do");
+	      return mav;
+	}
 	
 	
 //	@Override

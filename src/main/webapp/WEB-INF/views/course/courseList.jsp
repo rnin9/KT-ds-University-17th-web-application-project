@@ -13,27 +13,28 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>과정 관리</title>
 
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-   crossorigin="anonymous">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />aaa -->
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -41,110 +42,20 @@ a:link, a:visited, a:hover {
    text-decoration: none;
 }
 
-.bg-primary {
-   background-color: white !important;
-}
-
 .container {
-   width: 74.64%;
-   font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-left: 15%;
 }
 
-.well-searchbox {
-   min-height: 20px;
-   min-width: 400px;
-   padding: 19px;
-   top: 90px;
-   background: #f8f8f8;
-   margin-bottom: 20px;
-   padding-bottom: 0px;
-   border: 1px solid #e3e3e3;
-   border-radius: 4px;
-   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-   margin-top: 30px;
+button {
+	float: right;
+	margin-right: 10px;
 }
-
-.well-searchbox label {
-   /* color: #555; */
-   width: 20%;
-   margin: 10px;
-   text-align: right;
-}
-
-.btn {
-   color: white;
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-   background-color: tomato;
-   float: right;
-   margin-left: 10px;
-}
-
-.serarchSubject {
-   display: flex;
-   flex-direction: row;
-}
-
-.subject {
-   display: flex;
-   flex-direction: row;
-}
-
-.table_syllabusList {
-   border-collapse: collapse;
-   font-size: 14px;
-   line-height: 2.2;
-   margin-top: 40px;
-   text-align: center;
-   /* color: #555; */
-   width: 100%;
-   line-height: 40px;
-}
-
-.table_syllabusList thead {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   background-color: #f8f8f8;
-   text-align: center;
-}
-
-.form-control {
-   border: hidden;
-   width: 88%;
-}
-
-.form-select {
-   border: hidden;
-   width: 41%;
-   display: inline-block;
-   margin-right: 6%;
-}
-
-.col-md-8 {
-   display: inline-block;
-   text-align: left;
-}
-
-.searchTitle {
-   margin-right: 20px;
+                                                                                                                    
+.dataTables_wrapper {
+	margin-top: 30px;
+	display: inline-block;
+	width: 100%;
 }
 
 </style>
@@ -152,30 +63,35 @@ a:link, a:visited, a:hover {
 </head>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#myTable').DataTable({
+   $('#myTable').DataTable({
+      
+      dom : 'lBfrtip',
+      buttons: ['excel'],
 
-	
-		language: {
-			info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
-			sInfoFiltered : '',
-			infoEmpty : '',
-			emptyTable : '데이터가 없습니다.',
-			thousands : ',',
-			lengthMenu : '_MENU_ 개씩 보기',
-			loadingRecords : '데이터를 불러오는 중',
-			processing : '처리 중',
-			zeroRecords : '검색 결과 없음',
-			paginate : {
-				first : '처음',
-				last : '끝',
-				next : '다음',
-				previous : '이전'
-			},
-			search: '',
-			sSearchPlaceholder: '통합 검색',
-		
-		}
-	});
+      
+      language: {
+         info : '',
+         sInfoFiltered : '',
+         infoEmpty : '',
+         emptyTable : '데이터가 없습니다.',
+         thousands : ',',
+         lengthMenu : '_MENU_ 개씩 보기',
+         loadingRecords : '데이터를 불러오는 중',
+         processing : '처리 중',
+         zeroRecords : '검색 결과 없음',
+         paginate : {
+            first : '처음',
+            last : '끝',
+            next : '다음',
+            previous : '이전'
+         },
+         search: '',
+         sSearchPlaceholder: '통합 검색',
+      
+      }
+   
+   
+   });
 });
 </script>
 <script type="text/javascript">
@@ -325,6 +241,43 @@ $(document).ready(function(){
 	};	
 </script>
 <script>
+	function deleteCheck(){
+		
+		/*if (${isLogOn == true}){*/
+			var url = "/springEx/course/deleteCheck.do";
+			var cnt = $("input[name='ab']:checked").length;
+			var valueArr = new Array();
+			$("input[name='ab']:checked").each(function(i){
+				valueArr.push($(this).val());
+			});
+			if (cnt==0){
+				Swal.fire("선택된 강의계획서가 없습니다.","","warning");
+			}else{
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						window.location.reload();
+						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+					},
+					error : function(data) {
+						Swal.fire("선택한 강의계획서를 사용하는 강의가 있습니다.","","error");
+						console.log("fail");
+			        }
+				})
+			}
+		/*}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
+	};		
+</script>
+<script>
 function register(){
 	location.href='${contextPath}/course/courseRegister.do'
 	/*if (${isLogOn == true}){
@@ -347,6 +300,14 @@ function register(){
                <li class="on"><a href="/springEx/course/courseList.do">과정
                      관리</a></li>
             </ul>
+         </div>
+         
+       	
+       	<div style="margin-top: 50px; padding-bottom: 150px;">
+            <button class="btn button_bottom" type="button" onClick="closeCheck();">조기마감</button>
+            <button class="btn button_bottom" type="button" onClick="openCheck();">접수중</button>
+            <button class="btn button_bottom" onClick="deleteCheck()">삭제</button>
+            <button class="btn button_bottom" onClick="register()">등록</button>
          </div>
 <!-- 
          <div class="well-searchbox">
@@ -426,7 +387,7 @@ function register(){
             </form>
          </div>
  -->
-         <table class="table_syllabusList" id="myTable">
+         <table class="table_" id="myTable">
             <thead>
                <tr align="center">
                   <td><input type="checkbox" name="check-all"
@@ -447,7 +408,7 @@ function register(){
                      <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</a></td>
+                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}]<br>${courseVO.syllabusVO.syllabusName}</a></td>
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
                      <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
@@ -459,12 +420,11 @@ function register(){
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
-            <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
-            <button class="btn button_bottom"
+            <button class="btn btn-outline-danger" type="button" onClick="closeCheck();">선택과정 조기마감</button>
+            <button class="btn btn-outline-danger" type="button" onClick="openCheck();">선택과정 접수중</button>
+            <button class="btn btn-outline-danger"
                onClick="register()">교육과정 등록</button>
          </div>
-      
    </div>
 </body>
 </html>
