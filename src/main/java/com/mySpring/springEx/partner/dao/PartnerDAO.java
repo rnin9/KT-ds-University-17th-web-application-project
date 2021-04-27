@@ -1,6 +1,7 @@
 package com.mySpring.springEx.partner.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -29,17 +30,20 @@ public interface PartnerDAO {
 	
 	public String partnerName(String partnerLicenseNum) throws DataAccessException;
 
-	/*기업관련*/
+	/*partner-company method Start */
 	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException;
 	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException;
 	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException;
 	public List getApplyList(String partnerLicenseNum) throws DataAccessException;
 	public List getSuggestList(String partnerLicenseNum) throws DataAccessException;
-	
 	public ResumeVO getUserResume(String resumeID) throws DataAccessException;
-	/*기업관련 끝*/
+	/*partner-company method end */
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException;
 
-	
-	
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException;
+
+	public List<Map<String, Object>> selectPartnerApplyN() throws DataAccessException;
+
+	public List<Map<String, Object>> selectJobOpeningList() throws DataAccessException;
 
 }

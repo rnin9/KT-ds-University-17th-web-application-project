@@ -12,6 +12,7 @@ public class ApplicationVO {
     private String partnerApplyResumeID;
     private String partnerApplyDate;
     private String partnerApplyState;
+    private String applicantNum;
 
     @Autowired
 	MemberVO memberVO;
@@ -20,12 +21,13 @@ public class ApplicationVO {
 
     }
 
-    public ApplicationVO(String partnerApplyUserID, String partnerApplyPartnerID, String partnerApplyResumeID, String partnerApplyDate, String partnerApplyState) {
+    public ApplicationVO(String partnerApplyUserID, String partnerApplyPartnerID, String partnerApplyResumeID, String partnerApplyDate, String partnerApplyState, String applicantNum) {
         this.partnerApplyUserID = partnerApplyUserID;
         this.partnerApplyPartnerID = partnerApplyPartnerID;
         this.partnerApplyResumeID = partnerApplyResumeID;
         this.partnerApplyDate = partnerApplyDate;
         this.partnerApplyState = partnerApplyState;
+        this.applicantNum = applicantNum;
     }
 
 	public MemberVO getMemberVO() {
@@ -75,4 +77,8 @@ public class ApplicationVO {
     public void setPartnerApplyState(String partnerApplyState) {
         this.partnerApplyState = partnerApplyState;
     }
+
+    public String getApplicantNum() { return applicantNum; }
+
+    public void setApplicantNum(String applicantNum) { this.applicantNum = applicantNum; }
 }

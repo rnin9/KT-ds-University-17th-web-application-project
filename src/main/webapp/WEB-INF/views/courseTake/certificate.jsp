@@ -1,18 +1,30 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+
 
 <%
 request.setCharacterEncoding("UTF-8");
 %>
 
 <%
+/* import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
+
+Date date = Calendar.getInstance().getTime();  
+DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+String strDate = dateFormat.format(date);  
+ */
+
 String userName = request.getParameter("userName");
 String courseName = request.getParameter("courseName");
 String courseStart = request.getParameter("courseStart");
 String courseEnd = request.getParameter("courseEnd");
 String syllabusTotalTime = request.getParameter("syllabusTotalTime");
+System.out.println("_______________"+syllabusTotalTime);
 String userBirthday = request.getParameter("userBirthday");
 String userCompany = request.getParameter("userCompany");
 %>
@@ -29,7 +41,7 @@ String userCompany = request.getParameter("userCompany");
 	border: 0;
 	font-size: 32px;
 	border: 10px double gold;
-	width: 800px;
+	width: 1000px;
 	height: 1168px;
 	margin: 30px;
 	font-family: 궁서;
@@ -46,7 +58,6 @@ th {
 </style>
 
 </head>
-
 
 <body>
 

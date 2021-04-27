@@ -20,31 +20,6 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	
-	@Autowired
-	public PageMapper pageMapper;
-
-
-
-	 @Override
-	    public List<Map<String, Object>> SelectAllList() throws Exception {
-	        // TODO Auto-generated method stub
-	        return pageMapper.NoticeAllList();
-	    }
-
-	    @Override
-	    public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception {
-	        // TODO Auto-generated method stub
-	        return pageMapper.NoticeAllList(pagination);
-	    }
-
-	    @Override
-	    public int testTableCount() throws Exception {
-	        // TODO Auto-generated method stub
-	        return pageMapper.testTableCountN();
-	    }
-
-
 	@Override
 	public void insertNotice(NoticeVO noticeVO) throws DataAccessException {
 

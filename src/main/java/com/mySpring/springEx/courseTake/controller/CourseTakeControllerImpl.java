@@ -64,6 +64,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 			System.out.println("_____________________________"+arr[0]);
 			System.out.println("_____________________________"+arr[1]);
 			courseTakeService.updateApplyConsent(courseTakeVO);
+			courseTakeService.updatePosition(courseTakeVO);
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
@@ -127,6 +128,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userName"));
 		return mav;
 	}
 

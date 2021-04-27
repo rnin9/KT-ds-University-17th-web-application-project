@@ -118,8 +118,8 @@
 		template="/WEB-INF/views/common/empty.jsp">
 		<put-attribute name="content" value="" />
 	</definition>
-	<definition name="/member/certificate" extends="empty">
+	<definition name="/member/myCertificate" extends="empty">
 		<put-attribute name="content"
-			value="/WEB-INF/views/member/myCertificate.jsp" />
+			value="/WEB-INF/views/courseTake/certificate.jsp" />
 	</definition>
 </tiles-definitions>
