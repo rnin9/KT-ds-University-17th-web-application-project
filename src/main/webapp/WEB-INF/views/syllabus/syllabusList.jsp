@@ -42,7 +42,12 @@ a:link, a:visited, a:hover {
 }
 
 .container {
-	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-bottom:200px;
 	margin-left: 15%;
 }
 

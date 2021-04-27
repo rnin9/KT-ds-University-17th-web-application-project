@@ -14,13 +14,15 @@
 }
 
 #sidebar-left {
+	margin-top: 51px;
 	width: 15%;
-	height: 700px;
 	margin-right: 5px;
 	float: left;
 	border: 0px solid #bcbcbc;
 	font-size: 10px;
 	min-width:150px;
+	background-color:gray;
+	box-shadow: 5px 5px 5px -2px rgb(25 25 25 / 15%);
 }
 
 #content {

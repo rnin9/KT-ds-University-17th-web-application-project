@@ -87,6 +87,7 @@
 		<collection property="syllabusVO" javaType="SyllabusVO">
 		<result	property="syllabusID" column="syllabusID"/>
 		<result property="syllabusName" column="syllabusName" />
+		<result property="syllabusTotalTime" column="syllabusTotalTime" />
 		</collection>
 	</resultMap>
 		
@@ -323,7 +324,7 @@
 	
 	<select id="companyEmployeeList" parameterType="String" resultMap="companyCourseTakeResult">
 	 <![CDATA[
-	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName,s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
+	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName, s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
   	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
   	 				 where p.partnerLicenseNum=#{partnerLicenseNum}
   	 ]]>
