@@ -57,5 +57,11 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 		return courseTakeDAO.deleteCourseTake(courseTakeVO);
 	}
 
+	@Override
+	public int updatePosition(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.updatePosition(courseTakeVO);
+		
+	}
+	
 
 }

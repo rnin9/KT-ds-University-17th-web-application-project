@@ -89,10 +89,9 @@ button {
                <td><div class="selectBox" style="text-align: left;">
                      <select class="form-select" aria-label="Default select example"
                         style="margin-right: 50px;" name="syllabusCategory1">
-                        <option value="유료과정" <c:if test="${syllabusVO.syllabusCategory1 eq '유료과정'}">selected</c:if>>유료과정</option>
                         <option value="재직자향상" <c:if test="${syllabusVO.syllabusCategory1 eq '재직자향상'}">selected</c:if>>재직자향상</option>
-                        <option value="채용예정자과정" <c:if test="${syllabusVO.syllabusCategory1 eq '채용예정자과정'}">selected</c:if>>채용예정자과정</option>
-                     </select> 
+                        <option value="채용예정자" <c:if test="${syllabusVO.syllabusCategory1 eq '채용예정자'}">selected</c:if>>채용예정자</option>
+                     </select>
                      <select class="form-select" aria-label="Default select example" name="syllabusCategory2">
                         <option value="OS 분야" <c:if test="${syllabusVO.syllabusCategory2 eq 'OS 분야'}">selected</c:if>>OS 분야</option>
                         <option value="IoTchr(38)모바일" <c:if test="${syllabusVO.syllabusCategory2 eq 'IoT&모바일'}">selected</c:if>>IoT&모바일</option>

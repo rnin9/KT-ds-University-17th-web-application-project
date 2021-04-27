@@ -186,12 +186,10 @@ $(document).ready(function(){
 	         sSearchPlaceholder: '통합 검색',
 	      
 	      }
-	
 	});
 });
 </script>
 <body>
-
 	<div class="container">
 
 		<div class="lnb">
@@ -245,4 +243,3 @@ $(document).ready(function(){
 
 </body>
 </html>
-

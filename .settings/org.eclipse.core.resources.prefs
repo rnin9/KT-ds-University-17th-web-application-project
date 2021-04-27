@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java/com/mySpring/springEx/common/pagination/mapper/PageMapper.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/courseTake/service/CourseTakeService.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/courseTake/vo/CourseTakeVO.java=UTF-8
+encoding//src/main/java/com/mySpring/springEx/member/controller/MemberControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/notice/controller/NoticeControllerImpl.java=UTF-8

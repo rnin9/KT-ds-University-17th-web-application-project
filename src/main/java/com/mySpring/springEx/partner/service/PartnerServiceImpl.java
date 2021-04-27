@@ -25,7 +25,7 @@ public class PartnerServiceImpl implements PartnerService {
 	public PageMapper pageMapper;
 	
 	
-	//È¸»ç ¸®½ºÆ® Ãâ·Â
+	//íšŒì‚¬ ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	@Override
     public List<Map<String, Object>> SelectAllListPartner() throws Exception {
         // TODO Auto-generated method stub
@@ -43,40 +43,50 @@ public class PartnerServiceImpl implements PartnerService {
         // TODO Auto-generated method stub
         return pageMapper.testTableCountPartner();
     }
+
+	@Override
+	public List<Map<String, Object>> selectPartnerApplyN() throws Exception {
+		return partnerDAO.selectPartnerApplyN();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectJobOpeningList() throws Exception {
+		return partnerDAO.selectJobOpeningList();
+	}
+
 	
-	
-	//È¸»ç »óÅÂº° count Ãâ·Â
+	//íšŒì‚¬ ìƒíƒœë³„ count ì¶œë ¥
 	@Override
 	public List listNumPartner() throws DataAccessException {
 		List<Integer> listNumPartner = new ArrayList<Integer>();;
-		listNumPartner.add(partnerDAO.selectCooperationPartner());  //Çù·Â»ç count
-		listNumPartner.add(partnerDAO.selectConventionPartner());   //Çù¾à»ç count
-		listNumPartner.add(partnerDAO.selectIngPartner());			//Çù¾à ÁøÇàÁß count
-		listNumPartner.add(partnerDAO.selectNotPartner());			//¹ÌÇù¾à count
+		listNumPartner.add(partnerDAO.selectCooperationPartner());  //í˜‘ë ¥ì‚¬ count
+		listNumPartner.add(partnerDAO.selectConventionPartner());   //í˜‘ì•½ì‚¬ count
+		listNumPartner.add(partnerDAO.selectIngPartner());			//í˜‘ì•½ ì§„í–‰ì¤‘ count
+		listNumPartner.add(partnerDAO.selectNotPartner());			//ë¯¸í˜‘ì•½ count
 		return listNumPartner;
 	}
 	
-	//È¸»ç Á¤º¸ ÀÔ·Â
+	//íšŒì‚¬ ì •ë³´ ì…ë ¥
 	@Override
 	public void addPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.addPartner(partner);
 	}
 	
 	
-	//±â¾÷ ¼öÁ¤
+	//ê¸°ì—… ìˆ˜ì •
 	@Override
 	public void modPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.updatePartner(partner);
 	}
 	
 	
-	//±â¾÷ Á¤º¸ »ó¼¼ Æû 
+	//ê¸°ì—… ì •ë³´ ìƒì„¸ í¼ 
 	@Override
 	public PartnerVO partnerDetailInfo(String partnerLicenseNum) throws DataAccessException {
 		return partnerDAO.selectDetailPartner(partnerLicenseNum);
 	}
 	
-	//±â¾÷ »èÁ¦ 
+	//ê¸°ì—… ì‚­ì œ 
 	@Override
 	public String removePartner(String partnerLicenseNum) throws DataAccessException{
 		String partnerName = partnerDAO.partnerName(partnerLicenseNum);
@@ -84,8 +94,17 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerName;
 	}
 
-	
-	/* =================================±â¾÷ °ü·Ã ½ÃÀÛ======================= */
+	@Override
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException{
+		return partnerDAO.postJobOpening(partnerLicenseNum, date);
+	}
+
+	@Override
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
+		return partnerDAO.deleteJobOpening(partnerLicenseNum);
+	}
+
+	/* =================================ê¸°ì—… ê´€ë ¨ ì‹œì‘======================= */
 	@Override						 
 	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum) throws Exception {
 		// TODO Auto-generated method stub
@@ -109,6 +128,6 @@ public class PartnerServiceImpl implements PartnerService {
 	 */
 	
 	
-	/* =================================±â¾÷ °ü·Ã ³¡======================= */
+	/* =================================ê¸°ì—… ê´€ë ¨ ë======================= */
 	
 }

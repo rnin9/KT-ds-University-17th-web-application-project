@@ -50,20 +50,21 @@
     ]]>
    </select>
    
-   <select id="selectUserCourseList" resultMap="courseResult">
+    <select id="selectUserCourseList" resultMap="courseResult">
     <![CDATA[
        select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
        courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState, to_char(courseApplyEnd - TRUNC(SYSDATE)) as dday
        from course c join syllabus s on c.syllabusID = s.syllabusID
        where courseApplyStart <= sysdate and sysdate <= courseEnd
        order by courseState desc, dday asc
+
     ]]>
     </select>
    <select id="selectUserCourse" parameterType="int" resultMap="courseResult">
     <![CDATA[
        select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
              courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax, courseState,
-             syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent
+             syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent, (courseApplyEnd - TRUNC(SYSDATE)) as dday
        from course c join syllabus s on c.syllabusID = s.syllabusID
        where courseID = #{courseID}
     ]]>

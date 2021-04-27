@@ -163,48 +163,52 @@ a:link, a:visited, a:hover {
 </script>
 <script type="text/javascript">
 	function apply(){
-				
-		if (${isLogOn == true}){
-			var valueArr = new Array();
-			valueArr.push(${courseVO.courseID});
-			valueArr.push("${member.userId}");
-			$.ajax({
-				url : "/springEx/course/insertCourseTable.do",
-				type : 'POST',
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				},
-				success : function(data){
-					Swal.fire('신청이 완료되었습니다.','','success')
-					/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-				},
-				error : function(data) { 
-		            Swal.fire('이미 신청한 강의입니다.','','warning');
-		        }
-			});
-			$.ajax({
-				url : "/springEx/course/updateCoursePeopleApplied.do",
-				type : 'POST',
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				},
-				success : function(data){
-					console.log("success");
-					/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-				},
-				error : function(data) { 
-		            console.log("fail");
-		        }
-			});
-		}
-		else{
-			Swal.fire('로그인 후 이용해주세요.','','warning')
-			.then(()=>{
-				onLoginClicked();
-			});
+		console.log(${courseVO.dday});
+		if (${courseVO.dday >= 0}){		
+			if (${isLogOn == true}){
+				var valueArr = new Array();
+				valueArr.push(${courseVO.courseID});
+				valueArr.push("${member.userId}");
+				$.ajax({
+					url : "/springEx/course/insertCourseTable.do",
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						Swal.fire('신청이 완료되었습니다.','','success')
+						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+					},
+					error : function(data) { 
+			            Swal.fire('이미 신청한 강의입니다.','','warning');
+			        }
+				});
+				$.ajax({
+					url : "/springEx/course/updateCoursePeopleApplied.do",
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+					},
+					error : function(data) { 
+			            console.log("fail");
+			        }
+				});
 			}
+			else{
+				Swal.fire('로그인 후 이용해주세요.','','warning')
+				.then(()=>{
+					onLoginClicked();
+				});
+			}
+		}else{
+			Swal.fire('접수가 마감된 과정입니다.','','error')
+		}
 	};
 </script>
 </head>
