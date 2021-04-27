@@ -79,6 +79,20 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("mapper.member.deleteSuggestion", map);
 	}
 
+	public int acceptSuggestion(String partnerID, String userID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerID", partnerID);
+		map.put("userID", userID);
+		return sqlSession.update("mapper.member.acceptSuggestion", map);
+	}
+
+	public int rejectSuggestion(String partnerID, String userID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerID", partnerID);
+		map.put("userID", userID);
+		return sqlSession.update("mapper.member.rejectSuggestion", map);
+	}
+
 	@Override
 	public int deleteMember(String id) throws DataAccessException {
 		int result = sqlSession.delete("mapper.member.deleteMember", id);

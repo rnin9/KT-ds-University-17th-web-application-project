@@ -96,7 +96,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// list all recruitments
+	// list all recruitments, suggestions
 	@Override
 	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
@@ -129,16 +129,36 @@ public class MemberControllerImpl implements MemberController {
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
 	}
 
+	// update userDeletion
 	@Override
-	@RequestMapping(value = "/member/deleteSuggestion.do", method = RequestMethod.POST)
-	public void deleteSuggestion(@RequestParam List<String> valueArr) throws Exception {
+	@RequestMapping(value = {"/member/deleteSuggestion.do"}, method = RequestMethod.POST)
+	public void deleteSuggestion(@RequestParam List<String> valueArr ,HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
 		String userID = valueArr.get(0);
 		for (int i = 1; i < valueArr.size(); i++) {
 			System.out.println(valueArr.get(i)+"----------"+ userID);
 			memberService.deleteSuggestion(valueArr.get(i), userID);
 		}
-//		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
-//		return mav;
+	}
+
+	// update partner_suggestion acception accept
+	@Override
+	@RequestMapping(value = { "/member/acceptSuggestion.do" }, method = { RequestMethod.POST })
+	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
+	}
+
+	// update partner_suggestion acception reject
+	@Override
+	@RequestMapping(value = { "/member/rejectSuggestion.do" }, method = { RequestMethod.POST })
+	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)

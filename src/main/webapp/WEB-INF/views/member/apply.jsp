@@ -17,7 +17,7 @@
     <title>채용공고</title>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(() => {
             let activeTab = sessionStorage.getItem('activeTab');
 
             // 지원 상태 별로 색 설정
@@ -96,10 +96,11 @@
                     sSearchPlaceholder: '통합 검색',
                 }
             });
+
         });
 
         // 모달 body text 설정
-        function getPartnerInfo(name, info, addr, email, headcnt, purl) {
+        getPartnerInfo = (name, info, addr, email, headcnt, purl) => {
             $("#modal_title").text(name);
             $("#partner_info").text(info);
             $("#partner_addr").text(addr);
@@ -109,38 +110,13 @@
         }
 
         // 탭 클릭 시 session에 현재 탭 값 저장
-        function tabtab(h) {
+        tabtab = (h) => {
             sessionStorage.setItem('activeTab', h);
-            console.log('href   yyyy' + h);
-            // $(h + "-table").DataTable({
-            //     retrieve: true,
-            //     language: {
-            //         info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
-            //         sInfoFiltered: '',
-            //         infoEmpty: '',
-            //         emptyTable: '데이터가 없습니다.',
-            //         thousands: ',',
-            //         lengthMenu: '_MENU_ 개씩 보기',
-            //         loadingRecords: '데이터를 불러오는 중',
-            //         processing: '처리 중',
-            //         zeroRecords: '검색 결과 없음',
-            //         paginate: {
-            //             first: '처음',
-            //             last: '끝',
-            //             next: '다음',
-            //             previous: '이전'
-            //         },
-            //         search: '',
-            //         sSearchPlaceholder: '통합 검색',
-            //     }
-            // });
-
-            // table.draw();
+            // console.log('href   yyyy' + h);
         }
 
         // 지원 삭제 함수
-        function deleteApplication(partnerApplyPartnerID) {
-            const id = '${member.userId}';
+        deleteApplication = (partnerApplyPartnerID) => {
             fetch("${contextPath}/member/deleteApplication.do", {
                 method: "POST",
                 mode: "cors",
@@ -154,10 +130,10 @@
                 })
             })
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
 
                     swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
-                    setTimeout(function () { // 0.9초뒤 실행
+                    setTimeout(() => { // 0.9초뒤 실행
                         location.reload(); // 새로고침 -> list 다시 불러옴
                     }, 900);
 
@@ -166,7 +142,7 @@
         }
 
         // 지원 함수
-        function chk_apply(a, b, c) {
+        chk_apply = (a, b, c) => {
 
             // 사용자의 이력서가 등록 되어있다면
             if ('${member.resume}' === "Y") {
@@ -189,7 +165,7 @@
                             swal("중복 지원.", "중복 지원.", "info");
                         } else {
                             swal("지원 완료.", "지원 완료.", "success");
-                            setTimeout(function () { // 0.9초뒤 실행
+                            setTimeout(() => { // 0.9초뒤 실행
                                 location.reload(); // 새로고침 -> list 다시 불러옴
                             }, 900);
                         }
@@ -202,9 +178,9 @@
             }
         }
 
-        const url = "${contextPath}/member/deleteSuggestion.do";
-        let valueArr;
         deleteSuggestion = () => {
+            const url = "${contextPath}/member/deleteSuggestion.do";
+            let valueArr;
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
                 swal("선택된 항목이 없습니다.", "삭제할 항목을 선택하세요.", "warning");
@@ -224,7 +200,7 @@
                         valueArr = [];
                         const userId = '${member.userId}';
                         valueArr.push(userId);
-                        $("input[name='cb']:checked").each(function (i) {
+                        $("input[name='cb']:checked").each((i) => {
                             valueArr.push($(this).val());
                         });
 
@@ -238,17 +214,131 @@
                             success: (data) => {
 
                                 Swal.fire("삭제 성공.", "받은 제안이 삭제되었습니다.", "success");
-                                setTimeout(function () { // 0.9초뒤 실행
+                                setTimeout(() => { // 0.9초뒤 실행
                                     location.reload(); // 새로고침 -> list 다시 불러옴
                                 }, 900);
                             },
                             error: (data) => {
-                                console.log("fail");
+                                // console.log("fail sd");
                             }
                         });
                     }
                 })
             }
+        }
+
+        suggestionModal = (partnerID, name, date, description, acception) => {
+            date = date.substr(0, 11);
+            //console.log(table.row(this).data());
+            $(".modal-body div span").text("");
+            $("#suggestion_partner_id").text(partnerID);
+            $("#suggestion_partner").text(name);
+            $("#suggestion_date").text(date);
+            $("#suggestion_description").text(description);
+            if(acception === '수락' || acception === '거절') {
+                // console.log('수락거절ㄹㄹㄹㄹ');
+                $('#accept').attr('style', "display:none;");
+                $('#reject').attr('style', "display:none;");
+                $('#alreadyApply').attr('style', "display:'';");
+            } else {
+                // console.log('ㄴㄴㄴㄴㄴㄴㄴㄴ');
+                $('#accept').attr('style', "display:'';");
+                $('#reject').attr('style', "display:'';");
+                $('#alreadyApply').attr('style', "display:none;");
+            }
+            $("#myModal2").modal("show");
+        }
+
+        suggestAccept = () => {
+            let partnerID = document.getElementById("suggestion_partner_id").innerText;
+            const userId = '${member.userId}';
+            // console.log(partnerID);
+
+            const url = "${contextPath}/member/acceptSuggestion.do";
+
+                Swal.fire({
+                    title: '받은 제안을 수락하시겠습니까?',
+                    text: "",
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '수락',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.value) {
+
+                        fetch(url, {
+                            method: "POST",
+                            mode: "cors",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "accept": "application/json"
+                            },
+                            body: JSON.stringify({
+                                partnerID: partnerID,
+                                userId: userId
+                            })
+                        })
+                            .then(res => {
+                                if (res.status == '500') {
+                                    // mybatis 오류 시 500 error
+                                    // console.log("failㅣㅣㅣㅣㅣ");
+                                } else {
+                                    Swal.fire("제안 수락.", "받은 제안을 수락했습니다.", "success");
+                                    setTimeout(() => { // 0.9초뒤 실행
+                                        location.reload(); // 새로고침 -> list 다시 불러옴
+                                    }, 900);
+                                }
+                            })
+                    }
+                })
+        }
+
+        suggestReject = () => {
+            let partnerID = document.getElementById("suggestion_partner_id").innerText;
+            const userId = '${member.userId}';
+            // console.log(partnerID);
+
+            const url = "${contextPath}/member/rejectSuggestion.do";
+
+            Swal.fire({
+                title: '받은 제안을 거절하시겠습니까?',
+                text: "",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '거절',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.value) {
+
+                    fetch(url, {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            partnerID: partnerID,
+                            userId: userId
+                        })
+                    })
+                        .then(res => {
+                            if (res.status == '500') {
+                                // mybatis 오류 시 500 error
+                                // console.log("failㅣㅣㅣㅣㅣ");
+                            } else {
+                                Swal.fire("제안 거절.", "받은 제안이 거절되었습니다.", "success");
+                                setTimeout(() => { // 0.9초뒤 실행
+                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                }, 900);
+                            }
+                        })
+                }
+            })
         }
 
     </script>
@@ -271,10 +361,6 @@
         }
     </script>
     <style>
-        /*.dataTables_wrapper {*/
-        /*    display: inline-block;*/
-        /*    width: 100%;*/
-        /*}*/
 
         .buttonGroups {
             float: right;
@@ -404,6 +490,45 @@
             </div>
         </div>
 
+        <!-- Modal for tab3 -->
+        <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_title2"></h5>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="suggestionModalBody" style="text-align: left">
+                            <div class="row">
+                                <div class="col-3" style="color: #444444; font-weight: bold">
+                                    <p>협력사</p>
+                                    <p>날짜</p>
+                                    <p>내용</p>
+                                </div>
+                                <div class="col-8">
+                                    <p id="suggestion_partner_id" style="display: none"></p>
+                                    <p id="suggestion_partner"></p>
+                                    <p id="suggestion_date"></p>
+                                    <p id="suggestion_description"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="accept" onclick="suggestAccept()">수락</button>
+                        <button type="button" class="btn btn-default" id="reject" onclick="suggestReject()">거절</button>
+                        <a id="alreadyApply">이미 응답한 제안입니다.</a>
+<%--                        <button type="button" class="btn btn-default" id="alreadyApply">이미 응답한 제안입니다.</button>--%>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <section id="tabs" class="project-tab">
             <div>
                 <%--                <div class="row">--%>
@@ -485,7 +610,7 @@
                     <%--             세번째 탭의 테이블                   --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
-                        <table class="tableList" id="nav-suggestion-table" style="width: 100%">
+                        <table class="tableList table-hover" id="nav-suggestion-table" style="width: 100%">
                             <thead>
                             <tr>
                                 <td><input type="checkbox" name="check-all"
@@ -493,27 +618,29 @@
                                 <td>기업명</td>
                                 <td>내용</td>
                                 <td>받은 날짜</td>
-                                <td>수락/거절</td>
+                                <td>상태</td>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="suggestion" items="${suggestionList}">
-                                <tr>
-                                    <td><input type="checkbox" name="cb" value="${suggestion.partnerID}"
+                                <tr onclick="suggestionModal('${suggestion.partnerID}', '${suggestion.partnerName}', '${suggestion.suggestionDate}', '${suggestion.suggestDescription}', '${suggestion.acception}');">
+                                    <td onclick="event.cancelBubble=true"><input type="checkbox" name="cb" value="${suggestion.partnerID}"
                                                onclick='checkSelectAll(this)'/></td>
                                     <td>${suggestion.partnerName}</td>
                                     <td>${fn:substring(suggestion.suggestDescription, 0, 15)}...</td>
+                                        <%--                                    <td style="display: none">${suggestion.suggestDescription}</td>--%>
                                     <td>${fn:substring(suggestion.suggestionDate, 0, 11)}</td>
-                                    <td>수락/거절</td>
+                                    <td>${suggestion.acception}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
 
+                        <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
+                            <button type="button" class="btn" onclick="deleteSuggestion()">삭제</button>
+                        </div>
                     </div>
-                    <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
-                        <button type="button" class="btn" onclick="deleteSuggestion()">삭제</button>
-                    </div>
+
                 </div>
                 <%--                    </div>--%>
                 <%--                </div>--%>

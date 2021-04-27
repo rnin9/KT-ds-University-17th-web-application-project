@@ -88,6 +88,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.deleteSuggestion(partnerID, userID);
 	}
 
+	@Override
+	public int acceptSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.acceptSuggestion(partnerID, userID);
+	}
+
+	@Override
+	public int rejectSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.rejectSuggestion(partnerID, userID);
+	}
+
 
 	/*
 	 * @Override public int addMember(MemberVO member) throws DataAccessException {

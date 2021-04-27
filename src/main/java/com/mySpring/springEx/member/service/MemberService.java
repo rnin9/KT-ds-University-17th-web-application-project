@@ -45,6 +45,10 @@ public interface MemberService {
 
 	public int deleteSuggestion(String partnerID, String userID) throws Exception;
 
+	public int acceptSuggestion(String partnerID, String userID) throws Exception;
+
+	public int rejectSuggestion(String partnerID, String userID) throws Exception;
+
 	public MemberVO getMyInfo(String userID) throws Exception;
 
 	public int modMyInfo(MemberVO member) throws Exception;

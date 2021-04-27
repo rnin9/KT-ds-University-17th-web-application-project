@@ -69,6 +69,7 @@
     <div class="mapContainer" style="background-color: white">
 
 
+<%--        <span id="scrollClass"></span>--%>
         <div style="margin-top: 20px; text-align: left">
             <div></div>
         </div>
@@ -80,6 +81,7 @@
                     width="800" height="646">
         </div>
 
+<%--        <span id="scrollLocation"></span>--%>
         <div class="pageIntro">오시는 길 안내</div>
         <div class="row" style="padding-top: 50px">
             <div class="col">

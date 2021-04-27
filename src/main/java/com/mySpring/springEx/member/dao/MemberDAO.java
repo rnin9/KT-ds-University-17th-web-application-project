@@ -37,6 +37,10 @@ public interface MemberDAO {
 
 	public int deleteSuggestion(String partnerID, String userID) throws Exception;
 
+	public int acceptSuggestion(String partnerID, String userID) throws Exception;
+
+	public int rejectSuggestion(String partnerID, String userID) throws Exception;
+
 	public MemberVO getMyInformation(String userID) throws Exception;
 	
 	//나의 수강신청내역
