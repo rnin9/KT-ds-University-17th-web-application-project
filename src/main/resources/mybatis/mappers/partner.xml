@@ -19,10 +19,6 @@
 	    <result property="partnerURL" column="partnerURL" />
 	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
 	</resultMap>
-<<<<<<< HEAD
-	
-	<resultMap id="companyCourseTakeResult" type="courseTakeVO">
-=======
 
 	<resultMap id="jobOpeningList" type="partnerVO">
 		<result property="partnerName" column="partnerName"/>
@@ -60,8 +56,7 @@
 				column="partnerRegisterDate"/>
 	</resultMap>
 
-<resultMap id="companyCourseTakeResult" type="courseTakeVO">
->>>>>>> 4539b4adab21a62e84bb1721827e0725105e34c1
+	<resultMap id="companyCourseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -94,7 +89,6 @@
 		<result property="syllabusName" column="syllabusName" />
 		</collection>
 	</resultMap>
-<<<<<<< HEAD
 		
 	<!-- 지원자목록 -->	
 	<resultMap id="applicationResult" type="applicationVO">
@@ -166,13 +160,12 @@
        <result property="projectRole" column="projectRole" />
        <result property="projectURL" column="projectURL" />
 	   </resultMap>
-=======
->>>>>>> 4539b4adab21a62e84bb1721827e0725105e34c1
 
 	<!-- 전체 기업목록 조회 쿼리-->
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select * from partner 	 	
+         select * from partn
+         er 	 	
       ]]>
 	</select>
 	
