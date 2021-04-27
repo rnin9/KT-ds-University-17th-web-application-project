@@ -67,12 +67,35 @@ public class MemberServiceImpl implements MemberService {
 		return applicationList;
 	}
 
+	@Override
+	public List listSuggestions(String id) throws DataAccessException {
+		List<HashMap<String, String>> suggestionList = memberDAO.selectAllSuggestionList(id);
+		return suggestionList;
+	}
+
+	@Override
 	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
 		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
 	}
 
+	@Override
 	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
 		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+	@Override
+	public int deleteSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.deleteSuggestion(partnerID, userID);
+	}
+
+	@Override
+	public int acceptSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.acceptSuggestion(partnerID, userID);
+	}
+
+	@Override
+	public int rejectSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.rejectSuggestion(partnerID, userID);
 	}
 
 

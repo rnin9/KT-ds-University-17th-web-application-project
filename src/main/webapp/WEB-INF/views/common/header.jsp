@@ -143,7 +143,7 @@ request.setCharacterEncoding("UTF-8");
 								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용공고</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용지원 관리</a></li>
 
 				</c:when>
 				<%--		재직자		--%>
@@ -222,6 +222,13 @@ request.setCharacterEncoding("UTF-8");
 				<c:when test="${member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER'}">
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/location.do"> 교육장 안내 </a></li>
+<%--					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"--%>
+<%--													 href="${contextPath}/location.do" data-toggle="dropdown"> 교육장 안내 </a>--%>
+<%--						<ul class="dropdown-menu fade-up">--%>
+<%--							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>--%>
+<%--							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>--%>
+<%--						</ul>--%>
+<%--					</li>--%>
 					<li class="nav-item dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
