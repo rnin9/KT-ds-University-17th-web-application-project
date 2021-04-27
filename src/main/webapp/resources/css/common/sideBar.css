@@ -1,18 +1,13 @@
 .nav-side-menu {
 	min-width:150px;
-	padding-top: 62px;
+	padding-top: 12px;
 	overflow: auto;
 	font-family: verdana;
 	font-size: 12px;
 	font-weight: 200;
-	position: absolute;
 	top: 0px;
-	width: 300px;
 	color: #e1ffff;
-	height: 100%;
 	width: 15%;
-	background-color:gray;
-	box-shadow: 5px 5px 5px -2px rgb(25 25 25 / 15%);
 }
 
 .nav-side-menu .brand {
@@ -100,7 +95,6 @@
 .nav-side-menu li {
 	background-color: gray;
 	border-left: 3px solid #2e353d;
-	border-bottom: 1px solid red;
 	font-size:15px;
 	padding:5px;
 	font-weight:600;

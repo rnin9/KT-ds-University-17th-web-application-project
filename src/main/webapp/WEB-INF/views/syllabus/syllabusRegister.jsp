@@ -29,14 +29,20 @@ request.setCharacterEncoding("UTF-8");
 
 <style>
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
-	font-family: 'Noto Sans KR', sans-serif;
+	/* font-family: 'Noto Sans KR', sans-serif;
 	margin-left: 15%;
-	position: relative;
+	position: relative; */
+	display: flex;
+	width: 75%;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	flex-direction: column;
+	font-family: 'Noto Sans KR';
 }
 
 button {
@@ -180,6 +186,6 @@ button {
 
 		</div>
 	</form>
-	
+
 </body>
 </html>

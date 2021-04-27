@@ -9,59 +9,73 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/common/sideBar.css" />
-	
+
 
 <div class="nav-side-menu">
 
-	<div class="menu-list" style="width: 15%; position: fixed;">
+	<div class="menu-list"
+		style="width: 15%; min-width: 150px; position: fixed;">
 
 		<ul id="menu-content" class="menu-content collapse out">
 			<c:choose>
-			<c:when test="${partner.partnerLicenseNum != 'kt_ds_university' }">
-			<li><a href="${contextPath}/partner/company/companyApplyManage.do?partnerLicenseNum=${partner.partnerLicenseNum}">
-			 <i class="fas fa-file-alt"></i> 지원자 관리 </a></li>
-			<li><a href="${contextPath}/partner/company/companyEmployee.do?partnerLicenseNum=${partner.partnerLicenseNum}">
-			 <i class="fas fa-users" style="margin-right: 14px;"></i> 직원 관리 </a></li>
-			 </c:when>
-			 <c:otherwise>
-			<li data-toggle="collapse" data-target="#user" class="collapsed">
-				<a href="#"> <i class="fas fa-users" style="margin-right: 14px;"></i>회원관리 <i
-					class="fas fa-chevron-down"></i></a>
-			</li>
-			<ul class="sub-menu collapse" id="user">
-				<li><a href="#">회원 관리</a></li>
-				<li><a href="#">이력서 관리</a></li>
-				<li><a href="#">지원서 관리</a></li>
-				
-			</ul>
-			
-			<li data-toggle="collapse" data-target="#partner" class="collapsed">
-				<a href="#"> <i class="far fa-handshake" style="margin-right: 5px; margin-left: 10px;"></i>협력사 관리 <i
-					class="fas fa-chevron-down"></i></a>
-			</li>
-			<ul class="sub-menu collapse" id="partner">
-				<li><a href="#"> 기업정보</a></li>
-				<li><a href="#"> 모집공고</a></li>
-				<li><a href="#"> 수강 관리</a></li>
-			</ul>
-			
-			<li data-toggle="collapse" data-target="#course" class="collapsed">
-				<a href="#"> <i class="fas fa-laptop" style="margin-right: 14px;"></i>강의관리 <i class="fas fa-chevron-down"></i></a>
-			</li>
-			<ul class="sub-menu collapse" id="course">
-				<li><a href="/springEx/syllabus/syllabusList.do"> 강의계획서</a></li>
-				<li><a href="/springEx/course/courseList.do"> 과정 관리</a></li>
-				<li><a href="/springEx/courseTake/courseApplyList.do"> 수강 관리</a></li>
-			</ul>
-			
-			 <li><a href="#" style="margin-right: 20px;">
-			 <i class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항 </a></li>
-			<li><a href="#" style="margin-right: 20px;">
-			<i class="fas fa-question-circle" style="margin-right: 4px;"></i> Q&A </a></li>
-			<li><a href="#" style="margin-right: 20px;">
-			 <i class="fas fa-edit" style="margin-right: 4px;"></i> 설문조사 </a></li>
-			 
-			 </c:otherwise>
+				<c:when test="${partner.partnerLicenseNum != 'kt_ds_university' }">
+					<li><a
+						href="${contextPath}/partner/company/companyApplyManage.do?partnerLicenseNum=${partner.partnerLicenseNum}">
+							<i class="fas fa-file-alt"></i> 채용 관리
+					</a></li>
+					<li><a
+						href="${contextPath}/partner/company/companyEmployee.do?partnerLicenseNum=${partner.partnerLicenseNum}">
+							<i class="fas fa-users" style="margin-right: 4px;"></i> 직원 관리
+					</a></li>
+				</c:when>
+				<c:otherwise>
+					<li data-toggle="collapse" data-target="#user" class="collapsed">
+						<a href="#"> <i class="fas fa-users"
+							style="margin-right: 14px;"></i>회원관리 <i
+							class="fas fa-chevron-down"></i></a>
+					</li>
+					<ul class="sub-menu collapse" id="user">
+						<li><a href="#">회원 관리</a></li>
+						<li><a href="#">이력서 관리</a></li>
+						<li><a href="#">지원서 관리</a></li>
+
+					</ul>
+
+					<li data-toggle="collapse" data-target="#partner" class="collapsed">
+						<a href="#"> <i class="far fa-handshake"
+							style="margin-right: 5px; margin-left: 10px;"></i>협력사 관리 <i
+							class="fas fa-chevron-down"></i></a>
+					</li>
+					<ul class="sub-menu collapse" id="partner">
+						<li><a href="#"> 기업정보</a></li>
+						<li><a href="#"> 모집공고</a></li>
+						<li><a href="#"> 수강 관리</a></li>
+					</ul>
+
+					<li data-toggle="collapse" data-target="#course" class="collapsed">
+						<a href="#"> <i class="fas fa-laptop"
+							style="margin-right: 14px;"></i>강의관리 <i
+							class="fas fa-chevron-down"></i></a>
+					</li>
+					<ul class="sub-menu collapse" id="course">
+						<li><a href="/springEx/syllabus/syllabusList.do"> 강의계획서</a></li>
+						<li><a href="/springEx/course/courseList.do"> 과정 관리</a></li>
+						<li><a href="/springEx/courseTake/courseApplyList.do"> 수강
+								관리</a></li>
+					</ul>
+
+					<li><a href="#" style="margin-right: 20px;"> <i
+							class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항
+					</a></li>
+					<li><a href="#" style="margin-right: 20px;"> <i
+							class="fas fa-question-circle" style="margin-right: 4px;"></i>
+							Q&A
+					</a></li>
+					<li><a href="#" style="margin-right: 20px;"> <i
+							class="fas fa-edit" style="margin-right: 4px;"></i> 설문조사
+					</a></li>
+
+				</c:otherwise>
 			</c:choose>
 		</ul>
 	</div>

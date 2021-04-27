@@ -119,7 +119,8 @@
 		<div class="sub_visual">
 			<span style="color: white;">협력사 지원</span>
 		</div>
-		<div class="container">
+		<div class="container"
+			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
 
 			<!-- Modal -->
 			<div class="modal fade" id="myModal" role="dialog">

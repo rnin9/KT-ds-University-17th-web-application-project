@@ -29,8 +29,6 @@ request.setCharacterEncoding("UTF-8");
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 -->
 <style>
-
-
 .partnerInfo>dl>dt {
 	float: left;
 }
@@ -46,58 +44,56 @@ request.setCharacterEncoding("UTF-8");
 </style>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		 $('#myTable tfoot th').each( function () {
-		        var title = $(this).text();
-		        $(this).html( '<input type="text" placeholder="'+title+'" />' );
-		    } );
-		 
-		 var table = $('#myTable').DataTable({
-			 
-			initComplete: function () {
-	            // Apply the search
-	            this.api().columns().every( function () {
-	                var that = this;
-	 
-	                $( 'input', this.footer() ).on( 'keyup change clear', function () {
-	                    if ( that.search() !== this.value ) {
-	                        that
-	                            .search( this.value )
-	                            .draw();
-	                    }
-	                } );
-	            } );
-	        },
-	        language : {
-				info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
-				sInfoFiltered : '',
-				infoEmpty : '',
-				emptyTable : '데이터가 없습니다.',
-				thousands : ',',
-				lengthMenu : '_MENU_ 개씩 보기',
-				loadingRecords : '데이터를 불러오는 중',
-				processing : '처리 중',
-				zeroRecords : '검색 결과 없음',
-				paginate : {
-					first : '처음',
-					last : '끝',
-					next : '다음',
-					previous : '이전'
-				},
-				search : '',
-				sSearchPlaceholder : '통합 검색',
+   $(document).ready(function() {
+       $('#myTable tfoot th').each( function () {
+              var title = $(this).text();
+              $(this).html( '<input type="text" placeholder="'+title+'" />' );
+          } );
+       
+       var table = $('#myTable').DataTable({
+          
+         initComplete: function () {
+               // Apply the search
+               this.api().columns().every( function () {
+                   var that = this;
+    
+                   $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                       if ( that.search() !== this.value ) {
+                           that
+                               .search( this.value )
+                               .draw();
+                       }
+                   } );
+               } );
+           },
+           language : {
+            info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+            sInfoFiltered : '',
+            infoEmpty : '',
+            emptyTable : '데이터가 없습니다.',
+            thousands : ',',
+            lengthMenu : '_MENU_ 개씩 보기',
+            loadingRecords : '데이터를 불러오는 중',
+            processing : '처리 중',
+            zeroRecords : '검색 결과 없음',
+            paginate : {
+               first : '처음',
+               last : '끝',
+               next : '다음',
+               previous : '이전'
+            },
+            search : '',
+            sSearchPlaceholder : '통합 검색',
 
-			}
-
-		});
-	});
+         },
+         scrollX: true
+        });
+   });
 </script>
-
-
 
 </head>
 <body>
-	<div class="container" style="float:left; transform:translateY(10%);">
+	<div class="container" style="float: left; width:75%; padding-bottom: 200px; margin-left: 5%;">
 		<h2>직원관리페이지</h2>
 		<table id="myTable">
 			<thead>
@@ -132,16 +128,16 @@ request.setCharacterEncoding("UTF-8");
 				</c:forEach>
 			</tbody>
 			<tfoot>
-            <tr>
-                <th>이름</th>
-                <th>휴대폰</th>
-                <th>이메일</th>
-                <th>과정 명</th>
-                <th>시작</th>
-                <th>종료</th>
-                <th>수료일</th>
-            </tr>
-        </tfoot>
+				<tr>
+					<th>이름</th>
+					<th>휴대폰</th>
+					<th>이메일</th>
+					<th>과정 명</th>
+					<th>시작</th>
+					<th>종료</th>
+					<th>수료일</th>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 
