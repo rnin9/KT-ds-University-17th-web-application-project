@@ -1,6 +1,9 @@
 package com.mySpring.springEx.application.vo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mySpring.springEx.member.vo.MemberVO;
 
 @Component("applicationVO")
 public class ApplicationVO {
@@ -11,7 +14,10 @@ public class ApplicationVO {
     private String partnerApplyState;
     private String applicantNum;
 
-    public ApplicationVO() {
+    @Autowired
+	MemberVO memberVO;
+
+	public ApplicationVO() {
 
     }
 
@@ -24,7 +30,14 @@ public class ApplicationVO {
         this.applicantNum = applicantNum;
     }
 
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+	
     public String getPartnerApplyUserID() {
         return partnerApplyUserID;
     }

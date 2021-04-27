@@ -33,14 +33,9 @@ public class NoticeControllerImpl implements NoticeController {
 	            Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 			String viewName = (String) request.getAttribute("viewName");
 			request.setCharacterEncoding("utf-8");
-			int noticeList = noticeService.testTableCount();
-			Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 			//총 레코드 수에 따른 페이지 처리 method에 데이터의 총 갯수를 전달
-			pagination.setTotalRecordCount(noticeList);
-			ModelAndView mav = new ModelAndView(viewName);
+		ModelAndView mav = new ModelAndView(viewName);
 			//처리된 부분을 화면에 전달
-			mav.addObject("pagination",pagination);
-			mav.addObject("noticeList", noticeService.SelectAllList(pagination));
 			return mav;
 			
 			

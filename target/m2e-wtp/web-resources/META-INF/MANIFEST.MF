@@ -1,4 +1,5 @@
-Built-By: user
-Build-Jdk: 15.0.1
+Manifest-Version: 1.0
+Built-By: rkdal
+Build-Jdk: 11.0.9
 Created-By: Maven Integration for Eclipse
 

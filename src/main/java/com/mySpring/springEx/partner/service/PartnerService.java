@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 public interface PartnerService {
 
@@ -39,9 +40,17 @@ public interface PartnerService {
 	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum)
 			throws Exception;
 
-	// 직원 수 계산
-
+	// 그래프 데이터
 	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception;
+	
+	//지원자 Select
+	public List<Map<String, Object>> selectApplyList(String partnerLicenseNum) throws Exception;
+	
+	//모든 채용예정자 Select
+	public List<Map<String, Object>> selectSuggestList(String partnerLicenseNum) throws Exception;
+
+	public ResumeVO getUserResume(String resumeID) throws Exception;
+	
 	
 	/* 기업관련 끝 */
 }

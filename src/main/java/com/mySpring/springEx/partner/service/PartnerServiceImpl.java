@@ -13,6 +13,7 @@ import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 import com.mySpring.springEx.partner.dao.PartnerDAO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 @Service("partnerService")
 public class PartnerServiceImpl implements PartnerService {
@@ -115,8 +116,24 @@ public class PartnerServiceImpl implements PartnerService {
 	//graph information ajax
 	@Override
 	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception {
-		// TODO Auto-generated method stub
+	
 		return partnerDAO.getInfoGraph(partnerLicenseNum);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectApplyList(String partnerLicenseNum) throws Exception {
+		return partnerDAO.getApplyList(partnerLicenseNum);
+	}
+
+	@Override
+	public List selectSuggestList(String partnerLicenseNum) throws Exception {
+		return partnerDAO.getSuggestList(partnerLicenseNum);
+	}
+
+	@Override
+	public ResumeVO getUserResume(String resumeID) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getUserResume(resumeID);
 	}
 	
 	
