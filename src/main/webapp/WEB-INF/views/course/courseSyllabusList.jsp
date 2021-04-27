@@ -13,11 +13,14 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 관리</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-   crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -27,12 +30,8 @@ a:link, a:visited, a:hover {
    text-decoration: none;
 }
 
-.bg-primary {
-   background-color: white !important;
-}
 
 .container {
-   width: 74.64%;
    font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -58,58 +57,9 @@ a:link, a:visited, a:hover {
    text-align: right;
 }
 
-.btn {
-   color: white;
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-   background-color: tomato;
-   float: right;
-   margin-left: 10px;
-}
-
 .serarchSubject {
    display: flex;
    flex-direction: row;
-}
-
-.subject {
-   display: flex;
-   flex-direction: row;
-}
-
-.table_syllabusList {
-   border-collapse: collapse;
-   font-size: 14px;
-   line-height: 2.2;
-   margin-top: 40px;
-   text-align: center;
-   /* color: #555; */
-   width: 100%;
-   line-height: 40px;
-}
-
-.table_syllabusList thead {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   background-color: #f8f8f8;
-   text-align: center;
 }
 
 .form-control {
@@ -138,53 +88,52 @@ a:link, a:visited, a:hover {
 </head>
 
 <script type="text/javascript">
-	function filter(){
-	
-	    var value = document.getElementById("value").value.toUpperCase();
-	    var item = document.getElementsByClassName("item");
-	    
-	    for(var i=0;i<item.length;i++){
-	    	var name = item[i].getElementsByClassName("name");
-	    	if(name[0].innerText.toUpperCase().indexOf(value) > -1){
-	    		item[i].style.display="table-row";
-			}else{
-				item[i].style.display="none";
-			}
-	    }	
-	} 
+   function filter(){
+   
+       var value = document.getElementById("value").value.toUpperCase();
+       var item = document.getElementsByClassName("item");
+       
+       for(var i=0;i<item.length;i++){
+          var name = item[i].getElementsByClassName("name");
+          if(name[0].innerText.toUpperCase().indexOf(value) > -1){
+             item[i].style.display="table-row";
+         }else{
+            item[i].style.display="none";
+         }
+       }   
+   } 
 </script>
 <script type="text/javascript">
-	function enter(){
-	    // 엔터키의 코드는 13입니다.
-		if(event.keyCode == 13){
-			filter()  // 실행할 이벤트
-		}
-	}
+   function enter(){
+       // 엔터키의 코드는 13입니다.
+      if(event.keyCode == 13){
+         filter()  // 실행할 이벤트
+      }
+   }
 </script>
-
 <script>
-$(document).on("click","input[class=checkBtn]",function(){	
-	console.log(123123);
-	var checkBtn = $(this);
-	var tr = checkBtn.parent().parent();
-	var td = tr.children();
-	var no = td.eq(0).text();
-	var name = td.eq(2).text();
-	opener.document.getElementById("syllabusID").value = no;
-	opener.document.getElementById("hiddenThanksTogangsanim").value = name;
-	self.close();
+$(document).on("click","input[class=checkBtn]",function(){   
+   console.log(123123);
+   var checkBtn = $(this);
+   var tr = checkBtn.parent().parent();
+   var td = tr.children();
+   var no = td.eq(0).text();
+   var name = td.eq(2).text();
+   opener.document.getElementById("syllabusID").value = no;
+   opener.document.getElementById("hiddenThanksTogangsanim").value = name;
+   self.close();
 });
-	/*function getSyllabusID(){
-		
-		var checkBtn = $(this);
-		var tr = checkBtn.parent().parent();
-		console.log(tr);
-		var td = tr.children();
-		var no = td.eq(0).text();
-		console.log(no);
-		opener.document.getElementById("syllabusID").value = no;
-		self.close();
-	}*/
+   /*function getSyllabusID(){
+      
+      var checkBtn = $(this);
+      var tr = checkBtn.parent().parent();
+      console.log(tr);
+      var td = tr.children();
+      var no = td.eq(0).text();
+      console.log(no);
+      opener.document.getElementById("syllabusID").value = no;
+      self.close();
+   }*/
 </script>
 
 <body>
@@ -193,7 +142,7 @@ $(document).on("click","input[class=checkBtn]",function(){
       <form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
 
          <div class="lnb">
-               <h2>강의계획서 리스트</h2>
+               <h2><br>강의계획서 리스트</h2>
          </div>
 
          <div class="well-searchbox">
@@ -240,14 +189,14 @@ $(document).on("click","input[class=checkBtn]",function(){
 
                   <div class="col-sm-offset-4 col-sm-5"
                      style="display: inline-block; text-aglin: center;">
-                     <button type="button" class="btn button_search" onClick="filter()"
+                     <button type="button" class="btn btn-outline-danger" onClick="filter()"
                         style="margin-top: 10px;">검색</button>
                   </div>
                </div>
             </form>
          </div>
 
-         <table class="table_syllabusList">
+         <table class="table_">
             <thead>
                <tr align="center">
                   <td><b>번호</b></td>

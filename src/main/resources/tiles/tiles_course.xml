@@ -3,19 +3,19 @@
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>	
-	<definition name="/course/courseList" extends="baseLayout">
+	<definition name="/course/courseList" extends="adminLayout">
     	<put-attribute name="title" value="과정 관리" />
         <put-attribute name="body" value="/WEB-INF/views/course/courseList.jsp" />
     </definition>
-    <definition name="/course/selectCourse" extends="baseLayout">
+    <definition name="/course/selectCourse" extends="adminLayout">
       <put-attribute name="title" value="과정 정보" />
       <put-attribute name="body" value="/WEB-INF/views/course/courseInformation.jsp" />
    </definition>
-    <definition name="/course/courseRegister" extends="baseLayout">
+    <definition name="/course/courseRegister" extends="adminLayout">
         <put-attribute name="title" value="과정 등록" />
         <put-attribute name="body" value="/WEB-INF/views/course/courseRegister.jsp" />
     </definition>
-    <definition name="/course/courseModifyForm" extends="baseLayout">
+    <definition name="/course/courseModifyForm" extends="adminLayout">
       <put-attribute name="title" value="과정 수정" />
       <put-attribute name="body" value="/WEB-INF/views/course/courseModify.jsp" />
     </definition>

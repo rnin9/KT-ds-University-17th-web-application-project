@@ -13,114 +13,35 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 수정</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-   crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 <style>
-.bg-primary {
-   background-color: white !important;
+a:link, a:visited, a:hover {
+   color: black;
+   text-decoration: none;
 }
 
 .container {
-   width: 74.64%;
-   font-family: 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+	position:relative;
+	margin-left: 15%;
 }
 
-.table_syllabus {
-   margin-top: 30px;
-   border-collapse: collapse;
-   text-align: center;
-   /* color: #555; */
-   width: 100%;
-   line-height: 40px;
+button {
+	float: right;
+	margin-right: 10px;
 }
 
-.table_syllabus th {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   background-color: #f8f8f8;
-   text-align: center;
-   font-size: 15px;
-   width: 30%;
-   height: 30px;
-}
-
-.table_syllabus td {
-   border-top: 1px solid #e4e4e4;
-   border-bottom: 1px solid #e4e4e4;
-   text-align: center;
-   font-size: 15px;
-   height: 30px;
-}
-
-.btn {
-   color: white;
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-   background-color: tomato;
-   float: right;
-   margin-left: 10px;
-}
-
-.informTitle {
-   margin-top: 20px;
-   text-align: left;
-   font-size: 18px;
-   font-weight: 600;
-   padding-left: 30px;
-   padding-top: 20px;
-   padding-bottom: 20px;
-   border-bottom: 1px solid #e0e0e0;
-   letter-spacing: 5px;
-   padding-bottom: 20px;
-   background-color: #f8f8f8;
-}
-
-.form-control {
-   border: hidden;
-   width: 88%;
-}
-
-.form-select {
-   border: hidden;
-   width: 41%;
-   display: inline-block;
-   margin-right: 6%;
-}
-
-.informInputBox {
-   /* overflow: hidden; */
-   min-height: 220px;
-   text-align: left;
-   font-size: 16px;
-   line-height: 30px;
-   padding: 20px 60px 20px 60px;
-   margin-bottom: 20px;
-   margin-top: 20px;
-   width: 100%;
-   border: 1px solid #e4e4e4;
-}
 </style>
 
 </head>
@@ -161,7 +82,7 @@ request.setCharacterEncoding("UTF-8");
             </ul>
          </div>
          <input type="hidden" name="syllabusID" value="${syllabusVO.syllabusID}">
-         <table class="table_syllabus">
+         <table class="table_">
             <tr>
                <th>강의분류</th>
 
@@ -243,8 +164,8 @@ request.setCharacterEncoding("UTF-8");
             </div>
          </div>
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onclick="history.back()">취소</button>
-            <button class="btn button_bottom" type="submit">수정</button>
+            <button class="btn btn-outline-danger" type="button" onclick="history.back()">취소</button>
+            <button class="btn btn-outline-danger" type="submit">수정</button>
          </div>
 
       </div>

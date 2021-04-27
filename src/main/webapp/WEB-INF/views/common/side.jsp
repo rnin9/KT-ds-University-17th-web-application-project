@@ -49,9 +49,9 @@ request.setCharacterEncoding("UTF-8");
 				<a href="#"> <i class="fas fa-laptop" style="margin-right: 14px;"></i>강의관리 <i class="fas fa-chevron-down"></i></a>
 			</li>
 			<ul class="sub-menu collapse" id="course">
-				<li><a href="#"> 강의계획서</a></li>
-				<li><a href="#"> 과정 관리</a></li>
-				<li><a href="#"> 수강 관리</a></li>
+				<li><a href="/springEx/syllabus/syllabusList.do"> 강의계획서</a></li>
+				<li><a href="/springEx/course/courseList.do"> 과정 관리</a></li>
+				<li><a href="/springEx/courseTake/courseApplyList.do"> 수강 관리</a></li>
 			</ul>
 			
 			 <li><a href="#" style="margin-right: 20px;">
