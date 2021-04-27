@@ -109,7 +109,7 @@ a:link, a:visited, a:hover {
    text-align: center;
    /* color: #555; */
    width: 100%;
-   line-height: 40px;
+   line-height: 25px;
 }
 
 .table_syllabusList thead {
@@ -245,13 +245,16 @@ $(document).ready( function () {
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#table_id').DataTable({
+	$('#myTable').DataTable({
+
+	
 		language: {
-			info : '',
-			infoEmpty : '데이터가 없습니다.',
+			info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+			sInfoFiltered : '',
+			infoEmpty : '',
 			emptyTable : '데이터가 없습니다.',
 			thousands : ',',
-			lengthMenu : '_MENU_',
+			lengthMenu : '_MENU_ 개씩 보기',
 			loadingRecords : '데이터를 불러오는 중',
 			processing : '처리 중',
 			zeroRecords : '검색 결과 없음',
@@ -261,9 +264,10 @@ $(document).ready(function(){
 				next : '다음',
 				previous : '이전'
 			},
-			search : '검색:'
+			search: '',
+			sSearchPlaceholder: '통합 검색',
+		
 		}
-	
 	});
 });
 </script>
@@ -333,7 +337,7 @@ $(document).ready(function(){
             </form>
          </div>
  -->
-         <table class="table_syllabusList" id="table_id">
+         <table class="table_syllabusList" id="myTable">
             <thead>
                <tr align="center">
                   <td><input type="checkbox" name="check-all"
@@ -363,9 +367,9 @@ $(document).ready(function(){
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="deleteCheck()">선택강의 삭제</button>
+            <button class="btn button_bottom" type="button" onClick="deleteCheck()">삭제</button>
             <button class="btn button_bottom" type="button"
-               onClick="register()">강의계획서 등록</button>
+               onClick="register()">등록</button>
          </div>
 
      <!--  </form> -->

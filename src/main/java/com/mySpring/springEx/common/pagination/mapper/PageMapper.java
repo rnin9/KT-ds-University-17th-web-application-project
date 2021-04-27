@@ -9,9 +9,9 @@ import com.mySpring.springEx.common.pagination.Pagination;
 
 public interface PageMapper {
 
-	public List<Map<String, Object>> SelectAllList() throws Exception;
+   public List<Map<String, Object>> SelectAllList() throws Exception;
 
-	public List<Map<String, Object>> SelectAllList2() throws Exception;
+   public List<Map<String, Object>> SelectAllList2() throws Exception;
 
   public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception;
 	

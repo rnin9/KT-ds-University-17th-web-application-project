@@ -116,7 +116,7 @@ a:link, a:visited, a:hover {
    text-align: center;
    /* color: #555; */
    width: 100%;
-   line-height: 40px;
+   line-height: 25px;
 }
 
 .table_syllabusList thead {
@@ -325,6 +325,43 @@ $(document).ready(function(){
 	};	
 </script>
 <script>
+	function deleteCheck(){
+		
+		/*if (${isLogOn == true}){*/
+			var url = "/springEx/course/deleteCheck.do";
+			var cnt = $("input[name='ab']:checked").length;
+			var valueArr = new Array();
+			$("input[name='ab']:checked").each(function(i){
+				valueArr.push($(this).val());
+			});
+			if (cnt==0){
+				Swal.fire("선택된 강의계획서가 없습니다.","","warning");
+			}else{
+				$.ajax({
+					url : url,
+					type : 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					},
+					success : function(data){
+						console.log("success");
+						window.location.reload();
+						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+					},
+					error : function(data) {
+						Swal.fire("선택한 강의계획서를 사용하는 강의가 있습니다.","","error");
+						console.log("fail");
+			        }
+				})
+			}
+		/*}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
+	};		
+</script>
+<script>
 function register(){
 	location.href='${contextPath}/course/courseRegister.do'
 	/*if (${isLogOn == true}){
@@ -347,6 +384,14 @@ function register(){
                <li class="on"><a href="/springEx/course/courseList.do">과정
                      관리</a></li>
             </ul>
+         </div>
+         
+       	
+       	<div style="margin-top: 50px; padding-bottom: 150px;">
+            <button class="btn button_bottom" type="button" onClick="closeCheck();">조기마감</button>
+            <button class="btn button_bottom" type="button" onClick="openCheck();">접수중</button>
+            <button class="btn button_bottom" onClick="deleteCheck()">삭제</button>
+            <button class="btn button_bottom" onClick="register()">등록</button>
          </div>
 <!-- 
          <div class="well-searchbox">
@@ -447,7 +492,7 @@ function register(){
                      <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
                         onclick='checkSelectAll(this)' /></td>
                      <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}] ${courseVO.syllabusVO.syllabusName}</a></td>
+                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}]<br>${courseVO.syllabusVO.syllabusName}</a></td>
                      <td>${courseVO.coursePeopleMax}</td>
                      <td>${courseVO.courseFee}</td>
                      <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
@@ -459,10 +504,10 @@ function register(){
          </table>
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="closeCheck();">선택과정 조기마감</button>
-            <button class="btn button_bottom" type="button" onClick="openCheck();">선택과정 접수중</button>
-            <button class="btn button_bottom"
-               onClick="register()">교육과정 등록</button>
+            <button class="btn button_bottom" type="button" onClick="closeCheck();">조기마감</button>
+            <button class="btn button_bottom" type="button" onClick="openCheck();">접수중</button>
+            <button class="btn button_bottom" onClick="deleteCheck()">삭제</button>
+            <button class="btn button_bottom" onClick="register()">등록</button>
          </div>
       
    </div>
