@@ -24,7 +24,6 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous">
 
 <style>
-
 .bg-primary {
 	background-color: white !important;
 }
@@ -48,7 +47,8 @@ button {
 }
 
 .container {
-	width: 80%;
+	/* width: 67.2207795%; */
+	width: 100%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -56,13 +56,13 @@ button {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
 	height: 190px;
 	padding-top: 69px;
-	background-position: 50% 50%;
+	background-position: 50% 64%;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -193,7 +193,7 @@ button {
 				</ul>
 			</div>
 
-			<div class="pageIntro">과정정보</div>
+			<div class="pageIntro">과정신청</div>
 
 			<table class="table_">
 				<tr>

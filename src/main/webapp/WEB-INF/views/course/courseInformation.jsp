@@ -116,8 +116,8 @@ function modifyCourse(){
 				<td style="line-height: 25px;">[${courseVO.syllabusVO.syllabusCategory1}
 					> ${courseVO.syllabusVO.syllabusCategory2}]
 					${courseVO.syllabusVO.syllabusName}</td>
-				<th>강의실</th>
-				<td>${courseVO.courseRoomNumber}호</td>
+				<th>교육비</th>
+				<td>${courseVO.courseFee}</td>
 			</tr>
 			<tr>
 				<th>교육기간</th>
@@ -128,8 +128,8 @@ function modifyCourse(){
 			<tr>
 				<th>교육시간</th>
 				<td>${courseVO.courseTime}</td>
-				<th>교육비</th>
-				<td>${courseVO.courseFee}</td>
+				<th>강의실</th>
+				<td>${courseVO.courseRoomNumber}호</td>
 			</tr>
 		</table>
 
@@ -163,6 +163,8 @@ function modifyCourse(){
 			</div>
 		</div>
 		<div style="margin-top: 50px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="location.href='/springEx/course/courseList.do'">목록</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCourse()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"

@@ -47,6 +47,11 @@ a:link, a:visited, a:hover {
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
 	margin-left: 15%;
 }
 
@@ -54,12 +59,13 @@ button {
 	float: right;
 	margin-right: 10px;
 }
-
+/* 
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
-}
+} */
+
 </style>
 
 <body>
@@ -108,7 +114,8 @@ button {
 						<td>${courseTake.memberVO.userPhoneNumber}</td>
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.partnerVO.partnerName}</td>
-						<td>${courseTake.syllabusVO.syllabusName}</td>
+						<td><a
+							href="/springEx/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
 						<td>${courseTake.applyDate}</td>
 						<c:choose>
 							<c:when test="${courseTake.courseTake_State eq '수료'}">
@@ -168,8 +175,6 @@ button {
 </body>
 
 <script type="text/javascript">
-
-
 $(document).ready(function(){
    $('#myTable').DataTable({
       
@@ -178,13 +183,13 @@ $(document).ready(function(){
 
  		columns : [
 	   		{ "width": "2%" },
+	   		{ "width": "10%" },
+	    	{ "width": "7%" },
+	    	{ "width": "7%" },
+	    	{ "width": "10%" },
+	    	{ "width": "13%" },
 	    	null,
-	    	null,
-	    	{ "width": "5%" },
-	    	null,
-	    	null,
-	    	null,
-	    	null,
+	    	{ "width": "10%" },
 	    	{ "width": "7%" }
 	  	],
    

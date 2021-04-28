@@ -18,25 +18,44 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/styleTab.css" />
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
 <style>
+.bg-primary {
+	background-color: white !important;
+}
+
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
 	height: 190px;
 	padding-top: 69px;
-	background-position: 50% 50%;
+	background-position: 50% 64%;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
+#cardHover:hover {
+	color: red;
+}
+
 .card-body {
-	width: 265px;
-	height: 265px;
+	width: 296px;
+	height: 296px;
 	/* margin: 2% 2% 2% 2%; */
 	display: inline-table;
 }
@@ -51,10 +70,6 @@ p {
 	font-size: 20px;
 	font-weight: bold;
 	height: 120px;
-}
-
-.container {
-	width: 100%;
 }
 </style>
 
@@ -87,11 +102,12 @@ p {
 				type="radio" id="tab3" name="tab-control"> <input
 				type="radio" id="tab4" name="tab-control">
 			<ul>
-				<li title="Features"><label for="tab1" role="button"><span>전체</span></label></li>
-				<li title="Delivery Contents"><label for="tab2" role="button"><span>재직자향상
-							과정</span></label></li>
-				<li title="Shipping"><label for="tab3" role="button"><span>채용예정자
-							과정</span></label></li>
+				<li title="Features"><label for="tab1" role="button"><span
+						style="font-size: 24px;">전체</span></label></li>
+				<li title="Delivery Contents"><label for="tab2" role="button"><span
+						style="font-size: 24px;">재직자향상 과정</span></label></li>
+				<li title="Shipping"><label for="tab3" role="button"><span
+						style="font-size: 24px;">채용예정자 과정</span></label></li>
 			</ul>
 
 			<div class="slider">
@@ -102,9 +118,9 @@ p {
 					<div
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap;">
 						<c:forEach var="courseVO" items="${courseUserList}">
-							<a
-								href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-								<div class="card" style="margin:10px 5px;">
+							<div class="card" style="margin: 1% 1%;">
+								<a id="cardHover"
+									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 									<div class="card-body">
 										<span class="card-title"
 											style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -120,14 +136,14 @@ p {
 												<span class="dday"
 												style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 													<c:choose>
-													<c:when test="${courseVO.courseState eq '조기마감'}">
+														<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
 														<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
-														
+
 														<c:when test="${courseVO.dday < 0}">
                                     접수마감
                                     </c:when>
@@ -139,8 +155,8 @@ p {
 											style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 15px;">수강기간
 											${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 									</div>
-								</div>
-							</a>
+								</a>
+							</div>
 						</c:forEach>
 					</div>
 
@@ -152,9 +168,10 @@ p {
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
-								<a
-									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card" style="margin:10px 5px;">
+
+								<div class="card" style="margin: 1% 1%;">
+									<a
+										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -170,18 +187,18 @@ p {
 													<span class="dday"
 													style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 														<c:choose>
-													<c:when test="${courseVO.courseState eq '조기마감'}">
+															<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
-														<c:when test="${courseVO.dday > 0}">
+															<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
-														
-														<c:when test="${courseVO.dday < 0}">
+
+															<c:when test="${courseVO.dday < 0}">
                                     접수마감
                                     </c:when>
-													</c:choose>
+														</c:choose>
 												</span> </span></span>
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
@@ -189,8 +206,8 @@ p {
 												style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
 												${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 										</div>
-									</div>
-								</a>
+									</a>
+								</div>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -200,9 +217,9 @@ p {
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
-								<a
-									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card" style="margin:10px 5px;">
+								<div class="card" style="margin: 1% 1%;">
+									<a
+										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -217,18 +234,18 @@ p {
 													<span class="dday"
 													style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 														<c:choose>
-													<c:when test="${courseVO.courseState eq '조기마감'}">
+															<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
-														<c:when test="${courseVO.dday > 0}">
+															<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
-														
-														<c:when test="${courseVO.dday < 0}">
+
+															<c:when test="${courseVO.dday < 0}">
                                     접수마감
                                     </c:when>
-													</c:choose>
+														</c:choose>
 												</span> </span></span>
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
@@ -236,8 +253,8 @@ p {
 												style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
 												${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 										</div>
-									</div>
-								</a>
+									</a>
+								</div>
 							</c:if>
 						</c:forEach>
 					</div>

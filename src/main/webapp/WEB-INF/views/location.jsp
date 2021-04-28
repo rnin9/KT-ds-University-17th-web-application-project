@@ -21,7 +21,7 @@
         .sub_visual {
             font-family: 'Noto Sans KR', sans-serif;
             width: 100%;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${contextPath}/resources/image/sub_visual/location.jpg");
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("${pageContext.request.contextPath}/resources/image/sub_visual/location.jpg");
             border: 0;
             font-size: 32px;
             font-weight: 500;
@@ -38,7 +38,7 @@
             text-align: left;
             font-size: 34px;
             font-weight: 450;
-            background: url("${contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
+            background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
             background-repeat: no-repeat;
         }
 
@@ -116,7 +116,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img class="carouselImg"
-                         src="${contextPath}/resources/image/classroom/classroom1.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom1.jpg"
                          alt="First slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
@@ -125,7 +125,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="carouselImg"
-                         src="${contextPath}/resources/image/classroom/classroom2.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom2.jpg"
                          alt="Second slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
@@ -134,7 +134,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="carouselImg"
-                         src="${contextPath}/resources/image/classroom/classroom3.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom3.jpg"
                          alt="Third slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
@@ -143,7 +143,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="carouselImg"
-                         src="${contextPath}/resources/image/classroom/classroom4.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom4.jpg"
                          alt="Fourth slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
@@ -153,7 +153,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="carouselImg"
-                         src="${contextPath}/resources/image/classroom/classroom5.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom5.jpg"
                          alt="Fifth slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
