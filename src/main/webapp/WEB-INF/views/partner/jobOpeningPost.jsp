@@ -27,8 +27,8 @@
 
     <style>
         .container {
-            margin-left:15%;
-            position:relative;
+            margin-left: 15%;
+            position: relative;
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
         }
@@ -118,9 +118,7 @@
             text-align: left;
             font-size: 34px;
             font-weight: 450;
-            background:
-                    url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
-                    no-repeat;
+            background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
             background-repeat: no-repeat;
         }
     </style>
@@ -133,7 +131,7 @@
 
         $(document).ready(() => {
 
-            <!--날짜 선택-->
+            <!--date picker-->
             $("#datepicker").datepicker({
                 viewMode: 'years',
                 format: "yyyymmdd",
@@ -146,20 +144,20 @@
 
             $('#myTable').DataTable({
                 language: {
-                    info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
-                    sInfoFiltered : '',
-                    infoEmpty : '',
-                    emptyTable : '데이터가 없습니다.',
-                    thousands : ',',
-                    lengthMenu : '_MENU_ 개씩 보기',
-                    loadingRecords : '데이터를 불러오는 중',
-                    processing : '처리 중',
-                    zeroRecords : '검색 결과 없음',
-                    paginate : {
-                        first : '처음',
-                        last : '끝',
-                        next : '다음',
-                        previous : '이전'
+                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    sInfoFiltered: '',
+                    infoEmpty: '',
+                    emptyTable: '데이터가 없습니다.',
+                    thousands: ',',
+                    lengthMenu: '_MENU_ 개씩 보기',
+                    loadingRecords: '데이터를 불러오는 중',
+                    processing: '처리 중',
+                    zeroRecords: '검색 결과 없음',
+                    paginate: {
+                        first: '처음',
+                        last: '끝',
+                        next: '다음',
+                        previous: '이전'
                     },
                     search: '',
                     sSearchPlaceholder: '통합 검색',
@@ -168,7 +166,7 @@
             });
 
 
-            // 모달이 닫힐때 실행
+            // Execute when modal is closed
             $('#myModal').on('hide.bs.modal', function (e) {
 
                 date = $("#datepicker").data("datepicker").getDate();
@@ -178,6 +176,7 @@
 
         });
 
+        // Post job opening fnuction
         postJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
@@ -222,8 +221,8 @@
                                 console.log(formatted);
 
                                 Swal.fire("공고 등록 성공.", "공고가 등록되었습니다.", "success");
-                                setTimeout(() => { // 0.9초뒤 실행
-                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                setTimeout(() => { // execute after 0.9sec
+                                    location.reload();
                                 }, 900);
                             },
                             error: (data) => {
@@ -269,7 +268,7 @@
         </ul>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for date picker -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
             <!-- Modal content-->
@@ -313,7 +312,8 @@
                 <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"
                            onclick='checkSelectAll(this)'/></td>
                 <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
-                       onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">${partner.partnerName}</a></td>
+                       onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">${partner.partnerName}</a>
+                </td>
                 <td>${partner.partnerEmail}</td>
                 <td>${partner.partnerPhoneNumber}</td>
                 <td>${partner.partnerLicenseNum}</td>

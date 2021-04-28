@@ -88,7 +88,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 쩌철쨌찼횁천 횈채�횑횁철
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");

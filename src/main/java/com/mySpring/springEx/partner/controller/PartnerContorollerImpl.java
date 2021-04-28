@@ -207,10 +207,6 @@ public class PartnerContorollerImpl implements PartnerController {
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-//		List<Map<String, Object>> jobOpeningList = partnerService.selectJobOpeningList();
-//		for(int i = 0; i < jobOpeningList.size(); i++) {
-//			jobOpeningList.get(i).put("partnerApplyFinishDate", String.valueOf(jobOpeningList.get(i).get("partnerApplyFinishDate")).substring(0, 11));
-//		}
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
 		return mav;
@@ -237,14 +233,5 @@ public class PartnerContorollerImpl implements PartnerController {
 		return mav;
 	}
 
-//	@Scheduled(cron="0 0/1 * * * *")
-//	public void jobOpeningDueDate() throws Exception {
-//		Date today = new Date();
-//		List jobOpeningList = partnerService.selectPartnerApplyN();
-//
-//		for(Object obj : jobOpeningList) {
-//
-//		}
-//	}
 	/* ===================================Partner Company Method End==============================*/
 }

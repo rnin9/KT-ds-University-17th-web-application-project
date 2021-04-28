@@ -17,21 +17,22 @@
     <title>채용공고</title>
 
     <script>
+        let valueArr;
         $(document).ready(() => {
             let activeTab = sessionStorage.getItem('activeTab');
 
-            // 지원 상태 별로 색 설정
+            // Color setting by support status
             $("span:contains('진행중')").css({color: "limegreen"});
             $("span:contains('불합격')").css({color: "blue"});
-            $("span:contains('합격')").css({color: "red"});
+            $("span:contains('합격   ')").css({color: "red"});
 
-            // 새로고침 후 탭 상태 보존
+            // Preserve tab state after refresh
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
 
             $('#nav-home-table').DataTable({
                 retrieve: true,
                 language: {
-                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    info: '',
                     sInfoFiltered: '',
                     infoEmpty: '',
                     emptyTable: '데이터가 없습니다.',
@@ -54,7 +55,7 @@
             $('#nav-profile-table').DataTable({
                 retrieve: true,
                 language: {
-                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    info: '',
                     sInfoFiltered: '',
                     infoEmpty: '',
                     emptyTable: '데이터가 없습니다.',
@@ -77,7 +78,7 @@
             $('#nav-suggestion-table').DataTable({
                 retrieve: true,
                 language: {
-                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    info: '',
                     sInfoFiltered: '',
                     infoEmpty: '',
                     emptyTable: '데이터가 없습니다.',
@@ -99,7 +100,7 @@
 
         });
 
-        // 모달 body text 설정
+        // Set modal body text
         getPartnerInfo = (name, info, addr, email, headcnt, purl) => {
             $("#modal_title").text(name);
             $("#partner_info").text(info);
@@ -109,13 +110,13 @@
             $("#partner_purl").text(purl);
         }
 
-        // 탭 클릭 시 session에 현재 탭 값 저장
+        // Save current tab value in session when tab is clicked
         tabtab = (h) => {
             sessionStorage.setItem('activeTab', h);
             // console.log('href   yyyy' + h);
         }
 
-        // 지원 삭제 함수
+        // Application delete function
         deleteApplication = (partnerApplyPartnerID) => {
             fetch("${contextPath}/member/deleteApplication.do", {
                 method: "POST",
@@ -133,18 +134,18 @@
                     // console.log(res);
 
                     swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
-                    setTimeout(() => { // 0.9초뒤 실행
-                        location.reload(); // 새로고침 -> list 다시 불러옴
+                    setTimeout(() => { // After 0.9sec
+                        location.reload();
                     }, 900);
 
                 })
                 .catch(e => console.log(e));
         }
 
-        // 지원 함수
+        // Apply function
         chk_apply = (a, b, c) => {
 
-            // 사용자의 이력서가 등록 되어있다면
+            // If the user's resume is registered
             if ('${member.resume}' === "Y") {
 
                 fetch("${contextPath}/member/userApplyPartner.do", {
@@ -161,26 +162,42 @@
                 })
                     .then(res => {
                         if (res.status == '500') {
-                            // mybatis 오류 시 500 error
                             swal("중복 지원.", "중복 지원.", "info");
                         } else {
                             swal("지원 완료.", "지원 완료.", "success");
-                            setTimeout(() => { // 0.9초뒤 실행
-                                location.reload(); // 새로고침 -> list 다시 불러옴
+                            setTimeout(() => { // after 0.9sec
+                                location.reload();
                             }, 900);
                         }
                     })
                     .catch(e => console.log(e));
 
-                //이력서가 없다면
+                // If the user's resume is not registered
             } else {
                 swal("등록 된 이력서 없음.", "이력서가 필요합니다.", "warning");
             }
         }
 
+        // Get checked box values
+        getCB = () => {
+            const userId = '${member.userId}';
+            valueArr = [];
+            valueArr.push(userId);
+
+            const query = 'input[name="cb"]:checked';
+            const selectedEls = document.querySelectorAll(query);
+
+            // Find value in selected list
+            selectedEls.forEach((el) => {
+                valueArr.push(el.value);
+            });
+        }
+
+        // Suggestion delete function
         deleteSuggestion = () => {
+            getCB();
             const url = "${contextPath}/member/deleteSuggestion.do";
-            let valueArr;
+
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
                 swal("선택된 항목이 없습니다.", "삭제할 항목을 선택하세요.", "warning");
@@ -197,12 +214,6 @@
                     cancelButtonText: '취소'
                 }).then((result) => {
                     if (result.value) {
-                        valueArr = [];
-                        const userId = '${member.userId}';
-                        valueArr.push(userId);
-                        $("input[name='cb']:checked").each((i) => {
-                            valueArr.push($(this).val());
-                        });
 
                         $.ajax({
                             url: url,
@@ -214,12 +225,12 @@
                             success: (data) => {
 
                                 Swal.fire("삭제 성공.", "받은 제안이 삭제되었습니다.", "success");
-                                setTimeout(() => { // 0.9초뒤 실행
-                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                setTimeout(() => { // after 0.9sec
+                                    location.reload();
                                 }, 900);
                             },
                             error: (data) => {
-                                // console.log("fail sd");
+                                // console.log("fail ffffff");
                             }
                         });
                     }
@@ -227,21 +238,19 @@
             }
         }
 
+        // Set suggestion modal body
         suggestionModal = (partnerID, name, date, description, acception) => {
             date = date.substr(0, 11);
-            //console.log(table.row(this).data());
             $(".modal-body div span").text("");
             $("#suggestion_partner_id").text(partnerID);
             $("#suggestion_partner").text(name);
             $("#suggestion_date").text(date);
-            $("#suggestion_description").text(description);
+            $("#suggestion_description").html(description);
             if (acception === '수락' || acception === '거절') {
-                // console.log('수락거절ㄹㄹㄹㄹ');
                 $('#accept').attr('style', "display:none;");
                 $('#reject').attr('style', "display:none;");
                 $('#alreadyApply').attr('style', "display:'';");
             } else {
-                // console.log('ㄴㄴㄴㄴㄴㄴㄴㄴ');
                 $('#accept').attr('style', "display:'';");
                 $('#reject').attr('style', "display:'';");
                 $('#alreadyApply').attr('style', "display:none;");
@@ -249,6 +258,7 @@
             $("#myModal2").modal("show");
         }
 
+        // Suggestion accept function
         suggestAccept = () => {
             let partnerID = document.getElementById("suggestion_partner_id").innerText;
             const userId = '${member.userId}';
@@ -282,12 +292,11 @@
                     })
                         .then(res => {
                             if (res.status == '500') {
-                                // mybatis 오류 시 500 error
                                 // console.log("failㅣㅣㅣㅣㅣ");
                             } else {
                                 Swal.fire("제안 수락.", "받은 제안을 수락했습니다.", "success");
-                                setTimeout(() => { // 0.9초뒤 실행
-                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                setTimeout(() => { // after 0.9sec
+                                    location.reload();
                                 }, 900);
                             }
                         })
@@ -295,6 +304,7 @@
             })
         }
 
+        // Reject suggesion function
         suggestReject = () => {
             let partnerID = document.getElementById("suggestion_partner_id").innerText;
             const userId = '${member.userId}';
@@ -328,12 +338,11 @@
                     })
                         .then(res => {
                             if (res.status == '500') {
-                                // mybatis 오류 시 500 error
                                 // console.log("failㅣㅣㅣㅣㅣ");
                             } else {
                                 Swal.fire("제안 거절.", "받은 제안이 거절되었습니다.", "success");
-                                setTimeout(() => { // 0.9초뒤 실행
-                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                setTimeout(() => { // after 0.9 sec
+                                    location.reload();
                                 }, 900);
                             }
                         })
@@ -343,6 +352,8 @@
 
     </script>
     <script>
+        // checkbox functions
+
         checkSelectAll = (checkbox) => {
             const selectall
                 = document.querySelector('input[name="check-all"]');
@@ -438,7 +449,6 @@
 <body>
 <div id="applyContents">
     <div class="sub_visual">
-        <%--        <span style="color: white;">협력사 지원</span>--%>
     </div>
     <div class="container">
         <div class="lnb">
@@ -451,7 +461,7 @@
 
         <div class="pageIntro">협력사 지원</div>
 
-        <!-- Modal -->
+        <!-- Modal for partner info -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-dialog-scrollable">
 
@@ -490,11 +500,10 @@
             </div>
         </div>
 
-        <!-- Modal for tab3 -->
+        <!-- Modal for suggestion -->
         <div class="modal fade" id="myModal2" role="dialog">
             <div class="modal-dialog modal-dialog-scrollable">
 
-                <!-- Modal content-->
                 <div class="modal-content">
 
                     <div class="modal-header">
@@ -505,7 +514,7 @@
                         <div class="suggestionModalBody" style="text-align: left">
                             <div class="row">
                                 <div class="col-3" style="color: #444444; font-weight: bold">
-                                    <p>협력사</p>
+                                    <p>기업명</p>
                                     <p>날짜</p>
                                     <p>내용</p>
                                 </div>
@@ -522,7 +531,6 @@
                         <button type="button" class="btn btn-default" id="accept" onclick="suggestAccept()">수락</button>
                         <button type="button" class="btn btn-default" id="reject" onclick="suggestReject()">거절</button>
                         <a id="alreadyApply">이미 응답한 제안입니다.</a>
-                        <%--                        <button type="button" class="btn btn-default" id="alreadyApply">이미 응답한 제안입니다.</button>--%>
                     </div>
                 </div>
 
@@ -531,8 +539,6 @@
 
         <section id="tabs" class="project-tab">
             <div>
-                <%--                <div class="row">--%>
-                <%--                    <div class="col-md-12">--%>
                 <nav style="margin-bottom: 40px;">
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -553,7 +559,7 @@
 
 
                 <div class="tab-content" id="nav-tabContent">
-                    <%--                첫번째 탭의 테이블                --%>
+                    <%--                Table of first tab                --%>
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                          aria-labelledby="nav-home-tab">
                         <table class="tableList" id="nav-home-table">
@@ -580,7 +586,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <%--                두번째 탭의 테이블                --%>
+                    <%--                Table of second tab                --%>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                          aria-labelledby="nav-profile-tab">
                         <table class="tableList" id="nav-profile-table" style="width: 100%">
@@ -607,7 +613,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <%--             세번째 탭의 테이블                   --%>
+                    <%--                Table of third tab                --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
                         <table class="tableList table-hover" id="nav-suggestion-table" style="width: 100%">
@@ -616,7 +622,7 @@
                                 <td><input type="checkbox" name="check-all"
                                            onclick='selectAll(this)'/></td>
                                 <td>기업명</td>
-                                <td>내용</td>
+                                <td>메세지</td>
                                 <td>받은 날짜</td>
                                 <td>상태</td>
                             </tr>
@@ -628,8 +634,7 @@
                                                                                  value="${suggestion.partnerID}"
                                                                                  onclick='checkSelectAll(this)'/></td>
                                     <td>${suggestion.partnerName}</td>
-                                    <td>${fn:substring(suggestion.suggestDescription, 0, 15)}...</td>
-                                        <%--                                    <td style="display: none">${suggestion.suggestDescription}</td>--%>
+                                    <td>${suggestion.suggestionTitle}</td>
                                     <td>${fn:substring(suggestion.suggestionDate, 0, 11)}</td>
                                     <td>${suggestion.acception}</td>
                                 </tr>
@@ -637,14 +642,12 @@
                             </tbody>
                         </table>
 
-                        <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
+                        <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 30px;">
                             <button type="button" class="btn" onclick="deleteSuggestion()">삭제</button>
                         </div>
                     </div>
 
                 </div>
-                <%--                    </div>--%>
-                <%--                </div>--%>
             </div>
         </section>
     </div>
