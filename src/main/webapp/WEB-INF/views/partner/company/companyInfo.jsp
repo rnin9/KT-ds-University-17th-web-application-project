@@ -104,8 +104,7 @@ request.setCharacterEncoding("UTF-8");
     flex-wrap: wrap;
     width: 75%;
     justify-content: space-around;
-    flex-direction: column;
-    padding-bottom:200px;">
+    flex-direction: column;">
 			<c:choose>
 			<c:when test="${partner.partnerName =='university'}">
 				<h2>kt ds University</h2>

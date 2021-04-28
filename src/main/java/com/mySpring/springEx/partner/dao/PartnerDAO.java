@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 public interface PartnerDAO {
 
@@ -35,8 +37,11 @@ public interface PartnerDAO {
 	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException;
 	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException;
 	public List getApplyList(String partnerLicenseNum) throws DataAccessException;
-	public List getSuggestList(String partnerLicenseNum) throws DataAccessException;
+	public List getRecruitList(String partnerLicenseNum) throws DataAccessException;
 	public ResumeVO getUserResume(String resumeID) throws DataAccessException;
+	public void updateManageApply(ApplicationVO application) throws DataAccessException;
+	public void insertSuggestion(SuggestionVO suggestion) throws DataAccessException;
+	public void deleteSuggestionFromCompany(SuggestionVO suggestion) throws DataAccessException;
 	/*partner-company method end */
 	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException;
 
