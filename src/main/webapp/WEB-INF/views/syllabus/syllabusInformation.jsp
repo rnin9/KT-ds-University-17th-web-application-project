@@ -152,6 +152,8 @@ function modifySyllabus(){
 		</div>
 		<div style="margin-top: 50px; padding-bottom: 150px;">
 			<button class="btn btn-outline-danger" type="button"
+	               onClick="location.href='/springEx/syllabus/syllabusList.do'">목록</button>
+			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteSyllabus()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="modifySyllabus()">수정</button>

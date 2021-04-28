@@ -109,6 +109,7 @@ a:link, a:visited, a:hover {
    margin-bottom: 20px;
 }
 </style>
+
 <script type="text/javascript">
      function onLoginClicked(){ 				/* 로그인 operation Sweet alert 사용 */
     	 Swal.fire({
@@ -163,7 +164,6 @@ a:link, a:visited, a:hover {
 </script>
 <script type="text/javascript">
 	function apply(){
-		console.log(${courseVO.dday});
 		if (${courseVO.dday >= 0}){		
 			if (${isLogOn == true}){
 				var valueArr = new Array();

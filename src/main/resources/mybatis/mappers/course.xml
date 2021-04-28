@@ -112,7 +112,7 @@
    <update id="autoUpdateCourse">
     <![CDATA[
        update course set coursestate = '마감'
-		where (courseid in (select courseid from course where courseapplyend < sysdate)) and coursestate='접수중'
+		where (courseid in (select courseid from course where courseapplyend < sysdate))
     ]]> 
    </update>
 </mapper>

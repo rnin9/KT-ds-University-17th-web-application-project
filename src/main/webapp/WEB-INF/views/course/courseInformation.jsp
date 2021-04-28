@@ -159,6 +159,8 @@ function modifyCourse(){
          </div>
       </div>
       <div style="margin-top: 50px; padding-bottom: 150px;">
+	     <button class="btn btn-outline-danger" type="button"
+	               onClick="location.href='/springEx/course/courseList.do'">목록</button>
          <button class="btn btn-outline-danger" type="button" onClick="deleteCourse()">삭제</button>
          <button class="btn btn-outline-danger" type="button" onClick="modifyCourse()">수정</button>
       </div>
