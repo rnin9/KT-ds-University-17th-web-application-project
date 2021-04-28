@@ -109,7 +109,7 @@
 
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function(){  
-	 $('#sidebar-left').css('height', $('#container').height()+38)
+	 $('#sidebar-left').css('height', $('#container').height()+40)
 });
 </script>
 

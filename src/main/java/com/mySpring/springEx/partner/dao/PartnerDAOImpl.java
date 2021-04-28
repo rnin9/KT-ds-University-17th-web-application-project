@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
+
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 @Repository("partnerDAO")
 public class PartnerDAOImpl implements PartnerDAO{
@@ -133,15 +136,37 @@ public class PartnerDAOImpl implements PartnerDAO{
 	}
 
 	@Override
-	public List getSuggestList(String partnerLicenseNum) throws DataAccessException {
+	public List getRecruitList(String partnerLicenseNum) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("mapper.partner.companySuggestList",partnerLicenseNum);
+		return sqlSession.selectList("mapper.partner.companyRecruitment", partnerLicenseNum);
 	}
 
 	@Override
 	public ResumeVO getUserResume(String resumeID) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.partner.getResume",resumeID);
+	}
+
+
+	@Override
+	public void updateManageApply(ApplicationVO application) throws DataAccessException {
+		sqlSession.update("mapper.partner.manageUserApply", application);
+		return;
+	}
+
+
+	@Override
+	public void insertSuggestion(SuggestionVO suggestion) throws DataAccessException {
+		sqlSession.insert("mapper.partner.insertSuggestion",suggestion);
+		return;
+	}
+
+
+	@Override
+	public void deleteSuggestionFromCompany(SuggestionVO suggestion) throws DataAccessException {
+		sqlSession.update("mapper.partner.deleteSuggestionFromCompany", suggestion);
+		return;
+		
 	}
 	
 	/* partner company method End */
