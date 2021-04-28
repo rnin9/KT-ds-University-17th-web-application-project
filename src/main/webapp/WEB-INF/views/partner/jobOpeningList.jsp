@@ -3,16 +3,13 @@
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <c:set var="now" value="<%=new java.util.Date()%>"/>
 <c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
-
 <c:set var="ymd" value="<%=new java.util.Date()%>"/>
 <fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>
-
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -30,8 +27,8 @@
 
     <style>
         .container {
-            margin-left:15%;
-            position:relative;
+            margin-left: 15%;
+            position: relative;
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
         }
@@ -119,7 +116,7 @@
             $('#myTable').DataTable({
 
                 language: {
-                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    info: '',
                     sInfoFiltered: '',
                     infoEmpty: '',
                     emptyTable: '데이터가 없습니다.',
@@ -141,9 +138,9 @@
             });
         });
 
+        // Job opening delete funcion
         deleteJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
-            // $('#myModal').modal('show');
             if (cnt === 0) {
                 swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
                 return;
@@ -172,10 +169,9 @@
                                 valueArr: valueArr
                             },
                             success: (data) => {
-
                                 Swal.fire("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
-                                setTimeout(function () { // 0.9초뒤 실행
-                                    location.reload(); // 새로고침 -> list 다시 불러옴
+                                setTimeout(function () { // execute after 0.9sec
+                                    location.reload();
                                 }, 900);
                             },
                             error: (data) => {
@@ -186,33 +182,8 @@
                 })
             }
         }
-        // deleteJobOpening2 = () => {
-        //     valueArr = [];
-        //     $("input[name='cb']:checked").each(function (i) {
-        //         valueArr.push($(this).val());
-        //     });
-        //
-        //     $.ajax({
-        //         url: url,
-        //         type: 'POST',
-        //         traditional: true,
-        //         data: {
-        //             valueArr: valueArr
-        //         },
-        //         success: function (data) {
-        //             swal("공고 삭제 성공.", "공고가 삭제되었습니다.", "success");
-        //             setTimeout(function () { // 0.9초뒤 실행
-        //                 location.reload(); // 새로고침 -> list 다시 불러옴
-        //             }, 900);
-        //         },
-        //         error: function (data) {
-        //             console.log("fail");
-        //         }
-        //     });
-        //
-        // }
 
-        // 모달 body text 설정
+        // Set modal body text
         function getPartnerInfo(name, info, addr, email, headcnt, purl) {
             $("#modal_title").text(name);
             $("#partner_info").text(info);
@@ -223,6 +194,8 @@
         }
     </script>
     <script>
+        // checkbox functions
+
         checkSelectAll = (checkbox) => {
             const selectall
                 = document.querySelector('input[name="check-all"]');
@@ -253,7 +226,7 @@
         </ul>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for partner info -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
             <!-- Modal content-->
@@ -317,7 +290,7 @@
                     <td>${date}</td>
                 </c:if>
                 <c:if test="${date < sysYear}">
-                    <%--         마감된 공고는 빨강           --%>
+                    <%--         Closed announcements are in red           --%>
                     <td><a style="color: #fc0038">${date}</a></td>
                 </c:if>
                 <td>${partner.applicationVO.applicantNum}</td>
