@@ -168,7 +168,6 @@ function modifyCourse(){
 			<button class="btn btn-outline-danger" type="button"
 				onClick="modifyCourse()">수정</button>
 		</div>
-
 	</div>
 </body>
 </html>

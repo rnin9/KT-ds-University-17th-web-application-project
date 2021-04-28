@@ -27,6 +27,8 @@
 
     <style>
         .container {
+            margin-left:15%;
+            position:relative;
             font-family: 'Noto Sans KR', sans-serif;
             width: 80%;
         }
