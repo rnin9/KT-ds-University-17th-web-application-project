@@ -225,15 +225,17 @@ request.setCharacterEncoding("UTF-8");
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 													 href="${contextPath}/location.do"> 교육장 안내 </a>
 						<ul class="dropdown-menu fade-up">
+
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>
 						</ul>
 					</li>
+          
 					<li class="nav-item dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNoticeUser.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
