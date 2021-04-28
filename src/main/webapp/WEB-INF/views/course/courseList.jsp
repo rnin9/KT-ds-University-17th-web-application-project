@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -38,8 +38,8 @@ request.setCharacterEncoding("UTF-8");
 
 <style>
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
@@ -51,13 +51,12 @@ button {
 	float: right;
 	margin-right: 10px;
 }
-                                                                                                                    
+
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
 }
-
 </style>
 
 </head>
@@ -291,140 +290,60 @@ function register(){
 
 <body>
 
-   <div class="container">
+	<div class="container">
 
-         <div class="lnb">
-            <ul>
-               <li><a href="/springEx/main.do">홈</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/course/courseList.do">과정
-                     관리</a></li>
-            </ul>
-         </div>
-         
-       	
-       	<div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="closeCheck();">조기마감</button>
-            <button class="btn button_bottom" type="button" onClick="openCheck();">접수중</button>
-            <button class="btn button_bottom" onClick="deleteCheck()">삭제</button>
-            <button class="btn button_bottom" onClick="register()">등록</button>
-         </div>
-<!-- 
-         <div class="well-searchbox">
-            <form class="form-horizontal" role="form">
-               <div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">강의분류</label>
-                     <div class="col-md-8">
-                        <select class="form-select" aria-label="Default select example">
-                           <option selected>-- 1차 분류를 선택하세요 --</option>
-                           <option value="유료과정">유료과정</option>
-                           <option value="재직자향상">재직자향상</option>
-                           <option value="채용예정자과정">채용예정자과정</option>
-                        </select><select class="form-select" aria-label="Default select example">
-                           <option selected>-- 2차 분류를 선택하세요 --</option>
-                           <option value="OS 분야">OS 분야</option>
-                           <option value="IoT&모바일">IoT&모바일</option>
-                           <option value="SW공학">SW공학</option>
-                           <option value="클라우드">클라우드</option>
-                           <option value="웹 프로그래밍">웹 프로그래밍</option>
-                           <option value="빅데이터">빅데이터</option>
-                           <option value="non-IT">non-IT</option>
-                           <option value="OA">OA</option>
-                           <option value="분석/설계">분석/설계</option>
-                           <option value="프로젝트관리">프로젝트관리</option>
-                           <option value="오픈소스">오픈소스</option>
-                           <option value="모바일">모바일</option>
-                           <option value="보안">보안</option>
-                           <option value="네트워크">네트워크</option>
-                           <option value="프로그래밍">프로그래밍</option>
-                           <option value="데이터베이스">데이터베이스</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">마감상태</label>
-                     <div class="col-md-8">
-                        <select class="form-select" aria-label="Default select example">
-                           <option selected>-- 선택 --</option>
-                           <option value="신청">신청중</option>
-                           <option value="조기마감">조기마감</option>
-                           <option value="마감">마감</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">날짜검색</label>
-						<div class="col-md-8">
-							<div id="sandbox-container">
-								<div class="input-group date" style="width: 88%;">
-									<input type="text" id="date" class="form-control" placeholder="수강기간을 선택해주세요." onchange="filterDate()">
-								</div>
-							</div>
-						</div>       
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">강의명</label>
-                     <div class="col-md-8">
-                        <input type="text" id="value" class="form-control" onKeyPress="JavaScript:enter();"
-                           placeholder="일부 단어만으로도 검색이 가능합니다.">
-                           <input type="text" style="display: none;" />
-                     </div>
-                  </div>
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="/springEx/course/courseList.do">과정
+						관리</a></li>
+			</ul>
+		</div>
 
-                  <div class="col-sm-offset-4 col-sm-5"
-                     style="display: inline-block; text-aglin: center;">
-                     <button type="button" class="btn button_search" onClick="filter()"
-                        style="margin-top: 10px;">검색</button>
-                  </div>
-               </div>
-            </form>
-         </div>
- -->
-         <table class="table_" id="myTable">
-            <thead>
-               <tr align="center">
-                  <td><input type="checkbox" name="check-all"
-                     onclick='selectAll(this)' /></td>
-                  <td><b>번호</b></td>
-                  <td><b>과정명</b></td>
-                  <td><b>수강인원</b></td>
-                  <td><b>교육비</b></td>
-                  <td><b>접수기간</b></td>
-                  <td><b>수강기간</b></td>
-                  <td><b>상태</b></td>
-               </tr>
-            </thead>
+		<table class="table_" id="myTable">
+			<thead>
+				<tr align="center">
+					<td><input type="checkbox" name="check-all"
+						onclick='selectAll(this)' /></td>
+					<td><b>번호</b></td>
+					<td><b>과정명</b></td>
+					<td><b>수강인원</b></td>
+					<td><b>교육비</b></td>
+					<td><b>접수기간</b></td>
+					<td><b>수강기간</b></td>
+					<td><b>상태</b></td>
+				</tr>
+			</thead>
 
-            <tbody id="ajaxTable">
-               <c:forEach var="courseVO" items="${courseList}">
-                  <tr class="item">
-                     <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
-                        onclick='checkSelectAll(this)' /></td>
-                     <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}]<br>${courseVO.syllabusVO.syllabusName}</a></td>
-                     <td>${courseVO.coursePeopleMax}</td>
-                     <td>${courseVO.courseFee}</td>
-                     <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
-                     <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
-                     <td>${courseVO.courseState}</td>
-                  </tr>
-               </c:forEach>
-            </tbody>
-         </table>
+			<tbody id="ajaxTable">
+				<c:forEach var="courseVO" items="${courseList}">
+					<tr class="item">
+						<td><input type="checkbox" name="ab"
+							value="${courseVO.courseID}" onclick='checkSelectAll(this)' /></td>
+						<td>${courseVO.courseID}</td>
+						<td class="name"><a
+							href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1}
+								> ${courseVO.syllabusVO.syllabusCategory2}]
+								${courseVO.syllabusVO.syllabusName}</a></td>
+						<td>${courseVO.coursePeopleMax}</td>
+						<td>${courseVO.courseFee}</td>
+						<td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
+						<td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
+						<td>${courseVO.courseState}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 
-         <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn btn-outline-danger" type="button" onClick="closeCheck();">선택과정 조기마감</button>
-            <button class="btn btn-outline-danger" type="button" onClick="openCheck();">선택과정 접수중</button>
-            <button class="btn btn-outline-danger"
-               onClick="register()">교육과정 등록</button>
-         </div>
-   </div>
+		<div style="margin-top: 50px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="closeCheck();">선택과정 조기마감</button>
+			<button class="btn btn-outline-danger" type="button"
+				onClick="openCheck();">선택과정 접수중</button>
+			<button class="btn btn-outline-danger" onClick="register()">교육과정
+				등록</button>
+		</div>
+	</div>
 </body>
 </html>

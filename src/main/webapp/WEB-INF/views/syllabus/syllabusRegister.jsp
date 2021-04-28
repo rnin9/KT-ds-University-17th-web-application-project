@@ -38,7 +38,8 @@ a:link, a:visited, a:hover {
 	margin-left: 15%;
 	position: relative; */
 	display: flex;
-	width: 75%;
+	width: 80%;
+	margin-left: 15%;
 	flex-wrap: wrap;
 	justify-content: space-around;
 	flex-direction: column;
@@ -178,7 +179,7 @@ button {
 						name="syllabusContent"></textarea>
 				</div>
 			</div>
-			<div style="margin-top: 50px; margin-bottom: 150px;">
+			<div style="margin-top: 50px;">
 				<button class="btn btn-outline-danger" type="button"
 					onclick="history.back()">취소</button>
 				<button class="btn btn-outline-danger" type="submit">등록</button>

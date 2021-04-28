@@ -37,17 +37,17 @@ request.setCharacterEncoding("UTF-8");
 
 <style>
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
+	font-family: 'Noto Sans KR', sans-serif;
 	display: flex;
-    flex-wrap: wrap;
-    width: 75%;
-    justify-content: space-around;
-    flex-direction: column;
-    padding-bottom:200px;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
 	margin-left: 15%;
 }
 
@@ -235,7 +235,7 @@ $(document).ready(function(){
 			</tbody>
 		</table>
 
-		<div style="margin-top: 50px; padding-bottom: 150px;">
+		<div style="margin-top: 50px;">
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCheck()">선택강의 삭제</button>
 			<button class="btn btn-outline-danger" type="button"

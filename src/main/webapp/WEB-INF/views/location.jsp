@@ -17,24 +17,7 @@
             width: 80%;
             /*scroll-behavior: smooth;*/
         }
-
-        .container {
-            font-family: 'Noto Sans KR', sans-serif;
-            width: 80%;
-        }
-
-        .mapIntro {
-            margin-top: 50px;
-            text-align: left;
-            font-size: 25px;
-            font-weight: 600;
-            padding-left: 30px;
-            padding-top: 90px;
-            padding-bottom: 50px;
-            border-bottom: 1px solid #e0e0e0;
-            letter-spacing: 5px;
-        }
-
+      
         .sub_visual {
             font-family: 'Noto Sans KR', sans-serif;
             width: 100%;
@@ -237,12 +220,11 @@
             </div>
         </div>
     </div>
-
-</div>
-</div>
-<script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key%>"></script>
-<script>
+	</div>
+	</div>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key%>"></script>
+	<script>
     var container = document.getElementById('map');
     var options = {
         // 서울 서초구 효령로 174 (37.481961, 127.003104)
@@ -263,6 +245,5 @@
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 </script>
-
 </body>
 </html>
