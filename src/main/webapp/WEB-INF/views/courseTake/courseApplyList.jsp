@@ -125,14 +125,14 @@ button {
 											value="${courseTake.partnerVO.partnerName}"
 											style="display: none;" /> <input type=text
 											name="courseStart" value="${courseTake.courseVO.courseStart}"
-											style="display: none;"/> <input type=text name="courseEnd"
+											style="display: none;" /> <input type=text name="courseEnd"
 											value="${courseTake.courseVO.courseEnd}"
-											style="display: none;"/> <input type=text
+											style="display: none;" /> <input type=text
 											name="syllabusTotalTime"
 											value="${courseTake.syllabusVO.syllabusTotalTime}"
-											style="display: none;"/> <input type=text
+											style="display: none;" /> <input type=text
 											name="userBirthday" value="${courseTake.memberVO.birth}"
-											style="display: none;"/> <input type="image"
+											style="display: none;" /> <input type="image"
 											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
 											style="width: 17px; margin-top: 12px; margin-left: 5px;"
 											onclick="javascript:popup(this.form);">
@@ -150,7 +150,7 @@ button {
 		<br> <br>
 
 		<!-- 버튼 -->
-		<div style="margin-top: 40px; padding-bottom: 150px;">
+		<div style="margin-top: 40px">
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCheck();">삭제</button>
 			<button class="btn btn-outline-danger" type="button"

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -19,32 +19,26 @@ request.setCharacterEncoding("UTF-8");
 	href="${pageContext.request.contextPath}/resources/css/styleTab.css" />
 
 <style>
+.sub_visual {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	border: 0;
+	font-size: 32px;
+	font-weight: 500;
+	height: 190px;
+	padding-top: 69px;
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
 .card-body {
 	width: 265px;
 	height: 265px;
 	/* margin: 2% 2% 2% 2%; */
 	display: inline-table;
-}
-
-.btn {
-   color: white;
-   background-color: tomato;
-   border-color: rgba(247, 94, 94, 0 .8);
-   display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out,
-      border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 p {
@@ -58,11 +52,20 @@ p {
 	font-weight: bold;
 	height: 120px;
 }
+
+.container {
+	width: 100%;
+}
 </style>
 
 </head>
 
 <body>
+	<div class="sub_visual">
+		<span style="color: black;"></span>
+	</div>
+
+
 	<div class="container">
 		<!-- 홈>강의관리>수강관리 -->
 		<div class="lnb">
@@ -76,7 +79,8 @@ p {
 		<div class="pageIntro">과정신청</div>
 
 		<!-- Start Tabs HTML -->
-		<div class="tabs" style="margin-top: 50px; overflow: hidden;padding:0;">
+		<div class="tabs"
+			style="margin-top: 50px; overflow: hidden; padding: 0;">
 
 			<input type="radio" id="tab1" name="tab-control" checked> <input
 				type="radio" id="tab2" name="tab-control"> <input
@@ -95,13 +99,12 @@ p {
 			</div>
 			<div class="content">
 				<section>
-					<h2></h2>
 					<div
-						style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
+						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<a
 								href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-								<div class="card">
+								<div class="card" style="margin:10px 5px;">
 									<div class="card-body">
 										<span class="card-title"
 											style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -117,17 +120,17 @@ p {
 												<span class="dday"
 												style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 													<c:choose>
-														<c:when test="${courseVO.dday > 0}">
-                                    D-${courseVO.dday}
-                                    </c:when>
-														<c:when
-															test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+													<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
-														<c:otherwise>
+														<c:when test="${courseVO.dday > 0}">
+                                    D-${courseVO.dday}
+                                    </c:when>
+														
+														<c:when test="${courseVO.dday < 0}">
                                     접수마감
-                                    </c:otherwise>
+                                    </c:when>
 													</c:choose>
 											</span> </span></span>
 										<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
@@ -146,12 +149,12 @@ p {
 
 				<section>
 					<div
-						style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
+						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
 								<a
 									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card">
+									<div class="card" style="margin:10px 5px;">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -167,18 +170,18 @@ p {
 													<span class="dday"
 													style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 														<c:choose>
-															<c:when test="${courseVO.dday > 0}">
-                                    D-${courseVO.dday}
-                                    </c:when>
-															<c:when
-																test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+													<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
-															<c:otherwise>
+														<c:when test="${courseVO.dday > 0}">
+                                    D-${courseVO.dday}
+                                    </c:when>
+														
+														<c:when test="${courseVO.dday < 0}">
                                     접수마감
-                                    </c:otherwise>
-														</c:choose>
+                                    </c:when>
+													</c:choose>
 												</span> </span></span>
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
@@ -194,12 +197,12 @@ p {
 				</section>
 				<section>
 					<div
-						style="width: 80%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
+						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
 								<a
 									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card">
+									<div class="card" style="margin:10px 5px;">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -214,17 +217,18 @@ p {
 													<span class="dday"
 													style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
 														<c:choose>
-															<c:when test="${courseVO.dday > 0}">
-                                    D-${courseVO.dday}
-                                    </c:when>
-															<c:when
-																test="${courseVO.dday > 0 and courseState eq '조기마감'}">
+													<c:when test="${courseVO.courseState eq '조기마감'}">
+
                                     조기마감
                                     </c:when>
-															<c:otherwise>
+														<c:when test="${courseVO.dday > 0}">
+                                    D-${courseVO.dday}
+                                    </c:when>
+														
+														<c:when test="${courseVO.dday < 0}">
                                     접수마감
-                                    </c:otherwise>
-														</c:choose>
+                                    </c:when>
+													</c:choose>
 												</span> </span></span>
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>

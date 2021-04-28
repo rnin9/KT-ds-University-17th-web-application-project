@@ -51,6 +51,15 @@
 			column="Partner_Apply_State" />
 	</resultMap>
 
+	<resultMap id="suggestionResult" type="HashMap">
+		<result property="partnerName" column="PartnerName" />
+		<result property="partnerID" column="PARTNERID" />
+		<result property="suggestDescription" column="SUGGESTDESCRIPTION" />
+		<result property="suggestionDate" column="SUGGESTIONDATE" />
+		<result property="acception" column="ACCEPTION"/>
+		<result property="suggestionTitle" column="SUGGESTIONTITLE"/>
+	</resultMap>
+
 
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
@@ -87,6 +96,22 @@
 		where Partner_Apply_UserID = #{id}
 	</select>
 
+	<!-- select all suggestions-->
+	<select id="selectAllSuggestionList"
+			resultMap="suggestionResult">
+		select (select PARTNERNAME
+				from partner
+				where PARTNERLICENSENUM = PARTNERID
+			   )as partnerName,
+			   PARTNERID,
+			   SUGGESTDESCRIPTION,
+		       ACCEPTION,
+			   SUGGESTIONDATE,
+		       SUGGESTIONTITLE
+		from Partner_Suggestion
+		where userid = #{id} and USERDELETION = 'Y'
+	</select>
+
 	<!-- insert application -->
 	<insert id="userApplyPartner" parameterType="java.util.HashMap">
 		<selectKey keyProperty="partnerApplyResumeID" resultType="String" order="BEFORE">
@@ -107,6 +132,27 @@
 		where PARTNER_APPLY_USERID = #{partnerApplyUserID} and
 		PARTNER_APPLY_PARTNERID = #{partnerApplyPartnerID}
 	</delete>
+
+	<!--  update userDeletion	-->
+	<update id="deleteSuggestion" parameterType="String">
+		update Partner_Suggestion set
+		USERDELETION = 'N'
+		where PARTNERID = #{partnerID} and USERID = #{userID}
+	</update>
+
+	<!--  update acception accept	-->
+	<update id="acceptSuggestion" parameterType="String">
+		update Partner_Suggestion set
+			ACCEPTION = '수락'
+		where PARTNERID = #{partnerID} and USERID = #{userID}
+	</update>
+
+	<!--  update acception reject	-->
+	<update id="rejectSuggestion" parameterType="String">
+		update Partner_Suggestion set
+			ACCEPTION = '거절'
+		where PARTNERID = #{partnerID} and USERID = #{userID}
+	</update>
 
 
 	<!-- <insert id="insertMember" parameterType="memberVO"> <![CDATA[ insert 

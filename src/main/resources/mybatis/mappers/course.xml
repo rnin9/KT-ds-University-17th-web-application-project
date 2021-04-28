@@ -53,11 +53,11 @@
     <select id="selectUserCourseList" resultMap="courseResult">
     <![CDATA[
        select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
-       courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState, to_char(courseApplyEnd - TRUNC(SYSDATE)) as dday
+       courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState, (courseApplyEnd - TRUNC(SYSDATE)) as dday
        from course c join syllabus s on c.syllabusID = s.syllabusID
        where courseApplyStart <= sysdate and sysdate <= courseEnd
-       order by courseState desc, dday asc
-
+       order by decode(courseState, '접수중', 1, '조기마감', 2, 3),
+        dday asc
     ]]>
     </select>
    <select id="selectUserCourse" parameterType="int" resultMap="courseResult">
@@ -112,7 +112,7 @@
    <update id="autoUpdateCourse">
     <![CDATA[
        update course set coursestate = '마감'
-		where (courseid in (select courseid from course where courseapplyend < sysdate)) and coursestate='접수중'
+		where (courseid in (select courseid from course where courseapplyend < sysdate))
     ]]> 
    </update>
 </mapper>

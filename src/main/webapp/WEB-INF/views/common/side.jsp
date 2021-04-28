@@ -42,14 +42,13 @@ request.setCharacterEncoding("UTF-8");
 					</ul>
 
 					<li data-toggle="collapse" data-target="#partner" class="collapsed">
-						<a href="#"> <i class="far fa-handshake"
-							style="margin-right: 5px; margin-left: 10px;"></i>협력사 관리 <i
-							class="fas fa-chevron-down"></i></a>
+						<a href="#"> <i class="far fa-handshake" style="margin-right: 5px; margin-left: 10px;"></i>협력사 관리 <i
+								class="fas fa-chevron-down"></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="partner">
 						<li><a href="#"> 기업정보</a></li>
-						<li><a href="#"> 모집공고</a></li>
-						<li><a href="#"> 수강 관리</a></li>
+						<li><a href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록</a></li>
+						<li><a href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리</a></li>
 					</ul>
 
 					<li data-toggle="collapse" data-target="#course" class="collapsed">

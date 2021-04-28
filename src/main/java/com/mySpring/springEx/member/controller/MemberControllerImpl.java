@@ -88,7 +88,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 쩌철쨌찼횁천 횈채�횑횁철
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -97,7 +96,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// list all recruitments
+	// list all recruitments, suggestions
 	@Override
 	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
@@ -105,9 +104,11 @@ public class MemberControllerImpl implements MemberController {
 		String viewName = (String) request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
 		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
+		List<HashMap<String, String>> suggestionList = memberService.listSuggestions(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
+		mav.addObject("suggestionList", suggestionList);
 		return mav;
 	}
 
@@ -126,6 +127,38 @@ public class MemberControllerImpl implements MemberController {
 	public void deleteApplication(@RequestBody Map<String, String> body, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	// update userDeletion
+	@Override
+	@RequestMapping(value = {"/member/deleteSuggestion.do"}, method = RequestMethod.POST)
+	public void deleteSuggestion(@RequestParam List<String> valueArr ,HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		String userID = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			System.out.println(valueArr.get(i)+"----------"+ userID);
+			memberService.deleteSuggestion(valueArr.get(i), userID);
+		}
+	}
+
+	// update partner_suggestion acception accept
+	@Override
+	@RequestMapping(value = { "/member/acceptSuggestion.do" }, method = { RequestMethod.POST })
+	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
+	}
+
+	// update partner_suggestion acception reject
+	@Override
+	@RequestMapping(value = { "/member/rejectSuggestion.do" }, method = { RequestMethod.POST })
+	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
