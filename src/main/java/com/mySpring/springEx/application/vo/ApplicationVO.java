@@ -1,6 +1,9 @@
 package com.mySpring.springEx.application.vo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mySpring.springEx.member.vo.MemberVO;
 
 @Component("applicationVO")
 public class ApplicationVO {
@@ -9,20 +12,32 @@ public class ApplicationVO {
     private String partnerApplyResumeID;
     private String partnerApplyDate;
     private String partnerApplyState;
+    private String applicantNum;
 
-    public ApplicationVO() {
+    @Autowired
+	MemberVO memberVO;
+
+	public ApplicationVO() {
 
     }
 
-    public ApplicationVO(String partnerApplyUserID, String partnerApplyPartnerID, String partnerApplyResumeID, String partnerApplyDate, String partnerApplyState) {
+    public ApplicationVO(String partnerApplyUserID, String partnerApplyPartnerID, String partnerApplyResumeID, String partnerApplyDate, String partnerApplyState, String applicantNum) {
         this.partnerApplyUserID = partnerApplyUserID;
         this.partnerApplyPartnerID = partnerApplyPartnerID;
         this.partnerApplyResumeID = partnerApplyResumeID;
         this.partnerApplyDate = partnerApplyDate;
         this.partnerApplyState = partnerApplyState;
+        this.applicantNum = applicantNum;
     }
 
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+	
     public String getPartnerApplyUserID() {
         return partnerApplyUserID;
     }
@@ -62,4 +77,8 @@ public class ApplicationVO {
     public void setPartnerApplyState(String partnerApplyState) {
         this.partnerApplyState = partnerApplyState;
     }
+
+    public String getApplicantNum() { return applicantNum; }
+
+    public void setApplicantNum(String applicantNum) { this.applicantNum = applicantNum; }
 }

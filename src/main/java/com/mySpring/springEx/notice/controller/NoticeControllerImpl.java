@@ -80,6 +80,7 @@ public class NoticeControllerImpl implements NoticeController {
 		return mav;
 	}
 
+
 	// 공지사항 작성 창
 	@RequestMapping(value = { "/notice/noticeForm.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {

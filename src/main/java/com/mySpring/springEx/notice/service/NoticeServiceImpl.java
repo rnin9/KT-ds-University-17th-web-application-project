@@ -24,11 +24,7 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDAO noticeDAO;
 
 	@Autowired
-	public PageMapper pageMapper;
-
-	@Autowired
 	private FileUtils fileUtils;
-
 
 	@Override
 	public List listNotice() throws Exception {

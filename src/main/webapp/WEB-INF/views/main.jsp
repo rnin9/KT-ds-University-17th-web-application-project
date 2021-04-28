@@ -15,6 +15,12 @@ request.setCharacterEncoding("UTF-8");
 @import
 	url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap')
 	;
+
+.carousel-indicators>li {
+	border-radius: 50%;
+	width: 9px;
+	height: 8px;
+}
 </style>
 
 <style type="text/css">
@@ -226,15 +232,14 @@ request.setCharacterEncoding("UTF-8");
 			</a>
 		</div>
 		<div class="card">
-			<a href="${contextPath}/location.do">
-			<img class="card-img-top"
+			<a href="${contextPath}/location.do"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/sub_visual/universityIntroduce.jpg"
 				alt="Card image cap">
-			<div class="card-body">
-				<h5 class="card-title">교육장 안내</h5>
-				<p class="card-text">국내 최고수준의 전문강사진과 신규시설 및 최신장비의 인프라, KT ds의
-					교육장소를 소개합니다.</p>
-			</div>
+				<div class="card-body">
+					<h5 class="card-title">교육장 안내</h5>
+					<p class="card-text">국내 최고수준의 전문강사진과 신규시설 및 최신장비의 인프라, KT ds의
+						교육장소를 소개합니다.</p>
+				</div>
 			</a>
 		</div>
 	</div>

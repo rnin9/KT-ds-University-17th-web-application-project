@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.mySpring.springEx.course.dao.CourseDAO;
 import com.mySpring.springEx.course.vo.CourseVO;
@@ -79,4 +80,11 @@ public class CourseDAOImpl implements CourseDAO{
 	public int updateCourse(int courseID) throws DataAccessException {
 		return sqlSession.update("mapper.course.updateCourse", courseID);
 	}
+
+	@Scheduled(cron="0 0 0 * * *")
+	public void autoUpdate() {
+		System.out.println("123123");
+		sqlSession.update("mapper.course.autoUpdateCourse");
+	}
+	
 }

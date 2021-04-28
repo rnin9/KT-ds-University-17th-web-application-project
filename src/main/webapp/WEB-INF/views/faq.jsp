@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
     request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <head>
 <meta charset="UTF-8">
@@ -28,6 +28,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
 	integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 .bg-primary {
@@ -36,14 +38,9 @@
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
-/* 	background-image:
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
 		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
-	background-color: black;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	background-size: cover; */
-	width: 100%; 
-	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -117,9 +114,7 @@
 </head>
 
 <body>
-	<div class="sub_visual">
-		<span style="color: white;">FAQ</span>
-	</div>
+	<div class="sub_visual"></div>
 
 
 	<div class="container">
@@ -129,12 +124,13 @@
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
 			</ul>
 		</div>
-
 		<!-- 페이지에 대한 intro -->
-		<div class="faqIntro">자주하는 질문에 대한 답변입니다.</div>
+		<!-- <div class="faqIntro">자주하는 질문에 대한 답변입니다.</div> -->
+		<div class="pageIntro">FAQ</div>
 
 		<!-- FAQ 아코디언, 10개의 질문과 답변 -->
 		<div class="accordion accordion-flush" id="accordionFlushExample">
@@ -167,29 +163,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="accordion-item">
-				<h2 class="accordion-header" id="flush-headingTwo">
-					<button class="accordion-button collapsed" type="button"
-						data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
-						aria-expanded="false" aria-controls="flush-collapseTwo">
-						<div class="letterQ">Q</div>
-						<div class="faqQuestion">수료증을 받으려면 어떻게 해야하나요?</div>
-					</button>
-				</h2>
-				<div id="flush-collapseTwo" class="accordion-collapse collapse"
-					aria-labelledby="flush-headingTwo"
-					data-bs-parent="#accordionFlushExample">
-					<div class="accordion-body">
-						<div class="letterA">A</div>
-						<div class="faqAnswer">
-							일정시간이상 출석(80%)하시어 교육을 수료하셨다면, 홈페이지에서 수료증 다운로드 및 출력이 가능합니다. <br>
-							- 홈페이지 개인회원 로그인 => 마이페이지 => 수강완료 과정 => 수료증 다운로드
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="flush-headingThree">
 					<button class="accordion-button collapsed" type="button"

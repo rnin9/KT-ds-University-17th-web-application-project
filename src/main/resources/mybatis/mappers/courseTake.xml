@@ -13,6 +13,8 @@
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
 		<result property="surveyYN" column="surveyYN" />
+		<result property="applyDate"
+			column="applyDate" />
 
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
@@ -21,6 +23,8 @@
 			<result property="userPhoneNumber" column="userPhoneNumber" />
 			<result property="userEmail" column="userEmail" />
 			<result property="userCompany" column="userCompany" />
+			<result property="userPosition" column="userPosition" />
+			<result property="birth" column="birth" />
 		</collection>
 
 		<collection property="courseVO" javaType="CourseVO">
@@ -33,6 +37,12 @@
 		<collection property="syllabusVO" javaType="SyllabusVO">
 			<id property="syllabusID" column="syllabusID" />
 			<result property="syllabusName" column="syllabusName" />
+			<result property="syllabusTotalTime" column="syllabusTotalTime" />
+		</collection>
+		
+		<collection property="partnerVO" javaType="PartnerVO">
+			<id property="partnerLicenseNum" column="partnerLicenseNum" />
+	    	<result property="partnerName" column="partnerName" />
 		</collection>
 	</resultMap>
 
@@ -42,13 +52,14 @@
 		resultMap="courseTakeResult">
 		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
 		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
-		courseTake_ApplyDate
+		to_char(courseTake_ApplyDate,'yyyy-mm-dd') as applyDate, p.partnerLicenseNum ,p.partnerName,
+		to_char(c.coursestart, 'yyyy-mm-dd') as courseStart, to_char(c.courseend,'yyyy-mm-dd') as courseEnd, m.birth, s.syllabustotaltime
 		from course_Take ct join kt_user m on (ct.userID =
 		m.userId) join course c
 		on (c.courseid=ct.courseid) join syllabus s on
 		(s.syllabusid =
-		c.syllabusid)
-		order by courseTake_ApplyDate DESC
+		c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany)
+		order by courseTake_ApplyDate desc
 	</select>
 
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
@@ -78,13 +89,21 @@
        delete from course_Take where userID = #{userID} and courseID=#{courseID}
      ]]>
 	</delete>
+	
+	<!-- 일반회원 -> 채용예정자 -->
+	<update id="updatePosition" parameterType="CourseTakeVO">
+	<![CDATA[
+		update kt_user set userPosition='채용예정자'
+		where userPosition='일반회원' and userid = #{userID}
+    ]]>
+	</update>
 
 	<!-- ====================================USER==================================== -->
 	<!-- 나의 수강내역 가져오기 -->
 	<select id="get_myCourseInformation" parameterType="String"
 		resultMap="courseTakeResult">
 	<![CDATA[select * 
-	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
+	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany) 
 	where ct.userId = #{userID} 
 	order by courseTake_ApplyDate desc
 	]]>
@@ -94,7 +113,23 @@
 	<insert id="insertCourseTake" parameterType="courseTakeVO">
 	  <![CDATA[
 	  	insert into course_take (userid, courseid, coursetake_state,coursetake_applydate)
-		values (#{userID}, #{courseID}, '승인대기', to_date(sysdate,'YYYY-MM-DD'))
+		values (#{userID}, #{courseID}, '승인대기', to_date(to_char(sysdate,'yyyy-mm-dd HH24:MI:SS'),'yyyy-mm-dd HH24:MI:SS'))
 	  ]]>
 	</insert>
+	
+	<!-- 승인 -> 수강중 -->
+	<update id="autoUpdateCourseTake1">
+    <![CDATA[
+       update course_take set coursetake_state = '수강중'
+		where (courseid in (select courseid from course where coursestart <= sysdate)) and coursetake_state='승인'
+    ]]> 
+   </update>
+   
+   <!-- 수강중 -> 수료대기 -->
+   <update id="autoUpdateCourseTake2">
+    <![CDATA[
+       update course_take set coursetake_state = '수료대기'
+		where (courseid in (select courseid from course where courseend < sysdate)) and coursetake_state='수강중'
+    ]]> 
+   </update>
 </mapper>

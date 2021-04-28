@@ -10,6 +10,7 @@ import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.notice.vo.NoticeVO;
 
 public interface NoticeService {
+
 	public List listNotice() throws Exception;
 
 	public List listFixNotice() throws Exception;
