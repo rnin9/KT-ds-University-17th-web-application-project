@@ -154,7 +154,7 @@ p {
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
 								<a
 									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card">
+									<div class="card" style="margin:10px 5px;">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -202,7 +202,7 @@ p {
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
 								<a
 									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-									<div class="card">
+									<div class="card" style="margin:10px 5px;">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
