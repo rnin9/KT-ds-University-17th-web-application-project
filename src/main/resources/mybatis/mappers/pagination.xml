@@ -176,11 +176,7 @@
 		</if>
 	</select>
 
-<<<<<<< HEAD
-	 <select id="testTableCountN" resultType="int">
-        SELECT count(*) FROM
-        notice
-    </select>
+
     
     <select id="NoticefixList" resultMap="noticeResult">
       SELECT *
@@ -198,7 +194,7 @@
         );
     </select>
     
-=======
+
 	<select id="testTableCountN" resultType="int">
 		SELECT count(*) FROM
 		notice
@@ -352,5 +348,5 @@
 		</if>
 		and m.usercompany =#{partnerLicenseNum})
 	</select>
->>>>>>> 62ff0637df2b2eea5ba56430267cc5b80ccc5b57
+
 </mapper>

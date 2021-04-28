@@ -77,7 +77,7 @@ public class FileUtils {
 		Map<String, Object> listMap = null; 
 		int notice_no = noticeVO.getNotice_no();
 		while(iterator.hasNext()){ 
-			multipartFile = mpRequest.getFile(iterator.next()); 
+			multipartFile = mpRequest.getFile(iterator.next());
 			if(multipartFile.isEmpty() == false){ 
 				org_nt_file_name = multipartFile.getOriginalFilename(); 
 				originalFileExtension = org_nt_file_name.substring(org_nt_file_name.lastIndexOf(".")); 
@@ -85,9 +85,9 @@ public class FileUtils {
 				multipartFile.transferTo(new File(filePath + str_nt_file_name)); 
 				listMap = new HashMap<String,Object>();
 				listMap.put("IS_NEW", "Y");
-				listMap.put("notice_no", notice_no); 
-				listMap.put("org_nt_file_name", org_nt_file_name);
-				listMap.put("str_nt_file_name", str_nt_file_name); 
+				listMap.put("NOTICE_NO", notice_no); 
+				listMap.put("ORG_NT_FILE_NAME", org_nt_file_name);
+				listMap.put("STR_NT_FILE_NAME", str_nt_file_name); 
 				listMap.put("NT_FILE_SIZE", multipartFile.getSize()); 
 				list.add(listMap); 
 			} 

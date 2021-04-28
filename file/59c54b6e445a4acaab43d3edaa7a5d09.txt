@@ -1,0 +1,621 @@
+<!--  <table class="table table-hover">
+
+
+		<tr>
+			<th><input type="checkbox" name="checkAll" onclick="CheckAll();" /></th>
+			<th>분류</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회</th>
+
+		</tr>
+		<c:forEach var="noticeList" items="${noticeList}">
+			<tr class="item">
+				<th><label><input type="checkbox"></label></th>
+				<td>${noticeList.notice_category}</td>
+				<td class="name"><a
+					href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">
+						<c:out value="${noticeList.notice_title}" />
+				</a></td>
+				<!--  <td>${notice.notice_title}</td> 
+				<td>${noticeList.notice_adminID}</td>
+				<td>${noticeList.notice_date}</td>
+				<td>${noticeList.notice_hit}</td>
+
+			</tr>
+		</c:forEach>-->
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+<section id="container">
+	<form name="writeForm" method="post"
+		action="${contextPath}/notice/insertNotice.do">
+		<table>
+			<tbody>
+				<tr>
+					<td><label for="notice_category">분류</label><input type="text"
+						id="notice_category" name="notice_category" class="chk"
+						title="분류를 입력하세요." /></td>
+				</tr>
+				<tr>
+					<td><label for="notice_title">제목</label><input type="text"
+						id="notice_title" name="notice_title" class="chk"
+						title="제목을 입력하세요." /></td>
+				</tr>
+				<tr>
+					<td><label for="notice_contents">내용</label> <textarea
+							id="notice_contents" name="notice_contents" class="chk"
+							title="내용을 입력하세요."></textarea></td>
+				</tr>
+				<tr>
+					<td><label for="notice_adminID">작성자</label><input type="text"
+						id="notice_adminID" name="notice_adminID" class="chk"
+						title="작성자를 입력하세요." /></td>
+				<tr>
+					<td>
+						<button class="write_btn" type="submit">작성</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</section>
+<hr />
+</div>
+</body>
+</html>
+
+-------------------------------------------------------------------------------------
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<%
+request.setCharacterEncoding("UTF-8");
+%>
+
+
+<html>
+<head>
+<meta charset=UTF-8">
+<title>공지사항 정보</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<style>
+.bg-primary {
+	background-color: white !important;
+}
+
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.table_notice {
+	margin-top: 30px;
+	border-collapse: collapse;
+	text-align: center;
+	/* color: #555; */
+	width: 100%;
+	line-height: 40px;
+}
+
+.table_notice th {
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	background-color: #f8f8f8;
+	text-align: center;
+	font-size: 15px;
+	width: 30%;
+}
+
+.table_notice td {
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+	text-align: center;
+	font-size: 15px;
+}
+.informTitle {
+   margin-top: 20px;
+   text-align: left;
+   font-size: 18px;
+   font-weight: 600;
+   padding-left: 30px;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid #e0e0e0;
+   letter-spacing: 5px;
+   padding-bottom: 20px;
+   background-color: #f8f8f8;
+}
+
+.informBox {
+   overflow: hidden;
+   height: auto;
+   text-align: left;
+   font-size: 16px;
+   line-height: 30px;
+   padding: 20px 60px 20px 60px;
+   margin-bottom: 20px;
+   margin-bottom: 20px;
+}
+</style>
+
+
+</head>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[name='writeForm']");
+		$(".write_btn").on("click", function() {
+			if (fn_valiChk()) {
+				return false;
+			}
+			formObj.attr("action", "${contextPath}/notice/insertNotice.do");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	})
+	function fn_valiChk() {
+		var regForm = $("form[name='writeForm'] .chk").length;
+		for (var i = 0; i < regForm; i++) {
+			if ($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null) {
+				alert($(".chk").eq(i).attr("title"));
+				return true;
+			}
+		}
+	}
+</script>
+
+<body>
+	<div class="container">
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="/springEx/notice/readNotice.do?notice_no=${noticeList.notice_no}">공지사항
+						정보</a></li>
+			</ul>
+		</div>
+
+		<table class="table_notice">
+			<tr>
+				<th>분류</th>
+				<td>${noticeVO.notice_category}</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>${noticeVO.notice_title}</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>${noticeVO.notice_adminID}</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>${noticeVO.notice_date}</td>
+			</tr>
+		</table>
+
+		<div class="containerLower" style="margin-top: 30px;">
+			<div class="inform">
+				<div class="informTitle">
+					<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
+				</div>
+				<div class="informBox">${noticeVO.notice_contents}</div>
+			</div>
+
+			<div style="margin-top: 50px; padding-bottom: 150px;">
+				<button class="btn button_bottom" type="button"
+					onClick="location.href='${contextPath}/notice/deleteNotice.do?notice_no=${noticeVO.notice_no}'">삭제</button>
+				<button class="btn button_bottom" type="button"
+					onClick="location.href='${contextPath}/notice/updateView.do?notice_no=${noticeVO.notice_no}'">수정</button>
+			</div>
+		</div>
+		
+		
+	</div>
+</body>
+</html>
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var formObj = $("form[name='readForm']");
+
+		// 수정 
+		$(".update_btn").on("click", function() {
+			formObj.attr("action", "${contextPath}/notice/updateView.do");
+			formObj.attr("method", "get");
+			formObj.submit();
+		})
+
+		// 삭제
+		$(".delete_btn").on("click", function() {
+			
+			var deleteYN = confirm("삭제하시겠습니까?");
+			if(deleteYN == true){
+			
+			formObj.attr("action", "${contextPath}/notice/deleteNotice.do");
+			formObj.attr("method", "post");
+			formObj.submit();
+			}
+		})
+
+		// 취소
+		$(".list_btn").on("click", function() {
+
+			location.href = "${contextPath}/notice/listNotice.do";
+		})
+	})
+</script>
+
+---------------------------------------------------------------------
+
+<body>
+
+	<div id="root">
+		<header>
+			<h1>게시판</h1>
+		</header>
+		<hr />
+
+		<nav>홈 - 글 작성</nav>
+		<hr />
+		<div>
+			<%@include file="noticeNav.jsp"%>
+		</div>
+		<section id="container">
+			<form name="readForm" role="form" method="post">
+				<input type="hidden" id="notice_no" name="notice_no"
+					value="${readNotice.notice_no}" />
+			</form>
+			<table>
+				<tbody>
+					<tr>
+						<td><label for="notice_category">분류</label><input type="text"
+							id="notice_category" name="notice_category"
+							value="${readNotice.notice_category}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td><label for="notice_title">제목</label><input type="text"
+							id="notice_title" name="notice_title"
+							value="${readNotice.notice_title}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td><label for="notice_contents">내용</label> <textarea
+								id="notice_contents" name="notice_contents" readonly="readonly"><c:out
+									value="${readNotice.notice_contents}" /></textarea></td>
+					</tr>
+					<tr>
+						<td><label for="notice_adminID">작성자</label><input type="text"
+							id="notice_adminID" name="notice_adminID"
+							value="${readNotice.notice_adminID}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td><label for="notice_date">작성날짜</label> <fmt:formatDate
+								value="${readNotice.notice_date}" pattern="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td><label for="notice_hit">조회수</label><input type="text"
+							id="notice_hit" name="notice_hit"
+							value="${readNotice.notice_hit}" readonly="readonly" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<button type="submit" class="update_btn">수정</button>
+				<button type="submit" class="delete_btn">삭제</button>
+				<button type="submit" class="list_btn">목록</button>
+			</div>
+		</section>
+		<hr />
+	</div>
+</body>
+</html>
+
+
+
+
+-----------------------------------------------------------
+
+
+<script type="text/javascript">
+	$(function() {
+		$('#registerCheck').submit(
+				function() {
+
+					theForm = document.addFrm;
+					if (theForm.contractStat.value == "") {
+						alert("상태를 입력해주세요.")
+						theForm.contractStat.focus();
+						return false;
+					}
+					if (theForm.name.value == "") {
+						alert("회사명을 입력해주세요.")
+						theForm.name.focus();
+						return false;
+					}
+					if (theForm.companyTel.value == "") {
+						alert("대표번호를 입력해주세요.")
+						theForm.companyTel.focus();
+						return false;
+					}
+					if (theForm.homePage.value == "") {
+						alert("홈페이지를 입력해주세요.")
+						theForm.homePage.focus();
+						return false;
+					}
+					if (theForm.address.value == "") {
+						alert("주소를 입력해주세요.")
+						theForm.address.focus();
+						return false;
+					}
+					if (theForm.id.value == "") {
+						alert("사업자등록번호를 입력해주세요.")
+						theForm.id.focus();
+						return false;
+					}
+					if (theForm.contractName.value == "") {
+						alert("담당자를 입력해주세요.")
+						theForm.contractName.focus();
+						return false;
+					}
+					if (theForm.managerPhone.value == "") {
+						alert("담당자전화번호를 입력해주세요.")
+						theForm.managerPhone.focus();
+						return false;
+					}
+					if (theForm.managerEmail.value == "") {
+						alert("담당자이메일을 입력해주세요.")
+						theForm.managerEmail.focus();
+						return false;
+					}
+					if (!$(':input:radio[name=contractAgree]:checked').val()) {
+						alert("1개 이상 선택해주세요.")
+						$('input:radio[name=contractAgree]').eq(0).attr(
+								"checked", true);
+						return false;
+					}
+					if (theForm.contractType.value == "") {
+						alert("협약상태를 입력해주세요.")
+						theForm.contractType.focus();
+						return false;
+					}
+					return true;
+				})
+	})
+</script>
+
+
+--------------------------------------------------------------
+
+<script type="text/javascript">
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[name='writeForm']");
+
+		// 등록
+		$(".button_bottom_I").on("click", function() {
+			if (fn_valiChk()) {
+				return false;
+			}
+			formObj.attr("action", "${contextPath}/notice/insertNotice.do");
+			formObj.attr("method", "post");
+			formObj.submit();
+
+		})
+
+		// 취소
+		$(".button_bottom_C").on("click", function() {
+			location.href = "${contextPath}/notice/listNotice.do";
+		})
+
+	})
+</script>
+
+
+-------------------------------------------------------
+
+
+<script type="text/javascript">
+	$(function() {
+		$('#writeForm').submit(function() {
+
+			theForm = document.addFrm;
+			if (theForm.notice_category.value == "") {
+				alert("분류를 선택해주세요.")
+				theForm.notice_category.focus();
+				return false;
+			}
+			if (theForm.notice_title.value == "") {
+				alert("제목을 입력해주세요.")
+				theForm.notice_title.focus();
+				return false;
+			}
+			if (theForm.notice_adminID.value == "") {
+				alert("작성자를 입력해주세요.")
+				theForm.notice_adminID.focus();
+				return false;
+			}
+			if (theForm.notice_contents.value == "") {
+				alert("내용을 입력해주세요.")
+				theForm.notice_contents.focus();
+				return false;
+			}
+			return true;
+		})
+	})
+</script>
+
+
+
+
+
+
+
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+	// 등록
+		$(".button_bottom_I").on("click", function() {
+			if (fn_valiChk()) {
+				return false;
+			}
+			formObj.attr("action", "${contextPath}/notice/insertNotice.do");
+			formObj.attr("method", "post");
+			formObj.submit();
+
+		})
+
+		// 취소
+		$(".button_bottom_C").on("click", function() {
+			location.href = "${contextPath}/notice/listNotice.do";
+		})
+
+	})
+
+
+------------------------------------------------------------
+
+$(document).ready(function() {
+
+		var notice_category = $("#notice_category option:selected").val();
+
+		if (notice_category == "") {
+			alert("분류를 선택하세요!");
+			$("#notice_category").focus();
+			return;
+		}
+
+		//Validation Check
+		// input 태그는 반드시 val()을 써준다.
+		var notice_title = $("#notice_title").val();
+
+		if (notice_title == "") {
+			alert("제목을 입력하세요!");
+			$("#notice_title").focus();
+			return; // 밑의 내용은 실행이 되지 않는다.
+		}
+
+		var notice_adminID = $("#notice_adminID").val();
+
+		if (notice_adminID == "") {
+			alert("이름을 입력하세요!");
+			$("#notice_adminID").focus();
+			return; // 밑의 내용은 실행이 되지 않는다.
+		}
+
+		var notice_contents = $("#notice_contents").val();
+
+		if (notice_contents == "") {
+			alert("내용을 입력하세요!");
+			$("#notice_contents").focus();
+			return; // 밑의 내용은 실행이 되지 않는다.
+		}
+
+	})
+
+-----------------------------------------------------------------------
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var formObj = $("form[name='writeForm']");
+	$("#write_btn").on("click", function(){
+		if(fn_valiChk()){
+			return false;
+		}
+		formObj.attr("action", "${contextPath}/notice/insertNotice.do");
+		formObj.attr("method", "post");
+		formObj.submit();
+	});
+})
+function fn_valiChk(){
+	var regForm = $("form[name='writeForm'] #chk").length;
+	for(var i = 0; i<regForm; i++){
+		if($("#chk").eq(i).val() == "" || $("#chk").eq(i).val() == null){
+			alert($("#chk").eq(i).attr("title"));
+			return true;
+		}
+	}
+}
+
+---------------------------------------------------------------------------
+
+		mav.setViewName("readNoticeUser");
+			return mav;
+		} else {
+			// 에러 페이지 설정
+			mav.setViewName("error/readNoticeUser");
+			return mav;
+		}
+
+--------------------------------------------------------------------------------
+
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
+
+<c:if test="${noticeListUser.notice_date>=nowday }">
+						<img src="${contextPath}/resources/image/icon/icon_new.PNG"
+								style="width: 28px; height: 15px;">
+
+--------------------------------------------------------------------------------------
+
+			<% 
+					while(rs.next()) {
+						int notice_no = rs.getInt(1);
+						String notice_category = rs.getString(2); 
+						String notice_title = rs.getString(3); 
+						String notice_contents = rs.getString(4);
+						String notice_adminID = rs.getString(5);
+						Date notice_date = rs.getdate(6); 
+						int notice_hit = rs.getInt(7);
+						
+					Date date = new Date(); 
+					SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
+					String year = (String)simpleDate.format(date); 
+					String yea = notice_date.substring(0,10);
+					%>
+					
+					<a href="view.jsp?idx=<%=notice_no%>"><%=notice_title%></a> if(year.equals(yea)){
+
+					<img src='img/new.jpg' /> } %>
+
+---------------------------------------------------------------------------------------
+
+	<c:if test="${noticeListUser.notice_date>=nowday }">
+
+							</c:if>

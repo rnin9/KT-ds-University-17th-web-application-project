@@ -25,9 +25,9 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 	
 	@Override
-	public List selectNoticefixList() throws DataAccessException {
+	public List selectFixNoticeList() throws DataAccessException {
 		List<NoticeVO> noticeList = null;
-		noticeList = sqlSession.selectList("mapper.notice.NoticefixList");
+		noticeList = sqlSession.selectList("mapper.notice.selectFixNoticeList");
 		return noticeList;
 	}
 
@@ -53,8 +53,8 @@ public class NoticeDAOImpl implements NoticeDAO {
 	}
 
 	@Override
-	public void noticeHit(int notice_no) throws DataAccessException {
-		sqlSession.update("mapper.notice.noticeHit", notice_no);
+	public int noticeHit(int notice_no) throws DataAccessException {
+		return sqlSession.update("mapper.notice.noticeHit", notice_no);
 	}
 
 	@Override

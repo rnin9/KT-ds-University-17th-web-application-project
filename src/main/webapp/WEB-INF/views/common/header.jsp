@@ -207,7 +207,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link-admin  dropdown-toggle" href="#"
 						data-toggle="dropdown"> 고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNoticeUser.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
@@ -219,7 +219,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNoticeUser.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>

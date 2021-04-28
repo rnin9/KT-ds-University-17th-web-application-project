@@ -198,7 +198,7 @@ request.setCharacterEncoding("UTF-8");
 
 
 <body>
-	<form name="updateForm" role="form" method="post"
+	<form name="updateForm" role="form" method="post" enctype="multipart/form-data"
 		action="${contextPath}/notice/updateNotice.do">
 		<div class="container">
 			<div class="lnb">
@@ -214,10 +214,9 @@ request.setCharacterEncoding("UTF-8");
 				</ul>
 			</div>
 
-			<input type="hidden" name="notice_no"
-				value="${updateNotice.notice_no}"> <input type="hidden"
-				id="fileNoDel" name="fileNoDel[]" value=""> <input
-				type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
+			<input type="hidden" name="notice_no" value="${updateNotice.notice_no}"> 
+			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
 			<table class="table_notice">
 				<tr>
 					<th>강의분류</th>
@@ -227,12 +226,18 @@ request.setCharacterEncoding("UTF-8");
 								style="margin-right: 50px;" name="notice_category"
 								oninvalid="this.setCustomValidity('분류를 선택해주세요')"
 								oninput="this.setCustomValidity('')" required>
-								<option value="일반"
-									<c:if test="${updateNotice.notice_category eq '일반'}">selected</c:if>>일반</option>
-								<option value="긴급"
-									<c:if test="${updateNotice.notice_category eq '긴급'}">selected</c:if>>긴급</option>
-								<option value="채용예정자"
-									<c:if test="${updateNotice.notice_category eq '채용예정자'}">selected</c:if>>채용예정자</option>
+								<option value="[일반]"
+									<c:if test="${updateNotice.notice_category eq '[일반]'}">selected</c:if>>[일반]</option>
+								<option value="[안내]"
+									<c:if test="${updateNotice.notice_category eq '[안내]'}">selected</c:if>>[안내]</option>
+								<option value="[모집]"
+									<c:if test="${updateNotice.notice_category eq '[모집]'}">selected</c:if>>[모집]</option>
+									<option value="[추가모집]"
+									<c:if test="${updateNotice.notice_category eq '[추가모집]'}">selected</c:if>>[추가모집]</option>
+									<option value="[공지]"
+									<c:if test="${updateNotice.notice_category eq '[공지]'}">selected</c:if>>[공지]</option>
+									<option value="[채용예정자]"
+									<c:if test="${updateNotice.notice_category eq '[채용예정자]'}">selected</c:if>>[채용예정자]</option>
 							</select>
 						</div></td>
 				</tr>
@@ -254,18 +259,20 @@ request.setCharacterEncoding("UTF-8");
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td id="fileIndex"><c:forEach var="file" items="${file}"
-							varStatus="var">
+					<td id="fileIndex">
+					<c:forEach var="file" items="${file}" varStatus="var">
+					
 							<div>
-								<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.NT_FILE_NO}"> 
-								<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="NT_FILE_NO_${var.index}">
+								<input type="hidden" id="NT_FILE_NO" name="NT_FILE_NO_${var.index}" value="${file.NT_FILE_NO}"> 
+								<input type="hidden" id="NT_FILE_NAME" name="NT_FILE_NAME" value="NT_FILE_NO_${var.index}">
 								<a href="#" id="fileName" onclick="return false;">${file.ORG_NT_FILE_NAME}</a>(${file.NT_FILE_SIZE}kb)
 								<button id="fileDel"
 									onclick="fn_del('${file.NT_FILE_NO}','NT_FILE_NO_${var.index}');"
 									type="button">삭제</button>
 								<br>
 							</div>
-						</c:forEach>
+					</c:forEach>
+					
 			</table>
 			<div class="containerLower" style="margin-top: 30px;">
 				<div class="inform">

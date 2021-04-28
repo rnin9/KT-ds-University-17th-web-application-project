@@ -10,6 +10,13 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/listNotice.jsp" />
 	</definition>
+	
+	
+	<definition name="/notice/listNoticeUser" extends="baseLayout">
+		<put-attribute name="title" value="공지유저목록창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/notice/listNoticeUser.jsp" />
+	</definition>
 
 	<definition name="/notice/noticeForm" extends="baseLayout">
 		<put-attribute name="title" value="공지작성창" />
@@ -23,10 +30,18 @@
 			value="/WEB-INF/views/notice/readNotice.jsp" />
 	</definition>
 	
+	<definition name="/notice/readNoticeUser" extends="baseLayout">
+		<put-attribute name="title" value="공지조회창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/notice/readNoticeUser.jsp" />
+	</definition>
+	
 	<definition name="/notice/updateView" extends="baseLayout">
 		<put-attribute name="title" value="공지수정창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/updateView.jsp" />
 	</definition>
+	
+	
 	
 </tiles-definitions>

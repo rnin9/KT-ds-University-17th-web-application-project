@@ -113,6 +113,22 @@ a:link, a:visited, a:hover {
 }
 
 .fileAdd_btn {
+    color: white;
+    background-color: tomato;
+    border-color: rgba(247, 94, 94, 0 .8);
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 	background-color: tomato;
 	float: right;
 	margin-left: 10px;
@@ -228,7 +244,8 @@ a:link, a:visited, a:hover {
 						placeholder="작성자를 입력하세요." name="notice_adminID"
 						id="notice_adminID"
 						oninvalid="this.setCustomValidity('작성자를 입력해주세요')"
-						oninput="this.setCustomValidity('')" required /></td>
+						oninput="this.setCustomValidity('')" required
+						value="${member.userId}" readonly /></td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
@@ -245,10 +262,10 @@ a:link, a:visited, a:hover {
 					oninput="this.setCustomValidity('')" required></textarea>
 			</div>
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom_C" type="button"
-					onclick="history.back()">취소</button>
-				<button class="btn button_bottom_I" type="submit">글쓰기</button>
 				<button class="fileAdd_btn" type="button">파일추가</button>
+				<button class="btn button_bottom_C" type="button" onclick="history.back()">취소</button>
+				<button class="btn button_bottom_I" type="submit">글쓰기</button>
+
 			</div>
 		</div>
 	</form>

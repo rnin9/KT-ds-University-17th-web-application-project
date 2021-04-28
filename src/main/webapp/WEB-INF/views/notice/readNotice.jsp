@@ -103,6 +103,8 @@ a:link, a:visited, a:hover {
 
 </head>
 
+
+
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -220,7 +222,7 @@ a:link, a:visited, a:hover {
 						<!--  	<a href="#"
 								onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;">${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.FILE_NT_SIZE}kb)<br> -->
 					
-							<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
+							<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
 						</c:forEach></td>
 				</tr>
 
@@ -237,8 +239,8 @@ a:link, a:visited, a:hover {
 
 
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button type="submit" class="btn button_bottom_C">취소</button>
-				<button type="submit" class="btn button_bottom_D">삭제</button>
+				<button type="button" class="btn button_bottom_C">취소</button>
+				<button type="button" class="btn button_bottom_D">삭제</button>
 				<button type="submit" class="btn button_bottom_U">수정</button>
 			</div>
 		</div>

@@ -29,23 +29,20 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private FileUtils fileUtils;
 
-	@Override
-	public List<Map<String, Object>> SelectAllList() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.NoticeAllList();
-	}
-	
-	@Override
-	public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.NoticeAllList(pagination);
-	}
 
 	@Override
-	public int testTableCount() throws Exception {
-		// TODO Auto-generated method stub
-		return pageMapper.testTableCountN();
+	public List listNotice() throws Exception {
+		List noticeList = null;
+		noticeList = noticeDAO.selectAllNoticeList();
+		return noticeList;
 	}
+	
+	public List listFixNotice() throws Exception {
+		List noticeList = null;
+		noticeList = noticeDAO.selectFixNoticeList();
+		return noticeList;
+	}
+	
 
 	@Override
 	public void insertNotice(NoticeVO noticeVO, MultipartHttpServletRequest mpRequest) throws Exception {
@@ -60,7 +57,6 @@ public class NoticeServiceImpl implements NoticeService {
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public NoticeVO readNotice(int notice_no) throws DataAccessException {
-		noticeDAO.noticeHit(notice_no);
 		return noticeDAO.readNotice(notice_no);
 
 	}
@@ -94,14 +90,18 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDAO.updateNotice(noticeVO);
 
 		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(noticeVO, files, fileNames, mpRequest);
+
 		Map<String, Object> tempMap = null;
 		int size = list.size();
 		for (int i = 0; i < size; i++) {
 			tempMap = list.get(i);
+			System.out.println(tempMap);
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				noticeDAO.insertFile(tempMap);
+				System.out.println("정복");
 			} else {
 				noticeDAO.updateFile(tempMap);
+
 			}
 		}
 	}
