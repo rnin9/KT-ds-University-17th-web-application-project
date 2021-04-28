@@ -27,13 +27,17 @@ request.setCharacterEncoding("UTF-8");
 
 <style>
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
-	position:relative;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
 	margin-left: 15%;
 }
 
@@ -150,7 +154,7 @@ function modifySyllabus(){
 				<div class="informBox">${syllabusVO.syllabusContent}</div>
 			</div>
 		</div>
-		<div style="margin-top: 50px; padding-bottom: 150px;">
+		<div style="margin-top: 50px;">
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteSyllabus()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"
