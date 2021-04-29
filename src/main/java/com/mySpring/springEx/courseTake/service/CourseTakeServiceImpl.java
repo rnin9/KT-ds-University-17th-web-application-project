@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.courseTake.dao.CourseTakeDAO;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
-
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 

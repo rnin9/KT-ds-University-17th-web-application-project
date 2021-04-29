@@ -61,7 +61,7 @@
 		c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany)
 		order by courseTake_ApplyDate desc]]>
 	</select>
-
+	
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[update course_Take
 			set courseTake_State = '승인'

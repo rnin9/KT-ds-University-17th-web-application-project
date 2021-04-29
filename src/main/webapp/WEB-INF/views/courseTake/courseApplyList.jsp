@@ -258,17 +258,26 @@ $(document).ready(function(){
 	        data : {
 	            valueArr : valueArr
 	        },
-	        success : function(courseTakeState){
-	            console.log(courseTakeState)
-	            window.location.reload();
+	        success : function(data){
+	        	console.log("success");
+	        	console.log(data.ox1);
+	        	
+	            if(data.ox1 == 'x'){
+	          	     Swal.fire('승인대기상태만 체크해주세요','','warning')
+	          	}else{
+	          	    Swal.fire('승인처리되었습니다.','','success').then(()=>{
+	          	    	window.location.reload();
+	   			     })
+	          	}
+	            
 	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
 	        },
-	        error : function(courseTakeState) { 
-	        	console.log(courseTakeState)
+	        error : function(data) { 
 	            console.log("fail");
 	        }
+      
 	    })
-      }
+      } 
    };
 </script>
 
@@ -296,7 +305,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox2);
+               
+               if(data.ox2 == 'x'){
+         	     	Swal.fire('승인상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('승인대기처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 
@@ -333,7 +350,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox3);
+               
+               if(data.ox3 == 'x'){
+         	     	Swal.fire('수료대기상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('수료처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 

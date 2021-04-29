@@ -56,34 +56,61 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 
 	// Ω¬¿Œ¥Î±‚->Ω¬¿Œ¿∏∑Œ update
 
+//	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
+//	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
+//		@RequestParam List<String> valueArr) throws Exception {
+//		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+//		
+//		for (int i = 0; i < valueArr.size(); i++) {
+//			String arr[] = valueArr.get(i).split(" ");
+//			courseTakeVO.setUserID(arr[0]);
+//			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+//			courseTakeVO.setCourseTake_State(arr[2]);
+//
+//			courseTakeService.updateApplyConsent(courseTakeVO);
+//			courseTakeService.updatePosition1(courseTakeVO);
+//			
+//			System.out.println(courseTakeVO);
+//			System.out.println(courseTakeVO.getCourseTake_State());
+//		}
+//		return mav;
+//	}
+	
 	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 		@RequestParam List<String> valueArr) throws Exception {
-		ModelAndView mav = new ModelAndView("/courseTake/updateConsentCheck");
-		List<HashMap<String, Object>> courseTakeState = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> courseTakeStateH = new HashMap<String, Object>();
-
+		
+		List<String> TF = new ArrayList<String>();
+		String ox1 = "o";
+		
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			courseTakeVO.setUserID(arr[0]);
-			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-			courseTakeVO.setCourseTake_State(arr[2]);
-
-			courseTakeService.updateApplyConsent(courseTakeVO);
-			courseTakeService.updatePosition1(courseTakeVO);
-			
-			System.out.println(courseTakeVO);
-			System.out.println(courseTakeVO.getCourseTake_State());
-			
-			courseTakeStateH.put(String.valueOf(i), courseTakeVO);
-			courseTakeState.add(courseTakeStateH);
+			TF.add(arr[2]);			
 		}
 		
-		System.out.println(courseTakeState);
-		mav.addObject("courseTakeState",courseTakeState);
+		for(int i=0; i<TF.size(); i++) {
+			if(!TF.get(i).equals("Ω¬¿Œ¥Î±‚")){
+				ox1 = "x";
+			}
+		}
+		
+		if(ox1=="o") {
+			for (int i = 0; i < valueArr.size(); i++) {
+				String arr[] = valueArr.get(i).split(" ");
+				courseTakeVO.setUserID(arr[0]);
+				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+				
+				courseTakeService.updateApplyConsent(courseTakeVO);
+				courseTakeService.updatePosition1(courseTakeVO);	
+			}
+		}
+		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		
+		mav.addObject("ox1", ox1);
+		
 		mav.setViewName("jsonView");
+		
 		return mav;
-
 	}
 	
 	// Ω¬¿Œ->Ω¬¿Œ¥Î±‚∑Œ update
@@ -91,17 +118,35 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/updateConsentCancelCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsentCancel(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
-
+		
+		List<String> TF = new ArrayList<String>();
+		String ox2 = "o";
+		
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			courseTakeVO.setUserID(arr[0]);
-			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-			courseTakeVO.setCourseTake_State(arr[2]);
-			courseTakeService.updateApplyConsentCancel(courseTakeVO);
-			courseTakeService.updatePosition2(courseTakeVO);
+			TF.add(arr[2]);			
+		}
+		
+		for(int i=0; i<TF.size(); i++) {
+			if(!TF.get(i).equals("Ω¬¿Œ")){
+				ox2 = "x";
+			}
+		}
+		
+		if(ox2=="o") {
+			for (int i = 0; i < valueArr.size(); i++) {
+				String arr[] = valueArr.get(i).split(" ");
+				courseTakeVO.setUserID(arr[0]);
+				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+				
+				courseTakeService.updateApplyConsentCancel(courseTakeVO);
+				courseTakeService.updatePosition2(courseTakeVO);	
+			}
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		mav.addObject("ox2", ox2);
+		mav.setViewName("jsonView");
 		return mav;
 
 	}
@@ -110,18 +155,35 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/updateCompletionCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateCompletion(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
-
+		
+		List<String> TF = new ArrayList<String>();
+		String ox3 = "o";
+		
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			courseTakeVO.setUserID(arr[0]);
-			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-			courseTakeVO.setCourseTake_State(arr[2]);
-			courseTakeService.updateCompletion(courseTakeVO);
+			TF.add(arr[2]);			
+		}
+		
+		for(int i=0; i<TF.size(); i++) {
+			if(!TF.get(i).equals("ºˆ∑·¥Î±‚")){
+				ox3 = "x";
+			}
+		}
+		
+		if(ox3=="o") {
+			for (int i = 0; i < valueArr.size(); i++) {
+				String arr[] = valueArr.get(i).split(" ");
+				courseTakeVO.setUserID(arr[0]);
+				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+				
+				courseTakeService.updateCompletion(courseTakeVO);	
+			}
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+		mav.addObject("ox3", ox3);
+		mav.setViewName("jsonView");
 		return mav;
-
 	}
 
 	// «‡ ªË¡¶
