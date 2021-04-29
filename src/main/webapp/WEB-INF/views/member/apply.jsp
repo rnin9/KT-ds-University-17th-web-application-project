@@ -23,8 +23,12 @@
 
             // Color setting by support status
             $("span:contains('진행중')").css({color: "limegreen"});
-            $("span:contains('불합격')").css({color: "blue"});
-            $("span:contains('합격   ')").css({color: "red"});
+            $("span:contains('불합격')").css({color: "red"});
+            $("span:contains('합격   ')").css({color: "blue"});
+
+            $("span:contains('대기')").css({color: "limegreen"});
+            $("span:contains('수락')").css({color: "blue"});
+            $("span:contains('거절')").css({color: "red"});
 
             // Preserve tab state after refresh
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
@@ -636,7 +640,7 @@
                                     <td>${suggestion.partnerName}</td>
                                     <td>${suggestion.suggestionTitle}</td>
                                     <td>${fn:substring(suggestion.suggestionDate, 0, 11)}</td>
-                                    <td>${suggestion.acception}</td>
+                                    <td><span>${suggestion.acception}</span></td>
                                 </tr>
                             </c:forEach>
                             </tbody>
