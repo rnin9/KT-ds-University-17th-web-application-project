@@ -11,7 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" type="text/css"
+ <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/university/UniversityConsortium.css" />
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/layout.css" />
@@ -31,30 +31,6 @@ request.setCharacterEncoding("UTF-8");
 	background-repeat: no-repeat;
 }
 
-.main-intro {
-	display: flex;
-	margin: 60px;
-	justify-content: center;
-}
-
-.intro-explain {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	font-family: Chosunilbo_myungjo;
-	margin-right: 20px
-}
-
-.intro-explain>p {
-	max-width: 453px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.intro-explain>p>span {
-	border-bottom: 1px solid #000;
-	padding-bottom: 1px;
-}
 
 .pageIntro {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -66,15 +42,6 @@ request.setCharacterEncoding("UTF-8");
 		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
 		no-repeat;
 	background-repeat: no-repeat;
-}
-
-.intro-explain>h2, .intro-explain>h3 {
-	font-family: 'Wemakeprice-Bold';
-	text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -3px 20px
-		rgba(255, 255, 255, 0.4);
-	margin-bottom: 5px;
-	font-style: italic;
-	color: darkslategray;
 }
 
 .introImage {
@@ -94,34 +61,24 @@ request.setCharacterEncoding("UTF-8");
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
-	width: 80%;
+	width: 64%;
 }
 
-.lnb>ul {
-	list-style: none;
-	padding: 0;
-	text-align: left;
-}
 
-.lnb>ul>li {
-	display: inline-block;
-	margin-left: 9px;
-	padding-left: 15px;
-	margin-left: 9px;
-}
 .card {
   background: #fff;
   border-radius: 2px;
   display: inline-block;
-  height: 390px;
+  height: 90%;
   margin: 1rem;
   position: relative;
-  width: 300px;
+  width: 40%;
 }
 .card-2 {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   text-align : center;
 }
+
 <c:choose>
 		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
 @media screen and (max-width: 719px) {
@@ -168,7 +125,7 @@ $(document).ready(function() {
 
 });
 </script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
@@ -193,25 +150,25 @@ $(document).ready(function() {
 		<br>
 		<br>
 		<div class="main-intro-image">
-		<img class="first-image" width="60%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-intro.png" />
+		<img class="first-image" width="80%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-intro.png" />
 		</div>
 		<br>
 		<br>
 		<br>
 		<div class="consortium-gujo">
-		<img class="gujo-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-gujo.png" />
+		<img class="gujo-image" width="80%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-gujo.png" />
 		</div>
 		<br>
 		<br>
 		<br>
 		<div class="consortium-studygujo">
-		<img class="studygujo-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studygujo.png" />
+		<img class="studygujo-image" width="80%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studygujo.png" />
 		</div>
 		<br>
 		<br>
 		<br>
 		<div class="consortium-studysinchung">
-		<img class="studysinchung-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studysinchung.png" />
+		<img class="studysinchung-image" width="80%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studysinchung.png" />
 		</div>
 		<br>
 		<br>
@@ -220,14 +177,14 @@ $(document).ready(function() {
 		<div class="card card-2" >
 		<br>
 		<h5><span style="color:rgb(238,28,36);">교육 시간</span></h5>
-		<img class="studytime-image" width="80%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
+		<img class="studytime-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
 		<br>
 		</div>
 		
 		<div class="card card-2">
 		<br>
 		<h5><span style="color:rgb(238,28,36);">연락처</span></h5>
-		<img class="address-image" width="80%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
+		<img class="address-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
 		<br>
 		</div>
 		<br>

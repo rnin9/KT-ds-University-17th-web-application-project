@@ -63,10 +63,10 @@ request.setCharacterEncoding("UTF-8");
 								관리</a></li>
 					</ul>
 
-					<li><a href="#" style="margin-right: 20px;"> <i
+					<li><a href="${contextPath}/notice/listNotice.do" style="margin-right: 20px;"> <i
 							class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항
 					</a></li>
-					<li><a href="#" style="margin-right: 20px;"> <i
+					<li><a href="${contextPath}/question/listQuestion.do" style="margin-right: 20px;"> <i
 							class="fas fa-question-circle" style="margin-right: 4px;"></i>
 							Q&A
 					</a></li>

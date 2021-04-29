@@ -63,7 +63,15 @@ request.setCharacterEncoding("UTF-8");
 	float:right;
 	margin-right : 10px;
 	}
-	
+	.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
 	 
 
     </style>
