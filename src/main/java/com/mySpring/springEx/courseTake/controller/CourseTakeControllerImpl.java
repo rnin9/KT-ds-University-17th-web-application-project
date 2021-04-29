@@ -1,5 +1,7 @@
 package com.mySpring.springEx.courseTake.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,16 +58,30 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 
 	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
-			@RequestParam List<String> valueArr) throws Exception {
+		@RequestParam List<String> valueArr) throws Exception {
+		ModelAndView mav = new ModelAndView("/courseTake/updateConsentCheck");
+		List<HashMap<String, Object>> courseTakeState = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> courseTakeStateH = new HashMap<String, Object>();
 
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-			courseTakeService.updateApplyConsent(courseTakeVO);
-		}
+			courseTakeVO.setCourseTake_State(arr[2]);
 
-		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
+			courseTakeService.updateApplyConsent(courseTakeVO);
+			courseTakeService.updatePosition1(courseTakeVO);
+			
+			System.out.println(courseTakeVO);
+			System.out.println(courseTakeVO.getCourseTake_State());
+			
+			courseTakeStateH.put(String.valueOf(i), courseTakeVO);
+			courseTakeState.add(courseTakeStateH);
+		}
+		
+		System.out.println(courseTakeState);
+		mav.addObject("courseTakeState",courseTakeState);
+		mav.setViewName("jsonView");
 		return mav;
 
 	}
@@ -80,7 +96,9 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			courseTakeVO.setCourseTake_State(arr[2]);
 			courseTakeService.updateApplyConsentCancel(courseTakeVO);
+			courseTakeService.updatePosition2(courseTakeVO);
 		}
 
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
@@ -97,6 +115,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 			String arr[] = valueArr.get(i).split(" ");
 			courseTakeVO.setUserID(arr[0]);
 			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
+			courseTakeVO.setCourseTake_State(arr[2]);
 			courseTakeService.updateCompletion(courseTakeVO);
 		}
 
@@ -126,6 +145,7 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userName"));
 		return mav;
 	}
 

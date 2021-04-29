@@ -88,15 +88,15 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 수료증 페이지
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userBirthday"));
 		return mav;
 	}
 
-	// list all recruitments
+	// list all recruitments, suggestions
 	@Override
 	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
@@ -104,9 +104,11 @@ public class MemberControllerImpl implements MemberController {
 		String viewName = (String) request.getAttribute("viewName");
 		List recruitsList = memberService.listRecruitments();
 		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
+		List<HashMap<String, String>> suggestionList = memberService.listSuggestions(member.getUserId());
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("applicationList", applicationList);
 		mav.addObject("recruitsList", recruitsList);
+		mav.addObject("suggestionList", suggestionList);
 		return mav;
 	}
 
@@ -125,6 +127,38 @@ public class MemberControllerImpl implements MemberController {
 	public void deleteApplication(@RequestBody Map<String, String> body, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	// update userDeletion
+	@Override
+	@RequestMapping(value = {"/member/deleteSuggestion.do"}, method = RequestMethod.POST)
+	public void deleteSuggestion(@RequestParam List<String> valueArr ,HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		String userID = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			System.out.println(valueArr.get(i)+"----------"+ userID);
+			memberService.deleteSuggestion(valueArr.get(i), userID);
+		}
+	}
+
+	// update partner_suggestion acception accept
+	@Override
+	@RequestMapping(value = { "/member/acceptSuggestion.do" }, method = { RequestMethod.POST })
+	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
+	}
+
+	// update partner_suggestion acception reject
+	@Override
+	@RequestMapping(value = { "/member/rejectSuggestion.do" }, method = { RequestMethod.POST })
+	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
@@ -212,9 +246,11 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(member);
+			memberVO = memberService.login(member);
+					
+		if ( (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) ||
+				(memberVO != null && memberVO.getUserPosition().equals("ADMIN"))) {
 
-		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
@@ -223,6 +259,7 @@ public class MemberControllerImpl implements MemberController {
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.addObject("partner", partnerVO);
+			mav.addObject("url", request.getServletPath());
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =

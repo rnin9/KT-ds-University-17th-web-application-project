@@ -525,7 +525,7 @@ hr {
 							if (result == 1) {
 								$("#id_check").html("중복된 아이디가 있습니다.");
 								$("#joinBtn").attr("disabled", "disabled");
-							}else {
+							} else {
 								if($("#id").val()==""){
 									$("#id_check").html("필수 항목입니다.");
 									$("#joinBtn").attr("disabled", "disabled");
@@ -670,7 +670,7 @@ hr {
 						<label class="title">과정구분</label>
 						<div id="toggle3">
 							<input type="radio" id="position1" name="userPosition"
-								value="채용예정자"> <label for="position1">채용예정자과정</label> <input
+								value="일반회원"> <label for="position1">채용예정자</label> <input
 								type="radio" id="position2" name="userPosition" value="재직자">
 							<label for="position2">재직자과정</label>
 

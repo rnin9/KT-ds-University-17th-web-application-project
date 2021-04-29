@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,12 +32,12 @@ request.setCharacterEncoding("UTF-8");
 
 		$.extend($.fn.dataTable.defaults, {
 			ordering : false
-			
+
 		});
 
 		$('#adminListQuestion').DataTable({
 			dom : 'lfrtp',
-			
+
 			language : {
 				info : '총 _TOTAL_ 개의 질문 중 _START_번 부터 _END_번',
 				infoEmpty : '데이터가 없습니다.',
@@ -61,7 +62,7 @@ request.setCharacterEncoding("UTF-8");
 </script>
 <title>목록창</title>
 <style>
-.dataTables_length{
+.dataTables_length {
 	transform: translateY(100%);
 }
 
@@ -97,7 +98,7 @@ div.table {
 
 			</ul>
 		</div>
-	
+
 		<div class="table">
 			<table id="adminListQuestion" class="display">
 
@@ -145,8 +146,8 @@ div.table {
 							</a>
 							<td><a
 								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:if
-										test="${question.question_del_YN == 'Y'}">비공개</c:if>
-									<c:if test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
+										test="${question.question_del_YN == 'Y'}">비공개</c:if> <c:if
+										test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
 
 
 

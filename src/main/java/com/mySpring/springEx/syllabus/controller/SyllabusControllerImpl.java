@@ -21,75 +21,78 @@ import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Controller("syllabusController")
 public class SyllabusControllerImpl implements SyllabusController {
-   @Autowired
-   private SyllabusService syllabusService;
-   
-   @Autowired
-   SyllabusVO syllabusVO;
-   
-   //°­ÀÇ°èÈ¹¼­ ¸®½ºÆ®¸¦ º¸¿©ÁÜ
-   @Override
-   @RequestMapping(value="/syllabus/syllabusList.do", method=RequestMethod.GET)
-   public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception{
-      String viewName = (String)request.getAttribute("viewName");
-      List syllabusList = syllabusService.syllabusList();
-      ModelAndView mav = new ModelAndView(viewName);
-      mav.addObject("syllabusList", syllabusList);
-      return mav;
-   }
-   
-   //¼±ÅÃÇÑ °­ÀÇ°èÈ¹¼® Á¤º¸¸¦ º¸¿©ÁÜ
-   @Override
-   @RequestMapping(value="/syllabus/selectSyllabus.do", method=RequestMethod.GET)
-   public ModelAndView selectSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request, HttpServletResponse response) throws Exception {
-      request.setCharacterEncoding("utf-8");
-      String viewName = (String)request.getAttribute("viewName");
-      ModelAndView mav = new ModelAndView();
-      mav.setViewName(viewName);
-      SyllabusVO syllabusVO= syllabusService.selectSyllabus(syllabusID);
-      mav.addObject("syllabusVO",syllabusVO);
-      return mav;
-   }
-   
-   //°­ÀÇ°èÈ¹¼­ µî·ÏÇÏ´Â Æû
-   @RequestMapping(value="/syllabus/syllabusForm.do", method =  RequestMethod.GET)
-   private ModelAndView form(@RequestParam(value= "result", required=false) String result,
-                       @RequestParam(value= "action", required=false) String action,
-                       HttpServletRequest request, 
-                       HttpServletResponse response) throws Exception {
-         
-      String viewName = (String)request.getAttribute("viewName");
-      System.out.println(viewName);
-      HttpSession session = request.getSession();
-      session.setAttribute("action", action);  
-      ModelAndView mav = new ModelAndView();
-      mav.addObject("result",result);
-      mav.setViewName(viewName);
-      return mav;
-   }
-   
-   //°­ÀÇ°èÈ¹¼­ µî·Ï
-   @Override
-   @RequestMapping(value="/syllabus/insertSyllabus.do", method=RequestMethod.POST)
-   public ModelAndView insertSyllabus(@ModelAttribute("syllabus") SyllabusVO syllabusVO,HttpServletRequest request, HttpServletResponse response) throws Exception{
-      request.setCharacterEncoding("utf-8");
+	@Autowired
+	private SyllabusService syllabusService;
+
+	@Autowired
+	SyllabusVO syllabusVO;
+
+	// ï¿½ï¿½ï¿½Ç°ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@Override
+	@RequestMapping(value = "/syllabus/syllabusList.do", method = RequestMethod.GET)
+	public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List syllabusList = syllabusService.syllabusList();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("syllabusList", syllabusList);
+		return mav;
+	}
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç°ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@Override
+	@RequestMapping(value = "/syllabus/selectSyllabus.do", method = RequestMethod.GET)
+	public ModelAndView selectSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		SyllabusVO syllabusVO = syllabusService.selectSyllabus(syllabusID);
+		mav.addObject("syllabusVO", syllabusVO);
+		return mav;
+	}
+
+	// ï¿½ï¿½ï¿½Ç°ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½
+	@RequestMapping(value = "/syllabus/syllabusForm.do", method = RequestMethod.GET)
+	private ModelAndView form(@RequestParam(value = "result", required = false) String result,
+			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String viewName = (String) request.getAttribute("viewName");
+		System.out.println(viewName);
+		HttpSession session = request.getSession();
+		session.setAttribute("action", action);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
+		mav.setViewName(viewName);
+		return mav;
+	}
+
+	// ï¿½ï¿½ï¿½Ç°ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½
+	@Override
+	@RequestMapping(value = "/syllabus/insertSyllabus.do", method = RequestMethod.POST)
+	public ModelAndView insertSyllabus(@ModelAttribute("syllabus") SyllabusVO syllabusVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
 //      List courseList = courseInformationService.courseList();
-      syllabusVO.setSyllabusCategory2(syllabusVO.getSyllabusCategory2().replace("chr(38)", "&"));
-      syllabusVO.setSyllabusOutline(syllabusVO.getSyllabusOutline().replace("\r\n", "<br>").replace(" ","&nbsp;"));
-      syllabusVO.setSyllabusPurpose(syllabusVO.getSyllabusPurpose().replace("\r\n", "<br>").replace(" ","&nbsp;"));
-      syllabusVO.setSyllabusTarget(syllabusVO.getSyllabusTarget().replace("\r\n", "<br>").replace(" ","&nbsp;"));
-      syllabusVO.setSyllabusContent(syllabusVO.getSyllabusContent().replace("\r\n", "<br>").replace(" ","&nbsp;"));
-      int result=0;
-      result = syllabusService.insertSyllabus(syllabusVO);
-      ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
+		syllabusVO.setSyllabusCategory2(syllabusVO.getSyllabusCategory2().replace("chr(38)", "&"));
+		syllabusVO.setSyllabusOutline(syllabusVO.getSyllabusOutline().replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		syllabusVO.setSyllabusPurpose(syllabusVO.getSyllabusPurpose().replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		syllabusVO.setSyllabusTarget(syllabusVO.getSyllabusTarget().replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		syllabusVO.setSyllabusContent(syllabusVO.getSyllabusContent().replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		int result = 0;
+		result = syllabusService.insertSyllabus(syllabusVO);
+		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
 //      mav.addObject("courseList", courseList);
+
       return mav;
    }
    
    @Override
-   @RequestMapping(value="/syllabus/deleteSyllabus.do" ,method = RequestMethod.GET)
+   @RequestMapping(value="/syllabus/deleteSyllabus.do" ,method = RequestMethod.POST)
    public ModelAndView deleteSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request, HttpServletResponse response) throws Exception{
       request.setCharacterEncoding("utf-8");
+      System.out.println("-----------------------------------------"+syllabusID);
       syllabusService.deleteSyllabus(syllabusID);
       ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
       return mav;
@@ -103,6 +106,10 @@ public class SyllabusControllerImpl implements SyllabusController {
       ModelAndView mav = new ModelAndView();
       mav.setViewName(viewName);
       SyllabusVO syllabusVO = syllabusService.selectSyllabus(syllabusID);
+      syllabusVO.setSyllabusOutline(syllabusVO.getSyllabusOutline().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusPurpose(syllabusVO.getSyllabusPurpose().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusTarget(syllabusVO.getSyllabusTarget().replace("<br>", "\r\n"));
+      syllabusVO.setSyllabusContent(syllabusVO.getSyllabusContent().replace("<br>", "\r\n"));
       mav.addObject("syllabusVO", syllabusVO);
       return mav;
    }
@@ -130,6 +137,4 @@ public class SyllabusControllerImpl implements SyllabusController {
       ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
       return mav;
    }
-
-
 }

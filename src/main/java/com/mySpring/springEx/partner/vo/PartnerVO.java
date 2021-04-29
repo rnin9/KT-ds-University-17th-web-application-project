@@ -3,29 +3,41 @@ package com.mySpring.springEx.partner.vo;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import com.mySpring.springEx.application.vo.ApplicationVO;
 
 @Component("partnerVO")
 public class PartnerVO {
-	private String partnerLicenseNum;           /*Çù·Â»ç »ç¾÷ÀÚ¹øÈ£*/
-	private String partnerState;              /*Çù¾à »óÅÂ*/
-	private String partnerName;                   /*Çù·Â»ç ¸í*/
-	private String partnerInformation;            /*°£´ÜÇÑ È¸»ç Á¤º¸*/
-	private String partnerAddress;                /*Çù·Â»ç ÁÖ¼Ò*/
-	private String partnerPhoneNumber;            /*Çù·Â»ç ÀüÈ­¹øÈ£*/
-	private String partnerEmail;                  /*Çù·Â»ç ÀÌ¸ŞÀÏ*/
-	private String partnerCEO;                    /*Çù·Â»ç ´ëÇ¥¸í*/
-	private int partnerHeadCount;                 /*ÀÎ¿ø ±Ô¸ğ*/
-	private String partnerApplyYN;              /*Áö¿ø °¡´É ¿©ºÎ*/
-	private String partnerApplyFinishDate;          /*¸ğÁı ¸¶°¨ ³¯Â¥*/
-	private String partnerURL;                    /*È¸»ç È¨ÆäÀÌÁö*/
-	private String partnerRegisterDate;           /*µî·Ï³¯Â¥*/
+	private String partnerLicenseNum;           /*í˜‘ë ¥ì‚¬ ì‚¬ì—…ìë²ˆí˜¸*/
+	private String partnerState;              /*í˜‘ì•½ ìƒíƒœ*/
+	private String partnerName;                   /*í˜‘ë ¥ì‚¬ ëª…*/
+	private String partnerInformation;            /*ê°„ë‹¨í•œ íšŒì‚¬ ì •ë³´*/
+	private String partnerAddress;                /*í˜‘ë ¥ì‚¬ ì£¼ì†Œ*/
+	private String partnerPhoneNumber;            /*í˜‘ë ¥ì‚¬ ì „í™”ë²ˆí˜¸*/
+	private String partnerEmail;                  /*í˜‘ë ¥ì‚¬ ì´ë©”ì¼*/
+	private String partnerCEO;                    /*í˜‘ë ¥ì‚¬ ëŒ€í‘œëª…*/
+	private int partnerHeadCount;                 /*ì¸ì› ê·œëª¨*/
+	private String partnerApplyYN;              /*ì§€ì› ê°€ëŠ¥ ì—¬ë¶€*/
+	private String partnerApplyFinishDate;          /*ëª¨ì§‘ ë§ˆê° ë‚ ì§œ*/
+	private String partnerURL;                    /*íšŒì‚¬ í™ˆí˜ì´ì§€*/
+	private String partnerRegisterDate;           /*ë“±ë¡ë‚ ì§œ*/
+	private ApplicationVO applicationVO;
+	private String partnerApplyUserID;
+	private String partnerIndustryType;			 /*ì—…ì¢…*/
 
+
+	public String getPartnerIndustryType() {
+		return partnerIndustryType;
+	}
+
+	public void setPartnerIndustryType(String partnerIndustryType) {
+		this.partnerIndustryType = partnerIndustryType;
+	}
 
 	public PartnerVO(){
 
 	}
 
-	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate){
+	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate, String partnerApplyUserID, ApplicationVO applicationVO){
 		this.partnerLicenseNum = partnerLicenseNum;
 		this.partnerName = partnerName;
 		this.partnerInformation = partnerInformation;
@@ -37,8 +49,9 @@ public class PartnerVO {
 		this.partnerApplyYN = partnerApplyYN;
 		this.partnerURL = partnerURL;
 		this.partnerApplyFinishDate = partnerApplyFinishDate;
-		this.partnerRegisterDate = partnerRegisterDate;
-
+		this.partnerRegisterDate = partnerRegisterDate ;
+		this.applicationVO = applicationVO;
+		this.partnerApplyUserID = partnerApplyUserID;
 
 	}
 
@@ -143,6 +156,22 @@ public class PartnerVO {
 
 	public void setPartnerRegisterDate(String partnerRegisterDate) {
 		this.partnerRegisterDate = partnerRegisterDate;
+	}
+
+	public String getPartnerApplyUserID() {
+		return partnerApplyUserID;
+	}
+
+	public void setPartnerApplyUserID(String partnerApplyUserID) {
+		this.partnerApplyUserID = partnerApplyUserID;
+	}
+
+	public ApplicationVO getApplicationVO() {
+		return applicationVO;
+	}
+
+	public void setApplicationVO(ApplicationVO applicationVO) {
+		this.applicationVO = applicationVO;
 	}
 
 }

@@ -10,8 +10,6 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    
-	
 	<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
@@ -113,7 +111,6 @@
         <button type="submit" class="btn btn-outline-danger">질문 등록</button>
         <button type="button" class="btn btn-outline-danger" onclick="history.back()">취소</button>
     </form>
-
 
 </div>
 

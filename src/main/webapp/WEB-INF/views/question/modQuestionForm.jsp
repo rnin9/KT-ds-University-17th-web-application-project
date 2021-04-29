@@ -159,10 +159,3 @@
 </html>
 </c:otherwise>
 </c:choose>
-
-
-
-
-
-
-

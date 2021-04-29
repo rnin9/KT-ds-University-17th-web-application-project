@@ -228,8 +228,7 @@
     		transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     	}
     </style>
-    <script src="https://unpkg.com/sweetalert/dist/sweeta;ert.min.js">></script>
-    
+
   <script type="text/javascript">
                var result = '${msg}';
                var name = '${partnerName}'

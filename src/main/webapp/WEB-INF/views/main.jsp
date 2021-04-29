@@ -15,6 +15,12 @@ request.setCharacterEncoding("UTF-8");
 @import
 	url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap')
 	;
+
+.carousel-indicators>li {
+	border-radius: 50%;
+	width: 9px;
+	height: 8px;
+}
 </style>
 
 <style type="text/css">
@@ -193,10 +199,8 @@ request.setCharacterEncoding("UTF-8");
 	<div class="notice">
 		<h3>공지사항</h3>
 		<ul class="rolling">
-			<li><a href="#"> 수찬 반장 당선</a></li>
-			<li><a href="#"> (NEW) 와사비 치킨마요 핫해</a></li>
-			<li><a href="#"> 프로젝트 준비필요사항 </a></li>
-			<li><a href="#"> 공지사항 4입니다</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227"> [공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222"> [공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
 		</ul>
 
 	</div>
@@ -212,7 +216,6 @@ request.setCharacterEncoding("UTF-8");
 					<h5 class="card-title">채용예정자 과정</h5>
 					<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액
 						무료의 KT ds University의 교육과정입니다.</p>
-
 				</div>
 			</a>
 		</div>
@@ -229,15 +232,14 @@ request.setCharacterEncoding("UTF-8");
 			</a>
 		</div>
 		<div class="card">
-			<a href="${contextPath}/location.do">
-			<img class="card-img-top"
+			<a href="${contextPath}/location.do"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/sub_visual/universityIntroduce.jpg"
 				alt="Card image cap">
-			<div class="card-body">
-				<h5 class="card-title">교육장 안내</h5>
-				<p class="card-text">국내 최고수준의 전문강사진과 신규시설 및 최신장비의 인프라, KT ds의
-					교육장소를 소개합니다.</p>
-			</div>
+				<div class="card-body">
+					<h5 class="card-title">교육장 안내</h5>
+					<p class="card-text">국내 최고수준의 전문강사진과 신규시설 및 최신장비의 인프라, KT ds의
+						교육장소를 소개합니다.</p>
+				</div>
 			</a>
 		</div>
 	</div>
