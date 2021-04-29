@@ -137,14 +137,4 @@ public class SyllabusControllerImpl implements SyllabusController {
       ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
       return mav;
    }
-  
-	@RequestMapping(value = "/syllabus/deleteCheck.do", method = RequestMethod.POST)
-	public ModelAndView deleteCheck(@RequestParam List<Integer> valueArr) {
-		for (int i = 0; i < valueArr.size(); i++) {
-			syllabusService.deleteSyllabus(valueArr.get(i));
-		}
-		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
-		return mav;
-	}
-
 }
