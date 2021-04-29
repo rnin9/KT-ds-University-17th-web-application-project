@@ -21,6 +21,7 @@
     <style type="text/css">
         textarea {
             resize: none;
+            line-height : 1.6;
         }
         .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -48,23 +49,20 @@
  	.mb-3 row {
  	padding-bottom : 15px;
  	}
- 	#questionContent {
- 	padding-top : 10px;
- 	padiing-bottom : 20px;
- 	text-align : left;
- 	}
+ 	
  	#Title{
  	padding-bottom : 10px;
  	}
  	button{
- 	padding-top : 10px;
+ 	padding-top : 30px;
+ 	margin-left : 10px;
  	}
     </style>
 </head>
 
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">1 : 1 문의</span>
+		<span style="color: white;"></span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -92,6 +90,9 @@
             </div>
         </div>
         
+        <div class="mb-3 row" id = "questionType">
+            <label for="questionTitle" class="col-sm-2 col-form-label">질문 분류</label>
+            <div class="col-sm-10">
         <select class="form-select" id="select" id="questionType" name="questionType" aria-label="Default select example" required>
             <option value="">질문 분류</option>
             <option value="재직자 향상 과정">재직자 향상 과정</option>
@@ -99,11 +100,16 @@
             <option value="협약 관련">협약 관련</option>
             <option value="기타">기타</option>
         </select>
+        </div>
+        </div>
         
-        <div class="mb-3" id="questionContent">
-            <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">질문 내용</label>
+        <div class="mb-3 row" id = "questionContent">
+            <label for="questionContent" class="col-sm-2 col-form-label">질문 내용</label>
+            <div class="col-sm-10">
             <textarea class="form-control" id="questionContent" name="questionContent" rows="7" required placeholder="질문 내용을 입력해주세요"></textarea>
         </div>
+        </div>
+        <br>
         <button type="submit" class="btn btn-outline-danger">질문 등록</button>
         <button type="button" class="btn btn-outline-danger" onclick="history.back()">취소</button>
     </form>

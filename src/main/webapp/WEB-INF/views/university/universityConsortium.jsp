@@ -9,6 +9,8 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/university/UniversityConsortium.css" />
 <link rel="stylesheet" type="text/css"
@@ -107,11 +109,71 @@ request.setCharacterEncoding("UTF-8");
 	padding-left: 15px;
 	margin-left: 9px;
 }
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 390px;
+  margin: 1rem;
+  position: relative;
+  width: 300px;
+}
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  text-align : center;
+}
+<c:choose>
+		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
+@media screen and (max-width: 719px) {
+    #floatMenu {
+    display :none;
+    }
+}
+
+
+
+#floatMenu {
+	position: absolute;
+	width: 160px;
+	height: 200px;
+	left: 80%;
+	top: 500px;
+	background-color: white;
+	color: #fff;
+}
+</c:when>
+</c:choose>
 </style>
+<script>
+$(document).ready(function() {
+
+	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+	var floatPosition = parseInt($("#floatMenu").css('top'));
+	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+	$(window).scroll(function() {
+		// 현재 스크롤 위치를 가져온다.
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+
+		/* 애니메이션 없이 바로 따라감
+		 $("#floatMenu").css('top', newPosition);
+		 */
+
+		$("#floatMenu").stop().animate({
+			"top" : newPosition
+		}, 500);
+
+	}).scroll();
+
+});
+</script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">컨소시엄</span>
+		<span style="color: white;"></span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -124,49 +186,63 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">컨소시엄</div>
+		<div class="pageIntro">컨소시엄 소개</div>
 
 		<!-- 사업 소개 -->
-
-		<div class="main-intro">
-			<dl>
-				<dt>대상기업</dt>
-				<dd>고용보험이 적용되는 중소기업 또는 우선지원대상기업 (제조업 500인 이하)</dd>
-				<dt>대상자</dt>
-				<dd>상기 기업에 재직중인 임직원 (고용보험 가입자)</dd>
-				<dt>제출서류</dt>
-				<dd>-국가인적자원개발 컨소시엄 협약서(1회 체결시 1년 지속)</dd>
-				<dt></dt>
-				<dd>-국가인적자원개발 컨소시엄 협약서(1회 체결시 1년 지속)</dd>
-				<dt>본사</dt>
-				<dd>(06707) 서울 서초구 효령로 176</dd>
-				<dt>대표전화</dt>
-				<dd>02-523-7029</dd>
-			</dl>
+		<br>
+		<br>
+		<br>
+		<div class="main-intro-image">
+		<img class="first-image" width="60%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-intro.png" />
 		</div>
-		<div class="main-intro">
-			<img class="img-fluid introImage"
-				src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium1.png" />
+		<br>
+		<br>
+		<br>
+		<div class="consortium-gujo">
+		<img class="gujo-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-gujo.png" />
 		</div>
-		<div class="main-intro">
-			<dl>
-				<dt>설립연월</dt>
-				<dd>2008년 8월 1일</dd>
-				<dt>회사명</dt>
-				<dd>kt ds</dd>
-				<dt>대표이사</dt>
-				<dd>우정민</dd>
-				<dt>본사</dt>
-				<dd>(06707) 서울 서초구 효령로 176</dd>
-				<dt>대표전화</dt>
-				<dd>02-523-7029</dd>
-			</dl>
+		<br>
+		<br>
+		<br>
+		<div class="consortium-studygujo">
+		<img class="studygujo-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studygujo.png" />
 		</div>
-		<div class="main-intro">
-			<img class="img-fluid introImage"
-				src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium2.png" />
+		<br>
+		<br>
+		<br>
+		<div class="consortium-studysinchung">
+		<img class="studysinchung-image" width="60%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studysinchung.png" />
 		</div>
+		<br>
+		<br>
+		<br>
+		
+		<div class="card card-2" >
+		<br>
+		<h5><span style="color:rgb(238,28,36);">교육 시간</span></h5>
+		<img class="studytime-image" width="80%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
+		<br>
+		</div>
+		
+		<div class="card card-2">
+		<br>
+		<h5><span style="color:rgb(238,28,36);">연락처</span></h5>
+		<img class="address-image" width="80%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
+		<br>
+		</div>
+		<br>
+		<br>
+		<br>
+	</div>	
+		<c:choose>
+		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
+		<div id="floatMenu">
+			<a href="https://c11.kr/ktdscon"><p style="font-size:15px; margin-bottom:0px;">재직자향상교육<br>카카오톡 오픈채팅</p></a>
+			<a href="https://c11.kr/ktdscon"><img class="kakao-QR" width="100%" height="80%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/kakao-QR.png" /></a>
+			<button type="button" class="btn btn-outline-danger" onclick="location.href='https://c11.kr/ktdscon'">입장</button>
+		</div>
+		</c:when>
+		</c:choose>
 		<!-- 사업 끝 -->
-	</div>
 </body>
 </html>

@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/mySpring/springEx/common/pagination/mapper/PageMapper.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/notice/controller/NoticeControllerImpl.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/error/500.jsp=UTF-8
