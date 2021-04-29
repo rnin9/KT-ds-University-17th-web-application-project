@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 import com.mySpring.springEx.partner.dao.PartnerDAO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 @Service("partnerService")
 public class PartnerServiceImpl implements PartnerService {
@@ -26,7 +27,7 @@ public class PartnerServiceImpl implements PartnerService {
 	public PageMapper pageMapper;
 	
 	
-	//회사 리스트 출력
+	//�쉶�궗 由ъ뒪�듃 異쒕젰
 	@Override
     public List<Map<String, Object>> SelectAllListPartner() throws Exception {
         // TODO Auto-generated method stub
@@ -56,38 +57,38 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	
-	//회사 상태별 count 출력
+	//�쉶�궗 �긽�깭蹂� count 異쒕젰
 	@Override
 	public List listNumPartner() throws DataAccessException {
 		List<Integer> listNumPartner = new ArrayList<Integer>();;
-		listNumPartner.add(partnerDAO.selectCooperationPartner());  //협력사 count
-		listNumPartner.add(partnerDAO.selectConventionPartner());   //협약사 count
-		listNumPartner.add(partnerDAO.selectIngPartner());			//협약 진행중 count
-		listNumPartner.add(partnerDAO.selectNotPartner());			//미협약 count
+		listNumPartner.add(partnerDAO.selectCooperationPartner());  //�삊�젰�궗 count
+		listNumPartner.add(partnerDAO.selectConventionPartner());   //�삊�빟�궗 count
+		listNumPartner.add(partnerDAO.selectIngPartner());			//�삊�빟 吏꾪뻾以� count
+		listNumPartner.add(partnerDAO.selectNotPartner());			//誘명삊�빟 count
 		return listNumPartner;
 	}
 	
-	//회사 정보 입력
+	//�쉶�궗 �젙蹂� �엯�젰
 	@Override
 	public void addPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.addPartner(partner);
 	}
 	
 	
-	//기업 수정
+	//湲곗뾽 �닔�젙
 	@Override
 	public void modPartner(PartnerVO partner) throws DataAccessException {
 		partnerDAO.updatePartner(partner);
 	}
 	
 	
-	//기업 정보 상세 폼 
+	//湲곗뾽 �젙蹂� �긽�꽭 �뤌 
 	@Override
 	public PartnerVO partnerDetailInfo(String partnerLicenseNum) throws DataAccessException {
 		return partnerDAO.selectDetailPartner(partnerLicenseNum);
 	}
 	
-	//기업 삭제 
+	//湲곗뾽 �궘�젣 
 	@Override
 	public String removePartner(String partnerLicenseNum) throws DataAccessException{
 		String partnerName = partnerDAO.partnerName(partnerLicenseNum);
@@ -105,7 +106,7 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDAO.deleteJobOpening(partnerLicenseNum);
 	}
 
-	/* =================================기업 관련 시작======================= */
+	/* =================================湲곗뾽 愿��젴 �떆�옉======================= */
 	@Override						 
 	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum) throws Exception {
 		// TODO Auto-generated method stub
@@ -126,14 +127,33 @@ public class PartnerServiceImpl implements PartnerService {
 	}
 
 	@Override
-	public List selectSuggestList(String partnerLicenseNum) throws Exception {
-		return partnerDAO.getSuggestList(partnerLicenseNum);
+	public List selectRecruitList(String partnerLicenseNum) throws Exception {
+		return partnerDAO.getRecruitList(partnerLicenseNum);
 	}
 
 	@Override
 	public ResumeVO getUserResume(String resumeID) throws Exception {
 		// TODO Auto-generated method stub
 		return partnerDAO.getUserResume(resumeID);
+	}
+
+	@Override
+	public void manageUserApply(ApplicationVO application) throws Exception {
+		partnerDAO.updateManageApply(application);
+		return;
+	}
+
+	@Override
+	public void insertSuggestion(SuggestionVO suggestion) throws Exception {
+		partnerDAO.insertSuggestion(suggestion);
+		return;
+	}
+
+	@Override
+	public void deleteCompanySuggest(SuggestionVO suggestion) throws Exception {
+		partnerDAO.deleteSuggestionFromCompany(suggestion);
+		return;
+		
 	}
 	
 	
@@ -145,6 +165,6 @@ public class PartnerServiceImpl implements PartnerService {
 	 */
 	
 	
-	/* =================================기업 관련 끝======================= */
+	/* =================================湲곗뾽 愿��젴 �걹======================= */
 	
 }

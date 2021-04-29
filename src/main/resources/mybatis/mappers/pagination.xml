@@ -180,6 +180,25 @@
 		</if>
 	</select>
 
+
+    
+    <select id="NoticefixList" resultMap="noticeResult">
+      SELECT *
+        FROM (
+        SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
+        row_num
+        ,notice_no
+        ,notice_category
+        ,notice_title
+        ,notice_adminID
+        ,notice_date
+        ,notice_hit
+        FROM notice
+        where notice.notice_category = '[공지]'
+        );
+    </select>
+    
+
 	<select id="testTableCountN" resultType="int">
         SELECT count(*) FROM
         notice
@@ -341,6 +360,7 @@
     				 <![CDATA[
         			 and to_char(ct.coursetake_completedate,'YYMMDD') - #{completionDate} > 0
     				 ]]>
+
     				 </if>
     				 <if test="userName == ''">
     				 and m.userName like '%'||''||'%' 

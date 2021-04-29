@@ -58,10 +58,12 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 	}
 
 	@Override
-	public int updatePosition(CourseTakeVO courseTakeVO) throws DataAccessException {
-		return courseTakeDAO.updatePosition(courseTakeVO);
-		
+	public int updatePosition1(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.updatePosition1(courseTakeVO);
 	}
 	
-
+	@Override
+	public int updatePosition2(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.updatePosition2(courseTakeVO);
+	}
 }

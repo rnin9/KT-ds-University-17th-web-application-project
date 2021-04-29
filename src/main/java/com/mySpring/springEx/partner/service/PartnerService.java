@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 public interface PartnerService {
 
@@ -35,22 +37,31 @@ public interface PartnerService {
 
 	public String removePartner(String partnerLicenseNum) throws DataAccessException;
 
-	/* 기업관련 */
+	/* ==================================company method Start ========================== */
 
 	public List<Map<String, Object>> SelectAllListCompanyEmployee(String partnerLicenseNum)
 			throws Exception;
 
-	// 그래프 데이터
+	// graph Info
 	public List<Map<String, Object>> infoGraph(String partnerLicenseNum) throws Exception;
 	
-	//지원자 Select
+	//applyList Select
 	public List<Map<String, Object>> selectApplyList(String partnerLicenseNum) throws Exception;
 	
-	//모든 채용예정자 Select
-	public List<Map<String, Object>> selectSuggestList(String partnerLicenseNum) throws Exception;
-
+	//Select All recruitments
+	public List<Map<String, Object>> selectRecruitList(String partnerLicenseNum) throws Exception;
+	
+	//get Resume with Representative Resume
 	public ResumeVO getUserResume(String resumeID) throws Exception;
 	
+	//handle Application from user
+	public void manageUserApply(ApplicationVO application) throws Exception;
 	
-	/* 기업관련 끝 */
+	//insert suggestion from Company 
+	public void insertSuggestion(SuggestionVO suggestion) throws Exception;
+	
+	//update Suggestion to delete
+	public void deleteCompanySuggest(SuggestionVO suggestion) throws Exception;
+	
+	/* =================================company method End================================== */
 }

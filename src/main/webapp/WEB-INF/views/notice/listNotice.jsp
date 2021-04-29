@@ -6,54 +6,42 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
-
-
-<html>
+<c:choose>
+	<c:when test="${isLogOn == true  && member.userPosition == 'ADMIN'}">
+		<!DOCTYPE html>
+		<html>
 <head>
-<meta charset=UTF-8">
-<title>공지사항 관리</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
-	
-	<link rel="stylesheet" type="text/css"
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-<style>
-.bg-primary {
-   background-color: white !important;
-}
-
-a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
-}
-
-</style>
-
-
-</head>
 
 <script type="text/javascript">
-   function checkSelectAll(checkbox)  {
-      const selectall 
-        = document.querySelector('input[name="check-all"]');
-      if(checkbox.checked == false)  {
-        selectall.checked = false;
-      }
-    }
+function checkSelectAll(checkbox)  {
+   const selectall 
+     = document.querySelector('input[name="check-all"]');
+   if(checkbox.checked == false)  {
+     selectall.checked = false;
+   }
+   
+ }
 
-    function selectAll(selectAll)  {
-      const checkboxes 
-         = document.getElementsByName('ab');
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked
-      })
-    }
+ function selectAll(selectAll)  {
+   const checkboxes 
+      = document.getElementsByName('ab');
+   
+   checkboxes.forEach((checkbox) => {
+     checkbox.checked = selectAll.checked
+   })
+ }
 </script>
 <script type="text/javascript">
 	function filter(){
@@ -71,24 +59,24 @@ a:link, a:visited, a:hover {
 	    }	
 	} 
 </script>
-
 <script type="text/javascript">
 	function enter(){
 	    // 엔터키의 코드는 13입니다.
 		if(event.keyCode == 13){
 			filter()  // 실행할 이벤트
 		}
-	}		
+	}
 </script>
-
 <script>
 	function deleteCheck(){
-		var url = "/springEx/notice/deleteNotice.do";
+		
+		var url = "${contextPath}/notice/deleteCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){
 			valueArr.push($(this).val());
 		});
+		console.log(valueArr);
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -98,21 +86,62 @@ a:link, a:visited, a:hover {
 			},
 			success : function(data){
 				console.log("success");
-				/*window.location.reload();*/
-				$("#container").load("${contextPath}/notice/insertNotice.do");
+				window.location.reload();
+				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
 			},
 			error : function(data) { 
 	            console.log("fail");
+	            
 	        }
 		});
 	};
+	</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$.extend($.fn.dataTable.defaults, {
+			ordering : false
+		});
+
+		$('#noticeList').DataTable({
+			dom : 'lBfrtp',
+			language : {
+				info : '총 _TOTAL_ 개의 공지사항 중 _START_번 부터 _END_번',
+				infoEmpty : '데이터가 없습니다.',
+				emptyTable : '데이터가 없습니다.',
+				thousands : ',',
+				lengthMenu : '_MENU_ 개씩 보기',
+				loadingRecords : '데이터를 불러오는 중',
+				processing : '처리 중',
+				zeroRecords : '검색 결과 없음',
+				paginate : {
+					first : '처음',
+					last : '끝',
+					next : '다음',
+					previous : '이전'
+				},
+				search : '',
+				sSearchPlaceholder : '통합 검색',
+			}
+
+		});
+	});
 </script>
+<title>공지사항 관리</title>
+<style>
+div.table {
+	margin-top: 50px;
+}
+
+.fas {
+	margin-left: 10px;
+}
+</style>
+</head>
 
 <body>
-
 	<div class="container">
-		<form method="post" action="${contextPath}/notice/insertNotice.do">
-
+		<form method="post" action="${contextPath}/notice/noticeForm.do">
 			<div class="lnb">
 				<ul>
 					<li><a href="/springEx/main.do">홈</a></li>
@@ -122,148 +151,79 @@ a:link, a:visited, a:hover {
 				</ul>
 			</div>
 
-			<div class="well-searchbox">
-				<form class="form-horizontal" role="form">
-				<div class="form-group">
-                  <div class="serarchSubject">
-                     <label class="searchTitle">분류</label>
-                     <div class="col-md-8">
-                        <select class="form-select" aria-label="Default select example">
-                           <option selected>-- 분류를 선택하세요 --</option>
-                           <option value="유료과정">일반</option>
-                           <option value="재직자향상">채용예정자</option>
-                           <option value="채용예정자과정">긴급</option>
-                        </select>
-                     </div>
-                  </div>
-               </div>
-					<div class="form-group">
-						<div class="serarchSubject">
-							<label class="searchTitle">검색</label>
-							<div class="col-md-8">
-								<input type="text" id="value" class="form-control"
-									onKeyPress="JavaScript:enter();" placeholder="제목으로 검색">
-								<input type="text" style="display: none;" />
-							</div>
-						</div>
+			<div class="table">
+				<table id="noticeList" class="display">
+					<thead>
 
-						<div class="col-sm-offset-4 col-sm-5"
-							style="display: inline-block; text-aglin: center;">
-							<button type="button" class="btn button_search"
-								onClick="filter()" style="margin-top: 10px;">검색</button>
-						</div>
-					</div>
-				</form>
-			</div>
+						<tr align="center">
+							<td><input type="checkbox" name="check-all"
+								onclick='selectAll(this)' /></td>
+
+							<th>분류</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회</th>
+						</tr>
+					</thead>
+
+					<c:forEach var="noticeFixList" items="${noticeFixList}">
+						<tr>
+							<td><input type="checkbox" name="ab"
+								value="${noticeFixList.notice_no}"
+								onclick='checkSelectAll(this)' /></td>
 
 
-			<div class="bottom">
-				<div class="bottom-left">
-					<select id="cntSelectBox" name="cntSelectBox"
-						onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
-						class="form-control" style="width: 100px;">
-						<option value="10"
-							<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
-						<option value="20"
-							<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
-						<option value="30"
-							<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
-					</select>
-				</div>
-			</div>
-			<table class="table_">
-				<thead>
-					<tr align="center">
-						<td><input type="checkbox" name="check-all"
-							onclick='selectAll(this)' /></td>
-						<td><b>분류</b></td>
-						<td><b>제목</b></td>
-						<td><b>작성자</b></td>
-						<td><b>작성일</b></td>
-						<td><b>조회</b></td>
-					</tr>
-				</thead>
+							<td style="color: red;">${noticeFixList.notice_category}</td>
 
-				<tbody id="ajaxTable">
+
+							<td style="font-weight: bold;" class="name"><a
+								href="${contextPath}/notice/readNotice.do?notice_no=${noticeFixList.notice_no}">
+									${noticeFixList.notice_title}</a> <c:if
+									test="${noticeFixList.nt_file_size gt 0}">
+									<i class="fas fa-file-alt"></i>
+								</c:if></td>
+								
+							<td>${noticeFixList.notice_adminID}</td>
+							<td>${noticeFixList.notice_date}</td>
+							<td>${noticeFixList.notice_hit}</td>
+						</tr>
+					</c:forEach>
+
+
 					<c:forEach var="noticeList" items="${noticeList}">
 						<tr class="item">
 							<td><input type="checkbox" name="ab"
 								value="${noticeList.notice_no}" onclick='checkSelectAll(this)' /></td>
 							<td>${noticeList.notice_category}</td>
+
 							<td class="name"><a
-								href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">${noticeList.notice_title}</a></td>
+								href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">
+									${noticeList.notice_title}</a> <c:if
+									test="${noticeList.nt_file_size gt 0}">
+									<i class="fas fa-file-alt"></i>
+								</c:if></td>
+								
 							<td>${noticeList.notice_adminID}</td>
 							<td>${noticeList.notice_date}</td>
 							<td>${noticeList.notice_hit}</td>
+							
 						</tr>
 					</c:forEach>
-				</tbody>
-				
-			</table>
+					</tbody>
 
-
+				</table>
+			</div>
 
 			<div style="margin-top: 50px; padding-bottom: 150px;">
 				<button class="btn button_bottom" type="button"
-					onClick="deleteCheck();">선택강의 삭제</button>
+					onClick="deleteCheck()">선택강의 삭제</button>
 				<button class="btn button_bottom"
 					onClick="location.href='noticeForm.do'">공지사항 등록</button>
 			</div>
-
-		
-			
-
-
-			<!--paginate -->
-			<div class="paginate">
-				<div class="paging">
-					<a class="direction prev" href="javascript:void(0);"
-						onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-						&lt;&lt; </a> <a class="direction prev" href="javascript:void(0);"
-						onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-						&lt; </a>
-
-					<c:forEach begin="${pagination.firstPage}"
-						end="${pagination.lastPage}" var="idx">
-						<a
-							style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-							href="javascript:void(0);"
-							onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-								value="${idx}" /></a>
-					</c:forEach>
-					<a class="direction next" href="javascript:void(0);"
-						onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-						&gt; </a> <a class="direction next" href="javascript:void(0);"
-						onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-						&gt;&gt; </a>
-				</div>
-			</div>
-			<!-- /paginate -->
-
-
-
-
-
-			<script>
-function changeSelectBox(currentPage, cntPerPage, pageSize){
-    var selectValue = $("#cntSelectBox").children("option:selected").val();
-    movePage(currentPage, selectValue, pageSize);
-    
-}
- 
-//페이지 이동
-function movePage(currentPage, cntPerPage, pageSize){
-    var url = "${pageContext.request.contextPath}/notice/listNotice.do";
-    url = url + "?currentPage="+currentPage;
-    url = url + "&cntPerPage="+cntPerPage;
-    url = url + "&pageSize="+pageSize;
-    
-    location.href=url;
-}
- 
-</script>
-
 		</form>
 	</div>
 </body>
-</html>
+		</html>
+	</c:when>
+</c:choose>

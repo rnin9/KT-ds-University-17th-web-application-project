@@ -13,21 +13,14 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="EUC-KR">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
-<!-- <link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
--->
+
 <style>
 .partnerInfo>dl>dt {
 	float: left;
@@ -42,10 +35,7 @@ request.setCharacterEncoding("UTF-8");
 	width: 50%;
 }
 </style>
-
-<script type="text/javascript">
-   $(document).ready(function() {
-       $('#myTable tfoot th').each( function () {
+<!--   $('#myTable tfoot th').each( function () {
               var title = $(this).text();
               $(this).html( '<input type="text" placeholder="'+title+'" />' );
           } );
@@ -65,35 +55,42 @@ request.setCharacterEncoding("UTF-8");
                        }
                    } );
                } );
-           },
-           language : {
-            info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
-            sInfoFiltered : '',
-            infoEmpty : '',
-            emptyTable : '데이터가 없습니다.',
-            thousands : ',',
-            lengthMenu : '_MENU_ 개씩 보기',
-            loadingRecords : '데이터를 불러오는 중',
-            processing : '처리 중',
-            zeroRecords : '검색 결과 없음',
-            paginate : {
-               first : '처음',
-               last : '끝',
-               next : '다음',
-               previous : '이전'
-            },
-            search : '',
-            sSearchPlaceholder : '통합 검색',
+           },  -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#myTable').DataTable({
 
-         },
-         scrollX: true
-        });
-   });
+			dom : 'lBfrtip',
+			buttons : [ 'excel' ],
+			language : {
+				info : '',
+				sInfoFiltered : '',
+				infoEmpty : '',
+				emptyTable : '데이터가 없습니다.',
+				thousands : ',',
+				lengthMenu : '_MENU_ 개씩 보기',
+				loadingRecords : '데이터를 불러오는 중',
+				processing : '처리 중',
+				zeroRecords : '검색 결과 없음',
+				paginate : {
+					first : '처음',
+					last : '끝',
+					next : '다음',
+					previous : '이전'
+				},
+				search : '',
+				sSearchPlaceholder : '통합 검색',
+
+			}
+
+		});
+	});
 </script>
 
 </head>
 <body>
-	<div class="container" style="float: left; width:75%; padding-bottom: 200px; margin-left: 5%;">
+	<div class="container"
+		style="float: left; width: 75%; padding-bottom: 200px; margin-left: 5%;">
 		<h2>직원관리페이지</h2>
 		<table id="myTable">
 			<thead>
@@ -127,7 +124,7 @@ request.setCharacterEncoding("UTF-8");
 					</tr>
 				</c:forEach>
 			</tbody>
-			<tfoot>
+			<!-- <tfoot>
 				<tr>
 					<th>이름</th>
 					<th>휴대폰</th>
@@ -137,7 +134,7 @@ request.setCharacterEncoding("UTF-8");
 					<th>종료</th>
 					<th>수료일</th>
 				</tr>
-			</tfoot>
+			</tfoot> -->
 		</table>
 	</div>
 

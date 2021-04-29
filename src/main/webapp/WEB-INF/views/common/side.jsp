@@ -35,7 +35,7 @@ request.setCharacterEncoding("UTF-8");
 							class="fas fa-chevron-down"></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="user">
-						<li><a href="#">회원 관리</a></li>
+						<li><a href="${contextPath}/manageUser/userList.do">회원 관리</a></li>
 						<li><a href="#">이력서 관리</a></li>
 						<li><a href="#">지원서 관리</a></li>
 
