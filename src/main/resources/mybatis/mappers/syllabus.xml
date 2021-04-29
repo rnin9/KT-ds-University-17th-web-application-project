@@ -30,7 +30,7 @@
 	 <![CDATA[
 	    select a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN
 	    from syllabus a left outer join course b on a.syllabusID = b.syllabusID
-	    order by a.syllabusID desc
+	    order by b.courseID desc
 	 ]]>
 	</select>
 	<select id="selectSyllabus" parameterType="int" resultMap="syllabusResult">
@@ -58,5 +58,16 @@
      <![CDATA[
        delete from syllabus where syllabusID = #{syllabusID}
      ]]>
-    </delete>	
+    </delete>
+    
+    <!--select surveyList  -->
+    <select id="selectSurveyList" resultMap="syllabusResult">
+	 <![CDATA[
+	    select a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN,b.courseStart
+	    from syllabus a left outer join course b on a.syllabusID = b.syllabusID
+        WHERE b.questionYN='Y'
+        order by a.syllabusID desc
+	 ]]>
+	</select>
+
 </mapper>

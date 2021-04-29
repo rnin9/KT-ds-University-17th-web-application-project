@@ -1,4 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -162,24 +163,24 @@ a:link, a:visited, a:hover {
 </style>
 
 <script type="text/javascript">
-	function filter(){
-	
-	    var value = document.getElementById("value").value.toUpperCase();
-	    var value2 = document.getElementById("value").value.toUpperCase();
-	    var value3 = document.getElementById("value").value.toUpperCase();
-	    var item = document.getElementsByClassName("item");
-	    var item2 = document.getElementsByClassName("item");
-	    var form_select = document.getElementsByClassName("form-select");
-	    
-	    for(var i=0;i<item.length;i++){
-	    	var name = item[i].getElementsByClassName("name");
-	    	if(name[0].innerText.toUpperCase().indexOf(value) > -1){
-	    		item[i].style.display="table-row";
-			}else{
-				item[i].style.display="none";
+	function filter() {
+
+		var value = document.getElementById("value").value.toUpperCase();
+		var value2 = document.getElementById("value").value.toUpperCase();
+		var value3 = document.getElementById("value").value.toUpperCase();
+		var item = document.getElementsByClassName("item");
+		var item2 = document.getElementsByClassName("item");
+		var form_select = document.getElementsByClassName("form-select");
+
+		for (var i = 0; i < item.length; i++) {
+			var name = item[i].getElementsByClassName("name");
+			if (name[0].innerText.toUpperCase().indexOf(value) > -1) {
+				item[i].style.display = "table-row";
+			} else {
+				item[i].style.display = "none";
 			}
-	    }	
-	} 
+		}
+	}
 </script>
 
 <meta charset="utf-8" />
@@ -203,7 +204,7 @@ a:link, a:visited, a:hover {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">FAQ</span>
+		<span style="color: white;">설문조사</span>
 	</div>
 	<div class="container">
 
@@ -241,46 +242,7 @@ a:link, a:visited, a:hover {
 			</form>
 		</div>
 
-		<!--paginate -->
-		<div class="paginate">
-			<div class="paging">
-				<a class="direction prev" href="javascript:void(0);"
-					onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-					&lt;&lt; </a> <a class="direction prev" href="javascript:void(0);"
-					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-					&lt; </a>
 
-				<c:forEach begin="${pagination.firstPage}"
-					end="${pagination.lastPage}" var="idx">
-					<a
-						style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-						href="javascript:void(0);"
-						onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-							value="${idx}" /></a>
-				</c:forEach>
-				<a class="direction next" href="javascript:void(0);"
-					onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-					&gt; </a> <a class="direction next" href="javascript:void(0);"
-					onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-					&gt;&gt; </a>
-			</div>
-		</div>
-		<!-- /paginate -->
-
-		<div class="bottom">
-			<div class="bottom-left">
-				<select id="cntSelectBox" name="cntSelectBox"
-					onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
-					class="form-control" style="width: 100px;">
-					<option value="10"
-						<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
-					<option value="20"
-						<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
-					<option value="30"
-						<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
-				</select>
-			</div>
-		</div>
 
 
 
@@ -294,19 +256,19 @@ a:link, a:visited, a:hover {
 					<th>강의명</th>
 					<th>시작일</th>
 					<th>detail</th>
-			
+
 				</tr>
 			</thead>
-			
+
 			<tbody id="ajaxTable">
 				<c:forEach var="survey" items="${surveyList}">
 					<tr class="item">
-						<td>${survey.courseID}</td>
-						<td class="name">${survey.syllabusVO.syllabusName}</td>
-						<td>${survey.writeDate}</td>
+						<td>${survey.syllabusID}</td>
+						<td class="name">${survey.syllabusName}</td>
+						<td>${survey.courseVO.courseStart}</td>
 						<td><a
-							href="${contextPath}/survey/surveyDetailForm.do?courseID=${survey.courseID}">상세</a></td>
-				
+							href="${contextPath}/survey/surveyDetailForm.do?courseID=${survey.courseVO.courseID}">상세</a></td>
+
 					</tr>
 				</c:forEach>
 
@@ -318,91 +280,13 @@ a:link, a:visited, a:hover {
 			style="font-size: 1.05em; text-align: right; font-weight: bolder"
 			class="btn btn-primary" data-toggle="modal" data-target="#myModal">작성하기</button>
 
-		<!-- Modal-포트스캔 -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
 
-			<div class="modal-dialog">
 
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">설문조사</h4>
-					</div>
-					<form action="${contextPath}/survey/addSurvey.do" method="POST">
-						<div class="modal-body">
-							<table id="modalTable">
-								<tr>
-									<th>surveyTitle</th>
-									<th><select name="courseID">
-											<c:forEach var="insertList" items="${insertSurvey}">
-												<option id="com" onchange="alert_select_value(this);"
-													value='${insertList.courseVO.courseID}'>${insertList.courseVO.courseID},${insertList.syllabusVO.syllabusName}</option>
-											</c:forEach>
-									</select></th>
-								</tr>
-
-							</table>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">취소</button>
-							<button type="submit" class="btn btn-primary">목록생성</button>
-						</div>
-					</form>
-				</div>
-			</div>
-
-			<!--로딩바-->
-			<div id="loading">
-				<img src="<c:url value='/resources/image/viewLoading.gif'/>"
-					alt="loading">
-			</div>
-		</div>
 	</div>
 
-	<script>
-//10,20,30개씩 selectBox 클릭 이벤트
-function changeSelectBox(currentPage, cntPerPage, pageSize){
-    var selectValue = $("#cntSelectBox").children("option:selected").val();
-    movePage(currentPage, selectValue, pageSize);
-    
-}
- 
-//페이지 이동
-function movePage(currentPage, cntPerPage, pageSize){
-    var url = "${pageContext.request.contextPath}/survey/listSurvey.do";
-    url = url + "?currentPage="+currentPage;
-    url = url + "&cntPerPage="+cntPerPage;
-    url = url + "&pageSize="+pageSize;
-    
-    location.href=url;
-}
- 
-</script>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<%-- 	<script
-		src="${pageContext.request.contextPath}/resources/js/scripts.js"></script> --%>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/demo/chart-area-demo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/demo/chart-bar-demo.js"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/assets/demo/datatables-demo.js"></script>
 
+	
 
 </body>
 </html>

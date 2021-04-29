@@ -37,7 +37,7 @@
 	
 	<select id="wirteSurvey" resultMap="courseResult">
 	 <![CDATA[
-	   select * from course a inner join syllabus b on a.syllabusID = b.syllabusID where a.syllabusID=#{syllabusID}
+	   select * from course a inner join syllabus b on a.syllabusID = b.syllabusID where a.courseID=#{courseID}
 	 ]]>
 	</select>
 	

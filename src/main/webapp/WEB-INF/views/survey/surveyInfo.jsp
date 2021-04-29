@@ -161,12 +161,13 @@ a:link, a:visited, a:hover {
 }
 </style>
 
+
 </head>
 
 
 
 <body>
-	<form method="post" action="${contextPath}/survey/surveyInsert.do">
+	<form method="post" action="${contextPath}/survey/surveyModify.do">
 
 		<div class="container">
 			<div class="lnb">
@@ -177,104 +178,113 @@ a:link, a:visited, a:hover {
 					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
 							관리</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusForm.do">강의계획서
-							등록</a></li>
+					<li class="on"><a href="/springEx/syllabus/syllabusForm.do">설문조사
+							수정</a></li>
 				</ul>
 			</div>
 
 			<table class="table_syllabus">
 				<h1>courseID=
-					${courseVO.courseID},${courseVO.syllabusVO.syllabusName}</h1>
-				<input type="hidden" name="courseID" value="${courseVO.courseID}">
-
-
-				<select id="questionSelect" name="question" size='1' style="width: 450px; float: right;">
+					${surveyInfoList.courseID},${surveyInfoList.syllabusVO.syllabusName}</h1>
+				<input type="hidden" name="courseID"
+					value="${surveyInfoList.courseID}">
+					
+					<select id="questionSelect" name="question" size='1'
+					style="width: 450px; float: right;">
 					<c:forEach var="question" items="${questionList}">
 						<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
 					</c:forEach>
 				</select>
-			
 
 				<tr>
 					<th>1번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="1번 질문을 입력하세요." id="Q1" name="Q1" required="required"></td>
+						placeholder="${surveyInfoList.q1}" name="Q1" id="Q1"
+						value="${surveyInfoList.q1}"></td>
 				</tr>
 				<tr>
 					<th>2번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="2번 질문을 입력하세요." id="Q2" name="Q2" required="required"></td>
+						placeholder="${surveyInfoList.q2}" name="Q2" id="Q2"
+						value="${surveyInfoList.q2}"></td>
 				</tr>
 				<tr>
 					<th>3번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="3번 질문을 입력하세요." id="Q3" name="Q3" required="required"></td>
+						placeholder="${surveyInfoList.q3}" name="Q3" id="Q3"
+						value="${surveyInfoList.q3}"></td>
 				</tr>
 				<tr>
 					<th>4번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="4번 질문을 입력하세요." id="Q4" name="Q4" required="required"></td>
+						placeholder="${surveyInfoList.q4}" name="Q4" id="Q4"
+						value="${surveyInfoList.q4}"></td>
 				</tr>
 				<tr>
 					<th>5번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="5번 질문을 입력하세요." id="Q5" name="Q5" required="required"></td>
+						placeholder="${surveyInfoList.q5}" name="Q5" id="Q5"
+						value="${surveyInfoList.q5}"></td>
 				</tr>
 				<tr>
 					<th>6번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="6번 질문을 입력하세요." id="Q6" name="Q6" required="required"></td>
+						placeholder="${surveyInfoList.q6}" name="Q6" id="Q6"
+						value="${surveyInfoList.q6}"></td>
 				</tr>
 				<tr>
 					<th>7번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="7번 질문을 입력하세요." id="Q7" name="Q7" required="required"></td>
+						placeholder="${surveyInfoList.q7}" name="Q7" id="Q7"
+						value="${surveyInfoList.q7}"></td>
 				</tr>
 				<tr>
 					<th>8번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="8번 질문을 입력하세요." id="Q8" name="Q8" required="required"></td>
+						placeholder="${surveyInfoList.q8}" name="Q8" id="Q8"
+						value="${surveyInfoList.q8}"></td>
 				</tr>
 				<tr>
 					<th>9번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="9번 질문을 입력하세요." id="Q9" name="Q9" required="required"></td>
+						placeholder="${surveyInfoList.q9}" name="Q9" id="Q19"
+						value="${surveyInfoList.q9}"></td>
 				</tr>
 				<tr>
 					<th>10번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="10번 질문을 입력하세요." id="Q10" name="Q10"
-						required="required"></td>
+						placeholder="${surveyInfoList.q10}" name="Q10" id="Q10"
+						value="${surveyInfoList.q10}"></td>
 				</tr>
 				<tr>
 					<th>11번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="11번 질문을 입력하세요." id="Q11" name="Q11"
-						required="required"></td>
+						placeholder="${surveyInfoList.q11}" name="Q11" id="Q11"
+						value="${surveyInfoList.q11}"></td>
 				</tr>
 				<tr>
 					<th>12번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="12번 질문을 입력하세요." id="Q12" name="Q12"
-						required="required"></td>
+						placeholder="${surveyInfoList.q12}" name="Q12" id="Q12"
+						value="${surveyInfoList.q12}"></td>
 				</tr>
 				<tr>
 					<th>13번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="13번 질문을 입력하세요." id="Q13" name="Q13"
-						required="required"></td>
+						placeholder="${surveyInfoList.q13}" name="Q13" id="Q13"
+						value="${surveyInfoList.q13}"></td>
 				</tr>
 				<tr>
 					<th>14번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="14번 질문을 입력하세요." id="Q14" name="Q14"
-						required="required"></td>
+						placeholder="${surveyInfoList.q14}" name="Q14" id="Q14"
+						value="${surveyInfoList.q14}"></td>
 				</tr>
 				<tr>
 					<th>15번 질문</th>
 					<td><input type="text" class="form-control"
-						placeholder="15번 질문을 입력하세요." id="Q15" name="Q15"
-						required="required"></td>
+						placeholder="${surveyInfoList.q15}" name="Q15" id="Q15"
+						value="${surveyInfoList.q15}"></td>
 				</tr>
 			</table>
 
@@ -282,7 +292,7 @@ a:link, a:visited, a:hover {
 			<div style="margin-top: 50px; padding-bottom: 150px;">
 				<button class="btn button_bottom" type="button"
 					onclick="history.back()">취소</button>
-				<button class="btn button_bottom" type="submit">등록</button>
+				<button class="btn button_bottom" type="submit">수정</button>
 			</div>
 
 		</div>

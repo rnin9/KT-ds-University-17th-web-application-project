@@ -503,9 +503,13 @@ function handleModify() {
 													</form>
 												</c:when>
 												<c:when
-													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N'}">
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'Y'}">
 													<td style="text-align: center;">
 													<a href="${pageContext.request.contextPath}/survey/surveyWriteForm.do?courseID=${myCourse.courseID}&userID=${myCourse.userID}">설문조사</a></td>
+												</c:when>
+												<c:when
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'N'}">
+													<td style="text-align: center; color: red;">설문 미등록(담당자에게 문의하세요)</td>
 												</c:when>
 												<c:otherwise>
 													<td style="text-align: center; color: red;">미수료</td>
@@ -521,7 +525,6 @@ function handleModify() {
 					<!-- 수강강의 페이지 탭 끝 -->
 				</div>
 			</div>
-		</div>
 		</div>
 	</section>
 </body>

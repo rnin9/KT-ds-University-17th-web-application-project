@@ -302,11 +302,11 @@ a:link, a:visited, a:hover {
 
 							<c:if test="${syllabus.courseVO.questionYN eq 'N'}">
 								<td><a
-									href="${contextPath}/survey/writeSurveyForm.do?syllabusID=${syllabus.syllabusID}">설문생성</a></td>
+									href="${contextPath}/survey/writeSurveyForm.do?courseID=${syllabus.courseVO.courseID}&syllabusID=${syllabus.syllabusID}">설문생성</a></td>
 							</c:if>
 							<c:if test="${syllabus.courseVO.questionYN eq 'Y'}">
 								<td style="text-align: center; color: red;"><a style="color:red;"
-									href="${contextPath}/survey/detailSurveyForm.do?syllabusID=${syllabus.syllabusID}">설문생성완료</a></td>
+									href="${contextPath}/survey/surveyInfo.do?courseID=${syllabus.courseVO.courseID}">설문생성완료</a></td>
 							</c:if>
 							<c:if test="${syllabus.courseVO.questionYN eq NULL}">
 								<td style="text-align: center; color: red;">COURSE미등록</td>

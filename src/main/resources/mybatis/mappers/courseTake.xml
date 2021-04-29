@@ -54,7 +54,7 @@
 	<!-- 나의 수강내역 가져오기 -->
 	<select id="get_myCourseInformation" parameterType="String"
 		resultMap="courseTakeResult2"> <!-- resultType="courseTakeVO" -->
-	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, ct.surveyYN, c.courseID, m.userID, s.syllabusID, m.userName
+	<![CDATA[select s.syllabusName, c.courseStart, c.courseEnd, ct.courseTake_State, ct.surveyYN, c.courseID, m.userID, s.syllabusID, m.userName,c.questionYN
 	from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid) 
 	where ct.userId = #{userID} 
 	order by courseTake_ApplyDate desc

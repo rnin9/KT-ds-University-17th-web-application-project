@@ -120,6 +120,16 @@
       <put-attribute name="body" value="/WEB-INF/views/survey/writeSurveyForm.jsp" />
    </definition>
    
+    <definition name="/survey/surveyInfo" extends="baseLayout">
+      <put-attribute name="title" value="설문조사 수정" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyInfo.jsp" />
+   </definition>
+   
+    <definition name="/survey/surveyDetailForm" extends="baseLayout">
+      <put-attribute name="title" value="설문조사 내역" />
+      <put-attribute name="body" value="/WEB-INF/views/survey/surveyDetailForm.jsp" />
+   </definition>
+   
    
 
 	<!-- <definition name="/member/viewDetail" extends="baseLayout"> <put-attribute
