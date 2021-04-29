@@ -301,14 +301,6 @@ function register(){
                      관리</a></li>
             </ul>
          </div>
-         
-       	
-       	<div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button" onClick="closeCheck();">조기마감</button>
-            <button class="btn button_bottom" type="button" onClick="openCheck();">접수중</button>
-            <button class="btn button_bottom" onClick="deleteCheck()">삭제</button>
-            <button class="btn button_bottom" onClick="register()">등록</button>
-         </div>
 <!-- 
          <div class="well-searchbox">
             <form class="form-horizontal" role="form">
