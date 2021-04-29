@@ -62,17 +62,12 @@ request.setCharacterEncoding("UTF-8");
 <body>
 
 	<div class="container">
+	<div class="noticeBox">
+	
+	<div class=""></div>
 
-		<h1>Bootstrap datepicker</h1>
-
-		<div id="Date">
-
-			<input type="text" class="form-control"><span
-				class="input-group-addon"><i
-				class="glyphicon glyphicon-calendar"></i></span>
-
-		</div>
-
+	
+</div>
 	</div>
 
 </body>
