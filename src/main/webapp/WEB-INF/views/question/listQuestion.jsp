@@ -81,12 +81,27 @@ div.dt-button-collection {
 }
 
 div.table {
-	margin-top: 100px;
+	margin-top: 10px;
+}
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
 </style>
 </head>
 
 <body>
+	
 	<div class="container">
 		<div class="lnb">
 			<ul>

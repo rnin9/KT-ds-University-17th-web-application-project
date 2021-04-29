@@ -153,8 +153,6 @@
 							scrollTop : 0
 						}, 200);
 					});
-
-					
 				</script>
 				<!-- end top down scroll -->
 			</div>

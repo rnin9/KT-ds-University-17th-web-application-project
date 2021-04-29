@@ -23,11 +23,20 @@ request.setCharacterEncoding("UTF-8");
 	background-color: white !important;
 }
 
-.container {
-	width: 74.64%;
-	font-family: 'Noto Sans KR', sans-serif;
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
 }
 
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
 .table_notice {
 	margin-top: 30px;
 	border-collapse: collapse;
