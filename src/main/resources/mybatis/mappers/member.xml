@@ -57,6 +57,7 @@
 		<result property="suggestDescription" column="SUGGESTDESCRIPTION" />
 		<result property="suggestionDate" column="SUGGESTIONDATE" />
 		<result property="acception" column="ACCEPTION"/>
+		<result property="suggestionTitle" column="SUGGESTIONTITLE"/>
 	</resultMap>
 
 
@@ -105,7 +106,8 @@
 			   PARTNERID,
 			   SUGGESTDESCRIPTION,
 		       ACCEPTION,
-			   SUGGESTIONDATE
+			   SUGGESTIONDATE,
+		       SUGGESTIONTITLE
 		from Partner_Suggestion
 		where userid = #{id} and USERDELETION = 'Y'
 	</select>

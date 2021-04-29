@@ -13,6 +13,7 @@ public class NoticeVO {
 	private String notice_adminID;
 	private Date notice_date;
 	private int notice_hit;
+	private int nt_file_size;
 	
 	
 
@@ -21,7 +22,7 @@ public class NoticeVO {
 	}
 
 	public NoticeVO(int notice_no, String notice_category, String notice_title, String notice_contents, String notice_adminID,
-			Date notice_date, int notice_hit) {
+			Date notice_date, int notice_hit, int nt_file_size) {
 		this.notice_no = notice_no;
 		this.notice_category = notice_category;
 		this.notice_title = notice_title;
@@ -29,7 +30,16 @@ public class NoticeVO {
 		this.notice_adminID = notice_adminID;
 		this.notice_date = notice_date;
 		this.notice_hit = notice_hit;
+		this.nt_file_size = nt_file_size;
 		
+	}
+
+	public int getNt_file_size() {
+		return nt_file_size;
+	}
+
+	public void setNt_file_size(int nt_file_size) {
+		this.nt_file_size = nt_file_size;
 	}
 
 	public int getNotice_no() {

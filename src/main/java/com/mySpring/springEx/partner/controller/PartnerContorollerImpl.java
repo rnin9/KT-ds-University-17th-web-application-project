@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 @Controller("partnerController")
 public class PartnerContorollerImpl implements PartnerController {
@@ -159,6 +161,7 @@ public class PartnerContorollerImpl implements PartnerController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
 		mav.addObject("applyList", partnerService.selectApplyList(partnerLicenseNum));
+		mav.addObject("suggestionList", partnerService.selectRecruitList(partnerLicenseNum));
 		List list = partnerService.selectApplyList(partnerLicenseNum);
 		/*
 		 * mav.addObject("suggestList",
@@ -166,7 +169,23 @@ public class PartnerContorollerImpl implements PartnerController {
 		 */
 		return mav;
 	}
-  
+	
+	@Override
+	@RequestMapping(value="/partner/company/manageSuggest.do", method = RequestMethod.POST)
+	public ModelAndView companySuggestManage(@ModelAttribute("suggestion") SuggestionVO suggestion,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/partner/company/manageSuggest");
+		suggestion.setPartnerSuggestionDescription(suggestion.getPartnerSuggestionDescription().replace("\r\n", "<br>").replace("\n", "<br>").replace(" ","&nbsp;"));
+		partnerService.insertSuggestion(suggestion);
+		
+		/*
+		 * mav.addObject("suggestList",
+		 * partnerService.selectSuggestList(partnerLicenseNum));
+		 */
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	@Override
 	@RequestMapping(value="/partner/company/infoGraph.do", method = RequestMethod.GET)
 	
@@ -207,10 +226,6 @@ public class PartnerContorollerImpl implements PartnerController {
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-//		List<Map<String, Object>> jobOpeningList = partnerService.selectJobOpeningList();
-//		for(int i = 0; i < jobOpeningList.size(); i++) {
-//			jobOpeningList.get(i).put("partnerApplyFinishDate", String.valueOf(jobOpeningList.get(i).get("partnerApplyFinishDate")).substring(0, 11));
-//		}
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("jobOpeningList", partnerService.selectJobOpeningList());
 		return mav;
@@ -236,15 +251,27 @@ public class PartnerContorollerImpl implements PartnerController {
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");
 		return mav;
 	}
-
-//	@Scheduled(cron="0 0/1 * * * *")
-//	public void jobOpeningDueDate() throws Exception {
-//		Date today = new Date();
-//		List jobOpeningList = partnerService.selectPartnerApplyN();
-//
-//		for(Object obj : jobOpeningList) {
-//
-//		}
-//	}
+  
+	@Override
+	@RequestMapping(value = "/partner/company/manageApply.do", method = RequestMethod.POST)
+	public ModelAndView companyManageApply(ApplicationVO application, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/partner/company/manageApply");
+		partnerService.manageUserApply(application);
+		mav.addObject("resume", partnerService.getUserResume(application.getPartnerApplyUserID()));
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "/partner/company/deleteSuggest.do", method = RequestMethod.POST)
+	public ModelAndView companySuggestDelete(SuggestionVO suggestion, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("/partner/company/deleteSuggest");
+		partnerService.deleteCompanySuggest(suggestion);
+		mav.setViewName("jsonView");
+		return mav;
+		
+	}
 	/* ===================================Partner Company Method End==============================*/
 }

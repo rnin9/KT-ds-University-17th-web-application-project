@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -38,8 +38,8 @@ request.setCharacterEncoding("UTF-8");
 
 <style>
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
@@ -51,13 +51,12 @@ button {
 	float: right;
 	margin-right: 10px;
 }
-                                                                                                                    
+
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
 }
-
 </style>
 
 </head>
@@ -291,8 +290,9 @@ function register(){
 
 <body>
 
-   <div class="container">
+	<div class="container">
 
+<<<<<<< HEAD
          <div class="lnb">
             <ul>
                <li><a href="/springEx/main.do">홈</a></li>
@@ -369,54 +369,60 @@ function register(){
                            <input type="text" style="display: none;" />
                      </div>
                   </div>
+=======
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="/springEx/course/courseList.do">과정
+						관리</a></li>
+			</ul>
+		</div>
+>>>>>>> 1f66edb20a80ade49583dfa999467672b5579102
 
-                  <div class="col-sm-offset-4 col-sm-5"
-                     style="display: inline-block; text-aglin: center;">
-                     <button type="button" class="btn button_search" onClick="filter()"
-                        style="margin-top: 10px;">검색</button>
-                  </div>
-               </div>
-            </form>
-         </div>
- -->
-         <table class="table_" id="myTable">
-            <thead>
-               <tr align="center">
-                  <td><input type="checkbox" name="check-all"
-                     onclick='selectAll(this)' /></td>
-                  <td><b>번호</b></td>
-                  <td><b>과정명</b></td>
-                  <td><b>수강인원</b></td>
-                  <td><b>교육비</b></td>
-                  <td><b>접수기간</b></td>
-                  <td><b>수강기간</b></td>
-                  <td><b>상태</b></td>
-               </tr>
-            </thead>
+		<table class="table_" id="myTable">
+			<thead>
+				<tr align="center">
+					<td><input type="checkbox" name="check-all"
+						onclick='selectAll(this)' /></td>
+					<td><b>번호</b></td>
+					<td><b>과정명</b></td>
+					<td><b>수강인원</b></td>
+					<td><b>교육비</b></td>
+					<td><b>접수기간</b></td>
+					<td><b>수강기간</b></td>
+					<td><b>상태</b></td>
+				</tr>
+			</thead>
 
-            <tbody id="ajaxTable">
-               <c:forEach var="courseVO" items="${courseList}">
-                  <tr class="item">
-                     <td><input type="checkbox" name="ab" value="${courseVO.courseID}"
-                        onclick='checkSelectAll(this)' /></td>
-                     <td>${courseVO.courseID}</td>
-                     <td class="name"><a href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1} > ${courseVO.syllabusVO.syllabusCategory2}]<br>${courseVO.syllabusVO.syllabusName}</a></td>
-                     <td>${courseVO.coursePeopleMax}</td>
-                     <td>${courseVO.courseFee}</td>
-                     <td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
-                     <td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
-                     <td>${courseVO.courseState}</td>
-                  </tr>
-               </c:forEach>
-            </tbody>
-         </table>
+			<tbody id="ajaxTable">
+				<c:forEach var="courseVO" items="${courseList}">
+					<tr class="item">
+						<td><input type="checkbox" name="ab"
+							value="${courseVO.courseID}" onclick='checkSelectAll(this)' /></td>
+						<td>${courseVO.courseID}</td>
+						<td class="name"><a
+							href="${contextPath}/course/selectCourse.do?courseID=${courseVO.courseID}">[${courseVO.syllabusVO.syllabusCategory1}
+								> ${courseVO.syllabusVO.syllabusCategory2}]
+								${courseVO.syllabusVO.syllabusName}</a></td>
+						<td>${courseVO.coursePeopleMax}</td>
+						<td>${courseVO.courseFee}</td>
+						<td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
+						<td class="date">${courseVO.courseStart}~${courseVO.courseEnd}</td>
+						<td>${courseVO.courseState}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 
-         <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn btn-outline-danger" type="button" onClick="closeCheck();">선택과정 조기마감</button>
-            <button class="btn btn-outline-danger" type="button" onClick="openCheck();">선택과정 접수중</button>
-            <button class="btn btn-outline-danger"
-               onClick="register()">교육과정 등록</button>
-         </div>
-   </div>
+		<div style="margin-top: 50px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="closeCheck();">선택과정 조기마감</button>
+			<button class="btn btn-outline-danger" type="button"
+				onClick="openCheck();">선택과정 접수중</button>
+			<button class="btn btn-outline-danger" onClick="register()">교육과정
+				등록</button>
+		</div>
+	</div>
 </body>
 </html>
