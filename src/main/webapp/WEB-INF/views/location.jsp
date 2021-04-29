@@ -116,11 +116,11 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img class="carouselImg"
-                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom1.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom3.jpg"
                          alt="First slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
-                            class="animate__animated animate__fadeInDown">다양한 학습공간</h4>
+                            class="animate__animated animate__fadeInDown">전문 실습공간</h4>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -134,11 +134,11 @@
                 </div>
                 <div class="carousel-item">
                     <img class="carouselImg"
-                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom3.jpg"
+                         src="${pageContext.request.contextPath}/resources/image/classroom/classroom1.jpg"
                          alt="Third slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h4 style="font-weight: bold; text-shadow: 1px 1px 5px #000;"
-                            class="animate__animated animate__fadeInDown">전문 실습공간</h4>
+                            class="animate__animated animate__fadeInDown">다양한 학습공간</h4>
                     </div>
                 </div>
                 <div class="carousel-item">

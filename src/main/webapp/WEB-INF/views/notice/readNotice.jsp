@@ -98,6 +98,20 @@ a:link, a:visited, a:hover {
 	float: right;
 	margin-left: 10px;
 }
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
 </style>
 
 
@@ -222,7 +236,7 @@ a:link, a:visited, a:hover {
 						<!--  	<a href="#"
 								onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;">${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.FILE_NT_SIZE}kb)<br> -->
 					
-							<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
+							<a href="/filepath/${fileVO.STR_NT_FILE_NAME}"download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
 						</c:forEach></td>
 				</tr>
 

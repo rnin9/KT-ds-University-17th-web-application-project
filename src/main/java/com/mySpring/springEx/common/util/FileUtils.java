@@ -15,9 +15,9 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
-	  private static final String filePath =
-	  "C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file";
-	  // �뙆�씪�씠 ���옣�맆 �쐞移�
+	  private static final String filePath ="C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file";
+	  // 파일이 저장될 위치
+
 	 
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{

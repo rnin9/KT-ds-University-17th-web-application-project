@@ -290,17 +290,15 @@ function register(){
 
 <body>
 
-   <div class="container">
-
-      <div class="lnb">
-         <ul>
-            <li><a href="/springEx/main.do">홈</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="/springEx/course/courseList.do">과정
-                  관리</a></li>
-         </ul>
-      </div>
-
+	<div class="container">
+		<div class="lnb">
+			<ul>
+				<li><a href="/springEx/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="/springEx/course/courseList.do">과정
+						관리</a></li>
+			</ul>
+		</div>
       <table class="table_" id="myTable">
          <thead>
             <tr align="center">

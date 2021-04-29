@@ -19,6 +19,7 @@
 	 	<style type="text/css">
         textarea {
             resize: none;
+            line-height : 1.6;
         }
         .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -60,7 +61,7 @@
 	<body>
 	
 		<div class="sub_visual">
-		<span style="color: white;">1 : 1 문의</span>
+		<span style="color: white;"></span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -115,6 +116,14 @@
             <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">질문 내용</label>
             <div class="col-sm-10">
             <textarea class="form-control" id="questionContent" name="questionContent" rows="7" placeholder="질문 내용을 입력해주세요" required><c:out value="${modQuestion.questionContent}" /></textarea>
+            <script>
+    var txtArea = $(".form-control");
+    if (txtArea) {
+        txtArea.each(function(){
+            $(this).height(this.scrollHeight);
+        });
+    }
+</script>
         </div>
         </div>
         <br>
@@ -150,10 +159,3 @@
 </html>
 </c:otherwise>
 </c:choose>
-
-
-
-
-
-
-
