@@ -10,16 +10,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css"
-	href="/juliet/resources/juliet.css">
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">	
 <title>사용자 질문 목록</title>
 <style>
 .sub_visual {
@@ -36,7 +30,12 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 }
-
+.bg-primary{
+background-color : white !important;
+}
+table.table{
+padding-top : 300px;
+}
 </style>
 </head>
 
@@ -87,7 +86,42 @@
 	 </c:when>
 	 
 	 <c:when test = "${empty QusetionList}">
+	 <table class="table">
+			<thead>
+				<tr align="center">
+					<td><b>분류</b></td>
+					<td><b>제목</b></td>
+					<td><b>작성일</b></td>
+					<td><b>답변 유무</b></td>	
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach var="question" items="${QuestionList}">
+					<tr align="center">
+						
+						<td><a href= "${contextPath}/question/readQuestion.do?questionNum=${question.questionNum}"><c:out value="${question.questionType}"/></a></td>
+						<td><a href= "${contextPath}/question/readQuestion.do?questionNum=${question.questionNum}"> <c:out value="${question.questionTitle}" /></a></td>
+						<td><a href= "${contextPath}/question/readQuestion.do?questionNum=${question.questionNum}"><c:out value="${question.questionRegDate}" /></a></td>
+						<td><a href= "${contextPath}/question/readQuestion.do?questionNum=${question.questionNum}"><c:choose><c:when test="${question.questionCommentRegDate != null }">답변 완료</c:when><c:when test="${question.questionCommentRegDate == null}">처리중</c:when></c:choose></a></td>
+						
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<div style="
+    border: 1px solid #eee;
+    border-top: none;
+    transform: translateY(-12%);">
+		
+		<img src="${pageContext.request.contextPath}/resources/image/etc/empty.svg" alt="empty" width="13%" height="13%"><br>
+		</div>
+		<br>
+	 
+	 
 	 <button type="button"  class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/questionForm.do' ">문의 등록</button>
+	 <br>
+	 <br>
 	 </c:when>
 	 </c:choose>		
 

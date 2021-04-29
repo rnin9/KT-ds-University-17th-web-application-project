@@ -37,6 +37,7 @@
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">	
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -60,11 +61,11 @@
 
 <link rel="stylesheet" type="text/css"
 	href="//fonts.googleapis.com/css?family=Droid+Sans" />
-	
+
 <%-- layou css import --%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/layout.css" />		
-	
+	href="${pageContext.request.contextPath}/resources/css/layout.css" />
+
 <%--폰트 --%>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -102,6 +103,31 @@
 	font-style: normal;
 }
 /* ===============font-end=========== */
+.btn_top{
+    display: inline-block;
+    text-decoration: none;
+    background: #ffffff;
+    color: #ffffff;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+    border-bottom: solid 3px #b1b0b0;
+    transition: .4s;
+}
+
+.btn_top:active{
+    -ms-transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+    border-bottom: none;
+}
+
 </style>
 
 
@@ -114,6 +140,24 @@
 		</div>
 		<div id="content">
 			<tiles:insertAttribute name="body" />
+			<!-- top down scroll -->
+			<div style="position: fixed; top: 80%; left: 95%;">
+				<div class="upBtn">
+					<a class="btn_top">TOP</a>
+
+				</div>
+
+				<script>
+					$(".upBtn").click(function() {
+						$('html, body').animate({
+							scrollTop : 0
+						}, 200);
+					});
+
+					
+				</script>
+				<!-- end top down scroll -->
+			</div>
 		</div>
 		<div id="footer">
 			<tiles:insertAttribute name="footer" />

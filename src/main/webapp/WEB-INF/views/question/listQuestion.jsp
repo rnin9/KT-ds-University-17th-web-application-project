@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,51 +14,74 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-  
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
+
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$.extend( $.fn.dataTable.defaults, {
-	    ordering:  false
-	} );
+	$(document).ready(function() {
 
-	$('#adminListQuestion').DataTable({
-		
-		  
-		language: {
-			info : '총 _TOTAL_ 개의 질문 중 _START_번 부터 _END_번',
-			infoEmpty : '데이터가 없습니다.',
-			emptyTable : '데이터가 없습니다.',
-			thousands : ',',
-			lengthMenu : '_MENU_ 개씩 보기',
-			loadingRecords : '데이터를 불러오는 중',
-			processing : '처리 중',
-			zeroRecords : '검색 결과 없음',
-			paginate : {
-				first : '처음',
-				last : '끝',
-				next : '다음',
-				previous : '이전'
-			},
-			search : '',
-			sSearchPlaceholder: '통합 검색',
-		}
-	
-	  
+		$.extend($.fn.dataTable.defaults, {
+			ordering : false
+
+		});
+
+		$('#adminListQuestion').DataTable({
+			dom : 'lfrtp',
+
+			language : {
+				info : '총 _TOTAL_ 개의 질문 중 _START_번 부터 _END_번',
+				infoEmpty : '데이터가 없습니다.',
+				emptyTable : '데이터가 없습니다.',
+				thousands : ',',
+				lengthMenu : '_MENU_ 개씩 보기',
+				loadingRecords : '데이터를 불러오는 중',
+				processing : '처리 중',
+				zeroRecords : '검색 결과 없음',
+				paginate : {
+					first : '처음',
+					last : '끝',
+					next : '다음',
+					previous : '이전'
+				},
+				search : '',
+				sSearchPlaceholder : ' 통합 검색',
+			}
+
+		});
 	});
-});
-</script>	
+</script>
 <title>목록창</title>
 <style>
-div.table
-{
-margin-top : 50px;
+.dataTables_length {
+	transform: translateY(100%);
+}
+
+.dt-buttons {
+	transform: translateX(120%);
+}
+
+div.dt-button-collection {
+	text-align: center;
+}
+
+.dataTables_length {
+	position: relative;
+	float: none !important;
+	text-align: left;
+}
+
+div.table {
+	margin-top: 100px;
 }
 </style>
 </head>
@@ -74,61 +98,65 @@ margin-top : 50px;
 
 			</ul>
 		</div>
+
 		<div class="table">
-		<table id="adminListQuestion" class="display">
+			<table id="adminListQuestion" class="display">
 
-			<thead>
-			<tr>
-				
-				<th>번호</th>
-				<th>분류</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>처리 구분</th>
-				<th>공개 여부</th>
-			</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="question" items="${QuestionList}">
-				<tr>
-					
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-							<c:out value="${question.questionNum}" />
-					</a></td>
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">${question.questionType}</a></td>
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-							<c:out value="${question.questionTitle}" />
-					</a></td>
+				<thead>
+					<tr>
 
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-							<c:out value="${question.userId}" />
-					</a></td>
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:out
-								value="${question.questionRegDate}" /></a></td>
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-								<c:if test="${question.questionCommentRegDate ne null}"><span style="color:green">답변 완료</span></c:if>
-								<c:if test="${question.questionCommentRegDate eq null}"><span style="color:red">처리중</span></c:if>
+						<th>번호</th>
+						<th>분류</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>처리 구분</th>
+						<th>공개 여부</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="question" items="${QuestionList}">
+						<tr>
+
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+									<c:out value="${question.questionNum}" />
+							</a></td>
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">${question.questionType}</a></td>
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+									<c:out value="${question.questionTitle}" />
+							</a></td>
+
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+									<c:out value="${question.userId}" />
+							</a></td>
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:out
+										value="${question.questionRegDate}" /></a></td>
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+									<c:if test="${question.questionCommentRegDate ne null}">
+										<span style="color: green">답변 완료</span>
+									</c:if> <c:if test="${question.questionCommentRegDate eq null}">
+										<span style="color: red">처리중</span>
+									</c:if>
 							</a>
-					<td><a
-						href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:if
-								test="${question.question_del_YN == 'Y'}">비공개</c:if><c:if
-								test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
+							<td><a
+								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:if
+										test="${question.question_del_YN == 'Y'}">비공개</c:if> <c:if
+										test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
 
 
 
 
-				</tr>
-			</c:forEach>
-			</tbody>
-			
-		</table>
+						</tr>
+					</c:forEach>
+				</tbody>
+
+			</table>
 		</div>
 
 
