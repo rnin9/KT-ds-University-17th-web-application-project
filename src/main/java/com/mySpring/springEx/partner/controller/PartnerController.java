@@ -62,7 +62,7 @@ public interface PartnerController {
 	
 	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, @RequestParam("partnerApplyUserID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	
 	public ModelAndView companyManageApply(@ModelAttribute("application") ApplicationVO application, HttpServletRequest request,

@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.application.vo.ApplicationVO;
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -39,7 +41,7 @@ public class PartnerContorollerImpl implements PartnerController {
 	
 	@Autowired
 	ResumeVO resumeVO;
-	
+		
 	
 	// select companyList
 	@Override
@@ -140,6 +142,7 @@ public class PartnerContorollerImpl implements PartnerController {
 	
 	
 	/* ===================================Partner Company Method Start==============================*/
+	@Auth(role=Role.PA)
 	@RequestMapping(value = "/partner/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/main");
@@ -199,12 +202,21 @@ public class PartnerContorollerImpl implements PartnerController {
 	}
 	
 	@RequestMapping(value="/partner/getResumeByID.do", method = RequestMethod.GET)
-	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, @RequestParam("partnerApplyUserID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		resumeVO = partnerService.getUserResume(resumeID);
+		List cerList = partnerService.getUserCer(resumeID, userID);		//자격증
+		List proList = partnerService.getUserPro(resumeID, userID);      //project
+		List forList = partnerService.getUserFor(resumeID, userID);      //외국어
+		List carrList = partnerService.getUserCarr(resumeID, userID);    //경력
+		
 		mav.addObject("resume", resumeVO);
+		mav.addObject("certificate", cerList);
+		mav.addObject("project", proList);
+		mav.addObject("foreign", forList);
+		mav.addObject("career", carrList);
 		mav.setViewName("jsonView");
 		return mav;
 	}

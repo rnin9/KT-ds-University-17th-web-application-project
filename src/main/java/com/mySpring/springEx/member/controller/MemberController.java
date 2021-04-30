@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 public interface MemberController {
+	public ModelAndView noAuth(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO memberVO,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
