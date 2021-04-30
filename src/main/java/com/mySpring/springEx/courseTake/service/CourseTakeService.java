@@ -7,17 +7,27 @@ import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+import com.mySpring.springEx.member.vo.MemberVO;
 
 public interface CourseTakeService {
 
-	// ¼ö°­½ÅÃ»³»¿ª ÆäÀÌÁö³×ÀÌ¼Ç
-	public List<Map<String, Object>> SelectAllCourseApplyList() throws Exception;
+	//ëª¨ë“ ì‚¬ëŒì˜ ìˆ˜ê°•ì‹ ì²­ ë‚´ì—­ select
 
-	public List<Map<String, Object>> selectAllCourseApplyList(Pagination pagination) throws Exception;
+	public List SelectAllCourseApplyList() throws Exception;
 
-	public int testTableCountCT() throws Exception;
+	public int updateApplyConsent(CourseTakeVO courseTakeVO) throws Exception;
 
-	// Å×½ºÆ®ÆäÀÌÁö
-	public List courseCompleteList() throws DataAccessException;
+	public int updateApplyConsentCancel(CourseTakeVO courseTakeVO) throws Exception;
+
+	public int updateCompletion(CourseTakeVO courseTakeVO) throws Exception;
+
+	public int deleteCourseTake(CourseTakeVO courseTakeVO) throws Exception;
+
+  //courseTake insert
+  public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
+  
+  public int updatePosition1(CourseTakeVO courseTakeVO) throws DataAccessException;
+  
+  public int updatePosition2(CourseTakeVO courseTakeVO) throws DataAccessException;
 
 }

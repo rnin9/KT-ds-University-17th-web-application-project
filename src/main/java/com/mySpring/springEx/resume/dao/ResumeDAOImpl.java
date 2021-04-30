@@ -3,18 +3,16 @@ package com.mySpring.springEx.resume.dao;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.resume.vo.ResumeVO;
 
 @Repository("resumeDAO")
 public class ResumeDAOImpl implements ResumeDAO{
-	 
+
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -216,6 +214,4 @@ public class ResumeDAOImpl implements ResumeDAO{
 		return sqlSession.selectOne("mapper.resume.getResumeUser", resumeID);
 		
 	}
-	 
-	
 }

@@ -64,9 +64,7 @@ public class ResumeVO {
 	private String projectResume;
 	
 
-	public ResumeVO() {
-		System.out.println("ResumeVO");
-	}
+	public ResumeVO() {}
 	
 	public ResumeVO(String resumeID, String resumeUser, String resumeForeign, String resumeIDnumber, String resumePic, String resumeSchool, String resumeGrade, 
 			String resumeContext1, String resumeContext2, String resumeContext3, String resumeContext4, String resumeContext5, String resumeDate, String resumeCheck, String resumeLastEdu) {
@@ -217,7 +215,7 @@ public class ResumeVO {
 	public void setResumeCheck(String resumeCheck) {
 		this.resumeCheck = resumeCheck;
 	}
-	
+
 	public String getResumeDate() {
 		return resumeDate;
 	}
@@ -450,8 +448,6 @@ public class ResumeVO {
 		this.projectURL = projectURL;
 	}
 
-
-
 	public String getResumeID() {
 		return resumeID;
 	}
@@ -548,5 +544,4 @@ public class ResumeVO {
 		this.resumeContext5 = resumeContext5;
 	}
 
-	
 }

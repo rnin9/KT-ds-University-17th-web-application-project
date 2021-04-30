@@ -238,7 +238,6 @@
     	}
     	
     </style>
-    
   <script type="text/javascript">
                var result = '${msg}';
                var name = '${partnerName}'

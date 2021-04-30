@@ -21,4 +21,6 @@ public interface SurveyService {
 	public List<Map<String, Object>> SelectAllList(Pagination pagination) throws Exception;
 
 	public int testTableCount() throws Exception;
+
+	public List<Map<String, Object>> SelectInsertList() throws Exception;
 }

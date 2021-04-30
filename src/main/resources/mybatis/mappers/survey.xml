@@ -6,27 +6,27 @@
 <mapper namespace="mapper.survey">
 	<resultMap id="surResult" type="surveyVO">
 		<result property="survey_Id" column="survey_Id" />
-		<result property="survey_Mem" column="survey_Mem" />
+		<result property="courseID" column="courseID" />
         <result property="survey_Title" column="survey_Title" />
         <result property="writeDate" column="writeDate" />
 	</resultMap> 
-
+<!-- 
 	<select id="selectAllSurveyList" resultMap="surResult">
       <![CDATA[
          select * from survey order by survey_Id desc	 	
       ]]>
-	</select>
+	</select> -->
   
   <insert id="insertSurvey"  parameterType="surveyVO">
 		<![CDATA[
-		 insert into survey(survey_Id,survey_Mem,survey_Title,writedate)
-		 values(seq.nextval,#{survey_Mem},#{survey_Title},to_char(sysdate))
+		 insert into survey1(survey_Id,courseID,writedate)
+		 values(seq.nextval,#{courseID},to_char(sysdate))
 		]]>      
-	</insert>
+	</insert> 
 	
 	     
    <delete id="deleteSurvey"  parameterType="String">
-	   delete from survey
+	   delete from survey1
 	   where 
 	   survey_Id=#{survey_Id}
   </delete>

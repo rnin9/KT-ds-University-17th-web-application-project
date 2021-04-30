@@ -77,5 +77,4 @@ public interface ResumeService {
 	
 	public String deleteResume(String resumeID) throws DataAccessException;
 	
-	
 }

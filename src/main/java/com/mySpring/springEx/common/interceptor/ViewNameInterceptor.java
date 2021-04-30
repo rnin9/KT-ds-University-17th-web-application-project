@@ -9,8 +9,10 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		try {
-			String viewName = getViewName(request);	//getViewNameë©”ì†Œ?“œë¥? ?´?š©?•´ ë¸Œë¼?š°?? ?š”ì²?ëª…ì—?„œ ë©”ì†Œ?“œë¥? ê°?? ¸?˜´
-			request.setAttribute("viewName", viewName);	//request?— ë°”ì¸?”©
+			String viewName = getViewName(request);	
+			String auth = getURLAuth(request);
+			System.out.println("ppppp"+viewName+"==================="+auth);
+			request.setAttribute("viewName", viewName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,6 +57,16 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 		if (fileName.lastIndexOf("/") != -1) {
 			fileName = fileName.substring(fileName.lastIndexOf("/", 1), fileName.length());
 		}
+		return fileName;
+	}
+	
+	private String getURLAuth(HttpServletRequest request) throws Exception {
+		String servletPath = request.getServletPath();
+		int begin = 0;
+		int end;
+		end = servletPath.indexOf("/",1);
+		
+		String fileName = servletPath.substring(begin, end);
 		return fileName;
 	}
 }

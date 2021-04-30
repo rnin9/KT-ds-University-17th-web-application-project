@@ -3,7 +3,6 @@ package com.mySpring.springEx.resume.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -98,4 +97,3 @@ public interface ResumeController {
 	
 	public void deleteResume2(@RequestBody HashMap<String, String> params,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
- 
