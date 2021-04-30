@@ -290,7 +290,7 @@
                     <td>${date}</td>
                 </c:if>
                 <c:if test="${date < sysYear}">
-                    <%--         Closed announcements are in red           --%>
+                    <%--         Closed jobopenings are in red           --%>
                     <td><a style="color: #fc0038">${date}</a></td>
                 </c:if>
                 <td>${partner.applicationVO.applicantNum}</td>
