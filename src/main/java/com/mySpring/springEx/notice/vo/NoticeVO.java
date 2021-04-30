@@ -14,8 +14,17 @@ public class NoticeVO {
 	private Date notice_date;
 	private int notice_hit;
 	private int nt_file_size;
+	private String noticeDate;
 	
 	
+
+	public String getNoticeDate() {
+		return noticeDate;
+	}
+
+	public void setNoticeDate(String noticeDate) {
+		this.noticeDate = noticeDate;
+	}
 
 	public NoticeVO() {
 		

@@ -23,6 +23,7 @@ public interface CourseTakeDAO {
 
 	public int insertCourseTake(CourseTakeVO courseTakeVO) throws DataAccessException;
 
-	public int updatePosition(CourseTakeVO courseTakeVO) throws DataAccessException;
+	public int updatePosition1(CourseTakeVO courseTakeVO) throws DataAccessException;
 
+	public int updatePosition2(CourseTakeVO courseTakeVO) throws DataAccessException;
 }

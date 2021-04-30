@@ -61,6 +61,8 @@
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	<beans:bean id="beanNameResolver"
+	
+	
 
       class="org.springframework.web.servlet.view.BeanNameViewResolver">
       <beans:property name="order" value="0" />

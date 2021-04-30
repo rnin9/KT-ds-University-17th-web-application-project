@@ -11,194 +11,195 @@ import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
 public class CourseTakeVO {
-   private String userID;
-   private int courseID;
-   private String courseTake_State;
-   private Date courseTake_ApplyDate;
-   private Date courseTake_CompleteDate;
 
-   private int takeY; // Course Completion
-   private int takeN; // Course inCompletion
-   private String takeYear; // Employee's courseTake Year
-   private String surveyYN;
-   /*
-    * private String userName; private String userPhoneNumber; private String
-    * userEmail; private String userCompany;
-    */
-   private String applyDate;
+	private String userID;
+	private int courseID;
+	private String courseTake_State;
+	private Date courseTake_ApplyDate;
+	private Date courseTake_CompleteDate;
 
-   public String getApplyDate() {
-      return applyDate;
-   }
+	private int takeY; // Course Completion
+	private int takeN; // Course inCompletion
+	private String takeYear; // Employee's courseTake Year
+	private String surveyYN;
+	/*
+	 * private String userName; private String userPhoneNumber; private String
+	 * userEmail; private String userCompany;
+	 */
+	private String applyDate;
 
-   public void setApplyDate(String applyDate) {
-      this.applyDate = applyDate;
-   }
+	public String getApplyDate() {
+		return applyDate;
+	}
 
-   // courseTake join table
-   @Autowired
-   private MemberVO memberVO;
-   @Autowired
-   private CourseVO courseVO;
-   @Autowired
-   private CourseTakeVO courseTakeVO;
-   @Autowired
-   private SyllabusVO syllabusVO;
-   @Autowired
-   private PartnerVO partnerVO;
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
+	}
 
-   public PartnerVO getPartnerVO() {
-      return partnerVO;
-   }
+	// courseTake join table
+	@Autowired
+	private MemberVO memberVO;
+	@Autowired
+	private CourseVO courseVO;
+	@Autowired
+	private CourseTakeVO courseTakeVO;
+	@Autowired
+	private SyllabusVO syllabusVO;
+	@Autowired
+	private PartnerVO partnerVO;
 
-   public void setPartnerVO(PartnerVO partnerVO) {
-      this.partnerVO = partnerVO;
-   }
+	public PartnerVO getPartnerVO() {
+		return partnerVO;
+	}
 
-   public int getTakeY() {
-      return takeY;
-   }
+	public void setPartnerVO(PartnerVO partnerVO) {
+		this.partnerVO = partnerVO;
+	}
 
-   public void setTakeY(int takeY) {
-      this.takeY = takeY;
-   }
+	public int getTakeY() {
+		return takeY;
+	}
 
-   public int getTakeN() {
-      return takeN;
-   }
+	public void setTakeY(int takeY) {
+		this.takeY = takeY;
+	}
 
-   public void setTakeN(int takeN) {
-      this.takeN = takeN;
-   }
+	public int getTakeN() {
+		return takeN;
+	}
 
-   public String getTakeYear() {
-      return takeYear;
-   }
+	public void setTakeN(int takeN) {
+		this.takeN = takeN;
+	}
 
-   public void setTakeYear(String takeYear) {
-      this.takeYear = takeYear;
-   }
+	public String getTakeYear() {
+		return takeYear;
+	}
 
-   public String getSurveyYN() {
-      return surveyYN;
-   }
+	public void setTakeYear(String takeYear) {
+		this.takeYear = takeYear;
+	}
 
-   public void setSurveyYN(String surveyYN) {
-      this.surveyYN = surveyYN;
-   }
+	public String getSurveyYN() {
+		return surveyYN;
+	}
 
-   public CourseTakeVO getCourseTakeVO() {
-      return courseTakeVO;
-   }
+	public void setSurveyYN(String surveyYN) {
+		this.surveyYN = surveyYN;
+	}
 
-   public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
-      this.courseTakeVO = courseTakeVO;
-   }
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
+	}
 
-   public CourseVO getCourseVO() {
-      return courseVO;
-   }
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
+	}
 
-   public void setCourseVO(CourseVO courseVO) {
-      this.courseVO = courseVO;
-   }
+	public CourseVO getCourseVO() {
+		return courseVO;
+	}
 
-   public SyllabusVO getSyllabusVO() {
-      return syllabusVO;
-   }
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
+	}
 
-   public void setSyllabusVO(SyllabusVO syllabusVO) {
-      this.syllabusVO = syllabusVO;
-   }
+	public SyllabusVO getSyllabusVO() {
+		return syllabusVO;
+	}
 
-   public MemberVO getMemberVO() {
-      return memberVO;
-   }
+	public void setSyllabusVO(SyllabusVO syllabusVO) {
+		this.syllabusVO = syllabusVO;
+	}
 
-   public void setMemberVO(MemberVO memberVO) {
-      this.memberVO = memberVO;
-   }
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
-   public CourseTakeVO() {
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 
-   }
+	public CourseTakeVO() {
 
-   public CourseTakeVO(String userID, int courseID, String courseTake_State, Date courseTake_ApplyDate,
-         Date courseTake_CompleteDate, MemberVO memberVO) {
+	}
 
-      this.userID = userID;
-      this.courseID = courseID;
-      this.courseTake_State = courseTake_State;
-      this.courseTake_ApplyDate = courseTake_ApplyDate;
-      this.courseTake_CompleteDate = courseTake_CompleteDate;
-      this.memberVO = memberVO;
-   }
+	public CourseTakeVO(String userID, int courseID, String courseTake_State, Date courseTake_ApplyDate,
+			Date courseTake_CompleteDate, MemberVO memberVO) {
 
-   public String getUserID() {
-      return userID;
-   }
+		this.userID = userID;
+		this.courseID = courseID;
+		this.courseTake_State = courseTake_State;
+		this.courseTake_ApplyDate = courseTake_ApplyDate;
+		this.courseTake_CompleteDate = courseTake_CompleteDate;
+		this.memberVO = memberVO;
+	}
 
-   public void setUserID(String userID) {
-      this.userID = userID;
-   }
+	public String getUserID() {
+		return userID;
+	}
 
-   public int getCourseID() {
-      return courseID;
-   }
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
 
-   public void setCourseID(int courseID) {
-      this.courseID = courseID;
-   }
+	public int getCourseID() {
+		return courseID;
+	}
 
-   public String getCourseTake_State() {
-      return courseTake_State;
-   }
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
 
-   public void setCourseTake_State(String courseTake_State) {
-      this.courseTake_State = courseTake_State;
-   }
+	public String getCourseTake_State() {
+		return courseTake_State;
+	}
 
-   public Date getCourseTake_ApplyDate() {
-      return courseTake_ApplyDate;
-   }
+	public void setCourseTake_State(String courseTake_State) {
+		this.courseTake_State = courseTake_State;
+	}
 
-   public void setCourseTake_ApplyDate(Date courseTake_ApplyDate) {
-      this.courseTake_ApplyDate = courseTake_ApplyDate;
-   }
+	public Date getCourseTake_ApplyDate() {
+		return courseTake_ApplyDate;
+	}
 
-   public Date getCourseTake_CompleteDate() {
-      return courseTake_CompleteDate;
-   }
+	public void setCourseTake_ApplyDate(Date courseTake_ApplyDate) {
+		this.courseTake_ApplyDate = courseTake_ApplyDate;
+	}
 
-   public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
-      this.courseTake_CompleteDate = courseTake_CompleteDate;
-   }
+	public Date getCourseTake_CompleteDate() {
+		return courseTake_CompleteDate;
+	}
 
-   private String courseApplyEndYear;
-   private String courseApplyEndMonth;
-   private String courseApplyEndDay;
+	public void setCourseTake_CompleteDate(Date courseTake_CompleteDate) {
+		this.courseTake_CompleteDate = courseTake_CompleteDate;
+	}
 
-   public String getCourseApplyEndYear() {
-      return courseApplyEndYear;
-   }
+	private String courseApplyEndYear;
+	private String courseApplyEndMonth;
+	private String courseApplyEndDay;
 
-   public void setCourseApplyEndYear(String courseApplyEndYear) {
-      this.courseApplyEndYear = courseApplyEndYear;
-   }
+	public String getCourseApplyEndYear() {
+		return courseApplyEndYear;
+	}
 
-   public String getCourseApplyEndMonth() {
-      return courseApplyEndMonth;
-   }
+	public void setCourseApplyEndYear(String courseApplyEndYear) {
+		this.courseApplyEndYear = courseApplyEndYear;
+	}
 
-   public void setCourseApplyEndMonth(String courseApplyEndMonth) {
-      this.courseApplyEndMonth = courseApplyEndMonth;
-   }
+	public String getCourseApplyEndMonth() {
+		return courseApplyEndMonth;
+	}
 
-   public String getCourseApplyEndDay() {
-      return courseApplyEndDay;
-   }
+	public void setCourseApplyEndMonth(String courseApplyEndMonth) {
+		this.courseApplyEndMonth = courseApplyEndMonth;
+	}
 
-   public void setCourseApplyEndDay(String courseApplyEndDay) {
-      this.courseApplyEndDay = courseApplyEndDay;
-   }
+	public String getCourseApplyEndDay() {
+		return courseApplyEndDay;
+	}
+
+	public void setCourseApplyEndDay(String courseApplyEndDay) {
+		this.courseApplyEndDay = courseApplyEndDay;
+	}
 }

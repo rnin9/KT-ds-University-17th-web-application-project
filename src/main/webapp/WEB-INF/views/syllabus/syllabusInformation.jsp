@@ -9,6 +9,8 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -17,8 +19,7 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous">
 
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
+
 
 <html>
 <head>
@@ -91,18 +92,7 @@ function modifySyllabus(){
 </script>
 <body>
 	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
-						관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/syllabus/selectSyllabus.do?syllabusID=${syllabusVO.syllabusID}">강의계획서
-						정보</a></li>
-			</ul>
-		</div>
+		<div class="pageIntro">강의계획서 정보</div>
 
 		<table class="table_">
 			<tr>
@@ -156,7 +146,7 @@ function modifySyllabus(){
 		</div>
 		<div style="margin-top: 50px;">
 			<button class="btn btn-outline-danger" type="button"
-	               onClick="location.href='/springEx/syllabus/syllabusList.do'">목록</button>
+				onClick="location.href='/springEx/syllabus/syllabusList.do'">목록</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteSyllabus()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"
