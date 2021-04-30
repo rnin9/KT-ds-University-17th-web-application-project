@@ -11,6 +11,7 @@ import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Component("courseTakeVO")
 public class CourseTakeVO {
+
 	private String userID;
 	private int courseID;
 	private String courseTake_State;

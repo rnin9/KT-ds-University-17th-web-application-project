@@ -1,6 +1,8 @@
 package com.mySpring.springEx.syllabus.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Repository("syllabusDAO")
@@ -48,4 +51,5 @@ public class SyllabusDAOImpl implements SyllabusDAO{
 		int result = sqlSession.update("mapper.syllabus.modifySyllabus", syllabusVO);
 		return result;
 	}
+
 }

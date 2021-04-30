@@ -74,19 +74,20 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
-	@Override
-	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
-	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		memberVO = memberService.getMyInfo(userID);
-		List myCourseList = memberService.listMyCourse(userID);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("myInfo", memberVO);
-		mav.addObject("myCourseInfo", myCourseList);
-		return mav;
-	}
+	
+	
+	   @Override
+	   @RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
+	   public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
+	         HttpServletResponse response) throws Exception {
+	      String viewName = (String) request.getAttribute("viewName");
+	      memberVO = memberService.getMyInfo(userID);
+	      List myCourseList = memberService.listMyCourse(userID);
+	      ModelAndView mav = new ModelAndView(viewName);
+	      mav.addObject("myInfo", memberVO);
+	      mav.addObject("myCourseInfo", myCourseList);
+	      return mav;
+	   }
 
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -202,6 +203,7 @@ public class MemberControllerImpl implements MemberController {
 		System.out.println(partnersName);
 		System.out.println(partnersName.get(0));
 		return mav;
+	
 	}
 
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
@@ -317,7 +319,6 @@ public class MemberControllerImpl implements MemberController {
 	private ModelAndView form2(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
 		String viewName = (String) request.getAttribute("viewName");
 		System.out.println(viewName);
 		HttpSession session = request.getSession();
@@ -327,7 +328,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	//수료과목 설문조사 뽑기
 	@Override
 	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
