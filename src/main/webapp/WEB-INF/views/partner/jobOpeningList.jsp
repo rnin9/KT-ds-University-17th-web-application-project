@@ -9,7 +9,7 @@
 <c:set var="now" value="<%=new java.util.Date()%>"/>
 <c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
 <c:set var="ymd" value="<%=new java.util.Date()%>"/>
-<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>
+<%--<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>--%>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -290,7 +290,7 @@
                     <td>${date}</td>
                 </c:if>
                 <c:if test="${date < sysYear}">
-                    <%--         Closed announcements are in red           --%>
+                    <%--         Closed jobopenings are in red           --%>
                     <td><a style="color: #fc0038">${date}</a></td>
                 </c:if>
                 <td>${partner.applicationVO.applicantNum}</td>

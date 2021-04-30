@@ -24,5 +24,4 @@ public class ManageUserDAOImpl implements ManageUserDAO{
 		userList = sqlSession.selectList("mapper.member.selectAllMemberList");
 		return userList;
 	}
-
 }

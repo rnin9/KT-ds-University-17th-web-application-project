@@ -45,6 +45,7 @@
 
 	<resultMap id="applicationResult" type="HashMap">
 		<result property="partnerName" column="PartnerName" />
+		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate"/>
 		<result property="partnerID" column="PARTNER_APPLY_PARTNERID" />
 		<result property="partnerApplyDate" column="Partner_Apply_Date" />
 		<result property="partnerApplyState"
@@ -89,6 +90,10 @@
 		from partner
 		where PARTNERLICENSENUM = PARTNER_APPLY_PARTNERID
 		)as partnerName,
+		(select PARTNERAPPLYFINISHDATE
+		 from partner
+		 where PARTNERLICENSENUM = PARTNER_APPLY_PARTNERID
+		)as partnerApplyFinishDate,
 		PARTNER_APPLY_PARTNERID,
 		Partner_Apply_Date,
 		Partner_Apply_State
@@ -118,7 +123,7 @@
 			select resumeID
 			from resume
 			where resumeUser
-			= #{partnerApplyUserID}
+			= #{partnerApplyUserID} and RESUMECHECK = 'Y'
 		</selectKey>
 		insert into partner_apply
 		values(#{partnerApplyUserID},
@@ -245,5 +250,17 @@
 	     where
 	     userId=#{userId}
       ]]>
+	</update>
+
+	<update id="resetPW" parameterType="String">
+		update kt_user
+		set USERPASSWORD = '000000'
+		where USERID = #{userID}
+	</update>
+
+	<update id="positionModify" parameterType="java.util.HashMap">
+		update kt_user
+		set USERPOSITION = #{newPosition}
+		where USERID = #{userID}
 	</update>
 </mapper> 
