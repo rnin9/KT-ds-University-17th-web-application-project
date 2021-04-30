@@ -8,9 +8,11 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-	
-   
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/modal.css" />
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <style>
 .table thead th {
@@ -18,23 +20,149 @@
 	vertical-align: bottom;
 	border-bottom: 2px solid #dee2e6;
 }
+
+.flex-box {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+#resumeTable {
+	color: black;
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 600px;
+	margin-right: 40px;
+}
+
+#resumeTable th {
+	text-align: center;
+	background-color: #eee;
+}
+
+#resumeTable td {
+	padding: 5px;
+}
+
+.d_divider {
+	border-left: 3px solid green;
+	height: 500px;
+}
+
+.c_content {
+	float: left;
+	width: 770px;
+	word-break: keep-all;
+	word-wrap: break-word;
+}
+
+.c_context {
+	width: 990px;
+	word-break: keep-all;
+	word-wrap: break-word;
+}
+
+.s_str {
+	float: left;
+	width: 200px;
+}
+
+.r_row {
+	clear: left;
+}
+
+.c_containerItem {
+	margin-top: 100px;
+	clear: left;
+	border-bottom: 1px solid black;
+}
 </style>
 <script>
         $(document).ready(function () {
             let activeTab = sessionStorage.getItem('activeTab');
             // 새로고침 후 탭 상태 보존
             $('#myTab a[href="'+activeTab+'"]').trigger('click');
+            $(".next").click(function(){
+            	
+           	$( '.modal-body' ).animate( { scrollTop : 0 }, 1000 );
+			current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+            step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            next_fs.css({'opacity': opacity});
+            },
+            duration: 600
+            });
+            });
+
+            $(".previous").click(function(){
+			
+            $( '.modal-body' ).animate( { scrollTop : 0 }, 1000 );
+            	
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+            step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            previous_fs.css({'opacity': opacity});
+            },
+            duration: 600
+            });
+            });
+
+            $('.radio-group .radio').click(function(){
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+            });
+
+            $("#reset").click(function(){
+            	location.reload(); 
+				})
+            
         });
 
         // 모달 body text 설정
         
-        function getResumeInfo(resumeID) {
+        function getResumeInfo(resumeID, userID) {
         	
         	$.ajax({				// 비동기통신, 이력서 가져오기
 	            method: "GET",
-	            url: "${contextPath}/partner/getResumeByID.do?partnerApplyResumeID="+resumeID,
+	            url: "${contextPath}/partner/getResumeByID.do?partnerApplyResumeID="+resumeID+"&partnerApplyUserID="+userID,
 	            success: (resp) => {	// 모든 결과를 success로 받음
-	            	$("#modal_title").text(resp.resume.resumeCheck);
+	            	
+	            	console.log(resp);
+	            	$("#modal_title").text(resp.resume.resumeUser+"의 이력서");
                     $("#partner_info").text(resp.resume.resumeDate);
                     $("#partner_addr").text(resp.resume.resumeID);
                     $("#partner_email").text(resp.resume.resumeUser);
@@ -346,9 +474,13 @@
 			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
 
 			<!-- Modal -->
-			<div class="modal fade" id="myModal" role="dialog">
+			<!-- <div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog modal-dialog-scrollable">
-
+ -->
+			<div class="modal fade bd-example-modal-lg" id="myModal"
+				tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-scrollable">
 					<!-- Modal content-->
 					<div class="modal-content">
 
@@ -357,7 +489,324 @@
 							<button type="button" class="close" data-dismiss="modal">×</button>
 						</div>
 						<div class="modal-body">
-							<div class="partnerInfoModalBody" style="text-align: left">
+							<div class="container-fluid" id="grad1">
+								<div class="row justify-content-center mt-0">
+									<div>
+										<div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+											<div class="row">
+												<div class="col-md-12 mx-0">
+													<form id="msform">
+														<!-- progressbar -->
+														<ul id="progressbar">
+															<li class="active" id="basic"><strong>기본정보</strong></li>
+															<li id="personal"><strong>자격증 정보</strong></li>
+															<li id="education"><strong>경력사항</strong></li>
+															<li id="project"><strong>프로젝트</strong></li>
+															<li id="introduce"><strong>자기소개서</strong></li>
+														</ul>
+														<!-- fieldsets -->
+														<fieldset id="init">
+															<div class="form-card">
+																<h2 class="fs-title">기본정보</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th rowspan="4"><img
+																			src="http://jjunstudio.com/zbxe/files/attach/images/351/652/85a698d051126aa4043e83f4ff2376a0.jpg"
+																			style="width: 122px; height: 163px;" /></th>
+																	</tr>
+																	<tr>
+																		<th>성명</th>
+																		<td>강민주</td>
+																		<th>영문명</th>
+																		<td>Min ju Kang</td>
+																	</tr>
+																	<tr>
+																		<!-- &nbsp; = 한칸 띄우기 -->
+																		<th colspan="1" style="width: 84px;">나이</th>
+																		<td colspan="1" style="width: 165px;">28세</td>
+																		<th colspan="1" width="15%">성별</th>
+																		<td colspan="1" width="200px">남자</td>
+
+																	</tr>
+																	<tr>
+																		<th colspan="1">생년월일</th>
+																		<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;년&nbsp;&nbsp;&nbsp;
+																			월&nbsp;&nbsp;&nbsp;일</td>
+																	</tr>
+																	<tr>
+																		<th>주소</th>
+																		<td colspan="4">서울시 용산구 청파로 251 다올노블리움
+																			513호kkkkkkkkkkkkkkkkkkkkkkkkkkkkk</td>
+																	</tr>
+																	<tr>
+																		<th rowspan="2">연락처</th>
+																		<th>전화번호</th>
+																		<td colspan="4">031-000-0000</td>
+																	</tr>
+																	<tr>
+																		<th>Email</th>
+																		<td colspan="4">test@test.com</td>
+																	</tr>
+																	<tr>
+																		<th rowspan="3">학력사항</th>
+																		<th>최종학력</th>
+																		<td colspan="4">대학교 졸업</td>
+																	</tr>
+																	<tr>
+																		<th>전공</th>
+																		<td colspan="4">컴퓨터공학과 (학점 :4.5)</td>
+																	</tr>
+																	<tr>
+																		<th>학점</th>
+																		<td colspan="4">4.0/4.5</td>
+																	</tr>
+
+																</table>
+															</div>
+															<input type="button" name="next"
+																class="next action-button" value="다음" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">자격증 정보</h2>
+																<table border id="resumeTable">
+																<tr>
+																<th>자격증 명</th>
+																<th>발행처/기관</th>
+																<th>취득일</th>
+																</tr>
+																<tr>
+																<td>SQLD</td>
+																<td>한국 데이터베이스 산업진흥원</td>
+																<td>2021.04.01</td>
+																</tr>
+																</table>
+																
+																<h2 class="fs-title" style="margin-top:100px">어학 시험</h2>
+																<table border id="resumeTable">
+																<tr>
+																<th>언어</th>
+																<th>시험종류</th>
+																<th>점수</th>
+																<th>취득일</th>
+																</tr>
+																<tr>
+																<td>영어</td>
+																<td>TOEIC</td>
+																<td>990</td>
+																<td>2021.04.01</td>
+																</tr>
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">경력사항</h2>
+																<table border id="resumeTable">
+																<tr>
+																<td colspan="2" style="background-color:#eee;">회사명</td>
+																</tr>
+																<tr>
+																<td>경력기간</td>
+																<td> 2021.02.01~2021.02.28</td>
+																</tr>
+																<tr>
+																<td>직위</td>
+																<td>
+																과장</td>
+																</tr>
+																<tr>
+																<td>고용형태</td>
+																<td>
+																정규직
+																</td>
+																</tr>
+																
+																<tr>
+																<td colspan="2" style="background-color:#eee;">회사명</td>
+																</tr>
+																<tr>
+																<td>경력기간</td>
+																<td> 2021.02.01~2021.02.28</td>
+																</tr>
+																<tr>
+																<td>직위</td>
+																<td>
+																과장</td>
+																</tr>
+																<tr>
+																<td>고용형태</td>
+																<td>
+																정규직
+																</td>
+																</tr>
+																
+																<tr>
+																<td colspan="2" style="background-color:#eee;">회사명</td>
+																</tr>
+																<tr>
+																<td>경력기간</td>
+																<td> 2021.02.01~2021.02.28</td>
+																</tr>
+																<tr>
+																<td>직위</td>
+																<td>
+																과장</td>
+																</tr>
+																<tr>
+																<td>고용형태</td>
+																<td>
+																정규직
+																</td>
+																</tr>
+																
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
+
+														<fieldset>
+															<div class="form-card">
+																	<h2 class="fs-title">프로젝트</h2>
+																<table border id="resumeTable">
+																<tr>
+																<td colspan="2" style="background-color:#eee;">기관명</td>
+																</tr>
+																<tr>
+																<td style="width: 110px;">프로젝트 명</td>
+																<td>스프링 프로젝트</td>
+																</tr>
+																<tr>
+																<td>기간</td>
+																<td> 2021.02.01~2021.02.28</td>
+																</tr>
+																<tr>
+																<td>개발환경<br>
+																및 사용기술</td>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<td>프로젝트 소개</td>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<td>담당한 역할</td>
+																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																</tr>
+																
+																<tr>
+																<td colspan="2" style="background-color:#eee;">기관명</td>
+																</tr>
+																<tr>
+																<td style="width: 110px;">프로젝트 명</td>
+																<td>스프링 프로젝트</td>
+																</tr>
+																<tr>
+																<td>기간</td>
+																<td> 2021.02.01~2021.02.28</td>
+																</tr>
+																<tr>
+																<td>개발환경<br>
+																및 사용기술</td>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<td>프로젝트 소개</td>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<td>담당한 역할</td>
+																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																</tr>
+																
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
+
+														<fieldset>
+															<div class="form-card">
+															<h2 class="fs-title">자기소개서</h2>
+																<table border id="resumeTable">
+																<tr>
+																<th style="width: 110px;">성장과정</th>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<th>학교생활</th>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<th>성격 (장/단점)</th>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<th>희망업무 및 장래포부</th>
+																<td>
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																</td>
+																</tr>
+																<tr>
+																<th>기타사항</th>
+																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																</tr>
+																
+																
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" />
+														</fieldset>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="partnerInfoModalBody" style="text-align: left">
 								<div class="row">
 									<div class="col-3" style="color: #444444; font-weight: bold">
 										<p>소개</p>
@@ -374,10 +823,10 @@
 										<p id="partner_purl"></p>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
+							<button type="button" id="reset" class="btn btn-default"
 								data-dismiss="modal">확인</button>
 						</div>
 					</div>
@@ -428,8 +877,9 @@
 													<td>${apList.memberVO.userName}</td>
 													<td><a class="info" data-toggle="modal"
 														href="#myModal"
-														onclick="getResumeInfo('${apList.partnerApplyResumeID}');"><i
-															class="far fa-id-card"></i></a></td>
+														onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}');">
+															<i class="fas fa-search"></i>
+													</a></td>
 													<c:choose>
 														<c:when test="${apList.partnerApplyState == '진행중'}">
 															<td><a style="text-decoration: underline" href="#"
@@ -473,8 +923,9 @@
 													<td>${sugList.userName}</td>
 													<td><a class="info" data-toggle="modal"
 														href="#myModal"
-														onclick="getResumeInfo('${sugList.resumeVO.resumeID}');"><i
-															class="far fa-id-card"></i></a></td>
+														onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}');">
+															<i class="fas fa-search"></i>
+													</a></td>
 
 													<c:choose>
 														<c:when
@@ -520,4 +971,3 @@
 	</div>
 </body>
 </html>
-

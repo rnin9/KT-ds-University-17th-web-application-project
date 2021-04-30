@@ -3,6 +3,7 @@ package com.mySpring.springEx.partner.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.application.vo.ApplicationVO;
@@ -39,6 +40,13 @@ public interface PartnerDAO {
 	public List getApplyList(String partnerLicenseNum) throws DataAccessException;
 	public List getRecruitList(String partnerLicenseNum) throws DataAccessException;
 	public ResumeVO getUserResume(String resumeID) throws DataAccessException;
+	
+	public List getUserCer( String resumeID, String userID) throws DataAccessException;
+	public List getUserPro( String resumeID, String userID) throws DataAccessException;
+	public List getUserCarr( String resumeID, String userID) throws DataAccessException;
+	public List getUserFor( String resumeID, String userID) throws DataAccessException;
+	
+	
 	public void updateManageApply(ApplicationVO application) throws DataAccessException;
 	public void insertSuggestion(SuggestionVO suggestion) throws DataAccessException;
 	public void deleteSuggestionFromCompany(SuggestionVO suggestion) throws DataAccessException;
