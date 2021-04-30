@@ -106,7 +106,7 @@ div.table {
 	background-size: cover; */
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/notice.png");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/notice.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -163,10 +163,10 @@ div.table {
 									test="${noticeFixList.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if> <c:if test="${noticeFixList.notice_date>=nowday}">
-									<!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-									<img
+									 <span style = "color :darkred; margin-right:10px; font-size:12px;">new</span>
+									<!--  <img
 										src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-										width="30px" height="30px">
+										width="30px" height="30px">-->
 								</c:if></td>
 
 
@@ -188,10 +188,10 @@ div.table {
 									test="${noticeListUser.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if> <c:if test="${noticeListUser.notice_date>=nowday}">
-									<!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-									<img
+									<span style = "color :darkred; margin-right:10px; font-size:12px;">new</span>
+									<!--  <img
 										src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-										width="30px" height="30px">
+										width="30px" height="30px"> -->
 								</c:if></td>
 
 							<td>${noticeListUser.notice_adminID}</td>

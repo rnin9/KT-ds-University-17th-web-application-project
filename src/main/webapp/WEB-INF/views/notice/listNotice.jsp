@@ -97,35 +97,35 @@ function checkSelectAll(checkbox)  {
 	};
 	</script>
 <script type="text/javascript">
-	$(document).ready(function() {
-
-		$.extend($.fn.dataTable.defaults, {
-			ordering : false
-		});
-
-		$('#noticeList').DataTable({
-			dom : 'lBfrtp',
-			language : {
-				info : '총 _TOTAL_ 개의 공지사항 중 _START_번 부터 _END_번',
-				infoEmpty : '데이터가 없습니다.',
-				emptyTable : '데이터가 없습니다.',
-				thousands : ',',
-				lengthMenu : '_MENU_ 개씩 보기',
-				loadingRecords : '데이터를 불러오는 중',
-				processing : '처리 중',
-				zeroRecords : '검색 결과 없음',
-				paginate : {
-					first : '처음',
-					last : '끝',
-					next : '다음',
-					previous : '이전'
-				},
-				search : '',
-				sSearchPlaceholder : '통합 검색',
-			}
-
-		});
-	});
+$(document).ready(function(){
+   $('#myTable').DataTable({
+      
+      dom : 'lBfrtp',
+      
+      language: {
+         info : '',
+         sInfoFiltered : '',
+         infoEmpty : '',
+         emptyTable : '데이터가 없습니다.',
+         thousands : ',',
+         lengthMenu : '_MENU_ 개씩 보기',
+         loadingRecords : '데이터를 불러오는 중',
+         processing : '처리 중',
+         zeroRecords : '검색 결과 없음',
+         paginate : {
+            first : '처음',
+            last : '끝',
+            next : '다음',
+            previous : '이전'
+         },
+         search: '',
+         sSearchPlaceholder: '통합 검색',
+      
+      }
+ 
+   
+   });
+});
 </script>
 <title>공지사항 관리</title>
 <style>
@@ -136,6 +136,16 @@ div.table {
 .fas {
 	margin-left: 10px;
 }
+.container {
+   font-family: 'Noto Sans KR', sans-serif;
+   display: flex;
+   flex-wrap: wrap;
+   width: 80%;
+   justify-content: space-around;
+   flex-direction: column;
+   margin-left: 15%;
+}
+
 </style>
 </head>
 
@@ -144,7 +154,7 @@ div.table {
 		<form method="post" action="${contextPath}/notice/noticeForm.do">
 			<div class="lnb">
 				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="/springEx/partner/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
 							관리</a></li>
@@ -152,7 +162,7 @@ div.table {
 			</div>
 
 			<div class="table">
-				<table id="noticeList" class="display">
+				<table id="myTable" class="display">
 					<thead>
 
 						<tr align="center">

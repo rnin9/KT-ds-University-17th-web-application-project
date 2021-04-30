@@ -157,7 +157,7 @@
 		STR_NT_FILE_NAME,
 		ORG_NT_FILE_NAME
 		FROM NT_FILE
-		WHERE NT_FILE_NO = #{NT_FILE_NO}
+		WHERE NT_FILE_NO = #{NT_FILE_NO, jdbcType=INTEGER}
 	</select>
 
 	<!-- 첨부파일 수정 -->

@@ -153,10 +153,10 @@ a:link, a:visited, a:hover {
 
 <script type="text/javascript">
 	// 첨부파일 다운로드
-	function fn_fileDown(nt_file_no) {
+	function fn_fileDown(NT_FILE_NO) {
 		var formObj = $("form[name='readForm']");
-		$("#NT_FILE_NO").attr("value", nt_file_no);
-		console.log('yeeeeeee' + nt_file_no);
+		$("#NT_FILE_NO").attr("value", NT_FILE_NO);
+		console.log('yeeeeeee' + NT_FILE_NO);
 		formObj.attr("action", "${contextPath}/notice/fileDown.do");
 		formObj.submit();
 	}
@@ -176,7 +176,7 @@ a:link, a:visited, a:hover {
 		<div class="container">
 			<div class="lnb">
 				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="/springEx/partner/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
 							관리</a></li>
@@ -219,10 +219,11 @@ a:link, a:visited, a:hover {
 				<tr>
 					<th>파일</th>
 					<td><c:forEach var="fileVO" items="${fileList}">
-						<!--  	<a href="#"
-								onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;">${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.FILE_NT_SIZE}kb)<br> -->
-					
-							<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>
+							<c:if test="${fileVO.ORG_NT_FILE_NAME ne null}">
+								<a href="#"
+									onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;">${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.NT_FILE_SIZE}kb)<br>
+							</c:if>
+							<!--  	<a href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a> -->
 						</c:forEach></td>
 				</tr>
 
