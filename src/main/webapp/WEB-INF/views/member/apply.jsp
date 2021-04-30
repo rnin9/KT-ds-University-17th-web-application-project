@@ -412,33 +412,11 @@
     </script>
     <style>
 
-        .buttonGroups {
+        button {
             float: right;
+            margin-right: 10px;
         }
 
-        .btn {
-            color: white;
-            display: inline-block;
-            font-weight: 400;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-color: tomato;
-            border-color: rgba(247, 94, 94, 0.8);
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: .25rem;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
-        .container {
-            font-family: 'Noto Sans KR', sans-serif;
-            width: 80%;
-            margin-left: 10%;
-        }
 
         .sub_visual {
             font-family: 'Noto Sans KR', sans-serif;
@@ -483,6 +461,22 @@
             background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
             background-repeat: no-repeat;
         }
+
+        .dataTables_wrapper {
+            margin-top: 30px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        table.dataTable thead th, table.dataTable thead td {
+            padding: 10px 18px;
+            border-bottom: 1px solid #96988f;
+            background-color: #f8f8f8;
+        }
+
+        table.dataTable td {
+            border-top: 1px solid lightgrey;
+        }
     </style>
 </head>
 <body>
@@ -494,11 +488,11 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
                 <li style="color: grey; font-weight: bold;">〉</li>
-                <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용공고</a></li>
+                <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용지원</a></li>
             </ul>
         </div>
 
-        <div class="pageIntro">협력사 지원</div>
+        <div class="pageIntro">채용지원</div>
 
         <!-- Modal for partner info -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -601,7 +595,7 @@
                     <%--                Table of first tab                --%>
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                          aria-labelledby="nav-home-tab">
-                        <table class="tableList" id="nav-home-table">
+                        <table class="table_" id="nav-home-table" style="border-bottom: 1px solid #96988f;">
                             <thead>
                             <tr>
                                 <td>기업명</td>
@@ -631,7 +625,7 @@
                     <%--                Table of second tab                --%>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                          aria-labelledby="nav-profile-tab">
-                        <table class="tableList" id="nav-profile-table" style="width: 100%">
+                        <table class="table_" id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td>기업명</td>
@@ -671,7 +665,7 @@
                     <%--                Table of third tab                --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
-                        <table class="tableList table-hover" id="nav-suggestion-table" style="width: 100%">
+                        <table class="table_" id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td><input type="checkbox" name="check-all"
@@ -697,8 +691,8 @@
                             </tbody>
                         </table>
 
-                        <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 30px;">
-                            <button type="button" class="btn" onclick="deleteSuggestion()">삭제</button>
+                        <div style="margin-top: 40px; padding-bottom: 30px;">
+                            <button type="button" class="btn btn-outline-danger" onclick="deleteSuggestion()">삭제</button>
                         </div>
                     </div>
 

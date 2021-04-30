@@ -143,7 +143,7 @@ request.setCharacterEncoding("UTF-8");
 								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용지원 관리</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용지원</a></li>
 
 				</c:when>
 				<%--		재직자		--%>

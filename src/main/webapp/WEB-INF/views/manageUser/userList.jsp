@@ -122,6 +122,7 @@
 
 
 
+
         ${isLogOn == true}){*/
         var url = "/springEx/syllabus/deleteCheck.do";
         var cnt = $("input[name='ab']:checked").length;
@@ -146,6 +147,7 @@
 
 
 
+
                     ${contextPath}/syllabus/syllabusList.do");*/
                 },
                 error: function (data) {
@@ -167,8 +169,10 @@
 
 
 
+
         ${isLogOn == true}){
 			location.href='
+
 
 
 
@@ -295,15 +299,7 @@
 </script>
 <body>
 <div class="container">
-
-    <div class="lnb">
-        <ul>
-            <li><a href="/springEx/main.do">홈</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="/springEx/syllabus/syllabusList.do">회원
-                관리</a></li>
-        </ul>
-    </div>
+    <div class="pageIntro">회원 관리</div>
     <table class="table_" id="table_id">
         <thead>
         <tr align="center">
@@ -320,71 +316,74 @@
 
         <tbody id="ajaxTable">
         <c:forEach var="user" items="${userList}">
-            <tr class="item">
-                <td>${user.userId}</td>
-                <td><a title="비밀번호 초기화" style="text-decoration: underline" href="#"
-                       onclick="resetPW('${user.userId}');return false;">******</a></td>
-                <td>${user.userName}</td>
-                <td>${user.userMajor}</td>
-                <c:set var="position" value="${user.userPosition}"/>
-                <c:if test="${position == '채용예정자'}">
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                    data-toggle="dropdown" aria-expanded="false">
-                                    ${position}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '일반회원')">일반회원</a></li>
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '재직자')">재직자</a></li>
-                            </ul>
-                        </div>
-                    </td>
+            <c:if test="${user.userPosition != 'ADMIN' && user.userPosition != 'PARTNER'}">
+                <tr class="item">
+                    <td>${user.userId}</td>
+                    <td><a title="비밀번호 초기화" style="text-decoration: underline" href="#"
+                           onclick="resetPW('${user.userId}');return false;">******</a></td>
+                    <td>${user.userName}</td>
+                    <td>${user.userMajor}</td>
+                    <c:set var="position" value="${user.userPosition}"/>
+                    <c:if test="${position == '채용예정자'}">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        ${position}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '일반회원')">일반회원</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '재직자')">재직자</a></li>
+                                </ul>
+                            </div>
+                        </td>
 
-                </c:if>
-                <c:if test="${position == '일반회원'}">
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-                                    data-toggle="dropdown" aria-expanded="false">
-                                    ${position}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '재직자')">재직자</a></li>
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '채용예정자')">채용예정자</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    </c:if>
+                    <c:if test="${position == '일반회원'}">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        ${position}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '재직자')">재직자</a></li>
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '채용예정자')">채용예정자</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
 
-                </c:if>
-                <c:if test="${position == '재직자'}">
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3"
-                                    data-toggle="dropdown" aria-expanded="false">
-                                    ${position}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '일반회원')">일반회원</a></li>
-                                <li><a class="dropdown-item" href="#"
-                                       onclick="positionModify('${position}', '${user.userId}', '채용예정자')">채용예정자</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    </c:if>
+                    <c:if test="${position == '재직자'}">
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        ${position}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '일반회원')">일반회원</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"
+                                           onclick="positionModify('${position}', '${user.userId}', '채용예정자')">채용예정자</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
 
-                </c:if>
-                <c:if test="${position != '채용예정자' && position != '재직자' && position != '일반회원'}">
-                    <td>${user.userPosition}</td>
-                </c:if>
-                <td class="name">${user.userGender}</td>
-                <td>${user.userPhoneNumber}</td>
-                <td>${user.birth}</td>
-            </tr>
+                    </c:if>
+                    <td class="name">${user.userGender}</td>
+                    <td>${user.userPhoneNumber}</td>
+                    <td>${user.birth}</td>
+                </tr>
+            </c:if>
         </c:forEach>
         </tbody>
     </table>
