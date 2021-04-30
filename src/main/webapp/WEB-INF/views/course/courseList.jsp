@@ -11,7 +11,6 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>과정 관리</title>
 
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
@@ -35,7 +34,6 @@ request.setCharacterEncoding("UTF-8");
 	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 
-
 <style>
 a:link, a:visited, a:hover {
 	color: black;
@@ -56,6 +54,16 @@ button {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
 }
 </style>
 
@@ -289,17 +297,12 @@ function register(){
 </script>
 
 <body>
-	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/course/courseList.do">과정
-						관리</a></li>
-			</ul>
-		</div>
 
-		<table class="table_" id="myTable">
+	<div class="container">
+
+	<div class="pageIntro">과정관리</div>
+
+		<table  id="myTable">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"

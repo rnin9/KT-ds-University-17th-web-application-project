@@ -7,24 +7,60 @@ import com.mySpring.springEx.application.vo.ApplicationVO;
 
 @Component("partnerVO")
 public class PartnerVO {
-	private String partnerLicenseNum;           /*협력사 사업자번호*/
-	private String partnerState;              /*협약 상태*/
-	private String partnerName;                   /*협력사 명*/
-	private String partnerInformation;            /*간단한 회사 정보*/
-	private String partnerAddress;                /*협력사 주소*/
-	private String partnerPhoneNumber;            /*협력사 전화번호*/
-	private String partnerEmail;                  /*협력사 이메일*/
-	private String partnerCEO;                    /*협력사 대표명*/
-	private int partnerHeadCount;                 /*인원 규모*/
-	private String partnerApplyYN;              /*지원 가능 여부*/
-	private String partnerApplyFinishDate;          /*모집 마감 날짜*/
-	private String partnerURL;                    /*회사 홈페이지*/
-	private String partnerRegisterDate;           /*등록날짜*/
+	private String partnerLicenseNum;           /*�삊�젰�궗 �궗�뾽�옄踰덊샇*/
+	private String partnerState;              /*�삊�빟 �긽�깭*/
+	private String partnerName;                   /*�삊�젰�궗 紐�*/
+	private String partnerInformation;            /*媛꾨떒�븳 �쉶�궗 �젙蹂�*/
+	private String partnerAddress;                /*�삊�젰�궗 二쇱냼*/
+	private String partnerPhoneNumber;            /*�삊�젰�궗 �쟾�솕踰덊샇*/
+	private String partnerEmail;                  /*�삊�젰�궗 �씠硫붿씪*/
+	private String partnerCEO;                    /*�삊�젰�궗 ���몴紐�*/
+	private int partnerHeadCount;                 /*�씤�썝 洹쒕え*/
+	private String partnerApplyYN;              /*吏��썝 媛��뒫 �뿬遺�*/
+	private String partnerApplyFinishDate;          /*紐⑥쭛 留덇컧 �궇吏�*/
+	private String partnerURL;                    /*�쉶�궗 �솃�럹�씠吏�*/
+	private String partnerRegisterDate;           /*�벑濡앸궇吏�*/
 	private ApplicationVO applicationVO;
 	private String partnerApplyUserID;
-	private String partnerIndustryType;			 /*업종*/
+	private String partnerIndustryType;			 /*�뾽醫�*/
+	private String partnerCharger;					/*담당자 이름*/
+	private String partnerChargerDepartment;		/*담당자 부서*/
+	private String partnerChargerID;				/*담당자 ID*/
+	private String partnerChargerEmail;				/*담당자 Email*/
 
 
+	public PartnerVO(){
+
+	}
+
+	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,
+			String partnerAddress, String partnerPhoneNumber, String partnerEmail, String partnerCEO,
+			int partnerHeadCount, String partnerApplyYN, String partnerApplyFinishDate, String partnerURL,
+			String partnerRegisterDate, ApplicationVO applicationVO, String partnerApplyUserID,
+			String partnerIndustryType, String partnerCharger, String partnerChargerDepartment, String partnerChargerID,
+			String partnerChargerEmail) {
+		this.partnerLicenseNum = partnerLicenseNum;
+		this.partnerState = partnerState;
+		this.partnerName = partnerName;
+		this.partnerInformation = partnerInformation;
+		this.partnerAddress = partnerAddress;
+		this.partnerPhoneNumber = partnerPhoneNumber;
+		this.partnerEmail = partnerEmail;
+		this.partnerCEO = partnerCEO;
+		this.partnerHeadCount = partnerHeadCount;
+		this.partnerApplyYN = partnerApplyYN;
+		this.partnerApplyFinishDate = partnerApplyFinishDate;
+		this.partnerURL = partnerURL;
+		this.partnerRegisterDate = partnerRegisterDate;
+		this.applicationVO = applicationVO;
+		this.partnerApplyUserID = partnerApplyUserID;
+		this.partnerIndustryType = partnerIndustryType;
+		this.partnerCharger = partnerCharger;
+		this.partnerChargerDepartment = partnerChargerDepartment;
+		this.partnerChargerID = partnerChargerID;
+		this.partnerChargerEmail = partnerChargerEmail;
+	}
+	
 	public String getPartnerIndustryType() {
 		return partnerIndustryType;
 	}
@@ -33,26 +69,36 @@ public class PartnerVO {
 		this.partnerIndustryType = partnerIndustryType;
 	}
 
-	public PartnerVO(){
-
+	public String getPartnerCharger() {
+		return partnerCharger;
 	}
 
-	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate, String partnerApplyUserID, ApplicationVO applicationVO){
-		this.partnerLicenseNum = partnerLicenseNum;
-		this.partnerName = partnerName;
-		this.partnerInformation = partnerInformation;
-		this.partnerAddress = partnerAddress;
-		this.partnerPhoneNumber   = partnerPhoneNumber;
-		this.partnerEmail = partnerEmail;
-		this.partnerCEO = partnerCEO;
-		this.partnerHeadCount = partnerHeadCount;
-		this.partnerApplyYN = partnerApplyYN;
-		this.partnerURL = partnerURL;
-		this.partnerApplyFinishDate = partnerApplyFinishDate;
-		this.partnerRegisterDate = partnerRegisterDate ;
-		this.applicationVO = applicationVO;
-		this.partnerApplyUserID = partnerApplyUserID;
+	public void setPartnerCharger(String partnerCharger) {
+		this.partnerCharger = partnerCharger;
+	}
 
+	public String getPartnerChargerDepartment() {
+		return partnerChargerDepartment;
+	}
+
+	public void setPartnerChargerDepartment(String partnerChargerDepartment) {
+		this.partnerChargerDepartment = partnerChargerDepartment;
+	}
+
+	public String getPartnerChargerID() {
+		return partnerChargerID;
+	}
+
+	public void setPartnerChargerID(String partnerChargerID) {
+		this.partnerChargerID = partnerChargerID;
+	}
+
+	public String getPartnerChargerEmail() {
+		return partnerChargerEmail;
+	}
+
+	public void setPartnerChargerEmail(String partnerChargerEmail) {
+		this.partnerChargerEmail = partnerChargerEmail;
 	}
 
 	public String getPartnerApplyFinishDate() {

@@ -119,7 +119,7 @@ width : 100%
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">회사소개</span>
+		<span style="color: white;"></span>
 	</div>
 	<div class="container">
 

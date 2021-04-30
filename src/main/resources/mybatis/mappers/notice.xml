@@ -92,7 +92,7 @@
 	<select id="readNotice" parameterType="int"
 		resultType="com.mySpring.springEx.notice.vo.NoticeVO">
 	 <![CDATA[
-		 select notice_no, notice_category, notice_title, notice_contents, notice_adminID, notice_date, notice_hit from notice
+		 select notice_no, notice_category, notice_title, notice_contents, notice_adminID, notice_date, to_char(notice_date, 'yyyy.mm.dd') as noticeDate, notice_hit from notice
 		 where notice_no = #{notice_no}	]]>
 	</select>
 

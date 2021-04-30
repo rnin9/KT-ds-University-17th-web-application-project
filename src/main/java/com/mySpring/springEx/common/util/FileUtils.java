@@ -15,9 +15,10 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
-	  private static final String filePath =
-	  "C:\\Users\\user\\Desktop\\ktkt\\KT-ds-University-17th-web-application-project\\file\\";
+
+	  private static final String filePath ="C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file";
 	  // 파일이 저장될 위치
+
 	 
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
@@ -25,9 +26,9 @@ public class FileUtils {
 //		final String filePath = mpRequest.getSession().getServletContext().getRealPath("webapp\\resources\\attachmentFile\\");
 //		System.out.println(filePath);
 		/*
-			Iterator은 데이터들의 집합체? 에서 컬렉션으로부터 정보를 얻어올 수 있는 인터페이스입니다.
-			List나 배열은 순차적으로 데이터의 접근이 가능하지만, Map등의 클래스들은 순차적으로 접근할 수가 없습니다.
-			Iterator을 이용하여 Map에 있는 데이터들을 while문을 이용하여 순차적으로 접근합니다.
+			Iterator�� �곗�댄�곕�ㅼ�� 吏��⑹껜? ���� 而щ�����쇰�遺��� ��蹂대�� �살�댁�� �� ���� �명�고���댁�ㅼ������.
+			List�� 諛곗�댁�� ��李⑥���쇰� �곗�댄�곗�� ��洹쇱�� 媛��ν��吏�留�, Map�깆�� �대���ㅻ�ㅼ�� ��李⑥���쇰� ��洹쇳�� ��媛� ���듬����.
+			Iterator�� �댁�⑺���� Map�� ���� �곗�댄�곕�ㅼ�� while臾몄�� �댁�⑺���� ��李⑥���쇰� ��洹쇳�⑸����.
 		*/
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -55,6 +56,8 @@ public class FileUtils {
 				str_nt_file_name = getRandomString() + originalFileExtension;
 				
 				file = new File(filePath + str_nt_file_name);
+				System.out.println("zzzzzzzzzzz"+file);
+				System.out.println("파일패스ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+filePath);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
 				listMap.put("NOTICE_NO", notice_no);

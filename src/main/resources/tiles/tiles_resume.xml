@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/resume/resumeList" extends="baseLayout">
+	      <put-attribute name="title" value="이력서" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resume.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeInfo" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 보기" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeInfo.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeWrite" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWrite.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeWriteDetail" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 detail 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteDetail.jsp" />
+	</definition>
+	
+	<definition name="/resume/moveToPage3" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 page3 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteCareer.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeAdmin" extends="baseLayout">
+	      <put-attribute name="title" value="관리자 이력서 조회" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeAdmin.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeBackPage1" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWrite.jsp" />
+	</definition>
+	
+	<definition name="/resume/resumeBackPage2" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteDetail.jsp" />
+	</definition>
+	
+	<definition name="/resume/moveToPage4" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteProject.jsp" />
+	</definition>
+	
+	<definition name="/resume/moveToPage5" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteSelf.jsp" />
+	</definition>
+	
+	<definition name="/resume/modResume" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWrite.jsp" />
+	</definition>
+	
+	<definition name="/resume/page1Topage3" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteCareer.jsp" />
+	</definition>
+	
+	<definition name="/resume/page1Topage4" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteProject.jsp" />
+	</definition>
+	
+	<definition name="/resume/page1Topage5" extends="baseLayout">
+	      <put-attribute name="title" value="이력서 작성" />
+	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteSelf.jsp" />
+	</definition>
+	
+	
+	
+</tiles-definitions>

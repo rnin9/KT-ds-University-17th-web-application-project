@@ -5,7 +5,7 @@
 <tiles-definitions>
 
 
-	<definition name="/notice/listNotice" extends="baseLayout">
+	<definition name="/notice/listNotice" extends="adminLayout">
 		<put-attribute name="title" value="공지목록창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/listNotice.jsp" />
@@ -18,13 +18,13 @@
 			value="/WEB-INF/views/notice/listNoticeUser.jsp" />
 	</definition>
 
-	<definition name="/notice/noticeForm" extends="baseLayout">
+	<definition name="/notice/noticeForm" extends="adminLayout">
 		<put-attribute name="title" value="공지작성창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/noticeForm.jsp" />
 	</definition>
 	
-	<definition name="/notice/readNotice" extends="baseLayout">
+	<definition name="/notice/readNotice" extends="adminLayout">
 		<put-attribute name="title" value="공지조회창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/readNotice.jsp" />
@@ -36,7 +36,7 @@
 			value="/WEB-INF/views/notice/readNoticeUser.jsp" />
 	</definition>
 	
-	<definition name="/notice/updateView" extends="baseLayout">
+	<definition name="/notice/updateView" extends="adminLayout">
 		<put-attribute name="title" value="공지수정창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/notice/updateView.jsp" />

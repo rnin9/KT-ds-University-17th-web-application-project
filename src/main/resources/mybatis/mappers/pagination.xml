@@ -1,66 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
 <!-- survey List pagination -->
-<mapper
-	namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
-	<resultMap id="surResult" type="surveyVO">
-		<id property="survey_Id" column="survey_Id" />
+<mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
+	
+
+
+
+	<!-- courseTake pagination -->
+
+	<resultMap id="courseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
-		<result property="survey_Title" column="survey_Title" />
-		<result property="writeDate" column="writeDate" />
-		<!-- courseTake join -->
-		<collection property="courseTakeVO" javaType="CourseTakeVO">
-			<result property="userID" column="userID" />
-			<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+			<id property="userId" column="userId" />
+			<result property="userName" column="userName" />
+			<result property="userPhoneNumber" column="userPhoneNumber" />
+			<result property="userEmail" column="userEmail" />
+			<result property="userCompany" column="userCompany" />
 		</collection>
-		<!-- course join -->
+
 		<collection property="courseVO" javaType="CourseVO">
 			<id property="courseID" column="courseID" />
 			<result property="syllabusID" column="syllabusID" />
-			<result property="courseShow" column="courseShow" />
 		</collection>
-		<!-- syllabus join -->
+
 		<collection property="syllabusVO" javaType="SyllabusVO">
 			<id property="syllabusID" column="syllabusID" />
 			<result property="syllabusName" column="syllabusName" />
 		</collection>
 	</resultMap>
 
-	<select id="SelectAllList" resultMap="surResult">
-		SELECT * FROM
-		(SELECT ROW_NUMBER() OVER(ORDER by survey_Id DESC) AS row_num
-		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate
-		FROM COURSE A,
-		SYLLABUS B, SURVEY1 S
-		WHERE A.syllabusID = B.syllabusID
-		AND A.courseID =
-		S.courseID)
-		<if test="firstRecordIndex !=null and lastRecordIndex != null">
-			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex}
-		</if>
-		order by survey_Id DESC
-	</select>
-
-	<select id="SelectAllList2" resultMap="surResult">
-		SELECT s.syllabusName, c.courseID FROM COURSE C INNER JOIN SYLLABUS S ON
-		C.syllabusID = S.syllabusID WHERE courseShow='Y'
-	</select>
-
-
-
-	<select id="testTableCount" resultType="int">
-		SELECT count(*) FROM
-		survey1
-	</select>
-
-
-
-
+	
+	
 
 	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 
 		> <![CDATA[ select * from t_member where id=#{id} and pwd=#{pwd} ]]> </select> -->
@@ -85,9 +67,7 @@
 			column="partnerRegisterDate" />
 	</resultMap>
 
-
- <!-- <resultMap id="companyCourseTakeResult" type="courseTakeVO">
-
+ <resultMap id="companyCourseTakeResult" type="courseTakeVO">
 		<result property="userID" column="userID" />
 		<result property="courseID" column="courseID" />
 		<result property="courseTake_State" column="courseTake_State" />
@@ -95,33 +75,30 @@
 			column="courseTake_ApplyDate" />
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
-		join 할 VO를 데이터매핑
+		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
 		<result property="userId" column="userId" />
 		<result property="userName" column="userName" />
-		<result property="birth" column="birth" />
 		<result property="userPhoneNumber" column="userPhoneNumber" />
 		<result property="userEmail" column="userEmail" />
 		<result property="userCompany" column="userCompany" />
 		</collection>
-
+		
 		<collection property="courseVO" javaType="CourseVO">
-			<result property="courseID" column="courseID" />
-			<result property="syllabusID" column="syllabusID" />
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
 		</collection>
-
+		
 		<collection property="syllabusVO" javaType="SyllabusVO">
 		<result	property="syllabusID" column="syllabusID"/>
 		<result property="syllabusName" column="syllabusName" />
-		<result property="syllabusTotalTime" column="syllabusTotalTime" />
 		</collection>
-	</resultMap> -->
+	</resultMap>
 
 	<select id="SelectAllListPartner" resultMap="resResult">
 		SELECT *
 		FROM (
-		SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum
-		DESC) AS
+		SELECT ROW_NUMBER() OVER(ORDER by partnerLicenseNum DESC) AS
 		row_num
 		,partnerLicenseNum
 		,partnerState
@@ -144,46 +121,25 @@
 		</if>
 	</select>
 
-
-	<select id="testTableCountPartner" resultType="int">
-		SELECT count(*) FROM
-		partner
-	</select>
-
-
-	<!-- 공지사항 시작 -->
-	<resultMap id="noticeResult" type="noticeVO">
+	
+	 <select id="testTableCountPartner" resultType="int">
+        SELECT count(*) FROM
+        partner
+    </select>
+    
+    
+    <!-- 공지사항 시작-->
+    <resultMap id="noticeResult" type="noticeVO">
 		<result property="notice_no" column="notice_no" />
 		<result property="notice_category" column="notice_category" />
-		<result property="notice_title" column="notice_title" />
-		<result property="notice_adminID" column="notice_adminID" />
-		<result property="notice_date" column="notice_date" />
-		<result property="notice_hit" column="notice_hit" />
-	</resultMap>
+        <result property="notice_title" column="notice_title" />
+        <result property="notice_adminID" column="notice_adminID" />
+        <result property="notice_date" column="notice_date" />
+        <result property="notice_hit" column="notice_hit" />
+	</resultMap> 
 
 	<select id="NoticeAllList" resultMap="noticeResult">
-		SELECT *
-		FROM (
-		SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
-		row_num
-		,notice_no
-		,notice_category
-		,notice_title
-		,notice_adminID
-		,notice_date
-		,notice_hit
-		FROM notice
-		)
-		<if test="firstRecordIndex !=null and lastRecordIndex != null">
-			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex}
-		</if>
-	</select>
-
-
-    
-    <select id="NoticefixList" resultMap="noticeResult">
-      SELECT *
+         SELECT *
         FROM (
         SELECT ROW_NUMBER() OVER(ORDER by notice_no DESC) AS
         row_num
@@ -194,11 +150,13 @@
         ,notice_date
         ,notice_hit
         FROM notice
-        where notice.notice_category = '[공지]'
-        );
-    </select>
-    
-
+        )
+         <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            WHERE row_num BETWEEN #{firstRecordIndex} AND
+            #{lastRecordIndex}
+        </if>	 	
+	</select>
+	
 	<select id="testTableCountN" resultType="int">
         SELECT count(*) FROM
         notice
@@ -206,17 +164,14 @@
   	<!-- 공지사항 끝-->
   	
   	<!-- 협력사관련 -->
-  	<!-- 
   	
   	<select id="companyEmployeeTableCount" resultType="int">
   	SELECT count(*) from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.birth,
+  	 				 m.userPhoneNumber,
   	 				 m.userEmail,
   	 				 s.syllabusName,
-  	 				 s.syllabusTotalTime,
-  	 				 ct.courseID,
   	 				 ct.courseTake_State,
   	 				 ct.courseTake_ApplyDate,
   	 				 ct.courseTake_CompleteDate
@@ -229,10 +184,9 @@
   	SELECT * from( select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.birth,
+  	 				 m.userPhoneNumber,
   	 				 m.userEmail,
-  	 				 s.syllabusName,
-  	 				 s.syllabusTotalTime,
+  	 				 s.syllabusName, 
   	 				 ct.courseID,
   	 				 ct.courseTake_State,
   	 				 ct.courseTake_ApplyDate,
@@ -244,38 +198,13 @@
             #{lastRecordIndex}
         </if>
 	</select>
-
-	<select id="SelectAllListCompanyEmployee"
-		resultMap="companyCourseTakeResult">
-
-		SELECT * from( select ROW_NUMBER() OVER(ORDER by
-		ct.courseTake_ApplyDate) as row_num,
-		m.userId,
-		m.userName,
-		m.userPhoneNumber,
-		m.userEmail,
-		s.syllabusName,
-		ct.courseID,
-		ct.courseTake_State,
-		ct.courseTake_ApplyDate,
-		ct.courseTake_CompleteDate
-		from course_take ct join kt_user m on ct.userId = m.userId join partner p
-		on p.partnerLicenseNum = m.userCompany join course c on c.courseId =
-		ct.courseId join syllabus s on s.syllabusId = c.syllabusId
-		where p.partnerLicenseNum=#{partnerLicenseNum})
-		<if test="firstRecordIndex !=null and lastRecordIndex != null">
-			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex}
-		</if>
-	</select>
-
+	
 	<select id="searchEmployeeTableCount" resultType="int">
-
   	select count(*) 
     from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.birth,
+  	 				 m.userPhoneNumber,
   	 				 m.userEmail,
   	 				 s.syllabusName, 
   	 				 ct.courseID,
@@ -291,22 +220,21 @@
     				 s.syllabusName like '%'||#{syllabusName}||'%'
     				 </if>
     				 <if test="courseStartDate == ''">
-
     				 <![CDATA[
         			 and to_char(c.courseStart,'YYMMDD') - '000101' > 0
     				 ]]>
-		</if>
-		<if test="courseStartDate != ''">
+    				 </if>
+    				 <if test="courseStartDate != ''">
     				  <![CDATA[
         			 and to_char(c.courseStart,'YYMMDD') - #{courseStartDate} > 0
     				 ]]>
-		</if>
-		<if test="completionDate == ''">
+    				 </if>
+    				 <if test="completionDate == ''">
     				 <![CDATA[
         			 and to_char(ct.coursetake_completedate,'YYMMDD') IS NULL
     				 ]]>
-		</if>
-		<if test="completionDate != ''">
+    				 </if>
+    				 <if test="completionDate != ''">
     				 <![CDATA[
         			 and to_char(ct.coursetake_completedate,'YYMMDD') - #{completionDate} > 0
     				 ]]>
@@ -325,7 +253,7 @@
     from (select ROW_NUMBER() OVER(ORDER by ct.courseTake_ApplyDate) as row_num,
   	 				 m.userId,
   	 				 m.userName,
-  	 				 m.birth,
+  	 				 m.userPhoneNumber,
   	 				 m.userEmail,
   	 				 s.syllabusName, 
   	 				 ct.courseID,
@@ -341,26 +269,24 @@
     				 s.syllabusName like '%'||#{syllabusName}||'%'
     				 </if>
     				 <if test="courseStartDate == ''">
-
     				 <![CDATA[
         			 and to_char(c.courseStart,'YYMMDD') - '000101' > 0
     				 ]]>
-		</if>
-		<if test="courseStartDate != ''">
+    				 </if>
+    				 <if test="courseStartDate != ''">
     				  <![CDATA[
         			 and to_char(c.courseStart,'YYMMDD') - #{courseStartDate} > 0
     				 ]]>
-		</if>
-		<if test="completionDate == ''">
+    				 </if>
+    				 <if test="completionDate == ''">
     				 <![CDATA[
         			 and to_char(ct.coursetake_completedate,'YYMMDD') IS NULL
     				 ]]>
-		</if>
-		<if test="completionDate != ''">
+    				 </if>
+    				 <if test="completionDate != ''">
     				 <![CDATA[
         			 and to_char(ct.coursetake_completedate,'YYMMDD') - #{completionDate} > 0
     				 ]]>
-
     				 </if>
     				 <if test="userName == ''">
     				 and m.userName like '%'||''||'%' 
@@ -369,5 +295,5 @@
     				 and m.userName like '%'||#{userName}||'%' 
     				 </if>
     				 and m.usercompany =#{partnerLicenseNum})
-        </select> -->
+        </select>
 </mapper>
