@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css"
@@ -15,8 +15,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <style>
- 
- .table thead th {
+.table thead th {
 	width: 25%;
 	border-bottom: 1px;
 }
@@ -580,32 +579,33 @@
 															<div class="form-card">
 																<h2 class="fs-title">자격증 정보</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>자격증 명</th>
-																<th>발행처/기관</th>
-																<th>취득일</th>
-																</tr>
-																<tr>
-																<td>SQLD</td>
-																<td>한국 데이터베이스 산업진흥원</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>자격증 명</th>
+																		<th>발행처/기관</th>
+																		<th>취득일</th>
+																	</tr>
+																	<tr>
+																		<td>SQLD</td>
+																		<td>한국 데이터베이스 산업진흥원</td>
+																		<td>2021.04.01</td>
+																	</tr>
 																</table>
-																
-																<h2 class="fs-title" style="margin-top:100px">어학 시험</h2>
+
+																<h2 class="fs-title" style="margin-top: 100px">어학
+																	시험</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>언어</th>
-																<th>시험종류</th>
-																<th>점수</th>
-																<th>취득일</th>
-																</tr>
-																<tr>
-																<td>영어</td>
-																<td>TOEIC</td>
-																<td>990</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>언어</th>
+																		<th>시험종류</th>
+																		<th>점수</th>
+																		<th>취득일</th>
+																	</tr>
+																	<tr>
+																		<td>영어</td>
+																		<td>TOEIC</td>
+																		<td>990</td>
+																		<td>2021.04.01</td>
+																	</tr>
 																</table>
 															</div>
 															<input type="button" name="previous"
@@ -617,63 +617,54 @@
 															<div class="form-card">
 																<h2 class="fs-title">경력사항</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">회사명</td>
-																</tr>
-																<tr>
-																<td>경력기간</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>직위</td>
-																<td>
-																과장</td>
-																</tr>
-																<tr>
-																<td>고용형태</td>
-																<td>
-																정규직
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">회사명</td>
-																</tr>
-																<tr>
-																<td>경력기간</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>직위</td>
-																<td>
-																과장</td>
-																</tr>
-																<tr>
-																<td>고용형태</td>
-																<td>
-																정규직
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">회사명</td>
-																</tr>
-																<tr>
-																<td>경력기간</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>직위</td>
-																<td>
-																과장</td>
-																</tr>
-																<tr>
-																<td>고용형태</td>
-																<td>
-																정규직
-																</td>
-																</tr>
-																
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">회사명</td>
+																	</tr>
+																	<tr>
+																		<td>경력기간</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>직위</td>
+																		<td>과장</td>
+																	</tr>
+																	<tr>
+																		<td>고용형태</td>
+																		<td>정규직</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">회사명</td>
+																	</tr>
+																	<tr>
+																		<td>경력기간</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>직위</td>
+																		<td>과장</td>
+																	</tr>
+																	<tr>
+																		<td>고용형태</td>
+																		<td>정규직</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">회사명</td>
+																	</tr>
+																	<tr>
+																		<td>경력기간</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>직위</td>
+																		<td>과장</td>
+																	</tr>
+																	<tr>
+																		<td>고용형태</td>
+																		<td>정규직</td>
+																	</tr>
+
 																</table>
 															</div>
 															<input type="button" name="previous"
@@ -684,74 +675,66 @@
 
 														<fieldset>
 															<div class="form-card">
-																	<h2 class="fs-title">프로젝트</h2>
+																<h2 class="fs-title">프로젝트</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">기관명</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">프로젝트 명</td>
-																<td>스프링 프로젝트</td>
-																</tr>
-																<tr>
-																<td>기간</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>개발환경<br>
-																및 사용기술</td>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<td>프로젝트 소개</td>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<td>담당한 역할</td>
-																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">기관명</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">프로젝트 명</td>
-																<td>스프링 프로젝트</td>
-																</tr>
-																<tr>
-																<td>기간</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>개발환경<br>
-																및 사용기술</td>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<td>프로젝트 소개</td>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<td>담당한 역할</td>
-																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
-																</tr>
-																
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">기관명</td>
+																	</tr>
+																	<tr>
+																		<td style="width: 110px;">프로젝트 명</td>
+																		<td>스프링 프로젝트</td>
+																	</tr>
+																	<tr>
+																		<td>기간</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>개발환경<br> 및 사용기술
+																		</td>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파 가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<td>프로젝트 소개</td>
+																		<td>
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<td>담당한 역할</td>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">기관명</td>
+																	</tr>
+																	<tr>
+																		<td style="width: 110px;">프로젝트 명</td>
+																		<td>스프링 프로젝트</td>
+																	</tr>
+																	<tr>
+																		<td>기간</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>개발환경<br> 및 사용기술
+																		</td>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파 가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<td>프로젝트 소개</td>
+																		<td>
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<td>담당한 역할</td>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+
 																</table>
 															</div>
 															<input type="button" name="previous"
@@ -762,48 +745,38 @@
 
 														<fieldset>
 															<div class="form-card">
-															<h2 class="fs-title">자기소개서</h2>
+																<h2 class="fs-title">자기소개서</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th style="width: 110px;">성장과정</th>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<th>학교생활</th>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<th>성격 (장/단점)</th>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<th>희망업무 및 장래포부</th>
-																<td>
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
-																</td>
-																</tr>
-																<tr>
-																<th>기타사항</th>
-																<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
-																</tr>
-																
-																
+																	<tr>
+																		<th style="width: 110px;">성장과정</th>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파 가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<th>학교생활</th>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파 가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<th>성격 (장/단점)</th>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파 가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<th>희망업무 및 장래포부</th>
+																		<td>
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파
+																			가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+																	<tr>
+																		<th>기타사항</th>
+																		<td>가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파가나다라마바사아차카타파</td>
+																	</tr>
+
+
 																</table>
 															</div>
 															<input type="button" name="previous"
