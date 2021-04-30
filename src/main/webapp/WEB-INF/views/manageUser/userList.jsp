@@ -7,9 +7,9 @@
     request.setCharacterEncoding("UTF-8");
 %>
 
-
 <html>
 <head>
+
     <meta charset=UTF-8">
     <title>회원 관리</title>
 
@@ -34,7 +34,6 @@
     <script type="text/javascript"
             src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
-
     <style>
         a:link, a:visited, a:hover {
             color: black;
@@ -44,7 +43,7 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            width: 75%;
+            width: 80%;
             justify-content: space-around;
             flex-direction: column;
             padding-bottom: 200px;

@@ -6,16 +6,14 @@
 <head>
     <meta charset="utf-8"/>
     <title>Kakao 지도 시작하기</title>
+    
+    <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	
     <style>
         <%--    스르륵     --%>
         html {
             scroll-behavior: smooth;
-        }
-
-        .container {
-            font-family: 'Noto Sans KR', sans-serif;
-            width: 80%;
-            /*scroll-behavior: smooth;*/
         }
       
         .sub_visual {
@@ -34,7 +32,7 @@
 
         .pageIntro {
             font-family: 'Noto Sans KR', sans-serif;
-            margin-top: 50px;
+            margin-top: 20px;
             text-align: left;
             font-size: 34px;
             font-weight: 450;
@@ -83,7 +81,7 @@
 </div>
 <div class="container">
 
-    <div class="lnb">
+    <div id="scrollClass" class="lnb">
         <ul>
             <li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
             <li style="color: grey; font-weight: bold;">〉</li>
@@ -94,15 +92,12 @@
 
 
     <div class="mapContainer" style="background-color: white">
-        <div id="scrollClass" style="height: 25px"></div>
-        <div  style="margin-top: 20px; text-align: left">
-            <div></div>
-        </div>
+         <!-- <div id="scrollClass" style="height: 20px;"></div> -->
         <div class="pageIntro">강의실 안내</div>
 
 
         <!-- 캐러셀 시작 -->
-        <div style="width: 70%; height: 70%; margin-left: 15%" id="carouselExampleIndicators"
+        <div style="width: 70%; height: 70%; margin-left: 15%; margin-top:30px;" id="carouselExampleIndicators"
              class="carousel slide custom-carousel" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0"
@@ -166,16 +161,16 @@
         <!-- 캐러셀 종료 -->
 
 
-        <div style="display: flex; justify-content: center; margin-top: 100px; padding-bottom: 150px">
+        <div style="display: flex; justify-content: center; margin-top: 100px; padding-bottom: 60px">
             <%--      교육센터 안내도 이미지      --%>
             <img
                     src="${pageContext.request.contextPath}/resources/image/map/classinfo.jpg"
                     width="800" height="646">
         </div>
 
-        <div id="scrollLocation" style="height: 25px"></div>
+        <div id="scrollLocation" style="height: 70px"></div>
         <div class="pageIntro">오시는 길 안내</div>
-        <div class="row" style="padding-top: 50px">
+        <div class="row" style="margin-top:30px; margin-bottom:30px;">
             <div class="col">
                 <%--        약도 이미지        --%>
                 <img

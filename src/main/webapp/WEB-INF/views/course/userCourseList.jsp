@@ -18,11 +18,11 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/styleTab.css" />
 
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> -->
 
 <style>
 .bg-primary {
@@ -54,8 +54,7 @@ a:link, a:visited, a:hover {
 }
 
 .card-body {
-	width: 296px;
-	height: 296px;
+	width: 310px;
 	/* margin: 2% 2% 2% 2%; */
 	display: inline-table;
 }
@@ -118,7 +117,7 @@ p {
 					<div
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap;">
 						<c:forEach var="courseVO" items="${courseUserList}">
-							<div class="card" style="margin: 1% 1%;">
+							<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 								<a id="cardHover"
 									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 									<div class="card-body">
@@ -152,7 +151,7 @@ p {
 										<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 										<hr>
 										<p
-											style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 15px;">수강기간
+											style=" color: grey; font-weight: 200; font-size: 17px;">수강기간
 											${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 									</div>
 								</a>
@@ -169,7 +168,7 @@ p {
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
 
-								<div class="card" style="margin: 1% 1%;">
+								<div class="card"  style="margin-left: 4%; margin-bottom: 2%;">
 									<a
 										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
@@ -203,7 +202,7 @@ p {
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
 											<p
-												style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
+												style="height: 17px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
 												${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 										</div>
 									</a>
@@ -217,7 +216,7 @@ p {
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
-								<div class="card" style="margin: 1% 1%;">
+								<div class="card"  style="margin-left: 4%; margin-bottom: 2%;">
 									<a
 										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
@@ -250,7 +249,7 @@ p {
 											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
 											<p
-												style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
+												style="height: 17px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
 												${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 										</div>
 									</a>

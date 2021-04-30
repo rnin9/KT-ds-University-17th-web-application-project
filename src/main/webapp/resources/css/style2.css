@@ -9,6 +9,7 @@
 @charset "UTF-8";
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
+	width:80%;
 }
 
 a:link, a:visited, a:hover {
@@ -82,8 +83,8 @@ a:link, a:visited, a:hover {
 
 /*버튼*/
 .btn {
-	color: white;
-	background-color: tomato;
+	color: #DC3545;
+	background-color: white;
 	border-color: rgba(247, 94, 94, 0 .8);
 	display: inline-block;
 	font-weight: 400;
