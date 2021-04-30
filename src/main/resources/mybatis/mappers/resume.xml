@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.resume"> <!-- memberVO에 값들을 셋팅 -->
+	<resultMap id="resResult" type="resumeVO">
+		<!-- Resume 테이블 관련 -->
+		<result property="resumeID" column="resumeID" />
+	    <result property="resumeUser" column="resumeUser" />
+	    <result property="resumeForeign" column="resumeForeign" />
+	    <result property="resumeIDnumber" column="resumeIDnumber" />
+	    <result property="resumePic" column="resumePic" />
+	    <result property="resumeSchool" column="resumeSchool" />
+	    <result property="resumeGrade" column="resumeGrade" />
+	    <result property="resumeContext1" column="resumeContext1" />
+	    <result property="resumeContext2" column="resumeContext2" />
+	    <result property="resumeContext3" column="resumeContext3" />
+	    <result property="resumeContext4" column="resumeContext4" />
+	    <result property="resumeContext5" column="resumeContext5" />
+	    <result property="resumeDate" column="resumeDate" />
+	    <result property="resumeCheck" column="resumeCheck" />
+	    <result property="resumeLastEdu" column="resumeLastEdu"/>
+	    <!-- Resume_Career 관련 -->
+	    <result property="careerUser" column="careerUser" />
+	    <result property="careerCenter" column="careerCenter" />
+	    <result property="careerStartdate" column="careerStartdate" />
+	    <result property="careerEnddate" column="careerEnddate" />
+	    <result property="careerContent" column="careerContent" />
+	    <result property="careerHour" column="careerHour" />
+	    <result property="careerType" column="careerType" />
+	    <result property="careerPosition" column="careerPosition" />
+	    <result property="careerOther" column="careerOther" />
+	    <result property="careerCheck" column="careerCheck" />
+	    <result property="careerSEQ" column="careerSEQ"/>
+	    <result property="careerResume" column="careertResume"/>
+	    <!-- Resume_Certificate 관련 -->
+	    <result property="certificateUser" column="certificateUser" />
+	    <result property="certificateName" column="certificateName" />
+	    <result property="certificateEnforcement" column="certificateEnforcement" />
+	    <result property="certificateDate" column="certificateDate" />
+	    <result property="certificateSEQ" column="certificateSEQ"/>
+	    <result property="certificateResume" column="certificateResume"/>
+	    <!-- Resume_Foreign 관련 -->
+	    <result property="foreignUser" column="foreignUser" />
+	    <result property="foreignCriteria" column="foreignCriteria" />
+	    <result property="foreignName" column="foreignName" />
+	    <result property="foreignScore" column="foreignScore" />
+	    <result property="foreignDate" column="foreignDate" />
+	    <result property="foreignOther" column="foreignOther" />
+	    <result property="foreignSEQ" column="foreignSEQ"/>
+	    <result property="foreignResume" column="foreignResume"/>
+	    
+	    <!-- Resume_Project 관련 -->
+	    <result property="projectUser" column="projectUser" />
+	    <result property="projectEnforcement" column="projectEnforcement" />
+	    <result property="projectName" column="projectName" />
+	    <result property="projectDev" column="projectDev" />
+	    <result property="projectContent" column="projectContent" />
+	    <result property="projectRole" column="projectRole" />
+	    <result property="projectURL" column="projectURL" />
+	    <result property="projectSEQ" column="projectSEQ"/>
+	    <result property="projectResume" column="projectResume"/>
+	</resultMap>
+	
+	<select id="selectResumeList" resultMap="resResult">
+      <![CDATA[
+			select resumeID, resumeUser, resumeCheck, to_char(resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" from resume
+			where resumeUser = #{resumeUser}	
+			order by resumeCheck DESC,resumeDate 
+      ]]>
+	</select>
+	
+	<update id="resumeAllCheck" parameterType="resumeVO">
+	<![CDATA[
+			update resume
+			set resumeCheck = 'N'
+			where resumeUser = #{resumeUser}
+      ]]>
+	</update>
+	
+	<update id="resumeCheck" parameterType="resumeVO">
+	<![CDATA[
+			update resume
+			set resumeCheck = 'Y'
+			where resumeID = #{resumeID}
+      ]]>
+	</update>
+	
+	<select id="selectAllResumeList" resultMap="resResult">
+      <![CDATA[
+			select * from resume order by resumedate desc	
+      ]]>
+	</select>
+	
+	<select id="infoResume" resultMap="resResult">
+      <![CDATA[
+			select * from resume 
+ 			where resumeID = #{resumeID}
+      ]]>
+	</select>
+	
+	<select id="infoResume_career" resultMap="resResult">
+      <![CDATA[
+			select * from resume_career
+ 			where careerUser = #{resumeUser} and careerResume = #{careerResume}
+      ]]>
+	</select>
+	
+	<select id="infoResume_certificate" resultMap="resResult">
+      <![CDATA[
+			select * from resume_certificate
+ 			where certificateUser = #{resumeUser} and projectResume = #{projectResume}
+      ]]>
+	</select>
+	
+	<select id="infoResume_foreign" resultMap="resResult">
+      <![CDATA[
+			select * from resume_foreign
+ 			where foreignUser = #{resumeUser} and foreignResume = #{foreignResume}
+      ]]>
+	</select>
+	
+	<select id="infoResume_project" resultMap="resResult">
+      <![CDATA[
+			select * from resume_project
+ 			where projectUser = #{resumeUser} and projectResume = #{projectResume}
+      ]]>
+	</select>
+	
+	<!--  <select id="addResume" parameterType="resumeVO">
+		<![CDATA[
+			INSERT ALL
+			INTO RESUME values (#{resumeID}, #{resumeUser}, #{resumeForeign}, #{resumeIDnumber}, #{resumePic}, #{resumeSchool}, #{resumeGrade}, #{resumeContext1}, #{resumeContext2}, #{resumeContext3}, #{resumeContext4}, #{resumeContext5}, #{resumeDate})
+			INTO RESUME_CAREER values (#{careerID}, #{careerUser}, #{careerCenter}, #{careerStartdate}, #{careerEnddate}, #{careerContent}, #{careerHour}, #{careerType}, #{careerPosition}, #{careerOther}, #{careerCheck})
+			INTO RESUME_CERTIFICATE values (#{certificateUser}, #{certificateName}, #{certificateEnforcement}, #{certificateDate})
+			INTO RESUME_FOREIGN values (#{foreignUser}, #{foreignCriteria}, #{foreignName}, #{foreignScore}, #{foreignEnforcement}, #{foreignDate}, #{foreignOther})
+			INTO RESUME_PROJECT values (#{projectUser}, #{projectEnforcement}, #{projectName}, #{projectDev}, #{projectContent}, #{projectRole}, #{projectURL})
+			select *
+			FROM dual
+		]]>
+	</select>-->
+	
+	<!-- 
+	다음버튼 누르면 resume하나 생성
+	 -->
+	<insert id="createResume" parameterType="resumeVO">
+		<selectKey keyProperty="resumeID" resultType="String" order="BEFORE">  
+        	select RESUME_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into resume(resumeID, resumeUser)
+		values(#{resumeID},#{resumeUser})
+      
+	</insert>
+	
+	
+	<!-- page1업데이트 -->
+	<update id="resumePage1" parameterType="resumeVO">
+	<![CDATA[
+			update resume
+			set resumeForeign = #{resumeForeign}
+			where resumeID = #{resumeID}
+      ]]>
+	</update>
+	
+	<!-- page1 picture update -->
+	<update id="resumePic" parameterType="resumeVO">
+	<![CDATA[
+			update resume
+			set resumePic = #{resumePic}
+			where resumeID = #{resumeID}
+      ]]>
+	</update>
+
+
+
+<!-- page2  -->
+
+	<!-- page2 자격증 select -->
+	<select id="selectCertificafeList" parameterType="resumeVO" resultMap="resResult">
+      <![CDATA[
+			select *
+			from RESUME_CERTIFICATE
+			where  certificateUser = #{certificateUser}	 and certificateResume = #{certificateResume}
+			order by certificateSEQ	
+      ]]>
+	</select>
+	
+	<!-- page2 외국어자격증 select -->
+	<select id="selectForeignList" parameterType="resumeVO" resultMap="resResult">
+      <![CDATA[
+			select *
+			from RESUME_FOREIGN
+			where  foreignUser = #{foreignUser}	and foreignResume = #{foreignResume}
+			order by foreignSEQ	
+      ]]>
+	</select>
+	
+
+	<!--  page2 자격증 입력-->
+	<insert id="insertCertificate" parameterType="resumeVO">
+	<selectKey keyProperty="certificateSEQ" resultType="int" order="BEFORE">  
+        	select CERTIFICATE_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into RESUME_CERTIFICATE(certificateSEQ, certificateUser, certificateResume)
+		values(#{certificateSEQ}, #{certificateUser}, #{certificateResume})
+	</insert>
+	
+	<!-- page2 자격증 삭제 -->
+	<delete id="deleteCertificate" parameterType="int">
+	<![CDATA[
+			delete from RESUME_CERTIFICATE
+			where certificateSEQ = #{certificateSEQ} 
+      ]]>
+	
+	</delete>
+
+	<!--  page2 언어자격증 입력-->
+	<insert id="insertForeign" parameterType="resumeVO">
+	<selectKey keyProperty="foreignSEQ" resultType="int" order="BEFORE">  
+        	select FOREIGN_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into RESUME_FOREIGN(foreignSEQ, foreignUser, foreignResume)
+		values(#{foreignSEQ}, #{foreignUser}, #{foreignResume})
+	</insert>
+	
+	<!-- page2 언어자격증 삭제 -->
+	<delete id="deleteForeign" parameterType="int">
+	<![CDATA[
+			delete from RESUME_FOREIGN
+			where foreignSEQ = #{foreignSEQ} 
+      ]]>
+	
+	</delete>
+	
+	<!-- page2 학력사항 update -->
+	<update id="updateEducation" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME
+			set resumeSchool = #{resumeSchool}, resumeGrade = #{resumeGrade} , resumeLastEdu = #{resumeLastEdu}
+			where resumeID = #{resumeID}
+      ]]>
+	</update>
+	
+	<!-- page2 자격증 update -->
+	<update id="updateCertificate" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME_CERTIFICATE
+			set certificateName = #{certificateName}, certificateEnforcement = #{certificateEnforcement}, certificateDate = #{certificateDate} 
+			where certificateSEQ = #{certificateSEQ} 
+      ]]>
+	</update>
+	
+	<!-- page2 외국어자격증 update -->
+	<update id="updateForeign" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME_FOREIGN
+			set foreignCriteria = #{foreignCriteria}, foreignName = #{foreignName} ,foreignScore = #{foreignScore}, foreignDate = #{foreignDate}
+			where foreignSEQ = #{foreignSEQ} 
+      ]]>
+	</update>
+	
+	
+	
+	
+<!-- page2 END -->	
+	
+<!-- page3 -->
+
+	<!-- page3 경력사항 select -->
+	<select id="selectCareerList" parameterType="resumeVO"  resultMap="resResult">
+      <![CDATA[
+			select *
+			from RESUME_CAREER
+			where  careerUser = #{careerUser} and careerCheck = 'C'	and careerResume = #{careerResume}
+			order by careerSEQ	
+      ]]>
+	</select>
+	
+	<!-- page3 교육수료사항 select -->
+	<select id="selectEducationList" parameterType="resumeVO" resultMap="resResult">
+      <![CDATA[
+			select *
+			from RESUME_CAREER
+			where  careerUser = #{careerUser} and careerCheck = 'E'	 and careerResume = #{careerResume}
+			order by careerSEQ	
+      ]]>
+	</select>
+	
+	<!--  page3 경력사할 입력-->
+	<insert id="insertCareer" parameterType="resumeVO">
+	<selectKey keyProperty="careerSEQ" resultType="int" order="BEFORE">  
+        	select CAREER_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into RESUME_CAREER(careerSEQ, careerUser, careerCheck, careerResume)
+		values(#{careerSEQ}, #{careerUser}, 'C', #{careerResume})
+	</insert>
+	
+	<!--  page3 교육수료사할 입력-->
+	<insert id="insertEducation" parameterType="resumeVO">
+	<selectKey keyProperty="careerSEQ" resultType="int" order="BEFORE">  
+        	select CAREER_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into RESUME_CAREER(careerSEQ, careerUser, careerCheck, careerResume)
+		values(#{careerSEQ}, #{careerUser}, 'E', #{careerResume})
+	</insert>
+	
+	<!-- page3 career delete -->
+	<delete id="deleteCareer" parameterType="int">
+	<![CDATA[
+			delete from RESUME_CAREER
+			where careerSEQ = #{careerSEQ}
+      ]]>
+	
+	</delete>
+	
+	<!-- page3 career update -->
+	<update id="updateCareer" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME_CAREER
+			set careerCenter = #{careerCenter}, careerStartdate = #{careerStartdate}, careerEnddate=#{careerEnddate}, careerHour = #{careerHour, jdbcType=VARCHAR}, careerType = #{careerType,jdbcType=VARCHAR}, careerPosition = #{careerPosition,jdbcType=VARCHAR}, careerOther=#{careerOther,jdbcType=VARCHAR}
+			where careerSEQ = #{careerSEQ}
+      ]]>
+	</update>
+
+<!-- page3 END-->
+
+<!-- page4 -->
+	<!-- page4 project select -->
+	<select id="selectProjectList" parameterType="resumeVO" resultMap="resResult">
+      <![CDATA[
+			select *
+			from RESUME_PROJECT
+			where  projectUser = #{projectUser} and projectResume = #{projectResume}
+			order by projectSEQ	
+      ]]>
+	</select>
+	
+	<!--  page4 project 입력-->
+	<insert id="insertProject" parameterType="resumeVO">
+	<selectKey keyProperty="projectSEQ" resultType="int" order="BEFORE">  
+        	select PROJECT_SEQ.NEXTVAL FROM dual
+     	</selectKey>
+		insert into RESUME_PROJECT(projectSEQ, projectUser, projectResume)
+		values(#{projectSEQ}, #{projectUser}, #{projectResume})
+	</insert>
+	
+	<!-- page4 project delete -->
+	<delete id="deleteProject" parameterType="int">
+	<![CDATA[
+			delete from RESUME_PROJECT
+			where projectSEQ = #{projectSEQ}
+      ]]>
+	
+	</delete>
+	
+	<!-- page4 project update -->
+	<update id="updateProject" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME_PROJECT
+			set projectEnforcement = #{projectEnforcement}, projectName = #{projectName}, projectDev=#{projectDev}, projectContent = #{projectContent}, projectRole = #{projectRole}, projectURL = #{projectURL, jdbcType=VARCHAR} 
+			where projectSEQ = #{projectSEQ} 
+      ]]>
+	</update>
+
+
+<!-- page4 END-->
+
+
+<!-- page5 -->
+	<update id="updateSelf" parameterType="resumeVO">
+	<![CDATA[
+			update RESUME
+			set resumeContext1 = #{resumeContext1}, resumeContext2 = #{resumeContext2}, resumeContext3=#{resumeContext3},  resumeContext4 = #{resumeContext4}, resumeContext5 = #{resumeContext5} 
+			where resumeID = #{resumeID}
+      ]]>
+	</update>
+<!-- page5 END-->
+
+	<select id="deleteResume" parameterType="String">
+      <![CDATA[
+			delete from resume where resumeID = #{resumeID}
+      ]]>
+	</select>
+	
+	<select id="getResumeUser" parameterType="String" resultType="String">
+      <![CDATA[
+			select resumeUser from resume
+			where resumeID = #{resumeID}
+      ]]>
+	</select>
+	
+</mapper>
