@@ -576,35 +576,25 @@ request.setCharacterEncoding("UTF-8");
 		}
 	});
 </script>
-
-<SCRIPT>
-$("#id").click(function() {
-	$.ajax({
-		url : "${contextPath}/survey/getQuestionAnswer.do",
-		type : "POST",
-		data : {
-			userId : "${surveyVO.courseID}"
-		},
-		success : function(result) {
-			if (result == 1) {
-				$("#id_check").html("중복된 아이디가 있습니다.");
-				$("#joinBtn").attr("disabled", "disabled");
-			} else {
-				if($("#id").val()==""){
-					$("#id_check").html("필수 항목입니다.");
-					$("#joinBtn").attr("disabled", "disabled");
-				}else{
-				$("#id_check").html("");
-				$("#joinBtn").removeAttr("disabled");
-				}
-			}
-		},
-	})
+<script>
+$(function() { 
+	
+	$("#firstNav").click(function(){
+		$("#sidebar-left").css("height","9200px");
+	});
+	
+	
+	$("#secondNav").click(function(){
+		$("#sidebar-left").css("height","3540px");
+	});
+	
+	
 });
-</SCRIPT>
+</script>
+
+
 
 <style>
-
 .container {
 	width: 40%;
 	font-family: 'Noto Sans KR', sans-serif;
@@ -737,6 +727,7 @@ input:checked+label {
 	#eunjinfizz, #kang:checked ~ #kang, #dain:checked ~ #dain {
 	display: block;
 }
+
 </style>
 
 <title>회원 정보 목록창</title>
@@ -747,12 +738,12 @@ input:checked+label {
 		<div class="col-md-12">
 			<nav style="margin-top: 10px;">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
+
 					<li class="nav-item"><a id="firstNav" href="#nav-home"
-						data-toggle="tab" onclick="tabtab('#nav-home')"
-						class="nav-link active">요약</a></li>
+						data-toggle="tab" class="nav-link active">요약</a></li>
+
 					<li class="nav-item"><a id="secondNav" href="#nav-profile"
-						data-toggle="tab" onclick="tabtab('#nav-profile')"
-						class="nav-link">개별 보기</a></li>
+						data-toggle="tab" class="nav-link">개별 보기</a></li>
 				</ul>
 			</nav>
 			<div class="pageIntro">설문조사</div>
@@ -953,12 +944,12 @@ input:checked+label {
 				<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 					aria-labelledby="nav-profile-tab" style="overflow: hidden;">
 
-					<div class="container" style="display:block">
+					<div class="container">
 						<br>
 						<h3 style="text-align: center; margin-top: 10px;">${surveyVO.syllabusVO.syllabusName}</h3>
 
 						<c:forEach var="detailList" items="${detailList}">
-							<input id="${detailList.userId}" type="radio" name="tabs" checked="checked"
+							<input id="${detailList.userId}" type="radio" name="tabs"
 								value="${detailList.userId}">
 							<label for="${detailList.userId}">${detailList.userId}</label>
 						</c:forEach>
@@ -1054,6 +1045,7 @@ input:checked+label {
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
 
