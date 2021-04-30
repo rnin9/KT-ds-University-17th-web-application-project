@@ -389,6 +389,30 @@
 	]]>
 	</select>
 	
+	<select id="getCerResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_certificate where certificateResume = #{resumeID} and certificateUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getCarrResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_career where careerResume = #{resumeID} and careerUser = #{userID}
+	]]>
+	</select>
+	
+	<select id="getProResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_project where projectResume = #{resumeID} and projectUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getForResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_foreign where foreignResume = #{resumeID} and foreignUser = #{userID}
+	]]>
+	</select>
+	
 	<update id="manageUserApply" parameterType="applicationVO">
 	 <![CDATA[
 	 update partner_apply set partner_apply_state=#{partnerApplyState} where partner_apply_userID =#{partnerApplyUserID} and partner_apply_partnerID =#{partnerApplyPartnerID} 

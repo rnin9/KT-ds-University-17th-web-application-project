@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
@@ -29,6 +31,12 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
+	@RequestMapping(value = {"/noAuth.do"}, method = RequestMethod.GET )
+	public ModelAndView noAuth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("noAuth");
+		return mav;
+	}
+	
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -75,19 +83,19 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 	
-	
-	   @Override
-	   @RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
-	   public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
-	         HttpServletResponse response) throws Exception {
-	      String viewName = (String) request.getAttribute("viewName");
-	      memberVO = memberService.getMyInfo(userID);
-	      List myCourseList = memberService.listMyCourse(userID);
-	      ModelAndView mav = new ModelAndView(viewName);
-	      mav.addObject("myInfo", memberVO);
-	      mav.addObject("myCourseInfo", myCourseList);
-	      return mav;
-	   }
+	@Auth
+	@Override
+	@RequestMapping(value = { "/member/myInfo.do" }, method = RequestMethod.GET)
+	public ModelAndView myInfo(@RequestParam("userID") String userID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		memberVO = memberService.getMyInfo(userID);
+		List myCourseList = memberService.listMyCourse(userID);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("myInfo", memberVO);
+		mav.addObject("myCourseInfo", myCourseList);
+		return mav;
+	}
 
 	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
