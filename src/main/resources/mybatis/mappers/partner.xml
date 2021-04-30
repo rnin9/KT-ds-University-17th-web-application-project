@@ -32,7 +32,8 @@
          select partnerLicenseNum, partnerState, partnerName,partnerAddress ,partnerCharger, partnerCEO,partnerHeadCount,partnerURL,partnerChargerID, partnerChargerDepartment,partnerIndustryType, partnerChargerEmail,partnerPhoneNumber, to_char(partnerRegisterDate, 'yyyy-mm-dd') as "partnerRegisterDate"
          from partner 
          where partnerLicenseNum != 'kt_ds_university'
-
+	]]>
+	</select>
 	<resultMap id="jobOpeningList" type="partnerVO">
 		<result property="partnerName" column="partnerName"/>
 		<result property="partnerLicenseNum" column="partnerLicenseNum"/>

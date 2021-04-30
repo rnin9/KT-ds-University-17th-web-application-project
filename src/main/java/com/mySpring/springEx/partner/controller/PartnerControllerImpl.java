@@ -36,17 +36,12 @@ public class PartnerControllerImpl implements PartnerController {
 
 	@Autowired
 	PartnerVO partnervo;
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
-
-	
-=======
 	
 	@Autowired
 	ResumeVO resumeVO;
 	
 	
 	// select companyList
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
 	public ModelAndView partnerList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -56,7 +51,6 @@ public class PartnerControllerImpl implements PartnerController {
 		
 
 		ModelAndView mav = new ModelAndView(viewName);
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
 		mav.addObject("partnerList",partnerList);
 		List numPartner = partnerService.listNumPartner(); 
 		mav.addObject("numCooperation", numPartner.get(0));
@@ -84,61 +78,17 @@ public class PartnerControllerImpl implements PartnerController {
 	
 	@Override
 	@RequestMapping(value = "/partner/partnerForm.do", method = RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { 
-																											
-=======
-		mav.addObject("pagination", pagination);
-		mav.addObject("partnerList", partnerService.SelectAllListPartner(pagination));
-
-		List numPartner = partnerService.listNumPartner(); // count cooperation, convention, partner ~ing, count method
-
-		mav.addObject("numCooperation", numPartner.get(0)); // cooperation count(*)
-		mav.addObject("numConvention", numPartner.get(1)); // convention count(*)
-		mav.addObject("numIng", numPartner.get(2)); // partner ing count(*)
-		mav.addObject("numNot", numPartner.get(3)); // partner not count(*)
-		return mav;
-	}
-
-	// Add partner Start
-	@Override
-	@RequestMapping(value = "/partner/addPartner.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView addPartner(@ModelAttribute("partner") PartnerVO partner, RedirectAttributes rttr,
-			HttpServletRequest request, HttpServletResponse response) throws Exception { // partnerVO瑜� 媛앹껜濡� 諛쏆븘�꽌 db�뿉 ���옣�븯�뒗
-																							// 硫붿냼�뱶
-		request.setCharacterEncoding("utf-8");
-		partnerService.addPartner(partner); // addPartner calling
-		rttr.addFlashAttribute("msg", "addSuccess");
-		rttr.addFlashAttribute("partnerName", partner.getPartnerName());
-		ModelAndView mav = new ModelAndView("redirect:/partner/partnerList.do"); // addpartner瑜� �븳 �썑 �떎�떆 partnerList濡� �룎�븘媛�寃�
-																					// �꽕�젙
-		return mav;
-	}
-
-	// Add partner End
-	@Override
-	@RequestMapping(value = "/partner/partnerForm.do", method = RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { // form�쑝濡� �씠�룞�븯�뒗
-																											// 硫붿냼�뱶
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
+	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { 																											
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
-
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
 	
 	@Override
 	@RequestMapping(value = "/partner/detailInfoPartner.do", method = RequestMethod.GET)
 	public ModelAndView detailInfoPartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
 			HttpServletRequest request, HttpServletResponse response) throws Exception { 
-=======
-	// Partner Detail information
-	@Override
-	@RequestMapping(value = "/partner/detailInfoPartner.do", method = RequestMethod.GET)
-	public ModelAndView detailInfoPartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
-			HttpServletRequest request, HttpServletResponse response) throws Exception { // modform�쑝濡� �씠�룞�븯�뒗 硫붿냼�뱶
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		PartnerVO partnerVO;
@@ -148,11 +98,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
-	
-=======
 	// Partner information modify
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 	@Override
 	@RequestMapping(value = "/partner/modPartner.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView modPartner(@ModelAttribute("partner") PartnerVO partner, RedirectAttributes rttr,
@@ -168,22 +114,13 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
-	
-=======
 	// Partner Information delete
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 	@Override
 	@RequestMapping(value = "/partner/deletePartner.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView removePartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
 			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		String partnerName = partnerService.removePartner(partnerLicenseNum);
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
-		System.out.println("�̸�" + partnerName);
-=======
-		System.out.println("�씠由�" + partnerName);
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 		rttr.addFlashAttribute("msg", "removeSuccess");
 		rttr.addFlashAttribute("partnerName", partnerName);
 		ModelAndView mav = new ModelAndView("redirect:/partner/partnerList.do");
@@ -204,7 +141,7 @@ public class PartnerControllerImpl implements PartnerController {
 	public ModelAndView companyEmployee(
 			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
-		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // �닔媛뺤쨷�씤 �쉶�썝 由ъ뒪�듃�뜲�씠�꽣
+		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // 占쎈땾揶쏅벡夷뤄옙�뵥 占쎌돳占쎌뜚 �뵳�딅뮞占쎈뱜占쎈쑓占쎌뵠占쎄숲
 		return mav;
 	}
 
@@ -220,7 +157,10 @@ public class PartnerControllerImpl implements PartnerController {
 		 * mav.addObject("suggestList",
 		 * partnerService.selectSuggestList(partnerLicenseNum));
 		 */
-<<<<<<< HEAD:src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java
+		return mav;
+		}
+		
+/*
 		 ModelAndView mav = new ModelAndView(viewName);
 	  
 	  return mav; }
@@ -233,9 +173,7 @@ public class PartnerControllerImpl implements PartnerController {
 			ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
 			return mav;
 		}
-=======
-		return mav;
-	}
+*/
 	
 	@Override
 	@RequestMapping(value="/partner/company/manageSuggest.do", method = RequestMethod.POST)
@@ -308,7 +246,6 @@ public class PartnerControllerImpl implements PartnerController {
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningPost.do");
 		return mav;
 	}
->>>>>>> 79c1ac26c0c8d913397bc5a2c2468c5ffcf15a8a:src/main/java/com/mySpring/springEx/partner/controller/PartnerContorollerImpl.java
 
 	@Override
 	@RequestMapping(value = "/partner/deleteJobOpening.do", method = RequestMethod.POST)
