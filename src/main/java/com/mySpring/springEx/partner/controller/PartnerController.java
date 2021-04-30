@@ -20,12 +20,7 @@ import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 public interface PartnerController {
 
-
-	public ModelAndView partnerList(
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			@RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView partnerList( HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	public ModelAndView jobOpeningPost(
 			Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -62,7 +57,7 @@ public interface PartnerController {
 	
 	public ModelAndView companyInfoGraph(@RequestParam("partnerLicenseNum") String partnerLicenseNum,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, @RequestParam("partnerApplyUserID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	
 	public ModelAndView companyManageApply(@ModelAttribute("application") ApplicationVO application, HttpServletRequest request,

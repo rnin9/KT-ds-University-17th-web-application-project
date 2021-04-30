@@ -17,7 +17,6 @@
 			value="/WEB-INF/views/courseTake/courseCompleteList.jsp" />
 	</definition>
 
-
 	<!--  타일즈 제외 -->
 	<definition name="empty"
 		template="/WEB-INF/views/common/empty.jsp">

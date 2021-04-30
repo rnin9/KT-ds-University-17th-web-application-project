@@ -12,12 +12,8 @@ import com.mySpring.springEx.resume.vo.ResumeVO;
 import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 public interface PartnerService {
-
-	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
-
-	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
-
-	public int testTableCountPartner() throws Exception;
+	
+	public List SelectAllListPartner() throws Exception;
 
 	public List<Map<String, Object>> selectPartnerApplyN() throws Exception;
 
@@ -53,6 +49,14 @@ public interface PartnerService {
 	
 	//get Resume with Representative Resume
 	public ResumeVO getUserResume(String resumeID) throws Exception;
+	
+	public List getUserCer(String resumeID,String userID) throws Exception;
+	
+	public List getUserFor(String resumeID, String userID) throws Exception;
+	
+	public List getUserCarr(String resumeID, String userID) throws Exception;
+	
+	public List getUserPro(String resumeID, String userID) throws Exception;
 	
 	//handle Application from user
 	public void manageUserApply(ApplicationVO application) throws Exception;

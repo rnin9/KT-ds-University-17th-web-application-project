@@ -12,14 +12,15 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>공지사항 정보</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 .bg-primary {
@@ -31,72 +32,30 @@ a:link, a:visited, a:hover {
 	text-decoration: none;
 }
 
-.table_notice {
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
+
+button {
+	float: right;
+	margin-right: 10px;
+}
+
+.wrapper_noticeBox {
 	margin-top: 30px;
-	border-collapse: collapse;
-	text-align: center;
-	/* color: #555; */
+	border: 1px solid lightgrey;
+	border-radius: 10px;
 	width: 100%;
-	line-height: 40px;
-}
-
-.table_notice th {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	background-color: #f8f8f8;
-	text-align: center;
-	font-size: 15px;
-	width: 30%;
-}
-
-.table_notice td {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	text-align: center;
-	font-size: 15px;
-}
-
-.informTitle {
-	margin-top: 20px;
-	text-align: left;
-	font-size: 18px;
-	font-weight: 600;
-	padding-left: 30px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #e0e0e0;
-	letter-spacing: 5px;
-	padding-bottom: 20px;
-	background-color: #f8f8f8;
-}
-
-.informBox {
-	overflow: hidden;
 	height: auto;
-	text-align: left;
-	font-size: 16px;
-	line-height: 30px;
-	padding: 20px 60px 20px 60px;
-	margin-bottom: 20px;
-	margin-bottom: 20px;
-}
-
-.button_bottom_U {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.button_bottom_D {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.button_bottom_C {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
+	width: 100%;
+	height: auto;
+	min-height: 500px;
 }
 </style>
 
@@ -112,7 +71,7 @@ a:link, a:visited, a:hover {
 						var formObj = $("form[name='readForm']");
 
 						// 수정 
-						$(".button_bottom_U")
+						$("#button_bottom_U")
 								.on(
 										"click",
 										function() {
@@ -124,7 +83,7 @@ a:link, a:visited, a:hover {
 										})
 
 						// 삭제
-						$(".button_bottom_D")
+						$("#button_bottom_D")
 								.on(
 										"click",
 										function() {
@@ -141,7 +100,7 @@ a:link, a:visited, a:hover {
 										})
 
 						// 취소
-						$(".button_bottom_C")
+						$("#button_bottom_C")
 								.on(
 										"click",
 										function() {
@@ -227,22 +186,32 @@ a:link, a:visited, a:hover {
 						</c:forEach></td>
 				</tr>
 
-			</table>
+					<div class="noticeContent" style="width:100%">
+						<div class="noticeContentText"
+							style="text-align: left; line-height: 30px; width:70%; float:left">${readNotice.notice_contents}</div>
+						<div class="noticeContentFile" style="text-align: right; width:30%; float:right">
+							<c:forEach var="fileVO" items="${fileList}">
+								<a href="#"
+									onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;"><i
+									class="fas fa-file-alt"></i>${fileVO.ORG_NT_FILE_NAME}</a>(${fileVO.NT_FILE_SIZE}kb)<br>
 
-			<div class="containerLower" style="margin-top: 30px;">
-				<div class="inform">
-					<div class="informTitle">
-						<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
+								<!--  <a
+									href="/KT-ds-University-17th-web-application-project/filepath/${fileVO.STR_NT_FILE_NAME}"
+									download><i class="fas fa-file-alt"></i>'${fileVO.ORG_NT_FILE_NAME}'('${fileVO.NT_FILE_SIZE}'kb)</a>-->
+							</c:forEach>
+						</div>
+
 					</div>
-					<div class="informBox">${readNotice.notice_contents}</div>
 				</div>
 			</div>
 
-
-			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button type="button" class="btn button_bottom_C">취소</button>
-				<button type="button" class="btn button_bottom_D">삭제</button>
-				<button type="submit" class="btn button_bottom_U">수정</button>
+			<div style="margin-top: 50px;">
+				<button type="button" class="btn btn-outline-danger"
+					id="button_bottom_C">취소</button>
+				<button type="button" class="btn btn-outline-danger"
+					id="button_bottom_D">삭제</button>
+				<button type="submit" class="btn btn-outline-danger"
+					id="button_bottom_U">수정</button>
 			</div>
 		</div>
 	</form>

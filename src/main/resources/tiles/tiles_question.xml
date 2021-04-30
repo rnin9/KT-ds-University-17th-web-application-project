@@ -5,7 +5,7 @@
 <tiles-definitions>
 
 
-	<definition name="/question/listQuestion" extends="baseLayout">
+	<definition name="/question/listQuestion" extends="adminLayout">
 		<put-attribute name="title" value="질문목록창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/question/listQuestion.jsp" />
@@ -35,7 +35,7 @@
 			value="/WEB-INF/views/question/userListQuestion.jsp" />
 	</definition>
 	
-	<definition name="/question/adminReadQuestion" extends="baseLayout">
+	<definition name="/question/adminReadQuestion" extends="adminLayout">
 		<put-attribute name="title" value="관리자 문의관리" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/question/adminReadQuestion.jsp" />

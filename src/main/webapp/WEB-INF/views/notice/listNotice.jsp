@@ -14,14 +14,24 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
+
 
 
 <script type="text/javascript">
@@ -129,12 +139,58 @@ $(document).ready(function(){
 </script>
 <title>공지사항 관리</title>
 <style>
-div.table {
-	margin-top: 50px;
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+button {
+	float: right;
+	margin-right: 10px;
+}
+
+.dataTables_wrapper {
+	margin-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
 }
 
 .fas {
-	margin-left: 10px;
+	margin-left: 5px;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
 .container {
    font-family: 'Noto Sans KR', sans-serif;
@@ -177,6 +233,24 @@ div.table {
 						</tr>
 					</thead>
 
+			<div class="pageIntro">공지사항</div>
+
+
+			<table id="myTable">
+				<thead>
+
+					<tr align="center">
+						<th><input type="checkbox" name="check-all"
+							onclick='selectAll(this)' /></th>
+
+						<th>분류</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회</th>
+					</tr>
+				</thead>
+				<tbody>
 					<c:forEach var="noticeFixList" items="${noticeFixList}">
 						<tr>
 							<td><input type="checkbox" name="ab"
@@ -184,16 +258,16 @@ div.table {
 								onclick='checkSelectAll(this)' /></td>
 
 
-							<td style="color: red;">${noticeFixList.notice_category}</td>
+							<td style="color: red; font-weight: bold">${noticeFixList.notice_category}</td>
 
 
-							<td style="font-weight: bold;" class="name"><a
+							<td style="font-weight: bold; text-align: left;" class="name"><a
 								href="${contextPath}/notice/readNotice.do?notice_no=${noticeFixList.notice_no}">
 									${noticeFixList.notice_title}</a> <c:if
 									test="${noticeFixList.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if></td>
-								
+
 							<td>${noticeFixList.notice_adminID}</td>
 							<td>${noticeFixList.notice_date}</td>
 							<td>${noticeFixList.notice_hit}</td>
@@ -207,31 +281,29 @@ div.table {
 								value="${noticeList.notice_no}" onclick='checkSelectAll(this)' /></td>
 							<td>${noticeList.notice_category}</td>
 
-							<td class="name"><a
+							<td class="name" style="text-align: left;"><a
 								href="${contextPath}/notice/readNotice.do?notice_no=${noticeList.notice_no}">
 									${noticeList.notice_title}</a> <c:if
 									test="${noticeList.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if></td>
-								
+
 							<td>${noticeList.notice_adminID}</td>
 							<td>${noticeList.notice_date}</td>
 							<td>${noticeList.notice_hit}</td>
-							
+
 						</tr>
 					</c:forEach>
-					</tbody>
+				</tbody>
+			</table>
 
-				</table>
-			</div>
-
-			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom" type="button"
-					onClick="deleteCheck()">선택강의 삭제</button>
-				<button class="btn button_bottom"
-					onClick="location.href='noticeForm.do'">공지사항 등록</button>
-			</div>
 		</form>
+		<div style="margin-top: 50px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="deleteCheck()">삭제</button>
+			<button class="btn btn-outline-danger"
+				onClick="location.href='noticeForm.do'">등록</button>
+		</div>
 	</div>
 </body>
 		</html>

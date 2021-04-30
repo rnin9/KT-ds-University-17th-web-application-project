@@ -105,17 +105,9 @@ button {
    <form method="post" action="${contextPath}/course/insertCourse.do">
 
       <div class="container">
-         <div class="lnb">
-            <ul>
-               <li><a href="/springEx/main.do">홈</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/course/courseList.do">과정
-                     관리</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/course/courseRegister.do">과정
-                     등록</a></li>
-            </ul>
-         </div>
+       
+			<div class="pageIntro">과정등록</div>
+
 
          <table class="table_" style="margin-top:100px;">
             <tr>

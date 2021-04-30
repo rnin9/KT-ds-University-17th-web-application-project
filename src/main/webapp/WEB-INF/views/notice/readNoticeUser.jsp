@@ -12,18 +12,36 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>공지사항 정보</title>
 
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 .bg-primary {
 	background-color: white !important;
+}
+
+.sub_visual {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
+	border: 0;
+	font-size: 32px;
+	font-weight: 500;
+	height: 190px;
+	padding-top: 69px;
+	background-position: 50% 64%;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 a:link, a:visited, a:hover {
@@ -31,123 +49,25 @@ a:link, a:visited, a:hover {
 	text-decoration: none;
 }
 
-.table_notice {
+button {
+	float: right;
+	margin-right: 10px;
+}
+
+.wrapper_noticeBox {
 	margin-top: 30px;
-	border-collapse: collapse;
-	text-align: center;
-	/* color: #555; */
+	border: 1px solid lightgrey;
+	border-radius: 10px;
 	width: 100%;
-	line-height: 40px;
-}
-
-.table_notice th {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	background-color: #f8f8f8;
-	text-align: center;
-	font-size: 15px;
-	width: 30%;
-}
-
-.table_notice td {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	text-align: center;
-	font-size: 15px;
-}
-
-.informTitle {
-	margin-top: 20px;
-	text-align: left;
-	font-size: 18px;
-	font-weight: 600;
-	padding-left: 30px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #e0e0e0;
-	letter-spacing: 5px;
-	padding-bottom: 20px;
-	background-color: #f8f8f8;
-}
-
-.informBox {
-	overflow: hidden;
 	height: auto;
-	text-align: left;
-	font-size: 16px;
-	line-height: 30px;
-	padding: 20px 60px 20px 60px;
-	margin-bottom: 20px;
-	margin-bottom: 20px;
-}
-
-.button_bottom_U {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.button_bottom_D {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.button_bottom_C {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
+	width: 100%;
+	height: auto;
+	min-height: 500px;
 }
 </style>
 
 
 </head>
-
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						var formObj = $("form[name='readForm']");
-
-						// 수정 
-						$(".button_bottom_U")
-								.on(
-										"click",
-										function() {
-											formObj
-													.attr("action",
-															"${contextPath}/notice/updateView.do");
-											formObj.attr("method", "get");
-											formObj.submit();
-										})
-
-						// 삭제
-						$(".button_bottom_D")
-								.on(
-										"click",
-										function() {
-
-											var deleteYN = confirm("삭제하시겠습니까?");
-											if (deleteYN == true) {
-
-												formObj
-														.attr("action",
-																"${contextPath}/notice/deleteNotice.do");
-												formObj.attr("method", "post");
-												formObj.submit();
-											}
-										})
-
-						// 취소
-						$(".button_bottom_C")
-								.on(
-										"click",
-										function() {
-
-											location.href = "${contextPath}/notice/listNoticeUser.do";
-										})
-					})
-</script>
 
 <script type="text/javascript">
 	// 첨부파일 다운로드
@@ -171,21 +91,45 @@ a:link, a:visited, a:hover {
 			value="${readNoticeUser.notice_no}" /> <input type="hidden"
 			id="NT_FILE_NO" name="NT_FILE_NO" value="">
 
+		<div class="sub_visual">
+			<span style="color: black;"></span>
+		</div>
+
 		<div class="container">
+
 			<div class="lnb">
 				<ul>
 					<li><a href="/springEx/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/notice/listNoticeUser.do">공지사항
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="/springEx/notice/readNoticeUser.do?notice_no=${readNoticeUser.notice_no}">공지사항
-							정보</a></li>
+					<li class="on"><a href="/springEx/notice/listNoticeUser.do">공지사항</a></li>
 				</ul>
 			</div>
 
+			<div class="pageIntro">공지사항</div>
 
+
+
+			<div class="wrapper_noticeBox">
+				<div class="notice" style="padding: 3%;overflow:hidden;">
+
+					<div class="noticeInfo" style="text-align: left;">
+						<c:choose>
+							<c:when test="${readNoticeUser.notice_category eq '[공지]'}">
+								<div class="noticeCategory" style="color: red; font-size: 20px;">${readNoticeUser.notice_category}</div>
+							</c:when>
+							<c:otherwise>
+								<div class="noticeCategory"
+									style="color: green; font-size: 20px;">${readNoticeUser.notice_category}</div>
+							</c:otherwise>
+						</c:choose>
+						<div class=noticeTitle style="font-size: 27px;">
+							<b>${readNoticeUser.notice_title}</b>
+						</div>
+						<span class="noticeDate" style="color: lightgrey;">${readNoticeUser.noticeDate}</span>
+						<span class="noticeHit" style="color: lightgrey;"> 조회
+							${readNoticeUser.notice_hit}</span>
+						<hr>
+					</div>
 
 			<table class="table_notice">
 				<tr>
@@ -230,17 +174,17 @@ a:link, a:visited, a:hover {
 				<div class="inform">
 					<div class="informTitle">
 						<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
+
 					</div>
-					<div class="informBox">${readNoticeUser.notice_contents}</div>
 				</div>
 			</div>
 
-
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button type="button" class="btn button_bottom_C">목록</button>
-				
+				<button type="button" class="btn btn-outline-danger"
+					onClick="location.href='/springEx/notice/listNoticeUser.do'">목록</button>
 			</div>
 		</div>
+
 	</form>
 </body>
 </html>

@@ -168,4 +168,17 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("mapper.member.partnerLoginById", member);
 	}
 
+	@Override
+	public int resetPW(String userID) throws Exception {
+		return sqlSession.update("mapper.member.resetPW", userID);
+	}
+
+	@Override
+	public int positionModify(String newPosition, String userID) throws Exception {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("newPosition", newPosition);
+		map.put("userID", userID);
+		return sqlSession.update("mapper.member.positionModify", map);
+	}
+
 }

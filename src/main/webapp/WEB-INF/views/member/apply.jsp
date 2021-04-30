@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="now" value="<%=new java.util.Date()%>"/>
+<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
+<%--<c:set var="ymd" value="<%=new java.util.Date()%>"/>--%>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +27,12 @@
 
             // Color setting by support status
             $("span:contains('진행중')").css({color: "limegreen"});
-            $("span:contains('불합격')").css({color: "blue"});
-            $("span:contains('합격   ')").css({color: "red"});
+            $("span:contains('불합격')").css({color: "red"});
+            $("span:contains('합격   ')").css({color: "blue"});
+
+            $("span:contains('대기')").css({color: "limegreen"});
+            $("span:contains('수락')").css({color: "blue"});
+            $("span:contains('거절')").css({color: "red"});
 
             // Preserve tab state after refresh
             $('#myTab a[href="' + activeTab + '"]').trigger('click');
@@ -118,63 +126,94 @@
 
         // Application delete function
         deleteApplication = (partnerApplyPartnerID) => {
-            fetch("${contextPath}/member/deleteApplication.do", {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "accept": "application/json"
-                },
-                body: JSON.stringify({
-                    partnerApplyUserID: '${member.userId}',
-                    partnerApplyPartnerID: partnerApplyPartnerID
-                })
+
+            Swal.fire({
+                title: '지원 내역을 삭제하겠습니까?',
+                text: '',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '삭제',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.value) {
+                    fetch("${contextPath}/member/deleteApplication.do", {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            partnerApplyUserID: '${member.userId}',
+                            partnerApplyPartnerID: partnerApplyPartnerID
+                        })
+                    })
+                        .then(res => {
+                            // console.log(res);
+
+                            swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
+                            setTimeout(() => { // After 0.9sec
+                                location.reload();
+                            }, 900);
+
+                        })
+                        .catch(e => console.log(e));
+                }
             })
-                .then(res => {
-                    // console.log(res);
 
-                    swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
-                    setTimeout(() => { // After 0.9sec
-                        location.reload();
-                    }, 900);
 
-                })
-                .catch(e => console.log(e));
         }
 
         // Apply function
-        chk_apply = (a, b, c) => {
+        chk_apply = (a, b, c, partnerName) => {
 
             // If the user's resume is registered
             if ('${member.resume}' === "Y") {
 
-                fetch("${contextPath}/member/userApplyPartner.do", {
-                    method: "POST",
-                    mode: "cors",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        partnerApplyUserID: b,
-                        partnerApplyPartnerID: c
-                    })
+
+                Swal.fire({
+                    title: partnerName + '에 지원하시겠습니까?',
+                    text: '',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '지원',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.value) {
+                        fetch("${contextPath}/member/userApplyPartner.do", {
+                            method: "POST",
+                            mode: "cors",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "accept": "application/json"
+                            },
+                            body: JSON.stringify({
+                                partnerApplyUserID: b,
+                                partnerApplyPartnerID: c
+                            })
+                        })
+                            .then(res => {
+                                if (res.status == '500') {
+                                    swal("중복 지원.", "중복 지원.", "info");
+                                } else {
+                                    swal("지원 완료.", "지원 완료.", "success");
+                                    setTimeout(() => { // after 0.9sec
+                                        location.reload();
+                                    }, 900);
+                                }
+                            })
+                            .catch(e => console.log(e));
+                    }
                 })
-                    .then(res => {
-                        if (res.status == '500') {
-                            swal("중복 지원.", "중복 지원.", "info");
-                        } else {
-                            swal("지원 완료.", "지원 완료.", "success");
-                            setTimeout(() => { // after 0.9sec
-                                location.reload();
-                            }, 900);
-                        }
-                    })
-                    .catch(e => console.log(e));
+
 
                 // If the user's resume is not registered
             } else {
-                swal("등록 된 이력서 없음.", "이력서가 필요합니다.", "warning");
+                swal("등록 된 대표 이력서 없음.", "대표 이력서가 필요합니다.", "warning");
             }
         }
 
@@ -572,16 +611,19 @@
                             </thead>
                             <tbody>
                             <c:forEach var="recruit" items="${recruitsList}">
-                                <tr align="center">
-                                    <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
-                                           data-toggle="modal" href="#myModal"
-                                           onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
-                                    </td>
-                                    <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
-                                    <td><a style="text-decoration: underline" href="#"
-                                           onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');return false;">지원하기</a>
-                                    </td>
-                                </tr>
+                                <c:set value="${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}" var="date"/>
+                                <c:if test="${date >= sysYear}">
+                                    <tr align="center">
+                                        <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                                               data-toggle="modal" href="#myModal"
+                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
+                                        </td>
+                                        <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
+                                        <td><a style="text-decoration: underline" href="#"
+                                               onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}', '${recruit.partnerName}');return false;">지원하기</a>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -593,6 +635,7 @@
                             <thead>
                             <tr>
                                 <td>기업명</td>
+                                <td>마감 날짜</td>
                                 <td>지원 날짜</td>
                                 <td>지원 상태</td>
                                 <td>삭제하기</td>
@@ -602,6 +645,18 @@
                             <c:forEach var="application" items="${applicationList}">
                                 <tr>
                                     <td>${application.partnerName}</td>
+                                    <c:set value="${fn:substring(application.partnerApplyFinishDate, 0, 11)}"
+                                           var="finishDate"/>
+                                        <%--                                    <td>${application.partnerApplyFinishDate}</td>--%>
+                                    <c:if test="${finishDate >= sysYear}">
+                                        <td>${finishDate}</td>
+                                    </c:if>
+                                    <c:if test="${finishDate < sysYear}">
+                                        <%--         Closed jobopenings are in red           --%>
+                                        <td><a style="color: #fc0038">${finishDate}</a></td>
+                                    </c:if>
+
+
                                     <td>${fn:substring(application.partnerApplyDate, 0, 11)}</td>
                                     <td><span>${application.partnerApplyState}</span></td>
                                     <td><a style="text-decoration: underline" href="#"
@@ -636,7 +691,7 @@
                                     <td>${suggestion.partnerName}</td>
                                     <td>${suggestion.suggestionTitle}</td>
                                     <td>${fn:substring(suggestion.suggestionDate, 0, 11)}</td>
-                                    <td>${suggestion.acception}</td>
+                                    <td><span>${suggestion.acception}</span></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

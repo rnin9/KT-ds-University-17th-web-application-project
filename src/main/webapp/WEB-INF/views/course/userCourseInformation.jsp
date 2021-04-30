@@ -122,7 +122,7 @@ button {
 </script>
 <script type="text/javascript">
 	function apply(){
-		if (${courseVO.dday >= 0}){		
+		if (${courseVO.dday >= 0 && courseVO.courseState == "접수중"}){
 			if (${isLogOn == true}){
 				var valueArr = new Array();
 				valueArr.push(${courseVO.courseID});
@@ -165,7 +165,7 @@ button {
 				});
 			}
 		}else{
-			Swal.fire('접수가 마감된 과정입니다.','','error')
+			Swal.fire('접수가 마감된 강의입니다.','','error')
 		}
 	};
 </script>
@@ -188,8 +188,7 @@ button {
 					<li class="on"><a href="/springEx/course/userCourseList.do">과정신청</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정
-							정보</a></li>
+						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정정보</a></li>
 				</ul>
 			</div>
 

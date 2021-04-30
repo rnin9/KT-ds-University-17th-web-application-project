@@ -80,17 +80,7 @@ button {
 	<form method="post" action="${contextPath}/syllabus/insertSyllabus.do">
 
 		<div class="container">
-			<div class="lnb">
-				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusForm.do">강의계획서
-							등록</a></li>
-				</ul>
-			</div>
+			<div class="pageIntro">강의계획서 등록</div>
 
 			<table class="table_">
 				<tr>

@@ -18,8 +18,22 @@
 	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
 	    <result property="partnerURL" column="partnerURL" />
 	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	    
+	    <result property="partnerIndustryType" column="partnerIndustryType" />
+	    <result property="partnerCharger" column="partnerCharger" />
+	    <result property="partnerChargerDepartment" column="partnerChargerDepartment" />
+	    <result property="partnerChargerID" column="partnerChargerID" />
+	    <result property="partnerChargerEmail" column="partnerChargerEmail" />
 	</resultMap>
-
+	
+	<!-- select all -->
+	<select  id="selectAllPartnerList" resultMap="resResult" >
+      <![CDATA[
+         select partnerLicenseNum, partnerState, partnerName,partnerAddress ,partnerCharger, partnerCEO,partnerHeadCount,partnerURL,partnerChargerID, partnerChargerDepartment,partnerIndustryType, partnerChargerEmail,partnerPhoneNumber, to_char(partnerRegisterDate, 'yyyy-mm-dd') as "partnerRegisterDate"
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
+	]]>
+	</select>
 	<resultMap id="jobOpeningList" type="partnerVO">
 		<result property="partnerName" column="partnerName"/>
 		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
@@ -185,14 +199,14 @@
        <result property="projectRole" column="projectRole" />
        <result property="projectURL" column="projectURL" />
 	   </resultMap>
-
-	<!-- 전체 기업목록 조회 쿼리-->
-	<select id="selectAllPartnerList" resultMap="resResult">
+	
+	<select  id="selectAllPartnerList2" resultMap="resResult" >
       <![CDATA[
-         select * from partn
-         er 	 	
+         select *
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
       ]]>
-	</select>
+	</select>	
 	
 	<!--협력사 count 조회 쿼리 -->
 	<select id="selectCooperationPartner" resultType="int">
@@ -230,8 +244,8 @@
 	<!--기업 정보 입력 쿼리 -->
 	<insert id="addPartner" parameterType="partnerVO">
 	<![CDATA[
-        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerInformation,partnerAddress,partnerPhoneNumber,partnerEmail,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate)
-		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerInformation},#{partnerAddress},#{partnerPhoneNumber},#{partnerEmail},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL},sysdate)
+        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerAddress,partnerPhoneNumber,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate, partnerIndustryType, partnerCharger,partnerChargerDepartment, partnerChargerID, partnerChargerEmail)
+		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerAddress},#{partnerPhoneNumber},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL}, sysdate ,#{partnerIndustryType}, #{partnerCharger}, #{partnerChargerDepartment},#{partnerChargerID},#{partnerChargerEmail})
       ]]>
 	</insert>
 	
@@ -249,7 +263,7 @@
 	<update id="updatePartner" parameterType="partnerVO">
 	<![CDATA[
         update partner
-        set  partnerState=#{partnerState}, partnerInformation=#{partnerInformation},partnerAddress=#{partnerAddress},partnerPhoneNumber=#{partnerPhoneNumber}, partnerEmail=#{partnerEmail}, partnerCEO=#{partnerCEO},partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}
+        set  partnerState=#{partnerState}, partnerAddress=#{partnerAddress}, partnerPhoneNumber=#{partnerPhoneNumber}, partnerInformation=#{partnerInformation, jdbcType=VARCHAR}, partnerEmail=#{partnerEmail, jdbcType=VARCHAR}, partnerCEO=#{partnerCEO}, partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}, partnerRegisterDate= sysdate, partnerIndustryType=#{partnerIndustryType}, partnerCharger=#{partnerCharger}, partnerChargerDepartment=#{partnerChargerDepartment}, partnerChargerID=#{partnerChargerID}, partnerChargerEmail=#{partnerChargerEmail} 
         where partnerLicenseNum=#{partnerLicenseNum}      
       ]]>
 	</update>
@@ -372,6 +386,30 @@
 	<select id="getResume" parameterType="String" resultMap="resumeResult">
 	 <![CDATA[
 	 select * from Resume where resumeID = #{resumeID}
+	]]>
+	</select>
+	
+	<select id="getCerResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_certificate where certificateResume = #{resumeID} and certificateUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getCarrResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_career where careerResume = #{resumeID} and careerUser = #{userID}
+	]]>
+	</select>
+	
+	<select id="getProResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_project where projectResume = #{resumeID} and projectUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getForResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_foreign where foreignResume = #{resumeID} and foreignUser = #{userID}
 	]]>
 	</select>
 	

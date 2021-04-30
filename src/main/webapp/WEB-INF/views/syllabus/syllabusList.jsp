@@ -13,9 +13,6 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 관리</title>
 
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
@@ -25,12 +22,11 @@ request.setCharacterEncoding("UTF-8");
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
 
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
@@ -60,6 +56,16 @@ button {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
 }
 </style>
 
@@ -167,6 +173,11 @@ $(document).ready( function () {
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$.extend( $.fn.dataTable.defaults, {
+	    ordering:  false
+	} );
+
 	$('#table_id').DataTable({
 		 dom : 'lBfrtip',
 	      buttons: ['excel'],
@@ -197,15 +208,9 @@ $(document).ready(function(){
 <body>
 	<div class="container">
 
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
-						관리</a></li>
-			</ul>
-		</div>
-		<table class="table_" id="table_id">
+		<div class="pageIntro">강의계획서</div>
+
+		<table id="table_id" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"
@@ -215,21 +220,33 @@ $(document).ready(function(){
 					<td><b>강의명</b></td>
 					<td><b>교육일수</b></td>
 					<td><b>교육시간</b></td>
+            		  <td><b>설문</b></td>
 				</tr>
 			</thead>
 
-			<tbody id="ajaxTable">
+			<tbody>
 				<c:forEach var="syllabus" items="${syllabusList}">
 					<tr class="item">
 						<td><input type="checkbox" name="ab"
 							value="${syllabus.syllabusID}" onclick='checkSelectAll(this)' /></td>
 						<td>${syllabus.syllabusID}</td>
-						<td>${syllabus.syllabusCategory1}>
-							${syllabus.syllabusCategory2}</td>
+						<td>[${syllabus.syllabusCategory1}>
+							${syllabus.syllabusCategory2}]</td>
 						<td class="name"><a
 							href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
 						<td>${syllabus.syllabusTotalDays}</td>
 						<td>${syllabus.syllabusTotalTime}</td>
+                  <c:if test="${syllabus.courseVO.questionYN eq 'N'}">
+								<td><a
+									href="${contextPath}/survey/writeSurveyForm.do?courseID=${syllabus.courseVO.courseID}&syllabusID=${syllabus.syllabusID}">설문생성</a></td>
+							</c:if>
+							<c:if test="${syllabus.courseVO.questionYN eq 'Y'}">
+								<td style="text-align: center; color: red;"><a style="color:red;"
+									href="${contextPath}/survey/surveyInfo.do?courseID=${syllabus.courseVO.courseID}">설문생성완료</a></td>
+							</c:if>
+							<c:if test="${syllabus.courseVO.questionYN eq NULL}">
+								<td style="text-align: center; color: red;">COURSE미등록</td>
+							</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>

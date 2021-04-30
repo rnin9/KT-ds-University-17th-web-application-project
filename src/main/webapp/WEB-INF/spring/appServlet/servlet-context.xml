@@ -55,6 +55,10 @@
 			<beans:bean
 				class="com.mySpring.springEx.common.interceptor.ViewNameInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*.do"/>
+			<beans:bean class="com.mySpring.springEx.common.interceptor.AuthViewInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!-- 멀티파트 리졸버 -->
@@ -72,6 +76,7 @@
 	<beans:bean id="beanNameResolver"
 		class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" />
+
 
 	</beans:bean>
 	<beans:bean id="jsonView"
