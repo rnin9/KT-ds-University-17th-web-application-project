@@ -1,58 +1,63 @@
 package com.mySpring.springEx.partner.dao;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
+import com.mySpring.springEx.application.vo.ApplicationVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
+import com.mySpring.springEx.suggestion.vo.SuggestionVO;
 
 @Repository("partnerDAO")
 public class PartnerDAOImpl implements PartnerDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
+
 	
-	
-	//È¸»ç ¸®½ºÆ® Ãâ·Â
+	//partner List Select
 	@Override
 	public List selectAllPartner() throws DataAccessException { 
 		List <PartnerVO> partnerList = null;
-		partnerList = sqlSession.selectList("mapper.partner.selectAllPartnerList"); //mapper.partnerÀÇ selectAllPartnerList¸¦ È£ÃâÇÏ¿© partner¸®½ºÆ®¿¡ ÀúÀå
+		partnerList = sqlSession.selectList("mapper.partner.selectAllPartnerList"); //mapper.partner selectAllPartnerList
 		return partnerList;
 		
 	}
+
 	
-	
-	//Çù·Â»ç count
+	//Cooperation Count
 	public int selectCooperationPartner() throws DataAccessException {
-		return sqlSession.selectOne("mapper.partner.selectCooperationPartner");  //mapper.partnerÀÇ selectCooperationPartner¸¦ È£ÃâÇÏ¿© °ª¸¸ ¸®ÅÏ
+		return sqlSession.selectOne("mapper.partner.selectCooperationPartner");  //mapper.partner selectCooperationPartner
 		
 	}
 	
-	//Çù¾à»ç count
+	//convention Count
 	public int selectConventionPartner() throws DataAccessException {
-		return sqlSession.selectOne("mapper.partner.selectConventionPartner");   //mapper.partnerÀÇ selectConventionPartner¸¦ È£ÃâÇÏ¿© °ª¸¸ ¸®ÅÏ
+		return sqlSession.selectOne("mapper.partner.selectConventionPartner");   //mapper.partner selectConventionPartner
 		
 	}
 	
-	//Çù¾à ÁøÇàÁß count
+	//Ing partner Count
 	public int selectIngPartner() throws DataAccessException {
-		return sqlSession.selectOne("mapper.partner.selectIngPartner");      //mapper.partnerÀÇ selectIngPartner¸¦ È£ÃâÇÏ¿© °ª¸¸ ¸®ÅÏ
+		return sqlSession.selectOne("mapper.partner.selectIngPartner");      //mapper.partner selectIngPartner
 		
 	}
 	
-	//¹ÌÇù¾à count
+	//Not partner count
 	public int selectNotPartner() throws DataAccessException {
-		return sqlSession.selectOne("mapper.partner.selectNotPartner");      //mapper.partnerÀÇ selectNotPartner¸¦ È£ÃâÇÏ¿© °ª¸¸ ¸®ÅÏ
+		return sqlSession.selectOne("mapper.partner.selectNotPartner");      //mapper.partner selectNotPartner
 		
 	}
 	
-	//È¸»ç Á¤º¸ ÀÔ·Â
+	//partner Add
 	public int addPartner(PartnerVO partner) throws DataAccessException{
-		int result = sqlSession.insert("mapper.partner.addPartner",partner);    //mapper.partnerÀÇ addPartner¿¡ partner °´Ã¼¸¦ °°ÀÌ ³Ö¾îÁÖ¾î °´Ã¼ °ª insert
+		int result = sqlSession.insert("mapper.partner.addPartner",partner);    //mapper.partner partner insert
 		return result;
 	}
 	
@@ -61,7 +66,7 @@ public class PartnerDAOImpl implements PartnerDAO{
 		return result;
 	}
 	
-	
+
 	public PartnerVO selectDetailPartner(String partnerLicenseNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.partner.selectDetailPartner",partnerLicenseNum);      
 			
@@ -72,9 +77,99 @@ public class PartnerDAOImpl implements PartnerDAO{
 	}
 	
 	public String partnerName(String partnerLicenseNum) throws DataAccessException{
-		System.out.println("daoÀÌ¸§"+sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum));
+		System.out.println("daoï¿½ì” ç”±ï¿½"+sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum));
 		return sqlSession.selectOne("mapper.partner.partnerName",partnerLicenseNum);
 	}
-	
 
+	/* company-partner Method Start*/
+	@Override
+	public PartnerVO getCompanyInformation(String partnerLicenseNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.partner.getCompanyInfo",partnerLicenseNum);
+	}
+	//graph information ajax
+	@Override
+	public List getInfoGraph(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyGraphInfo", partnerLicenseNum);
+	}
+
+	//select all Employee of Company
+	@Override
+	public List SelectAllListCompanyEmployee(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyEmployeeList",partnerLicenseNum);
+	}
+
+	//	post job opening
+	public int postJobOpening(String partnerLicenseNum, String date) throws DataAccessException{
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("partnerLicenseNum", partnerLicenseNum);
+		map.put("date", date);
+		int result = sqlSession.update("mapper.partner.postJobOpening", map);
+		return result;
+	}
+
+	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
+		int result = sqlSession.update("mapper.partner.deleteJobOpening", partnerLicenseNum);
+		return result;
+	}
+
+	public List<Map<String, Object>> selectPartnerApplyN() throws DataAccessException {
+//		List<HashMap<String, Object>> applicationList = sqlSession.selectList("mapper.member.selectAllApplicationList", id);
+		return sqlSession.selectList("mapper.partner.selectPartnerApplyN");
+	}
+
+	public List<Map<String, Object>> selectJobOpeningList() throws DataAccessException {
+		return sqlSession.selectList("mapper.partner.selectJobOpeningList");
+	}
+
+//	@Scheduled(cron="0 0/1 * * * *")
+//	public void autoUpdate() {
+//		System.out.println("123123");
+//		sqlSession.update("mapper.course.autoUpdateCourse");
+//	}
+
+	@Override
+	public List<Map<String, Object>> getApplyList(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyApplyList",partnerLicenseNum);
+	}
+
+	@Override
+	public List getRecruitList(String partnerLicenseNum) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("mapper.partner.companyRecruitment", partnerLicenseNum);
+	}
+
+	@Override
+	public ResumeVO getUserResume(String resumeID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mapper.partner.getResume",resumeID);
+	}
+
+
+	@Override
+	public void updateManageApply(ApplicationVO application) throws DataAccessException {
+		sqlSession.update("mapper.partner.manageUserApply", application);
+		return;
+	}
+
+
+	@Override
+	public void insertSuggestion(SuggestionVO suggestion) throws DataAccessException {
+		sqlSession.insert("mapper.partner.insertSuggestion",suggestion);
+		return;
+	}
+
+
+	@Override
+	public void deleteSuggestionFromCompany(SuggestionVO suggestion) throws DataAccessException {
+		sqlSession.update("mapper.partner.deleteSuggestionFromCompany", suggestion);
+		return;
+		
+	}
+	
+	/* partner company method End */
+
+	
 }

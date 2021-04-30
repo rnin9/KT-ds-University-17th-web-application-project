@@ -1,7 +1,16 @@
+/*검색박스, 게시판형식 테이블, 버튼*/
+/*courseTake/courseApplyList.jsp에서 html태그 복사해가세요*/
+/*<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />*/
+	
 @charset "UTF-8";
 
+a:link, a:visited, a:hover {
+   color: black;
+   text-decoration: none;
+}
+
 .container {
-	width: 80%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -60,16 +69,15 @@
 } */
 
 
-/*테이블*/
+/*게시판 테이블*/
 .table_ {
 	border-collapse: collapse;
 	font-size: 14px;
-	line-height: 2.2;
+	/* line-height: 2.2; */
 	text-align: center;
 	/* color: #555; */
 	width: 100%;
 	margin: auto;
-	line-height: 40px;
 }
 
 .table_ > thead {
@@ -101,7 +109,6 @@
 }
 
 .button_bottom {
-	background-color: tomato;
 	float: right;
 	margin-left: 10px;
 }

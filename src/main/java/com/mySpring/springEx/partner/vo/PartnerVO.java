@@ -3,43 +3,102 @@ package com.mySpring.springEx.partner.vo;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
+import com.mySpring.springEx.application.vo.ApplicationVO;
 
 @Component("partnerVO")
 public class PartnerVO {
-	private String partnerLicenseNum;           /*Çù·Â»ç »ç¾÷ÀÚ¹øÈ£*/
-	private String partnerState;              /*Çù¾à »óÅÂ*/
-	private String partnerName;                   /*Çù·Â»ç ¸í*/
-	private String partnerInformation;            /*°£´ÜÇÑ È¸»ç Á¤º¸*/ 
-	private String partnerAddress;                /*Çù·Â»ç ÁÖ¼Ò*/ 
-	private String partnerPhoneNumber;            /*Çù·Â»ç ÀüÈ­¹øÈ£*/
-	private String partnerEmail;                  /*Çù·Â»ç ÀÌ¸ŞÀÏ*/
-	private String partnerCEO;                    /*Çù·Â»ç ´ëÇ¥¸í*/
-	private int partnerHeadCount;                 /*ÀÎ¿ø ±Ô¸ğ*/
-	private String partnerApplyYN;				  /*Áö¿ø °¡´É ¿©ºÎ*/
-	private String partnerApplyFinishDate;          /*¸ğÁı ¸¶°¨ ³¯Â¥*/
-	private String partnerURL;                    /*È¸»ç È¨ÆäÀÌÁö*/
-	private String partnerRegisterDate;			  /*µî·Ï³¯Â¥*/
-	
-	
+	private String partnerLicenseNum;           /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— ï¿½ê¶—ï¿½ë¾½ï¿½ì˜„è¸°ëŠìƒ‡*/
+	private String partnerState;              /*ï¿½ì‚Šï¿½ë¹Ÿ ï¿½ê¸½ï¿½ê¹­*/
+	private String partnerName;                   /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— ï§ï¿½*/
+	private String partnerInformation;            /*åª›ê¾¨ë–’ï¿½ë¸³ ï¿½ì‰¶ï¿½ê¶— ï¿½ì ™è¹‚ï¿½*/
+	private String partnerAddress;                /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— äºŒì‡±ëƒ¼*/
+	private String partnerPhoneNumber;            /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— ï¿½ìŸ¾ï¿½ì†•è¸°ëŠìƒ‡*/
+	private String partnerEmail;                  /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— ï¿½ì” ï§ë¶¿ì”ª*/
+	private String partnerCEO;                    /*ï¿½ì‚Šï¿½ì °ï¿½ê¶— ï¿½ï¿½ï¿½ëª´ï§ï¿½*/
+	private int partnerHeadCount;                 /*ï¿½ì”¤ï¿½ì æ´¹ì’•ãˆ*/
+	private String partnerApplyYN;              /*ï§ï¿½ï¿½ì åª›ï¿½ï¿½ë’« ï¿½ë¿¬éºï¿½*/
+	private String partnerApplyFinishDate;          /*ï§â‘¥ì­› ï§ë‡ì»§ ï¿½ê¶‡ï§ï¿½*/
+	private String partnerURL;                    /*ï¿½ì‰¶ï¿½ê¶— ï¿½ì†ƒï¿½ëŸ¹ï¿½ì” ï§ï¿½*/
+	private String partnerRegisterDate;           /*ï¿½ë²‘æ¿¡ì•¸ê¶‡ï§ï¿½*/
+	private ApplicationVO applicationVO;
+	private String partnerApplyUserID;
+	private String partnerIndustryType;			 /*ï¿½ë¾½é†«ï¿½*/
+	private String partnerCharger;					/*ë‹´ë‹¹ì ì´ë¦„*/
+	private String partnerChargerDepartment;		/*ë‹´ë‹¹ì ë¶€ì„œ*/
+	private String partnerChargerID;				/*ë‹´ë‹¹ì ID*/
+	private String partnerChargerEmail;				/*ë‹´ë‹¹ì Email*/
+
+
 	public PartnerVO(){
 
 	}
-	
-	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate){
+
+	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,
+			String partnerAddress, String partnerPhoneNumber, String partnerEmail, String partnerCEO,
+			int partnerHeadCount, String partnerApplyYN, String partnerApplyFinishDate, String partnerURL,
+			String partnerRegisterDate, ApplicationVO applicationVO, String partnerApplyUserID,
+			String partnerIndustryType, String partnerCharger, String partnerChargerDepartment, String partnerChargerID,
+			String partnerChargerEmail) {
 		this.partnerLicenseNum = partnerLicenseNum;
+		this.partnerState = partnerState;
 		this.partnerName = partnerName;
 		this.partnerInformation = partnerInformation;
 		this.partnerAddress = partnerAddress;
-		this.partnerPhoneNumber   = partnerPhoneNumber;
+		this.partnerPhoneNumber = partnerPhoneNumber;
 		this.partnerEmail = partnerEmail;
 		this.partnerCEO = partnerCEO;
 		this.partnerHeadCount = partnerHeadCount;
 		this.partnerApplyYN = partnerApplyYN;
-		this.partnerURL = partnerURL;
 		this.partnerApplyFinishDate = partnerApplyFinishDate;
+		this.partnerURL = partnerURL;
 		this.partnerRegisterDate = partnerRegisterDate;
-		
+		this.applicationVO = applicationVO;
+		this.partnerApplyUserID = partnerApplyUserID;
+		this.partnerIndustryType = partnerIndustryType;
+		this.partnerCharger = partnerCharger;
+		this.partnerChargerDepartment = partnerChargerDepartment;
+		this.partnerChargerID = partnerChargerID;
+		this.partnerChargerEmail = partnerChargerEmail;
+	}
+	
+	public String getPartnerIndustryType() {
+		return partnerIndustryType;
+	}
 
+	public void setPartnerIndustryType(String partnerIndustryType) {
+		this.partnerIndustryType = partnerIndustryType;
+	}
+
+	public String getPartnerCharger() {
+		return partnerCharger;
+	}
+
+	public void setPartnerCharger(String partnerCharger) {
+		this.partnerCharger = partnerCharger;
+	}
+
+	public String getPartnerChargerDepartment() {
+		return partnerChargerDepartment;
+	}
+
+	public void setPartnerChargerDepartment(String partnerChargerDepartment) {
+		this.partnerChargerDepartment = partnerChargerDepartment;
+	}
+
+	public String getPartnerChargerID() {
+		return partnerChargerID;
+	}
+
+	public void setPartnerChargerID(String partnerChargerID) {
+		this.partnerChargerID = partnerChargerID;
+	}
+
+	public String getPartnerChargerEmail() {
+		return partnerChargerEmail;
+	}
+
+	public void setPartnerChargerEmail(String partnerChargerEmail) {
+		this.partnerChargerEmail = partnerChargerEmail;
 	}
 
 	public String getPartnerApplyFinishDate() {
@@ -144,6 +203,21 @@ public class PartnerVO {
 	public void setPartnerRegisterDate(String partnerRegisterDate) {
 		this.partnerRegisterDate = partnerRegisterDate;
 	}
-	
+
+	public String getPartnerApplyUserID() {
+		return partnerApplyUserID;
+	}
+
+	public void setPartnerApplyUserID(String partnerApplyUserID) {
+		this.partnerApplyUserID = partnerApplyUserID;
+	}
+
+	public ApplicationVO getApplicationVO() {
+		return applicationVO;
+	}
+
+	public void setApplicationVO(ApplicationVO applicationVO) {
+		this.applicationVO = applicationVO;
+	}
 
 }

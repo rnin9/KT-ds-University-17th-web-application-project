@@ -1,6 +1,8 @@
 package com.mySpring.springEx.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,13 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -29,17 +29,15 @@ public class MemberControllerImpl implements MemberController {
 	@Autowired
 	PartnerVO partnerVO;
 
-	// 硫붿씤�솕硫�
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName"); // string�삎�깭濡� request viewName�쓣 ���옣
-		ModelAndView mav = new ModelAndView(); // mav �깮�꽦
-		mav.setViewName(viewName); // // mav�쓽 view�쐞移섏뿉 request�뻽�뿀�뜕 (/,main.do) viewName�쓣 �꽔�뼱 �빐�떦�쐞移섎줈
-									// �씠�룞�븳�떎
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
 		return mav;
 	}
 
-	// faq �씠�룞
+	// faq
 	@RequestMapping(value = { "/faq.do" }, method = RequestMethod.GET)
 	public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -48,6 +46,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
+	// location
 	@Override
 	@RequestMapping(value = { "/location.do" }, method = RequestMethod.GET)
 	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
@@ -82,14 +81,89 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		memberVO = memberService.getMyInfo(userID);
+		List myCourseList = memberService.listMyCourse(userID);
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("myInfo", memberVO);
+		mav.addObject("myCourseInfo", myCourseList);
 		return mav;
 	}
 
-	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
-	public ModelAndView modMyInfo(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,
+	@RequestMapping(value = "/member/myCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView viewMyCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		System.out.println("============"+request.getParameter("userBirthday"));
+		return mav;
+	}
+
+	// list all recruitments, suggestions
+	@Override
+	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
+	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List recruitsList = memberService.listRecruitments();
+		List<HashMap<String, String>> applicationList = memberService.listApplications(member.getUserId());
+		List<HashMap<String, String>> suggestionList = memberService.listSuggestions(member.getUserId());
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("applicationList", applicationList);
+		mav.addObject("recruitsList", recruitsList);
+		mav.addObject("suggestionList", suggestionList);
+		return mav;
+	}
+
+	// insert into PARTNER_APPLY
+	@Override
+	@RequestMapping(value = { "/member/userApplyPartner.do" }, method = { RequestMethod.GET, RequestMethod.POST })
+	public void userApplyPartner(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		memberService.userApplyPartner(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	// delete from PARTNER_APPLY
+	@Override
+	@RequestMapping(value = { "/member/deleteApplication.do" }, method = { RequestMethod.POST })
+	public void deleteApplication(@RequestBody Map<String, String> body, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		memberService.deleteApplication(body.get("partnerApplyUserID"), body.get("partnerApplyPartnerID"));
+	}
+
+	// update userDeletion
+	@Override
+	@RequestMapping(value = {"/member/deleteSuggestion.do"}, method = RequestMethod.POST)
+	public void deleteSuggestion(@RequestParam List<String> valueArr ,HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		String userID = valueArr.get(0);
+		for (int i = 1; i < valueArr.size(); i++) {
+			System.out.println(valueArr.get(i)+"----------"+ userID);
+			memberService.deleteSuggestion(valueArr.get(i), userID);
+		}
+	}
+
+	// update partner_suggestion acception accept
+	@Override
+	@RequestMapping(value = { "/member/acceptSuggestion.do" }, method = { RequestMethod.POST })
+	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
+	}
+
+	// update partner_suggestion acception reject
+	@Override
+	@RequestMapping(value = { "/member/rejectSuggestion.do" }, method = { RequestMethod.POST })
+	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
+	}
+
+	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
+	public ModelAndView modMyInfo(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -113,6 +187,20 @@ public class MemberControllerImpl implements MemberController {
 		List membersList = memberService.listMembers();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("membersList", membersList);
+		System.out.println(membersList);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/member/memberJoinForm.do", method = RequestMethod.GET)
+	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		System.out.println(viewName);
+		List partnersName = memberService.listPartners();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnersName", partnersName);
+		System.out.println(partnersName);
+		System.out.println(partnersName.get(0));
 		return mav;
 	}
 
@@ -126,20 +214,6 @@ public class MemberControllerImpl implements MemberController {
 		memberService.check_email(email, response);
 	}
 
-	// �쉶�썝媛��엯
-	/*
-	 * @Override
-	 *
-	 * @RequestMapping(value = "/member/addMember.do", method = RequestMethod.POST)
-	 * public ModelAndView addMember(@ModelAttribute("member") MemberVO member, //
-	 * modelAttritbute濡� �쉶�썝媛��엯李쎌뿉�꽌 諛쏆� member�젙蹂대�� // MemberVO�겢�옒�뒪�쓽
-	 * member媛앹껜�뿉 ���옣 HttpServletRequest request, HttpServletResponse response)
-	 * throws Exception { request.setCharacterEncoding("utf-8"); int result = 0;
-	 * result = memberService.addMember(member); ModelAndView mav = new
-	 * ModelAndView("redirect:/member/listMembers.do"); return mav; }
-	 */
-
-	// �깉濡쒖��쑝�젮�뒗 �쉶�썝媛��엯!!!
 	@Override
 	@RequestMapping(value = "member/join_member.do", method = RequestMethod.POST)
 	public String join_member(@ModelAttribute MemberVO member, RedirectAttributes rttr, HttpServletResponse response)
@@ -150,7 +224,6 @@ public class MemberControllerImpl implements MemberController {
 		return "memberJoinForm.jsp";
 	}
 
-	// �쉶�썝 �씤利�
 	@RequestMapping(value = "member/approval_member.do", method = RequestMethod.POST)
 	public String approval_member(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception {
 		memberService.approval_member(member, response);
@@ -158,7 +231,6 @@ public class MemberControllerImpl implements MemberController {
 		return "main.jsp";
 	}
 
-	// �쉶�썝�궘�젣
 	@Override
 	@RequestMapping(value = "/member/removeMember.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request,
@@ -169,25 +241,25 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 濡쒓렇�씤
 	@Override
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 			memberVO = memberService.login(member);
-		
-		
-		if (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) {
+					
+		if ( (memberVO != null && memberVO.getUserPosition().equals("PARTNER")) ||
+				(memberVO != null && memberVO.getUserPosition().equals("ADMIN"))) {
+
 			HttpSession session = request.getSession();
 			partnerVO = memberService.partnerLogin(memberVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("partner", partnerVO);
-			System.out.println("==================="+partnerVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.addObject("partner", partnerVO);
+			mav.addObject("url", request.getServletPath());
 			mav.setViewName("jsonView");
 			/*
 			 * //mav.setViewName("redirect:/member/listMembers.do"); String action =
@@ -196,26 +268,24 @@ public class MemberControllerImpl implements MemberController {
 			 * mav.setViewName("redirect:/member/listMembers.do"); }
 			 */
 
-		} else if(memberVO != null) {
+		} else if (memberVO != null) {
 			HttpSession session = request.getSession();
+			partnerVO = memberService.partnerLogin(memberVO);
+			session.setAttribute("partner", partnerVO);
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
 			mav.addObject("result", true);
 			mav.addObject("member", memberVO);
 			mav.setViewName("jsonView");
-			
-		}
-		else {
-			rAttr.addAttribute("result", "loginFailed");/*
-														 * mav.setViewName("redirect:/member/loginForm.do");
-														 */
+
+		} else {
+			rAttr.addAttribute("result", "loginFailed");
 			mav.addObject("result", false);
 			mav.setViewName("jsonView");
 		}
 		return mav;
 	}
 
-	// 濡쒓렇�븘�썐
 	@Override
 	@RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -224,7 +294,7 @@ public class MemberControllerImpl implements MemberController {
 		session.removeAttribute("partner");
 		session.removeAttribute("isLogOn");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/member/listMembers.do");
+		mav.setViewName("redirect:/main.do");
 		return mav;
 	}
 

@@ -4,6 +4,8 @@
 .main-timeline{
     overflow: hidden;
     position: relative;
+    font-family:'Noto Sans KR', sans-serif;
+    margin:60px;
 }
 .main-timeline .timeline{
     width: 50%;

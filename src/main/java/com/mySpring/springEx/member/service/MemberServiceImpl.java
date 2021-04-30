@@ -1,6 +1,7 @@
 package com.mySpring.springEx.member.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.dao.MemberDAO;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -24,6 +26,7 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
+
 
 	@Value("${hostSMTPid}")
 	public String hostSMTPId;
@@ -43,6 +46,64 @@ public class MemberServiceImpl implements MemberService {
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
 	}
+	
+	@Override
+	public List listPartners() throws DataAccessException {
+		List partnersName = null;
+		partnersName = memberDAO.listPartners();
+		return partnersName;
+	}
+
+	@Override
+	public List listRecruitments() throws DataAccessException {
+		List recruitmentList = null;
+		recruitmentList = memberDAO.selectAllRecruitList();
+		return recruitmentList;
+	}
+
+	@Override
+	public List listApplications(String id) throws DataAccessException {
+		List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
+		return applicationList;
+	}
+
+	@Override
+	public List listSuggestions(String id) throws DataAccessException {
+		List<HashMap<String, String>> suggestionList = memberDAO.selectAllSuggestionList(id);
+		return suggestionList;
+	}
+
+	@Override
+	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+	@Override
+	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+	}
+
+	@Override
+	public int deleteSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.deleteSuggestion(partnerID, userID);
+	}
+
+	@Override
+	public int acceptSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.acceptSuggestion(partnerID, userID);
+	}
+
+	@Override
+	public int rejectSuggestion(String partnerID, String userID) throws Exception {
+		return memberDAO.rejectSuggestion(partnerID, userID);
+	}
+
+
+	/*
+	 * @Override public int addMember(MemberVO member) throws DataAccessException {
+	 * return memberDAO.insertMember(member); }
+	 */
+
 
 	@Override
 	public int removeMember(String id) throws DataAccessException {
@@ -117,9 +178,16 @@ public class MemberServiceImpl implements MemberService {
 					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
 			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
 			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+			
+			out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@9'></script>");
+			out.println("<script src='sweetalert2.min.js'></script>");
+			
 			out.println("<script language=JavaScript>");
 			out.println("$(document).ready(function(){");
-			out.println("swal('메일을 인증을 완료하세요',' 기입한 이메일로 전송되었습니다!','success')");
+			
+			out.println("Swal.fire({title:'회원가입을 축하드립니다!!',	text: '메일을 인증을 완료하세요!', icon:'success', backdrop: 'rgba(0,0,123,0.4) url(\"/springEx/resources/image/nyan.gif\") left top no-repeat'})");
+			//out.println("swal('메일을 인증을 완료하세요','기입한 이메일로 전송되었습니다!','success')");
+			
 			out.println(".then((result) => {");
 			out.println("location.href='http://localhost:" + portNum + "/springEx/main.do';");
 			out.println("})");
@@ -224,12 +292,23 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.modMyInfo(member);
 		return 0;
 	}
+	
+	@Override
+	public List listMyCourse(String userID) throws DataAccessException {
+		List myCourseList = null;
+		myCourseList = memberDAO.selectAllMyCourseList(userID);
+		return myCourseList;
+	}
 
 	@Override
 	public PartnerVO partnerLogin(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
 		return memberDAO.partnerLogInById(memberVO);
 	}
+
+
+
+
 	
 	
 

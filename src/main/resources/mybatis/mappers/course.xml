@@ -4,10 +4,10 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="mapper.course">
-	<resultMap id="courseResult" type="courseVO">
-		<result property="courseID" column="courseID" />
-		<result property="syllabusID" column="syllabusID" />
-		<result property="courseStart" column="courseStart" />
+   <resultMap id="courseResult" type="courseVO">
+      <result property="courseID" column="courseID" />
+      <result property="syllabusID" column="syllabusID" />
+      <result property="courseStart" column="courseStart" />
         <result property="courseEnd" column="courseEnd" />        
         <result property="courseApplyStart" column="courseApplyStart" />
         <result property="courseApplyEnd" column="courseApplyEnd" />
@@ -18,20 +18,101 @@
         <result property="coursePeopleApplied" column="coursePeopleApplied" />
         <result property="courseState" column="courseState" />
         <result property="courseShow" column="courseShow" />
+        <result property="dday" column="dday" />
         
         <collection property="syllabusVO" javaType="SyllabusVO">
-        	<result property="syllabusCategory1" column="syllabusCategory1" />
-        	<result property="syllabusCategory2" column="syllabusCategory2" />
-        	<result property="syllabusName" column="syllabusName" />
+           <result property="syllabusCategory1" column="syllabusCategory1" />
+           <result property="syllabusCategory2" column="syllabusCategory2" />
+           <result property="syllabusName" column="syllabusName" />
+           <result property="syllabusOutline" column="syllabusOutline" />
+           <result property="syllabusPurpose" column="syllabusPurpose" />
+           <result property="syllabusTarget" column="syllabusTarget" />
+           <result property="syllabusContent" column="syllabusContent" />
         </collection>
-	</resultMap>
-	
-	<select id="selectCourseList" resultMap="courseResult">
-	 <![CDATA[
-	    select courseID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
-	    courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd
-	    from course c join syllabus s on c.syllabusID = s.syllabusID
-	    order by courseID desc
-	 ]]>
-	</select>
+     
+   </resultMap>
+   
+   <select id="selectCourseList" resultMap="courseResult">
+    <![CDATA[
+       select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
+       courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState
+       from course c join syllabus s on c.syllabusID = s.syllabusID
+       order by courseID desc
+    ]]>
+   </select>
+   <select id="selectCourse" parameterType="int" resultMap="courseResult">
+    <![CDATA[
+       select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
+             courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax, courseState,
+             syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent
+       from course c join syllabus s on c.syllabusID = s.syllabusID
+       where courseID = #{courseID}
+    ]]>
+   </select>
+   
+    <select id="selectUserCourseList" resultMap="courseResult">
+    <![CDATA[
+       select courseID, s.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, coursePeopleMax, 
+       courseFee, courseApplyStart, courseApplyEnd, courseStart, courseEnd, courseState, (courseApplyEnd - TRUNC(SYSDATE)) as dday
+       from course c join syllabus s on c.syllabusID = s.syllabusID
+       where courseApplyStart <= sysdate and sysdate <= courseEnd
+       order by decode(courseState, '접수중', 1, '조기마감', 2, 3),
+        dday asc
+    ]]>
+    </select>
+   <select id="selectUserCourse" parameterType="int" resultMap="courseResult">
+    <![CDATA[
+       select courseID, c.syllabusID, s.syllabusCategory1, s.syllabusCategory2, s.syllabusName, courseRoomNumber,
+             courseStart, courseEnd, courseApplyStart, courseApplyEnd, courseTime, courseFee, coursePeopleMax, courseState,
+             syllabusOutline, syllabusPurpose, syllabusTarget, syllabusContent, (courseApplyEnd - TRUNC(SYSDATE)) as dday
+       from course c join syllabus s on c.syllabusID = s.syllabusID
+       where courseID = #{courseID}
+    ]]>
+   </select>
+    
+   <!-- 왜 YYYY로 하면 안 되지......? -->
+   <insert id="insertCourse" parameterType="courseVO">
+     <![CDATA[
+        insert into course (courseid, syllabusid, coursestart, courseend, courseapplystart, courseapplyend, coursetime, coursefee, courseroomnumber, coursepeoplemax)
+      values(course_seq.NEXTVAL, #{syllabusID}, TO_DATE(#{courseStart}, 'YY-MM-DD'), TO_DATE(#{courseEnd}, 'YY-MM-DD'), TO_DATE(#{courseApplyStart}, 'YY-MM-DD'), TO_DATE(#{courseApplyEnd}, 'YY-MM-DD'),#{courseTime},#{courseFee},#{courseRoomNumber},#{coursePeopleMax})
+     ]]>
+   </insert>
+   <delete id="deleteCourse" parameterType="int">
+
+     <![CDATA[
+       delete from course where courseID = #{courseID}
+     ]]>
+    </delete>
+   <update id="modifyCourse" parameterType="courseVO">
+    <![CDATA[
+       update course set syllabusID=#{syllabusID}, coursestart=TO_DATE(#{courseStart}, 'YY-MM-DD'), courseend=TO_DATE(#{courseEnd}, 'YY-MM-DD'), courseapplystart=TO_DATE(#{courseApplyStart}, 'YY-MM-DD'), 
+       courseapplyend=TO_DATE(#{courseApplyEnd}, 'YY-MM-DD'), coursetime=#{courseTime}, coursefee=#{courseFee}, courseroomnumber=#{courseRoomNumber}, coursepeoplemax=#{coursePeopleMax}
+       where courseid = #{courseID}
+    ]]> 
+   </update>
+   
+   <update id="closeCourse" parameterType="int">
+    <![CDATA[
+       update course set courseState='조기마감'
+       where courseid = #{courseID}
+    ]]> 
+   </update>
+   <update id="openCourse" parameterType="int">
+    <![CDATA[
+       update course set courseState='접수중'
+       where courseid = #{courseID}
+    ]]> 
+   </update>
+   <update id="updateCourse" parameterType="int">
+    <![CDATA[
+       update course set coursepeopleapplied = coursepeopleapplied+1
+      where courseid=#{courseID}
+    ]]> 
+   </update>
+   <update id="autoUpdateCourse">
+    <![CDATA[
+       update course set coursestate = '마감'
+		where (courseid in (select courseid from course where courseapplyend < sysdate))
+    ]]> 
+   </update>
 </mapper>

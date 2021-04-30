@@ -17,14 +17,12 @@
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-	
-<!--  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	
-    <link rel="stylesheet" type="text/css" href="/juliet/resources/juliet.css">
-    
-    <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />-->
+	<link rel="stylesheet" type="text/css"
+   href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8"
+   src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
     
     <style>
     	.content{
@@ -168,7 +166,7 @@
             border-radius: 5px;
             background-color: #ee4035;
             line-height: 30px;
-            color: white
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .status_convention {
@@ -177,7 +175,7 @@
             border-radius: 5px;
             background-color: #0392cf;
             line-height: 30px;
-            color: white
+            color: rgba(255, 255, 255, 0.7);
         }
          .status_ing {
         	line-height: 30px;
@@ -185,7 +183,7 @@
        		width: 77px;
             border-radius: 5px;
             background-color: #7bc043;
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
             margin-left: 10px;
     		margin-right: 10px;
     		margin-bottom: 3px;
@@ -198,7 +196,7 @@
             border-radius: 5px;
             background-color: gray;
             line-height: 30px;
-            color: white
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .buttonGroups {
@@ -227,9 +225,19 @@
     		border-radius: .25rem;
     		transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     	}
+    	.card{
+    		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+			transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    	}
+    	.card:hover {
+			box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
+			rgba(0, 0, 0, 0.22);
+		}
+    	.name{
+    	
+    	}
+    	
     </style>
-    <script src="https://unpkg.com/sweetalert/dist/sweeta;ert.min.js">></script>
-    
   <script type="text/javascript">
                var result = '${msg}';
                var name = '${partnerName}'
@@ -249,6 +257,110 @@
             	   }
                }
         </script>
+ 
+ <!-- 회사명 검색 -->
+ <script type="text/javascript">
+	function filter(){
+		
+	    var value = document.getElementById("value").value.toUpperCase();
+	    var item = document.getElementsByClassName("item");
+	    
+	    for(var i=0;i<item.length;i++){
+	    	var name = item[i].getElementsByClassName("name");
+	    	if(name[0].innerText.toUpperCase().indexOf(value) > -1){
+	    		item[i].style.display="table-row";
+			}else{
+				item[i].style.display="none";
+			}
+	    }	
+	} 
+</script>
+<script type="text/javascript">
+	function enter(){
+	    // 엔터키의 코드는 13입니다.
+		if(event.keyCode == 13){
+			filter()  // 실행할 이벤트
+		}
+	}
+</script>
+
+<!-- 체크박스 모두 선색 -->
+<script type="text/javascript">
+   function checkSelectAll(checkbox)  {
+      const selectall 
+        = document.querySelector('input[name="check-all"]');
+      if(checkbox.checked == false)  {
+        selectall.checked = false;
+      }
+    }
+
+    function selectAll(selectAll)  {
+      const checkboxes 
+         = document.getElementsByName('ab');
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
+</script>
+
+<!-- 체크박스로 삭제 -->
+<script>
+	function deleteCheck(){
+		var url = "/springEx/partner/partnerCheck.do";
+		var cnt = $("input[name='ab']:checked").length;
+		var valueArr = new Array();
+		$("input[name='ab']:checked").each(function(i){
+			valueArr.push($(this).val());
+		});
+		$.ajax({
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(data){
+				console.log("success");
+				/*window.location.reload();*/
+				$("#container").load("${contextPath}/partner/partnerList.do");
+			},
+			error : function(data) { 
+	            console.log("fail");
+	        }
+		});
+	};
+		
+		
+</script>
+ <script type="text/javascript">
+$(document).ready(function(){
+   $('#myTable').DataTable({
+
+   
+      language: {
+         info : '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+         sInfoFiltered : '',
+         infoEmpty : '',
+         emptyTable : '데이터가 없습니다.',
+         thousands : ',',
+         lengthMenu : '_MENU_ 개씩 보기',
+         loadingRecords : '데이터를 불러오는 중',
+         processing : '처리 중',
+         zeroRecords : '검색 결과 없음',
+         paginate : {
+            first : '처음',
+            last : '끝',
+            next : '다음',
+            previous : '이전'
+         },
+         search: '',
+         sSearchPlaceholder: '통합 검색',
+      
+      }
+   });
+});
+</script>
         
 </head>
 <body>
@@ -274,18 +386,20 @@
              <div class="cardContent2">${numConvention}</div>
         </div>
         </div>
+        <!--  
         <div class="card text-white" style="width:17%; ">
         <div class="card-body" style="background-color: #7bc043; ">
             <div class="cardContent1" >협약 진행중</div>
              <div class="cardContent2"> ${numIng}</div>
         </div>
-        </div>
+        </div>-->
         <div class="card text-white" style="width:17%; ">
-        <div class="card-body" style="background-color: gray; ">
-           <div class="cardContent1" > 미협약 </div>
-            <div class="cardContent2">${numNot}</div>
+        <div class="card-body" style="background-color: #7bc043; ">
+            <div class="cardContent1" >협약서사본</div>
+             <div class="cardContent2"> ${numIng}</div>
         </div>
         </div>
+        
     </div>
 
     <br>
@@ -293,111 +407,70 @@
     <br>
     
     <div class="rightButtonGroup">
-        <div class="serarchSubject">
-            <input type="text" class="form-control" placeholder="기업명">
-            <button type="submit" class="btn btn-success">검색</button>
-        </div>
-        <br>
-        <br>
         
+        <br>
+        <br>
+        <div>
+        <div style="float: left;">협약 상태 구분:</div><div style="float: left;color:red;">협력사</div><div style="float: left;">,</div><div style="float: left;color:blue;">협약사</div><div style="float: left;">,</div><div style="float: left;color:#7bc043;">협약서 사본</div><div style="float: left;">,</div><div style="float: left;color:#ffc107;">협약서 없음</div></div>
+        </div>
         <div class="buttonGroups">
             <button type="button" class="btn" onClick="location.href='${contextPath}/partner/partnerForm.do'">등록</button>
-            <button type="button" class="btn">삭제</button>
+            <button type="button" class="btn"  onClick="deleteCheck();">삭제</button>
         </div>
     </div>
 
-
-
-
-
-									<div class="bottom">
-										<div class="bottom-left">
-											<select id="cntSelectBox" name="cntSelectBox"
-												onchange="changeSelectBox(${pagination.currentPage},${pagination.cntPerPage},${pagination.pageSize});"
-												class="form-control" style="width: 100px;">
-												<option value="10"
-													<c:if test="${pagination.cntPerPage == '10'}">selected</c:if>>10개씩</option>
-												<option value="20"
-													<c:if test="${pagination.cntPerPage == '20'}">selected</c:if>>20개씩</option>
-												<option value="30"
-													<c:if test="${pagination.cntPerPage == '30'}">selected</c:if>>30개씩</option>
-											</select>
-										</div>
-									</div>
-    <table class="table_partnerList">
+    <table id="myTable">
         <thead>
             <tr>
-                <th><input type="checkbox" /></th>
-                <th width="100"><b>상태</b></th>
-                <th width="200"><b>기업명</b></th>
+                <th><input type="checkbox" name="check-all"
+                     onclick='selectAll(this)'/></th>
+                <th><b>사업자 등록번호</b></th>
+                <th><b>기업명</b></th>
+                 <th><b>담당자</b></th>
                 <th><b>이메일</b></th>
                 <th><b>전화번호</b></th>
-                <th><b>사업자등록번호</b></th>
-                <th><b>등록일</b></th>
-                <th><b>상세정보</b></th>
+                <th><b>등록/수정일</b></th>
             </tr>
         </thead>
 
         <tbody>
             <c:forEach var="partner" items="${partnerList}" >
-   				<tr align="center">
-   				<td><input type="checkbox" /></td>
-				<td>
-				<c:choose>
-    				<c:when test="${partner.partnerState eq '협력사       '}">  <!-- 협력사면 빨간색바탕으로 출력 -->
-    					<div class="status_cooperation">협력사</div> 
-    				</c:when>
-    				<c:when test="${partner.partnerState eq '협약사       '}">  <!-- 협약사면 파란색바탕으로 출력 -->
-    					<div class="status_convention">협약사</div> 
-    				</c:when>
-    				<c:when test="${partner.partnerState eq '협약 진행중'}">    <!-- 협약 진행중이면 녹색바탕으로 출력 -->
-    					<div class="status_ing">협약 진행중</div> 
-    				</c:when> 
-    				<c:when test="${partner.partnerState eq '미협약       '}">   <!--미협약이면 회색바탕으로 출력 -->
-    					<div class="status_not">미협약</div> 
-    				</c:when>
-    			</c:choose>
-    			</td>
-      			<td>${partner.partnerName}</td>
-      			<td>${partner.partnerEmail}</td>
+   				<tr class="item"align="center">
+   				<td><input type="checkbox" name="ab"
+                     onclick='checkSelectAll(this)' value="${partner.partnerLicenseNum}"/></td>
+        
+                <td>${partner.partnerLicenseNum}</td>
+                
+      			<td>
+      			<c:choose>
+      			<c:when test="${partner.partnerState eq '협력사'}">  <!-- 협력사면 빨간색바탕으로 출력 -->
+    					<div style="color:red; font-weight:bold;"><a onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'" style="cursor:pointer;">${partner.partnerName}</a></div> 
+     			</c:when>
+     			<c:when test="${partner.partnerState eq '협약사'}">  <!-- 협력사면 빨간색바탕으로 출력 -->
+    					<div style="color:blue; font-weight:bold;"><a onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'" style="cursor:pointer;">${partner.partnerName}</a></div> 
+     			</c:when>
+     			<c:when test="${partner.partnerState eq '협약서사본'}">  <!-- 협력사면 빨간색바탕으로 출력 -->
+    					<div style="color:#7bc043; font-weight:bold;"><a onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'" style="cursor:pointer;">${partner.partnerName}</a></div> 
+     			</c:when>
+     			<c:when test="${partner.partnerState eq '협약서없음'}">  <!-- 협력사면 빨간색바탕으로 출력 -->
+    					<div style="color:#ffc107; font-weight:bold;"><a onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'" style="cursor:pointer;">${partner.partnerName}</a></div> 
+     			</c:when>
+     			
+     			
+      			</c:choose>
+      			</td>
+      			<td>${partner.partnerCharger}</td>
+      			<td>${partner.partnerChargerEmail}</td>
       			<td>${partner.partnerPhoneNumber}</td>
-      			<td>${partner.partnerLicenseNum}</td>
       			<td>${partner.partnerRegisterDate}</td>
-      			<td><button type="button" class="btn" style="background-color: rgb(0 0 0 / 25%);" onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">상세정보</button></td>
     			</tr>
   			</c:forEach> 
         </tbody>
     </table>
     <div class="buttonGroups">
         <button type="button" class="btn " onClick="location.href='${contextPath}/partner/partnerForm.do'">등록</button>
-        <button type="button" class="btn ">삭제</button>
+        <button type="button" class="btn "  onClick="deleteCheck();">삭제</button>
     </div>
-    <!--paginate -->
-									<div class="paginate">
-										<div class="paging">
-											<a class="direction prev" href="javascript:void(0);"
-												onclick="movePage(1,${pagination.cntPerPage},${pagination.pageSize});">
-												&lt;&lt; </a> <a class="direction prev"
-												href="javascript:void(0);"
-												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasPreviousPage == true}">-1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-												&lt; </a>
-
-											<c:forEach begin="${pagination.firstPage}"
-												end="${pagination.lastPage}" var="idx">
-												<a
-													style="color:<c:out value="${pagination.currentPage == idx ? '#cc0000; font-weight:700; margin-bottom: 2px;' : ''}"/> "
-													href="javascript:void(0);"
-													onclick="movePage(${idx},${pagination.cntPerPage},${pagination.pageSize});"><c:out
-														value="${idx}" /></a>
-											</c:forEach>
-											<a class="direction next" href="javascript:void(0);"
-												onclick="movePage(${pagination.currentPage}<c:if test="${pagination.hasNextPage == true}">+1</c:if>,${pagination.cntPerPage},${pagination.pageSize});">
-												&gt; </a> <a class="direction next" href="javascript:void(0);"
-												onclick="movePage(${pagination.totalRecordCount},${pagination.cntPerPage},${pagination.pageSize});">
-												&gt;&gt; </a>
-										</div>
-									</div>
-									<!-- /paginate -->
  </div>
  </div>
 <script>
@@ -407,17 +480,7 @@ function changeSelectBox(currentPage, cntPerPage, pageSize){
     movePage(currentPage, selectValue, pageSize);
     
 }
- 
-//페이지 이동
-function movePage(currentPage, cntPerPage, pageSize){
-    var url = "${pageContext.request.contextPath}/partner/partnerList.do";
-    url = url + "?currentPage="+currentPage;
-    url = url + "&cntPerPage="+cntPerPage;
-    url = url + "&pageSize="+pageSize;
-    
-    location.href=url;
-}
- 
+
 </script>
 </body>
 

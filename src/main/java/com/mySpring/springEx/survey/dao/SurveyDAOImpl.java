@@ -15,12 +15,7 @@ public class SurveyDAOImpl implements SurveyDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Override
-	public List selectAllSurveyList() throws DataAccessException {
-		List<SurveyVO> surveyList = null;
-		surveyList = sqlSession.selectList("mapper.survey.selectAllSurveyList");
-		return surveyList;
-	}
+
 	@Override
 	public int insertSurvey(SurveyVO surveyVO) throws DataAccessException {
 		int result = sqlSession.insert("mapper.survey.insertSurvey", surveyVO);

@@ -9,13 +9,18 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/university/UniversityConsortium.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+ <link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/university/UniversityConsortium.css" />
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/layout.css" />
 <style>
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortiums.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -26,91 +31,175 @@ request.setCharacterEncoding("UTF-8");
 	background-repeat: no-repeat;
 }
 
-.main-intro {
-	display: flex;
-	margin: 60px;
-	justify-content: center;
-}
 
-.intro-explain {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	font-family: Chosunilbo_myungjo;
-	margin-right: 20px
-}
-
-.intro-explain>p {
-	max-width: 453px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.intro-explain>p>span {
-	border-bottom: 1px solid #000;
-	padding-bottom: 1px;
-}
-
-.intro-explain>h2, .intro-explain>h3 {
-	font-family: 'Wemakeprice-Bold';
-	text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -3px 20px
-		rgba(255, 255, 255, 0.4);
-	margin-bottom: 5px;
-	font-style: italic;
-	color: darkslategray;
+.pageIntro {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	text-align: left;
+	font-size: 34px;
+	font-weight: 450;
+	background:
+		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+		no-repeat;
+	background-repeat: no-repeat;
 }
 
 .introImage {
 	max-height: 350px;
-	margin-top: 80px;
+	width: 60%;
+	height: 60%;
+	margin-right: 20px;
 }
+
+.main-intro>dl>dt {
+	float: left;
+}
+
+.main-intro>dl {
+	width: 70%
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 64%;
+}
+
+
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 90%;
+  margin: 1rem;
+  position: relative;
+  width: 40%;
+}
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  text-align : center;
+}
+
+<c:choose>
+		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
+@media screen and (max-width: 719px) {
+    #floatMenu {
+    display :none;
+    }
+}
+
+
+
+#floatMenu {
+	position: absolute;
+	width: 160px;
+	height: 200px;
+	left: 80%;
+	top: 500px;
+	background-color: white;
+	color: #fff;
+}
+</c:when>
+</c:choose>
 </style>
+<script>
+$(document).ready(function() {
+
+	// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+	var floatPosition = parseInt($("#floatMenu").css('top'));
+	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+	$(window).scroll(function() {
+		// 현재 스크롤 위치를 가져온다.
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+
+		/* 애니메이션 없이 바로 따라감
+		 $("#floatMenu").css('top', newPosition);
+		 */
+
+		$("#floatMenu").stop().animate({
+			"top" : newPosition
+		}, 500);
+
+	}).scroll();
+
+});
+</script>
+
+
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">컨소시엄</span>
+		<span style="color: white;"></span>
 	</div>
-	
-	<div class="lnb">
+	<div class="container">
+		<div class="lnb">
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="${pageContext.request.contextPath}/faq.do">FAQ</a></li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/universityConsortium.do">컨소시엄</a></li>
 			</ul>
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="faqIntro">컨소시엄</div>
-		
-	<!-- 사업 소개 -->
-	<div class="main-intro">
-		<div class="intro-explain">
-			<h2>IT 분야 HRD 업무노하우를 바탕으로,</h2>
-			<h3>
-				<span
-					style="color: red; margin-right: 5px; font-style: normal; text-shadow: none;">IT
-					전문 교육기관</span>으로 신뢰받는 기업
-			</h3>
-			<p>
-				IT 분야 HRD 업무노하우를 바탕으로 IT 전문 교육기관으로 신뢰받는 기업입니다. KTDS는 KT 정보시스템 구축 기술과
-				노하우를 기반으로 <span>새로운 IT 서비스를 창출하고 우수한 인재를 양성하여 고객의 가치를 최고로
-					실현하는 IT 서비서 전문 기업입니다.</span>
-			</p>
+		<div class="pageIntro">컨소시엄 소개</div>
 
-			<p>ktds University는 2012년 ktds 교육센터의 새로운 이름으로 시설 및 최신장비 구축 등 최고의
-				인프라와 함께 새롭게 런칭하였으며, 그 동안 축적된 IT분야 HRD업무 노하우를 바탕으로 인재육성 전략 요구에 부응하는
-				최신 HRD Trend가 적용된 커리큘럼 및 Learning Solution으로 그룹사 및 협력사 외 교육을 필요로 하는
-				모든 기업 재직자를 대상으로 교육서비스를 제공합니다.</p>
-
-			<p>
-				국내 최고 수준의 전문강사진과 신규 시설 및 최신 장비의 인프라로 보다 <span>쾌적한 교육환경으로
-					IT분야의 새로운 Trend에 앞장서며 IT 전문 교육기관으로서 고객에게 신뢰받는 기업이 될 것입니다.</span>
-			</p>
+		<!-- 사업 소개 -->
+		<br>
+		<br>
+		<br>
+		<div class="main-intro-image">
+		<img class="first-image" width="80%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-intro.png" />
 		</div>
-		<img class="img-fluid introImage"
-			src="${pageContext.request.contextPath}/resources/image/mainPage/Introduce/mainIntroduce.png" />
-
-	</div>
-	<!-- 사업 끝 -->
+		<br>
+		<br>
+		<br>
+		<div class="consortium-gujo">
+		<img class="gujo-image" width="80%"  src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-gujo.png" />
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="consortium-studygujo">
+		<img class="studygujo-image" width="80%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studygujo.png" />
+		</div>
+		<br>
+		<br>
+		<br>
+		<div class="consortium-studysinchung">
+		<img class="studysinchung-image" width="80%" height="10%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studysinchung.png" />
+		</div>
+		<br>
+		<br>
+		<br>
+		
+		<div class="card card-2" >
+		<br>
+		<h5><span style="color:rgb(238,28,36);">교육 시간</span></h5>
+		<img class="studytime-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
+		<br>
+		</div>
+		
+		<div class="card card-2">
+		<br>
+		<h5><span style="color:rgb(238,28,36);">연락처</span></h5>
+		<img class="address-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
+		<br>
+		</div>
+		<br>
+		<br>
+		<br>
+	</div>	
+		<c:choose>
+		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
+		<div id="floatMenu">
+			<a href="https://c11.kr/ktdscon"><p style="font-size:15px; margin-bottom:0px;">재직자향상교육<br>카카오톡 오픈채팅</p></a>
+			<a href="https://c11.kr/ktdscon"><img class="kakao-QR" width="100%" height="80%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/kakao-QR.png" /></a>
+			<button type="button" class="btn btn-outline-danger" onclick="location.href='https://c11.kr/ktdscon'">입장</button>
+		</div>
+		</c:when>
+		</c:choose>
+		<!-- 사업 끝 -->
 </body>
 </html>

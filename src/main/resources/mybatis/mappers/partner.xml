@@ -18,14 +18,195 @@
 	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
 	    <result property="partnerURL" column="partnerURL" />
 	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	    
+	    <result property="partnerIndustryType" column="partnerIndustryType" />
+	    <result property="partnerCharger" column="partnerCharger" />
+	    <result property="partnerChargerDepartment" column="partnerChargerDepartment" />
+	    <result property="partnerChargerID" column="partnerChargerID" />
+	    <result property="partnerChargerEmail" column="partnerChargerEmail" />
 	</resultMap>
 	
-	<!-- 전체 기업목록 조회 쿼리-->
-	<select id="selectAllPartnerList" resultMap="resResult">
+	<!-- select all -->
+	<select  id="selectAllPartnerList" resultMap="resResult" >
       <![CDATA[
-         select * from partner 	 	
-      ]]>
+         select partnerLicenseNum, partnerState, partnerName,partnerAddress ,partnerCharger, partnerCEO,partnerHeadCount,partnerURL,partnerChargerID, partnerChargerDepartment,partnerIndustryType, partnerChargerEmail,partnerPhoneNumber, to_char(partnerRegisterDate, 'yyyy-mm-dd') as "partnerRegisterDate"
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
+	]]>
 	</select>
+	<resultMap id="jobOpeningList" type="partnerVO">
+		<result property="partnerName" column="partnerName"/>
+		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
+		<result property="partnerApplyFinishDate" column="partnerApplyFinishDate"/>
+		<result property="partnerInformation" column="partnerInformation"/>
+		<result property="partnerAddress" column="partnerAddress"/>
+		<result property="partnerEmail" column="partnerEmail"/>
+		<result property="partnerHeadCount" column="partnerHeadCount"/>
+		<result property="partnerURL" column="partnerURL"/>
+
+		<collection property="applicationVO" javaType="ApplicationVO">
+			<result property="partnerApplyUserID" column="PARTNER_APPLY_USERID"/>
+			<result property="applicantNum" column="applicantNum"/>
+		</collection>
+	</resultMap>
+
+	<resultMap id="pResult" type="partnerVO">
+		<result property="partnerLicenseNum" column="partnerLicenseNum"/>
+		<result property="partnerState" column="partnerState"/>
+		<result property="partnerName" column="partnerName"/>
+		<result property="partnerInformation"
+				column="partnerInformation"/>
+		<result property="partnerAddress" column="partnerAddress"/>
+		<result property="partnerPhoneNumber"
+				column="partnerPhoneNumber"/>
+		<result property="partnerEmail" column="partnerEmail"/>
+		<result property="partnerCEO" column="partnerCEO"/>
+		<result property="partnerHeadCount" column="partnerHeadCount"/>
+		<result property="partnerApplyYN" column="partnerApplyYN"/>
+		<result property="partnerApplyFinishDate"
+				column="partnerApplyFinishDate"/>
+		<result property="partnerURL" column="partnerURL"/>
+		<result property="partnerRegisterDate"
+				column="partnerRegisterDate"/>
+	</resultMap>
+
+	<resultMap id="companyCourseTakeResult" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate" column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate" column="courseTake_CompleteDate" />
+		<result property="takeY" column="takeY" />
+		<result property="takeN" column="takeN" />
+		<result property="takeYear" column="takeYear" />
+		
+		<!-- join 할 VO를 데이터매핑 -->
+		<collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+		
+		<collection property="courseVO" javaType="CourseVO">
+		<result property="courseID" column="courseID" />
+		<result property="courseStart" column="courseStart" />
+		<result property="courseEnd" column="courseEnd" />
+		<result property="syllabusID" column="syllabusID" />
+		</collection>
+		
+		<collection property="syllabusVO" javaType="SyllabusVO">
+		<result	property="syllabusID" column="syllabusID"/>
+		<result property="syllabusName" column="syllabusName" />
+		<result property="syllabusTotalTime" column="syllabusTotalTime" />
+		</collection>
+	</resultMap>
+		
+	<!-- 지원자목록 -->	
+	<resultMap id="applicationResult" type="applicationVO">
+		<result property="partnerApplyPartnerID" column="PARTNER_APPLY_PARTNERID" />
+		<result property="partnerApplyResumeID" column="PARTNER_APPLY_RESUMEID" />
+		<result property="partnerApplyDate" column="Partner_Apply_Date" />
+		<result property="partnerApplyState" column="Partner_Apply_State" />
+		
+		<collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		<result property="userCompany" column="userCompany" />
+		</collection>
+	</resultMap>
+	<!-- suggestionColumn -->
+	<resultMap id="suggestionResult" type="suggestionVO">
+		<result property="partnerSuggestionUserID" column="userID" />
+		<result property="partnerSuggestionPartnerID" column="partnerID" />
+		<result property="partnerSuggestionDescription" column="suggestionDescription" />
+		<result property="partnerSuggestionAcception" column="Acception" />
+		<result property="partnerSuggestionDate" column="suggestionDate" />
+		<result property="partnerSuggestionPartnerD" column="partnerDeletion" />
+		<result property="partnerSuggestionUserD" column="userDeletion" />
+	</resultMap>
+		
+	<!-- recruit Join columns -->
+	<resultMap id="recruitResult" type="memberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		
+		<collection property="resumeVO" javaType="ResumeVO">
+		<result property="resumeID" column="resumeID" />
+		</collection>
+		
+		<collection property="suggestionVO" javaType="SuggestionVO">
+		<result property="partnerSuggestionAcception" column="acception" />
+		<result property="partnerSuggestionPartnerD" column="partnerdeletion" />
+		</collection>
+	</resultMap>
+		
+	<resultMap id="resumeResult" type="resumeVO">
+		<!-- Resume 테이블 관련 -->
+       <result property="resumeID" column="resumeID" />
+       <result property="resumeUser" column="resumeUser" />
+       <result property="resumeForeign" column="resumeForeign" />
+       <result property="resumeIDnumber" column="resumeIDnumber" />
+       <result property="resumePic" column="resumePic" />
+       <result property="resumeSchool" column="resumeSchool" />
+       <result property="resumeGrade" column="resumeGrade" />
+       <result property="resumeContext1" column="resumeContext1" />
+       <result property="resumeContext2" column="resumeContext2" />
+       <result property="resumeContext3" column="resumeContext3" />
+       <result property="resumeContext4" column="resumeContext4" />
+       <result property="resumeContext5" column="resumeContext5" />
+       <result property="resumeDate" column="resumeDate" />
+       <result property="resumeCheck" column="resumeCheck" />
+       <!-- Resume_Career 관련 -->
+       <result property="careerID" column="careerID" />
+       <result property="careerUser" column="careerUser" />
+       <result property="careerCenter" column="careerCenter" />
+       <result property="careerStartdate" column="careerStartdate" />
+       <result property="careerEnddate" column="careerEnddate" />
+       <result property="careerContent" column="careerContent" />
+       <result property="careerHour" column="careerHour" />
+       <result property="careerType" column="careerType" />
+       <result property="careerPosition" column="careerPosition" />
+       <result property="careerOther" column="careerOther" />
+       <result property="careerCheck" column="careerCheck" />
+       <result property="careerID" column="careerID" />
+       <!-- Resume_Certificate 관련 -->
+       <result property="certificateUser" column="certificateUser" />
+       <result property="certificateName" column="certificateName" />
+       <result property="certificateEnforcement" column="certificateEnforcement" />
+       <result property="certificateDate" column="certificateDate" />
+       <result property="certificateSEQ" column="certificateSEQ"/>
+       <!-- Resume_Foreign 관련 -->
+       <result property="foreignUser" column="foreignUser" />
+       <result property="foreignCriteria" column="foreignCriteria" />
+       <result property="foreignName" column="foreignName" />
+       <result property="foreignScore" column="foreignScore" />
+       <result property="foreignDate" column="foreignDate" />
+       <result property="foreignOther" column="foreignOther" />
+       <!-- Resume_Project 관련 -->
+       <result property="projectUser" column="projectUser" />
+       <result property="projectEnforcement" column="projectEnforcement" />
+       <result property="projectName" column="projectName" />
+       <result property="projectDev" column="projectDev" />
+       <result property="projectContent" column="projectContent" />
+       <result property="projectRole" column="projectRole" />
+       <result property="projectURL" column="projectURL" />
+	   </resultMap>
+	
+	<select  id="selectAllPartnerList2" resultMap="resResult" >
+      <![CDATA[
+         select *
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
+      ]]>
+	</select>	
 	
 	<!--협력사 count 조회 쿼리 -->
 	<select id="selectCooperationPartner" resultType="int">
@@ -63,8 +244,8 @@
 	<!--기업 정보 입력 쿼리 -->
 	<insert id="addPartner" parameterType="partnerVO">
 	<![CDATA[
-        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerInformation,partnerAddress,partnerPhoneNumber,partnerEmail,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate)
-		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerInformation},#{partnerAddress},#{partnerPhoneNumber},#{partnerEmail},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL},sysdate)
+        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerAddress,partnerPhoneNumber,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate, partnerIndustryType, partnerCharger,partnerChargerDepartment, partnerChargerID, partnerChargerEmail)
+		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerAddress},#{partnerPhoneNumber},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL}, sysdate ,#{partnerIndustryType}, #{partnerCharger}, #{partnerChargerDepartment},#{partnerChargerID},#{partnerChargerEmail})
       ]]>
 	</insert>
 	
@@ -82,7 +263,7 @@
 	<update id="updatePartner" parameterType="partnerVO">
 	<![CDATA[
         update partner
-        set  partnerState=#{partnerState}, partnerInformation=#{partnerInformation},partnerAddress=#{partnerAddress},partnerPhoneNumber=#{partnerPhoneNumber}, partnerEmail=#{partnerEmail}, partnerCEO=#{partnerCEO},partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}
+        set  partnerState=#{partnerState}, partnerAddress=#{partnerAddress}, partnerPhoneNumber=#{partnerPhoneNumber}, partnerInformation=#{partnerInformation, jdbcType=VARCHAR}, partnerEmail=#{partnerEmail, jdbcType=VARCHAR}, partnerCEO=#{partnerCEO}, partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}, partnerRegisterDate= sysdate, partnerIndustryType=#{partnerIndustryType}, partnerCharger=#{partnerCharger}, partnerChargerDepartment=#{partnerChargerDepartment}, partnerChargerID=#{partnerChargerID}, partnerChargerEmail=#{partnerChargerEmail} 
         where partnerLicenseNum=#{partnerLicenseNum}      
       ]]>
 	</update>
@@ -104,5 +285,125 @@
 		where partnerLicenseNum=#{partnerLicenseNum}   	
       ]]>
 	</select>
+
+	<update id="postJobOpening" parameterType="java.util.HashMap">
+		<![CDATA[
+		update partner
+		set PARTNERAPPLYYN='Y', PARTNERAPPLYFINISHDATE = #{date}
+		where partnerLicenseNum = #{partnerLicenseNum}
+		]]>
+	</update>
+
+	<update id="deleteJobOpening" parameterType="String">
+		<![CDATA[
+		update partner
+		set PARTNERAPPLYYN='N', PARTNERAPPLYFINISHDATE = null
+		where partnerLicenseNum = #{partnerLicenseNum}
+		]]>
+	</update>
+
+	<select id="selectPartnerApplyN" resultMap="pResult">
+		SELECT partnerLicenseNum
+		,partnerState
+		,partnerName
+		,partnerInformation
+		,partnerPhoneNumber
+		,partnerAddress
+		,partnerEmail
+		,partnerCEO
+		,partnerHeadCount
+		,partnerApplyYN
+		,partnerApplyFinishDate
+		,partnerURL
+		,partnerRegisterDate
+		FROM partner
+		WHERE partnerApplyYN = 'N'
+	</select>
+
+	<select id="selectJobOpeningList" resultMap="jobOpeningList">
+		SELECT p.partnerName
+		,p.partnerLicenseNum
+		,p.partnerApplyFinishDate
+		,p.partnerInformation
+		,p.partnerAddress
+		,p.partnerEmail
+		,p.partnerHeadCount
+		,p.partnerURL
+		,count(a.PARTNER_APPLY_USERID) as applicantNum
+		FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
+		where p.PARTNERAPPLYYN = 'Y'
+		group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate,p.partnerInformation
+							  ,p.partnerAddress
+							  ,p.partnerEmail
+							  ,p.partnerHeadCount
+							  ,p.partnerURL
+		order by p.partnerName
+	</select>
 	
+	<!--  ================== 우리 기업 관련====================== -->
+	<!--  기업정보 가져오는 쿼리 -->
+	<select id="getCompanyInfo" parameterType="String" resultType="partnerVO">
+      <![CDATA[
+        select *
+        from partner
+		where partnerLicenseNum=#{partnerLicenseNum}   	
+      ]]>
+	</select>
+	<!--  우리회사 회원 수 -->
+	
+	<select id="companyGraphInfo" parameterType="String" resultMap="companyCourseTakeResult">
+	 <![CDATA[
+     select SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'),1, 5) as takeYear, count(CASE WHEN ct.courseTake_state in('수료') THEN 1 END) as takeY,count(CASE WHEN ct.courseTake_state not in('수료') THEN 1 END) as takeN
+		from course_take ct join kt_user m on ct.userId = m.userID join course c on c.courseID = ct.courseID 
+		where m.userCompany=#{partnerLicenseNum}
+		group by SUBSTR (to_date(to_char(c.courseStart,'YYYY-MM-DD'),'YYYY-MM-DD'), 1, 5) order by takeYear
+	]]>
+	</select>
+	
+	<select id="companyEmployeeList" parameterType="String" resultMap="companyCourseTakeResult">
+	 <![CDATA[
+	 select m.userId, m.userName, to_char(to_date(m.birth),'YY/MM/DD') as toCharBirth, m.userEmail, s.syllabusName, s.syllabusTotalTime, ct.courseID, ct.courseTake_State, ct.courseTake_ApplyDate, ct.courseTake_CompleteDate, c.courseStart, c.courseEnd
+  	 				 from course_take ct join kt_user m on ct.userId = m.userId join partner p on p.partnerLicenseNum = m.userCompany join course c on c.courseId = ct.courseId join syllabus s on s.syllabusId = c.syllabusId 
+  	 				 where p.partnerLicenseNum=#{partnerLicenseNum}
+  	 ]]>
+	</select>
+	
+	<select id="companyApplyList" parameterType="String" resultMap="applicationResult">
+	 <![CDATA[
+	 select m.userID, m.userName, pa.partner_apply_partnerID, pa.partner_apply_resumeID, pa.partner_apply_state from kt_user m join partner_apply pa on pa.partner_apply_userID = m.userID 
+  	 				 where pa.partner_apply_partnerID =#{partnerLicenseNum}
+  	 ]]>
+	</select>
+	
+	<select id="companyRecruitment" parameterType="String" resultMap="recruitResult">
+	 <![CDATA[
+	 select m.userID, m.userName, r.resumeId, ps.acception, ps.partnerdeletion 
+	 from kt_user m join resume r on m.userID = r.resumeUser left outer join partner_suggestion ps on (ps.userID = m.userID and ps.partnerID =#{partnerLicenseNum}) 
+	 where m.userPosition='채용예정자' and m.userResume='Y' and r.resumeCheck ='Y' and (ps.partnerDeletion not in('N') or ps.partnerDeletion is null)
+	 ]]>
+	</select>
+	
+	<select id="getResume" parameterType="String" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from Resume where resumeID = #{resumeID}
+	]]>
+	</select>
+	
+	<update id="manageUserApply" parameterType="applicationVO">
+	 <![CDATA[
+	 update partner_apply set partner_apply_state=#{partnerApplyState} where partner_apply_userID =#{partnerApplyUserID} and partner_apply_partnerID =#{partnerApplyPartnerID} 
+	]]>
+	</update>
+	
+	<insert id="insertSuggestion" parameterType="suggestionVO">
+	<![CDATA[
+	 insert into partner_suggestion(userID, partnerID, suggestDescription, suggestionTitle) values(#{partnerSuggestionUserID},#{partnerSuggestionPartnerID},#{partnerSuggestionDescription},#{partnerSuggestionTitle})
+	]]>
+	</insert>
+	
+	<update id="deleteSuggestionFromCompany" parameterType="suggestionVO">
+	<![CDATA[
+	update partner_suggestion set partnerDeletion = #{partnerSuggestionPartnerD} where userID =#{partnerSuggestionUserID} and partnerID=#{partnerSuggestionPartnerID}
+	]]>
+	</update>
 </mapper>
