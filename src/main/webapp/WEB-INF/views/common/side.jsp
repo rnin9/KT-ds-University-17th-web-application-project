@@ -70,7 +70,7 @@ request.setCharacterEncoding("UTF-8");
 							class="fas fa-question-circle" style="margin-right: 4px;"></i>
 							1:1 문의
 					</a></li>
-					<li><a href="#" style="margin-right: 20px;"> <i
+					<li><a href="${contextPath}/survey/listSurvey.do" style="margin-right: 20px;"> <i
 							class="fas fa-edit" style="margin-right: 4px;"></i> 설문조사
 					</a></li>
 

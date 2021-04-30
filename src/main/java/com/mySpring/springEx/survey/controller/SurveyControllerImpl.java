@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.common.pagination.Pagination;
+import com.mySpring.springEx.course.vo.CourseVO;
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
+import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.survey.service.SurveyService;
+import com.mySpring.springEx.survey.vo.DetailVO;
+import com.mySpring.springEx.survey.vo.SurveyQuestionVO;
 import com.mySpring.springEx.survey.vo.SurveyVO;
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
 @Controller("surveyController")
 public class SurveyControllerImpl implements SurveyController {
@@ -27,46 +36,80 @@ public class SurveyControllerImpl implements SurveyController {
 
 	@Autowired
 	SurveyVO surveyVO;
-	
-	//¸®½ºÆ®
+
+	@Autowired
+	MemberVO memberVO;
+
+	@Autowired
+	CourseTakeVO courseTakeVO;
+
+	@Autowired
+	CourseVO courseVO;
+
+	@Autowired
+	DetailVO detailVO;
+
+	@Autowired
+	SyllabusVO syllabusVO;
+
+	@Autowired
+	SurveyQuestionVO questionVO;
+
+	// ë¦¬ìŠ¤íŠ¸
+	/*
+	 * @Override
+	 * 
+	 * @RequestMapping(value = "/survey/listSurvey.do", method = RequestMethod.GET)
+	 * public ModelAndView listSurvey(
+	 * 
+	 * @RequestParam(value = "currentPage", required = false, defaultValue = "1")
+	 * int currentPage,
+	 * 
+	 * @RequestParam(value = "cntPerPage", required = false, defaultValue = "10")
+	 * int cntPerPage,
+	 * 
+	 * @RequestParam(value = "pageSize", required = false, defaultValue = "10") int
+	 * pageSize, Map<String, Object> map, HttpServletRequest request,
+	 * HttpServletResponse response) throws Exception { String viewName = (String)
+	 * request.getAttribute("viewName"); // ë°ì´í„°ì˜ ì´ ê°¯ìˆ˜ë¥¼ ë°›ì•„ì˜´ surveyServiceImpl
+	 * testTableCount()-pagination.xmlì˜ // testTableCount ì¿¼ë¦¬ë¥¼ ë‹´ì€ ê°’ì„ surveyListì—
+	 * ë‹´ìŒ(intí˜•) int surveyList = surveyService.testTableCount(); // Paginationì—
+	 * requestí•œ currentPage,cntPerPage,pageSizeì„ íŒŒë¼ë¯¸í„°ê°’ìœ¼ë¡œ ë°›ëŠ” ê°ì²´ë¥¼ ìƒì„± Pagination
+	 * pagination = new Pagination(currentPage, cntPerPage, pageSize); // ì´ ë ˆì½”ë“œ ìˆ˜ì—
+	 * ë”°ë¥¸ í˜ì´ì§€ ì²˜ë¦¬ methodì— ë°ì´í„°ì˜ ì´ ê°¯ìˆ˜ë¥¼ ì „ë‹¬ pagination.setTotalRecordCount(surveyList);
+	 * ModelAndView mav = new ModelAndView(viewName); // ì¶”ê°€í•  í•­ëª©ì„ ë¯¸ë¦¬ ì„¸ì…˜ì— ì €ì¥ì‹œí‚¤ê¸° ìœ„í•œ
+	 * surveyList= insertList mav.addObject("insertSurvey",
+	 * surveyService.SelectInsertList()); // ì²˜ë¦¬ëœ ë¶€ë¶„ì„ í™”ë©´ì— ì „ë‹¬
+	 * mav.addObject("pagination", pagination); mav.addObject("surveyList",
+	 * surveyService.SelectAllList(pagination)); mav.setViewName(viewName); return
+	 * mav; }
+	 */
 	@Override
 	@RequestMapping(value = "/survey/listSurvey.do", method = RequestMethod.GET)
-	public ModelAndView listSurvey(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-            Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listSurvey( HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		//µ¥ÀÌÅÍÀÇ ÃÑ °¹¼ö¸¦ ¹Ş¾Æ¿È surveyServiceImpl testTableCount()-pagination.xmlÀÇ testTableCount Äõ¸®¸¦ ´ãÀº °ªÀ» surveyList¿¡ ´ãÀ½(intÇü)
-		int surveyList = surveyService.testTableCount();
-		//Pagination¿¡ requestÇÑ currentPage,cntPerPage,pageSizeÀ» ÆÄ¶ó¹ÌÅÍ°ªÀ¸·Î ¹Ş´Â °´Ã¼¸¦ »ı¼º
-		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-		//ÃÑ ·¹ÄÚµå ¼ö¿¡ µû¸¥ ÆäÀÌÁö Ã³¸® method¿¡ µ¥ÀÌÅÍÀÇ ÃÑ °¹¼ö¸¦ Àü´Ş
-		pagination.setTotalRecordCount(surveyList);
+		// ë°ì´í„°ì˜ ì´ ê°¯ìˆ˜ë¥¼ ë°›ì•„ì˜´ surveyServiceImpl testTableCount()-pagination.xmlì˜
+		// testTableCount ì¿¼ë¦¬ë¥¼ ë‹´ì€ ê°’ì„ surveyListì— ë‹´ìŒ(intí˜•)
 		ModelAndView mav = new ModelAndView(viewName);
-		//Ãß°¡ÇÒ Ç×¸ñÀ» ¹Ì¸® ¼¼¼Ç¿¡ ÀúÀå½ÃÅ°±â À§ÇÑ surveyList= insertList
-		mav.addObject("insertSurvey",surveyService.SelectInsertList());
-		//Ã³¸®µÈ ºÎºĞÀ» È­¸é¿¡ Àü´Ş
-		mav.addObject("pagination",pagination);
-		mav.addObject("surveyList", surveyService.SelectAllList(pagination));
-		/* mav.setViewName(viewName); */	
+		mav.addObject("surveyList", surveyService.SelectAllList());
+		/* mav.setViewName(viewName); */
 		return mav;
 	}
-	
 
-	//Ãß°¡
+	// ì¶”ê°€
 	@Override
 	@RequestMapping(value = "/survey/addSurvey.do", method = RequestMethod.POST)
-	public ModelAndView addSurvey(@ModelAttribute("survey") SurveyVO survey, // modelAttritbute·Î È¸¿ø°¡ÀÔÃ¢¿¡¼­ ¹ŞÀº memberÁ¤º¸¸¦ //
-																				// MemberVOÅ¬·¡½ºÀÇ member°´Ã¼¿¡ ÀúÀå
+	public ModelAndView addSurvey(@ModelAttribute("survey") SurveyVO survey, // modelAttritbuteë¡œ íšŒì›ê°€ì…ì°½ì—ì„œ ë°›ì€ memberì •ë³´ë¥¼ //
+																				// MemberVOí´ë˜ìŠ¤ì˜ memberê°ì²´ì— ì €ì¥
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = surveyService.addSurvey(survey);
 		ModelAndView mav = new ModelAndView("redirect:/survey/listSurvey.do");
-		return mav;		
+		return mav;
 	}
 
-	// ¼³¹®Á¶»ç »èÁ¦
+	// ì„¤ë¬¸ì¡°ì‚¬ ì‚­ì œ
 	@Override
 	@RequestMapping(value = "/survey/removeSurvey.do", method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("survey_Id") String survey_Id, HttpServletRequest request,
@@ -77,5 +120,144 @@ public class SurveyControllerImpl implements SurveyController {
 		return mav;
 	}
 
-	
+	// ì„¤ë¬¸ì§€ ì‘ì„±
+	@RequestMapping(value = "/survey/surveyWriteForm.do", method = RequestMethod.GET)
+	public ModelAndView surveyWriteForm(@SessionAttribute("member") MemberVO member,
+			@RequestParam("userID") String userID, @RequestParam("courseID") String courseID,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String viewName = (String) request.getAttribute("viewName");
+		SurveyVO surveyVO = surveyService.getQuestion(courseID);
+		CourseTakeVO courseTakeVO = surveyService.selectAllSurveylist(userID, courseID);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("myInfo", member);
+		mav.addObject("allSurveyList", courseTakeVO);
+		mav.addObject("getQuestion", surveyVO);
+		HttpSession session = request.getSession();
+		session.setAttribute("allSurveyList", courseTakeVO);
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì§€ì‘ì„±ì™„ë£Œ
+	@RequestMapping(value = "/survey/insertSurvey.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView insertSurvey(@ModelAttribute DetailVO detailVO, @RequestParam("userId") String userId,
+			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		surveyService.insertSurvey(detailVO);
+		ModelAndView mav = new ModelAndView("redirect:/member/myInfo.do?userID=" + userId);
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì§€ ìƒì„±
+	@Override
+	@RequestMapping(value = "/survey/writeSurveyForm.do", method = RequestMethod.GET)
+	public ModelAndView writeSurvey(@RequestParam("courseID") String courseID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		String viewName = (String) request.getAttribute("viewName");
+		courseVO = surveyService.writeSurvey(courseID);
+		List questionVO = surveyService.check_suerveyQuestion();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("courseVO", courseVO);
+		mav.addObject("questionList", questionVO);
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì¡°ì‚¬ ìƒì„± ì™„ë£Œ
+	@RequestMapping(value = "/survey/surveyInsert.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView surveyInsert(@ModelAttribute SurveyVO surveyVO, @RequestParam("courseID") String courseID,
+			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		surveyService.surveyInsert(surveyVO);
+		ModelAndView mav = new ModelAndView("redirect:/main.do");
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì¡°ì‚¬ ìˆ˜ì •
+	@RequestMapping(value = { "/survey/surveyInfo.do" }, method = RequestMethod.GET)
+	public ModelAndView surveyInfoList(@RequestParam("courseID") String courseID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		SurveyVO surveyInfoList = surveyService.listSurveyInfo(courseID);
+		ModelAndView mav = new ModelAndView(viewName);
+		List questionVO = surveyService.check_suerveyQuestion();
+		mav.addObject("surveyInfoList", surveyInfoList);
+		mav.addObject("questionList", questionVO);
+		System.out.println(questionVO.size());
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì¡°ì‚¬ ìˆ˜ì • ì™„ë£Œ
+	@RequestMapping(value = "/survey/surveyModify.do", method = RequestMethod.POST)
+	public ModelAndView modifySurvey(@ModelAttribute SurveyVO surveyVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		int result = 0;
+		result = surveyService.modifySurvey(surveyVO);
+		System.out.println(result);
+		ModelAndView mav = new ModelAndView("redirect:/survey/surveyInfo.do?courseID=" + surveyVO.getCourseID());
+		return mav;
+	}
+
+	// ì„¤ë¬¸ì¡°ì‚¬ í•­ëª© ê²°ê³¼ í¼
+	@RequestMapping(value = "/survey/surveyDetailForm.do", method = RequestMethod.GET)
+	public ModelAndView listMembers(@RequestParam("courseID") String courseID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List detailList = surveyService.detailList(courseID);
+		SurveyVO surveyVO = surveyService.surveyVO(courseID);
+		DetailVO detailVO = surveyService.countParticipate(courseID);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("detailList", detailList);
+		mav.addObject("surveyVO", surveyVO);
+		mav.addObject("detailVO", detailVO);
+		System.out.println(detailList.size());
+		return mav;
+	}
+
+	// ê·¸ë˜í”„ ajax ë¬´ì§€ì„±ì½”ë”©
+	@Override
+	@RequestMapping(value = "/survey/infoGraph.do", method = RequestMethod.GET)
+	public ModelAndView surveyInfoGraph(@RequestParam("courseID") String courseID, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List list = surveyService.infoGraph(courseID);
+		mav.addObject("datas", list);
+		List list2 = surveyService.infoGraph2(courseID);
+		mav.addObject("datas2", list2);
+		List list3 = surveyService.infoGraph3(courseID);
+		mav.addObject("datas3", list3);
+		List list4 = surveyService.infoGraph4(courseID);
+		mav.addObject("datas4", list4);
+		List list5 = surveyService.infoGraph5(courseID);
+		mav.addObject("datas5", list5);
+		List list6 = surveyService.infoGraph6(courseID);
+		mav.addObject("datas6", list6);
+		List list7 = surveyService.infoGraph7(courseID);
+		mav.addObject("datas7", list7);
+		List list8 = surveyService.infoGraph8(courseID);
+		mav.addObject("datas8", list8);
+		List list9 = surveyService.infoGraph9(courseID);
+		mav.addObject("datas9", list9);
+		List list10 = surveyService.infoGraph10(courseID);
+		mav.addObject("datas10", list10);
+		List list11 = surveyService.infoGraph11(courseID);
+		mav.addObject("datas11", list11);
+		List list12 = surveyService.infoGraph12(courseID);
+		mav.addObject("datas12", list12);
+		List list13 = surveyService.infoGraph13(courseID);
+		mav.addObject("datas13", list13);
+		List list14 = surveyService.infoGraph14(courseID);
+		mav.addObject("datas14", list14);
+		List list15 = surveyService.infoGraph15(courseID);
+		mav.addObject("datas15", list15);
+		List list16 = surveyService.infoGraph16(courseID);
+		mav.addObject("datas16", list16);
+		List list17 = surveyService.infoGraph17(courseID);
+		mav.addObject("datas17", list17);
+		
+		mav.setViewName("jsonView");
+		return mav;
+	}
+
 }

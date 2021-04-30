@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.syllabus.dao.SyllabusDAO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
@@ -25,7 +26,6 @@ public class SyllabusServiceImpl implements SyllabusService{
 		syllabusList = syllabusDAO.selectSyllabusList();
 		return syllabusList;
 	}
-
 	@Override
 	public SyllabusVO selectSyllabus(int syllabusID) throws DataAccessException {
 		return syllabusDAO.selectSyllabus(syllabusID);
@@ -45,4 +45,6 @@ public class SyllabusServiceImpl implements SyllabusService{
 	public int modifySyllabus(SyllabusVO syllabusVO) throws DataAccessException{
 		return syllabusDAO.modifySyllabus(syllabusVO);
 	}
+
+	
 }

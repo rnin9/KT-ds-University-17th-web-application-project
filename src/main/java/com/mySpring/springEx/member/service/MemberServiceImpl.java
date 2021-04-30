@@ -189,7 +189,7 @@ public class MemberServiceImpl implements MemberService {
 			//out.println("swal('메일을 인증을 완료하세요','기입한 이메일로 전송되었습니다!','success')");
 			
 			out.println(".then((result) => {");
-			out.println("location.href='http://localhost:" + portNum + "/springEx/main.do';");
+			out.println("location.href='http://localhost:"+portNum+"/springEx/main.do';");
 			out.println("})");
 			out.println("});");
 			out.println("</script>");

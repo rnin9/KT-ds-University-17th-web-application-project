@@ -11,7 +11,6 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 		try {
 			String viewName = getViewName(request);	
 			String auth = getURLAuth(request);
-			System.out.println("ppppp"+viewName+"==================="+auth);
 			request.setAttribute("viewName", viewName);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -101,10 +101,7 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 }
 
 #container2 {
-	width: 800%;
-	height: 80%;
-	text-align: left;
-	margin-left: 80px;
+	text-align: center;
 }
 
 .title { /* container 밑 속성값들의 이름 */

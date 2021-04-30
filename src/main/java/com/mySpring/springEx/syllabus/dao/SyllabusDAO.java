@@ -16,4 +16,5 @@ public interface SyllabusDAO {
 	public int deleteSyllabus(int syllabusID) throws DataAccessException;
 	
 	public int modifySyllabus(SyllabusVO syllabusVO) throws DataAccessException;
+
 }

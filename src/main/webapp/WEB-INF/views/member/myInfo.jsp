@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -302,11 +301,10 @@ function handleModify() {
 			</ul>
 		</div>
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">${myInfo.userId}의정보</div>
+		<div class="pageIntro">${myInfo.userId}의 정보</div>
 
 		<!-- 내정보/수강정보 탭 -->
 		<section id="tabs" class="project-tab">
-
 			<div class="row">
 				<div class="col-md-12">
 					<nav style="margin-top: 50px;">
@@ -329,12 +327,14 @@ function handleModify() {
 									<div id="container">
 										<div>
 											<input type="hidden" name="userId" value='${myInfo.userId}'>
-											<span style="width:10%;"></span><label class="title">성명</label><span class="must">필수</span></span> <input
+
+											<label class="title">성명</label><span class="must">필수</span> <input
 												type="text" name="userName" id="name" placeholder="한글명"
 												onfocus="this.placeholder=''"
 												onblur="this.placeholder='한글명'" value='${myInfo.userName}'>
 											<div class="name_regex"></div>
-											<span style="width:10%;"><label class="title">비밀번호</label><span class="must">필수</span></span>
+
+											<label class="title">비밀번호</label><span class="must">필수</span>
 											<input type="password" name="userPassword" id="password"
 												placeholder="한글명" onfocus="this.placeholder=''"
 												onblur="this.placeholder='비밀번호'"
@@ -342,8 +342,9 @@ function handleModify() {
 											<div class="pwd_regex"></div>
 										</div>
 										<div id="date">
-											<span style="width:10%;"><label class="title" style="margin-left: 0px;">생년월일</label><span
-												class="must">필수</span></span> <input type="text" name="birth"
+
+											<label class="title" style="margin-left: 0px;">생년월일</label><span
+												class="must">필수</span> <input type="text" name="birth"
 												id="date" placeholder="생년월일" value='${myInfo.birth}'>
 										</div>
 										<div class="phone_regex">
@@ -386,6 +387,7 @@ function handleModify() {
 												<label class="title">주소</label><span class="must">필수</span>
 												<input type="text" name="userAddress1" id="roadAddress"
 													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
+
 												<input type="button" class="btn btn-outline-danger"
 													onclick="sample4_execDaumPostcode()" value="주소 찾기">
 												<div>
@@ -515,7 +517,8 @@ function handleModify() {
 						<!-- 수강강의 페이지 탭 -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
-							<table class="table_" id="myTable" cellspacing="0">
+
+							<table class="table" id="myTable" cellspacing="0">
 								<thead>
 									<tr>
 										<th>강의명</th>
@@ -532,7 +535,9 @@ function handleModify() {
 											<td>${myCourse.courseTake_State}</td>
 
 											<c:choose>
-												<c:when test="${myCourse.courseTake_State eq '수료'}">
+
+												<c:when
+													test="${myCourse.courseTake_State eq '수료' and myCourse.surveyYN == 'Y'}">
 													<form name="formForCertificate"
 														action="${contextPath}/member/myCertificate.do"
 														method="post">
@@ -560,6 +565,17 @@ function handleModify() {
 															onclick="javascript:popup(this.form);"></td>
 													</form>
 												</c:when>
+
+												<c:when
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'Y'}">
+													<td style="text-align: center;"><a
+														href="${pageContext.request.contextPath}/survey/surveyWriteForm.do?courseID=${myCourse.courseID}&userID=${myCourse.userID}">설문조사</a></td>
+												</c:when>
+												<c:when
+													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'N'}">
+													<td style="text-align: center; color: red;">설문
+														미등록(담당자에게 문의하세요)</td>
+												</c:when>
 												<c:otherwise>
 													<td style="text-align: center; color: red;">미수료</td>
 												</c:otherwise>
@@ -568,12 +584,17 @@ function handleModify() {
 									</c:forEach>
 								</tbody>
 							</table>
+
+							<b style="float:right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b style="float:right; color:red;">*수료 상태</b>
+
 						</div>
 						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
 				</div>
 			</div>
-	</div>
+
+		</div>
+
 	</section>
 </body>
 <script type="text/javascript">
@@ -591,3 +612,4 @@ function popup(frm)
 </script>
 
 </html>
+
