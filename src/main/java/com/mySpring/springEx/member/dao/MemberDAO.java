@@ -52,5 +52,8 @@ public interface MemberDAO {
 
 	public List listPartners() throws DataAccessException;
 
+	public int resetPW(String userID) throws Exception;
+
+	public int positionModify(String newPotision, String userID) throws Exception;
 
 }

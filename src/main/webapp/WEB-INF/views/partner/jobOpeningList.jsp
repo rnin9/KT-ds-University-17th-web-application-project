@@ -9,7 +9,7 @@
 <c:set var="now" value="<%=new java.util.Date()%>"/>
 <c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
 <c:set var="ymd" value="<%=new java.util.Date()%>"/>
-<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>
+<%--<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>--%>
 
 <%
     request.setCharacterEncoding("UTF-8");

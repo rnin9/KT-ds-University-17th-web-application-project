@@ -246,4 +246,16 @@
 	     userId=#{userId}
       ]]>
 	</update>
+
+	<update id="resetPW" parameterType="String">
+		update kt_user
+		set USERPASSWORD = '000000'
+		where USERID = #{userID}
+	</update>
+
+	<update id="positionModify" parameterType="java.util.HashMap">
+		update kt_user
+		set USERPOSITION = #{newPosition}
+		where USERID = #{userID}
+	</update>
 </mapper> 
