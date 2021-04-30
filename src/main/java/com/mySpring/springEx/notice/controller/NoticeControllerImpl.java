@@ -259,18 +259,19 @@ public class NoticeControllerImpl implements NoticeController {
 	// 공지사항 첨부파일 다운로드
 	@RequestMapping(value = "/notice/fileDown.do")
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception {
-		Iterator<String> keys = map.keySet().iterator();
-		while (keys.hasNext()) {
-			String key = keys.next();
-			System.out.println(String.format("키 : %s, 값 : %s", key, map.get(key)));
-		}
+//		Iterator<String> keys = map.keySet().iterator();
+//		while (keys.hasNext()) {
+//			String key = keys.next();
+//			System.out.println(String.format("키 : %s, 값 : %s", key, map.get(key)));
+//		}
 		Map<String, Object> resultMap = noticeService.selectFileInfo(map);
-		String str_nt_file_name = (String) resultMap.get("str_nt_file_name");
-		String org_nt_file_name = (String) resultMap.get("org_nt_file_name");
+		String str_nt_file_name = (String) resultMap.get("STR_NT_FILE_NAME");
+		String org_nt_file_name = (String) resultMap.get("ORG_NT_FILE_NAME");
 
 		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(
-				new File("C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file"
+				new File("C:\\Users\\eunjin\\OneDrive\\바탕 화면\\KT-ds-University-17th-web-application-project\\"
+
 						+ str_nt_file_name));
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);

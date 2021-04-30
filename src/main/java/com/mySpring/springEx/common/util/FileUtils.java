@@ -15,9 +15,9 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
+
 	  private static final String filePath ="C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file";
 	  // 파일이 저장될 위치
-
 	 
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
@@ -25,9 +25,9 @@ public class FileUtils {
 //		final String filePath = mpRequest.getSession().getServletContext().getRealPath("webapp\\resources\\attachmentFile\\");
 //		System.out.println(filePath);
 		/*
-			Iterator�� �뜲�씠�꽣�뱾�쓽 吏묓빀泥�? �뿉�꽌 而щ젆�뀡�쑝濡쒕��꽣 �젙蹂대�� �뼸�뼱�삱 �닔 �엳�뒗 �씤�꽣�럹�씠�뒪�엯�땲�떎.
-			List�굹 諛곗뿴�� �닚李⑥쟻�쑝濡� �뜲�씠�꽣�쓽 �젒洹쇱씠 媛��뒫�븯吏�留�, Map�벑�쓽 �겢�옒�뒪�뱾�� �닚李⑥쟻�쑝濡� �젒洹쇳븷 �닔媛� �뾾�뒿�땲�떎.
-			Iterator�쓣 �씠�슜�븯�뿬 Map�뿉 �엳�뒗 �뜲�씠�꽣�뱾�쓣 while臾몄쓣 �씠�슜�븯�뿬 �닚李⑥쟻�쑝濡� �젒洹쇳빀�땲�떎.
+			Iterator�� �곗�댄�곕�ㅼ�� 吏��⑹껜? ���� 而щ�����쇰�遺��� ��蹂대�� �살�댁�� �� ���� �명�고���댁�ㅼ������.
+			List�� 諛곗�댁�� ��李⑥���쇰� �곗�댄�곗�� ��洹쇱�� 媛��ν��吏�留�, Map�깆�� �대���ㅻ�ㅼ�� ��李⑥���쇰� ��洹쇳�� ��媛� ���듬����.
+			Iterator�� �댁�⑺���� Map�� ���� �곗�댄�곕�ㅼ�� while臾몄�� �댁�⑺���� ��李⑥���쇰� ��洹쇳�⑸����.
 		*/
 		
 		Iterator<String> iterator = mpRequest.getFileNames();
