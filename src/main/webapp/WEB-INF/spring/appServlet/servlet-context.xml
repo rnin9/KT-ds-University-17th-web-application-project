@@ -38,14 +38,14 @@
 		<beans:property name="preparerFactoryClass"
 			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
 	</beans:bean>
-	
+
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
 	</beans:bean>
-	
-	
+
+
 	<context:component-scan
 		base-package="com.mySpring.springEx" />
 
@@ -66,13 +66,13 @@
 	</beans:bean>
 
 	<!-- 다운로드 -->
-	<beans:bean id="download" class="com.mySpring.springEx.common.util.FileUtils" />
-
+	<beans:bean id="download"
+		class="com.mySpring.springEx.common.util.FileUtils" />
 
 	<beans:bean id="beanNameResolver"
 		class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" />
-		
+
 	</beans:bean>
 	<beans:bean id="jsonView"
 		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">

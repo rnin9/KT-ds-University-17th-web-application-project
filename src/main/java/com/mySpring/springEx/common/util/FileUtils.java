@@ -16,7 +16,7 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 public class FileUtils {
 	
 	  private static final String filePath =
-	  "C:\\Users\\Suchan\\Desktop\\KT-ds-University-17th-web-application-project\\";
+	  "C:\\Users\\Suchan\\Desktop\\KT-ds-University-17th-web-application-project\\file\\";
 	  // 파일이 저장될 위치
 	 
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
