@@ -1,4 +1,4 @@
- ..<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -19,14 +19,25 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 
 <script>
@@ -57,43 +68,67 @@ request.setCharacterEncoding("UTF-8");
 	};
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function(){
+	
+	$.extend( $.fn.dataTable.defaults, {
+	    ordering:  false
+	} );
 
-		$.extend($.fn.dataTable.defaults, {
-			ordering : false
-		});
-
-		$('#noticeListUser').DataTable({
-			dom : 'lBfrtp',
-			language : {
-				info : '총 _TOTAL_ 개의 공지사항 중 _START_번 부터 _END_번',
-				infoEmpty : '데이터가 없습니다.',
-				emptyTable : '데이터가 없습니다.',
-				thousands : ',',
-				lengthMenu : '_MENU_ 개씩 보기',
-				loadingRecords : '데이터를 불러오는 중',
-				processing : '처리 중',
-				zeroRecords : '검색 결과 없음',
-				paginate : {
-					first : '처음',
-					last : '끝',
-					next : '다음',
-					previous : '이전'
-				},
-				search : '',
-				sSearchPlaceholder : '통합 검색',
-			}
-
-		});
-	});
+   $('#myTable').DataTable({
+	  
+         
+      language: {
+         info : '',
+         sInfoFiltered : '',
+         infoEmpty : '',
+         emptyTable : '데이터가 없습니다.',
+         thousands : ',',
+         lengthMenu : '_MENU_ 개씩 보기',
+         loadingRecords : '데이터를 불러오는 중',
+         processing : '처리 중',
+         zeroRecords : '검색 결과 없음',
+         paginate : {
+            first : '처음',
+            last : '끝',
+            next : '다음',
+            previous : '이전'
+         },
+         search: '',
+         sSearchPlaceholder: '통합 검색',
+      
+      }
+   
+   
+   });
+});
 </script>
-
 
 <title>공지사항 관리</title>
 
 <style>
-div.table {
-	margin-top: 50px;
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.bg-primary {
+	background-color: white !important;
+}
+
+.dataTables_wrapper {
+	margin-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
 }
 
 .sub_visual {
@@ -126,7 +161,7 @@ div.table {
 <body>
 
 	<div class="sub_visual">
-		<span style="color: white;">공지사항</span>
+		<span style="color: white;"></span>
 	</div>
 
 	<div class="container">
@@ -139,8 +174,10 @@ div.table {
 			</ul>
 		</div>
 
-		<div class="table">
-			<table id="noticeListUser" class="display">
+		<div class="pageIntro">공지사항</div>
+
+		<div>
+			<table id="myTable">
 				<thead>
 					<tr>
 						<th>분류</th>
@@ -155,9 +192,9 @@ div.table {
 					<c:forEach var="noticeFixList" items="${noticeFixList}">
 
 						<tr>
-							<td style="color: red;">${noticeFixList.notice_category}</td>
+							<td style="color: red;font-weight: bold">${noticeFixList.notice_category}</td>
 
-							<td class="name"><a
+							<td class="name" style="text-align: left;"><a
 								href="${contextPath}/notice/readNoticeUser.do?notice_no=${noticeFixList.notice_no}">
 									${noticeFixList.notice_title}</a> <c:if
 									test="${noticeFixList.nt_file_size gt 0}">
@@ -182,7 +219,7 @@ div.table {
 
 						<tr>
 							<td>${noticeListUser.notice_category}</td>
-							<td class="name"><a
+							<td class="name" style="text-align: left;"><a
 								href="${contextPath}/notice/readNoticeUser.do?notice_no=${noticeListUser.notice_no}">
 									${noticeListUser.notice_title}</a> <c:if
 									test="${noticeListUser.nt_file_size gt 0}">
@@ -208,7 +245,7 @@ div.table {
 			</table>
 		</div>
 
-
+		<div style="height: 120px;"></div>
 
 	</div>
 </body>

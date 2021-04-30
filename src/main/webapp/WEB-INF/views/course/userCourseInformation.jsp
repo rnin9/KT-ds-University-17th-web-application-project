@@ -188,8 +188,7 @@ button {
 					<li class="on"><a href="/springEx/course/userCourseList.do">과정신청</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정
-							정보</a></li>
+						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정정보</a></li>
 				</ul>
 			</div>
 

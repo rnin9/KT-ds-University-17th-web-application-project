@@ -111,18 +111,7 @@ button {
 	<form method="post" action="${contextPath}/course/modifyCourse.do">
 
 		<div class="container">
-			<div class="lnb">
-				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/course/courseList.do">과정
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="/springEx/course/courseRegister.do?syllabusID=${courseVO.courseID}">과정
-							수정</a></li>
-				</ul>
-			</div>
+			<div class="pageIntro">과정 수정</div>
 			<input type="hidden" name="courseID" value="${courseVO.courseID}">
 			<table class="table_" style="margin-top: 100px;">
 				<tr>

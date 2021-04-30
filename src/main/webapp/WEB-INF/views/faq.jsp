@@ -14,7 +14,9 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ</title>
-
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -28,8 +30,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
 	integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 
 <style>
 .bg-primary {
