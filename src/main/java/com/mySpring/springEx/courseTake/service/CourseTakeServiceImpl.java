@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.courseTake.dao.CourseTakeDAO;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
-
+import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.common.pagination.mapper.PageMapper;
 
@@ -58,10 +58,12 @@ public class CourseTakeServiceImpl implements CourseTakeService {
 	}
 
 	@Override
-	public int updatePosition(CourseTakeVO courseTakeVO) throws DataAccessException {
-		return courseTakeDAO.updatePosition(courseTakeVO);
-		
+	public int updatePosition1(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.updatePosition1(courseTakeVO);
 	}
 	
-
+	@Override
+	public int updatePosition2(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return courseTakeDAO.updatePosition2(courseTakeVO);
+	}
 }

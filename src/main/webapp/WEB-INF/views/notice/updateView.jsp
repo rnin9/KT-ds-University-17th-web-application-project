@@ -12,6 +12,9 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>게시판 수정</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -19,111 +22,23 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous">
 
 <style>
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
+
+button {
+	float: right;
+	margin-right: 10px;
+}
+
 .bg-primary {
 	background-color: white !important;
-}
-
-.container {
-	width: 74.64%;
-	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.table_notice {
-	margin-top: 30px;
-	border-collapse: collapse;
-	text-align: center;
-	/* color: #555; */
-	width: 100%;
-	line-height: 40px;
-}
-
-.table_notice th {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	background-color: #f8f8f8;
-	text-align: center;
-	font-size: 15px;
-	width: 30%;
-	height: 30px;
-}
-
-.table_notice td {
-	border-top: 1px solid #e4e4e4;
-	border-bottom: 1px solid #e4e4e4;
-	text-align: center;
-	font-size: 15px;
-	height: 30px;
-}
-
-.btn {
-	color: white;
-	display: inline-block;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0 .8);
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.update_btn {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.informTitle {
-	margin-top: 20px;
-	text-align: left;
-	font-size: 18px;
-	font-weight: 600;
-	padding-left: 30px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #e0e0e0;
-	letter-spacing: 5px;
-	padding-bottom: 20px;
-	background-color: #f8f8f8;
-}
-
-.form-control {
-	border: hidden;
-	width: 88%;
-}
-
-.form-select {
-	border: hidden;
-	width: 41%;
-	display: inline-block;
-	margin-right: 6%;
-}
-
-.informInputBox {
-	/* overflow: hidden; */
-	min-height: 220px;
-	text-align: left;
-	font-size: 16px;
-	line-height: 30px;
-	padding: 20px 60px 20px 60px;
-	margin-bottom: 20px;
-	margin-top: 20px;
-	width: 100%;
-	border: 1px solid #e4e4e4;
 }
 </style>
 
@@ -139,12 +54,12 @@ request.setCharacterEncoding("UTF-8");
 
 		fn_addFile();
 
-		$(".cancel_btn").on("click", function() {
+		$("#cancel_btn").on("click", function() {
 			event.preventDefault();
 			location.href = "${contextPath}/notice/listNotice.do"
 		})
 
-		$(".update_btn").on("click", function() {
+		$("#update_btn").on("click", function() {
 			if (fn_valiChk()) {
 				return false;
 			}
@@ -166,7 +81,7 @@ request.setCharacterEncoding("UTF-8");
 	function fn_addFile() {
 		var fileIndex = 1;
 		//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
-		$(".fileAdd_btn")
+		$("#fileAdd_btn")
 				.on(
 						"click",
 						function() {
@@ -198,26 +113,18 @@ request.setCharacterEncoding("UTF-8");
 
 
 <body>
-	<form name="updateForm" role="form" method="post" enctype="multipart/form-data"
+	<form name="updateForm" role="form" method="post"
+		enctype="multipart/form-data"
 		action="${contextPath}/notice/updateNotice.do">
 		<div class="container">
-			<div class="lnb">
-				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/notice/listNotice.do">공지사항
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="/springEx/notice/updateView.do?notice_no=${updateNotice.notice_no}">강의계획서
-							수정</a></li>
-				</ul>
-			</div>
 
-			<input type="hidden" name="notice_no" value="${updateNotice.notice_no}"> 
-			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
-			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
-			<table class="table_notice">
+			<div class="pageIntro">공지사항</div>
+
+			<input type="hidden" name="notice_no"
+				value="${updateNotice.notice_no}"> <input type="hidden"
+				id="fileNoDel" name="fileNoDel[]" value=""> <input
+				type="hidden" id="fileNameDel" name="fileNameDel[]" value="">
+			<table class="table_">
 				<tr>
 					<th>강의분류</th>
 
@@ -232,11 +139,11 @@ request.setCharacterEncoding("UTF-8");
 									<c:if test="${updateNotice.notice_category eq '[안내]'}">selected</c:if>>[안내]</option>
 								<option value="[모집]"
 									<c:if test="${updateNotice.notice_category eq '[모집]'}">selected</c:if>>[모집]</option>
-									<option value="[추가모집]"
+								<option value="[추가모집]"
 									<c:if test="${updateNotice.notice_category eq '[추가모집]'}">selected</c:if>>[추가모집]</option>
-									<option value="[공지]"
+								<option value="[공지]"
 									<c:if test="${updateNotice.notice_category eq '[공지]'}">selected</c:if>>[공지]</option>
-									<option value="[채용예정자]"
+								<option value="[채용예정자]"
 									<c:if test="${updateNotice.notice_category eq '[채용예정자]'}">selected</c:if>>[채용예정자]</option>
 							</select>
 						</div></td>
@@ -259,20 +166,21 @@ request.setCharacterEncoding("UTF-8");
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td id="fileIndex">
-					<c:forEach var="file" items="${file}" varStatus="var">
-					
+					<td id="fileIndex"><c:forEach var="file" items="${file}"
+							varStatus="var">
+
 							<div>
-								<input type="hidden" id="NT_FILE_NO" name="NT_FILE_NO_${var.index}" value="${file.NT_FILE_NO}"> 
-								<input type="hidden" id="NT_FILE_NAME" name="NT_FILE_NAME" value="NT_FILE_NO_${var.index}">
-								<a href="#" id="fileName" onclick="return false;">${file.ORG_NT_FILE_NAME}</a>(${file.NT_FILE_SIZE}kb)
+								<input type="hidden" id="NT_FILE_NO"
+									name="NT_FILE_NO_${var.index}" value="${file.NT_FILE_NO}">
+								<input type="hidden" id="NT_FILE_NAME" name="NT_FILE_NAME"
+									value="NT_FILE_NO_${var.index}"> <a href="#"
+									id="fileName" onclick="return false;">${file.ORG_NT_FILE_NAME}</a>(${file.NT_FILE_SIZE}kb)
 								<button id="fileDel"
 									onclick="fn_del('${file.NT_FILE_NO}','NT_FILE_NO_${var.index}');"
 									type="button">삭제</button>
 								<br>
 							</div>
-					</c:forEach>
-					
+						</c:forEach>
 			</table>
 			<div class="containerLower" style="margin-top: 30px;">
 				<div class="inform">
@@ -286,11 +194,12 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 			</div>
 
-			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom" type="button"
+			<div style="margin-top: 50px;">
+				<button class="btn btn-outline-danger" type="button"
 					onclick="history.back()">취소</button>
-				<button class="update_btn" type="submit">수정</button>
-				<button type="button" class="fileAdd_btn">파일추가</button>
+				<button class="btn btn-outline-danger" id="update_btn" type="submit">수정</button>
+				<button type="button" class="btn btn-outline-danger"
+					id="fileAdd_btn">파일추가</button>
 			</div>
 		</div>
 	</form>

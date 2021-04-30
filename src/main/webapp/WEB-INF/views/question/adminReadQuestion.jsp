@@ -13,8 +13,12 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="sweetalert2.all.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+ 
+
 <!-- Bootstrap CSS -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">	
 	<style>
@@ -34,29 +38,37 @@ request.setCharacterEncoding("UTF-8");
  	padding-right : 100px;
  	padding-bottom : 100px;
  	}
- 	
+ 	text {
+ 	line-height : 1.6;
+ 	}
 	</style>
+	
+
+
 	<script type="text/javascript">
 
-var questionNum = <c:out value="${readQuestion.questionNum}"/>;
+var questionNum = '<c:out value="${readQuestion.questionNum}"/>';
 
-function button_event(){
-
-if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-
-	location.href= "${contextPath}"+ '/question/deleteQuestion.do?questionNum='+questionNum;
-
-}else{   //취소
-
-    return;
-
-}
-
+function deleteQuestion(){
+	Swal.fire({
+	  title: '글을 삭제하시겠습니까?',
+	  text: "삭제하시면 다시 복구시킬 수 없습니다.",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: '삭제',
+	  cancelButtonText: '취소'
+	}).then((result) => {
+	  if (result.value) {
+		  location.href= "${contextPath}"+ '/question/deleteQuestion.do?questionNum='+questionNum;
+	  }
+	})
 }
 
 
 </script>
-	
+
 </head>
 <body>
 
@@ -79,7 +91,7 @@ if (confirm("정말 삭제하시겠습니까??") == true){    //확인
                 <div class="shadow p-3 mb-5 bg-body rounded">
         <br> <p class="h2">문의 내용</p> 
         <div id="question">
-        	<button type="button" class="btn btn-outline-danger" onclick="button_event();">삭제</button>
+        	<button type="button" class="btn btn-outline-danger" onclick="deleteQuestion();">삭제</button>
 			<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/adminDeleteQuestion.do?questionNum=${readQuestion.questionNum}'">비공개</button>
 			<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/adminShowQuestion.do?questionNum=${readQuestion.questionNum}'">공개</button>
 			<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/listQuestion.do'">목록</button>
@@ -130,7 +142,18 @@ if (confirm("정말 삭제하시겠습니까??") == true){    //확인
         <div class="mb-3 row" id="questionContent">
             <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">질문 내용</label>
         <div class="col-sm-10">   
-            <textarea class="form-control-plaintext" id="questionContent" name="questionContent" rows="9" required placeholder="질문 내용을 입력해주세요" readonly><c:out value="${readQuestion.questionContent}" /></textarea>
+            <textarea class="form-control-plaintext" id="questionContent" name="questionContent" required placeholder="질문 내용을 입력해주세요" readonly><c:out value="${readQuestion.questionContent}" /></textarea>
+       <script>
+    var txtArea = $(".form-control-plaintext");
+    if (txtArea) {
+        txtArea.each(function(){
+            $(this).height(this.scrollHeight);
+        });
+    }
+</script>
+          
+
+
         </div>
         </div>
         
@@ -173,8 +196,7 @@ if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 						</div>
 						
 					<!---->
-        				
-						<button type="button" class="btn btn-outline-danger" onclick="button_event();">삭제</button>
+        				<button type="button" class="btn btn-outline-danger" onclick="deleteQuestion();">삭제</button>
 						<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/adminDeleteQuestion.do?questionNum=${readQuestion.questionNum}'">비공개</button>
 						<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/adminShowQuestion.do?questionNum=${readQuestion.questionNum}'">공개</button>
 						<button type="button" class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/listQuestion.do'">목록</button>

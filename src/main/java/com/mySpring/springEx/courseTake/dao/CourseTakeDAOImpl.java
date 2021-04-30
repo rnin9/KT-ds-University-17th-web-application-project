@@ -65,10 +65,13 @@ public class CourseTakeDAOImpl implements CourseTakeDAO {
 	}
 
 	@Override
-	public int updatePosition(CourseTakeVO courseTakeVO) throws DataAccessException {
-		return sqlSession.update("mapper.courseTake.updatePosition", courseTakeVO);
+	public int updatePosition1(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return sqlSession.update("mapper.courseTake.updatePosition1", courseTakeVO);
 	}
 	
-	
+	@Override
+	public int updatePosition2(CourseTakeVO courseTakeVO) throws DataAccessException {
+		return sqlSession.update("mapper.courseTake.updatePosition2", courseTakeVO);
+	}
 
 }

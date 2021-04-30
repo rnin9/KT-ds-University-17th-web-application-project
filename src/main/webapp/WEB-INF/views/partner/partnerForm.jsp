@@ -28,7 +28,7 @@
             rel="stylesheet">
             
         <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-    
+    	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
     <style>
         
         #main { /* 전체를 감싸서 적용 */
@@ -45,7 +45,7 @@
         #container1 { /* 이름 밑에 속성들을 감싸서 적용 */
             background-color: #f2f2f2;
             height: auto;
-            width: 40%;
+            width: 80%;
             position: relative;
             margin-bottom: 40px;
             padding-bottom: 40px;
@@ -54,7 +54,6 @@
 			margin-right: auto;
 			border-radius: 3px;
 			font-family: 'Noto Sans KR', sans-serif;
-    		
         }
 
         #field {
@@ -99,12 +98,17 @@
             margin-left: 8px;
             margin-right: 10px;
             line-height: 15px; 
+            height: 30px;
         }
         .block1{
     		display: flex;
     	}
     	.block2{
     		width:90%;
+    	}
+    	.btn{
+    		font-size: 1.5rem;
+    		padding: 6px 12px;	
     	}
 
     </style>
@@ -133,16 +137,16 @@
 
 
 <body>
-  
+  <div id="container">
     <form action="${contextPath}/partner/addPartner.do" accept-charset="UTF-8" method="POST" autocomplete="off">
         <div id="main">
        
             <div id="container1">
-            <h2 style="padding-top: 30px;">기업 등록</h2>
+            <h2 style="padding-top: 30px;">기업 정보</h2>
             <div class="block1">
                 <div class="block2">
-                    <label class="title">사업자번호</label>
-                    <input type="text" name="partnerLicenseNum" placeholder="사업자번호">
+                    <label class="title">사업자 등록번호</label>
+                    <input type="text" name="partnerLicenseNum" placeholder="사업자 등록번호">
                 </div>
                 <div class="block2" style="margin-left: -4px;">
                     <label class="title">협약 상태</label>
@@ -150,8 +154,8 @@
             			<option value="">선택하세요</option>
             			<option value="협력사">협력사</option>
             			<option value="협약사">협약사</option>
-            			<option value="협약 진행중">협약 진행중</option>
-            			<option value="미협약">미협약</option>
+            			<option value="협약서사본">협약서사본</option>
+            			<option value="협약서없음">협약서없음</option>
         			</select>
                 </div>
            	</div>
@@ -161,47 +165,66 @@
                     <input type="text" name="partnerName" placeholder="기업명">
                 </div>
                 <div class="block2">
-                    <label class="title">기업 정보</label>
-                    <input type="text" name="partnerInformation" placeholder="회사 정보">
+                    <label class="title">업종형태</label>
+                    <input type="text" name="partnerIndustryType" placeholder="업종형태">
                 </div>
             </div>
             <div class="block1">
                <div class="block2">
-                    <label class="title">기업 주소</label>
-                    <input type="text"  name="partnerAddress"placeholder="기업 주소">
+                    <label class="title">주소</label>
+                    <input type="text"  name="partnerAddress"placeholder="주소">
                 </div>
                 <div class="block2">
-                    <label class="title">기업 전화번호</label>
-                    <input type="text" name="partnerPhoneNumber" placeholder="기업 전화번호">
-                </div>
-            </div>
-            <div class="block1">
-                <div class="block2">
-                    <label class="title">기업 이메일</label>
-                    <input type="text"  name="partnerEmail" placeholder="기업 이메일">
-                </div>
-                <div class="block2">
-                    <label class="title">대표명</label>
-                    <input type="text" name="partnerCEO" placeholder="대표명">
+                    <label class="title">대표 전화번호</label>
+                    <input type="text" name="partnerPhoneNumber" placeholder="대표 전화번호">
                 </div>
             </div>
             <div class="block1">
                 <div class="block2">
-                    <label class="title">인원규모</label>
+                    <label class="title">홈페이지</label>
+                    <input type="text"  name="partnerURL" placeholder="홈페이지">
+                </div>
+                <div class="block2">
+                    <label class="title">대표자성명</label>
+                    <input type="text" name="partnerCEO" placeholder="대표자성명">
+                </div>
+            </div>
+            <div class="block1">
+                <div class="block2" style="width: 50%;">
+                    <label class="title">근로자수</label>
                     <input type="text"  id="partnerHeadCount" name="partnerHeadCount" placeholder="숫자를 입력하세요.">
                     <div class="partnerHeadCount regex"></div>
                 </div>
+            </div>
+            
+            <hr>
+            <h2 style="padding-top: 30px;">담당자 정보</h2>
+            <div class="block1">
                 <div class="block2">
-                    <label class="title">기업 홈페이지</label>
-                    <input type="text" name="partnerURL" placeholder="기업 홈페이지">
+                    <label class="title">성명</label>
+                    <input type="text"  name="partnerCharger" placeholder="성명">
+                </div>
+                <div class="block2">
+                    <label class="title">부서</label>
+                    <input type="text" name="partnerChargerDepartment" placeholder="부서">
                 </div>
             </div>
-			<button type="submit" class="btn btn-secondary" style="margin-top:5%;" onClick="/partner/addPartner.do">등록</button>
-			<button type="button" class="btn btn-secondary" style="margin-top:5%; " id="back" >이전</button>
+            <div class="block1">
+                <div class="block2">
+                    <label class="title">ID</label>
+                    <input type="text"  name="partnerChargerID" placeholder="ID">
+                </div>
+                <div class="block2">
+                    <label class="title">이메일</label>
+                    <input type="text" name="partnerChargerEmail" placeholder="이메일">
+                </div>
+            </div>
+			<button type="submit" class="btn" style="margin-top:5%;" onClick="/partner/addPartner.do">등록</button>
+			<button type="button" class="btn" style="margin-top:5%; " id="back" >이전</button>
         </div>
         </div>
     </form> 
-    
+    </div>
     
      <script>
             $("#partnerHeadCount").on("input", function() {
