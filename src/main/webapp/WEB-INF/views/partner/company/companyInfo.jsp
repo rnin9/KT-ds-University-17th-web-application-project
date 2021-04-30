@@ -10,7 +10,7 @@ request.setCharacterEncoding("UTF-8");
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style2.css" />
 <link rel="stylesheet" type="text/css"

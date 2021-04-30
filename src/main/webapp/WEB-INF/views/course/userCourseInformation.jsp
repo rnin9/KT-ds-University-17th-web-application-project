@@ -269,7 +269,7 @@ button {
 			</div>
 			<div style="margin-top: 50px; padding-bottom: 150px;">
 				<button class="btn btn-outline-danger" type="button"
-					onClick="location.href='/springEx/course/userCourseList.do'">목록</button>
+					onClick="location.href='${contextPath}/course/userCourseList.do'">목록</button>
 				<button class="btn btn-outline-danger" type="button"
 					onClick="apply();">신청</button>
 			</div>
