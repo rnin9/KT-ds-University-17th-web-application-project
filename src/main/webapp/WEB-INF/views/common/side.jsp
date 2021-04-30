@@ -34,7 +34,7 @@ request.setCharacterEncoding("UTF-8");
 							class="fas fa-chevron-down" ></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="user">
-						<li><a href="#">회원 관리</a></li>
+						<li><a href="${contextPath}/manageUser/userList.do">회원 관리</a></li>
 						<li><a href="#">이력서 관리</a></li>
 						<li><a href="#">지원서 관리</a></li>
 
@@ -62,10 +62,11 @@ request.setCharacterEncoding("UTF-8");
 								관리</a></li>
 					</ul>
 
-					<li><a href="/springEx/notice/listNotice.do" style="margin-right: 20px;"> <i
+
+					<li><a href="${contextPath}/notice/listNotice.do" style="margin-right: 20px;"> <i
 							class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항
 					</a></li>
-					<li><a href="#" style="margin-right: 20px;"> <i
+					<li><a href="${contextPath}/question/listQuestion.do" style="margin-right: 20px;"> <i
 							class="fas fa-question-circle" style="margin-right: 4px;"></i>
 							1:1 문의
 					</a></li>

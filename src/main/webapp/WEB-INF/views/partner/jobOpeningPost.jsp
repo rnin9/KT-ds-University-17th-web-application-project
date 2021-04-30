@@ -106,7 +106,7 @@
         .tableList thead {
             border-top: 1px solid #e4e4e4;
             border-bottom: 1px solid #e4e4e4;
-            border-color: #fc0038;
+            /*border-bottom-color: #fc0038;*/
             background-color: #f8f8f8;
             text-align: center;
         }
@@ -144,7 +144,7 @@
 
             $('#myTable').DataTable({
                 language: {
-                    info: '총 _TOTAL_ 개의 결과 중 _START_번 부터 _END_번',
+                    info: '',
                     sInfoFiltered: '',
                     infoEmpty: '',
                     emptyTable: '데이터가 없습니다.',
@@ -294,7 +294,7 @@
 
     <div class="pageIntro">채용공고 등록</div>
 
-    <table class="tableList" id="myTable" rules="groups">
+    <table style="border-bottom-color: #fc0038" class="tableList" id="myTable" rules="groups">
         <thead>
         <tr align="center">
             <td><input type="checkbox" name="check-all"

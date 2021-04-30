@@ -106,7 +106,7 @@ table.dataTable td {
 				<c:forEach var="courseTake" items="${courseApplyList}">
 					<tr align="center">
 						<td><input type="checkbox" name="ab"
-							value="${courseTake.userID} ${courseTake.courseID}"
+							value="${courseTake.userID} ${courseTake.courseID} ${courseTake.courseTake_State}"
 							onclick='checkSelectAll(this)' /></td>
 						<td>${courseTake.userID}</td>
 						<td>${courseTake.memberVO.userName}</td>
@@ -239,38 +239,45 @@ $(document).ready(function(){
 <!-- 승인대기->승인 -->
 <script>
    function consentCheck(){
-      var url = "/springEx/courseTake/updateConsentCheck.do";
+	  var url = "${contextPath}/courseTake/updateConsentCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
          valueArr.push($(this).val());
       });
       
-      
       if(cnt==0){
          Swal.fire("선택된 항목이 없습니다.","","warning");
       }
       else{
-         $.ajax({
-            url : url,
-            type : 'POST',
-            traditional : true,
-            data : {
-               valueArr : valueArr
-            },
-            success : function(data){
-               console.log("success");
-               window.location.reload();
-               /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-            },
-            error : function(data) { 
-                  console.log("fail");
-              }
-         })
-      }
+	     $.ajax({
+	     	url : url,
+	        type : 'POST',
+	        traditional : true,
+	        data : {
+	            valueArr : valueArr
+	        },
+	        success : function(data){
+	        	console.log("success");
+	        	console.log(data.ox1);
+	        	
+	            if(data.ox1 == 'x'){
+	          	     Swal.fire('승인대기상태만 체크해주세요','','warning')
+	          	}else{
+	          	    Swal.fire('승인처리되었습니다.','','success').then(()=>{
+	          	    	window.location.reload();
+	   			     })
+	          	}
+	            
+	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+	        },
+	        error : function(data) { 
+	            console.log("fail");
+	        }
+      
+	    })
+      } 
    };
-      
-      
 </script>
 
 <!--  잘못 승인을 눌렀을 때를 위한 승인->승인대기  -->
@@ -297,7 +304,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox2);
+               
+               if(data.ox2 == 'x'){
+         	     	Swal.fire('승인상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('승인대기처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 
@@ -334,7 +349,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox3);
+               
+               if(data.ox3 == 'x'){
+         	     	Swal.fire('수료대기상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('수료처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 

@@ -50,8 +50,8 @@
 
 	<select id="selectAllCourseApplyList"
 		resultMap="courseTakeResult">
-		select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
-		m.userCompany, s.syllabusName, ct.courseId, courseTake_State,
+	<![CDATA[select m.userId, m.userName, m.userPhoneNumber,m.userEmail,
+		m.userCompany, s.syllabusName, ct.courseId, ct.courseTake_State,
 		to_char(courseTake_ApplyDate,'yyyy-mm-dd') as applyDate, p.partnerLicenseNum ,p.partnerName,
 		to_char(c.coursestart, 'yyyy-mm-dd') as courseStart, to_char(c.courseend,'yyyy-mm-dd') as courseEnd, m.birth, s.syllabustotaltime
 		from course_Take ct join kt_user m on (ct.userID =
@@ -59,9 +59,9 @@
 		on (c.courseid=ct.courseid) join syllabus s on
 		(s.syllabusid =
 		c.syllabusid) join partner p on (p.partnerLicenseNum = m.userCompany)
-		order by courseTake_ApplyDate desc
+		order by courseTake_ApplyDate desc]]>
 	</select>
-
+	
 	<update id="updateApplyConsent" parameterType="CourseTakeVO">
 	<![CDATA[update course_Take
 			set courseTake_State = '승인'
@@ -91,10 +91,17 @@
 	</delete>
 	
 	<!-- 일반회원 -> 채용예정자 -->
-	<update id="updatePosition" parameterType="CourseTakeVO">
+	<update id="updatePosition1" parameterType="CourseTakeVO">
 	<![CDATA[
 		update kt_user set userPosition='채용예정자'
 		where userPosition='일반회원' and userid = #{userID}
+    ]]>
+	</update>
+	
+	<update id="updatePosition2" parameterType="CourseTakeVO">
+	<![CDATA[
+		update kt_user set userPosition='일반회원'
+		where userPosition='채용예정자' and userid = #{userID}
     ]]>
 	</update>
 

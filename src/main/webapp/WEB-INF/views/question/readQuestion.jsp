@@ -12,9 +12,11 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <title>질문 게시판</title>
+
 <!-- Required meta tags -->
     <meta charset="utf-8">
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="sweetalert2.all.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -25,6 +27,7 @@ request.setCharacterEncoding("UTF-8");
     <style type="text/css">
         textarea {
             resize: none;
+            line-height : 1.6;
         }
         .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -47,7 +50,7 @@ request.setCharacterEncoding("UTF-8");
  	padding-top : 30px;
  	padding-left : 150px;
  	padding-right : 150px;
- 	padding-bottom : 100px;
+ 	padding-bottom : 50px;
  	}
  	.mb-3 row {
  	padding-bottom : 15px;
@@ -60,32 +63,50 @@ request.setCharacterEncoding("UTF-8");
 	float:right;
 	margin-right : 10px;
 	}
+	.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
+	 
+
     </style>
+    
+   
     <script type="text/javascript">
-
-
-
-function button_event(){
-
-if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-var questionNum = '<c:out value="${readQuestion.questionNum}"/>';
-var userId = '<c:out value="${member.userId}"/>';
-	location.href= "${contextPath}"+ '/question/userDeleteQuestion.do?questionNum='+questionNum+'&&userId='+userId;
-
-}else{   //취소
-
-    return;
-
+   
+   
+  
+    
+    
+    <!---- 삭제------>
+    var questionNum = '<c:out value="${readQuestion.questionNum}"/>';
+    var userId = '<c:out value="${member.userId}"/>';
+function deleteQuestion(){
+	Swal.fire({
+	  title: '글을 삭제하시겠습니까?',
+	  text: "삭제하시면 다시 복구시킬 수 없습니다.",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: '삭제',
+	  cancelButtonText: '취소'
+	}).then((result) => {
+	  if (result.value) {
+		  location.href= "${contextPath}"+'/question/userDeleteQuestion.do?questionNum='+questionNum+'&&userId='+userId;
+	  }
+	})
 }
-
-}
-
-
 </script>
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">1 : 1 문의</span>
+		<span style="color: white;"></span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -138,12 +159,19 @@ var userId = '<c:out value="${member.userId}"/>';
             <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">질문 내용</label>
             <div class="col-sm-10">
             <textarea class="form-control-plaintext" id="questionContent" name="questionContent" rows="7" required placeholder="질문 내용을 입력해주세요" readonly><c:out value="${readQuestion.questionContent}" /></textarea>
+            <script>
+    var txtArea = $(".form-control-plaintext");
+    if (txtArea) {
+        txtArea.each(function(){
+            $(this).height(this.scrollHeight);
+        });
+    }
+</script>
         </div>
         </div>
         
         <button type="button" class="btn btn-outline-danger" onclick="history.back()">목록</button>	
-			<button type="button"  class="btn btn-outline-danger" onclick="button_event()">삭제 테스트</button>
-			<button type="button"  class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/userDeleteQuestion.do?questionNum=${readQuestion.questionNum}&&userId=${readQuestion.userId}' ">삭제</button>
+			<button type="button" class="btn btn-outline-danger" onclick="deleteQuestion();">삭제</button>
 			<button type="button"  class="btn btn-outline-danger" onclick="location.href='${contextPath}/question/modQuestionForm.do?questionNum=${readQuestion.questionNum}' ">수정</button>
 			
 		</div>	
@@ -165,11 +193,19 @@ var userId = '<c:out value="${member.userId}"/>';
 						<div class="mb-3 row" id="questionContent">
             			<label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">답변 내용</label>
             			<div class="col-sm-10">
-            			<textarea class="form-control-plaintext" id="questionCommentContent" name="questionCommentContent" rows="9"  readonly><c:out value="${readQuestion.questionCommentContent}" /></textarea>
+            			<textarea class="form-control-plaintext" id="questionCommentContent" name="questionCommentContent"  readonly><c:out value="${readQuestion.questionCommentContent}" /></textarea>
+            		<script>
+    var txtArea = $(".form-control-plaintext");
+    if (txtArea) {
+        txtArea.each(function(){
+            $(this).height(this.scrollHeight);
+        });
+    }
+</script>
         				</div>
 						</div>
-						<br>
-						<br>
+						
+						
 			</form>			
 			
 			</div>

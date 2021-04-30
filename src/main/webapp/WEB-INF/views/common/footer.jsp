@@ -14,6 +14,7 @@
 }
 
 .footer-upper {
+	transform: translateX(30%);
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -30,60 +31,75 @@
 	padding: 10px;
 }
 
+.footer-upper .upper-right {
+	float: right;
+}
+
 .footer-upper .upper-right>li>h3 {
 	float: right;
+}
+.footer-upper .upper-right>li>h3>a {
+	float: right;
 	padding: 10px;
+	color: #dee1e6;
 }
 
 .footer-bottom ul {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	padding: 45px 25px;
+	justify-content: left;
+	padding: 30px 0px;
 	margin-bottom:0px;
+	margin-left: 100px;
 }
 
-.footer-bottom ul li {
+.yesborder {
 	list-style: none;
 	padding: 0 10px;
 	border-left: ridge;
 	color: #dee1e6;
 	font-size: 12px;
 }
+.noborder {
+	list-style: none;
+	padding: 0 10px;
+	font-size: 12px;
+}
+
 </style>
 
-<div style="font-family: S-CoreDream-3Light;">
+<div style="font-family: S-CoreDream-3Light; width: 90%; margin-left: 5%">
+	<div>
+		<img
+				src="${pageContext.request.contextPath}/resources/image/header/logo/footer_logo.png"
+				alt="로고"
+				style="width: 100px; height: 70px; float: left; margin-left: 100px; margin-top: 30px" />
+	</div>
 	<div class="footer-upper">
-		<ul class="upper-left">
-			<li><h5>
-					<a href="https://www.ktds.com/etc/privacy_new.jsp" target="_blank"
-						style="color: red; text-decoration: none;">개인정보 처리방침</a>
-				</h5></li>
-		</ul>
+
 		<ul class="upper-right">
 			<li>
 				<h3>
-					<a href="https://twitter.com/ktds_university" target="_blank"
-						style="color: #dee1e6;"><i class="fab fa-twitter-square"></i></a>
+					<a href="https://twitter.com/ktds_university" target="_blank"><i class="fab fa-twitter-square"></i></a>
 				</h3>
 			</li>
 			<li>
 				<h3>
 					<a href="https://www.facebook.com/ktdsuniversity/" target="_blank"
-						style="color: #dee1e6;"><i class="fab fa-facebook-square"></i></a>
+						><i class="fab fa-facebook-square"></i></a>
 				</h3>
 			</li>
 			<li>
 				<h3>
 					<a
 						href="https://github.com/rnin9/KT-ds-University-17th-web-application-project"
-						target="_blank" style="color: #dee1e6;"><i
+						target="_blank"><i
 						class="fab fa-github-square"></i></a>
 				</h3>
 			</li>
 			<li>
 				<h3>
-					<a href="https://www.ktds.com/index.jsp" style="color: #dee1e6;"><i
+					<a href="https://www.ktds.com/index.jsp"><i
 						class="fas fa-home"></i></a>
 				</h3>
 			</li>
@@ -92,16 +108,14 @@
 	</div>
 	<div class="footer-bottom">
 		<div>
-			<div>
-				<img
-					src="${pageContext.request.contextPath}/resources/image/header/logo/footer_logo.png"
-					alt="로고"
-					style="width: 140px; height: 100px; float: left; margin-left: 40px;" />
-			</div>
 			<ul>
-				<li>대표이사 우정민</li>
-				<li>(06707) 서울 서초구 효령로 176, 02-523-7029</li>
-				<li>COPYRIGHT 2018 kt ds ALL RIGHTS RESERVED</li>
+				<li class="noborder">
+					<a style="color: #dee1e6; font-weight: bold" href="https://edu.ktdsuniversity.com/member/ly_privacy.action" target="_blank"
+					   >개인정보 처리방침</a>
+				</li>
+				<li class="yesborder">대표이사 우정민</li>
+				<li class="yesborder">(06707) 서울 서초구 효령로 176, 02-523-7029</li>
+				<li class="yesborder">COPYRIGHT 2018 kt ds ALL RIGHTS RESERVED</li>
 			</ul>
 		</div>
 	</div>

@@ -1,4 +1,3 @@
-
 #container {
 	width: 100%;
 	text-align: center;
@@ -59,6 +58,7 @@
 	margin-left: 9px;
 }
 
+
 .pageIntro {
 	font-family: 'Noto Sans KR', sans-serif;
 	margin-top: 20px;
@@ -68,7 +68,6 @@
 	background: url("${contextPath}/../../image/icon/ico_title_bar.png");
 	background-repeat:no-repeat;
 }
-
 
 a:link, a:visited, a:hover {
 	color: black;

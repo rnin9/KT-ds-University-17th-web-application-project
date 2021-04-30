@@ -3,7 +3,6 @@
    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <html>
 <head>
 
@@ -13,6 +12,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!-- <link rel="stylesheet" type="text/css"
+
    href="/juliet/resources/juliet.css"> -->
 <link id="bsdp-css"
    href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
