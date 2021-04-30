@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+
+	<definition name="/question/listQuestion" extends="baseLayout">
+		<put-attribute name="title" value="질문목록창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/listQuestion.jsp" />
+	</definition>
+
+	<definition name="/question/questionForm" extends="baseLayout">
+		<put-attribute name="title" value="질문작성창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/questionForm.jsp" />
+	</definition>
+	
+	<definition name="/question/readQuestion" extends="baseLayout">
+		<put-attribute name="title" value="질문조회창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/readQuestion.jsp" />
+	</definition>
+	
+	<definition name="/question/modQuestionForm" extends="baseLayout">
+		<put-attribute name="title" value="질문수창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/modQuestionForm.jsp" />
+	</definition>
+	
+	<definition name="/question/userListQuestion" extends="baseLayout">
+		<put-attribute name="title" value="유저 질문 목록" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/userListQuestion.jsp" />
+	</definition>
+	
+	<definition name="/question/adminReadQuestion" extends="baseLayout">
+		<put-attribute name="title" value="관리자 문의관리" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/question/adminReadQuestion.jsp" />
+	</definition>
+	
+</tiles-definitions>

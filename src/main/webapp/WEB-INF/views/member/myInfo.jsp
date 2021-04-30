@@ -1,7 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <html>
 <head>
@@ -12,7 +12,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!-- <link rel="stylesheet" type="text/css"
-	href="/juliet/resources/juliet.css"> -->
+   href="/juliet/resources/juliet.css"> -->
 <link id="bsdp-css"
 	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
 	rel="stylesheet">
@@ -30,7 +30,7 @@ request.setCharacterEncoding("UTF-8");
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortium.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/myPage.png");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -188,62 +188,62 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 </style>
 
 <script>
-	$(document).ready(function() {
-		$('#date input').datepicker({
-			format : "yyyymmdd",
-			language : "ko",
-			startView : 2,
-			keyboardNavigation : false,
-			forceParse : false,
-			autoclose : true
-		});
-	});
+   $(document).ready(function() {
+      $('#date input').datepicker({
+         format : "yyyymmdd",
+         language : "ko",
+         startView : 2,
+         keyboardNavigation : false,
+         forceParse : false,
+         autoclose : true
+      });
+   });
 </script>
 
 <script type="text/javascript">
-	$(function() {
-		$('#name').on("blur keyup", function() {
-			$(this).val($(this).val().replace(/[a-zA-Z0-9]/g, ''));
-		});
-	})
-	$(function() {
-		$('#eng_name').on("blur keyup", function() {
-			$(this).val($(this).val().replace(/[ㄱ-힣0-9]/g, ''));
-		});
-	})
+   $(function() {
+      $('#name').on("blur keyup", function() {
+         $(this).val($(this).val().replace(/[a-zA-Z0-9]/g, ''));
+      });
+   })
+   $(function() {
+      $('#eng_name').on("blur keyup", function() {
+         $(this).val($(this).val().replace(/[ㄱ-힣0-9]/g, ''));
+      });
+   })
 
-	$(function() {
-		$('#phone').on("blur keyup", function() {
-			$(this).val($(this).val().replace(/[ㄱ-힣a-zA-Z-]/g, ''));
-		});
-	})
-	$(function() {
-		$('#nav-profile').on("click", function() {
-			$('.modifyInfo').hide();
-		});
-	})
+   $(function() {
+      $('#phone').on("blur keyup", function() {
+         $(this).val($(this).val().replace(/[ㄱ-힣a-zA-Z-]/g, ''));
+      });
+   })
+   $(function() {
+      $('#nav-profile').on("click", function() {
+         $('.modifyInfo').hide();
+      });
+   })
 </script>
 
 <script>
 function handleModify() { 
-	Swal.fire({					/* 수정실행 확인 */
-	  title:'정보 수정',
-	  text: '해당 내용으로 수정하시겠습니까?',
-	  showCancelButton: true,
-	  icon:"warning",
-	  confirmButtonColor: '#3085d6',
-	  cancelButtonColor: '#d33',
-	  confirmButtonText: 'Save!'
-	}).then((result) => {
-	  /* Read more about isConfirmed, isDenied below */
-	  if (result.isConfirmed) {
-	    Swal.fire('수정완료!', '', 'success').then(()=>{
-	    	 $("#modForm").submit();
-	    })
-	  } else{
-			return;  	/* 수정실행 취소 */
-	  }
-	})
+   Swal.fire({               /* 수정실행 확인 */
+     title:'정보 수정',
+     text: '해당 내용으로 수정하시겠습니까?',
+     showCancelButton: true,
+     icon:"warning",
+     confirmButtonColor: '#3085d6',
+     cancelButtonColor: '#d33',
+     confirmButtonText: 'Save!'
+   }).then((result) => {
+     /* Read more about isConfirmed, isDenied below */
+     if (result.isConfirmed) {
+       Swal.fire('수정완료!', '', 'success').then(()=>{
+           $("#modForm").submit();
+       })
+     } else{
+         return;     /* 수정실행 취소 */
+     }
+   })
 }
 </script>
 
@@ -258,7 +258,8 @@ function handleModify() {
 			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 			<li style="color: grey; font-weight: bold;">〉</li>
 			<li class="on"><a
-				href="${pageContext.request.contextPath}/myInfo.do">마이 페이지</a></li>
+				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
+					페이지</a></li>
 		</ul>
 	</div>
 	<!-- 페이지에 대한 intro -->
@@ -321,29 +322,28 @@ function handleModify() {
 												value='${myInfo.userEmail}'>
 											<div class="email_regex"></div>
 											<c:choose>
-												<c:when test="${myInfo.userPosition =='채용예정자'}">
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															checked="checked" value="채용예정자"> <label for="ktu">채용예정자</label>
-														<input type="radio" id="ktp" name="userPosition"
-															value="재직자"> <label for="ktp">재직자</label>
+												<c:when test="${myInfo.userMajor =='전공'}">
+													<div class="toggle" style="margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor"
+															checked="checked" value="전공"> <label for="major">전공</label>
+														<input type="radio" id="nonMajor" name="userMajor"
+															value="비전공"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:when>
 												<c:otherwise>
-
-													<div class="toggle">
-														<label class="title" style="margin-right: 5%;">대상</label>
-														<input type="radio" id="ktu" name="userPosition"
-															value="채용예정자"> <label for="ktu">채용예정자</label> <input
-															type="radio" id="ktp" name="userPosition"
-															checked="checked" value="재직자"> <label for="ktp">재직자</label>
+													<div class="toggle" style="margin-right: 20px;">
+														<label class="title" style="margin-right: 14%;">전공여부</label>
+														<input type="radio" id="major" name="userMajor" value="전공">
+														<label for="major">전공</label> <input type="radio"
+															id="nonMajor" name="userMajor" value="비전공"
+															checked="checked"> <label for="nonMajor">비전공</label>
 													</div>
 												</c:otherwise>
 											</c:choose>
 										</div>
 										<div style="display: flex;">
-											<div style="transform: translateX(-6%); width: 120%;">
+											<div style="transform: translateX(-20%); width: 120%;">
 												<label class="title">주소</label><span class="must">필수</span>
 												<input type="text" name="userAddress1" id="roadAddress"
 													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
@@ -354,26 +354,28 @@ function handleModify() {
 														value='${myInfo.userAddress2}' placeholder="상세 주소">
 												</div>
 											</div>
-											<c:choose>
-												<c:when test="${myInfo.userMajor =='전공'}">
-													<div class="toggle"
-														style="transform: translateY(50%); margin-right: 20px">
-														<input type="radio" id="major" name="userMajor"
-															checked="checked" value="전공"> <label for="major">전공</label>
-														<input type="radio" id="nonMajor" name="userMajor"
-															value="비전공"> <label for="nonMajor">비전공</label>
-													</div>
-												</c:when>
-												<c:otherwise>
-													<div class="toggle"
-														style="transform: translateY(50%); margin-right: 20px">
-														<input type="radio" id="major" name="userMajor" value="전공">
-														<label for="major">전공</label> <input type="radio"
-															id="nonMajor" name="userMajor" value="비전공"
-															checked="checked"> <label for="nonMajor">비전공</label>
-													</div>
-												</c:otherwise>
-											</c:choose>
+											<%-- <c:choose>
+                                    <c:when test="${myInfo.userMajor =='전공'}">
+                                       <div class="toggle"
+                                          style="transform: translateY(50%); margin-right: 20px">
+                                          <label class="title" style="margin-right: 5%;">전공여부</label>
+                                          <input type="radio" id="major" name="userMajor"
+                                             checked="checked" value="전공"> <label for="major">전공</label>
+                                          <input type="radio" id="nonMajor" name="userMajor"
+                                             value="비전공"> <label for="nonMajor">비전공</label>
+                                       </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                       <div class="toggle"
+                                          style="transform: translateY(50%); margin-right: 20px">
+                                          <label class="title" style="margin-right: 5%;">전공여부</label>
+                                          <input type="radio" id="major" name="userMajor" value="전공">
+                                          <label for="major">전공</label> <input type="radio"
+                                             id="nonMajor" name="userMajor" value="비전공"
+                                             checked="checked"> <label for="nonMajor">비전공</label>
+                                       </div>
+                                    </c:otherwise>
+                                 </c:choose> --%>
 										</div>
 									</div>
 									<!-- 마이페이지 탭 끝-->
@@ -384,90 +386,90 @@ function handleModify() {
 							</form>
 
 							<script>
-								function sample4_execDaumPostcode() {
-									new daum.Postcode(
-											{
-												oncomplete : function(data) {
-													// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-													// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-													// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-													var roadAddr = data.roadAddress; // 도로명 주소 변수
-													var extraRoadAddr = ''; // 참고 항목 변수
-													// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-													// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-													if (data.bname !== ''
-															&& /[동|로|가]$/g
-																	.test(data.bname)) {
-														extraRoadAddr += data.bname;
-													}
-													// 건물명이 있고, 공동주택일 경우 추가한다.
-													if (data.buildingName !== ''
-															&& data.apartment === 'Y') {
-														extraRoadAddr += (extraRoadAddr !== '' ? ', '
-																+ data.buildingName
-																: data.buildingName);
-													}
+                        function sample4_execDaumPostcode() {
+                           new daum.Postcode(
+                                 {
+                                    oncomplete : function(data) {
+                                       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                                       // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                       // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                       var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                       var extraRoadAddr = ''; // 참고 항목 변수
+                                       // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                       // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                       if (data.bname !== ''
+                                             && /[동|로|가]$/g
+                                                   .test(data.bname)) {
+                                          extraRoadAddr += data.bname;
+                                       }
+                                       // 건물명이 있고, 공동주택일 경우 추가한다.
+                                       if (data.buildingName !== ''
+                                             && data.apartment === 'Y') {
+                                          extraRoadAddr += (extraRoadAddr !== '' ? ', '
+                                                + data.buildingName
+                                                : data.buildingName);
+                                       }
 
-													// 우편번호와 주소 정보를 해당 필드에 넣는다.
-													document
-															.getElementById("roadAddress").value = roadAddr;
-												}
-											}).open();
-								}
-								
-								/* 입력유효성 체크 시작 */
-								  $("#name").on("input",function(){
-						                var regex = /[ㄱ-힣]{1,}/;
-						                var result = regex.exec($("#name").val());
-						                
-						                if(result != null){
-						                    $(".name_regex").html("");  
-						                }else{
-						                    $(".name_regex").html("한글만 입력 가능합니다.");
-						                }
-						        })
-						        $("#eng_name").on("input",function(){
-						                var regex = /[a-zA-Z]{2,}$/;
-						                var result = regex.exec($("#eng_name").val());
-						                
-						                if(result != null){
-						                    $(".eng_name.regex").html("");  
-						                }else{
-						                    $(".eng_name.regex").html("영어만 입력 가능합니다.");
-						                }
-						        })
-						        $("#phone").on("input",function(){
-						                var regex = /^\d{1,}/;
-						                var result = regex.exec($("#phone").val());
-						                
-						                if(result != null){
-						                    $(".phone_regex_valid").html("");  
-						                }else{
-						                    $(".phone_regex_valid").html("숫자만 입력 가능합니다.");
-						                }
-						        })
-						        $("#email").on("input",function(){
-						                     var regex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
-						                     var result = regex.exec($("#email").val());
-						                    
-						                    if(result != null){
-						                       $(".email_regex").html("");  
-						                    }else{
-						                        $(".email_regex").html("올바른 형식이 아닙니다.");
-						                    }
-						                })
-						                
-						       $("#password").on("input",function(){
-						                     var result = $("#password").val().length;
-						                    
-						                    if(result > 7 ){
-						                       $(".pwd_regex").html("");  
-						                    }else{
-						                        $(".pwd_regex").html("8자리 이상으로 설정하세요.");
-						                    }
-						                })
-						                /* 입력유효성 체크 끝 */
-							</script>
+                                       // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                       document
+                                             .getElementById("roadAddress").value = roadAddr;
+                                    }
+                                 }).open();
+                        }
+                        
+                        /* 입력유효성 체크 시작 */
+                          $("#name").on("input",function(){
+                                  var regex = /[ㄱ-힣]{1,}/;
+                                  var result = regex.exec($("#name").val());
+                                  
+                                  if(result != null){
+                                      $(".name_regex").html("");  
+                                  }else{
+                                      $(".name_regex").html("한글만 입력 가능합니다.");
+                                  }
+                          })
+                          $("#eng_name").on("input",function(){
+                                  var regex = /[a-zA-Z]{2,}$/;
+                                  var result = regex.exec($("#eng_name").val());
+                                  
+                                  if(result != null){
+                                      $(".eng_name.regex").html("");  
+                                  }else{
+                                      $(".eng_name.regex").html("영어만 입력 가능합니다.");
+                                  }
+                          })
+                          $("#phone").on("input",function(){
+                                  var regex = /^\d{1,}/;
+                                  var result = regex.exec($("#phone").val());
+                                  
+                                  if(result != null){
+                                      $(".phone_regex_valid").html("");  
+                                  }else{
+                                      $(".phone_regex_valid").html("숫자만 입력 가능합니다.");
+                                  }
+                          })
+                          $("#email").on("input",function(){
+                                       var regex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
+                                       var result = regex.exec($("#email").val());
+                                      
+                                      if(result != null){
+                                         $(".email_regex").html("");  
+                                      }else{
+                                          $(".email_regex").html("올바른 형식이 아닙니다.");
+                                      }
+                                  })
+                                  
+                         $("#password").on("input",function(){
+                                       var result = $("#password").val().length;
+                                      
+                                      if(result > 7 ){
+                                         $(".pwd_regex").html("");  
+                                      }else{
+                                          $(".pwd_regex").html("8자리 이상으로 설정하세요.");
+                                      }
+                                  })
+                                  /* 입력유효성 체크 끝 */
+                     </script>
 						</div>
 						<!-- 수강강의 페이지 탭 -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
@@ -487,29 +489,46 @@ function handleModify() {
 											<td>${myCourse.syllabusVO.syllabusName}</td>
 											<td>${myCourse.courseVO.courseStart}~${myCourse.courseVO.courseEnd}</td>
 											<td>${myCourse.courseTake_State}</td>
+
 											<c:choose>
 												<c:when
-													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'Y'}">
+													test="${myCourse.courseTake_State eq '수료' and myCourse.surveyYN == 'Y'}">
 													<form name="formForCertificate"
-														action="${pageContext.request.contextPath}/courseTake/certificate.jsp"
+														action="${contextPath}/member/myCertificate.do"
 														method="post">
-														<input type=text name="test1"
+														<input type=text name="userName"
 															value="${myCourse.memberVO.userName}"
-															style="display: none;" /> <input type=text name="test2"
+															style="display: none;" /> <input type=text
+															name="courseName"
 															value="${myCourse.syllabusVO.syllabusName}"
+															style="display: none;" /> <input type=text
+															name="userCompany"
+															value="${myCourse.partnerVO.partnerName}"
+															style="display: none;" /> <input type=text
+															name="courseStart"
+															value="${myCourse.courseVO.courseStart}"
+															style="display: none;" /> <input type=text
+															name="courseEnd" value="${myCourse.courseVO.courseEnd}"
+															style="display: none;" /> <input type=text
+															name="syllabusTotalTime"
+															value="${myCourse.syllabusVO.syllabusTotalTime}"
+															style="display: none;" /> <input type=text
+															name="userBirthday" value="${myCourse.memberVO.birth}"
 															style="display: none;" />
-														<td><a style="text-decoration: underline" href="#"
-															onclick="javascript:popup(this.form);">출력하기</a></td>
+														<td><input type="submit" value="출력하기"
+															style="background-color: transparent; border: none; text-decoration: underline;"
+															onclick="javascript:popup(this.form);"></td>
 													</form>
 												</c:when>
 												<c:when
 													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'Y'}">
-													<td style="text-align: center;">
-													<a href="${pageContext.request.contextPath}/survey/surveyWriteForm.do?courseID=${myCourse.courseID}&userID=${myCourse.userID}">설문조사</a></td>
+													<td style="text-align: center;"><a
+														href="${pageContext.request.contextPath}/survey/surveyWriteForm.do?courseID=${myCourse.courseID}&userID=${myCourse.userID}">설문조사</a></td>
 												</c:when>
 												<c:when
 													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'N'}">
-													<td style="text-align: center; color: red;">설문 미등록(담당자에게 문의하세요)</td>
+													<td style="text-align: center; color: red;">설문
+														미등록(담당자에게 문의하세요)</td>
 												</c:when>
 												<c:otherwise>
 													<td style="text-align: center; color: red;">미수료</td>
@@ -521,8 +540,8 @@ function handleModify() {
 							</table>
 							<b style="float:right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b style="float:right; color:red;">*수료 상태</b>
 						</div>
+						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
-					<!-- 수강강의 페이지 탭 끝 -->
 				</div>
 			</div>
 		</div>
@@ -531,10 +550,10 @@ function handleModify() {
 <script type="text/javascript">
 function popup(frm)
 {
-  var url    ="/springEx/courseTake/certificate.do";
+  var url    ="${contextPath}/member/myCertificate.do";
   var title  = "certificate2";
-  var status = "width=500px, height=600px, status=no, menubar=no, toolbar=no, resizable=no"; 
-  window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기
+  var status = "width=1000px, height=1000px, status=no, menubar=no, toolbar=no, resizable=no"; 
+  window.open('${pageContext.request.contextPath}/member/myCertificate.do', title,status); //popup 열기
   frm.target = title;                    //form.target 이 부분이 빠지면 form값 전송이 되지 않습니다. 
   frm.action = url;                    //form.action 이 부분이 빠지면 action값을 찾지 못해서 제대로 된 팝업이 뜨질 않습니다.
   frm.method = "post";
