@@ -20,12 +20,19 @@ public class PartnerVO {
 	private String partnerURL;                    /*회사 홈페이지*/
 	private String partnerRegisterDate;			  /*등록날짜*/
 	
+	//추가
+	private String partnerIndustryType;				/*업종형태*/
+	private String partnerCharger;					/*담당자 이름*/
+	private String partnerChargerDepartment;		/*담당자 부서*/
+	private String partnerChargerID;				/*담당자 ID*/
+	private String partnerChargerEmail;				/*담당자 Email*/
+	
 	
 	public PartnerVO(){
 
 	}
 	
-	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate){
+	public PartnerVO(String partnerLicenseNum, String partnerState, String partnerName, String partnerInformation,String partnerAddress,String partnerPhoneNumber,String partnerEmail,String partnerCEO,int partnerHeadCount,String partnerApplyYN,String partnerApplyFinishDate,String partnerURL, String partnerRegisterDate, String partnerIndustryType, String partnerCharger, String partnerChargerDepartment,String partnerChargerID, String partnerChargerEmail ){
 		this.partnerLicenseNum = partnerLicenseNum;
 		this.partnerName = partnerName;
 		this.partnerInformation = partnerInformation;
@@ -38,8 +45,53 @@ public class PartnerVO {
 		this.partnerURL = partnerURL;
 		this.partnerApplyFinishDate = partnerApplyFinishDate;
 		this.partnerRegisterDate = partnerRegisterDate;
+		this.partnerIndustryType = partnerIndustryType;
+		this.partnerCharger = partnerCharger;
+		this.partnerChargerDepartment = partnerChargerDepartment;
+		this.partnerChargerID = partnerChargerID;
+		this. partnerChargerEmail =  partnerChargerEmail;
 		
 
+	}
+
+	public String getPartnerIndustryType() {
+		return partnerIndustryType;
+	}
+
+	public void setPartnerIndustryType(String partnerIndustryType) {
+		this.partnerIndustryType = partnerIndustryType;
+	}
+
+	public String getPartnerCharger() {
+		return partnerCharger;
+	}
+
+	public void setPartnerCharger(String partnerCharger) {
+		this.partnerCharger = partnerCharger;
+	}
+
+	public String getPartnerChargerDepartment() {
+		return partnerChargerDepartment;
+	}
+
+	public void setPartnerChargerDepartment(String partnerChargerDepartment) {
+		this.partnerChargerDepartment = partnerChargerDepartment;
+	}
+
+	public String getPartnerChargerID() {
+		return partnerChargerID;
+	}
+
+	public void setPartnerChargerID(String partnerChargerID) {
+		this.partnerChargerID = partnerChargerID;
+	}
+
+	public String getPartnerChargerEmail() {
+		return partnerChargerEmail;
+	}
+
+	public void setPartnerChargerEmail(String partnerChargerEmail) {
+		this.partnerChargerEmail = partnerChargerEmail;
 	}
 
 	public String getPartnerApplyFinishDate() {

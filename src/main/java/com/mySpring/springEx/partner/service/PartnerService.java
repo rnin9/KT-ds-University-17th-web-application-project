@@ -10,11 +10,7 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 
 public interface PartnerService {
 	
-	public List<Map<String, Object>> SelectAllListPartner() throws Exception;
-	
-	public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception;
-	
-	public int testTableCountPartner() throws Exception;
+	public List SelectAllListPartner() throws Exception;
 	
 	public List listNumPartner() throws DataAccessException;
 

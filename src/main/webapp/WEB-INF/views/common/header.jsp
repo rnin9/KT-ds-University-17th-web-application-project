@@ -137,7 +137,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link-admin  dropdown-toggle" href="#"
 						data-toggle="dropdown"> 협력사관리 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 기업정보관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/partner/partnerList.do"> 기업정보관리</a></li>
 							<li><a class="dropdown-item" href="#"> 모집공고관리 </a></li>
 						</ul></li>
 
@@ -216,7 +216,7 @@ request.setCharacterEncoding("UTF-8");
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
 							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+							<li><a class="dropdown-item" href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/member/logout.do"><i
@@ -232,7 +232,7 @@ request.setCharacterEncoding("UTF-8");
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
 							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+							<li><a class="dropdown-item" href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link-admin"
 						href="${contextPath}/member/logout.do"><i
@@ -246,7 +246,7 @@ request.setCharacterEncoding("UTF-8");
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right fade-down">
 							<li><a class="dropdown-item" href="${contextPath}/member/myInfo.do?userID=${member.userId}"> 내정보 관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+							<li><a class="dropdown-item" href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/member/logout.do"><i

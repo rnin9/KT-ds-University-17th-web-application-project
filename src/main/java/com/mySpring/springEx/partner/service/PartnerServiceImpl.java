@@ -26,23 +26,11 @@ public class PartnerServiceImpl implements PartnerService {
 	
 	//회사 리스트 출력
 	@Override
-    public List<Map<String, Object>> SelectAllListPartner() throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.SelectAllListPartner();
+    public List SelectAllListPartner() throws Exception {
+		List partnerList = null;
+		partnerList = partnerDAO.selectAllPartner();
+		return partnerList;
     }
- 
-    @Override
-    public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.SelectAllListPartner(pagination);
-    }
- 
-    @Override
-    public int testTableCountPartner() throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.testTableCountPartner();
-    }
-	
 	
 	//회사 상태별 count 출력
 	@Override

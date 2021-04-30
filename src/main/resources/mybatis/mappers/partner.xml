@@ -18,14 +18,31 @@
 	    <result property="partnerApplyFinishDate" column="partnerApplyFinishDate" />
 	    <result property="partnerURL" column="partnerURL" />
 	    <result property="partnerRegisterDate" column="partnerRegisterDate" />
+	    
+	    <result property="partnerIndustryType" column="partnerIndustryType" />
+	    <result property="partnerCharger" column="partnerCharger" />
+	    <result property="partnerChargerDepartment" column="partnerChargerDepartment" />
+	    <result property="partnerChargerID" column="partnerChargerID" />
+	    <result property="partnerChargerEmail" column="partnerChargerEmail" />
 	</resultMap>
 	
-	<!-- 전체 기업목록 조회 쿼리-->
-	<select id="selectAllPartnerList" resultMap="resResult">
+	
+	<!-- select all -->
+	<select  id="selectAllPartnerList" resultMap="resResult" >
       <![CDATA[
-         select * from partner 	 	
+         select partnerLicenseNum, partnerState, partnerName,partnerAddress ,partnerCharger, partnerCEO,partnerHeadCount,partnerURL,partnerChargerID, partnerChargerDepartment,partnerIndustryType, partnerChargerEmail,partnerPhoneNumber, to_char(partnerRegisterDate, 'yyyy-mm-dd') as "partnerRegisterDate"
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
       ]]>
-	</select>
+	</select>	
+	
+	<select  id="selectAllPartnerList2" resultMap="resResult" >
+      <![CDATA[
+         select *
+         from partner 
+         where partnerLicenseNum != 'kt_ds_university'
+      ]]>
+	</select>	
 	
 	<!--협력사 count 조회 쿼리 -->
 	<select id="selectCooperationPartner" resultType="int">
@@ -63,8 +80,8 @@
 	<!--기업 정보 입력 쿼리 -->
 	<insert id="addPartner" parameterType="partnerVO">
 	<![CDATA[
-        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerInformation,partnerAddress,partnerPhoneNumber,partnerEmail,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate)
-		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerInformation},#{partnerAddress},#{partnerPhoneNumber},#{partnerEmail},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL},sysdate)
+        insert into partner(partnerLicenseNum,partnerState,partnerName,partnerAddress,partnerPhoneNumber,partnerCEO,partnerHeadCount,partnerApplyYN,partnerApplyFinishDate,partnerURL,partnerRegisterDate, partnerIndustryType, partnerCharger,partnerChargerDepartment, partnerChargerID, partnerChargerEmail)
+		values(#{partnerLicenseNum},#{partnerState},#{partnerName},#{partnerAddress},#{partnerPhoneNumber},#{partnerCEO},#{partnerHeadCount},'N',#{partnerApplyFinishDate, jdbcType=DATE},#{partnerURL}, sysdate ,#{partnerIndustryType}, #{partnerCharger}, #{partnerChargerDepartment},#{partnerChargerID},#{partnerChargerEmail})
       ]]>
 	</insert>
 	
@@ -82,7 +99,7 @@
 	<update id="updatePartner" parameterType="partnerVO">
 	<![CDATA[
         update partner
-        set  partnerState=#{partnerState}, partnerInformation=#{partnerInformation},partnerAddress=#{partnerAddress},partnerPhoneNumber=#{partnerPhoneNumber}, partnerEmail=#{partnerEmail}, partnerCEO=#{partnerCEO},partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}
+        set  partnerState=#{partnerState}, partnerAddress=#{partnerAddress}, partnerPhoneNumber=#{partnerPhoneNumber}, partnerInformation=#{partnerInformation, jdbcType=VARCHAR}, partnerEmail=#{partnerEmail, jdbcType=VARCHAR}, partnerCEO=#{partnerCEO}, partnerHeadCount=#{partnerHeadCount}, partnerApplyFinishDate=#{partnerApplyFinishDate, jdbcType=DATE}, partnerRegisterDate= sysdate, partnerIndustryType=#{partnerIndustryType}, partnerCharger=#{partnerCharger}, partnerChargerDepartment=#{partnerChargerDepartment}, partnerChargerID=#{partnerChargerID}, partnerChargerEmail=#{partnerChargerEmail} 
         where partnerLicenseNum=#{partnerLicenseNum}      
       ]]>
 	</update>
