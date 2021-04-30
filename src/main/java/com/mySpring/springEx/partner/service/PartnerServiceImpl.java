@@ -142,6 +142,30 @@ public class PartnerServiceImpl implements PartnerService {
 		return;
 		
 	}
+
+	@Override
+	public List getUserCer(String resumeID, String userID) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getUserCer(resumeID, userID);
+	}
+
+	@Override
+	public List getUserFor(String resumeID, String userID) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getUserFor(resumeID, userID);
+	}
+
+	@Override
+	public List getUserCarr(String resumeID, String userID) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getUserCarr(resumeID, userID);
+	}
+
+	@Override
+	public List getUserPro(String resumeID, String userID) throws Exception {
+		// TODO Auto-generated method stub
+		return partnerDAO.getUserPro(resumeID, userID);
+	}
 	
 	
 

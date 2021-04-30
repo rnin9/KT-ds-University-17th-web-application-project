@@ -14,7 +14,14 @@
 		<put-attribute name="footer"
 					   value="/WEB-INF/views/common/footer.jsp" />
 	</definition>
-
+	
+	
+	<definition name="noAuth" extends="empty">
+		<put-attribute name="title" value="403 Error Page" />
+		<put-attribute name="content"
+					   value="/WEB-INF/views/error/403.jsp" />
+	</definition>
+	
 	<definition name="main" extends="baseLayout">
 		<put-attribute name="title" value="kt ds University" />
 		<put-attribute name="body"

@@ -10,9 +10,9 @@ request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<!-- <link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-   href="/juliet/resources/juliet.css"> -->
 <link id="bsdp-css"
 	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
 	rel="stylesheet">
@@ -54,8 +54,14 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 
 #container { /* 이름 밑에 속성들을 감싸서 적용 */
 	background-color: #fafafa;
-	height: 500px;
+	height: auto;
+	overflow:hidden;
 	position: relative;
+	margin-bottom:30px;
+}
+
+#modForm {
+	background-color: #fafafa;
 }
 
 .title { /* container 밑 속성값들의 이름 */
@@ -186,6 +192,38 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 	margin-left: 800px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$.extend( $.fn.dataTable.defaults, {
+	    ordering:  false
+	} );
+
+	$('#myTable').DataTable({
+
+	      language: {
+	         info : '',
+	         sInfoFiltered : '',
+	         infoEmpty : '',
+	         emptyTable : '데이터가 없습니다.',
+	         thousands : ',',
+	         lengthMenu : '_MENU_ 개씩 보기',
+	         loadingRecords : '데이터를 불러오는 중',
+	         processing : '처리 중',
+	         zeroRecords : '검색 결과 없음',
+	         paginate : {
+	            first : '처음',
+	            last : '끝',
+	            next : '다음',
+	            previous : '이전'
+	         },
+	         search: '',
+	         sSearchPlaceholder: '통합 검색',
+	      
+	      }
+	});
+});
+</script>
 
 <script>
    $(document).ready(function() {
@@ -250,24 +288,23 @@ function handleModify() {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">마이 페이지</span>
+		<span style="color: white;"></span>
 	</div>
+	<div class="container">
+		<div class="lnb">
+			<ul>
+				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
+						페이지</a></li>
+			</ul>
+		</div>
+		<!-- 페이지에 대한 intro -->
+		<div class="pageIntro">${myInfo.userId}의 정보</div>
 
-	<div class="lnb">
-		<ul>
-			<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
-			<li style="color: grey; font-weight: bold;">〉</li>
-			<li class="on"><a
-				href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
-					페이지</a></li>
-		</ul>
-	</div>
-	<!-- 페이지에 대한 intro -->
-	<div class="faqIntro">${myInfo.userId}의페이지</div>
-
-	<!-- 내정보/수강정보 탭 -->
-	<section id="tabs" class="project-tab">
-		<div class="container">
+		<!-- 내정보/수강정보 탭 -->
+		<section id="tabs" class="project-tab">
 			<div class="row">
 				<div class="col-md-12">
 					<nav style="margin-top: 50px;">
@@ -290,11 +327,13 @@ function handleModify() {
 									<div id="container">
 										<div>
 											<input type="hidden" name="userId" value='${myInfo.userId}'>
+
 											<label class="title">성명</label><span class="must">필수</span> <input
 												type="text" name="userName" id="name" placeholder="한글명"
 												onfocus="this.placeholder=''"
 												onblur="this.placeholder='한글명'" value='${myInfo.userName}'>
 											<div class="name_regex"></div>
+
 											<label class="title">비밀번호</label><span class="must">필수</span>
 											<input type="password" name="userPassword" id="password"
 												placeholder="한글명" onfocus="this.placeholder=''"
@@ -303,6 +342,7 @@ function handleModify() {
 											<div class="pwd_regex"></div>
 										</div>
 										<div id="date">
+
 											<label class="title" style="margin-left: 0px;">생년월일</label><span
 												class="must">필수</span> <input type="text" name="birth"
 												id="date" placeholder="생년월일" value='${myInfo.birth}'>
@@ -347,8 +387,9 @@ function handleModify() {
 												<label class="title">주소</label><span class="must">필수</span>
 												<input type="text" name="userAddress1" id="roadAddress"
 													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
-												<input type="button" onclick="sample4_execDaumPostcode()"
-													value="주소 찾기">
+
+												<input type="button" class="btn btn-outline-danger"
+													onclick="sample4_execDaumPostcode()" value="주소 찾기">
 												<div>
 													<input type="text" name="userAddress2" id="detailAddress"
 														value='${myInfo.userAddress2}' placeholder="상세 주소">
@@ -380,8 +421,10 @@ function handleModify() {
 									</div>
 									<!-- 마이페이지 탭 끝-->
 								</div>
-								<div id="modifyInfo">
-									<input type="button" value="수정하기" onclick='handleModify()'>
+								<div id="modifyInfo"
+									style="margin-bottom: 30px;">
+									<input type="button" class="btn btn-outline-danger"
+										value="수정하기" onclick='handleModify()'>
 								</div>
 							</form>
 
@@ -474,7 +517,8 @@ function handleModify() {
 						<!-- 수강강의 페이지 탭 -->
 						<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 							aria-labelledby="nav-profile-tab">
-							<table class="table" cellspacing="0">
+
+							<table class="table" id="myTable" cellspacing="0">
 								<thead>
 									<tr>
 										<th>강의명</th>
@@ -491,6 +535,7 @@ function handleModify() {
 											<td>${myCourse.courseTake_State}</td>
 
 											<c:choose>
+
 												<c:when
 													test="${myCourse.courseTake_State eq '수료' and myCourse.surveyYN == 'Y'}">
 													<form name="formForCertificate"
@@ -520,6 +565,7 @@ function handleModify() {
 															onclick="javascript:popup(this.form);"></td>
 													</form>
 												</c:when>
+
 												<c:when
 													test="${myCourse.courseTake_State == '수료' and myCourse.surveyYN == 'N' and myCourse.courseVO.questionYN == 'Y'}">
 													<td style="text-align: center;"><a
@@ -538,13 +584,17 @@ function handleModify() {
 									</c:forEach>
 								</tbody>
 							</table>
+
 							<b style="float:right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b style="float:right; color:red;">*수료 상태</b>
+
 						</div>
 						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
 				</div>
 			</div>
+
 		</div>
+
 	</section>
 </body>
 <script type="text/javascript">

@@ -3,6 +3,8 @@ package com.mySpring.springEx.partner.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -167,6 +169,46 @@ public class PartnerDAOImpl implements PartnerDAO{
 		sqlSession.update("mapper.partner.deleteSuggestionFromCompany", suggestion);
 		return;
 		
+	}
+
+
+	@Override
+	public List getUserCer(String resumeID, String userID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("resumeID", resumeID);
+		map.put("userID", userID);
+		return sqlSession.selectList("mapper.partner.getCerResume", map);
+	}
+
+
+	@Override
+	public List getUserPro(String resumeID, String userID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("resumeID", resumeID);
+		map.put("userID", userID);
+		return sqlSession.selectList("mapper.partner.getProResume", map);
+	}
+
+
+	@Override
+	public List getUserCarr(String resumeID, String userID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("resumeID", resumeID);
+		map.put("userID", userID);
+		return sqlSession.selectList("mapper.partner.getCarrResume", map);
+	}
+
+
+	@Override
+	public List getUserFor(@Param("resumeID")String resumeID, @Param("userID")String userID) throws DataAccessException {
+		// TODO Auto-generated method stub
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("resumeID", resumeID);
+		map.put("userID", userID);
+		return sqlSession.selectList("mapper.partner.getForResume", map);
 	}
 	
 	/* partner company method End */
