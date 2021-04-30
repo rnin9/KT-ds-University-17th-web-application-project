@@ -208,7 +208,7 @@ a:link, a:visited, a:hover {
 			<div class="pageIntro">공지사항</div>
 
 
-			<table id="myTable">
+			<table id="myTable" class="table_">
 				<thead>
 
 					<tr align="center">

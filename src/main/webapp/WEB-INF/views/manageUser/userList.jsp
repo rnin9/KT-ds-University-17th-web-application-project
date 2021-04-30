@@ -44,7 +44,7 @@ a:link, a:visited, a:hover {
 .container {
 	display: flex;
     flex-wrap: wrap;
-    width: 75%;
+    width: 80%;
     justify-content: space-around;
     flex-direction: column;
     padding-bottom:200px;

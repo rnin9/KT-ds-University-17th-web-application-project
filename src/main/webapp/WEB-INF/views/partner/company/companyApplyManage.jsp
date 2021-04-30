@@ -8,15 +8,30 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-	
-   
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 </head>
 <style>
 .table thead th {
 	width: 25%;
-	vertical-align: bottom;
-	border-bottom: 2px solid #dee2e6;
+	border-bottom: 1px;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
 </style>
 <script>
@@ -339,11 +354,11 @@
      </script>
 <body>
 	<div id="applyContents">
-		<div class="sub_visual">
-			<span style="color: white;">협력사 지원</span>
-		</div>
+
 		<div class="container"
 			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
+
+			<div class="pageIntro">채용 관리</div>
 
 			<!-- Modal -->
 			<div class="modal fade" id="myModal" role="dialog">
