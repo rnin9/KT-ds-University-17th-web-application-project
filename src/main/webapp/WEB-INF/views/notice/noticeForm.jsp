@@ -112,6 +112,28 @@ a:link, a:visited, a:hover {
 	margin-left: 10px;
 }
 
+.fileAdd_btn {
+    color: white;
+    background-color: tomato;
+    border-color: rgba(247, 94, 94, 0 .8);
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	background-color: tomato;
+	float: right;
+	margin-left: 10px;
+}
+
 .form-control {
 	border: hidden;
 	margin-left: 20px;
@@ -128,14 +150,52 @@ a:link, a:visited, a:hover {
 </style>
 
 </head>
-
-
 <script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[name='writeForm']");
+		$(".write_btn").on("click", function() {
+			if (fn_valiChk()) {
+				return false;
+			}
+			formObj.attr("action", "${contextPath}/notice/insertNotice.do");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		fn_addFile();
+	})
+	function fn_valiChk() {
+		var regForm = $("form[name='writeForm'] .chk").length;
+		for (var i = 0; i < regForm; i++) {
+			if ($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null) {
+				alert($(".chk").eq(i).attr("title"));
+				return true;
+			}
+		}
+	}
+	function fn_addFile() {
+		var fileIndex = 1;
+		//$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"<button type='button' style='float:right;' id='fileAddBtn'>"+"추가"+"</button></div>");
+		$(".fileAdd_btn")
+				.on(
+						"click",
+						function() {
+							$("#fileIndex")
+									.append(
+											"<div><input type='file' style='float:left;' name='file_"
+													+ (fileIndex++)
+													+ "'>"
+													+ "</button>"
+													+ "<button type='button' style='float:right;' id='fileDelBtn'>"
+													+ "삭제" + "</button></div>");
+						});
+		$(document).on("click", "#fileDelBtn", function() {
+			$(this).parent().remove();
+
+		});
+	}
 </script>
-
-
 <body>
-	<form name="writeForm" method="post"
+	<form name="writeForm" method="post" enctype="multipart/form-data"
 		action="${contextPath}/notice/insertNotice.do">
 
 		<div class="container">
@@ -156,15 +216,17 @@ a:link, a:visited, a:hover {
 					<th>분류</th>
 
 					<td><div class="selectBox" style="text-align: left;">
-							<select id="notice_category"
-								class="form-select" aria-label="Default select example"
-								name="notice_category" 
-								oninvalid="this.setCustomValidity('분류를 선택해주세요')" 
+							<select id="notice_category" class="form-select"
+								aria-label="Default select example" name="notice_category"
+								oninvalid="this.setCustomValidity('분류를 선택해주세요')"
 								oninput="this.setCustomValidity('')" required>
 								<option value="">-- 분류 --</option>
-								<option value="일반">일반</option>
-								<option value="채용예정자">채용예정자</option>
-								<option value="긴급">긴급</option>
+								<option value="[일반]">[일반]</option>
+								<option value="[안내]">[안내]</option>
+								<option value="[모집]">[모집]</option>
+								<option value="[추가모집]">[추가모집]</option>
+								<option value="[공지]">[공지]</option>
+								<option value="[채용예정자]">[채용예정자]</option>
 							</select>
 						</div></td>
 
@@ -172,19 +234,22 @@ a:link, a:visited, a:hover {
 				<tr>
 					<th>제목</th>
 					<td><input type="text" class="form-control"
-						placeholder="제목을 입력하세요." name="notice_title" id="notice_title" 
-						oninvalid="this.setCustomValidity('제목을 입력해주세요')" 
-						oninput="this.setCustomValidity('')" required/></td>
+						placeholder="제목을 입력하세요." name="notice_title" id="notice_title"
+						oninvalid="this.setCustomValidity('제목을 입력해주세요')"
+						oninput="this.setCustomValidity('')" required /></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
 					<td><input type="text" class="form-control"
 						placeholder="작성자를 입력하세요." name="notice_adminID"
-						id="notice_adminID" 
-						oninvalid="this.setCustomValidity('작성자를 입력해주세요')" 
-						oninput="this.setCustomValidity('')" required/></td>
+						id="notice_adminID"
+						oninvalid="this.setCustomValidity('작성자를 입력해주세요')"
+						oninput="this.setCustomValidity('')" required
+						value="${member.userId}" readonly /></td>
 				</tr>
-
+				<tr>
+					<th>첨부파일</th>
+					<td id="fileIndex"></td>
 			</table>
 
 			<div class="inform" style="border-bottom: 1px solid #e0e0e0;">
@@ -192,14 +257,15 @@ a:link, a:visited, a:hover {
 					<i class="fas fa-chevron-right" style="margin-right: 8px"></i>내용
 				</div>
 				<textarea class="informInputBox" placeholder="내용을 입력하세요."
-					name="notice_contents" id="notice_contents" 
-					oninvalid="this.setCustomValidity('내용을 입력해주세요')" 
+					name="notice_contents" id="notice_contents"
+					oninvalid="this.setCustomValidity('내용을 입력해주세요')"
 					oninput="this.setCustomValidity('')" required></textarea>
 			</div>
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom_C" type="button"
-					onclick="history.back()">취소</button>
+				<button class="fileAdd_btn" type="button">파일추가</button>
+				<button class="btn button_bottom_C" type="button" onclick="history.back()">취소</button>
 				<button class="btn button_bottom_I" type="submit">글쓰기</button>
+
 			</div>
 		</div>
 	</form>

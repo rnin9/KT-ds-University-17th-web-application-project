@@ -20,6 +20,7 @@ public class ResumeVO {
 	private String resumeContext4;
 	private String resumeContext5;
 	private String resumeDate;
+	private String resumeCheck;
 	
 	public ResumeVO() {
 		
@@ -43,6 +44,15 @@ public class ResumeVO {
 		this.resumeDate = resumeDate;
 		
 	}
+	
+	public String getResumeCheck() {
+		return resumeCheck;
+	}
+
+	public void setResumeCheck(String resumeCheck) {
+		this.resumeCheck = resumeCheck;
+	}
+
 
 	public String getResumeDate() {
 		return resumeDate;

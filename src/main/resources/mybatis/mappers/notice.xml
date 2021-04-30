@@ -5,24 +5,86 @@
 
 <mapper namespace="mapper.notice">
 
+	<!-- 공지사항 상단 고정 글 -->
+	<select id="selectFixNoticeList"
+		resultType="com.mySpring.springEx.notice.vo.NoticeVO">
+	select 
+		        notice_no, 
+		        notice_category, 
+		        notice_title, 
+		        notice_adminID, 
+		        notice_date, 
+		        notice_hit, 
+		        notice_contents, 
+		        notice_no, 
+		        nt_file_size
+		from (
+		    select
+		        row_number() over (partition by a.notice_no order by a.notice_no desc) rn,
+		        a.notice_no as notice_no, 
+		        a.notice_category as notice_category, 
+		        a.notice_title as notice_title, 
+		        a.notice_adminID as notice_adminID, 
+		        a.notice_date as notice_date, 
+		        a.notice_hit as notice_hit, 
+		        a.notice_contents as notice_contents,
+		        b.nt_file_size as nt_file_size
+			from notice a, nt_file b 
+		    where a.notice_no = b.notice_no(+)
+		        and notice_category = any('[공지]')
+		    order by a.notice_no desc
+		)
+		where rn = 1
+	</select>
 
-	<!--  공지사항 리스트
+
+	<!-- 공지사항 리스트 -->
 	<select id="selectAllNoticeList"
 		resultType="com.mySpring.springEx.notice.vo.NoticeVO">
-	 <![CDATA[
-		 select notice_no, notice_category, notice_contents, notice_title, notice_hit, notice_adminID, notice_date from notice order by notice_no desc
-	]]>
-	</select> -->
+		select 
+		        notice_no, 
+		        notice_category, 
+		        notice_title, 
+		        notice_adminID, 
+		        notice_date, 
+		        notice_hit, 
+		        notice_contents, 
+		        notice_no, 
+		        nt_file_size
+		from (
+		    select
+		        row_number() over (partition by a.notice_no order by a.notice_no desc) rn,
+		        a.notice_no as notice_no, 
+		        a.notice_category as notice_category, 
+		        a.notice_title as notice_title, 
+		        a.notice_adminID as notice_adminID, 
+		        a.notice_date as notice_date, 
+		        a.notice_hit as notice_hit, 
+		        a.notice_contents as notice_contents,
+		        b.nt_file_size as nt_file_size
+			from notice a, nt_file b 
+		    where a.notice_no = b.notice_no(+)
+		        and notice_category = any('[일반]','[안내]','[모집]','[추가모집]','[채용예정자]')
+		    order by a.notice_no desc
+		)
+		where rn = 1
+	</select>
 
 
 	<!-- 공지사항 글 작성 -->
-	<insert id="insertNotice" parameterType="noticeVO">
-	 <![CDATA[
+	<insert id="insertNotice" parameterType="noticeVO"
+		useGeneratedKeys="true" keyProperty="notice_no">
+		<selectKey keyProperty="notice_no" resultType="int"
+			order="BEFORE">
+			SELECT notice_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		insert into notice(notice_no, notice_category, notice_title,
 		notice_contents, notice_adminID)
-		VALUES (notice_seq.nextval, #{notice_category}, #{notice_title},
-		#{notice_contents}, #{notice_adminID})
-	]]>
+		VALUES (#{notice_no},
+		#{notice_category}, #{notice_title},
+		#{notice_contents},
+		#{notice_adminID})
+
 	</insert>
 
 
@@ -36,7 +98,8 @@
 
 
 	<!-- 공지사항 수정 -->
-	<update id="updateNotice" parameterType="com.mySpring.springEx.notice.vo.NoticeVO">
+	<update id="updateNotice"
+		parameterType="com.mySpring.springEx.notice.vo.NoticeVO">
 	 <![CDATA[
 		update notice set notice_category = #{notice_category}, notice_title = #{notice_title}, notice_adminID = #{notice_adminID}, notice_contents = #{notice_contents}
 		where notice_no = #{notice_no} 
@@ -49,5 +112,61 @@
 		delete from notice where notice_no = #{notice_no}
 	]]>
 	</delete>
-	
+
+	<!-- 공지사항 조회수 -->
+	<update id="noticeHit" parameterType="int">
+		update notice set
+		notice_hit = notice_hit+1
+		where notice_no = #{notice_no}
+	</update>
+
+	<!-- 첨부파일 업로드 -->
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO NT_FILE(
+		NT_FILE_NO,
+		NOTICE_NO,
+		ORG_NT_FILE_NAME,
+		STR_NT_FILE_NAME,
+		NT_FILE_SIZE
+		)VALUES(
+		NT_FILE_SEQ.NEXTVAL,
+		#{NOTICE_NO, jdbcType=INTEGER},
+		#{ORG_NT_FILE_NAME, jdbcType=VARCHAR},
+		#{STR_NT_FILE_NAME, jdbcType=VARCHAR},
+		#{NT_FILE_SIZE, jdbcType=INTEGER}
+		)
+	</insert>
+
+	<!-- 첨부파일 조회 -->
+	<select id="selectFileList" parameterType="String"
+		resultType="hashMap">
+		SELECT NT_FILE_NO,
+		ORG_NT_FILE_NAME,
+		STR_NT_FILE_NAME,
+		ROUND(NT_FILE_SIZE/1024,1) AS NT_FILE_SIZE
+		FROM NT_FILE
+		WHERE NOTICE_NO = #{NOTICE_NO, jdbcType=INTEGER}
+		AND NT_FILE_DEL = 'N'
+		ORDER BY NT_FILE_NO ASC
+	</select>
+
+	<!-- 첨부파일 다운로드 -->
+	<select id="selectFileInfo" parameterType="hashMap"
+		resultType="hashMap">
+		SELECT
+		STR_NT_FILE_NAME,
+		ORG_NT_FILE_NAME
+		FROM NT_FILE
+		WHERE NT_FILE_NO = #{NT_FILE_NO}
+	</select>
+
+	<!-- 첨부파일 수정 -->
+	<update id="updateFile" parameterType="hashMap">
+		UPDATE NT_FILE SET
+		NT_FILE_DEL = 'Y',
+		NT_FILE_SIZE = 0
+		WHERE NT_FILE_NO = #{NT_FILE_NO, jdbcType=INTEGER}
+	</update>
+
+
 </mapper>

@@ -24,7 +24,7 @@ import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.vo.MemberVO;
 import com.mySpring.springEx.survey.service.SurveyService;
 import com.mySpring.springEx.survey.vo.DetailVO;
-import com.mySpring.springEx.survey.vo.QuestionVO;
+import com.mySpring.springEx.survey.vo.SurveyQuestionVO;
 import com.mySpring.springEx.survey.vo.SurveyVO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
@@ -53,7 +53,7 @@ public class SurveyControllerImpl implements SurveyController {
 	SyllabusVO syllabusVO;
 
 	@Autowired
-	QuestionVO questionVO;
+	SurveyQuestionVO questionVO;
 
 	// 리스트
 	/*
@@ -90,7 +90,6 @@ public class SurveyControllerImpl implements SurveyController {
 		String viewName = (String) request.getAttribute("viewName");
 		// 데이터의 총 갯수를 받아옴 surveyServiceImpl testTableCount()-pagination.xml의
 		// testTableCount 쿼리를 담은 값을 surveyList에 담음(int형)
-		int surveyList = surveyService.testTableCount();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("surveyList", surveyService.SelectAllList());
 		/* mav.setViewName(viewName); */

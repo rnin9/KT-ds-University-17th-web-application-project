@@ -26,7 +26,7 @@
 
 #content {
 	width: 100%;
-	padding-top: 64px;
+	padding-top: 63px;
 	border: 0px solid #bcbcbc;
 	background-color: white;
 	padding-bottom: 20px;
@@ -62,6 +62,7 @@
 .pageIntro {
 	font-family: 'Noto Sans KR', sans-serif;
 	margin-top: 50px;
+	margin-bottom: 50px;
 	text-align: left;
 	font-size: 34px;
 	font-weight: 450;
@@ -113,7 +114,6 @@ a:link, a:visited, a:hover {
 
 @media ( min-width : 1200px) {
 	.navbar-expand-xl .navbar-collapse {
-		padding: 10px;
 		display: -ms-flexbox !important;
 		display: flex !important;
 		-ms-flex-preferred-size: auto;

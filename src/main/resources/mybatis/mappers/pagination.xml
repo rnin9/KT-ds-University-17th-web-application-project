@@ -6,54 +6,6 @@
 
 <!-- survey List pagination -->
 <mapper namespace="com.mySpring.springEx.common.pagination.mapper.PageMapper">
-	<resultMap id="surResult" type="surveyVO">
-		<id property="survey_Id" column="survey_Id" />
-		<result property="courseID" column="courseID" />
-		<result property="survey_Title" column="survey_Title" />
-		<result property="writeDate" column="writeDate" />
-		<!-- courseTake join -->
-		<collection property="courseTakeVO" javaType="CourseTakeVO">
-			<result property="userID" column="userID" />
-			<result property="courseID" column="courseID" />
-		</collection>
-		<!-- course join -->
-		<collection property="courseVO" javaType="CourseVO">
-			<id property="courseID" column="courseID" />
-			<result property="syllabusID" column="syllabusID" />
-			<result property="courseShow" column="courseShow" />
-			<result property="questionYN" column="questionYN" />
-		</collection>
-		<!-- syllabus join -->
-		<collection property="syllabusVO" javaType="SyllabusVO">
-			<id property="syllabusID" column="syllabusID" />
-			<result property="syllabusName" column="syllabusName" />
-		</collection>
-	</resultMap>
-
-	<select id="SelectAllList" resultMap="surResult">
-		SELECT * FROM 
-		(SELECT ROW_NUMBER() OVER(ORDER by survey_Id DESC) AS row_num
-		,B.syllabusName, S.courseID, S.survey_Id,S.writeDate,A.questionYN
-		FROM COURSE A, SYLLABUS B, SURVEY1 S
-		WHERE A.syllabusID = B.syllabusID
-		AND A.courseID = S.courseID)
-		<if test="firstRecordIndex !=null and lastRecordIndex != null">
-			WHERE row_num BETWEEN #{firstRecordIndex} AND
-			#{lastRecordIndex} AND questionYN = 'Y'
-		</if>
-		order by courseID DESC
-	</select>
-	
-	<select id="SelectAllList2" resultMap="surResult">
-	SELECT s.syllabusName,  c.courseID  FROM COURSE C INNER JOIN SYLLABUS S ON C.syllabusID = S.syllabusID WHERE courseShow='Y' 
-	</select>
-	
-	
-
-	<select id="testTableCount" resultType="int">
-		SELECT count(*) FROM
-		survey1
-	</select>
 	
 
 
@@ -89,26 +41,8 @@
 		</collection>
 	</resultMap>
 
-	<select id="selectAllCourseApplyList"
-		resultMap="courseTakeResult">
-         <![CDATA[select m.userId, m.userName, m.userPhoneNumber,m.userEmail, m.userCompany,
-         s.syllabusName, ct.courseId, courseTake_State, courseTake_ApplyDate
-         from course_Take ct join kt_user m on (ct.userID = m.userId) join course c on (c.courseid=ct.courseid) join syllabus s on (s.syllabusid = c.syllabusid)
-         order by courseTake_ApplyDate desc
-         ]]>
-	</select>
 	
-
-	<update id="updateApplyConsent" parameterType="CourseTakeVO">
-	<![CDATA[
-			update course_Take
-			set courseTake_State = '승인'
-			where courseTake_State = '승인대기' and userID = #{userID} and courseID=#{courseID}
-         ]]>
-	</update>
-	<select id="testTableCountCT" resultType="int">
-		SELECT count(*) FROM course_take
-	</select>
+	
 
 	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 
 		> <![CDATA[ select * from t_member where id=#{id} and pwd=#{pwd} ]]> </select> -->

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.member.vo.MemberVO;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,9 +32,15 @@ public interface MemberController {
 								 HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public void deleteApplication(@RequestBody Map<String, String> body,
 								  HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public void deleteSuggestion(@RequestParam List<String> valueArr, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception;
+	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception;
+	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
+								 HttpServletResponse response) throws Exception;
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView myInfo(@SessionAttribute("member") MemberVO member,@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView myInfo(@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modMyInfo(@ModelAttribute MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

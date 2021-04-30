@@ -21,18 +21,26 @@ public class CourseVO {
 	private int coursePeopleApplied;
 	private String courseState;
 	private char courseShow;
-	private String questionYN;
 	private SyllabusVO syllabusVO;
+	private String questionYN;
+	private String dday;
 
-	public CourseVO() {
-
+	public String getDday() {
+		return dday;
 	}
 
-	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart, Date courseApplyEnd, String courseTime,
-					String courseFee, int courseRoomNumber, int coursePeopleMax, int coursePeopleApplied, String courseState, char courseShow ,String questionYN, SyllabusVO syllabusVO) {
-		this.courseID = courseID; 
+	public void setDday(String dday) {
+		this.dday = dday;
+	}
+
+	public CourseVO() {
+	}
+
+	public CourseVO(int courseID, int syllabusID, Date courseStart, Date courseEnd, Date courseApplyStart,
+			Date courseApplyEnd, String courseTime, String courseFee, int courseRoomNumber, int coursePeopleMax,
+			int coursePeopleApplied, String courseState, char courseShow, SyllabusVO syllabusVO) {
+		this.courseID = courseID;
 		this.syllabusID = syllabusID;
-		
 		this.courseStart = courseStart;
 		this.courseEnd = courseEnd;
 		this.courseApplyStart = courseApplyStart;
@@ -45,7 +53,7 @@ public class CourseVO {
 		this.courseState = courseState;
 		this.courseShow = courseShow;
 		this.questionYN = questionYN;
-		this.syllabusVO = syllabusVO; 
+		this.syllabusVO = syllabusVO;
 	}
 
 	public SyllabusVO getSyllabusVO() {

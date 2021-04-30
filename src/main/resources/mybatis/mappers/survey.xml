@@ -126,14 +126,13 @@
 		<result property="courseFee" column="courseFee" />
 		<result property="courseRoomNumber" column="courseRoomNumber" />
 		<result property="coursePeopleMax" column="coursePeopleMax" />
-		<result property="coursePeopleApplied"
-			column="coursePeopleApplied" />
+		<result property="coursePeopleApplied" column="coursePeopleApplied" />
 		<result property="courseState" column="courseState" />
 		<result property="courseShow" column="courseShow" />
 		<result property="questionYN" column="questionYN" />
 	</resultMap>
 	
-	<resultMap id="questionResult" type="questionVO">
+	<resultMap id="questionResult" type="surveyQuestionVO">
 		<result property="question_Name" column="question_Name" />
 		<result property="question1" column="question1" />
 		<result property="question2" column="question2" />

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.survey.vo.DetailVO;
-import com.mySpring.springEx.survey.vo.QuestionVO;
+import com.mySpring.springEx.survey.vo.SurveyQuestionVO;
 import com.mySpring.springEx.survey.vo.SurveyVO;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
@@ -53,7 +53,7 @@ public class SurveyDAOImpl implements SurveyDAO {
 	}
 	@Override
 	public List check_suerveyQuestion() {
-		List<QuestionVO> questionList = null;
+		List<SurveyQuestionVO> questionList = null;
 		questionList = sqlSession.selectList("mapper.survey.check_suerveyQuestion");
 		return questionList;
 	}

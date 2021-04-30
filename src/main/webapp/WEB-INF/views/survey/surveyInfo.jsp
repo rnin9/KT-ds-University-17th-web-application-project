@@ -30,7 +30,7 @@ a:link, a:visited, a:hover {
 }
 
 .container {
-	width: 74.63%;
+	width: 60%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 

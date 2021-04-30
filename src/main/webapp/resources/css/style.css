@@ -5,8 +5,12 @@
 	
 @charset "UTF-8";
 
+a:link, a:visited, a:hover {
+   color: black;
+   text-decoration: none;
+}
+
 .container {
-	width: 80%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -106,7 +110,6 @@
 }
 
 .button_bottom {
-	background-color: tomato;
 	float: right;
 	margin-left: 10px;
 }
