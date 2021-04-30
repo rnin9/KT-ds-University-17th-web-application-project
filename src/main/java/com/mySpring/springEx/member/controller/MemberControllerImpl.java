@@ -211,6 +211,7 @@ public class MemberControllerImpl implements MemberController {
 		System.out.println(partnersName);
 		System.out.println(partnersName.get(0));
 		return mav;
+	
 	}
 
 	@RequestMapping(value = "/member/check_id.do", method = RequestMethod.POST)
@@ -326,7 +327,6 @@ public class MemberControllerImpl implements MemberController {
 	private ModelAndView form2(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
 		String viewName = (String) request.getAttribute("viewName");
 		System.out.println(viewName);
 		HttpSession session = request.getSession();
@@ -336,7 +336,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	//수료과목 설문조사 뽑기
 	@Override
 	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {

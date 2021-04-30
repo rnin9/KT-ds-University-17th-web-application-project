@@ -193,6 +193,8 @@ src/main/webapp/WEB-INF/config/
 target/im2e-wtp/web-resources/META-INF/maven/com.mySpring/springEx/pom.properties
 
 src/main/resources/mailkey.properties
+src/main/webapp/resources/image/resume
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 WebContent/
 build/classes/
+file

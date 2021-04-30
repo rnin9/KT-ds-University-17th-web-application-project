@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -199,10 +199,8 @@ request.setCharacterEncoding("UTF-8");
 	<div class="notice">
 		<h3>공지사항</h3>
 		<ul class="rolling">
-			<li><a href="#"> 수찬 반장 당선</a></li>
-			<li><a href="#"> (NEW) 와사비 치킨마요 핫해</a></li>
-			<li><a href="#"> 프로젝트 준비필요사항 </a></li>
-			<li><a href="#"> 공지사항 4입니다</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227"> [공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222"> [공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
 		</ul>
 
 	</div>
@@ -218,7 +216,6 @@ request.setCharacterEncoding("UTF-8");
 					<h5 class="card-title">채용예정자 과정</h5>
 					<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액
 						무료의 KT ds University의 교육과정입니다.</p>
-
 				</div>
 			</a>
 		</div>

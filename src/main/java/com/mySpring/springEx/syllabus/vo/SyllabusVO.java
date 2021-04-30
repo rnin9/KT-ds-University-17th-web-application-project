@@ -2,6 +2,8 @@ package com.mySpring.springEx.syllabus.vo;
 
 import org.springframework.stereotype.Component;
 
+import com.mySpring.springEx.course.vo.CourseVO;
+
 @Component("syllabusVO")
 public class SyllabusVO {
 	private int syllabusID;
@@ -15,6 +17,9 @@ public class SyllabusVO {
     private String syllabusPurpose;
     private String syllabusTarget;
     private String syllabusContent;
+    private CourseVO courseVO;
+
+
 
 	public SyllabusVO() {
 		
@@ -22,7 +27,7 @@ public class SyllabusVO {
 	
 	public SyllabusVO(int syllabusID, String syllabusCategory1, String syllabusCategory2, String syllabusName, String syllabusReportName, 
 			                   int syllabusTotalTime, int syllabusTotalDays, String syllabusOutline, String syllabusPurpose, String syllabusTarget, 
-			                   String syllabusContent) {
+			                   String syllabusContent,CourseVO courseVO) {
 		      this.syllabusID = syllabusID;
 		      this.syllabusCategory1 = syllabusCategory1;
 		      this.syllabusCategory2 = syllabusCategory2;
@@ -34,6 +39,7 @@ public class SyllabusVO {
 		      this.syllabusPurpose = syllabusPurpose;
 		      this.syllabusTarget = syllabusTarget;
 		      this.syllabusContent = syllabusContent;
+		      this.courseVO = courseVO;
 		   }
 
 	public int getSyllabusID() {
@@ -122,6 +128,13 @@ public class SyllabusVO {
 
 	public void setSyllabusContent(String syllabusContent) {
 		this.syllabusContent = syllabusContent;
+	}
+	public CourseVO getCourseVO() {
+		return courseVO;
+	}
+
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
 	}
 
 

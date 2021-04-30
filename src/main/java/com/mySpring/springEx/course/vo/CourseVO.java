@@ -22,6 +22,7 @@ public class CourseVO {
 	private String courseState;
 	private char courseShow;
 	private SyllabusVO syllabusVO;
+	private String questionYN;
 	private String dday;
 
 	public String getDday() {
@@ -51,6 +52,7 @@ public class CourseVO {
 		this.coursePeopleApplied = coursePeopleApplied;
 		this.courseState = courseState;
 		this.courseShow = courseShow;
+		this.questionYN = questionYN;
 		this.syllabusVO = syllabusVO;
 	}
 
@@ -164,6 +166,14 @@ public class CourseVO {
 
 	public void setCourseShow(char courseShow) {
 		this.courseShow = courseShow;
+	}
+
+	public String getQuestionYN() {
+		return questionYN;
+	}
+
+	public void setQuestionYN(String questionYN) {
+		this.questionYN = questionYN;
 	}
 
 }

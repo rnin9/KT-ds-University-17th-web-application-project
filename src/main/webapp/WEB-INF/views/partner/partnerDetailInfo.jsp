@@ -28,6 +28,7 @@
             rel="stylesheet">
             
         <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
     
     <style>
         
@@ -45,7 +46,7 @@
         #container1 { /* 이름 밑에 속성들을 감싸서 적용 */
             background-color: #f2f2f2;
             height: auto;
-            width: 60%;
+            width: 80%;
             position: relative;
             margin-bottom: 40px;
             padding-bottom: 40px;
@@ -98,29 +99,17 @@
             margin-left: 8px;
             margin-right: 10px;
             line-height: 15px; 
+            height: 30px;
         }
-        .btn {
-    		color: white;
-    		display: inline-block;
-    		text-align: center;
-    		font-size: 18px;
-    		vertical-align: middle;
-   			-webkit-user-select: none;
-  			-moz-user-select: none;
-    		-ms-user-select: none;
-    		user-select: none;
-    		background-color: gray;
-    		border-color: rgba(247, 94, 94, 0 .8);
-    		padding: .375rem .75rem;
-    		line-height: 1.5;
-    		border-radius: .25rem;
-    		transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    	}
     	.block1{
     		display: flex;
     	}
     	.block2{
     		width: 90%;
+    	}
+    	.btn{
+    		font-size: 1.5rem;
+    		padding: 6px 12px;	
     	}
     	
     </style>
@@ -136,14 +125,12 @@
 		var theForm = document.partnerSubmit; 
 		if(mode == "01") 
 			{ 	theForm.method = "POST"; 
-				<!--theForm.target = "_blank"; -->
 				 $("#partnerLicenseNum").removeAttr("disabled");
 				 $("#partnerName").removeAttr("disabled");
 				theForm.action = "${contextPath}/partner/modPartner.do"; 
 				
 			} else if(mode == "02") 
 			{ 	theForm.method = "POST"; 
-				<!--theForm.target = "_blank"; -->
 				 $("#partnerLicenseNum").removeAttr("disabled");
 				 $("#partnerName").removeAttr("disabled");
 				theForm.action = "${contextPath}/partner/deletePartner.do";
@@ -169,71 +156,94 @@
 
 
 <body>
-  
-    <!-- <form  action="${contextPath}/partner/modPartner.do" accept-charset="UTF-8" method="POST" autocomplete="off"> -->
+
     <form name=partnerSubmit accept-charset="UTF-8"  autocomplete="off">
         <div id="main">
             </div>
             <div id="container1">
-            <h2 style="padding-top: 30px;">${partnerVO.partnerName} 기업 상세 정보</h2>
+            <h2 style="padding-top: 30px;">${partnerVO.partnerName}</h2>
             
             <div class="block1">
                 <div class="block2">
-                    <label class="title">사업자번호</label>
+                    <label class="title">사업자 등록번호</label>
                     <input  id="partnerLicenseNum" type="text" name="partnerLicenseNum" placeholder="" value="${partnerVO.partnerLicenseNum}" disabled>
                 </div>
                 <div class="block2" style="margin-left: -4px;">
                     <label class="title">협약 상태</label>
                     <select id="partnerState" name="partnerState" size="1" style="width: 40%;">
             			<option value="">선택하세요</option>
-            			<option value="협력사" <c:if test="${partnerVO.partnerState eq '협력사       '}">selected</c:if>>협력사</option>
-            			<option value="협약사" <c:if test="${partnerVO.partnerState eq '협약사       '}">selected</c:if>>협약사</option>
-            			<option value="협약 진행중" <c:if test="${partnerVO.partnerState eq '협약 진행중'}">selected</c:if>>협약 진행중</option>
-            			<option value="미협약" <c:if test="${partnerVO.partnerState eq '미협약       '}">selected</c:if>>미협약</option>
+            			<option value="협력사" <c:if test="${partnerVO.partnerState eq '협력사'}">selected</c:if>>협력사</option>
+            			<option value="협약사" <c:if test="${partnerVO.partnerState eq '협약사'}">selected</c:if>>협약사</option>
+            			<option value="협약서사본" <c:if test="${partnerVO.partnerState eq '협약서사본'}">selected</c:if>>협약서사본</option>
+            			<option value="협약서없음" <c:if test="${partnerVO.partnerState eq '헙약서없음'}">selected</c:if>>협약서없음</option>
         			</select>
                 </div>
             </div>
+           
             <div class="block1">
-                <div class="block2">
+            	<div class="block2">
                     <label class="title">기업명</label>
-                    <input id="partnerName" type="text" name="partnerName" placeholder="" value="${partnerVO.partnerName}" disabled>
+                    <input type="text" name="partnerName" placeholder="기업명" value="${partnerVO.partnerName}" disabled>
                 </div>
-                <div class="block2">
-                    <label class="title">기업 정보</label>
-                    <input type="text" name="partnerInformation" placeholder="" value="${partnerVO.partnerInformation}">
+            	<div class="block2">
+                    <label class="title">업종형태</label>
+                    <input type="text" name="partnerIndustryType" placeholder="업종형태"value="${partnerVO.partnerIndustryType}">
                 </div>
+                
+                
             </div>
             <div class="block1">
-                <div class="block2">
-                    <label class="title">기업 주소</label>
-                    <input type="text"  name="partnerAddress"placeholder="기업 주소" value="${partnerVO.partnerAddress}">
+            <div class="block2">
+                    <label class="title">주소</label>
+                    <input type="text"  name="partnerAddress"placeholder="주소" value="${partnerVO.partnerAddress}">
                 </div>
-                <div class="block2">
-                    <label class="title">기업 전화번호</label>
-                    <input type="text" name="partnerPhoneNumber" placeholder="기업 전화번호" value= "${partnerVO.partnerPhoneNumber}">
+            	<div class="block2">
+                    <label class="title">대표 전화번호</label>
+                    <input type="text" name="partnerPhoneNumber" placeholder="대표 전화번호" value= "${partnerVO.partnerPhoneNumber}">
                 </div>
-            </div>
-            <div class="block1">
-                <div class="block2">
-                    <label class="title">기업 이메일</label>
-                    <input type="text"  name="partnerEmail" placeholder="기업 이메일" value="${partnerVO.partnerEmail}" >
-                </div>
-                <div class="block2">
-                    <label class="title">대표명</label>
-                    <input type="text" name="partnerCEO" placeholder="대표명" value="${partnerVO.partnerCEO}">
-                </div>
+               
+                
             </div>
            	<div class="block1">
-                <div class="block2">
-                    <label class="title">인원규모</label>
-                    <input type="text"  id="partnerHeadCount" name="partnerHeadCount" placeholder="숫자를 입력하세요." value="${partnerVO.partnerHeadCount}">
-                    <div class="partnerHeadCount regex" style="Position: relative;left:59px;"></div>
+           	<div class="block2">
+                    <label class="title">홈페이지</label>
+                    <input type="text" name="partnerURL" placeholder="홈페이지" value="${partnerVO.partnerURL}">
                 </div>
-                <div class="block2">
-                    <label class="title">기업 홈페이지</label>
-                    <input type="text" name="partnerURL" placeholder="기업 홈페이지" value="${partnerVO.partnerURL}">
+           		<div class="block2">
+                    <label class="title">대표자성명</label>
+                    <input type="text" name="partnerCEO" placeholder="대표자성명" value="${partnerVO.partnerCEO}">
                 </div>
+          
              </div>
+             <div class="block1">
+                <div class="block2" style="width: 50%;">
+                    <label class="title">근로자수</label>
+                    <input type="text"  id="partnerHeadCount" name="partnerHeadCount" placeholder="숫자를 입력하세요." value="${partnerVO.partnerHeadCount}">
+                    <div class="partnerHeadCount regex"></div>
+                </div>
+            </div>
+              <hr>
+            <h2 style="padding-top: 30px;">담당자</h2>
+            <div class="block1">
+                <div class="block2">
+                    <label class="title">성명</label>
+                    <input type="text"  name="partnerCharger" placeholder="성명" value="${partnerVO.partnerCharger}">
+                </div>
+                <div class="block2">
+                    <label class="title">부서</label>
+                    <input type="text" name="partnerChargerDepartment" placeholder="부서" value="${partnerVO.partnerChargerDepartment}">
+                </div>
+            </div>
+            <div class="block1">
+                <div class="block2">
+                    <label class="title">ID</label>
+                    <input type="text"  name="partnerChargerID" placeholder="ID" value="${partnerVO.partnerChargerID}">
+                </div>
+                <div class="block2">
+                    <label class="title">이메일</label>
+                    <input type="text" name="partnerChargerEmail" placeholder="이메일" value="${partnerVO.partnerChargerEmail}">
+                </div>
+            </div>
                 <div class="buttonGroups"style="padding:30px;">
                 <button type="submit" class="btn" onClick="getPost('01')">수정</button>
         		<button type="submit" class="btn" onClick="getPost('02')">삭제</button>

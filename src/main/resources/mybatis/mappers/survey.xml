@@ -7,35 +7,440 @@
 	<resultMap id="surResult" type="surveyVO">
 		<result property="survey_Id" column="survey_Id" />
 		<result property="courseID" column="courseID" />
-        <result property="survey_Title" column="survey_Title" />
-        <result property="writeDate" column="writeDate" />
-	</resultMap> 
-<!-- 
-	<select id="selectAllSurveyList" resultMap="surResult">
-      <![CDATA[
-         select * from survey order by survey_Id desc	 	
-      ]]>
-	</select> -->
-  
-  <insert id="insertSurvey"  parameterType="surveyVO">
-		<![CDATA[
-		 insert into survey1(survey_Id,courseID,writedate)
-		 values(seq.nextval,#{courseID},to_char(sysdate))
-		]]>      
-	</insert> 
-	
-	     
-   <delete id="deleteSurvey"  parameterType="String">
-	   delete from survey1
-	   where 
-	   survey_Id=#{survey_Id}
-  </delete>
+		<result property="q1" column="q1" />
+		<result property="q2" column="q2" />
+		<result property="q3" column="q3" />
+		<result property="q4" column="q4" />
+		<result property="q5" column="q5" />
+		<result property="q6" column="q6" />
+		<result property="q7" column="q7" />
+		<result property="q8" column="q8" />
+		<result property="q9" column="q9" />
+		<result property="q10" column="q10" />
+		<result property="q11" column="q11" />
+		<result property="q12" column="q12" />
+		<result property="q13" column="q13" />
+		<result property="q14" column="q14" />
+		<result property="q15" column="q15" />
+		<!-- courseTake join -->
+		<collection property="courseTakeVO" javaType="CourseTakeVO">
+			<result property="userID" column="userID" />
+			<result property="courseID" column="courseID" />
+		</collection>
+		<!-- course join -->
+		<collection property="courseVO" javaType="CourseVO">
+			<id property="courseID" column="courseID" />
+			<result property="syllabusID" column="syllabusID" />
+			<result property="courseShow" column="courseShow" />
+			<result property="questionYN" column="questionYN" />
+		</collection>
+		<!-- syllabus join -->
+		<collection property="syllabusVO" javaType="SyllabusVO">
+			<id property="syllabusID" column="syllabusID" />
+			<result property="syllabusName" column="syllabusName" />
+		</collection>
+	</resultMap>
 
- 
- 	<!--   <select id="loginById"  resultType="memberVO"   parameterType="memberVO" >
-	<![CDATA[
-		select * from t_member	
-		where id=#{id} and pwd=#{pwd}		
-	]]>
-  </select> -->
+	<resultMap id="answerResult" type="detailVO">
+		<result property="answer_Id" column="answer_Id" />
+		<result property="userId" column="userId" />
+		<result property="courseID" column="courseID" />
+		<result property="answer1" column="answer1" />
+		<result property="answer2" column="answer2" />
+		<result property="answer3" column="answer3" />
+		<result property="answer4" column="answer4" />
+		<result property="answer5" column="answer5" />
+		<result property="answer6" column="answer6" />
+		<result property="answer7" column="answer7" />
+		<result property="answer8" column="answer8" />
+		<result property="answer9" column="answer9" />
+		<result property="answer10" column="answer10" />
+		<result property="answer11" column="answer11" />
+		<result property="answer12" column="answer12" />
+		<result property="answer13" column="answer13" />
+		<result property="answer14" column="answer14" />
+		<result property="answer15" column="answer15" />
+		<result property="answer16" column="answer16" />
+		<result property="answer17" column="answer17" />
+		<result property="answer18" column="answer18" />
+		<result property="answer19" column="answer19" />
+		<result property="answer20" column="answer20" />
+		<result property="count1" column="count1" />
+		<result property="count2" column="count2" />
+		<result property="count3" column="count3" />
+		<result property="count4" column="count4" />
+		<result property="count5" column="count5" />
+		<result property="count6" column="count6" />
+		<result property="count7" column="count7" />
+		<result property="count8" column="count8" />
+		<result property="count9" column="count9" />
+		<result property="count10" column="count10" />
+		<result property="count11" column="count11" />
+		<result property="count12" column="count12" />
+		<result property="count13" column="count13" />
+		<result property="count14" column="count14" />
+		<result property="count15" column="count15" />
+		<result property="count16" column="count16" />
+		<result property="count17" column="count17" />
+
+		<collection property="surveyVO" javaType="SurveyVO">
+			<id property="survey_Id" column="survey_Id" />
+			<result property="courseID" column="courseID" />
+			<result property="q1" column="q1" />
+			<result property="q2" column="q2" />
+			<result property="q3" column="q3" />
+			<result property="q4" column="q4" />
+			<result property="q5" column="q5" />
+			<result property="q6" column="q6" />
+			<result property="q7" column="q7" />
+			<result property="q8" column="q8" />
+			<result property="q9" column="q9" />
+			<result property="q10" column="q10" />
+			<result property="q11" column="q11" />
+			<result property="q12" column="q12" />
+			<result property="q13" column="q13" />
+			<result property="q14" column="q14" />
+			<result property="q15" column="q15" />
+		</collection>
+	</resultMap>
+
+	<resultMap id="courseTakeResult2" type="courseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
+	</resultMap>
+
+	<resultMap id="courseResult" type="courseVO">
+		<result property="courseID" column="courseID" />
+		<result property="syllabusID" column="syllabusID" />
+		<result property="courseStart" column="courseStart" />
+		<result property="courseEnd" column="courseEnd" />
+		<result property="courseApplyStart" column="courseApplyStart" />
+		<result property="courseApplyEnd" column="courseApplyEnd" />
+		<result property="courseTime" column="courseTime" />
+		<result property="courseFee" column="courseFee" />
+		<result property="courseRoomNumber" column="courseRoomNumber" />
+		<result property="coursePeopleMax" column="coursePeopleMax" />
+		<result property="coursePeopleApplied" column="coursePeopleApplied" />
+		<result property="courseState" column="courseState" />
+		<result property="courseShow" column="courseShow" />
+		<result property="questionYN" column="questionYN" />
+	</resultMap>
+	
+	<resultMap id="questionResult" type="surveyQuestionVO">
+		<result property="question_Name" column="question_Name" />
+		<result property="question1" column="question1" />
+		<result property="question2" column="question2" />
+		<result property="question3" column="question3" />
+		<result property="question4" column="question4" />
+		<result property="question5" column="question5" />
+		<result property="question6" column="question6" />
+		<result property="question7" column="question7" />
+		<result property="question8" column="question8" />
+		<result property="question9" column="question9" />
+		<result property="question10" column="question10" />
+		<result property="question11" column="question11" />
+		<result property="question12" column="question12" />
+		<result property="question13" column="question13" />
+		<result property="question14" column="question14" />
+		<result property="question15" column="question15" />
+		<result property="qNumber" column="qNumber" />
+	</resultMap>
+	
+
+	<delete id="deleteSurvey" parameterType="String">
+		delete from survey1
+		where
+		survey_Id=#{survey_Id}
+	</delete>
+
+	<insert id="insertSurveyAnswer" parameterType="detailVO">
+		{
+		CALL
+		DECLARE
+		BEGIN
+		insert into survey_answer1
+		values(survey_answer_seq.nextval,#{courseID},#{answer1},#{answer2},#{answer3},#{answer4},#{answer5},#{answer6},
+		#{answer7},#{answer8},#{answer9},#{answer10},#{answer11},#{answer12},#{answer13},#{answer14},#{answer15},#{userId},'Y',#{answer16},#{answer17},#{answer18},#{answer19},#{answer20});
+		<if test="true">
+			update course_take
+			set surveyYN = 'Y'
+			where userId=#{userId}
+			and courseID=#{courseID};
+		</if>
+		END
+		}
+	</insert>
+
+	<insert id="insertSurveyQuestion" parameterType="surveyVO">
+		{
+		CALL
+		DECLARE
+		BEGIN
+		insert into survey1
+		values(survey_question_seq.nextval,#{courseID},to_char(sysdate),#{q1},#{q2},#{q3},#{q4},#{q5},
+		#{q6},#{q7},#{q8},#{q9},#{q10},#{q11},#{q12},#{q13},#{q14},#{q15});
+		<if test="true">
+			update course
+			set questionYN = 'Y'
+			where
+			courseID=#{courseID};
+		</if>
+		END
+		}
+	</insert>
+
+	<select id="getQuestion" parameterType="surveyVO"
+		resultMap="surResult">
+		select * from survey1 where courseID=#{courseID}
+	</select>
+
+
+	<select id="listSurveyInfo" parameterType="surveyVO"
+		resultMap="surResult">
+		SELECT
+		A.syllabusID,B.syllabusName,A.syllabusID,B.syllabusID,S.*
+		FROM COURSE
+		A, SYLLABUS B, SURVEY1 S
+		where A.syllabusID = B.syllabusID AND
+		A.courseID = S.courseID
+		AND A.courseID = #{courseID}
+	</select>
+
+
+	<update id="surveyModify" parameterType="surveyVO">
+     <![CDATA[
+	     update survey1
+	     set 
+	     q1=#{q1}, q2=#{q2}, q3=#{q3}, q4=#{q4}, q5=#{q5}, q6=#{q6},q7=#{q7}, q8=#{q8}, q9=#{q9},q10=#{q10}, q11=#{q11}, q12=#{q12},
+	     q13=#{q13}, q14=#{q14}, q15=#{q15}
+	     where
+	     courseID=#{courseID}
+      ]]>
+	</update>
+
+	<!-- 항목가져오기 매기기 -->
+	<select id="detailList" parameterType="detailVO"
+		resultMap="answerResult">
+		select distinct * from survey_answer1 a inner join survey1 b
+		on
+		a.courseID = b.courseID
+		where a.courseID = #{courseID}
+	</select>
+
+
+	<select id="getSurveyVO" parameterType="surveyVO"
+		resultMap="surResult">
+		SELECT distinct
+		A.courseID,S.q1,S.q2,S.q3,S.q4,S.q5,S.q6,S.q7,S.q8,S.q9,S.q10,S.q11,S.q12,S.q13,S.q14,S.q15,B.syllabusName
+		FROM COURSE A, SYLLABUS B, SURVEY1 S, survey_answer1 SW
+		WHERE
+		A.syllabusID = B.syllabusID
+		AND A.courseID = S.courseID
+		AND A.courseID = SW.courseID
+		AND A.courseID = #{courseID}
+	</select>
+
+	<select id="countParticipate" parameterType="detailVO"
+		resultMap="answerResult">
+		select
+		courseID,count(answer1)count1,count(answer2)count2,count(answer3)count3,count(answer4)count4,count(answer5)count5,count(answer6)count6,count(answer7)count7
+		,count(answer8)count8,count(answer9)count9,count(answer10)count10,count(answer11)count11,count(answer12)count12,count(answer13)count13,count(answer14)count14,count(answer15)count15,count(answer16)count16,count(answer17)count17
+		from survey_answer1
+		where courseID =#{courseID}
+		group by courseID
+	</select>
+
+
+	<select id="surveyGraphInfo" parameterType="String"
+		resultMap="answerResult">
+		select answer1,count(answer1)count1
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer1	
+	</select>
+	<select id="surveyGraphInfo2" parameterType="String"
+		resultMap="answerResult">
+		select answer2,count(answer2)count2
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer2
+	</select>
+	<select id="surveyGraphInfo3" parameterType="String"
+		resultMap="answerResult">
+		select answer3,count(answer3)count3
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer3
+	</select>
+	<select id="surveyGraphInfo4" parameterType="String"
+		resultMap="answerResult">
+		select answer4,count(answer4)count4
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer4
+	</select>
+	<select id="surveyGraphInfo5" parameterType="String"
+		resultMap="answerResult">
+		select answer5,count(answer5)count5
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer5
+	</select>
+	<select id="surveyGraphInfo6" parameterType="String"
+		resultMap="answerResult">
+		select answer6,count(answer6)count6
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer6
+	</select>
+	<select id="surveyGraphInfo7" parameterType="String"
+		resultMap="answerResult">
+		select answer7,count(answer7)count7
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer7
+	</select>
+	<select id="surveyGraphInfo8" parameterType="String"
+		resultMap="answerResult">
+		select answer8,count(answer8)count8
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer8
+	</select>
+	<select id="surveyGraphInfo9" parameterType="String"
+		resultMap="answerResult">
+		select answer9,count(answer9)count9
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer9
+	</select>
+	<select id="surveyGraphInfo10" parameterType="String"
+		resultMap="answerResult">
+		select answer10,count(answer10)count10
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer10
+	</select>
+	<select id="surveyGraphInfo11" parameterType="String"
+		resultMap="answerResult">
+		select answer11,count(answer11)count11
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer11
+	</select>
+	<select id="surveyGraphInfo12" parameterType="String"
+		resultMap="answerResult">
+		select answer12,count(answer12)count12
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer12
+	</select>
+	<select id="surveyGraphInfo13" parameterType="String"
+		resultMap="answerResult">
+		select answer13,count(answer13)count13
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer13
+	</select>
+	<select id="surveyGraphInfo14" parameterType="String"
+		resultMap="answerResult">
+		select answer14,count(answer14)count14
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer14
+	</select>
+	<select id="surveyGraphInfo15" parameterType="String"
+		resultMap="answerResult">
+		select answer15,count(answer15)count15
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer15
+	</select>
+	<select id="surveyGraphInfo16" parameterType="String"
+		resultMap="answerResult">
+		select answer16,count(answer16)count16
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer16
+	</select>
+	<select id="surveyGraphInfo17" parameterType="String"
+		resultMap="answerResult">
+		select answer17,count(answer17)count17
+		from survey_answer1
+		where courseID=#{courseID}
+		group by answer17
+	</select>
+	
+	
+	<select id="check_suerveyQuestion" parameterType="String"
+		resultMap="questionResult">
+		select * from survey_question order by qNumber
+	</select>
+	
+
+	<!-- <select id="surveyGraphInfo22" parameterType="String" resultMap="answerResult"> 
+		select count(case when answer1 = '매우 그렇다' then 1 end) count1, count(case 
+		when answer1 = '그렇다' then 1 end)count1, count(case when answer1 = '보통' then 
+		1 end)count1, count(case when answer1 = '그렇지 않다' then 1 end)count1, count(case 
+		when answer1 = '전혀 그렇지 않다' then 1 end)count1, count(case when answer2 = '매우 
+		그렇다' then 1 end) count2, count(case when answer2 = '그렇다' then 1 end)count2, 
+		count(case when answer2 = '보통' then 1 end)count2, count(case when answer2 
+		= '그렇지 않다' then 1 end)count2, count(case when answer2 = '전혀 그렇지 않다' then 
+		1 end)count2, count(case when answer3 = '매우 그렇다' then 1 end) count3, count(case 
+		when answer3 = '그렇다' then 1 end)count3, count(case when answer3 = '보통' then 
+		1 end)count3, count(case when answer3 = '그렇지 않다' then 1 end)count3, count(case 
+		when answer3 = '전혀 그렇지 않다' then 1 end)count3, count(case when answer4 = '매우 
+		그렇다' then 1 end) count4, count(case when answer4 = '그렇다' then 1 end)count4, 
+		count(case when answer4 = '보통' then 1 end)count4, count(case when answer4 
+		= '그렇지 않다' then 1 end)count4, count(case when answer4 = '전혀 그렇지 않다' then 
+		1 end)count4, count(case when answer5 = '매우 그렇다' then 1 end) count5, count(case 
+		when answer5 = '그렇다' then 1 end)count5, count(case when answer5 = '보통' then 
+		1 end)count5, count(case when answer5 = '그렇지 않다' then 1 end)count5, count(case 
+		when answer5 = '전혀 그렇지 않다' then 1 end)count5, count(case when answer6 = '매우 
+		그렇다' then 1 end) count6, count(case when answer6 = '그렇다' then 1 end)count6, 
+		count(case when answer6 = '보통' then 1 end)count6, count(case when answer6 
+		= '그렇지 않다' then 1 end)count6, count(case when answer6 = '전혀 그렇지 않다' then 
+		1 end)count6, count(case when answer7 = '매우 그렇다' then 1 end) count7, count(case 
+		when answer7 = '그렇다' then 1 end)count7, count(case when answer7 = '보통' then 
+		1 end)count7, count(case when answer7 = '그렇지 않다' then 1 end)count7, count(case 
+		when answer7 = '전혀 그렇지 않다' then 1 end)count7, count(case when answer8 = '매우 
+		그렇다' then 1 end) count8, count(case when answer8 = '그렇다' then 1 end)count8, 
+		count(case when answer8 = '보통' then 1 end)count8, count(case when answer8 
+		= '그렇지 않다' then 1 end)count8, count(case when answer8 = '전혀 그렇지 않다' then 
+		1 end)count8, count(case when answer9 = '매우 그렇다' then 1 end) count9, count(case 
+		when answer9 = '그렇다' then 1 end)count9, count(case when answer9 = '보통' then 
+		1 end)count9, count(case when answer9 = '그렇지 않다' then 1 end)count9, count(case 
+		when answer9 = '전혀 그렇지 않다' then 1 end)count9, count(case when answer10 = 
+		'매우 그렇다' then 1 end) count10, count(case when answer10 = '그렇다' then 1 end)count10, 
+		count(case when answer10 = '보통' then 1 end)count10, count(case when answer10 
+		= '그렇지 않다' then 1 end)count10, count(case when answer10 = '전혀 그렇지 않다' then 
+		1 end)count10, count(case when answer11 = '매우 그렇다' then 1 end) count11, count(case 
+		when answer11 = '그렇다' then 1 end)count11, count(case when answer11 = '보통' 
+		then 1 end)count11, count(case when answer11 = '그렇지 않다' then 1 end)count11, 
+		count(case when answer11 = '전혀 그렇지 않다' then 1 end)count11, count(case when 
+		answer12 = '매우 그렇다' then 1 end) count12, count(case when answer12 = '그렇다' 
+		then 1 end)count12, count(case when answer12 = '보통' then 1 end)count12, count(case 
+		when answer12 = '그렇지 않다' then 1 end)count12, count(case when answer12 = '전혀 
+		그렇지 않다' then 1 end)count12, count(case when answer13 = '매우 그렇다' then 1 end) 
+		count13, count(case when answer13 = '그렇다' then 1 end)count13, count(case 
+		when answer13 = '보통' then 1 end)count13, count(case when answer13 = '그렇지 
+		않다' then 1 end)count13, count(case when answer13 = '전혀 그렇지 않다' then 1 end)count13, 
+		count(case when answer14 = '매우 그렇다' then 1 end) count14, count(case when 
+		answer14 = '그렇다' then 1 end)count14, count(case when answer14 = '보통' then 
+		1 end)count14, count(case when answer14 = '그렇지 않다' then 1 end)count14, count(case 
+		when answer14 = '전혀 그렇지 않다' then 1 end)count14, count(case when answer15 
+		= '매우 그렇다' then 1 end) count15, count(case when answer15 = '그렇다' then 1 end)count15, 
+		count(case when answer15 = '보통' then 1 end)count15, count(case when answer15 
+		= '그렇지 않다' then 1 end)count15, count(case when answer15 = '전혀 그렇지 않다' then 
+		1 end)count15 from survey_answer1 where courseID=#; </select> -->
+
+
+	<!-- <select id="loginById" resultType="memberVO" parameterType="memberVO" 
+		> <![CDATA[ select * from t_member where id=#{id} and pwd=#{pwd} ]]> </select> -->
 </mapper>

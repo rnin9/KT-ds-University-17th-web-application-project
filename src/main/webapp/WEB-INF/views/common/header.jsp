@@ -186,7 +186,7 @@ request.setCharacterEncoding("UTF-8");
 						class="nav-link-admin  dropdown-toggle" href="#"
 						data-toggle="dropdown"> 협력사관리 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 기업정보관리</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/partner/partnerList.do"> 기업정보관리</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록 </a></li>
 							<li><a class="dropdown-item" href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리 </a></li>
 						</ul></li>
@@ -225,15 +225,17 @@ request.setCharacterEncoding("UTF-8");
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 													 href="${contextPath}/location.do"> 교육장 안내 </a>
 						<ul class="dropdown-menu fade-up">
+
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>
 						</ul>
 					</li>
+          
 					<li class="nav-item dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							고객지원 </a>
 						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/notice/listNotice.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNoticeUser.do"> 공지사항</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
@@ -287,7 +289,7 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/member/myInfo.do?userID=${member.userId}">
 									내정보 관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서 관리 </a></li>
+							<li><a class="dropdown-item" href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}"> 이력서 관리 </a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/member/logout.do"><i

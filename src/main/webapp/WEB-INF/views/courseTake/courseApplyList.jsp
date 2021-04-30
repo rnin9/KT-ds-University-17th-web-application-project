@@ -47,6 +47,11 @@ a:link, a:visited, a:hover {
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
 	margin-left: 15%;
 }
 
@@ -60,27 +65,27 @@ button {
 	display: inline-block;
 	width: 100%;
 }
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
+}
 </style>
 
 <body>
 
 	<div class="container">
 		<!-- 홈>강의관리>수강관리 -->
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">강의관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/courseTake/courseApplyList.do">수강관리</a></li>
-			</ul>
-		</div>
 
+		<div class="pageIntro">수강관리</div>
 
 		<!-- 테이블(표, 리스트) -->
-		<table class="table_" id="myTable">
+		<table id="myTable">
 			<thead>
 				<tr align="center">
 					<td style="width: 10px;"><input type="checkbox"
@@ -101,14 +106,15 @@ button {
 				<c:forEach var="courseTake" items="${courseApplyList}">
 					<tr align="center">
 						<td><input type="checkbox" name="ab"
-							value="${courseTake.userID} ${courseTake.courseID}"
+							value="${courseTake.userID} ${courseTake.courseID} ${courseTake.courseTake_State}"
 							onclick='checkSelectAll(this)' /></td>
 						<td>${courseTake.userID}</td>
 						<td>${courseTake.memberVO.userName}</td>
 						<td>${courseTake.memberVO.userPhoneNumber}</td>
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.partnerVO.partnerName}</td>
-						<td>${courseTake.syllabusVO.syllabusName}</td>
+						<td><a
+							href="/springEx/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
 						<td>${courseTake.applyDate}</td>
 						<c:choose>
 							<c:when test="${courseTake.courseTake_State eq '수료'}">
@@ -168,8 +174,6 @@ button {
 </body>
 
 <script type="text/javascript">
-
-
 $(document).ready(function(){
    $('#myTable').DataTable({
       
@@ -178,14 +182,14 @@ $(document).ready(function(){
 
  		columns : [
 	   		{ "width": "2%" },
+	   		{ "width": "10%" },
+	    	{ "width": "7%" },
+	    	{ "width": "7%" },
+	    	{ "width": "10%" },
+	    	{ "width": "13%" },
 	    	null,
-	    	null,
-	    	{ "width": "5%" },
-	    	null,
-	    	null,
-	    	null,
-	    	null,
-	    	{ "width": "7%" }
+	    	{ "width": "10%" },
+	    	{ "width": "10%" }
 	  	],
    
       language: {
@@ -235,38 +239,45 @@ $(document).ready(function(){
 <!-- 승인대기->승인 -->
 <script>
    function consentCheck(){
-      var url = "/springEx/courseTake/updateConsentCheck.do";
+	  var url = "${contextPath}/courseTake/updateConsentCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
          valueArr.push($(this).val());
       });
       
-      
       if(cnt==0){
          Swal.fire("선택된 항목이 없습니다.","","warning");
       }
       else{
-         $.ajax({
-            url : url,
-            type : 'POST',
-            traditional : true,
-            data : {
-               valueArr : valueArr
-            },
-            success : function(data){
-               console.log("success");
-               window.location.reload();
-               /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
-            },
-            error : function(data) { 
-                  console.log("fail");
-              }
-         })
-      }
+	     $.ajax({
+	     	url : url,
+	        type : 'POST',
+	        traditional : true,
+	        data : {
+	            valueArr : valueArr
+	        },
+	        success : function(data){
+	        	console.log("success");
+	        	console.log(data.ox1);
+	        	
+	            if(data.ox1 == 'x'){
+	          	     Swal.fire('승인대기상태만 체크해주세요','','warning')
+	          	}else{
+	          	    Swal.fire('승인처리되었습니다.','','success').then(()=>{
+	          	    	window.location.reload();
+	   			     })
+	          	}
+	            
+	            /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
+	        },
+	        error : function(data) { 
+	            console.log("fail");
+	        }
+      
+	    })
+      } 
    };
-      
-      
 </script>
 
 <!--  잘못 승인을 눌렀을 때를 위한 승인->승인대기  -->
@@ -293,7 +304,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox2);
+               
+               if(data.ox2 == 'x'){
+         	     	Swal.fire('승인상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('승인대기처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 
@@ -330,7 +349,15 @@ $(document).ready(function(){
             },
             success : function(data){
                console.log("success");
-               window.location.reload();
+               console.log(data.ox3);
+               
+               if(data.ox3 == 'x'){
+         	     	Swal.fire('수료대기상태만 체크해주세요','','warning')
+         	    }else{
+         	    	Swal.fire('수료처리되었습니다.','','success').then(()=>{
+         	    		window.location.reload();
+  			     	})
+         	    }
                /*$("#container").load("${contextPath}/courseTake/courseApplyList.do");*/
             },
             error : function(data) { 

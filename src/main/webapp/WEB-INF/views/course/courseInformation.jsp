@@ -54,70 +54,63 @@ button {
 
 </head>
 <script>
+	function deleteCourse() {
+		/*location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'*/
 
-function deleteCourse(){
-	/*location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'*/
-
-	var courseID = ${courseVO.courseID};
-	url="/springEx/course/deleteCourse.do";
-	$.ajax({
-		url : url,
-		type : 'POST',
-		data : {
-			courseID : courseID
-		},
-		success : function(data){
-			console.log("success");
-			location.href='${contextPath}/course/courseList.do';
-			/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-		},
-		error : function(data) {
-			Swal.fire("과정을 신청한 사용자가 있습니다.","","error");
-			console.log("fail");
-	    }
-	})
-	/*if (${isLogOn == true}){
-		location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'
+		var courseID = $
+		{
+			courseVO.courseID
+		}
+		;
+		url = "/springEx/course/deleteCourse.do";
+		$.ajax({
+			url : url,
+			type : 'POST',
+			data : {
+				courseID : courseID
+			},
+			success : function(data) {
+				console.log("success");
+				location.href = '${contextPath}/course/courseList.do';
+				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+			},
+			error : function(data) {
+				Swal.fire("과정을 신청한 사용자가 있습니다.", "", "error");
+				console.log("fail");
+			}
+		})
+		/*if (${isLogOn == true}){
+			location.href='${contextPath}/course/deleteCourse.do?courseID=${courseVO.courseID}'
+		}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
 	}
-	else{
-		alert("로그인 후 시도해주세요.");
-	}*/
-}
 </script>
 <script>
-function modifyCourse(){
-	location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
-	/*if (${isLogOn == true}){
-		location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
+	function modifyCourse() {
+		location.href = '${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
+		/*if (${isLogOn == true}){
+			location.href='${contextPath}/course/courseModifyForm.do?courseID=${courseVO.courseID}'
+		}
+		else{
+			alert("로그인 후 시도해주세요.");
+		}*/
 	}
-	else{
-		alert("로그인 후 시도해주세요.");
-	}*/
-}
 </script>
 <body>
 	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/course/courseList.do">과정
-						관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="/springEx/course/selectCourse.do?courseID=${courseVO.courseID}">과정
-						정보</a></li>
-			</ul>
-		</div>
+
+		<div class="pageIntro">과정정보</div>
 
 		<table class="table_">
 			<tr>
 				<th>과정명</th>
-				<td style="line-height: 25px;">[${courseVO.syllabusVO.syllabusCategory1}
-					> ${courseVO.syllabusVO.syllabusCategory2}]
+				<td>[${courseVO.syllabusVO.syllabusCategory1} >
+					${courseVO.syllabusVO.syllabusCategory2}]
 					${courseVO.syllabusVO.syllabusName}</td>
-				<th>강의실</th>
-				<td>${courseVO.courseRoomNumber}호</td>
+				<th>교육비</th>
+				<td>${courseVO.courseFee}</td>
 			</tr>
 			<tr>
 				<th>교육기간</th>
@@ -128,8 +121,8 @@ function modifyCourse(){
 			<tr>
 				<th>교육시간</th>
 				<td>${courseVO.courseTime}</td>
-				<th>교육비</th>
-				<td>${courseVO.courseFee}</td>
+				<th>강의실</th>
+				<td>${courseVO.courseRoomNumber}호</td>
 			</tr>
 		</table>
 
@@ -163,6 +156,8 @@ function modifyCourse(){
 			</div>
 		</div>
 		<div style="margin-top: 50px;">
+			<button class="btn btn-outline-danger" type="button"
+				onClick="location.href='/springEx/course/courseList.do'">목록</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCourse()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"

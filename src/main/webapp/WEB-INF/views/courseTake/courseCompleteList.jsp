@@ -62,17 +62,18 @@ request.setCharacterEncoding("UTF-8");
 <body>
 
 	<div class="container">
+		<div class="noticeBox">
 
-		<h1>Bootstrap datepicker</h1>
+			<div>
+				<a
+					href="/KT-ds-University-17th-web-application-project/filepath/6e7665d23e2b45bf9263ded68434d03d.jpg"
+					download><i class="fas fa-file-alt"></i>d다운로드</a>
+			</div>
 
-		<div id="Date">
-
-			<input type="text" class="form-control"><span
-				class="input-group-addon"><i
-				class="glyphicon glyphicon-calendar"></i></span>
-
+			<a class="download"
+				href="${pageContext.request.contextPath}/resources/attach/컨소시엄협약서_2018.02.zip"
+				download>컨소시엄협약서_2018.02.zip</a>
 		</div>
-
 	</div>
 
 </body>

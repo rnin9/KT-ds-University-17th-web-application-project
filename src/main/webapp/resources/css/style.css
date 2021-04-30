@@ -73,12 +73,11 @@ a:link, a:visited, a:hover {
 .table_ {
 	border-collapse: collapse;
 	font-size: 14px;
-	line-height: 2.2;
+	/* line-height: 2.2; */
 	text-align: center;
 	/* color: #555; */
 	width: 100%;
 	margin: auto;
-	line-height: 40px;
 }
 
 .table_ > thead {

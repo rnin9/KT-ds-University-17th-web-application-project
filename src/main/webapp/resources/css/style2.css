@@ -7,6 +7,9 @@
 
 
 @charset "UTF-8";
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+}
 
 a:link, a:visited, a:hover {
    color: black;

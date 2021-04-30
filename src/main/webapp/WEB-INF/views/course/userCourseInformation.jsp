@@ -24,7 +24,6 @@ request.setCharacterEncoding("UTF-8");
 	crossorigin="anonymous">
 
 <style>
-
 .bg-primary {
 	background-color: white !important;
 }
@@ -48,7 +47,8 @@ button {
 }
 
 .container {
-	width: 80%;
+	/* width: 67.2207795%; */
+	width: 100%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -56,13 +56,13 @@ button {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
 	height: 190px;
 	padding-top: 69px;
-	background-position: 50% 50%;
+	background-position: 50% 64%;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -122,7 +122,7 @@ button {
 </script>
 <script type="text/javascript">
 	function apply(){
-		if (${courseVO.dday >= 0}){		
+		if (${courseVO.dday >= 0 && courseVO.courseState == "접수중"}){
 			if (${isLogOn == true}){
 				var valueArr = new Array();
 				valueArr.push(${courseVO.courseID});
@@ -165,7 +165,7 @@ button {
 				});
 			}
 		}else{
-			Swal.fire('접수가 마감된 과정입니다.','','error')
+			Swal.fire('접수가 마감된 강의입니다.','','error')
 		}
 	};
 </script>
@@ -188,12 +188,11 @@ button {
 					<li class="on"><a href="/springEx/course/userCourseList.do">과정신청</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정
-							정보</a></li>
+						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정정보</a></li>
 				</ul>
 			</div>
 
-			<div class="pageIntro">과정정보</div>
+			<div class="pageIntro">과정신청</div>
 
 			<table class="table_">
 				<tr>

@@ -29,21 +29,10 @@ public class PartnerServiceImpl implements PartnerService {
 	
 	//�쉶�궗 由ъ뒪�듃 異쒕젰
 	@Override
-    public List<Map<String, Object>> SelectAllListPartner() throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.SelectAllListPartner();
-    }
- 
-    @Override
-    public List<Map<String, Object>> SelectAllListPartner(Pagination pagination) throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.SelectAllListPartner(pagination);
-    }
- 
-    @Override
-    public int testTableCountPartner() throws Exception {
-        // TODO Auto-generated method stub
-        return pageMapper.testTableCountPartner();
+    public List SelectAllListPartner() throws Exception {
+		List partnerList = null;
+		partnerList = partnerDAO.selectAllPartner();
+		return partnerList;
     }
 
 	@Override
@@ -56,8 +45,6 @@ public class PartnerServiceImpl implements PartnerService {
 		return partnerDAO.selectJobOpeningList();
 	}
 
-	
-	//�쉶�궗 �긽�깭蹂� count 異쒕젰
 	@Override
 	public List listNumPartner() throws DataAccessException {
 		List<Integer> listNumPartner = new ArrayList<Integer>();;
