@@ -55,9 +55,9 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 #container { /* 이름 밑에 속성들을 감싸서 적용 */
 	background-color: #fafafa;
 	height: auto;
-	overflow:hidden;
+	overflow: hidden;
 	position: relative;
-	margin-bottom:30px;
+	margin-bottom: 30px;
 }
 
 #modForm {
@@ -288,7 +288,7 @@ function handleModify() {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">마이페이지</span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -296,12 +296,11 @@ function handleModify() {
 				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
-					href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이
-						페이지</a></li>
+					href="${pageContext.request.contextPath}/member/myInfo.do?userID=${myInfo.userId}">마이페이지</a></li>
 			</ul>
 		</div>
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">${myInfo.userId}의 정보</div>
+		<div class="pageIntro">${myInfo.userName}님의 정보</div>
 
 		<!-- 내정보/수강정보 탭 -->
 		<section id="tabs" class="project-tab">
@@ -421,8 +420,7 @@ function handleModify() {
 									</div>
 									<!-- 마이페이지 탭 끝-->
 								</div>
-								<div id="modifyInfo"
-									style="margin-bottom: 30px;">
+								<div id="modifyInfo" style="margin-bottom: 30px;">
 									<input type="button" class="btn btn-outline-danger"
 										value="수정하기" onclick='handleModify()'>
 								</div>
@@ -585,15 +583,14 @@ function handleModify() {
 								</tbody>
 							</table>
 
-							<b style="float:right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b style="float:right; color:red;">*수료 상태</b>
-
+							<b style="float: right;">에서 설문조사 완료 후 출력이 가능합니다.</b><b
+								style="float: right; color: red;">*수료 상태</b>
 						</div>
 						<!-- 수강강의 페이지 탭 끝 -->
 					</div>
 				</div>
 			</div>
-
-		</div>
+	</div>
 
 	</section>
 </body>

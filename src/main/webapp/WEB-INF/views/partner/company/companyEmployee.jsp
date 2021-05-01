@@ -110,7 +110,7 @@ table.dataTable td {
 	<div class="container">
 
 		<div class="pageIntro">수강 직원 명단</div>
-		<table id="myTable" class="table_">
+		<table id="myTable" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr>
 					<td><b>이름</b></td>

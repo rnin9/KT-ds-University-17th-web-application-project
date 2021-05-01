@@ -12,6 +12,10 @@
 <html>
 <head>
     <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
+    
+    <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
@@ -463,7 +467,6 @@
         }
 
         .dataTables_wrapper {
-            margin-top: 30px;
             display: inline-block;
             width: 100%;
         }
@@ -477,22 +480,27 @@
         table.dataTable td {
             border-top: 1px solid lightgrey;
         }
+        
+        table{
+        
+        margin-top: 0;
+        }
     </style>
 </head>
 <body>
 <div id="applyContents">
     <div class="sub_visual">
-    </div>
-    <div class="container">
-        <div class="lnb">
+		<span style="color: white;">채용지원</span>
+	</div>
+    <div class="container" style="margin-bottom:30px; font-family: 'Noto Sans KR', sans-serif;">
+        <div class="lnb" style="margin-bottom: 30px;font-family: 'Noto Sans KR', sans-serif;">
             <ul>
                 <li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
                 <li style="color: grey; font-weight: bold;">〉</li>
                 <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용지원</a></li>
             </ul>
         </div>
-
-        <div class="pageIntro">채용지원</div>
+        <!--<div class="pageIntro">채용지원</div> -->
 
         <!-- Modal for partner info -->
         <div class="modal fade" id="myModal" role="dialog">

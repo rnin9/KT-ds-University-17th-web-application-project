@@ -12,6 +12,15 @@
 <head>
     <title>채용공고 등록</title>
 
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/resources/css/style.css"/>
+          
+          <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+          
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
@@ -32,10 +41,14 @@
         }
 
         .container {
-            margin-left: 15%;
-            position: relative;
-            font-family: 'Noto Sans KR', sans-serif;
+        	font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-wrap: wrap;
             width: 80%;
+            justify-content: space-around;
+            flex-direction: column;
+            padding-bottom: 200px;
+            margin-left: 15%;
         }
 
         .well-searchbox label {

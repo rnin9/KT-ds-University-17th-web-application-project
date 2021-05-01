@@ -125,10 +125,10 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item"
-								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+								href="${contextPath}/universityConsortium.do"> 컨소시엄소개</a></li>
 						</ul></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+						href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 				</c:when>
 				<%--	  로그인 후		--%>
 				<%--		채용예정자		--%>
@@ -140,9 +140,9 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item"
-								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+								href="${contextPath}/universityConsortium.do"> 컨소시엄소개</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 					<li class="nav-item"><a class="nav-link" href="${contextPath}/member/apply.do">채용지원</a></li>
 
 				</c:when>
@@ -155,9 +155,9 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item"
-								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+								href="${contextPath}/universityConsortium.do"> 컨소시엄소개</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 				</c:when>
 				
 				<c:when test="${isLogOn != null && member.userPosition == '일반회원'}">
@@ -168,9 +168,9 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item"
-								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+								href="${contextPath}/universityConsortium.do"> 컨소시엄소개</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 				</c:when>
 			</c:choose>
 		</ul>
@@ -206,8 +206,8 @@ request.setCharacterEncoding("UTF-8");
 													 href="${contextPath}/location.do"> 교육장 안내 </a>
 						<ul class="dropdown-menu fade-up">
 
-							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
-							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">교육장 시설</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 </a></li>
 						</ul>
 					</li>
           
