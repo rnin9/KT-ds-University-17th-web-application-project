@@ -173,12 +173,12 @@ a:link, a:visited, a:hover {
 			<div class="lnb">
 				<ul>
 
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="${contextPath}/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
+					<li class="on"><a href="${contextPath}/syllabus/syllabusList.do">강의계획서
 							관리</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusForm.do">설문조사
+					<li class="on"><a href="${contextPath}/syllabus/syllabusForm.do">설문조사
 							수정</a></li>
 				</ul>
 			</div>

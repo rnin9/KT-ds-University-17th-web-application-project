@@ -8,8 +8,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html lang="en">
 <head itemscope="" itemtype="http://schema.org/WebSite">
-<title itemprop="name">Preview Bootstrap snippets. 404 error
-	page with particles</title>
+<title itemprop="name">504 Error Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description"
 	content="Preview Bootstrap snippets. 404 error page with particles. Copy and paste the html, css and js code for save time, build your app faster and responsive">

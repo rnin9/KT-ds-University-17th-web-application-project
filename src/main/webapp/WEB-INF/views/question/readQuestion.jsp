@@ -115,7 +115,7 @@ function deleteQuestion(){
 	<div class="container">
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
+				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
 					href="${contextPath}/question/userListQuestion.do?userId=${member.userId}">1

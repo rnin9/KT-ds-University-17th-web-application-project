@@ -203,6 +203,7 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 	<!-- welcom Message 종료 -->
 
+
 	<!-- course card  -->
 	<div class="courseCard">
 		<div style="height: 100px;">

@@ -62,7 +62,7 @@ button {
 			courseVO.courseID
 		}
 		;
-		url = "/springEx/course/deleteCourse.do";
+		url = "${contextPath}/course/deleteCourse.do";
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -157,7 +157,7 @@ button {
 		</div>
 		<div style="margin-top: 50px;">
 			<button class="btn btn-outline-danger" type="button"
-				onClick="location.href='/springEx/course/courseList.do'">목록</button>
+				onClick="location.href='${contextPath}/course/courseList.do'">목록</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCourse()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"
