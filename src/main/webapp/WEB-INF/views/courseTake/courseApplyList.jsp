@@ -113,7 +113,7 @@ table.dataTable td {
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.partnerVO.partnerName}</td>
 						<td><a
-							href="/springEx/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
+							href="${contextPath}/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
 						<td>${courseTake.applyDate}</td>
 						<c:choose>
 							<c:when test="${courseTake.courseTake_State eq '수료'}">
@@ -282,7 +282,7 @@ $(document).ready(function(){
 <!--  잘못 승인을 눌렀을 때를 위한 승인->승인대기  -->
 <script>
    function consentCancelCheck(){
-      var url = "/springEx/courseTake/updateConsentCancelCheck.do";
+      var url = "${contextPath}/courseTake/updateConsentCancelCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -327,7 +327,7 @@ $(document).ready(function(){
 <!-- 수료대기->수료 -->
 <script>
    function completionCheck(){
-      var url = "/springEx/courseTake/updateCompletionCheck.do";
+      var url = "${contextPath}/courseTake/updateCompletionCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -372,7 +372,7 @@ $(document).ready(function(){
 <!-- 삭제 -->
 <script>
    function deleteCheck(){
-      var url = "/springEx/courseTake/deleteCourseTake.do";
+      var url = "${contextPath}/courseTake/deleteCourseTake.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -420,7 +420,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 function popup(frm)
 {
-  var url    ="/springEx/courseTake/certificate.do";
+  var url    ="${contextPath}/courseTake/certificate.do";
   var title  = "certificate";
   var status = "width=1000px, height=1000px, status=no, menubar=no, toolbar=no, resizable=no"; 
   window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기

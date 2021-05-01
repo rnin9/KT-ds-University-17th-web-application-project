@@ -76,7 +76,7 @@ button {
 </script>
 <script>
 	function showPopup() {
-		window.open("/springEx/course/syllabusList.do", "강의계획서 리스트",
+		window.open("${contextPath}/course/syllabusList.do", "강의계획서 리스트",
 				"width=1000, height=600, left=100, top=50");
 	}
 </script>
@@ -103,7 +103,7 @@ button {
 </script>
 <script>
 	function showPopup() {
-		window.open("/springEx/course/syllabusList.do", "강의계획서 리스트",
+		window.open("${contextPath}/course/syllabusList.do", "강의계획서 리스트",
 				"width=1000, height=600, left=100, top=50");
 	}
 </script>

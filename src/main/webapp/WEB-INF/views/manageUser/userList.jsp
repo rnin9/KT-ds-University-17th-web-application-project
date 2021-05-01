@@ -124,7 +124,7 @@
 
 
         ${isLogOn == true}){*/
-        var url = "/springEx/syllabus/deleteCheck.do";
+        var url = "${contextPath}/syllabus/deleteCheck.do";
         var cnt = $("input[name='ab']:checked").length;
         var valueArr = new Array();
         $("input[name='ab']:checked").each(function (i) {

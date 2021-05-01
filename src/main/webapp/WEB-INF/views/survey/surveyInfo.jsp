@@ -169,6 +169,7 @@ function handleModify() {
 		<div class="container">
 			<div class="pageIntro">설문 수정</div>
 			<input type="hidden" name="courseID"
+
 					value="${surveyInfoList.courseID}">
 
 			<table class="table_" style="text-align: left">
