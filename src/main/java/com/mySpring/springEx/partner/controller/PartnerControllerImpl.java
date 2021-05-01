@@ -229,6 +229,7 @@ public class PartnerControllerImpl implements PartnerController {
 	}
 
 	//	post job opening
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningPost(
@@ -241,6 +242,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {

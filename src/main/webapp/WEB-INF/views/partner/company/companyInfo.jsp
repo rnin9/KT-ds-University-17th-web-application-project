@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -11,24 +10,40 @@ request.setCharacterEncoding("UTF-8");
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style2.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-<style>
 
-.display-none{ /*감추기*/
-        display:none;
-    }
-.wrap-loading{
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+<style>
+.display-none { /*감추기*/
+	display: none;
+}
+
+.wrap-loading {
 	transform: translateY(100px);
 }
 
-#chart_div text{
-	transform:none;
+#chart_div text {
+	transform: none;
 }
-	
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
 </style>
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
@@ -101,56 +116,56 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-	<div class="container" style="display: flex;
-    flex-wrap: wrap;
-    width: 75%;
-    justify-content: space-around;
-    flex-direction: column;">
-			<c:choose>
+	<div class="container"
+		style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column;">
+		<c:choose>
 			<c:when test="${partner.partnerName =='university'}">
-				<h2>kt ds University</h2>
+				<div class="pageIntro" style="margin-bottom: 30px;">kt ds
+					University</div>
 			</c:when>
 			<c:otherwise>
-			<h2>회사 정보</h2>
+				<div class="pageIntro" style="margin-bottom: 30px;">회사 정보</div>
 			</c:otherwise>
-			</c:choose>
-			
-			<div>
+		</c:choose>
+
+		<div>
 			<div class="wrap-loading">
-			<div><img src="${contextPath}/resources/image/viewLoading.gif"/></div>
-			</div> 
-			<div id="chart_div" style="box-shadow: 0px 6px 10px #777;"></div>
+				<div>
+					<img src="${contextPath}/resources/image/viewLoading.gif" />
+				</div>
 			</div>
-			<table class="table_" style="width: 80%; margin-top: 5%;">
-				<tr>
-					<th>회사 이름</th>
-					<td>${partner.partnerName}</td>
-				</tr>
-				<tr>
-					<th>업종 · 업태</th>
-					<td>${partner.partnerIndustryType}</td>
-				</tr>
-				<tr>
-					<th>협약 상태</th>
-					<td>${partner.partnerState}</td>
-				</tr>
-				<tr>
-					<th>회사 주소</th>
-					<td>${partner.partnerAddress}</td>
-				</tr>
-				<tr>
-					<th>회사 전화번호</th>
-					<td>${partner.partnerPhoneNumber}</td>
-				</tr>
-				<tr>
-					<th>인원 규모</th>
-					<td>${partner.partnerHeadCount}</td>
-				</tr>
-				<tr>
-					<th>회사 홈페이지</th>
-					<td><a href="https://${partner.partnerURL}" target="_blank">${partner.partnerURL}</a></td>
-				</tr>
-			</table>
+			<div id="chart_div" style="box-shadow: 0px 6px 10px #777;"></div>
+		</div>
+		<table class="table_" style="width: 80%; margin-top: 5%;">
+			<tr>
+				<th>회사 이름</th>
+				<td>${partner.partnerName}</td>
+			</tr>
+			<tr>
+				<th>업종 · 업태</th>
+				<td>${partner.partnerIndustryType}</td>
+			</tr>
+			<tr>
+				<th>협약 상태</th>
+				<td>${partner.partnerState}</td>
+			</tr>
+			<tr>
+				<th>회사 주소</th>
+				<td>${partner.partnerAddress}</td>
+			</tr>
+			<tr>
+				<th>회사 전화번호</th>
+				<td>${partner.partnerPhoneNumber}</td>
+			</tr>
+			<tr>
+				<th>인원 규모</th>
+				<td>${partner.partnerHeadCount}</td>
+			</tr>
+			<tr>
+				<th>회사 홈페이지</th>
+				<td><a href="https://${partner.partnerURL}" target="_blank">${partner.partnerURL}</a></td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

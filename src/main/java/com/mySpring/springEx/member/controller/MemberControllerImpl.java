@@ -114,6 +114,7 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 	// list all recruitments, suggestions
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,

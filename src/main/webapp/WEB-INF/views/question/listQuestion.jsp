@@ -14,6 +14,10 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 <script type="text/javascript"
@@ -23,9 +27,11 @@ request.setCharacterEncoding("UTF-8");
 <script type="text/javascript"
 	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -62,27 +68,6 @@ request.setCharacterEncoding("UTF-8");
 </script>
 <title>목록창</title>
 <style>
-.dataTables_length {
-	transform: translateY(100%);
-}
-
-.dt-buttons {
-	transform: translateX(120%);
-}
-
-div.dt-button-collection {
-	text-align: center;
-}
-
-.dataTables_length {
-	position: relative;
-	float: none !important;
-	text-align: left;
-}
-
-div.table {
-	margin-top: 10px;
-}
 a:link, a:visited, a:hover {
 	color: black;
 	text-decoration: none;
@@ -97,86 +82,82 @@ a:link, a:visited, a:hover {
 	flex-direction: column;
 	margin-left: 15%;
 }
+
+.dataTables_wrapper {
+	display: inline-block;
+	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
+}
 </style>
 </head>
 
 <body>
-	
+
 	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/question/listQuestion.do">1
-						: 1 문의</a></li>
-				<li style="color: grey; font-weight: bold;"></li>
+		<div class="pageIntro">1:1문의</div>
 
-			</ul>
-		</div>
+		<table id="adminListQuestion" class="table_">
 
-		<div class="table">
-			<table id="adminListQuestion" class="display">
-
-				<thead>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>분류</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>처리 구분</th>
+					<th>공개 여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="question" items="${QuestionList}">
 					<tr>
 
-						<th>번호</th>
-						<th>분류</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>처리 구분</th>
-						<th>공개 여부</th>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+								<c:out value="${question.questionNum}" />
+						</a></td>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">${question.questionType}</a></td>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+								<c:out value="${question.questionTitle}" />
+						</a></td>
+
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+								<c:out value="${question.userId}" />
+						</a></td>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:out
+									value="${question.questionRegDate}" /></a></td>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
+								<c:if test="${question.questionCommentRegDate ne null}">
+									<span style="color: green">답변 완료</span>
+								</c:if> <c:if test="${question.questionCommentRegDate eq null}">
+									<span style="color: red">처리중</span>
+								</c:if>
+						</a>
+						<td><a
+							href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:if
+									test="${question.question_del_YN == 'Y'}">비공개</c:if> <c:if
+									test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
+
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="question" items="${QuestionList}">
-						<tr>
+				</c:forEach>
+			</tbody>
 
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-									<c:out value="${question.questionNum}" />
-							</a></td>
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">${question.questionType}</a></td>
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-									<c:out value="${question.questionTitle}" />
-							</a></td>
-
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-									<c:out value="${question.userId}" />
-							</a></td>
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:out
-										value="${question.questionRegDate}" /></a></td>
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}">
-									<c:if test="${question.questionCommentRegDate ne null}">
-										<span style="color: green">답변 완료</span>
-									</c:if> <c:if test="${question.questionCommentRegDate eq null}">
-										<span style="color: red">처리중</span>
-									</c:if>
-							</a>
-							<td><a
-								href="${contextPath}/question/adminReadQuestion.do?questionNum=${question.questionNum}"><c:if
-										test="${question.question_del_YN == 'Y'}">비공개</c:if> <c:if
-										test="${question.question_del_YN == 'N'}">공개</c:if></a></td>
-
-
-
-
-						</tr>
-					</c:forEach>
-				</tbody>
-
-			</table>
-		</div>
-
-
-
-
+		</table>
 
 	</div>
 </body>
