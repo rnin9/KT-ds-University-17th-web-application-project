@@ -580,7 +580,7 @@ hr {
 </script>
 <script>
 function showPopup() {
-	window.open("/springEx/member/memberPartnerList.do", "강의계획서 리스트",
+	window.open("${contextPath}/member/memberPartnerList.do", "강의계획서 리스트",
 			"width=1000, height=600, left=100, top=50");
 }
 </script>

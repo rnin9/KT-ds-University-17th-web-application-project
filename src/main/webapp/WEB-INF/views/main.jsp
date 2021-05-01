@@ -221,7 +221,7 @@ request.setCharacterEncoding("UTF-8");
 				<div class="item">
 					<div class="card" style="margin-right: 2%; width: 310px;">
 						<a id="cardHover"
-							href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+							href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 							<div class="card-body">
 								<span class="card-title"
 									style="margin: 1% 1% 1% 1%; height: 25px;"><span
