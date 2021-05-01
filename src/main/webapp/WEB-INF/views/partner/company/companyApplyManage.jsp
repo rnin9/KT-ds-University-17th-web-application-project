@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css"
@@ -79,11 +79,15 @@
 	clear: left;
 	border-bottom: 1px solid black;
 }
+
+#resCarr>th {
+	colspan: 2;
+}
 </style>
 <script>
         $(document).ready(function () {
             let activeTab = sessionStorage.getItem('activeTab');
-            // »õ·Î°íÄ§ ÈÄ ÅÇ »óÅÂ º¸Á¸
+            // get Tab value
             $('#myTab a[href="'+activeTab+'"]').trigger('click');
             $(".next").click(function(){
             	
@@ -147,34 +151,188 @@
             });
 
             $("#reset").click(function(){
-            	location.reload(); 
-				})
-            
-        });
-
-        // ¸ğ´Ş body text ¼³Á¤
+            	location.reload();
+        	});
+        })
+        // reloading
         
-        function getResumeInfo(resumeID, userID) {
+        function getResumeInfo(resumeID, userID, userName) {
         	
-        	$.ajax({				// ºñµ¿±âÅë½Å, ÀÌ·Â¼­ °¡Á®¿À±â
+        	$.ajax({				// get Resumes
 	            method: "GET",
 	            url: "${contextPath}/partner/getResumeByID.do?partnerApplyResumeID="+resumeID+"&partnerApplyUserID="+userID,
-	            success: (resp) => {	// ¸ğµç °á°ú¸¦ success·Î ¹ŞÀ½
-	            	
+	            success: (resp) => {	// when success
 	            	console.log(resp);
-	            	$("#modal_title").text(resp.resume.resumeUser+"ÀÇ ÀÌ·Â¼­");
-                    $("#partner_info").text(resp.resume.resumeDate);
-                    $("#partner_addr").text(resp.resume.resumeID);
-                    $("#partner_email").text(resp.resume.resumeUser);
+	            	var now = new Date();	//get current Date
+	            	var year = now.getFullYear();	// get Current Year
+	            	var yyyy=resp.resume.memberVO.birth.substr(0,4);
+	            	var mm = resp.resume.memberVO.birth.substr(4,2);
+	            	var dd = resp.resume.memberVO.birth.substr(6,2);
+	            	var age = year-parseInt(yyyy)+1;
+	            	var phone1 = resp.resume.memberVO.userPhoneNumber.substr(0,3);
+	            	var phone2 = resp.resume.memberVO.userPhoneNumber.substr(3,4);
+	            	var phone3 = resp.resume.memberVO.userPhoneNumber.substr(7,4);
+	            
+	            	
+	            	$("#modal_title").text(userName+"ì˜ ì´ë ¥ì„œ");
+                    $("#resName").text(resp.resume.memberVO.userName);
+                    $("#resEngName").text(resp.resume.resumeForeign);
+                    $("#resAge").text(age);
+                    $("#resGender").text(resp.resume.memberVO.userGender);
+                    $("#resBirth").text(yyyy+"ë…„ "+mm+"ì›” "+dd+"ì¼");
+                    $("#resAddress").text(resp.resume.memberVO.userAddress1+" "+resp.resume.memberVO.userAddress2);
+                    $("#resPhone").text(phone1+"-"+phone2+"-"+phone3);
+                    $("#resEmail").text(resp.resume.memberVO.userEmail);
+                    $("#resLastEdu").text(resp.resume.resumeLastEdu+"("+resp.resume.resumeSchool+")");
+                    $("#resMajor").text(resp.resume.memberVO.userMajor);
+                    $("#resGrade").text(resp.resume.resumeGrade);
+                    
+                    $("#resCtx1").html(resp.resume.resumeContext1);
+                    $("#resCtx2").html(resp.resume.resumeContext2);
+                    $("#resCtx3").html(resp.resume.resumeContext3);
+                    $("#resCtx4").html(resp.resume.resumeContext4);
+                    
+                    if(resp.resume.resumeContext5 == null){
+                    	$("#resCtx5").html("");
+                    } else{
+                    	$("#resCtx5").html(resp.resume.resumeContext5);
+                    }
+                    
+                    
+                      if (resp.certificate != null) {
+                    	for(i=0; i<resp.certificate.length; i++) { // when Certificate is Exist
+                    		var certificate_list = "";
+                    		var c_yyyy=resp.certificate[i].certificateDate.substr(0,4);
+        	            	var c_mm = resp.certificate[i].certificateDate.substr(4,2);
+        	            	var c_dd = resp.certificate[i].certificateDate.substr(6,2);
+        	            	
+                    		certificate_list += "<tr>";
+                    		certificate_list += "<td>"+resp.certificate[i].certificateName+"</td>";
+                    		certificate_list += "<td>"+resp.certificate[i].certificateEnforcement+"</td>";
+                    		certificate_list += "<td>"+c_yyyy+"ë…„ "+c_mm+"ì›” "+c_dd+"ì¼"+"</td>";
+                    		certificate_list += "</tr>";
+                    		
+                    		$("#resCert").append(certificate_list);
+                    	 }
+                      }
+                    
+                    	
+                    	 if (resp.foreign != null) {
+                        	for(i=0; i<resp.foreign.length; i++) { // when Foreign Certificate is exist
+                        		var foreign_list = "";
+                        		var f_yyyy=resp.foreign[i].foreignDate.substr(0,4);
+            	            	var f_mm = resp.foreign[i].foreignDate.substr(4,2);
+            	            	var f_dd = resp.foreign[i].foreignDate.substr(6,2);
+            	            	
+            	            	foreign_list += "<tr>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignCriteria+"</td>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignName+"</td>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignScore+"</td>";
+            	            	foreign_list += "<td>"+f_yyyy+"ë…„ "+f_mm+"ì›” "+f_dd+"ì¼ "+"</td>";
+            	            	foreign_list += "</tr>";
+                        		
+                        		$("#resFor").append(foreign_list);
+                        	 } 	
+                    	}
+                    	
+                    	 if (resp.career != null) {
+                         	for(i=0; i<resp.career.length; i++) { // when career is Exist
+                         		var career_list = "";
+                         		var caStart_yyyy=resp.career[i].careerStartdate.substr(0,4);
+             	            	var caStart_mm = resp.career[i].careerStartdate.substr(4,2);
+             	            	var caStart_dd = resp.career[i].careerStartdate.substr(6,2);
+             	            	var caEnd_yyyy=resp.career[i].careerEnddate.substr(0,4);
+             	            	var caEnd_mm = resp.career[i].careerEnddate.substr(4,2);
+             	            	var caEnd_dd = resp.career[i].careerEnddate.substr(6,2);
+             	            	
+             	            	if(resp.career[i].careerCheck == "C"){
+             	            		
+             	            		career_list += "<tr>";
+             	            		career_list += "<th>"+"íšŒì‚¬ëª…"+"</th>";
+                 	            	career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ê²½ë ¥ê¸°ê°„"+"</td>";
+                 	            	career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ì§ìœ„"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerPosition+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ê³ ìš©í˜•íƒœ"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerType+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	$("#resCarr_C").append(career_list);
+                                } else if(resp.career[i].careerCheck == "E") {
+                                	career_list += "<tr>";
+                                	career_list += "<th>"+"êµìœ¡ ê¸°ê´€"+"</th>";
+                 	            	career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"êµìœ¡ ê¸°ê°„"+"</td>";
+                 	            	career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"êµìœ¡ ì‹œê°„"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerHour+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ë¹„ê³ "+"</td>";
+                 	            	if(resp.career[i].careerOther == null){
+                 	            		career_list += "<td>"+" "+"</td>";
+                 	            	}
+                 	            	else{
+                 	            		career_list += "<td>"+resp.career[i].careerOther+"</td>";
+                 	            	}
+                 	            	
+                 	            	career_list += "</tr>";
+                 	            	$("#resCarr_E").append(career_list);
+                              }
+                         	}
+                    	 }
+             	            	  if (resp.project != null) {
+                                 	for(i=0; i<resp.project.length; i++) { // when project is Exist
+                                 		var project_list = "";
+                                 		
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<th style="+"width:108px"+">"+"ê¸°ê´€ëª…"+"</th>";
+                     	            	project_list += "<th>"+resp.project[i].projectEnforcement+"</th>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"í”„ë¡œì íŠ¸ ëª…"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectName+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ê°œë°œí™˜ê²½ ë° ì‚¬ìš©ê¸°ìˆ "+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectDev+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"í”„ë¡œì íŠ¸ ì†Œê°œ"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectContent+"</td>";
+                     	            	project_list += "</tr>";
+                                 		project_list += "<tr>";
+                     	            	project_list += "<td>"+"ë‹´ë‹¹í•œ ì—­í• "+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectRole+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ê´€ë ¨ë§í¬"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectURL+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	
+                     	            	$("#resPro").append(project_list);
+                                 	 } 	
+                             	} 
+             	    
 	            },
 	            error: (err) => {
-	                console.log(err+" ºñµ¿±â ½ÇÆĞ");
+	                console.log("err: "+err);
 	     	}
 	        })
         	
-            }
+          }
 
-        // ÅÇ Å¬¸¯ ½Ã session¿¡ ÇöÀç ÅÇ °ª ÀúÀå
+        
         function tabtab(h) {
             sessionStorage.setItem('activeTab', h);
             console.log('href   yyyy' + h);
@@ -186,25 +344,25 @@
         	    Swal.fire({
         	        title:userName+'('+userID+')',
      				icon:'warning',
-        	        confirmButtonText: `ÇÕ°İ`,
+        	        confirmButtonText: `í•©ê²©`,
         	        confirmButtonColor: '#3085d6',
         	        showCloseButton: true,
         	        showCancelButton: true,
-        	        cancelButtonText: `ºÒÇÕ°İ`,
+        	        cancelButtonText: `ë¶ˆí•©ê²©`,
         	        cancelButtonColor: '#d33',
         	        }).then((res) => {
           			if(res.isConfirmed){
           				
           			Swal.fire({               /* update operation start */
-          				     title:'ÇÕ°İ Ã³¸®',
-          				     text: 'ÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+          				     title:'í•©ê²© ì²˜ë¦¬',
+          				     text: 'í•©ê²©ì²˜ë¦¬ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
           				     showCancelButton: true,
           				     showCloseButton: true,
           				     icon:"success",
           				     confirmButtonColor: '#3085d6',
           				     cancelButtonColor: '#d33',
-							 cancelButtonText: 'Ãë¼Ò',
-          				     confirmButtonText: 'ÇÕ°İ'
+							 cancelButtonText: 'ì·¨ì†Œ',
+          				     confirmButtonText: 'í•©ê²©'
           				   }).then((result) => {
           				     /* Read more about isConfirmed, isDenied below */
           				     if (result.isConfirmed) {
@@ -214,13 +372,13 @@
           		      	              data: {
           		      	            	partnerApplyUserID    : userID,
           		      	              	partnerApplyPartnerID : partnerID,
-          		      	                partnerApplyState : 'ÇÕ°İ'
+          		      	                partnerApplyState : 'í•©ê²©'
           		      	              },
           		      	              success: (resp) => {	// update to pass and reloading
           		      	            	location.reload();        
           		      	              },
           		      	              error: (data) => {
-          		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+          		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨:"+data);
           		      	               }
           		      	          }) 
           				     } else{
@@ -230,15 +388,15 @@
           			
       	          } else if( res.dismiss ==='cancel'){
       	        	Swal.fire({               /* check update to fail */
-     				     title:'ºÒÇÕ°İ Ã³¸®',
-     				     text: 'ºÒÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+     				     title:'ë¶ˆí•©ê²© ì²˜ë¦¬',
+     				     text: 'ë¶ˆí•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
      				     showCloseButton: true,
      				     showCancelButton: true,
      				     icon:"error",
      				     confirmButtonColor: '#d33',
      				     cancelButtonColor: '#3085d6#d33',
-     				    cancelButtonText: 'Ãë¼Ò',
-     				     confirmButtonText: 'ºÒÇÕ°İ'
+     				    cancelButtonText: 'ì·¨ì†Œ',
+     				     confirmButtonText: 'ë¶ˆí•©ê²©'
      				   }).then((result) => {
      				     /* Read more about isConfirmed, isDenied below */
      				     if (result.isConfirmed) {
@@ -248,14 +406,14 @@
      		      	              data: {
      		      	            	partnerApplyUserID    : userID,
       		      	              	partnerApplyPartnerID : partnerID,
-      		      	                partnerApplyState : 'ºÒÇÕ°İ'
+      		      	                partnerApplyState : 'ë¶ˆí•©ê²©'
       		      	              
      		      	              },
      		      	              success: (resp) => {	// update to fail and reloading
      		      	            	location.reload();        
      		      	              },
      		      	              error: (data) => {
-     		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+     		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨:"+data);
      		      	               }
      		      	          }) 
      				     } else{
@@ -271,28 +429,28 @@
         
         function chk_reset(userID, userName, partnerID) {
     	    Swal.fire({
-    	        title:'º¯°æ Ã³¸®',
-    	        text:'ÇØ´ç °á°ú·Î º¯°æÇÕ´Ï´Ù',
+    	        title:'ë³€ê²½ ì²˜ë¦¬',
+    	        text:'í•´ë‹¹ ê²°ê³¼ë¡œ ë³€ê²½í•©ë‹ˆë‹¤',
  				icon:'warning',
-    	        confirmButtonText: `ÇÕ°İ`,
+    	        confirmButtonText: `í•©ê²©`,
     	        confirmButtonColor: '#3085d6',
     	        showCloseButton: true,
     	        showCancelButton: true,
-    	        cancelButtonText: `ºÒÇÕ°İ`,
+    	        cancelButtonText: `ë¶ˆí•©ê²©`,
     	        cancelButtonColor: '#d33',
     	        }).then((res) => {
       			if(res.isConfirmed){
       				
       			Swal.fire({               /* check editing */
-      				     title:'ÇÕ°İ Ã³¸®',
-      				     text: 'ÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+      				     title:'í•©ê²© ì²˜ë¦¬',
+      				     text: 'í•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
       				     showCancelButton: true,
       				     showCloseButton: true,
       				     icon:"success",
       				     confirmButtonColor: '#3085d6',
       				     cancelButtonColor: '#d33',
-						 cancelButtonText: 'Ãë¼Ò',
-      				     confirmButtonText: 'ÇÕ°İ'
+						 cancelButtonText: 'ì·¨ì†Œ',
+      				     confirmButtonText: 'í•©ê²©'
       				   }).then((result) => {
       				     /* Read more about isConfirmed, isDenied below */
       				     if (result.isConfirmed) {
@@ -302,13 +460,13 @@
       		      	              data: {
       		      	            	partnerApplyUserID    : userID,
       		      	              	partnerApplyPartnerID : partnerID,
-      		      	                partnerApplyState : 'ÇÕ°İ'
+      		      	                partnerApplyState : 'í•©ê²©'
       		      	              },
       		      	              success: (resp) => {	// update success and reloading
       		      	            	location.reload();        
       		      	              },
       		      	              error: (data) => {
-      		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+      		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨:"+data);
       		      	               }
       		      	          }) 
       				     } else{
@@ -318,15 +476,15 @@
       			
   	          } else if( res.dismiss ==='cancel'){
   	        	Swal.fire({               /* edit to fail */
- 				     title:'ºÒÇÕ°İ Ã³¸®',
- 				     text: 'ºÒÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+ 				     title:'ë¶ˆí•©ê²© ì²˜ë¦¬',
+ 				     text: 'ë¶ˆí•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
  				     showCloseButton: true,
  				     showCancelButton: true,
  				     icon:"error",
  				     confirmButtonColor: '#d33',
  				     cancelButtonColor: '#3085d6',
- 				    cancelButtonText: 'Ãë¼Ò',
- 				     confirmButtonText: 'ºÒÇÕ°İ'
+ 				    cancelButtonText: 'ì·¨ì†Œ',
+ 				     confirmButtonText: 'ë¶ˆí•©ê²©'
  				   }).then((result) => {
  				     /* Read more about isConfirmed, isDenied below */
  				     if (result.isConfirmed) {
@@ -336,18 +494,18 @@
  		      	              data: {
  		      	            	partnerApplyUserID    : userID,
   		      	              	partnerApplyPartnerID : partnerID,
-  		      	                partnerApplyState : 'ºÒÇÕ°İ'
+  		      	                partnerApplyState : 'ë¶ˆí•©ê²©'
   		      	              
  		      	              },
  		      	              success: (resp) => {	// update success and reloading
  		      	            	location.reload();        
  		      	              },
  		      	              error: (data) => {
- 		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+ 		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨:"+data);
  		      	               }
  		      	          }) 
  				     } else{
- 				         return;     /* ¼öÁ¤½ÇÇà Ãë¼Ò */
+ 				         return;     /* ìˆ˜ì • ì „ë‹¬ ì·¨ì†Œ */
  				     }
  				   })
   	        } else{
@@ -360,15 +518,15 @@
         function suggestToUser(userID, partnerID, userName) {
         	Swal.fire({
     	    	html: `
-    	    	<h2>Ã¤¿ë Á¦¾È</h2>
+    	    	<h2>ì±„ìš© ì œì•ˆ</h2>
     	    	<input type="text" id="user" style="background-color: #eee;" class="swal2-input" readonly>
-    	    	<input type="text" id="suggestTitle" placeholder="Á¦¸ñ" class="swal2-input">
-    	    	<textarea type="text" id="suggestDesc" placeholder="Á¦¾È Á¶°Ç" style="height:300px; padding-top: 5px;" class="swal2-input" rows="100"></textarea>`,
-    	        confirmButtonText: `Á¦¾È`,
+    	    	<input type="text" id="suggestTitle" placeholder="ì œëª©" class="swal2-input">
+    	    	<textarea type="text" id="suggestDesc" placeholder="ì œì•ˆ ì¡°ê±´" style="height:300px; padding-top: 5px;" class="swal2-input" rows="100"></textarea>`,
+    	        confirmButtonText: `ì œì•ˆ`,
     	        confirmButtonColor: '#3085d6',
     	        showCloseButton: true,
     	        showCancelButton: true,
-    	        cancelButtonText: `Ãë¼Ò`,
+    	        cancelButtonText: `ì·¨ì†Œ`,
     	        cancelButtonColor: '#d33',
     	        onOpen: function() {
                     $('#user').attr("value", userName);
@@ -388,15 +546,15 @@
       			const suggestDesc = Swal.getPopup().querySelector('#suggestDesc').value;
           		const suggestTitle = Swal.getPopup().querySelector('#suggestTitle').value;
           		Swal.fire({               /* check editing */
-      				     title:'Æ÷Áö¼Ç Á¦¾È',
-      				     text: 'Ã¤¿ë Á¦¾ÈÇÏ½Ã°Ú½À´Ï±î?',
+      				     title:'í¬ì§€ì…˜ ì œì•ˆ',
+      				     text: 'ì±„ìš© ì œì•ˆí•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
       				     showCancelButton: true,
       				     showCloseButton: true,
       				     icon:"success",
       				     confirmButtonColor: '#3085d6',
       				     cancelButtonColor: '#d33',
-						 cancelButtonText: 'Á¦¾È Ãë¼Ò',
-      				     confirmButtonText: 'Ã¤¿ë Á¦¾È'
+						 cancelButtonText: 'ì œì•ˆ ì·¨ì†Œ',
+      				     confirmButtonText: 'ì±„ìš© ì œì•ˆ'
       				   }).then((result) => {
       				     /* Read more about isConfirmed, isDenied below */
       				     if (result.isConfirmed) {
@@ -411,12 +569,12 @@
       		      	                partnerSuggestionDescription : suggestDesc
       		      	              },
       		      	              success: (resp) => {	// update success and reloading
-      		      	            	 Swal.fire('Á¦¾È¿Ï·á!', '', 'success').then(()=>{
+      		      	            	 Swal.fire('ì œì•ˆ ì™„ë£Œ!', '', 'success').then(()=>{
       		      	            	 location.reload(); 
       		      	             	})
       		      	              },
       		      	              error: (data) => {
-      		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+      		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨:"+data);
       		      	               }
       		      	          })  
       				     } else{
@@ -432,14 +590,14 @@
         
         function deleteSuggestion(userID, partnerID){
         	 Swal.fire({
-     	        title:'Ã¤¿ëÁ¦¾È »èÁ¦',
-     	        text:'»èÁ¦ ÈÄ¿£ º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù.',
+     	        title:'ì±„ìš©ì œì•ˆ ì‚­ì œ',
+     	        text:'ì‚­ì œ í›„ì—” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.',
   				icon:'warning',
-     	        confirmButtonText: `»èÁ¦`,
+     	        confirmButtonText: `ì‚­ì œ`,
      	        confirmButtonColor: '#d33',
      	        showCloseButton: true,
      	        showCancelButton: true,
-     	        cancelButtonText: `Ãë¼Ò`,
+     	        cancelButtonText: `ì·¨ì†Œ`,
      	        cancelButtonColor: '#3085d6',
      	        }).then((res) => {
        			if(res.isConfirmed){
@@ -455,7 +613,7 @@
        		      	            	location.reload();        
        		      	              },
        		      	              error: (data) => {
-       		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+       		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
        		      	               }
        		      	          }) 
        			} 
@@ -468,7 +626,7 @@
 <body>
 	<div id="applyContents">
 		<div class="sub_visual">
-			<span style="color: white;">Çù·Â»ç Áö¿ø</span>
+			<span style="color: white;"></span>
 		</div>
 		<div class="container"
 			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
@@ -486,7 +644,7 @@
 
 						<div class="modal-header">
 							<h5 class="modal-title" id="modal_title"></h5>
-							<button type="button" class="close" data-dismiss="modal">¡¿</button>
+							<button type="button" class="close" data-dismiss="modal">X</button>
 						</div>
 						<div class="modal-body">
 							<div class="container-fluid" id="grad1">
@@ -498,16 +656,16 @@
 													<form id="msform">
 														<!-- progressbar -->
 														<ul id="progressbar">
-															<li class="active" id="basic"><strong>±âº»Á¤º¸</strong></li>
-															<li id="personal"><strong>ÀÚ°İÁõ Á¤º¸</strong></li>
-															<li id="education"><strong>°æ·Â»çÇ×</strong></li>
-															<li id="project"><strong>ÇÁ·ÎÁ§Æ®</strong></li>
-															<li id="introduce"><strong>ÀÚ±â¼Ò°³¼­</strong></li>
+															<li class="active" id="basic"><strong>ê¸°ë³¸ì •ë³´</strong></li>
+															<li id="personal"><strong>ìƒì„¸ì •ë³´</strong></li>
+															<li id="education"><strong>ê²½ë ¥/êµìœ¡ì‚¬í•­</strong></li>
+															<li id="project"><strong>í”„ë¡œì íŠ¸</strong></li>
+															<li id="introduce"><strong>ìê¸°ì†Œê°œì„œ</strong></li>
 														</ul>
 														<!-- fieldsets -->
 														<fieldset id="init">
 															<div class="form-card">
-																<h2 class="fs-title">±âº»Á¤º¸</h2>
+																<h2 class="fs-title">ê¸°ë³¸ì •ë³´</h2>
 																<table border id="resumeTable">
 																	<tr>
 																		<th rowspan="4"><img
@@ -515,289 +673,149 @@
 																			style="width: 122px; height: 163px;" /></th>
 																	</tr>
 																	<tr>
-																		<th>¼º¸í</th>
-																		<td>°­¹ÎÁÖ</td>
-																		<th>¿µ¹®¸í</th>
-																		<td>Min ju Kang</td>
+																		<th>ì„±ëª…</th>
+																		<td id="resName"></td>
+																		<th>ì˜ë¬¸ëª…</th>
+																		<td id="resEngName"></td>
 																	</tr>
 																	<tr>
-																		<!-- &nbsp; = ÇÑÄ­ ¶ç¿ì±â -->
-																		<th colspan="1" style="width: 84px;">³ªÀÌ</th>
-																		<td colspan="1" style="width: 165px;">28¼¼</td>
-																		<th colspan="1" width="15%">¼ºº°</th>
-																		<td colspan="1" width="200px">³²ÀÚ</td>
+																		<!-- &nbsp; = ?? -->
+																		<th colspan="1" style="width: 84px;">ë‚˜ì´</th>
+																		<td colspan="1" style="width: 165px;" id="resAge"></td>
+																		<th colspan="1" width="15%">ì„±ë³„</th>
+																		<td colspan="1" width="200px" id="resGender"></td>
 
 																	</tr>
 																	<tr>
-																		<th colspan="1">»ı³â¿ùÀÏ</th>
-																		<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;³â&nbsp;&nbsp;&nbsp;
-																			¿ù&nbsp;&nbsp;&nbsp;ÀÏ</td>
+																		<th colspan="1">ìƒë…„ì›”ì¼</th>
+																		<td colspan="3" id="resBirth"></td>
 																	</tr>
 																	<tr>
-																		<th>ÁÖ¼Ò</th>
-																		<td colspan="4">¼­¿ï½Ã ¿ë»ê±¸ Ã»ÆÄ·Î 251 ´Ù¿Ã³ëºí¸®¿ò
-																			513È£kkkkkkkkkkkkkkkkkkkkkkkkkkkkk</td>
+																		<th>ì£¼ì†Œ</th>
+																		<td colspan="4" id="resAddress"></td>
 																	</tr>
 																	<tr>
-																		<th rowspan="2">¿¬¶ôÃ³</th>
-																		<th>ÀüÈ­¹øÈ£</th>
-																		<td colspan="4">031-000-0000</td>
+																		<th rowspan="2">ì—°ë½ì²˜</th>
+																		<th>H.P</th>
+																		<td colspan="4" id="resPhone">000-0000-0000</td>
 																	</tr>
 																	<tr>
 																		<th>Email</th>
-																		<td colspan="4">test@test.com</td>
+																		<td colspan="4" id="resEmail">test@test.com</td>
 																	</tr>
 																	<tr>
-																		<th rowspan="3">ÇĞ·Â»çÇ×</th>
-																		<th>ÃÖÁ¾ÇĞ·Â</th>
-																		<td colspan="4">´ëÇĞ±³ Á¹¾÷</td>
+																		<th rowspan="3">í•™ë ¥ì‚¬í•­</th>
+																		<th>ìµœì¢…í•™ë ¥</th>
+																		<td colspan="4" id="resLastEdu">ëŒ€í•™êµì¡¸ì—…</td>
 																	</tr>
 																	<tr>
-																		<th>Àü°ø</th>
-																		<td colspan="4">ÄÄÇ»ÅÍ°øÇĞ°ú (ÇĞÁ¡ :4.5)</td>
+																		<th>ì „ê³µ</th>
+																		<td colspan="4" id="resMajor">ì»´í“¨í„°ê³µí•™ê³¼</td>
 																	</tr>
 																	<tr>
-																		<th>ÇĞÁ¡</th>
-																		<td colspan="4">4.0/4.5</td>
+																		<th>í•™ì </th>
+																		<td colspan="4" id="resGrade">4.0/4.5</td>
 																	</tr>
 
 																</table>
 															</div>
 															<input type="button" name="next"
-																class="next action-button" value="´ÙÀ½" />
+																class="next action-button" value="ë‹¤ìŒ" />
 														</fieldset>
 														<fieldset>
 															<div class="form-card">
-																<h2 class="fs-title">ÀÚ°İÁõ Á¤º¸</h2>
+																<h2 class="fs-title">ìê²©ì¦</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>ÀÚ°İÁõ ¸í</th>
-																<th>¹ßÇàÃ³/±â°ü</th>
-																<th>ÃëµæÀÏ</th>
-																</tr>
-																<tr>
-																<td>SQLD</td>
-																<td>ÇÑ±¹ µ¥ÀÌÅÍº£ÀÌ½º »ê¾÷ÁøÈï¿ø</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>ìê²©ì¦ëª…</th>
+																		<th>ë°œí–‰ì²˜/ê¸°ê´€</th>
+																		<th>ì·¨ë“ì¼</th>
+																	</tr>
+																	<tbody id="resCert">
+																	</tbody>
 																</table>
-																
-																<h2 class="fs-title" style="margin-top:100px">¾îÇĞ ½ÃÇè</h2>
+
+																<h2 class="fs-title" style="margin-top: 100px">ì–´í•™ì‹œí—˜</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>¾ğ¾î</th>
-																<th>½ÃÇèÁ¾·ù</th>
-																<th>Á¡¼ö</th>
-																<th>ÃëµæÀÏ</th>
-																</tr>
-																<tr>
-																<td>¿µ¾î</td>
-																<td>TOEIC</td>
-																<td>990</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>ì–¸ì–´</th>
+																		<th>ì‹œí—˜ì¢…ë¥˜</th>
+																		<th>ì ìˆ˜</th>
+																		<th>ì·¨ë“ì¼</th>
+																	</tr>
+																	<tbody id="resFor">
+																	</tbody>
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 														<fieldset>
 															<div class="form-card">
-																<h2 class="fs-title">°æ·Â»çÇ×</h2>
+																<h2 class="fs-title">ê²½ë ¥ì‚¬í•­</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
+																	<tbody id="resCarr_C">
+																	</tbody>
 																</table>
+																<h2 class="fs-title" style="margin-top: 100px">êµìœ¡ì‚¬í•­</h2>
+																<table border id="resumeTable">
+																	<tbody id="resCarr_E">
+																	</tbody>
+																</table>
+
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 
 														<fieldset>
 															<div class="form-card">
-																	<h2 class="fs-title">ÇÁ·ÎÁ§Æ®</h2>
+																<h2 class="fs-title">í”„ë¡œì íŠ¸</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">±â°ü¸í</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">ÇÁ·ÎÁ§Æ® ¸í</td>
-																<td>½ºÇÁ¸µ ÇÁ·ÎÁ§Æ®</td>
-																</tr>
-																<tr>
-																<td>±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>°³¹ßÈ¯°æ<br>
-																¹× »ç¿ë±â¼ú</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>ÇÁ·ÎÁ§Æ® ¼Ò°³</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>´ã´çÇÑ ¿ªÇÒ</td>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">±â°ü¸í</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">ÇÁ·ÎÁ§Æ® ¸í</td>
-																<td>½ºÇÁ¸µ ÇÁ·ÎÁ§Æ®</td>
-																</tr>
-																<tr>
-																<td>±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>°³¹ßÈ¯°æ<br>
-																¹× »ç¿ë±â¼ú</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>ÇÁ·ÎÁ§Æ® ¼Ò°³</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>´ã´çÇÑ ¿ªÇÒ</td>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
+																	<tbody id="resPro">
+																	</tbody>
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 
 														<fieldset>
 															<div class="form-card">
-															<h2 class="fs-title">ÀÚ±â¼Ò°³¼­</h2>
+																<h2 class="fs-title">ìê¸°ì†Œê°œì„œ</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th style="width: 110px;">¼ºÀå°úÁ¤</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>ÇĞ±³»ıÈ°</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>¼º°İ (Àå/´ÜÁ¡)</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>Èñ¸Á¾÷¹« ¹× Àå·¡Æ÷ºÎ</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>±âÅ¸»çÇ×</th>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
-																
+																	<tr>
+																		<th style="width: 98px;">ì„±ì¥ê³¼ì •</th>
+																		<td id="resCtx1"></td>
+																	</tr>
+																	<tr>
+																		<th>í•™êµìƒí™œ</th>
+																		<td id="resCtx2"></td>
+																	</tr>
+																	<tr>
+																		<th>ì„±ê²©(ì¥/ë‹¨ì )</th>
+																		<td id="resCtx3"></td>
+																	</tr>
+																	<tr>
+																		<th>í¬ë§ì—…ë¬´ ë° ì¥ë˜í¬ë¶€</th>
+																		<td id="resCtx4"></td>
+																	</tr>
+																	<tr>
+																		<th>ê¸°íƒ€ì‚¬í•­</th>
+																		<td id="resCtx5"></td>
+																	</tr>
+
+
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" />
+																class="previous action-button-previous" value="ì´ì „" />
 														</fieldset>
 													</form>
 												</div>
@@ -809,11 +827,11 @@
 							<!-- <div class="partnerInfoModalBody" style="text-align: left">
 								<div class="row">
 									<div class="col-3" style="color: #444444; font-weight: bold">
-										<p>¼Ò°³</p>
-										<p>ÁÖ¼Ò</p>
-										<p>»ç¿ø¼ö</p>
-										<p>ÀÌ¸ŞÀÏ</p>
-										<p>À¥»çÀÌÆ®</p>
+										<p>ï¿½Ò°ï¿½</p>
+										<p>ï¿½Ö¼ï¿½</p>
+										<p>ï¿½ï¿½ï¿½ï¿½ï¿½</p>
+										<p>ï¿½Ì¸ï¿½ï¿½ï¿½</p>
+										<p>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®</p>
 									</div>
 									<div class="col-8">
 										<p id="partner_info"></p>
@@ -827,7 +845,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" id="reset" class="btn btn-default"
-								data-dismiss="modal">È®ÀÎ</button>
+								data-dismiss="modal">í™•ì¸</button>
 						</div>
 					</div>
 
@@ -843,28 +861,28 @@
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a id="firstNav" href="#nav-home"
 										data-toggle="tab" onclick="tabtab('#nav-home')"
-										class="nav-link active">Áö¿ø ¸ñ·Ï</a></li>
+										class="nav-link active">ì§€ì›ì„œ ëª©ë¡</a></li>
 									<li class="nav-item"><a id="secondNav" href="#nav-profile"
 										data-toggle="tab" onclick="tabtab('#nav-profile')"
-										class="nav-link">Ã¤¿ë Á¦¾È</a></li>
+										class="nav-link">ì±„ìš© ì œì•ˆ</a></li>
 								</ul>
 							</nav>
 
 							<div class="tab-content" id="nav-tabContent">
 								<div class="tab-pane fade show active" id="nav-home"
 									role="tabpanel" aria-labelledby="nav-home-tab">
-									<%--                Ã¹¹øÂ° ÅÇÀÇ Å×ÀÌºí                --%>
+									<%--                Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½                --%>
 									<table class="table" cellspacing="0">
 										<thead>
 											<tr>
-												<th>ÀÌ¸§</th>
-												<th>Áö¿ø¼­</th>
-												<th>ÇÕ ¡¤ ºÒÇÕ</th>
+												<th>ì´ë¦„</th>
+												<th>ì´ë ¥ì„œ</th>
+												<th>í•© Â· ë¶ˆí•©</th>
 												<%-- <c:forEach var="apList" items="${applyList}">
 												<c:choose>
-												<c:when test="${apList.partnerApplyState != 'ÁøÇàÁß'}">
+												<c:when test="${apList.partnerApplyState != 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'}">
 												 --%>
-												<th>°á°ú º¯°æ</th>
+												<th>ê²°ê³¼ ë³€ê²½</th>
 												<%-- </c:when>
 												</c:choose>
 												</c:forEach>
@@ -877,17 +895,17 @@
 													<td>${apList.memberVO.userName}</td>
 													<td><a class="info" data-toggle="modal"
 														href="#myModal"
-														onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}');">
+														onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}','${apList.memberVO.userName}');">
 															<i class="fas fa-search"></i>
 													</a></td>
 													<c:choose>
-														<c:when test="${apList.partnerApplyState == 'ÁøÇàÁß'}">
+														<c:when test="${apList.partnerApplyState == 'ì§„í–‰ì¤‘'}">
 															<td><a style="text-decoration: underline" href="#"
 																onclick="chk_passOrFail('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
 																	class="fas fa-user-check"></i></a></td>
 															<td></td>
 														</c:when>
-														<c:when test="${apList.partnerApplyState == 'ÇÕ°İ   '}">
+														<c:when test="${apList.partnerApplyState == 'í•©ê²©   '}">
 															<td style="color: blue;">${apList.partnerApplyState}</td>
 															<td><a style="text-decoration: underline" href="#"
 																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
@@ -907,14 +925,14 @@
 								</div>
 								<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 									aria-labelledby="nav-profile-tab">
-									<%--                µÎ¹øÂ° ÅÇÀÇ Å×ÀÌºí                --%>
+									<%--                            --%>
 									<table class="table" cellspacing="0">
 										<thead>
 											<tr>
-												<th>ÀÌ¸§</th>
-												<th>ÀÌ·Â¼­</th>
-												<th>Ã¤¿ëÁ¦¾È</th>
-												<th>»èÁ¦</th>
+												<th>ì´ë¦„</th>
+												<th>ì´ë ¥ì„œ</th>
+												<th>ì±„ìš©ì œì•ˆ</th>
+												<th>ì‚­ì œ</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -923,7 +941,7 @@
 													<td>${sugList.userName}</td>
 													<td><a class="info" data-toggle="modal"
 														href="#myModal"
-														onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}');">
+														onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}','${sugList.userName}');">
 															<i class="fas fa-search"></i>
 													</a></td>
 
@@ -935,11 +953,11 @@
 																	class="fas fa-hands-helping"></i></a></td>
 														</c:when>
 														<c:when
-															test="${sugList.suggestionVO.partnerSuggestionAcception == '¼ö¶ô'}">
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ìˆ˜ë½'}">
 															<td style="color: blue;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
 														</c:when>
 														<c:when
-															test="${sugList.suggestionVO.partnerSuggestionAcception == '´ë±â'}">
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ëŒ€ê¸°'}">
 															<td style="color: green;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
 														</c:when>
 														<c:otherwise>

@@ -139,17 +139,19 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value = "/partner/company/companyEmployee.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/company/companyEmployee.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyEmployee(
 			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
 		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // �뜝�럥�빢�뤆�룆踰▼ㅇ琉꾩삕占쎈데 �뜝�럩�뤂�뜝�럩�쐸 占쎈뎨占쎈봾裕욃뜝�럥諭쒎뜝�럥�몥�뜝�럩逾졾뜝�럡�댉
 		return mav;
 	}
-
+	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
+	@RequestMapping(value="/partner/company/companyApplyManage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyApplyManage(String partnerLicenseNum,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
@@ -218,7 +220,7 @@ public class PartnerControllerImpl implements PartnerController {
 		List carrList = partnerService.getUserCarr(resumeID, userID);    //career
 		
 		mav.addObject("resume", resumeVO);
-		mav.addObject("certificate", cerList);
+		mav.addObject("certificate", cerList); 
 		mav.addObject("project", proList);
 		mav.addObject("foreign", forList);
 		mav.addObject("career", carrList);
@@ -227,6 +229,7 @@ public class PartnerControllerImpl implements PartnerController {
 	}
 
 	//	post job opening
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningPost(
@@ -239,6 +242,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -198,6 +198,20 @@
        <result property="projectContent" column="projectContent" />
        <result property="projectRole" column="projectRole" />
        <result property="projectURL" column="projectURL" />
+       
+       <collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userGender" column="userGender" />
+		<result property="userMajor" column="userMajor" />
+		<result property="userAddress1" column="userAddress1"/>
+		<result property="userAddress2" column="userAddress2"/>
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
+		<result property="toCharBirthKOR" column="toCharBirthKOR" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		</collection>
 	   </resultMap>
 	
 	<select  id="selectAllPartnerList2" resultMap="resResult" >
@@ -385,7 +399,7 @@
 	
 	<select id="getResume" parameterType="String" resultMap="resumeResult">
 	 <![CDATA[
-	 select * from Resume where resumeID = #{resumeID}
+	 select * from Resume r join kt_user m on r.resumeUser = m.userID where resumeID = #{resumeID}
 	]]>
 	</select>
 	
