@@ -72,7 +72,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q1}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				      
 				          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -102,7 +101,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q2}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				         
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -132,7 +130,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q3}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -162,7 +159,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q4}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -192,7 +188,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q5}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -222,7 +217,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q6}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				      
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -252,7 +246,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q7}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				         
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -282,8 +275,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q8}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
-				      
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
 								fontSize : 12, // or the number you want
@@ -312,7 +303,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q9}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -342,7 +332,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q10}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -372,7 +361,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q11}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -402,7 +390,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q12}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -432,7 +419,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q13}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -462,7 +448,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q14}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				    
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -492,7 +477,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q15}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -520,9 +504,8 @@ request.setCharacterEncoding("UTF-8");
 				});
 
 				var options = {
-				          title: '${surveyVO.q15}',
+				          title: '본 교육과 나의 업무 연관 정도',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -551,9 +534,8 @@ request.setCharacterEncoding("UTF-8");
 				});
 
 				var options = {
-				          title: '${surveyVO.q15}',
+				          title: '컨소시움 교육과정을 알게 된 경로',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -720,7 +702,7 @@ input:checked+label {
 #cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96,
 	#sexylee:checked ~ #sexylee, #yeohu:checked ~ #yeohu, #rhkd:checked ~
 	#rhkd, #kirstybang:checked ~ #kirstybang, #eunjinfizz:checked ~
-	#eunjinfizz, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
+	#eunjinfizz,#rnsnenfn96:checked ~ #rnsnenfn96, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
 	display: block;
 }
 

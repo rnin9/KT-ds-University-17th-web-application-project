@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -79,11 +80,1014 @@
 	clear: left;
 	border-bottom: 1px solid black;
 }
+
+#resCarr>th {
+	colspan: 2;
+}
 </style>
 <script>
         $(document).ready(function () {
             let activeTab = sessionStorage.getItem('activeTab');
-            // »õ·Î°íÄ§ ÈÄ ÅÇ »óÅÂ º¸Á¸
+            // ï¿½ï¿½ï¿½Î°ï¿½Ä§ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            $('#myTab a[href="'+activeTab+'"]').trigger('click');
+            $(".next").click(function(){
+            	
+           	$( '.modal-body' ).animate( { scrollTop : 0 }, 1000 );
+			current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+            
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+            step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            next_fs.css({'opacity': opacity});
+            },
+            duration: 600
+            });
+            });
+
+            $(".previous").click(function(){
+			
+            $( '.modal-body' ).animate( { scrollTop : 0 }, 1000 );
+            	
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+            step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            previous_fs.css({'opacity': opacity});
+            },
+            duration: 600
+            });
+            });
+
+            $('.radio-group .radio').click(function(){
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+            });
+
+            $("#reset").click(function(){
+            	location.reload();
+        	});
+        })
+        // ï¿½ï¿½ï¿½ body text ï¿½ï¿½ï¿½ï¿½
+        
+        function getResumeInfo(resumeID, userID, userName) {
+        	
+        	$.ajax({				// ï¿½ñµ¿±ï¿½ï¿½ï¿½ï¿½, ï¿½Ì·Â¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	            method: "GET",
+	            url: "${contextPath}/partner/getResumeByID.do?partnerApplyResumeID="+resumeID+"&partnerApplyUserID="+userID,
+	            success: (resp) => {	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ successï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	            	console.log(resp);
+	            	var now = new Date();	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ ï¿½Ã°ï¿½
+	            	var year = now.getFullYear();	// ï¿½ï¿½ï¿½ï¿½
+	            	var yyyy=resp.resume.memberVO.birth.substr(0,4);
+	            	var mm = resp.resume.memberVO.birth.substr(4,2);
+	            	var dd = resp.resume.memberVO.birth.substr(6,2);
+	            	var age = year-parseInt(yyyy)+1;
+	            	var phone1 = resp.resume.memberVO.userPhoneNumber.substr(0,3);
+	            	var phone2 = resp.resume.memberVO.userPhoneNumber.substr(3,4);
+	            	var phone3 = resp.resume.memberVO.userPhoneNumber.substr(7,4);
+	            
+	            	
+	            	$("#modal_title").text(userName+"ï¿½ï¿½ ï¿½Ì·Â¼ï¿½");
+                    $("#resName").text(resp.resume.memberVO.userName);
+                    $("#resEngName").text(resp.resume.resumeForeign);
+                    $("#resAge").text(age);
+                    $("#resGender").text(resp.resume.memberVO.userGender);
+                    $("#resBirth").text(yyyy+"ï¿½ï¿½ "+mm+"ï¿½ï¿½ "+dd+"ï¿½ï¿½");
+                    $("#resAddress").text(resp.resume.memberVO.userAddress1+" "+resp.resume.memberVO.userAddress2);
+                    $("#resPhone").text(phone1+"-"+phone2+"-"+phone3);
+                    $("#resEmail").text(resp.resume.memberVO.userEmail);
+                    $("#resLastEdu").text(resp.resume.resumeLastEdu+"("+resp.resume.resumeSchool+")");
+                    $("#resMajor").text(resp.resume.memberVO.userMajor);
+                    $("#resGrade").text(resp.resume.resumeGrade);
+                    
+                    $("#resCtx1").html(resp.resume.resumeContext1);
+                    $("#resCtx2").html(resp.resume.resumeContext2);
+                    $("#resCtx3").html(resp.resume.resumeContext3);
+                    $("#resCtx4").html(resp.resume.resumeContext4);
+                    
+                    if(resp.resume.resumeContext5 == null){
+                    	resp.resume.resumeContext5.replace(/&nbsp;/," "); 
+                    	$("#resCtx5").html("");
+                    } else{
+                    	resp.resume.resumeContext5.replace(/&nbsp;/," "); 
+                    	$("#resCtx5").html(resp.resume.resumeContext5);
+                    }
+                    
+                    
+                      if (resp.certificate != null) {
+                    	for(i=0; i<resp.certificate.length; i++) { // ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½İºï¿½
+                    		var certificate_list = "";
+                    		var c_yyyy=resp.certificate[i].certificateDate.substr(0,4);
+        	            	var c_mm = resp.certificate[i].certificateDate.substr(4,2);
+        	            	var c_dd = resp.certificate[i].certificateDate.substr(6,2);
+        	            	
+                    		certificate_list += "<tr>";
+                    		certificate_list += "<td>"+resp.certificate[i].certificateName+"</td>";
+                    		certificate_list += "<td>"+resp.certificate[i].certificateEnforcement+"</td>";
+                    		certificate_list += "<td>"+c_yyyy+"ï¿½ï¿½ "+c_mm+"ï¿½ï¿½ "+c_dd+"ï¿½ï¿½ "+"</td>";
+                    		certificate_list += "</tr>";
+                    		
+                    		$("#resCert").append(certificate_list);
+                    	 }
+                      }
+                    
+                    	
+                    	 if (resp.foreign != null) {
+                        	for(i=0; i<resp.foreign.length; i++) { // ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½İºï¿½
+                        		var foreign_list = "";
+                        		var f_yyyy=resp.foreign[i].foreignDate.substr(0,4);
+            	            	var f_mm = resp.foreign[i].foreignDate.substr(4,2);
+            	            	var f_dd = resp.foreign[i].foreignDate.substr(6,2);
+            	            	
+            	            	foreign_list += "<tr>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignCriteria+"</td>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignName+"</td>";
+            	            	foreign_list += "<td>"+resp.foreign[i].foreignScore+"</td>";
+            	            	foreign_list += "<td>"+f_yyyy+"ï¿½ï¿½ "+f_mm+"ï¿½ï¿½ "+f_dd+"ï¿½ï¿½ "+"</td>";
+            	            	foreign_list += "</tr>";
+                        		
+                        		$("#resFor").append(foreign_list);
+                        	 } 	
+                    	}
+                    	
+                    	 if (resp.career != null) {
+                         	for(i=0; i<resp.career.length; i++) { // ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½İºï¿½
+                         		var career_list = "";
+                         		var caStart_yyyy=resp.career[i].careerStartdate.substr(0,4);
+             	            	var caStart_mm = resp.career[i].careerStartdate.substr(4,2);
+             	            	var caStart_dd = resp.career[i].careerStartdate.substr(6,2);
+             	            	var caEnd_yyyy=resp.career[i].careerEnddate.substr(0,4);
+             	            	var caEnd_mm = resp.career[i].careerEnddate.substr(4,2);
+             	            	var caEnd_dd = resp.career[i].careerEnddate.substr(6,2);
+             	            	
+             	            	if(resp.career[i].careerCheck == "C"){
+             	            		
+             	            		career_list += "<tr>";
+             	            		career_list += "<th>"+"È¸ï¿½ï¿½ï¿½"+"</th>";
+                 	            	career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½ï¿½Â±â°£"+"</td>";
+                 	            	career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerPosition+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerType+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	$("#resCarr_C").append(career_list);
+                                } else if(resp.career[i].careerCheck == "E") {
+                                	career_list += "<tr>";
+                                	career_list += "<th>"+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+"</th>";
+                 	            	career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½ï¿½â°£"+"</td>";
+                 	            	career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½Ì¼ï¿½ï¿½Ã°ï¿½"+"</td>";
+                 	            	career_list += "<td>"+resp.career[i].careerHour+"</td>";
+                 	            	career_list += "</tr>";
+                 	            	career_list += "<tr>";
+                 	            	career_list += "<td>"+"ï¿½ï¿½ï¿½"+"</td>";
+                 	            	if(resp.career[i].careerOther == null){
+                 	            		career_list += "<td>"+" "+"</td>";
+                 	            	}
+                 	            	else{
+                 	            		career_list += "<td>"+resp.career[i].careerOther+"</td>";
+                 	            	}
+                 	            	
+                 	            	career_list += "</tr>";
+                 	            	$("#resCarr_E").append(career_list);
+                              }
+                         	}
+                    	 }
+             	            	  if (resp.project != null) {
+                                 	for(i=0; i<resp.project.length; i++) { // ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å­ ï¿½İºï¿½
+                                 		var project_list = "";
+                                 		
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<th style="+"width:108px"+">"+"ï¿½ï¿½ï¿½ï¿½ï¿½"+"</th>";
+                     	            	project_list += "<th>"+resp.project[i].projectEnforcement+"</th>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectName+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectDev+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ò°ï¿½"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectContent+"</td>";
+                     	            	project_list += "</tr>";
+                                 		project_list += "<tr>";
+                     	            	project_list += "<td>"+"ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectRole+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	project_list += "<tr>";
+                     	            	project_list += "<td>"+"ï¿½ï¿½ï¿½Ã¸ï¿½Å©"+"</td>";
+                     	            	project_list += "<td>"+resp.project[i].projectURL+"</td>";
+                     	            	project_list += "</tr>";
+                     	            	
+                     	            	$("#resPro").append(project_list);
+                                 	 } 	
+                             	} 
+             	    
+	            },
+	            error: (err) => {
+	                console.log(err+" ï¿½ñµ¿±ï¿½ ï¿½ï¿½ï¿½ï¿½");
+	     	}
+	        })
+        	
+          }
+
+        // ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ sessionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        function tabtab(h) {
+            sessionStorage.setItem('activeTab', h);
+            console.log('href   yyyy' + h);
+        }
+
+
+        // Check Pass Or Fail 
+        function chk_passOrFail(userID, userName, partnerID) {
+        	    Swal.fire({
+        	        title:userName+'('+userID+')',
+     				icon:'warning',
+        	        confirmButtonText: `ï¿½Õ°ï¿½`,
+        	        confirmButtonColor: '#3085d6',
+        	        showCloseButton: true,
+        	        showCancelButton: true,
+        	        cancelButtonText: `ï¿½ï¿½ï¿½Õ°ï¿½`,
+        	        cancelButtonColor: '#d33',
+        	        }).then((res) => {
+          			if(res.isConfirmed){
+          				
+          			Swal.fire({               /* update operation start */
+          				     title:'ï¿½Õ°ï¿½ Ã³ï¿½ï¿½',
+          				     text: 'ï¿½Õ°ï¿½ Ã³ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?',
+          				     showCancelButton: true,
+          				     showCloseButton: true,
+          				     icon:"success",
+          				     confirmButtonColor: '#3085d6',
+          				     cancelButtonColor: '#d33',
+							 cancelButtonText: 'ï¿½ï¿½ï¿½',
+          				     confirmButtonText: 'ï¿½Õ°ï¿½'
+          				   }).then((result) => {
+          				     /* Read more about isConfirmed, isDenied below */
+          				     if (result.isConfirmed) {
+          				    	 $.ajax({				//check update to pass
+          		      	              method: "POST",
+          		      	              url: "${contextPath}/partner/company/manageApply.do",
+          		      	              data: {
+          		      	            	partnerApplyUserID    : userID,
+          		      	              	partnerApplyPartnerID : partnerID,
+          		      	                partnerApplyState : 'ï¿½Õ°ï¿½'
+          		      	              },
+          		      	              success: (resp) => {	// update to pass and reloading
+          		      	            	location.reload();        
+          		      	              },
+          		      	              error: (data) => {
+          		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+          		      	               }
+          		      	          }) 
+          				     } else{
+          				         return;     /* cancel operation */
+          				     }
+          				   })
+          			
+      	          } else if( res.dismiss ==='cancel'){
+      	        	Swal.fire({               /* check update to fail */
+     				     title:'ï¿½ï¿½ï¿½Õ°ï¿½ Ã³ï¿½ï¿½',
+     				     text: 'ï¿½ï¿½ï¿½Õ°ï¿½ Ã³ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?',
+     				     showCloseButton: true,
+     				     showCancelButton: true,
+     				     icon:"error",
+     				     confirmButtonColor: '#d33',
+     				     cancelButtonColor: '#3085d6#d33',
+     				    cancelButtonText: 'ï¿½ï¿½ï¿½',
+     				     confirmButtonText: 'ï¿½ï¿½ï¿½Õ°ï¿½'
+     				   }).then((result) => {
+     				     /* Read more about isConfirmed, isDenied below */
+     				     if (result.isConfirmed) {
+     				    	 $.ajax({				// update to fail
+     		      	              method: "POST",
+     		      	              url: "${contextPath}/partner/company/manageApply.do",
+     		      	              data: {
+     		      	            	partnerApplyUserID    : userID,
+      		      	              	partnerApplyPartnerID : partnerID,
+      		      	                partnerApplyState : 'ï¿½ï¿½ï¿½Õ°ï¿½'
+      		      	              
+     		      	              },
+     		      	              success: (resp) => {	// update to fail and reloading
+     		      	            	location.reload();        
+     		      	              },
+     		      	              error: (data) => {
+     		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+     		      	               }
+     		      	          }) 
+     				     } else{
+     				         return;     /* cancel update */
+     				     }
+     				   })
+      	        } else{
+      	        	 return;
+      	          }
+          			  
+        	      })
+        	}
+        
+        function chk_reset(userID, userName, partnerID) {
+    	    Swal.fire({
+    	        title:'ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½',
+    	        text:'ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½',
+ 				icon:'warning',
+    	        confirmButtonText: `ï¿½Õ°ï¿½`,
+    	        confirmButtonColor: '#3085d6',
+    	        showCloseButton: true,
+    	        showCancelButton: true,
+    	        cancelButtonText: `ï¿½ï¿½ï¿½Õ°ï¿½`,
+    	        cancelButtonColor: '#d33',
+    	        }).then((res) => {
+      			if(res.isConfirmed){
+      				
+      			Swal.fire({               /* check editing */
+      				     title:'ï¿½Õ°ï¿½ Ã³ï¿½ï¿½',
+      				     text: 'ï¿½Õ°ï¿½ Ã³ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?',
+      				     showCancelButton: true,
+      				     showCloseButton: true,
+      				     icon:"success",
+      				     confirmButtonColor: '#3085d6',
+      				     cancelButtonColor: '#d33',
+						 cancelButtonText: 'ï¿½ï¿½ï¿½',
+      				     confirmButtonText: 'ï¿½Õ°ï¿½'
+      				   }).then((result) => {
+      				     /* Read more about isConfirmed, isDenied below */
+      				     if (result.isConfirmed) {
+      				    	 $.ajax({				// update to pass 
+      		      	              method: "POST",
+      		      	              url: "${contextPath}/partner/company/manageApply.do",
+      		      	              data: {
+      		      	            	partnerApplyUserID    : userID,
+      		      	              	partnerApplyPartnerID : partnerID,
+      		      	                partnerApplyState : 'ï¿½Õ°ï¿½'
+      		      	              },
+      		      	              success: (resp) => {	// update success and reloading
+      		      	            	location.reload();        
+      		      	              },
+      		      	              error: (data) => {
+      		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+      		      	               }
+      		      	          }) 
+      				     } else{
+      				         return;     /* cancel editing */
+      				     }
+      				   })
+      			
+  	          } else if( res.dismiss ==='cancel'){
+  	        	Swal.fire({               /* edit to fail */
+ 				     title:'ï¿½ï¿½ï¿½Õ°ï¿½ Ã³ï¿½ï¿½',
+ 				     text: 'ï¿½ï¿½ï¿½Õ°ï¿½ Ã³ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?',
+ 				     showCloseButton: true,
+ 				     showCancelButton: true,
+ 				     icon:"error",
+ 				     confirmButtonColor: '#d33',
+ 				     cancelButtonColor: '#3085d6',
+ 				    cancelButtonText: 'ï¿½ï¿½ï¿½',
+ 				     confirmButtonText: 'ï¿½ï¿½ï¿½Õ°ï¿½'
+ 				   }).then((result) => {
+ 				     /* Read more about isConfirmed, isDenied below */
+ 				     if (result.isConfirmed) {
+ 				    	 $.ajax({				// update to not allowed
+ 		      	              method: "POST",
+ 		      	              url: "${contextPath}/partner/company/manageApply.do",
+ 		      	              data: {
+ 		      	            	partnerApplyUserID    : userID,
+  		      	              	partnerApplyPartnerID : partnerID,
+  		      	                partnerApplyState : 'ï¿½ï¿½ï¿½Õ°ï¿½'
+  		      	              
+ 		      	              },
+ 		      	              success: (resp) => {	// update success and reloading
+ 		      	            	location.reload();        
+ 		      	              },
+ 		      	              error: (data) => {
+ 		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+ 		      	               }
+ 		      	          }) 
+ 				     } else{
+ 				         return;     /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ */
+ 				     }
+ 				   })
+  	        } else{
+  	        	 return;
+  	          }
+      			  
+    	      })
+    	}
+        
+        function suggestToUser(userID, partnerID, userName) {
+        	Swal.fire({
+    	    	html: `
+    	    	<h2>Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h2>
+    	    	<input type="text" id="user" style="background-color: #eee;" class="swal2-input" readonly>
+    	    	<input type="text" id="suggestTitle" placeholder="ï¿½ï¿½ï¿½ï¿½" class="swal2-input">
+    	    	<textarea type="text" id="suggestDesc" placeholder="ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½" style="height:300px; padding-top: 5px;" class="swal2-input" rows="100"></textarea>`,
+    	        confirmButtonText: `ï¿½ï¿½ï¿½ï¿½`,
+    	        confirmButtonColor: '#3085d6',
+    	        showCloseButton: true,
+    	        showCancelButton: true,
+    	        cancelButtonText: `ï¿½ï¿½ï¿½`,
+    	        cancelButtonColor: '#d33',
+    	        onOpen: function() {
+                    $('#user').attr("value", userName);
+                },
+                preConfirm: () => {			// pre confirm
+                	const suggestDesc = Swal.getPopup().querySelector('#suggestDesc').value;
+          			const suggestTitle = Swal.getPopup().querySelector('#suggestTitle').value;
+          			if (!suggestDesc || !suggestTitle) {
+        		      Swal.showValidationMessage(`Please enter title and Description`)	// check title and Descrtion is not null
+        		    }
+        		    else{
+        		    	return;
+        		}
+          		}
+    	        }).then((res) => {
+      			if(res.isConfirmed){
+      			const suggestDesc = Swal.getPopup().querySelector('#suggestDesc').value;
+          		const suggestTitle = Swal.getPopup().querySelector('#suggestTitle').value;
+          		Swal.fire({               /* check editing */
+      				     title:'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½',
+      				     text: 'Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?',
+      				     showCancelButton: true,
+      				     showCloseButton: true,
+      				     icon:"success",
+      				     confirmButtonColor: '#3085d6',
+      				     cancelButtonColor: '#d33',
+						 cancelButtonText: 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½',
+      				     confirmButtonText: 'Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½'
+      				   }).then((result) => {
+      				     /* Read more about isConfirmed, isDenied below */
+      				     if (result.isConfirmed) {
+      				    	
+      				    	 $.ajax({				// update to pass 
+      		      	              method: "POST",
+      		      	              url: "${contextPath}/partner/company/manageSuggest.do",
+      		      	              data: {
+      		      	            	partnerSuggestionUserID    : userID,
+      		      	              	partnerSuggestionPartnerID : partnerID,
+      		      	              	partnerSuggestionTitle : suggestTitle,
+      		      	                partnerSuggestionDescription : suggestDesc
+      		      	              },
+      		      	              success: (resp) => {	// update success and reloading
+      		      	            	 Swal.fire('ï¿½ï¿½ï¿½È¿Ï·ï¿½!', '', 'success').then(()=>{
+      		      	            	 location.reload(); 
+      		      	             	})
+      		      	              },
+      		      	              error: (data) => {
+      		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+      		      	               }
+      		      	          })  
+      				     } else{
+      				         return;     /* cancel editing */
+      				     }
+      				   })
+      			
+  	          } else{
+  	        	 return;
+  	          } 
+    	      })
+    	}
+        
+        function deleteSuggestion(userID, partnerID){
+        	 Swal.fire({
+     	        title:'Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½',
+     	        text:'ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.',
+  				icon:'warning',
+     	        confirmButtonText: `ï¿½ï¿½ï¿½ï¿½`,
+     	        confirmButtonColor: '#d33',
+     	        showCloseButton: true,
+     	        showCancelButton: true,
+     	        cancelButtonText: `ï¿½ï¿½ï¿½`,
+     	        cancelButtonColor: '#3085d6',
+     	        }).then((res) => {
+       			if(res.isConfirmed){
+       				    	 $.ajax({				//check update to pass
+       		      	              method: "POST",
+       		      	              url: "${contextPath}/partner/company/deleteSuggest.do",
+       		      	              data: {
+       		      	            	partnerSuggestionUserID    : userID,
+       		      	              	partnerSuggestionPartnerID : partnerID,
+       		      	                partnerSuggestionPartnerD : 'N'
+       		      	              },
+       		      	              success: (resp) => {	// update to pass and reloading
+       		      	            	location.reload();        
+       		      	              },
+       		      	              error: (data) => {
+       		      	                  console.log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+data);
+       		      	               }
+       		      	          }) 
+       			} 
+   	          else{
+   	        	 return;
+   	          	 }
+       			})
+        }
+     </script>
+<body>
+	<div id="applyContents">
+		<div class="sub_visual">
+			<span style="color: white;">ï¿½ï¿½ï¿½Â»ï¿½ ï¿½ï¿½ï¿½ï¿½</span>
+		</div>
+		<div class="container"
+			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
+
+			<!-- Modal -->
+			<!-- <div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog modal-dialog-scrollable">
+ -->
+			<div class="modal fade bd-example-modal-lg" id="myModal"
+				tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-scrollable">
+					<!-- Modal content-->
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="modal_title"></h5>
+							<button type="button" class="close" data-dismiss="modal">ï¿½ï¿½</button>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid" id="grad1">
+								<div class="row justify-content-center mt-0">
+									<div>
+										<div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+											<div class="row">
+												<div class="col-md-12 mx-0">
+													<form id="msform">
+														<!-- progressbar -->
+														<ul id="progressbar">
+															<li class="active" id="basic"><strong>ï¿½âº»ï¿½ï¿½ï¿½ï¿½</strong></li>
+															<li id="personal"><strong>ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</strong></li>
+															<li id="education"><strong>ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</strong></li>
+															<li id="project"><strong>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®</strong></li>
+															<li id="introduce"><strong>ï¿½Ú±ï¿½Ò°ï¿½ï¿½ï¿½</strong></li>
+														</ul>
+														<!-- fieldsets -->
+														<fieldset id="init">
+															<div class="form-card">
+																<h2 class="fs-title">ï¿½âº»ï¿½ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th rowspan="4"><img
+																			src="http://jjunstudio.com/zbxe/files/attach/images/351/652/85a698d051126aa4043e83f4ff2376a0.jpg"
+																			style="width: 122px; height: 163px;" /></th>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½ï¿½</th>
+																		<td id="resName">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																		<td id="resEngName"></td>
+																	</tr>
+																	<tr>
+																		<!-- &nbsp; = ï¿½ï¿½Ä­ ï¿½ï¿½ï¿½ï¿½ -->
+																		<th colspan="1" style="width: 84px;">ï¿½ï¿½ï¿½ï¿½</th>
+																		<td colspan="1" style="width: 165px;" id="resAge"></td>
+																		<th colspan="1" width="15%">ï¿½ï¿½ï¿½ï¿½</th>
+																		<td colspan="1" width="200px" id="resGender"></td>
+
+																	</tr>
+																	<tr>
+																		<th colspan="1">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																		<td colspan="3" id="resBirth"></td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½Ö¼ï¿½</th>
+																		<td colspan="4" id="resAddress"></td>
+																	</tr>
+																	<tr>
+																		<th rowspan="2">ï¿½ï¿½ï¿½ï¿½Ã³</th>
+																		<th>ï¿½ï¿½È­ï¿½ï¿½È£</th>
+																		<td colspan="4" id="resPhone">000-0000-0000</td>
+																	</tr>
+																	<tr>
+																		<th>Email</th>
+																		<td colspan="4" id="resEmail">test@test.com</td>
+																	</tr>
+																	<tr>
+																		<th rowspan="3">ï¿½Ğ·Â»ï¿½ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½Ğ·ï¿½</th>
+																		<td colspan="4" id="resLastEdu">ï¿½ï¿½ï¿½Ğ±ï¿½ ï¿½ï¿½ï¿½ï¿½</td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½ï¿½</th>
+																		<td colspan="4" id="resMajor">ï¿½ï¿½Ç»ï¿½Í°ï¿½ï¿½Ğ°ï¿½</td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½ï¿½</th>
+																		<td colspan="4" id="resGrade">4.0/4.5</td>
+																	</tr>
+
+																</table>
+															</div>
+															<input type="button" name="next"
+																class="next action-button" value="ï¿½ï¿½ï¿½ï¿½" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th>ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½Ã³/ï¿½ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																	</tr>
+																	<tbody id="resCert">
+																	</tbody>
+																</table>
+
+																<h2 class="fs-title" style="margin-top: 100px">ï¿½ï¿½ï¿½ï¿½
+																	ï¿½ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½</th>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																	</tr>
+																	<tbody id="resFor">
+																	</tbody>
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="ï¿½ï¿½ï¿½ï¿½" /> <input
+																type="button" name="next" class="next action-button"
+																value="ï¿½ï¿½ï¿½ï¿½" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">ï¿½ï¿½Â»ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tbody id="resCarr_C">
+																	</tbody>
+																</table>
+																<h2 class="fs-title" style="margin-top: 100px">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+																	ï¿½ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tbody id="resCarr_E">
+																	</tbody>
+																</table>
+
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="ï¿½ï¿½ï¿½ï¿½" /> <input
+																type="button" name="next" class="next action-button"
+																value="ï¿½ï¿½ï¿½ï¿½" />
+														</fieldset>
+
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®</h2>
+																<table border id="resumeTable">
+																	<tbody id="resPro">
+																	</tbody>
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="ï¿½ï¿½ï¿½ï¿½" /> <input
+																type="button" name="next" class="next action-button"
+																value="ï¿½ï¿½ï¿½ï¿½" />
+														</fieldset>
+
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">ï¿½Ú±ï¿½Ò°ï¿½ï¿½ï¿½</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th style="width: 98px;">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+																		<td id="resCtx1"></td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½Ğ±ï¿½ï¿½ï¿½È°</th>
+																		<td id="resCtx2"></td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½)</th>
+																		<td id="resCtx3"></td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½å·¡ï¿½ï¿½ï¿½ï¿½</th>
+																		<td id="resCtx4"></td>
+																	</tr>
+																	<tr>
+																		<th>ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½</th>
+																		<td id="resCtx5"></td>
+																	</tr>
+
+
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="ï¿½ï¿½ï¿½ï¿½" />
+														</fieldset>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="partnerInfoModalBody" style="text-align: left">
+								<div class="row">
+									<div class="col-3" style="color: #444444; font-weight: bold">
+										<p>ï¿½Ò°ï¿½</p>
+										<p>ï¿½Ö¼ï¿½</p>
+										<p>ï¿½ï¿½ï¿½ï¿½ï¿½</p>
+										<p>ï¿½Ì¸ï¿½ï¿½ï¿½</p>
+										<p>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®</p>
+									</div>
+									<div class="col-8">
+										<p id="partner_info"></p>
+										<p id="partner_addr"></p>
+										<p id="partner_headcnt"></p>
+										<p id="partner_email"></p>
+										<p id="partner_purl"></p>
+									</div>
+								</div>
+							</div> -->
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="reset" class="btn btn-default"
+								data-dismiss="modal">È®ï¿½ï¿½</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<section id="tabs" class="project-tab">
+				<div>
+					<div class="row">
+						<div class="col-md-12">
+							<nav style="margin-top: 100px;">
+
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item"><a id="firstNav" href="#nav-home"
+										data-toggle="tab" onclick="tabtab('#nav-home')"
+										class="nav-link active">ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½</a></li>
+									<li class="nav-item"><a id="secondNav" href="#nav-profile"
+										data-toggle="tab" onclick="tabtab('#nav-profile')"
+										class="nav-link">Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</a></li>
+								</ul>
+							</nav>
+
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home"
+									role="tabpanel" aria-labelledby="nav-home-tab">
+									<%--                Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½                --%>
+									<table class="table" cellspacing="0">
+										<thead>
+											<tr>
+												<th>ï¿½Ì¸ï¿½</th>
+												<th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+												<th>ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</th>
+												<%-- <c:forEach var="apList" items="${applyList}">
+												<c:choose>
+												<c:when test="${apList.partnerApplyState != 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'}">
+												 --%>
+												<th>ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</th>
+												<%-- </c:when>
+												</c:choose>
+												</c:forEach>
+											 --%>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="apList" items="${applyList}">
+												<tr align="center">
+													<td>${apList.memberVO.userName}</td>
+													<td><a class="info" data-toggle="modal"
+														href="#myModal"
+														onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}','${apList.memberVO.userName}');">
+															<i class="fas fa-search"></i>
+													</a></td>
+													<c:choose>
+														<c:when test="${apList.partnerApplyState == 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'}">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_passOrFail('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-check"></i></a></td>
+															<td></td>
+														</c:when>
+														<c:when test="${apList.partnerApplyState == 'ï¿½Õ°ï¿½   '}">
+															<td style="color: blue;">${apList.partnerApplyState}</td>
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-edit"></i></a>
+														</c:when>
+														<c:otherwise>
+															<td style="color: red;">${apList.partnerApplyState}</td>
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-edit"></i></a>
+														</c:otherwise>
+													</c:choose>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+									aria-labelledby="nav-profile-tab">
+									<%--                ï¿½Î¹ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½                --%>
+									<table class="table" cellspacing="0">
+										<thead>
+											<tr>
+												<th>ï¿½Ì¸ï¿½</th>
+												<th>ï¿½Ì·Â¼ï¿½</th>
+												<th>Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
+												<th>ï¿½ï¿½ï¿½ï¿½</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="sugList" items="${suggestionList}">
+												<tr>
+													<td>${sugList.userName}</td>
+													<td><a class="info" data-toggle="modal"
+														href="#myModal"
+														onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}','${sugList.userName}');">
+															<i class="fas fa-search"></i>
+													</a></td>
+
+													<c:choose>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == null}">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="suggestToUser('${sugList.userId}','${partner.partnerLicenseNum}','${sugList.userName}');return false;"><i
+																	class="fas fa-hands-helping"></i></a></td>
+														</c:when>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ï¿½ï¿½ï¿½ï¿½'}">
+															<td style="color: blue;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:when>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ï¿½ï¿½ï¿½'}">
+															<td style="color: green;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:when>
+														<c:otherwise>
+															<td style="color: red;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:otherwise>
+													</c:choose>
+													<c:choose>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionPartnerD != null }">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="deleteSuggestion('${sugList.userId}','${partner.partnerLicenseNum}');"><i
+																	class="fas fa-user-times"></i></a></td>
+														</c:when>
+														<c:otherwise>
+															<td></td>
+														</c:otherwise>
+													</c:choose>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/modal.css" />
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+.table thead th {
+	width: 25%;
+	border-bottom: 1px;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
+}
+
+.flex-box {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+#resumeTable {
+	color: black;
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 600px;
+	margin-right: 40px;
+}
+
+#resumeTable th {
+	text-align: center;
+	background-color: #eee;
+}
+
+#resumeTable td {
+	padding: 5px;
+}
+
+.d_divider {
+	border-left: 3px solid green;
+	height: 500px;
+}
+
+.c_content {
+	float: left;
+	width: 770px;
+	word-break: keep-all;
+	word-wrap: break-word;
+}
+
+.c_context {
+	width: 990px;
+	word-break: keep-all;
+	word-wrap: break-word;
+}
+
+.s_str {
+	float: left;
+	width: 200px;
+}
+
+.r_row {
+	clear: left;
+}
+
+.c_containerItem {
+	margin-top: 100px;
+	clear: left;
+	border-bottom: 1px solid black;
+}
+</style>
+<script>
+        $(document).ready(function () {
+            let activeTab = sessionStorage.getItem('activeTab');
+            // ìƒˆë¡œê³ ì¹¨ í›„ íƒ­ ìƒíƒœ ë³´ì¡´
             $('#myTab a[href="'+activeTab+'"]').trigger('click');
             $(".next").click(function(){
             	
@@ -152,29 +1156,29 @@
             
         });
 
-        // ¸ğ´Ş body text ¼³Á¤
+        // ëª¨ë‹¬ body text ì„¤ì •
         
         function getResumeInfo(resumeID, userID) {
         	
-        	$.ajax({				// ºñµ¿±âÅë½Å, ÀÌ·Â¼­ °¡Á®¿À±â
+        	$.ajax({				// ë¹„ë™ê¸°í†µì‹ , ì´ë ¥ì„œ ê°€ì ¸ì˜¤ê¸°
 	            method: "GET",
 	            url: "${contextPath}/partner/getResumeByID.do?partnerApplyResumeID="+resumeID+"&partnerApplyUserID="+userID,
-	            success: (resp) => {	// ¸ğµç °á°ú¸¦ success·Î ¹ŞÀ½
+	            success: (resp) => {	// ëª¨ë“  ê²°ê³¼ë¥¼ successë¡œ ë°›ìŒ
 	            	
 	            	console.log(resp);
-	            	$("#modal_title").text(resp.resume.resumeUser+"ÀÇ ÀÌ·Â¼­");
+	            	$("#modal_title").text(resp.resume.resumeUser+"ì˜ ì´ë ¥ì„œ");
                     $("#partner_info").text(resp.resume.resumeDate);
                     $("#partner_addr").text(resp.resume.resumeID);
                     $("#partner_email").text(resp.resume.resumeUser);
 	            },
 	            error: (err) => {
-	                console.log(err+" ºñµ¿±â ½ÇÆĞ");
+	                console.log(err+" ë¹„ë™ê¸° ì‹¤íŒ¨");
 	     	}
 	        })
         	
             }
 
-        // ÅÇ Å¬¸¯ ½Ã session¿¡ ÇöÀç ÅÇ °ª ÀúÀå
+        // íƒ­ í´ë¦­ ì‹œ sessionì— í˜„ì¬ íƒ­ ê°’ ì €ì¥
         function tabtab(h) {
             sessionStorage.setItem('activeTab', h);
             console.log('href   yyyy' + h);
@@ -186,25 +1190,25 @@
         	    Swal.fire({
         	        title:userName+'('+userID+')',
      				icon:'warning',
-        	        confirmButtonText: `ÇÕ°İ`,
+        	        confirmButtonText: `í•©ê²©`,
         	        confirmButtonColor: '#3085d6',
         	        showCloseButton: true,
         	        showCancelButton: true,
-        	        cancelButtonText: `ºÒÇÕ°İ`,
+        	        cancelButtonText: `ë¶ˆí•©ê²©`,
         	        cancelButtonColor: '#d33',
         	        }).then((res) => {
           			if(res.isConfirmed){
           				
           			Swal.fire({               /* update operation start */
-          				     title:'ÇÕ°İ Ã³¸®',
-          				     text: 'ÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+          				     title:'í•©ê²© ì²˜ë¦¬',
+          				     text: 'í•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
           				     showCancelButton: true,
           				     showCloseButton: true,
           				     icon:"success",
           				     confirmButtonColor: '#3085d6',
           				     cancelButtonColor: '#d33',
-							 cancelButtonText: 'Ãë¼Ò',
-          				     confirmButtonText: 'ÇÕ°İ'
+							 cancelButtonText: 'ì·¨ì†Œ',
+          				     confirmButtonText: 'í•©ê²©'
           				   }).then((result) => {
           				     /* Read more about isConfirmed, isDenied below */
           				     if (result.isConfirmed) {
@@ -214,13 +1218,13 @@
           		      	              data: {
           		      	            	partnerApplyUserID    : userID,
           		      	              	partnerApplyPartnerID : partnerID,
-          		      	                partnerApplyState : 'ÇÕ°İ'
+          		      	                partnerApplyState : 'í•©ê²©'
           		      	              },
           		      	              success: (resp) => {	// update to pass and reloading
           		      	            	location.reload();        
           		      	              },
           		      	              error: (data) => {
-          		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+          		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
           		      	               }
           		      	          }) 
           				     } else{
@@ -230,15 +1234,15 @@
           			
       	          } else if( res.dismiss ==='cancel'){
       	        	Swal.fire({               /* check update to fail */
-     				     title:'ºÒÇÕ°İ Ã³¸®',
-     				     text: 'ºÒÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+     				     title:'ë¶ˆí•©ê²© ì²˜ë¦¬',
+     				     text: 'ë¶ˆí•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
      				     showCloseButton: true,
      				     showCancelButton: true,
      				     icon:"error",
      				     confirmButtonColor: '#d33',
      				     cancelButtonColor: '#3085d6#d33',
-     				    cancelButtonText: 'Ãë¼Ò',
-     				     confirmButtonText: 'ºÒÇÕ°İ'
+     				    cancelButtonText: 'ì·¨ì†Œ',
+     				     confirmButtonText: 'ë¶ˆí•©ê²©'
      				   }).then((result) => {
      				     /* Read more about isConfirmed, isDenied below */
      				     if (result.isConfirmed) {
@@ -248,14 +1252,14 @@
      		      	              data: {
      		      	            	partnerApplyUserID    : userID,
       		      	              	partnerApplyPartnerID : partnerID,
-      		      	                partnerApplyState : 'ºÒÇÕ°İ'
+      		      	                partnerApplyState : 'ë¶ˆí•©ê²©'
       		      	              
      		      	              },
      		      	              success: (resp) => {	// update to fail and reloading
      		      	            	location.reload();        
      		      	              },
      		      	              error: (data) => {
-     		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+     		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
      		      	               }
      		      	          }) 
      				     } else{
@@ -271,28 +1275,28 @@
         
         function chk_reset(userID, userName, partnerID) {
     	    Swal.fire({
-    	        title:'º¯°æ Ã³¸®',
-    	        text:'ÇØ´ç °á°ú·Î º¯°æÇÕ´Ï´Ù',
+    	        title:'ë³€ê²½ ì²˜ë¦¬',
+    	        text:'í•´ë‹¹ ê²°ê³¼ë¡œ ë³€ê²½í•©ë‹ˆë‹¤',
  				icon:'warning',
-    	        confirmButtonText: `ÇÕ°İ`,
+    	        confirmButtonText: `í•©ê²©`,
     	        confirmButtonColor: '#3085d6',
     	        showCloseButton: true,
     	        showCancelButton: true,
-    	        cancelButtonText: `ºÒÇÕ°İ`,
+    	        cancelButtonText: `ë¶ˆí•©ê²©`,
     	        cancelButtonColor: '#d33',
     	        }).then((res) => {
       			if(res.isConfirmed){
       				
       			Swal.fire({               /* check editing */
-      				     title:'ÇÕ°İ Ã³¸®',
-      				     text: 'ÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+      				     title:'í•©ê²© ì²˜ë¦¬',
+      				     text: 'í•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
       				     showCancelButton: true,
       				     showCloseButton: true,
       				     icon:"success",
       				     confirmButtonColor: '#3085d6',
       				     cancelButtonColor: '#d33',
-						 cancelButtonText: 'Ãë¼Ò',
-      				     confirmButtonText: 'ÇÕ°İ'
+						 cancelButtonText: 'ì·¨ì†Œ',
+      				     confirmButtonText: 'í•©ê²©'
       				   }).then((result) => {
       				     /* Read more about isConfirmed, isDenied below */
       				     if (result.isConfirmed) {
@@ -302,13 +1306,13 @@
       		      	              data: {
       		      	            	partnerApplyUserID    : userID,
       		      	              	partnerApplyPartnerID : partnerID,
-      		      	                partnerApplyState : 'ÇÕ°İ'
+      		      	                partnerApplyState : 'í•©ê²©'
       		      	              },
       		      	              success: (resp) => {	// update success and reloading
       		      	            	location.reload();        
       		      	              },
       		      	              error: (data) => {
-      		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+      		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
       		      	               }
       		      	          }) 
       				     } else{
@@ -318,15 +1322,15 @@
       			
   	          } else if( res.dismiss ==='cancel'){
   	        	Swal.fire({               /* edit to fail */
- 				     title:'ºÒÇÕ°İ Ã³¸®',
- 				     text: 'ºÒÇÕ°İ Ã³¸®ÇÏ½Ã°Ú½À´Ï±î?',
+ 				     title:'ë¶ˆí•©ê²© ì²˜ë¦¬',
+ 				     text: 'ë¶ˆí•©ê²© ì²˜ë¦¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
  				     showCloseButton: true,
  				     showCancelButton: true,
  				     icon:"error",
  				     confirmButtonColor: '#d33',
  				     cancelButtonColor: '#3085d6',
- 				    cancelButtonText: 'Ãë¼Ò',
- 				     confirmButtonText: 'ºÒÇÕ°İ'
+ 				    cancelButtonText: 'ì·¨ì†Œ',
+ 				     confirmButtonText: 'ë¶ˆí•©ê²©'
  				   }).then((result) => {
  				     /* Read more about isConfirmed, isDenied below */
  				     if (result.isConfirmed) {
@@ -336,18 +1340,18 @@
  		      	              data: {
  		      	            	partnerApplyUserID    : userID,
   		      	              	partnerApplyPartnerID : partnerID,
-  		      	                partnerApplyState : 'ºÒÇÕ°İ'
+  		      	                partnerApplyState : 'ë¶ˆí•©ê²©'
   		      	              
  		      	              },
  		      	              success: (resp) => {	// update success and reloading
  		      	            	location.reload();        
  		      	              },
  		      	              error: (data) => {
- 		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+ 		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
  		      	               }
  		      	          }) 
  				     } else{
- 				         return;     /* ¼öÁ¤½ÇÇà Ãë¼Ò */
+ 				         return;     /* ìˆ˜ì •ì‹¤í–‰ ì·¨ì†Œ */
  				     }
  				   })
   	        } else{
@@ -360,15 +1364,15 @@
         function suggestToUser(userID, partnerID, userName) {
         	Swal.fire({
     	    	html: `
-    	    	<h2>Ã¤¿ë Á¦¾È</h2>
+    	    	<h2>ì±„ìš© ì œì•ˆ</h2>
     	    	<input type="text" id="user" style="background-color: #eee;" class="swal2-input" readonly>
-    	    	<input type="text" id="suggestTitle" placeholder="Á¦¸ñ" class="swal2-input">
-    	    	<textarea type="text" id="suggestDesc" placeholder="Á¦¾È Á¶°Ç" style="height:300px; padding-top: 5px;" class="swal2-input" rows="100"></textarea>`,
-    	        confirmButtonText: `Á¦¾È`,
+    	    	<input type="text" id="suggestTitle" placeholder="ì œëª©" class="swal2-input">
+    	    	<textarea type="text" id="suggestDesc" placeholder="ì œì•ˆ ì¡°ê±´" style="height:300px; padding-top: 5px;" class="swal2-input" rows="100"></textarea>`,
+    	        confirmButtonText: `ì œì•ˆ`,
     	        confirmButtonColor: '#3085d6',
     	        showCloseButton: true,
     	        showCancelButton: true,
-    	        cancelButtonText: `Ãë¼Ò`,
+    	        cancelButtonText: `ì·¨ì†Œ`,
     	        cancelButtonColor: '#d33',
     	        onOpen: function() {
                     $('#user').attr("value", userName);
@@ -388,15 +1392,15 @@
       			const suggestDesc = Swal.getPopup().querySelector('#suggestDesc').value;
           		const suggestTitle = Swal.getPopup().querySelector('#suggestTitle').value;
           		Swal.fire({               /* check editing */
-      				     title:'Æ÷Áö¼Ç Á¦¾È',
-      				     text: 'Ã¤¿ë Á¦¾ÈÇÏ½Ã°Ú½À´Ï±î?',
+      				     title:'í¬ì§€ì…˜ ì œì•ˆ',
+      				     text: 'ì±„ìš© ì œì•ˆí•˜ì‹œê² ìŠµë‹ˆê¹Œ?',
       				     showCancelButton: true,
       				     showCloseButton: true,
       				     icon:"success",
       				     confirmButtonColor: '#3085d6',
       				     cancelButtonColor: '#d33',
-						 cancelButtonText: 'Á¦¾È Ãë¼Ò',
-      				     confirmButtonText: 'Ã¤¿ë Á¦¾È'
+						 cancelButtonText: 'ì œì•ˆ ì·¨ì†Œ',
+      				     confirmButtonText: 'ì±„ìš© ì œì•ˆ'
       				   }).then((result) => {
       				     /* Read more about isConfirmed, isDenied below */
       				     if (result.isConfirmed) {
@@ -411,12 +1415,12 @@
       		      	                partnerSuggestionDescription : suggestDesc
       		      	              },
       		      	              success: (resp) => {	// update success and reloading
-      		      	            	 Swal.fire('Á¦¾È¿Ï·á!', '', 'success').then(()=>{
+      		      	            	 Swal.fire('ì œì•ˆì™„ë£Œ!', '', 'success').then(()=>{
       		      	            	 location.reload(); 
       		      	             	})
       		      	              },
       		      	              error: (data) => {
-      		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+      		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
       		      	               }
       		      	          })  
       				     } else{
@@ -432,14 +1436,14 @@
         
         function deleteSuggestion(userID, partnerID){
         	 Swal.fire({
-     	        title:'Ã¤¿ëÁ¦¾È »èÁ¦',
-     	        text:'»èÁ¦ ÈÄ¿£ º¹±¸ÇÒ ¼ö ¾ø½À´Ï´Ù.',
+     	        title:'ì±„ìš©ì œì•ˆ ì‚­ì œ',
+     	        text:'ì‚­ì œ í›„ì—” ë³µêµ¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.',
   				icon:'warning',
-     	        confirmButtonText: `»èÁ¦`,
+     	        confirmButtonText: `ì‚­ì œ`,
      	        confirmButtonColor: '#d33',
      	        showCloseButton: true,
      	        showCancelButton: true,
-     	        cancelButtonText: `Ãë¼Ò`,
+     	        cancelButtonText: `ì·¨ì†Œ`,
      	        cancelButtonColor: '#3085d6',
      	        }).then((res) => {
        			if(res.isConfirmed){
@@ -455,7 +1459,7 @@
        		      	            	location.reload();        
        		      	              },
        		      	              error: (data) => {
-       		      	                  console.log("µ¥ÀÌÅÍ Àü´Ş ½ÇÆĞ"+data);
+       		      	                  console.log("ë°ì´í„° ì „ë‹¬ ì‹¤íŒ¨"+data);
        		      	               }
        		      	          }) 
        			} 
@@ -468,7 +1472,7 @@
 <body>
 	<div id="applyContents">
 		<div class="sub_visual">
-			<span style="color: white;">Çù·Â»ç Áö¿ø</span>
+			<span style="color: white;">í˜‘ë ¥ì‚¬ ì§€ì›</span>
 		</div>
 		<div class="container"
 			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
@@ -486,7 +1490,7 @@
 
 						<div class="modal-header">
 							<h5 class="modal-title" id="modal_title"></h5>
-							<button type="button" class="close" data-dismiss="modal">¡¿</button>
+							<button type="button" class="close" data-dismiss="modal">Ã—</button>
 						</div>
 						<div class="modal-body">
 							<div class="container-fluid" id="grad1">
@@ -498,16 +1502,16 @@
 													<form id="msform">
 														<!-- progressbar -->
 														<ul id="progressbar">
-															<li class="active" id="basic"><strong>±âº»Á¤º¸</strong></li>
-															<li id="personal"><strong>ÀÚ°İÁõ Á¤º¸</strong></li>
-															<li id="education"><strong>°æ·Â»çÇ×</strong></li>
-															<li id="project"><strong>ÇÁ·ÎÁ§Æ®</strong></li>
-															<li id="introduce"><strong>ÀÚ±â¼Ò°³¼­</strong></li>
+															<li class="active" id="basic"><strong>ê¸°ë³¸ì •ë³´</strong></li>
+															<li id="personal"><strong>ìê²©ì¦ ì •ë³´</strong></li>
+															<li id="education"><strong>ê²½ë ¥ì‚¬í•­</strong></li>
+															<li id="project"><strong>í”„ë¡œì íŠ¸</strong></li>
+															<li id="introduce"><strong>ìê¸°ì†Œê°œì„œ</strong></li>
 														</ul>
 														<!-- fieldsets -->
 														<fieldset id="init">
 															<div class="form-card">
-																<h2 class="fs-title">±âº»Á¤º¸</h2>
+																<h2 class="fs-title">ê¸°ë³¸ì •ë³´</h2>
 																<table border id="resumeTable">
 																	<tr>
 																		<th rowspan="4"><img
@@ -515,32 +1519,32 @@
 																			style="width: 122px; height: 163px;" /></th>
 																	</tr>
 																	<tr>
-																		<th>¼º¸í</th>
-																		<td>°­¹ÎÁÖ</td>
-																		<th>¿µ¹®¸í</th>
+																		<th>ì„±ëª…</th>
+																		<td>ê°•ë¯¼ì£¼</td>
+																		<th>ì˜ë¬¸ëª…</th>
 																		<td>Min ju Kang</td>
 																	</tr>
 																	<tr>
-																		<!-- &nbsp; = ÇÑÄ­ ¶ç¿ì±â -->
-																		<th colspan="1" style="width: 84px;">³ªÀÌ</th>
-																		<td colspan="1" style="width: 165px;">28¼¼</td>
-																		<th colspan="1" width="15%">¼ºº°</th>
-																		<td colspan="1" width="200px">³²ÀÚ</td>
+																		<!-- &nbsp; = í•œì¹¸ ë„ìš°ê¸° -->
+																		<th colspan="1" style="width: 84px;">ë‚˜ì´</th>
+																		<td colspan="1" style="width: 165px;">28ì„¸</td>
+																		<th colspan="1" width="15%">ì„±ë³„</th>
+																		<td colspan="1" width="200px">ë‚¨ì</td>
 
 																	</tr>
 																	<tr>
-																		<th colspan="1">»ı³â¿ùÀÏ</th>
-																		<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;³â&nbsp;&nbsp;&nbsp;
-																			¿ù&nbsp;&nbsp;&nbsp;ÀÏ</td>
+																		<th colspan="1">ìƒë…„ì›”ì¼</th>
+																		<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ë…„&nbsp;&nbsp;&nbsp;
+																			ì›”&nbsp;&nbsp;&nbsp;ì¼</td>
 																	</tr>
 																	<tr>
-																		<th>ÁÖ¼Ò</th>
-																		<td colspan="4">¼­¿ï½Ã ¿ë»ê±¸ Ã»ÆÄ·Î 251 ´Ù¿Ã³ëºí¸®¿ò
-																			513È£kkkkkkkkkkkkkkkkkkkkkkkkkkkkk</td>
+																		<th>ì£¼ì†Œ</th>
+																		<td colspan="4">ì„œìš¸ì‹œ ìš©ì‚°êµ¬ ì²­íŒŒë¡œ 251 ë‹¤ì˜¬ë…¸ë¸”ë¦¬ì›€
+																			513í˜¸kkkkkkkkkkkkkkkkkkkkkkkkkkkkk</td>
 																	</tr>
 																	<tr>
-																		<th rowspan="2">¿¬¶ôÃ³</th>
-																		<th>ÀüÈ­¹øÈ£</th>
+																		<th rowspan="2">ì—°ë½ì²˜</th>
+																		<th>ì „í™”ë²ˆí˜¸</th>
 																		<td colspan="4">031-000-0000</td>
 																	</tr>
 																	<tr>
@@ -548,256 +1552,230 @@
 																		<td colspan="4">test@test.com</td>
 																	</tr>
 																	<tr>
-																		<th rowspan="3">ÇĞ·Â»çÇ×</th>
-																		<th>ÃÖÁ¾ÇĞ·Â</th>
-																		<td colspan="4">´ëÇĞ±³ Á¹¾÷</td>
+																		<th rowspan="3">í•™ë ¥ì‚¬í•­</th>
+																		<th>ìµœì¢…í•™ë ¥</th>
+																		<td colspan="4">ëŒ€í•™êµ ì¡¸ì—…</td>
 																	</tr>
 																	<tr>
-																		<th>Àü°ø</th>
-																		<td colspan="4">ÄÄÇ»ÅÍ°øÇĞ°ú (ÇĞÁ¡ :4.5)</td>
+																		<th>ì „ê³µ</th>
+																		<td colspan="4">ì»´í“¨í„°ê³µí•™ê³¼ (í•™ì  :4.5)</td>
 																	</tr>
 																	<tr>
-																		<th>ÇĞÁ¡</th>
+																		<th>í•™ì </th>
 																		<td colspan="4">4.0/4.5</td>
 																	</tr>
 
 																</table>
 															</div>
 															<input type="button" name="next"
-																class="next action-button" value="´ÙÀ½" />
+																class="next action-button" value="ë‹¤ìŒ" />
 														</fieldset>
 														<fieldset>
 															<div class="form-card">
-																<h2 class="fs-title">ÀÚ°İÁõ Á¤º¸</h2>
+																<h2 class="fs-title">ìê²©ì¦ ì •ë³´</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>ÀÚ°İÁõ ¸í</th>
-																<th>¹ßÇàÃ³/±â°ü</th>
-																<th>ÃëµæÀÏ</th>
-																</tr>
-																<tr>
-																<td>SQLD</td>
-																<td>ÇÑ±¹ µ¥ÀÌÅÍº£ÀÌ½º »ê¾÷ÁøÈï¿ø</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>ìê²©ì¦ ëª…</th>
+																		<th>ë°œí–‰ì²˜/ê¸°ê´€</th>
+																		<th>ì·¨ë“ì¼</th>
+																	</tr>
+																	<tr>
+																		<td>SQLD</td>
+																		<td>í•œêµ­ ë°ì´í„°ë² ì´ìŠ¤ ì‚°ì—…ì§„í¥ì›</td>
+																		<td>2021.04.01</td>
+																	</tr>
 																</table>
-																
-																<h2 class="fs-title" style="margin-top:100px">¾îÇĞ ½ÃÇè</h2>
+
+																<h2 class="fs-title" style="margin-top: 100px">ì–´í•™
+																	ì‹œí—˜</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th>¾ğ¾î</th>
-																<th>½ÃÇèÁ¾·ù</th>
-																<th>Á¡¼ö</th>
-																<th>ÃëµæÀÏ</th>
-																</tr>
-																<tr>
-																<td>¿µ¾î</td>
-																<td>TOEIC</td>
-																<td>990</td>
-																<td>2021.04.01</td>
-																</tr>
+																	<tr>
+																		<th>ì–¸ì–´</th>
+																		<th>ì‹œí—˜ì¢…ë¥˜</th>
+																		<th>ì ìˆ˜</th>
+																		<th>ì·¨ë“ì¼</th>
+																	</tr>
+																	<tr>
+																		<td>ì˜ì–´</td>
+																		<td>TOEIC</td>
+																		<td>990</td>
+																		<td>2021.04.01</td>
+																	</tr>
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 														<fieldset>
 															<div class="form-card">
-																<h2 class="fs-title">°æ·Â»çÇ×</h2>
+																<h2 class="fs-title">ê²½ë ¥ì‚¬í•­</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">È¸»ç¸í</td>
-																</tr>
-																<tr>
-																<td>°æ·Â±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>Á÷À§</td>
-																<td>
-																°úÀå</td>
-																</tr>
-																<tr>
-																<td>°í¿ëÇüÅÂ</td>
-																<td>
-																Á¤±ÔÁ÷
-																</td>
-																</tr>
-																
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">íšŒì‚¬ëª…</td>
+																	</tr>
+																	<tr>
+																		<td>ê²½ë ¥ê¸°ê°„</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>ì§ìœ„</td>
+																		<td>ê³¼ì¥</td>
+																	</tr>
+																	<tr>
+																		<td>ê³ ìš©í˜•íƒœ</td>
+																		<td>ì •ê·œì§</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">íšŒì‚¬ëª…</td>
+																	</tr>
+																	<tr>
+																		<td>ê²½ë ¥ê¸°ê°„</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>ì§ìœ„</td>
+																		<td>ê³¼ì¥</td>
+																	</tr>
+																	<tr>
+																		<td>ê³ ìš©í˜•íƒœ</td>
+																		<td>ì •ê·œì§</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">íšŒì‚¬ëª…</td>
+																	</tr>
+																	<tr>
+																		<td>ê²½ë ¥ê¸°ê°„</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>ì§ìœ„</td>
+																		<td>ê³¼ì¥</td>
+																	</tr>
+																	<tr>
+																		<td>ê³ ìš©í˜•íƒœ</td>
+																		<td>ì •ê·œì§</td>
+																	</tr>
+
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 
 														<fieldset>
 															<div class="form-card">
-																	<h2 class="fs-title">ÇÁ·ÎÁ§Æ®</h2>
+																<h2 class="fs-title">í”„ë¡œì íŠ¸</h2>
 																<table border id="resumeTable">
-																<tr>
-																<td colspan="2" style="background-color:#eee;">±â°ü¸í</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">ÇÁ·ÎÁ§Æ® ¸í</td>
-																<td>½ºÇÁ¸µ ÇÁ·ÎÁ§Æ®</td>
-																</tr>
-																<tr>
-																<td>±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>°³¹ßÈ¯°æ<br>
-																¹× »ç¿ë±â¼ú</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>ÇÁ·ÎÁ§Æ® ¼Ò°³</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>´ã´çÇÑ ¿ªÇÒ</td>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
-																<tr>
-																<td colspan="2" style="background-color:#eee;">±â°ü¸í</td>
-																</tr>
-																<tr>
-																<td style="width: 110px;">ÇÁ·ÎÁ§Æ® ¸í</td>
-																<td>½ºÇÁ¸µ ÇÁ·ÎÁ§Æ®</td>
-																</tr>
-																<tr>
-																<td>±â°£</td>
-																<td> 2021.02.01~2021.02.28</td>
-																</tr>
-																<tr>
-																<td>°³¹ßÈ¯°æ<br>
-																¹× »ç¿ë±â¼ú</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>ÇÁ·ÎÁ§Æ® ¼Ò°³</td>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<td>´ã´çÇÑ ¿ªÇÒ</td>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">ê¸°ê´€ëª…</td>
+																	</tr>
+																	<tr>
+																		<td style="width: 110px;">í”„ë¡œì íŠ¸ ëª…</td>
+																		<td>ìŠ¤í”„ë§ í”„ë¡œì íŠ¸</td>
+																	</tr>
+																	<tr>
+																		<td>ê¸°ê°„</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>ê°œë°œí™˜ê²½<br> ë° ì‚¬ìš©ê¸°ìˆ 
+																		</td>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<td>í”„ë¡œì íŠ¸ ì†Œê°œ</td>
+																		<td>
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<td>ë‹´ë‹¹í•œ ì—­í• </td>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+
+																	<tr>
+																		<td colspan="2" style="background-color: #eee;">ê¸°ê´€ëª…</td>
+																	</tr>
+																	<tr>
+																		<td style="width: 110px;">í”„ë¡œì íŠ¸ ëª…</td>
+																		<td>ìŠ¤í”„ë§ í”„ë¡œì íŠ¸</td>
+																	</tr>
+																	<tr>
+																		<td>ê¸°ê°„</td>
+																		<td>2021.02.01~2021.02.28</td>
+																	</tr>
+																	<tr>
+																		<td>ê°œë°œí™˜ê²½<br> ë° ì‚¬ìš©ê¸°ìˆ 
+																		</td>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<td>í”„ë¡œì íŠ¸ ì†Œê°œ</td>
+																		<td>
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<td>ë‹´ë‹¹í•œ ì—­í• </td>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" /> <input
+																class="previous action-button-previous" value="ì´ì „" /> <input
 																type="button" name="next" class="next action-button"
-																value="´ÙÀ½" />
+																value="ë‹¤ìŒ" />
 														</fieldset>
 
 														<fieldset>
 															<div class="form-card">
-															<h2 class="fs-title">ÀÚ±â¼Ò°³¼­</h2>
+																<h2 class="fs-title">ìê¸°ì†Œê°œì„œ</h2>
 																<table border id="resumeTable">
-																<tr>
-																<th style="width: 110px;">¼ºÀå°úÁ¤</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>ÇĞ±³»ıÈ°</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>¼º°İ (Àå/´ÜÁ¡)</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>Èñ¸Á¾÷¹« ¹× Àå·¡Æ÷ºÎ</th>
-																<td>
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ
-																</td>
-																</tr>
-																<tr>
-																<th>±âÅ¸»çÇ×</th>
-																<td>°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ°¡³ª´Ù¶ó¸¶¹Ù»ç¾ÆÂ÷Ä«Å¸ÆÄ</td>
-																</tr>
-																
-																
+																	<tr>
+																		<th style="width: 110px;">ì„±ì¥ê³¼ì •</th>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<th>í•™êµìƒí™œ</th>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<th>ì„±ê²© (ì¥/ë‹¨ì )</th>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<th>í¬ë§ì—…ë¬´ ë° ì¥ë˜í¬ë¶€</th>
+																		<td>
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ
+																			ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+																	<tr>
+																		<th>ê¸°íƒ€ì‚¬í•­</th>
+																		<td>ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬ì•„ì°¨ì¹´íƒ€íŒŒ</td>
+																	</tr>
+
+
 																</table>
 															</div>
 															<input type="button" name="previous"
-																class="previous action-button-previous" value="ÀÌÀü" />
+																class="previous action-button-previous" value="ì´ì „" />
 														</fieldset>
 													</form>
 												</div>
@@ -809,11 +1787,11 @@
 							<!-- <div class="partnerInfoModalBody" style="text-align: left">
 								<div class="row">
 									<div class="col-3" style="color: #444444; font-weight: bold">
-										<p>¼Ò°³</p>
-										<p>ÁÖ¼Ò</p>
-										<p>»ç¿ø¼ö</p>
-										<p>ÀÌ¸ŞÀÏ</p>
-										<p>À¥»çÀÌÆ®</p>
+										<p>ì†Œê°œ</p>
+										<p>ì£¼ì†Œ</p>
+										<p>ì‚¬ì›ìˆ˜</p>
+										<p>ì´ë©”ì¼</p>
+										<p>ì›¹ì‚¬ì´íŠ¸</p>
 									</div>
 									<div class="col-8">
 										<p id="partner_info"></p>
@@ -827,7 +1805,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" id="reset" class="btn btn-default"
-								data-dismiss="modal">È®ÀÎ</button>
+								data-dismiss="modal">í™•ì¸</button>
 						</div>
 					</div>
 
@@ -843,28 +1821,28 @@
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a id="firstNav" href="#nav-home"
 										data-toggle="tab" onclick="tabtab('#nav-home')"
-										class="nav-link active">Áö¿ø ¸ñ·Ï</a></li>
+										class="nav-link active">ì§€ì› ëª©ë¡</a></li>
 									<li class="nav-item"><a id="secondNav" href="#nav-profile"
 										data-toggle="tab" onclick="tabtab('#nav-profile')"
-										class="nav-link">Ã¤¿ë Á¦¾È</a></li>
+										class="nav-link">ì±„ìš© ì œì•ˆ</a></li>
 								</ul>
 							</nav>
 
 							<div class="tab-content" id="nav-tabContent">
 								<div class="tab-pane fade show active" id="nav-home"
 									role="tabpanel" aria-labelledby="nav-home-tab">
-									<%--                Ã¹¹øÂ° ÅÇÀÇ Å×ÀÌºí                --%>
+									<%--                ì²«ë²ˆì§¸ íƒ­ì˜ í…Œì´ë¸”                --%>
 									<table class="table" cellspacing="0">
 										<thead>
 											<tr>
-												<th>ÀÌ¸§</th>
-												<th>Áö¿ø¼­</th>
-												<th>ÇÕ ¡¤ ºÒÇÕ</th>
+												<th>ì´ë¦„</th>
+												<th>ì§€ì›ì„œ</th>
+												<th>í•© Â· ë¶ˆí•©</th>
 												<%-- <c:forEach var="apList" items="${applyList}">
 												<c:choose>
-												<c:when test="${apList.partnerApplyState != 'ÁøÇàÁß'}">
+												<c:when test="${apList.partnerApplyState != 'ì§„í–‰ì¤‘'}">
 												 --%>
-												<th>°á°ú º¯°æ</th>
+												<th>ê²°ê³¼ ë³€ê²½</th>
 												<%-- </c:when>
 												</c:choose>
 												</c:forEach>
@@ -881,13 +1859,13 @@
 															<i class="fas fa-search"></i>
 													</a></td>
 													<c:choose>
-														<c:when test="${apList.partnerApplyState == 'ÁøÇàÁß'}">
+														<c:when test="${apList.partnerApplyState == 'ì§„í–‰ì¤‘'}">
 															<td><a style="text-decoration: underline" href="#"
 																onclick="chk_passOrFail('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
 																	class="fas fa-user-check"></i></a></td>
 															<td></td>
 														</c:when>
-														<c:when test="${apList.partnerApplyState == 'ÇÕ°İ   '}">
+														<c:when test="${apList.partnerApplyState == 'í•©ê²©   '}">
 															<td style="color: blue;">${apList.partnerApplyState}</td>
 															<td><a style="text-decoration: underline" href="#"
 																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
@@ -907,14 +1885,14 @@
 								</div>
 								<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 									aria-labelledby="nav-profile-tab">
-									<%--                µÎ¹øÂ° ÅÇÀÇ Å×ÀÌºí                --%>
+									<%--                ë‘ë²ˆì§¸ íƒ­ì˜ í…Œì´ë¸”                --%>
 									<table class="table" cellspacing="0">
 										<thead>
 											<tr>
-												<th>ÀÌ¸§</th>
-												<th>ÀÌ·Â¼­</th>
-												<th>Ã¤¿ëÁ¦¾È</th>
-												<th>»èÁ¦</th>
+												<th>ì´ë¦„</th>
+												<th>ì´ë ¥ì„œ</th>
+												<th>ì±„ìš©ì œì•ˆ</th>
+												<th>ì‚­ì œ</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -935,11 +1913,11 @@
 																	class="fas fa-hands-helping"></i></a></td>
 														</c:when>
 														<c:when
-															test="${sugList.suggestionVO.partnerSuggestionAcception == '¼ö¶ô'}">
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ìˆ˜ë½'}">
 															<td style="color: blue;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
 														</c:when>
 														<c:when
-															test="${sugList.suggestionVO.partnerSuggestionAcception == '´ë±â'}">
+															test="${sugList.suggestionVO.partnerSuggestionAcception == 'ëŒ€ê¸°'}">
 															<td style="color: green;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
 														</c:when>
 														<c:otherwise>

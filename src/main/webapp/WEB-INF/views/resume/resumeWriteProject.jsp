@@ -24,7 +24,7 @@ request.setCharacterEncoding("UTF-8");
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 </script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -300,10 +300,8 @@ textarea {
 					data : JSON.stringify(seqNum),
 					contentType : "application/json; charset=UTF-8",
 					success : function() {
-						alert("지워짐")
 					},
 					error : function() {
-						alert("왜 안지워짐")
 					}
 					});
 			});

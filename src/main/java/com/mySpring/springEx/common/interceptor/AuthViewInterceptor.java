@@ -89,8 +89,15 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
 						return false;
 					
 					}
-				} 
-				
+				} else if("NON_PA".equals(role)) {
+					if( "PARTNER".equals(authUser.getUserPosition()) == true ){   // User중 채용예정자, 재직자, 일반회원이 아닌경우, 하나로 체크할 수 없어서 true로 체크
+						response.sendRedirect(request.getContextPath() + "/noAuth.do");
+						return false;
+					} else if( "ADMIN".equals(authUser.getUserPosition()) == true) {
+						response.sendRedirect(request.getContextPath() + "/noAuth.do");
+						return false;
+					}
+				}
 				// 8. 접근허가, 즉 메서드를 실행하도록 함
 				return true;
 	}

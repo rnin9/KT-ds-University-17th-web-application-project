@@ -70,7 +70,7 @@
 	</definition>
 
 	<definition name="/member/apply" extends="baseLayout">
-		<put-attribute name="title" value="협력사 지원" />
+		<put-attribute name="title" value="채용지원" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/member/apply.jsp" />
 	</definition>
