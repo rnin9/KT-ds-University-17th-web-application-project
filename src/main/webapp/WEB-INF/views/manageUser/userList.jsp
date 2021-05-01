@@ -67,10 +67,19 @@
             color: #1a0e0e;
             float: inherit;
         }
+        
+        table.dataTable thead th, table.dataTable thead td {
+			padding: 10px 18px;
+			border-bottom: 1px solid #96988f;
+			background-color: #f8f8f8;
+		}
+
+		table.dataTable td {
+			border-top: 1px solid lightgrey;
+		}     
     </style>
 
 </head>
-
 
 <script type="text/javascript">
     function checkSelectAll(checkbox) {
@@ -124,7 +133,7 @@
 
 
         ${isLogOn == true}){*/
-        var url = "/springEx/syllabus/deleteCheck.do";
+        var url = "${contextPath}/syllabus/deleteCheck.do";
         var cnt = $("input[name='ab']:checked").length;
         var valueArr = new Array();
         $("input[name='ab']:checked").each(function (i) {
@@ -171,16 +180,16 @@
 
 
         ${isLogOn == true}){
-			location.href='
+         location.href='
 
 
 
 
         ${contextPath}/syllabus/syllabusForm.do'
-		}
-		else{
-			alert("로그인 후 시도해주세요.");
-		}*/
+      }
+      else{
+         alert("로그인 후 시도해주세요.");
+      }*/
     }
 </script>
 <script type="text/javascript">
@@ -300,7 +309,7 @@
 <body>
 <div class="container">
     <div class="pageIntro">회원 관리</div>
-    <table class="table_" id="table_id">
+    <table class="table_" id="table_id" style="border-bottom: 1px solid #96988f;">
         <thead>
         <tr align="center">
             <td><b>아이디</b></td>

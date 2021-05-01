@@ -75,22 +75,24 @@ p {
 </head>
 
 <body>
+
+
 	<div class="sub_visual">
-		<span style="color: black;"></span>
+		<span style="color: white;">수강신청</span>
 	</div>
 
 
 	<div class="container">
-		<!-- 홈>강의관리>수강관리 -->
+
 		<div class="lnb">
 			<ul>
 				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/course/userCourseList.do">과정신청</a></li>
+				<li>〉</li>
+				<li class="on"><a href="/springEx/course/userCourseList.do">수강신청</a></li>
 			</ul>
 		</div>
 
-		<div class="pageIntro">과정신청</div>
+		<!-- <div class="pageIntro">수강신청</div> -->
 
 		<!-- Start Tabs HTML -->
 		<div class="tabs"
@@ -150,8 +152,7 @@ p {
 											</span> </span></span>
 										<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
 										<hr>
-										<p
-											style=" color: grey; font-weight: 200; font-size: 17px;">수강기간
+										<p style="color: grey; font-weight: 200; font-size: 17px;">수강기간
 											${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 									</div>
 								</a>
@@ -168,7 +169,7 @@ p {
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='재직자향상'}">
 
-								<div class="card"  style="margin-left: 4%; margin-bottom: 2%;">
+								<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 									<a
 										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
@@ -216,7 +217,7 @@ p {
 						style="width: 100%; display: flex; flex-direction: inherit; flex-wrap: wrap; min-width: 800px;">
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
-								<div class="card"  style="margin-left: 4%; margin-bottom: 2%;">
+								<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 									<a
 										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">

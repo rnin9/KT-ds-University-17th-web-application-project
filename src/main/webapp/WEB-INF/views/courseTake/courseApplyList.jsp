@@ -84,7 +84,7 @@ table.dataTable td {
 		<div class="pageIntro">수강관리</div>
 
 		<!-- 테이블(표, 리스트) -->
-		<table id="myTable" class="table_">
+		<table id="myTable" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td style="width: 10px;"><input type="checkbox"

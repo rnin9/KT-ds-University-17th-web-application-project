@@ -25,7 +25,6 @@ request.setCharacterEncoding("UTF-8");
 	height: 8px;
 }
 </style>
-
 <style type="text/css">
 /* carousel-css */
 .carouselImg {
@@ -60,7 +59,6 @@ request.setCharacterEncoding("UTF-8");
 	transform: translateY(-50%);
 	font-family: Chosunilbo_myungjo;
 }
-
 /* welcome Line-css */
 .welcome>h1 {
 	font-family: 'Kaushan Script', cursive;
@@ -72,7 +70,6 @@ request.setCharacterEncoding("UTF-8");
 		rgba(255, 255, 255, 0.4);
 	padding-bottom: 19px;
 }
-
 /* card-css */
 .card-deck {
 	font-family: S-CoreDream-3Light;
@@ -104,7 +101,7 @@ request.setCharacterEncoding("UTF-8");
 
 .rolling {
 	position: relative;
-	width: 60%;
+	width: 100%;
 	text-align: left;
 }
 
@@ -113,6 +110,7 @@ request.setCharacterEncoding("UTF-8");
 	text-align: left;
 	height: 50px;
 	font-size: 20px;
+	width: 100%;
 }
 
 #cardHover:hover {
@@ -205,15 +203,18 @@ request.setCharacterEncoding("UTF-8");
 
 	<!-- course card  -->
 	<div class="courseCard">
-		<div style="height: 100px;">
-			<div style="float: left; font-size: 26px;">접수중인 강좌</div>
-			<div style="float: right">
+		<div
+			style="height: 80px; width: 80%; margin-left: 11%; font-family: 'Noto Sans KR', sans-serif;">
+			<div
+				style="float: left; font-size: 26px; font-weight: 500; margin-top: 20px;">#접수중
+				강좌</div>
+			<div style="float: right; vertical-align: bottom; margin-top: 20px;">
 				<a href="${contextPath}/course/userCourseList.do"
-					style="color: grey; font-size: 26px;">전체보기</a>
+					style="color: grey; font-size: 20px; text-decoration: underline;">전체보기</a>
 			</div>
 		</div>
 
-		<div class="owl-carousel">
+		<div class="owl-carousel" style="z-index:0;">
 
 			<c:forEach var="courseVO" items="${courseUserList}">
 				<div class="item">
@@ -264,8 +265,8 @@ request.setCharacterEncoding("UTF-8");
 	<br>
 
 	<!-- 공지사항 시작-->
-	<div class="notice" style="margin-left:10%;">
-		<div style="font-size: 20px; font-weight: bold;width:15%;">공지사항</div>
+	<div class="notice" style="margin-left: 11%;">
+		<div style="font-size: 20px; font-weight: bold; width: 15%;">공지사항</div>
 		<ul class="rolling">
 			<li><a
 				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=323">
@@ -280,7 +281,9 @@ request.setCharacterEncoding("UTF-8");
 				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=326">
 					[공지] 자바&파이썬 웹애플리케이션 전문가 양성과정 모집</a></li>
 		</ul>
-		<div class="contact" style="width:100%;font-size:17px; color:grey;font-weight:400;text-align:right;">전화문의 : 010-2709-8965 이메일 문의 : hongeun.lee@kt.com</div>
+		<div class="contact"
+			style="width: 100%; font-size: 17px; color: grey; font-weight: 400; text-align: right;">전화문의
+			: 010-2709-8965 이메일 문의 : hongeun.lee@kt.com</div>
 	</div>
 	<!-- 공지사항 끝 -->
 	<!-- card deck 시작 -->
@@ -289,7 +292,6 @@ request.setCharacterEncoding("UTF-8");
 			<a href="#"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/mainPage/cardImage/classPerson.png"
 				alt="Card image cap">
-
 				<div class="card-body">
 					<h5 class="card-title">채용예정자 과정</h5>
 					<p class="card-text">취업을 준비하고 있는 채용예정자 또는 대학교 졸업생을 위한 교육비 전액
@@ -305,7 +307,6 @@ request.setCharacterEncoding("UTF-8");
 					<h5 class="card-title">재직자 과정</h5>
 					<p class="card-text">고용보험이 적용되는 중소기업 또는 우선 지원대상기업, 협력사에 재직중인
 						임직원을 위한 교육과정입니다.</p>
-
 				</div>
 			</a>
 		</div>
@@ -328,30 +329,26 @@ request.setCharacterEncoding("UTF-8");
 	<script>
 		$(document).ready(function() {
 			$(".owl-carousel").owlCarousel({
-
 				stagePadding : 50,
 				loop : true,
-				margin : 20,
+				margin : 100,
 				nav : false,
 				dots : false,
-				autoplay : true,
-				autoplayTimeout : 2000,
+				autoplay : false,
+				autoplayTimeout : 3000,
 				autoplayHoverPause : true,
 				responsive : {
 					0 : {
 						items : 1
 					},
-
 					720 : {
 						items : 3
 					},
-
 					1280 : {
 						items : 5
 					}
 				}
 			});
-
 		});
 	</script>
 </body>
