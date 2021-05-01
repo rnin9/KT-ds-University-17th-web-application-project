@@ -189,6 +189,7 @@ $(document).ready(function(){
 		    	null,
 		    	{ "width": "10%" },
 		    	{ "width": "10%" },
+		    	{ "width": "20%" }
 		    
 		  	],
 		  	

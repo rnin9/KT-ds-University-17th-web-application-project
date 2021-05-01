@@ -91,60 +91,36 @@ request.setCharacterEncoding("UTF-8");
 }
 
 .notice {
+	width: 80%;
+	margin-left: 10%;
 	display: flex;
-	width: 100%;
 	height: 50px;
 	overflow: hidden;
 	background-color: #fff;
 	font-size: 20px;
 	font-family: 'Noto Sans KR', sans-serif;
 	margin: 10px 5px;
-	border-bottom: 1px solid #e1e1e1;
 }
 
 .rolling {
 	position: relative;
-	width: 100%;
-	height: auto;
-}
-
-.rolling li {
-	width: 70%;
-	height: 50px;
-	line-height: 50px;
-	list-style: none;
-}
-
-.notice>h3 {
-	width: 20%;
-	padding: 10px; . card-body { width : 296px;
-	height: 296px;
-	/* margin: 2% 2% 2% 2%; */
-	display: inline-table;
-}
-
-.card-body {
-	width: 296px;
-	height: 296px;
-	/* margin: 2% 2% 2% 2%; */
-	display: inline-table;
-}
-
-p {
+	width: 60%;
 	text-align: left;
 }
 
-.card-text {
-	margin-top: 30px;
-	margin-bottom: 10px;
+.rolling li {
+	list-style: none;
+	text-align: left;
+	height: 50px;
 	font-size: 20px;
-	font-weight: bold;
-	height: 120px;
 }
 
-}
 #cardHover:hover {
 	color: red;
+}
+
+.courseCard {
+	font-family: 'Noto Sans KR', sans-serif;
 }
 </style>
 
@@ -227,70 +203,88 @@ p {
 	</div>
 	<!-- welcom Message 종료 -->
 
-	<div class="owl-carousel">
+	<!-- course card  -->
+	<div class="courseCard">
+		<div style="height: 100px;">
+			<div style="float: left; font-size: 26px;">접수중인 강좌</div>
+			<div style="float: right">
+				<a href="${contextPath}/course/userCourseList.do"
+					style="color: grey; font-size: 26px;">전체보기</a>
+			</div>
+		</div>
 
-		<c:forEach var="courseVO" items="${courseUserList}">
-			<div class="item">
-				<div class="card" style="margin: 1% 1%;">
-					<a id="cardHover"
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
-						<div class="card-body">
-							<span class="card-title"
-								style="margin: 1% 1% 1% 1%; height: 25px;"><span
-								style="float: left; font-size: 17px; margin-top: 5px;"> <c:if
-										test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
+		<div class="owl-carousel">
+
+			<c:forEach var="courseVO" items="${courseUserList}">
+				<div class="item">
+					<div class="card" style="margin-right: 2%; width: 310px;">
+						<a id="cardHover"
+							href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+							<div class="card-body">
+								<span class="card-title"
+									style="margin: 1% 1% 1% 1%; height: 25px;"><span
+									style="float: left; font-size: 18px; margin-top: 5px;">
+										<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
                               채용예정자
                               </c:if> <c:if
-										test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
+											test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
                               ${courseVO.syllabusVO.syllabusCategory1}</c:if>
-							</span><span style="float: right;"><span
-									style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>
-									<span class="dday"
-									style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 18px;">
-										<c:choose>
-											<c:when test="${courseVO.courseState eq '조기마감'}">
+								</span><span style="float: right;"><span
+										style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>
+										<span class="dday"
+										style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 24px;">
+											<c:choose>
+												<c:when test="${courseVO.courseState eq '조기마감'}">
 
                                     조기마감
                                     </c:when>
-											<c:when test="${courseVO.dday > 0}">
+												<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
 
-											<c:when test="${courseVO.dday < 0}">
+												<c:when test="${courseVO.dday < 0}">
                                     접수마감
                                     </c:when>
-										</c:choose>
-								</span> </span></span> <br> <br>
-							<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
-							<hr>
-							<p
-								style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 15px;">수강기간
-								${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
-						</div>
-					</a>
+											</c:choose>
+									</span> </span></span> <br> <br>
+								<p class="card-text"
+									style="text-align: left; margin-top: 30px; margin-bottom: 10px; font-size: 20px; font-weight: bold; height: 120px;">${courseVO.syllabusVO.syllabusName}</p>
+								<hr>
+								<p
+									style="color: grey; font-weight: 200; font-size: 17px; text-align: left">수강기간
+									${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
+							</div>
+						</a>
+					</div>
 				</div>
-			</div>
-		</c:forEach>
+			</c:forEach>
 
+		</div>
 	</div>
 	<br>
 
 	<!-- 공지사항 시작-->
-	<div class="notice">
-		<h3>공지사항</h3>
+	<div class="notice" style="margin-left:10%;">
+		<div style="font-size: 20px; font-weight: bold;width:15%;">공지사항</div>
 		<ul class="rolling">
 			<li><a
-				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227">
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=323">
 					[공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
 			<li><a
-				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222">
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=324">
 					[공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=325">
+					[공지] 2021년 컨소시엄 재직자향상 교육 안내</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=326">
+					[공지] 자바&파이썬 웹애플리케이션 전문가 양성과정 모집</a></li>
 		</ul>
-
+		<div class="contact" style="width:100%;font-size:17px; color:grey;font-weight:400;text-align:right;">전화문의 : 010-2709-8965 이메일 문의 : hongeun.lee@kt.com</div>
 	</div>
 	<!-- 공지사항 끝 -->
 	<!-- card deck 시작 -->
-	<div class="card-deck">
+	<%-- <div class="card-deck">
 		<div class="card">
 			<a href="#"> <img class="card-img-top"
 				src="${pageContext.request.contextPath}/resources/image/mainPage/cardImage/classPerson.png"
@@ -326,7 +320,7 @@ p {
 				</div>
 			</a>
 		</div>
-	</div>
+	</div> --%>
 	<!-- card deck 끝 -->
 	<!--OWL JS-->
 	<script
@@ -338,8 +332,8 @@ p {
 				stagePadding : 50,
 				loop : true,
 				margin : 20,
-				nav : true,
-				dots : true,
+				nav : false,
+				dots : false,
 				autoplay : true,
 				autoplayTimeout : 2000,
 				autoplayHoverPause : true,
@@ -353,7 +347,7 @@ p {
 					},
 
 					1280 : {
-						items : 7
+						items : 5
 					}
 				}
 			});
