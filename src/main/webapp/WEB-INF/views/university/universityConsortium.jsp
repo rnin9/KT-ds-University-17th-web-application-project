@@ -133,14 +133,7 @@ $(document).ready(function() {
 		<span style="color: white;"></span>
 	</div>
 	<div class="container">
-		<div class="lnb">
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="${pageContext.request.contextPath}/universityConsortium.do">컨소시엄</a></li>
-			</ul>
-		</div>
+		
 
 		<!-- 페이지에 대한 intro -->
 		<div class="pageIntro">컨소시엄 소개</div>

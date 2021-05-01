@@ -476,24 +476,11 @@ function remove_div(obj) { //obj = id값 500... or   300.....
 <body>
 	
 	<div class="sub_visual">
-		<span style="color: white;">이력서 작성</span>
 	</div>
 
 	<div class="container">
 
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
-						관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
-						작성</a></li>
-			</ul>
-		</div>
+		
 
 		<div id="title_area">
 				<button id="first" class="btn headbutton move none" 
@@ -506,12 +493,14 @@ function remove_div(obj) { //obj = id값 500... or   300.....
 				<button id="last" class="btn headbutton move none" 
 					onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
 			</div>
-			
-		<h3>경력사항 / 교육수료 사항</h3>
+			<div class="pageIntro">
+			<h3>경력사항 / 교육수료 사항</h3>
+		</div>
+		
 
 		<div class="main">
 			<div id="title_area">
-				<h4>경력사항</h4>
+				<h5>경력사항</h5>
 			</div>
 			<div id="career_list" class="list_field careerList" name="career_list" value="${careerList1.careerSEQ}">
 				<button id="car_add" class="btn addbutton" type="button">추가</button>
@@ -577,7 +566,7 @@ function remove_div(obj) { //obj = id값 500... or   300.....
 
 		<div class="main">
 			<div id="title_area">
-				<h4>교육수료 사항</h4>
+				<h5>교육수료 사항</h5>
 			</div>
 			<div id="education_list" class="list_field educationList" name="education_list" value="${educationList1.careerSEQ}">
 				<button id="edu_add" class="btn addbutton" type="button" >추가</button>

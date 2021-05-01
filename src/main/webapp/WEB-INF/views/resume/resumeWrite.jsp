@@ -102,13 +102,12 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 }
 
 .must { /* 속성값 옆 필수라는 빨간색 문구 */
-	color: tomato;
-	font-size: 12px;
-	letter-spacing: -1px;
-	margin-left: -20px;
-	margin-right: 40px;
+   color: #dc3545;
+   font-size: 12px;
+   letter-spacing: -1px;
+   margin-left: -20px;
+   margin-right: 40px;
 }
-
 div input[type="text"] { /* input type text 태그 지정*/
 	width: 250px;
 	padding: 10px 20px;
@@ -139,9 +138,9 @@ div input[type="text"] { /* input type text 태그 지정*/
 }
 
 .toggle input[type=radio]:checked+label {
-	background-color: tomato;
+	background-color: #dc3545;
 	border-radius: 4px;
-	border: 2px solid tomato;
+	border: 2px solid #dc3545;
 }
 
 .photo { /* 프로필 사진 첨부 관련 겉 테두리 */
@@ -224,6 +223,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 	height: 35px;
 	font-size: 1em;
 }
+
 </style>
 
 <!-- 날짜 관리 스크립트-->
@@ -271,26 +271,14 @@ function getPost(mode)
 
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">이력서</span>
+	
 	</div>
 	<div class="container">
 
 
 		
 
-			<div class="lnb">
-				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="${contextPath}/resume/resumeWrite.do?resumeUser=${member.userId}">이력서
-							작성</a></li>
-				</ul>
-			</div>
+			
 			<form accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" name="page1Form">
 			<div id="title_area">
 			
@@ -304,8 +292,8 @@ function getPost(mode)
 				<button id="last" class="btn headbutton move none" type="submit"
 					onClick="getPost('toPage5')">자기소개서</button>
 			</div>
-			
-			<h3>기본정보</h3>
+			<div class="pageIntro">
+			<h3>기본정보</h3></div>
 			<div>
 				<label class="title">성명</label><span class="must">필수</span> <input
 					type="text" name="resume_name" id="name" placeholder="한글명"

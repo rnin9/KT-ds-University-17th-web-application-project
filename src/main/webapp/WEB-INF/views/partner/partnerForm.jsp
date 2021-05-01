@@ -42,7 +42,7 @@
             line-height: 15px;
         }
 
-        #container1 { /* 이름 밑에 속성들을 감싸서 적용 */
+        .container1 { /* 이름 밑에 속성들을 감싸서 적용 */
             background-color: #f2f2f2;
             height: auto;
             width: 80%;
@@ -98,7 +98,7 @@
             margin-left: 8px;
             margin-right: 10px;
             line-height: 15px; 
-            height: 30px;
+            height: 43px;
         }
         .block1{
     		display: flex;
@@ -137,11 +137,12 @@
 
 
 <body>
-  <div id="container">
+  <div class="container">
+  <div class="pageIntro">협력사 등록</div>
     <form action="${contextPath}/partner/addPartner.do" accept-charset="UTF-8" method="POST" autocomplete="off">
         <div id="main">
        
-            <div id="container1">
+            <div class="container1">
             <h2 style="padding-top: 30px;">기업 정보</h2>
             <div class="block1">
                 <div class="block2">

@@ -13,20 +13,11 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 관리</title>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+
 <style>
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -48,12 +39,9 @@ a:link, a:visited, a:hover {
 	text-decoration: none;
 }
 
-.bg-primary {
-	background-color: white !important;
-}
 
 .container {
-	width: 74.64%;
+	width: 64%;
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -77,15 +65,28 @@ a:link, a:visited, a:hover {
 #btn {
 	margin-left: -20px;
 }
+.pageIntro {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin-top: 50px;
+	text-align: left;
+	font-size: 34px;
+	font-weight: 450;
+	background:
+		url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png")
+		no-repeat;
+	background-repeat: no-repeat;
+}
 </style>
 <script>
 $(document).on('click','#remove',function(e){
-	var resumeID = $("input[name='check']:checked").val(); 
+	var resumeID = $("input[name='check']:checked").val();
+	if (resumeID != null){
+		
+	
 	data={}
 	data.resumeID = resumeID
 	 Swal.fire({
-	        title:'삭제',
-	        text:'이력서를 삭제하시겠습니까?',
+	        title:'이력서를 삭제하시겠습니까?',
 			icon:'warning',
 	        confirmButtonText: `삭제`,
 	        showCancelButton: true,
@@ -99,11 +100,17 @@ $(document).on('click','#remove',function(e){
 						contentType : "application/json; charset=UTF-8",
 						data:JSON.stringify(data),
 						success : function() {
-							alert("성공");
-							location.reload(true);
+							Swal.fire({ icon: 'success', 
+		  	        			title: '이력서가 삭제되었습니다.', 
+		  	        			showConfirmButton: false,
+		  	        			timer: 1000
+		  	        			});
+							setTimeout(function(){
+		  	        			location.reload();
+		  	        		    }, 900);
 						},
 						error : function() {
-						alert("실패")
+						alert("다시 시도해주세요.");
 
 						}
 						});
@@ -113,7 +120,7 @@ $(document).on('click','#remove',function(e){
 	        	else{
 	        		return;
 	        	}
-	        })
+	        })}
 	
 });
 </script>
@@ -136,16 +143,10 @@ $(document).on('click','#remove',function(e){
 	<div class="sub_visual"></div>
 
 	<div class="container">
+	<div class="pageIntro">이력서 관리</div>
 		<form method="post" action="${contextPath}/resume/resumeWrite.do">
 
-			<div class="lnb">
-				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a
-						href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서관리</a></li>
-				</ul>
-			</div>
+			
 
 
 			<table class="resumeList">
@@ -185,21 +186,20 @@ $(document).on('click','#remove',function(e){
 
 
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom btn-outline-danger" type="button"
+				<button class="btn button_bottom" type="button"
 					id="remove">삭제</button>
-				<button class="btn button_bottom btn-outline-danger" type="button"
+				<button class="btn button_bottom" type="button"
 					onClick="location.href='${contextPath}/resume/modResume.do?userID=${member.userId}&resumeID='+check.value">수정</button>
-				<button class="btn button_bottom btn-outline-danger" type="button"
+				<button class="btn button_bottom" type="button"
 					onClick="location.href='${contextPath}/resume/resumeWrite.do?userID=${member.userId}'">
 					이력서 작성</button>
 
-				<button id="represent" class="btn button_bottom btn-outline-danger"
+				<button id="represent" class="btn button_bottom"
 					type="button"
 					onClick="location.href='${contextPath}/resume/resumeCheck.do?resumeID='+check.value+'&resumeUser=${member.userId}'">
 					대표 이력서 설정</button>
 
 			</div>
-			check
 
 		</form>
 	</div>

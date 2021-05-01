@@ -28,7 +28,7 @@
 	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeWriteCareer.jsp" />
 	</definition>
 	
-	<definition name="/resume/resumeAdmin" extends="baseLayout">
+	<definition name="/resume/resumeAdmin" extends="adminLayout">
 	      <put-attribute name="title" value="관리자 이력서 조회" />
 	      <put-attribute name="body" value="/WEB-INF/views/resume/resumeAdmin.jsp" />
 	</definition>

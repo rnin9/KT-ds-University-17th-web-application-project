@@ -8,7 +8,7 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <%
-	String resumeID = request.getParameter("resumeID");
+String resumeID = request.getParameter("resumeID");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -24,7 +24,7 @@ request.setCharacterEncoding("UTF-8");
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 </script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -99,8 +99,6 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 	margin-left: -5px;
 }
 
-
-
 .none {
 	display: inline-block;
 	background-color: white;
@@ -108,9 +106,11 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 	line-height: 46px;
 	margin-top: 43px;
 }
-#project_list{
+
+#project_list {
 	height: 600px;
 }
+
 div input[type="text"] { /* input type text 태그 지정*/
 	width: 265px;
 	padding: 10px 20px;
@@ -132,7 +132,7 @@ textarea {
 }
 
 #textarea {
-	float:left;
+	float: left;
 }
 
 .fieldset {
@@ -146,7 +146,6 @@ textarea {
 	margin-top: 40px;
 }
 
-
 #project_link, #project_skill_text {
 	width: 734px;
 }
@@ -157,13 +156,13 @@ textarea {
 	right: 28px;
 }
 
-.addition{
+.addition {
 	position: absolute;
 	right: 90px;
 	Z-INDEX: 1;
 }
 
-.foreach{
+.foreach {
 	position: absolute;
 	right: 90px;
 	Z-INDEX: 1;
@@ -188,23 +187,23 @@ textarea {
 #btn2 {
 	float: right;
 }
+
 .div_line {
 	border-bottom: 3px solid #EEEEEE;
-    position: relative;
-    width: 82%;
-    margin-left: 30px;
-    margin-top: -570px;
-    margin-bottom: 10px;
-	
+	position: relative;
+	width: 82%;
+	margin-left: 30px;
+	margin-top: -570px;
+	margin-bottom: 10px;
 }
-.line1{
-	border-bottom: 3px solid #EEEEEE;
-    position: relative;
-    width: 82%;
-    margin-left: 30px;
-    margin-top: 30px;
-    margin-bottom: 10px;
 
+.line1 {
+	border-bottom: 3px solid #EEEEEE;
+	position: relative;
+	width: 82%;
+	margin-left: 30px;
+	margin-top: 30px;
+	margin-bottom: 10px;
 }
 /*
 .div_line {
@@ -235,10 +234,9 @@ textarea {
 		line.setAttribute('class', 'div_line');
 		obj.innerHTML = "삭제";
 		obj.setAttribute('id', 'del_button')
-		
+
 		div.innerHTML = document.getElementById(e).innerHTML;
 		$(div).find('.clear').val('');
-		
 
 		if (e == 'project_list') { //자격증
 			document.getElementById('profield').appendChild(obj);
@@ -246,9 +244,9 @@ textarea {
 			div.setAttribute("style", "height:600px;")
 			document.getElementById('profield').appendChild(div);
 			document.getElementById('profield').style.display = "block";
-			
+
 			div.setAttribute('id', result); //제일 밖에 id
-			
+
 			obj.setAttribute('class', 'btn ' + result + ' addition');
 			obj.setAttribute('onclick', 'remove_div(' + result + ')');
 
@@ -264,59 +262,52 @@ textarea {
 		$(`#` + obj).remove();//한칸 삭제
 		$(`.` + obj).remove();//삭제버튼 삭제
 	}
-	
-</script> 
-<script>
- 		var ID ='<c:out value="${member.userId}"/>';
- 		var resumeID = <%=resumeID%>;
- 		data={}
- 		data.ID = ID;
- 		data.resumeID = resumeID;
-			$(document).on('click','.addbutton',function(e) {
-			$.ajax({
-					type : "POST",
-					url : "${contextPath}/resume/page4InsertProject.do",
-					contentType : "application/json; charset=UTF-8",
-					data:JSON.stringify(data),
-					success : function(result) {
-					add_div("project_list",result);
-					},
-					error : function() {
-					alert("로그인해주세요")
-					}
-					});
+</script> <script>
+	var ID = '<c:out value="${member.userId}"/>';
+	var resumeID =
+<%=resumeID%>
+	;
+	data = {}
+	data.ID = ID;
+	data.resumeID = resumeID;
+	$(document).on('click', '.addbutton', function(e) {
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/resume/page4InsertProject.do",
+			contentType : "application/json; charset=UTF-8",
+			data : JSON.stringify(data),
+			success : function(result) {
+				add_div("project_list", result);
+			},
+			error : function() {
+				alert("로그인해주세요")
+			}
+		});
 
-				});
-			
-</script> 
-<!-- delete -->
- <script>
-		$(document).on('click','#del_button',function(e) {
-			var array = this.className.split(" ");
-			var seqNum = array[1];
-			$.ajax({
-					type : "POST",
-					url : "${contextPath}/resume/page4DeleteProject.do",
-					data : JSON.stringify(seqNum),
-					contentType : "application/json; charset=UTF-8",
-					success : function() {
-						alert("지워짐")
-					},
-					error : function() {
-						alert("왜 안지워짐")
-					}
-					});
-			});
-</script> 
-
-<script>
+	});
+</script> <!-- delete --> <script>
+	$(document).on('click', '#del_button', function(e) {
+		var array = this.className.split(" ");
+		var seqNum = array[1];
+		$.ajax({
+			type : "POST",
+			url : "${contextPath}/resume/page4DeleteProject.do",
+			data : JSON.stringify(seqNum),
+			contentType : "application/json; charset=UTF-8",
+			success : function() {
+				alert("지워짐")
+			},
+			error : function() {
+				alert("왜 안지워짐")
+			}
+		});
+	});
+</script> <script>
 	function resize(obj) {
 		obj.style.height = "5px";
 		obj.style.height = (2 + obj.scrollHeight) + "px";
 	}
-</script> 
-
-<script>
+</script> <script>
 	$(document).on('keyup', '.test', function(e) {
 
 		var id = e.target.getAttribute('id');
@@ -329,117 +320,123 @@ textarea {
 		}
 
 	});
-</script>
-<script>
+</script> <script>
+	$(document).on(
+			'click',
+			'.move',
+			function(e) {
 
-		$(document).on('click','.move',function(e) {
-			
-					var projectEnforcement = [];
-					var projectName = [];
-					var projectDev = [];
-					var projectContent = [];
-					var projectRole = [];
-					var projectURL = [];
-					var projectSEQ = [];
-					
-					//career
-					$("input[name='project_center']").each(function(i) {
-						projectEnforcement.push($("input[name='project_center']").eq(i).val());
-						projectName.push($("input[name='project_name']").eq(i).val());
-						projectDev.push($("input[name='project_skill']").eq(i).val());
-						projectContent.push($("textarea[name='project_introduce']").eq(i).val()); 
-						projectRole.push($("textarea[name='project_role']").eq(i).val());
-						projectURL.push($("input[name='project_link']").eq(i).val());
-						projectSEQ.push($(".projectList").eq(i).attr("value"));
-					});
-								
-					var data = {};
+				var projectEnforcement = [];
+				var projectName = [];
+				var projectDev = [];
+				var projectContent = [];
+				var projectRole = [];
+				var projectURL = [];
+				var projectSEQ = [];
 
-					data.userID ='<c:out value="${member.userId}"/>';
-					data.resumeID ='<c:out value="${resumeVO.resumeID}"/>';
+				//career
+				$("input[name='project_center']").each(
+						function(i) {
+							projectEnforcement
+									.push($("input[name='project_center']").eq(
+											i).val());
+							projectName.push($("input[name='project_name']")
+									.eq(i).val());
+							projectDev.push($("input[name='project_skill']")
+									.eq(i).val());
+							projectContent.push($(
+									"textarea[name='project_introduce']").eq(i)
+									.val());
+							projectRole.push($("textarea[name='project_role']")
+									.eq(i).val());
+							projectURL.push($("input[name='project_link']").eq(
+									i).val());
+							projectSEQ.push($(".projectList").eq(i).attr(
+									"value"));
+						});
 
-					data.projectEnforcement = projectEnforcement;
-					data.projectName = projectName;
-					data.projectDev = projectDev;
-					data.projectContent = projectContent;
-					data.projectRole = projectRole;
-					data.projectURL = projectURL;
-					data.projectSEQ = projectSEQ;
-					
-					
-					$.ajax({
-						type : "POST",
-						url : "${contextPath}/resume/page4Update.do",
-						dataType : "json",
-						contentType : "application/json; charset=UTF-8",
-						data : JSON.stringify(data),
-						success : function() {
-						},
-						error : function() {
+				var data = {};
 
-						}
-					});
+				data.userID = '<c:out value="${member.userId}"/>';
+				data.resumeID = '<c:out value="${resumeVO.resumeID}"/>';
+
+				data.projectEnforcement = projectEnforcement;
+				data.projectName = projectName;
+				data.projectDev = projectDev;
+				data.projectContent = projectContent;
+				data.projectRole = projectRole;
+				data.projectURL = projectURL;
+				data.projectSEQ = projectSEQ;
+
+				$.ajax({
+					type : "POST",
+					url : "${contextPath}/resume/page4Update.do",
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					data : JSON.stringify(data),
+					success : function() {
+					},
+					error : function() {
+
+					}
 				});
-	</script>
+			});
+</script>
 </head>
 
 
 <body>
-	<div class="sub_visual">
-		<span style="color: white;">이력서 작성</span>
-	</div>
+	<div class="sub_visual"></div>
 
 	<div class="container">
 
-		<div class="lnb">
-			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
-						관리</a></li>
-				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a
-					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
-						작성</a></li>
-			</ul>
-		</div>
+		
 
 		<div id="title_area">
-				<button id="first" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
-				<button id="second" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
-				<button id="third" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">경력사항 / 교육수료사항</button>
-				<div id="forth" class="headbutton move" >프로젝트 관련사항</div>
-				<button id="last" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
-			</div>
+			<button id="first" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
+			<button id="second" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
+			<button id="third" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">경력사항
+				/ 교육수료사항</button>
+			<div id="forth" class="headbutton move">프로젝트 관련사항</div>
+			<button id="last" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
+		</div>
+		<div class="pageIntro">
+			<h3>프로젝트 관련사항</h3>
+		</div>
 
-		<h3>프로젝트</h3>
 		<div class="main">
-			<div id="project_list" class="list_field projectList" name="project_list" value="${projectList1.projectSEQ}" >
+			<div id="project_list" class="list_field projectList"
+				name="project_list" value="${projectList1.projectSEQ}">
 				<button id="pro_add" class="btn addbutton" type="button">추가</button>
 				<div>
 					<label class="title">기관</label><input type="text"
-						name="project_center" id="project_center" placeholder="기관명 입력" class="clear"
-						onfocus="this.placeholder=''" onblur="this.placeholder='기관명 입력'" value="${projectList1.projectEnforcement}">
-					<label class="title">프로젝트명</label><input type="text"
-						name="project_name" id="project_name" placeholder="프로젝트명 입력" class="clear"
-						onfocus="this.placeholder=''" onblur="this.placeholder='프로젝트명 입력'" value="${projectList1.projectName}">
+						name="project_center" id="project_center" placeholder="기관명 입력"
+						class="clear" onfocus="this.placeholder=''"
+						onblur="this.placeholder='기관명 입력'"
+						value="${projectList1.projectEnforcement}"> <label
+						class="title">프로젝트명</label><input type="text" name="project_name"
+						id="project_name" placeholder="프로젝트명 입력" class="clear"
+						onfocus="this.placeholder=''" onblur="this.placeholder='프로젝트명 입력'"
+						value="${projectList1.projectName}">
 				</div>
 				<div>
 					<label class="title" id="project_skill">개발환경 및<br>사용기술
-					</label><input type="text" name="project_skill" id="project_skill_text" class="clear"
-						placeholder="WINDOWS7 / JAVA NETWORK,VB, ORACLE"
+					</label><input type="text" name="project_skill" id="project_skill_text"
+						class="clear" placeholder="WINDOWS7 / JAVA NETWORK,VB, ORACLE"
 						onfocus="this.placeholder=''"
-						onblur="this.placeholder='WINDOWS10 / JAVA NETWORK, VB, ORACLE...'" value="${projectList1.projectDev}">
+						onblur="this.placeholder='WINDOWS10 / JAVA NETWORK, VB, ORACLE...'"
+						value="${projectList1.projectDev}">
 				</div>
 				<div>
-					<label class="title" id="textarea">프로젝트 소개 <div class="test1" style="display: inline-block;">(0 / 1000)</div></label>	
+					<label class="title" id="textarea">프로젝트 소개
+						<div class="test1" style="display: inline-block;">(0 / 1000)</div>
+					</label>
 					<textarea id=test1 class="test clear" name="project_introduce"
-						onkeyup="resize(this)" cols="70" >${projectList1.projectContent}</textarea>
+						onkeyup="resize(this)" cols="70">${projectList1.projectContent}</textarea>
 				</div>
 				<div>
 					<label class="title" id="textarea">담당한 역할</label>
@@ -448,48 +445,62 @@ textarea {
 				</div>
 				<div>
 					<label class="title">관련 링크</label><input type="text"
-						name="project_link" id="project_link" placeholder="관련 링크 첨부" class="clear"
-						onfocus="this.placeholder=''" onblur="this.placeholder='관련 링크 첨부'" value="${projectList1.projectURL}" >
-				</div>
-			</div>
-			
-			<c:forEach var="project" items="${projectList}">
-			<div id="${project.projectSEQ}" name="project_list" value="${project.projectSEQ}" class="list_field projectList">
-				<button id="pro_add" class="btn addbutton " type="button" >추가</button>
-				<button id="del_button" class="btn ${project.projectSEQ} foreach" name="project_remove" type="button" onclick="remove_div(`${project.projectSEQ}`)">삭제</button>
-				<div class="line1"></div>
-				<div>
-					<label class="title">기관</label><input type="text"
-						name="project_center" id="project_center" placeholder="기관명 입력"
-						onfocus="this.placeholder=''" onblur="this.placeholder='기관명 입력'" value="${project.projectEnforcement}">
-					<label class="title">프로젝트명</label><input type="text"
-						name="project_name" id="project_name" placeholder="프로젝트명 입력"
-						onfocus="this.placeholder=''" onblur="this.placeholder='프로젝트명 입력'" value="${project.projectName}">
-				</div>
-				<div>
-					<label class="title" id="project_skill">개발환경 및<br>사용기술
-					</label><input type="text" name="project_skill" id="project_skill_text"
-						placeholder="WINDOWS7 / JAVA NETWORK,VB, ORACLE"
-						onfocus="this.placeholder=''"
-						onblur="this.placeholder='WINDOWS10 / JAVA NETWORK, VB, ORACLE...'" value="${project.projectDev}">
-				</div>
-				<div>
-					<label class="title" id="textarea">프로젝트 소개 <div class="test1" style="display: inline-block;">(0 / 1000)</div></label>	
-					<textarea id=test1 class="test" name="project_introduce"
-						onkeyup="resize(this)" cols="70">${project.projectContent}</textarea>
-				</div>
-				<div>
-					<label class="title" id="textarea">담당한 역할</label>
-					<textarea id="project_role" name="project_role"
-						onkeyup="resize(this)" cols="70">${project.projectRole}</textarea>
-				</div>
-				<div>
-					<label class="title">관련 링크</label><input type="text"
 						name="project_link" id="project_link" placeholder="관련 링크 첨부"
-						onfocus="this.placeholder=''" onblur="this.placeholder='관련 링크 첨부'" value="${project.projectURL}">
+						class="clear" onfocus="this.placeholder=''"
+						onblur="this.placeholder='관련 링크 첨부'"
+						value="${projectList1.projectURL}">
 				</div>
 			</div>
-	
+
+			<c:forEach var="project" items="${projectList}">
+				<div id="${project.projectSEQ}" name="project_list"
+					value="${project.projectSEQ}" class="list_field projectList">
+					<button id="pro_add" class="btn addbutton " type="button">추가</button>
+					<button id="del_button" class="btn ${project.projectSEQ} foreach"
+						name="project_remove" type="button"
+						onclick="remove_div(`${project.projectSEQ}`)">삭제</button>
+					<div class="line1"></div>
+					<div>
+						<label class="title">기관</label><input type="text"
+							name="project_center" id="project_center" placeholder="기관명 입력"
+							onfocus="this.placeholder=''" onblur="this.placeholder='기관명 입력'"
+							value="${project.projectEnforcement}"> <label
+							class="title">프로젝트명</label><input type="text" name="project_name"
+							id="project_name" placeholder="프로젝트명 입력"
+							onfocus="this.placeholder=''"
+							onblur="this.placeholder='프로젝트명 입력'"
+							value="${project.projectName}">
+					</div>
+					<div>
+						<label class="title" id="project_skill">개발환경 및<br>사용기술
+						</label><input type="text" name="project_skill" id="project_skill_text"
+							placeholder="WINDOWS7 / JAVA NETWORK,VB, ORACLE"
+							onfocus="this.placeholder=''"
+							onblur="this.placeholder='WINDOWS10 / JAVA NETWORK, VB, ORACLE...'"
+							value="${project.projectDev}">
+					</div>
+					<div>
+						<label class="title" id="textarea">프로젝트 소개
+							<div class="test1" style="display: inline-block;">(0 /
+								1000)</div>
+						</label>
+						<textarea id=test1 class="test" name="project_introduce"
+							onkeyup="resize(this)" cols="70">${project.projectContent}</textarea>
+					</div>
+					<div>
+						<label class="title" id="textarea">담당한 역할</label>
+						<textarea id="project_role" name="project_role"
+							onkeyup="resize(this)" cols="70">${project.projectRole}</textarea>
+					</div>
+					<div>
+						<label class="title">관련 링크</label><input type="text"
+							name="project_link" id="project_link" placeholder="관련 링크 첨부"
+							onfocus="this.placeholder=''"
+							onblur="this.placeholder='관련 링크 첨부'"
+							value="${project.projectURL}">
+					</div>
+				</div>
+
 			</c:forEach>
 			<div id="profield" class="fieldset"></div>
 		</div>
@@ -498,7 +509,7 @@ textarea {
 				onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">이전</button>
 			<button id="btn2" class="btn save move" type="button"
 				onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">다음</button>
-		</div>	
+		</div>
 	</div>
 
 </body>

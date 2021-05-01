@@ -228,7 +228,7 @@
 	<select id="selectIngPartner" resultType="int">
       <![CDATA[
         select count(*) from partner
-		where partnerState = '협약 진행중'	 	
+		where partnerState = '협약서사본'	 	
       ]]>
 	</select>
 	
@@ -236,7 +236,7 @@
 	<select id="selectNotPartner" resultType="int">
       <![CDATA[
         select count(*) from partner
-		where partnerState = '미협약'	 	
+		where partnerState = '협약사없음'	 	
       ]]>
 	</select>
 	

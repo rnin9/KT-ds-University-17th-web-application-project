@@ -35,8 +35,7 @@ request.setCharacterEncoding("UTF-8");
 					</li>
 					<ul class="sub-menu collapse" id="user">
 						<li><a href="${contextPath}/manageUser/userList.do">회원 관리</a></li>
-						<li><a href="#">이력서 관리</a></li>
-						<li><a href="#">지원서 관리</a></li>
+						<li><a href="${contextPath}/resume/resumeAdmin.do">이력서 관리</a></li>
 
 					</ul>
 
@@ -45,7 +44,7 @@ request.setCharacterEncoding("UTF-8");
 								class="fas fa-chevron-down"></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="partner">
-						<li><a href="#"> 기업정보</a></li>
+						<li><a href="${contextPath}/partner/partnerList.do"> 기업정보</a></li>
 						<li><a href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록</a></li>
 						<li><a href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리</a></li>
 					</ul>
