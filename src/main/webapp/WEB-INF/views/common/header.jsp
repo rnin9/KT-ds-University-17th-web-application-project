@@ -159,61 +159,20 @@ request.setCharacterEncoding("UTF-8");
 						</ul></li>
 					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
 				</c:when>
-
+				
+				<c:when test="${isLogOn != null && member.userPosition == '일반회원'}">
+					<li class="nav-item dropdown"><a
+						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+							kt ds Univ. </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item"
+								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
+							<li><a class="dropdown-item"
+								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+				</c:when>
 			</c:choose>
-			<!-- 일반유저, 회원(사용자인 경우 끝) -->
-			<!-- 일반유저, 회원(관리자인 경우 시작) -->
-			<%-- <c:choose>
-				<c:when
-					test="${isLogOn == true  && member!= null  && member.userPosition == 'ADMIN'}">
-					<li class="nav-item dropdown"><a
-						class="nav-link-admin  dropdown-toggle" href="#"
-						data-toggle="dropdown"> 회원관리 </a>
-						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="#"> 회원정보관리</a></li>
-							<li><a class="dropdown-item" href="#"> 이력서관리 </a></li>
-							<li><a class="dropdown-item" href="#"> 지원서관리 </a></li>
-						</ul></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link-admin  dropdown-toggle" href="#"
-						data-toggle="dropdown"> 강의관리 </a>
-						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/syllabus/syllabusList.do"> 강의계획서 관리</a></li>
-							<li><a class="dropdown-item" href="${contextPath}/course/courseList.do"> 과정관리 </a></li>
-							<li><a class="dropdown-item" href="${contextPath}/courseTake/courseApplyList.do"> 수강관리 </a></li>
-						</ul></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link-admin  dropdown-toggle" href="#"
-						data-toggle="dropdown"> 협력사관리 </a>
-						<ul class="dropdown-menu fade-up">
-							<li><a class="dropdown-item" href="${contextPath}/partner/partnerList.do"> 기업정보관리</a></li>
-							<li><a class="dropdown-item" href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록 </a></li>
-							<li><a class="dropdown-item" href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리 </a></li>
-						</ul></li>
-
-
-					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/notice/listNotice.do">공지사항 관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin" href="${contextPath}/question/listQuestion.do">문의사항
-							관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/survey/listSurvey.do">설문조사 관리</a></li>
-				</c:when>
-			</c:choose> --%>
-			<!-- 관리자인 경우 끝) -->
-			<!-- 협력사인 경우 시작) -->
-			<%-- <c:choose>
-				<c:when
-					test="${isLogOn == true  && member!= null  && member.userPosition == 'PARTNER'}">
-					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/partner/company/companyApplyManage.do?partnerLicenseNum=${partner.partnerLicenseNum}">지원자
-							관리</a></li>
-					<li class="nav-item"><a class="nav-link-admin"
-						href="${contextPath}/partner/company/companyEmployee.do?partnerLicenseNum=${partner.partnerLicenseNum}">직원
-							관리</a></li>
-				</c:when>
-			</c:choose> --%>
-			<!-- 협력사인 경우 끝) -->
 		</ul>
 
 		<ul class="navbar-nav ml-auto">
@@ -280,7 +239,7 @@ request.setCharacterEncoding("UTF-8");
 							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
 					</a></li>
 				</c:when>
-				<c:when test="${isLogOn == true  && member.userPosition!= 'ADMIN'}">
+				<c:when test="${isLogOn == true  && (member.userPosition!= 'ADMIN' && member.userPosition!= '일반회원' && member.userPosition!= '재직자' )}">
 					<li class="nav-item dropdown"><a
 						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
@@ -291,6 +250,18 @@ request.setCharacterEncoding("UTF-8");
 									내정보 관리</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}"> 이력서 관리 </a></li>
 						</ul></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${contextPath}/member/logout.do"><i
+							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
+					</a></li>
+				</c:when>
+				
+				<c:when test="${(isLogOn == true  && member.userPosition == '일반회원') || (isLogOn == true  && member.userPosition == '재직자')}">
+					<li class="nav-item"><a
+						class="nav-link" href="${contextPath}/member/myInfo.do?userID=${member.userId}">
+							<i class="fas fa-cog"></i> ${member.userName} (${member.userId})
+					</a>
+					</li>	
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/member/logout.do"><i
 							class="fas fa-sign-out-alt" style="font-size: 25px"></i> <span>logout</span>
