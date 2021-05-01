@@ -11,5 +11,6 @@ encoding//src/main/java/com/mySpring/springEx/notice/controller/NoticeController
 encoding//src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/partner/dao/PartnerDAOImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/partner/service/PartnerServiceImpl.java=UTF-8
+encoding//src/main/java/com/mySpring/springEx/question/controller/QuestionControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/survey/controller/SurveyControllerImpl.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/partner/company/companyApplyManage.jsp=UTF-8

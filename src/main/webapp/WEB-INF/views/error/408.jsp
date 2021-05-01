@@ -70,8 +70,16 @@ request.setCharacterEncoding("UTF-8");
 								class="inner-detail" style="color: #fff;"> 서버의 요청 대기시간이 초과되었습니다.
 							<br>
 							<br>
-							<a href="${contextPath}/main.do" class="btn btn-info mtl"><i
-									class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+							<c:choose>
+                     <c:when test ="${member.userPosition == 'ADMIN' || member.userPosition == 'PARTNER'}">
+                     <a href="${contextPath}/partner/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:when>
+                     <c:otherwise>
+                     <a href="${contextPath}/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:otherwise>
+                     </c:choose>
 							</span>
 						</div>
 					</div>

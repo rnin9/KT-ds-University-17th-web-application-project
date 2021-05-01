@@ -70,8 +70,16 @@ request.setCharacterEncoding("UTF-8");
 								class="inner-detail" style="color: #fff;"> 서버가 게이트웨이나 프록시 역할을 하고 있거나 또는 업스트림 서버에서 제때 요청을 받지 못했습니다.
 							<br>
 							<br>
-							<a href="${contextPath}/main.do" class="btn btn-info mtl"><i
-									class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+							<c:choose>
+                     <c:when test ="${member.userPosition == 'ADMIN' || member.userPosition == 'PARTNER'}">
+                     <a href="${contextPath}/partner/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:when>
+                     <c:otherwise>
+                     <a href="${contextPath}/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:otherwise>
+                     </c:choose>
 							</span>
 						</div>
 					</div>
