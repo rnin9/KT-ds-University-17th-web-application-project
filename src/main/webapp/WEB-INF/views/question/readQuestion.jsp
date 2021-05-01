@@ -195,7 +195,7 @@ function deleteQuestion(){
 				</div>
 
 				<button type="button" class="btn btn-outline-danger"
-					onclick="history.back()">목록</button>
+					onclick="location.href='${contextPath}/question/userListQuestion.do?userId=${member.userId}'">목록</button>
 				<button type="button" class="btn btn-outline-danger"
 					onclick="deleteQuestion();">삭제</button>
 				<button type="button" class="btn btn-outline-danger"
