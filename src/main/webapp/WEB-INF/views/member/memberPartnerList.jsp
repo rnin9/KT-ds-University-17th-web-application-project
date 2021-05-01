@@ -65,14 +65,13 @@ a:link, a:visited, a:hover {
 </script>
 <script>
 	$(document).on("click", "input[class=checkBtn]", function() {
-		console.log(123123);
 		var checkBtn = $(this);
 		var tr = checkBtn.parent().parent();
 		var td = tr.children();
 		var no = td.eq(0).text();
-		var name = td.eq(2).text();
-		opener.document.getElementById("partnerID").value = name;
+		var name = td.eq(1).text();
 		opener.document.getElementById("hiddenThanksTogangsanim").value = no;
+		opener.document.getElementById("partnerID").value = name;
 		self.close();
 	});
 </script>
@@ -105,7 +104,7 @@ a:link, a:visited, a:hover {
 			<table class="table_">
 				<thead>
 					<tr align="center">
-						<td><b>Patrer LisenceNumber</b></td>
+						<td><b>사업자 번호</b></td>
 						<td><b>회사명</b></td>
 						<td><b>대표</b></td>
 						<td><b>번호</b></td>

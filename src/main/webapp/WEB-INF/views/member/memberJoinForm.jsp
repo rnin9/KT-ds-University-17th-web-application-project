@@ -483,7 +483,7 @@ hr {
 							  title: '과정구분을 선택해주세요!',
 							  text: 'Something went wrong!'
 							  
-							})
+							})	
 							return false;
 					}else if($("#hiddenThanksTogangsanim").val()==""){
 						$("#hiddenThanksTogangsanim").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
@@ -499,7 +499,7 @@ hr {
 				$("#position1").click(function(){
 					$("#company").hide();
 					$("#container1").css("height","1235px");
-					$("#hiddenThanksTogangsanim").val('');
+					$("#partnerID").val('');
 				});
 					
 			
@@ -696,8 +696,8 @@ function showPopup() {
 							<label class="title">회사</label>
 							<!-- <input type="text" id="com"
 							name="userCompany" placeholder="회사명"> -->
-						<input type="text"  name="userCompany" placeholder="검색" id="hiddenThanksTogangsanim" onclick="showPopup();" > 
-                 		 <input type="text" id="partnerID" style="display: none;">
+						<input type="text" placeholder="검색" id="partnerID" onclick="showPopup();" > 
+                 		 <input type="text" name="userCompany" id="hiddenThanksTogangsanim" style="display: none;">
 						</div>
 
 						<div>
