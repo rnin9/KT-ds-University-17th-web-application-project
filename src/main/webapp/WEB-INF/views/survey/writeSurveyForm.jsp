@@ -13,12 +13,16 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 등록</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
@@ -32,16 +36,15 @@ a:link, a:visited, a:hover {
 }
 
 .container {
-    font-family: 'Noto Sans KR', sans-serif;
-    /* font-family: 'Noto Sans KR', sans-serif; */
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    justify-content: space-around;
-    flex-direction: column;
-    margin-left: 15%;
+	font-family: 'Noto Sans KR', sans-serif;
+	/* font-family: 'Noto Sans KR', sans-serif; */
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
-
 
 .table_syllabus {
 	margin-top: 30px;
@@ -127,28 +130,35 @@ function handleModify() {
 
 
 <body>
-	<form id="insertSurveyForm" method="post" action="${contextPath}/survey/surveyInsert.do">
+	<form id="insertSurveyForm" method="post"
+		action="${contextPath}/survey/surveyInsert.do">
 
 		<div class="container">
 			<div class="pageIntro">설문 생성</div>
-
-			<table class="table_syllabus">
-				<h1>courseID=
-					${courseVO.courseID},${courseVO.syllabusVO.syllabusName}</h1>
-				<input type="hidden" name="courseID" value="${courseVO.courseID}">
-
-
-				<th><div class="selectBox" style="text-align: left;">
-				<select  class="form-select" aria-label="Default select example" id="questionSelect" name="question" size='1'
-					style="width: 450px; float: right;">
-					<c:forEach var="question" items="${questionList}">
-						<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
-					</c:forEach>
-				</select>
-				</div>
-				</th>
+			<input type="hidden" name="courseID" value="${courseVO.courseID}">
 			
-
+			<table class="table_" style="text-align: left">
+				<tr>
+					<th>강의명</th>
+					<td style="text-align: left">courseID=
+						${courseVO.courseID},${courseVO.syllabusVO.syllabusName}</td>
+				</tr>
+				<tr>
+				<th>질문분류</th>
+					<td><div class="selectBox" style="text-align: left;">
+							<select class="form-select" aria-label="Default select example"
+								id="questionSelect" name="question" size='1'
+								style="width: 100%; ">
+								<c:forEach var="question" items="${questionList}">
+									<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
+								</c:forEach>
+							</select>
+						</div></td>
+				</tr>
+				</table>
+				
+				
+				<table class="table_" style="text-align: left">
 				<tr>
 					<th>1번 질문</th>
 					<td><input type="text" class="form-control"
@@ -232,8 +242,10 @@ function handleModify() {
 				</tr>
 			</table>
 
-			<div style="margin-top: 50px; float: right; text-align:right;">
-			<input class="btn btn-outline-danger" id="submitbtn" type="button"
+
+
+			<div style="margin-top: 50px; float: right; text-align: right;">
+				<input class="btn btn-outline-danger" id="submitbtn" type="button"
 					value="등록하기" onclick='handleModify()'>
 				<button class="btn btn-outline-danger" type="button"
 					onclick="history.back()">취소</button>

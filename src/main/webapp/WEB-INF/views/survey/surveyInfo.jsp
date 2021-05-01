@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
-	request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 %>
 
 
@@ -12,6 +12,11 @@
 <head>
 <meta charset=UTF-8">
 <title>강의계획서 등록</title>
+
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -163,22 +168,31 @@ function handleModify() {
 
 		<div class="container">
 			<div class="pageIntro">설문 수정</div>
-
-			<table class="table_syllabus">
-				<h1>courseID=${surveyInfoList.courseID},${surveyInfoList.syllabusVO.syllabusName}</h1>
-				<input type="hidden" name="courseID"
+			<input type="hidden" name="courseID"
 					value="${surveyInfoList.courseID}">
 
-				<th><div class="selectBox" style="text-align: left;">
-						<select class="form-select" aria-label="Default select example"
-							id="questionSelect" name="question" size='1'
-							style="width: 450px; float: right;">
-							<c:forEach var="question" items="${questionList}">
-								<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
-							</c:forEach>
-						</select>
-					</div></th>
-
+			<table class="table_" style="text-align: left">
+				<tr>
+					<th>강의명</th>
+					<td style="text-align: left">courseID=${surveyInfoList.courseID},${surveyInfoList.syllabusVO.syllabusName}
+					</td>
+				</tr>
+				<tr>
+					<th>질문분류</th>
+					<td><div class="selectBox" style="text-align: left;">
+							<select class="form-select" aria-label="Default select example"
+								id="questionSelect" name="question" size='1'
+								style="width: 100%;">
+								<c:forEach var="question" items="${questionList}">
+									<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
+								</c:forEach>
+							</select>
+						</div></td>
+				</tr>
+			</table>
+			
+			
+			<table class="table_" style="text-align: left">
 				<tr>
 					<th>1번 질문</th>
 					<td><input type="text" class="form-control"
@@ -271,7 +285,8 @@ function handleModify() {
 				</tr>
 			</table>
 
-			<div style="margin-top: 50px; float: right; text-align:right;">
+
+			<div style="margin-top: 50px; float: right; text-align: right;">
 				<input class="btn btn-outline-danger" id="submitbtn" type="button"
 					value="수정하기" onclick='handleModify()'>
 				<button class="btn btn-outline-danger" type="button"

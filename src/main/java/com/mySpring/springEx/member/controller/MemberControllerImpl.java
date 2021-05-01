@@ -347,6 +347,15 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 	
+	 @RequestMapping(value="/member/memberPartnerList.do", method=RequestMethod.GET)
+	 public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	    String viewName = (String)request.getAttribute("viewName");
+	    List partnersName = memberService.listPartners();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnersName", partnersName);
+	    return mav;
+	 }
+	
 	//수료과목 설문조사 뽑기
 	@Override
 	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)

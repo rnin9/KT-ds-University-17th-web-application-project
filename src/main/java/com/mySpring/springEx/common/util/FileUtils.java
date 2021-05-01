@@ -15,11 +15,11 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
+	  private static final String filePath ="C:\\Users\\mspak\\Downloads\\KTDS (1)\\file\\";
 
-	  private static final String filePath ="C:\\Users\\mspak\\Downloads\\KTDS (1)\\file";
 	  // 파일이 저장될 위치
 
-	 
+	 //추가
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
 		
@@ -56,8 +56,6 @@ public class FileUtils {
 				str_nt_file_name = getRandomString() + originalFileExtension;
 				
 				file = new File(filePath + str_nt_file_name);
-				System.out.println("zzzzzzzzzzz"+file);
-				System.out.println("파일패스ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+filePath);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
 				listMap.put("NOTICE_NO", notice_no);

@@ -279,12 +279,10 @@ p {
 	<div class="notice">
 		<h3>공지사항</h3>
 		<ul class="rolling">
-			<li><a
-				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227">
-					[공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
-			<li><a
-				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222">
-					[공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=323"> [공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=324"> [공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=325"> [공지] 2021년 컨소시엄 재직자향상 교육 안내</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=326"> [공지] 자바&파이썬 웹애플리케이션 전문가 양성과정 모집</a></li>
 		</ul>
 
 	</div>

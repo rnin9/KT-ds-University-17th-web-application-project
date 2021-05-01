@@ -19,6 +19,9 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -155,7 +158,7 @@ $(document).ready(function(){
 
 		<div class="pageIntro">설문조사</div>
 
-		<table id="table_id" style="border-bottom: 1px solid #96988f;">
+		<table id="table_id" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<th>번호</th>

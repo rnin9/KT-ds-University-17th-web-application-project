@@ -61,8 +61,6 @@ request.setCharacterEncoding("UTF-8");
 						<li><a href="/springEx/courseTake/courseApplyList.do"> 수강
 								관리</a></li>
 					</ul>
-
-
 					<li><a href="${contextPath}/notice/listNotice.do" style="margin-right: 20px;"> <i
 							class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항
 					</a></li>

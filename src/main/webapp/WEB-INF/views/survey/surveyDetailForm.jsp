@@ -563,7 +563,7 @@ request.setCharacterEncoding("UTF-8");
 $(function() { 
 	
 	$("#firstNav").click(function(){
-		$("#sidebar-left").css("height","9000px");
+		$("#sidebar-left").css("height","9300px");
 	});
 	
 	
@@ -580,10 +580,12 @@ $(function() {
 <style>
 .container {
 	width: 40%;
+	margin-top:20px;
 	font-family: 'Noto Sans KR', sans-serif;
-	background-color: lavender;
+	background-color: white;
 	border-radius: 8px;
 	padding-bottom: 12px;
+	border-style:groove;
 }
 
 .selectRadio {
@@ -683,10 +685,11 @@ input {
 
 label {
 	display: inline-block;
-	padding: 15px 25px;
-	font-weight: 600;
-	color: #bbb;
-	border: 1px solid transparent;
+    padding: 5px 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #bbb;
+    border: 1px solid transparent;
 }
 
 label:hover {
@@ -696,7 +699,8 @@ label:hover {
 
 input:checked+label {
 	color: #555;
-	border-top: 2px solid red;
+	border-top: 3px solid red;
+	
 }
 
 #cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96,
