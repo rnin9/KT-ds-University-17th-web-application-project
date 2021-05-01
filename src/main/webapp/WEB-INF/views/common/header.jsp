@@ -168,9 +168,9 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item"
 								href="${contextPath}/universityIntro.do"> 회사소개</a></li>
 							<li><a class="dropdown-item"
-								href="${contextPath}/universityConsortium.do"> 컨소시엄</a></li>
+								href="${contextPath}/universityConsortium.do"> 컨소시엄소개</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">과정신청</a></li>
+					<li class="nav-item"><a class="nav-link" href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 				</c:when>
 			</c:choose>
 		</ul>

@@ -41,6 +41,7 @@
         }
 
         .container {
+        	font-family: 'Noto Sans KR', sans-serif;
             display: flex;
             flex-wrap: wrap;
             width: 80%;
@@ -80,6 +81,7 @@
     </style>
 
 </head>
+
 
 <script type="text/javascript">
     function checkSelectAll(checkbox) {

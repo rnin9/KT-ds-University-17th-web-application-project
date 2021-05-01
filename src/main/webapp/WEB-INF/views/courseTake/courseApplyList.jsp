@@ -117,7 +117,7 @@ table.dataTable td {
 						<td>${courseTake.applyDate}</td>
 						<c:choose>
 							<c:when test="${courseTake.courseTake_State eq '수료'}">
-								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
+								<td style="display: flex; text-align: center; justify-content: center;">${courseTake.courseTake_State}
 									<form name="formForCertificate"
 										action="${contextPath}/courseTake/certificate.do"
 										method="post">
@@ -139,7 +139,7 @@ table.dataTable td {
 											name="userBirthday" value="${courseTake.memberVO.birth}"
 											style="display: none;" /> <input type="image"
 											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
-											style="width: 17px; margin-top: 12px; margin-left: 5px;"
+											style="width: 17px;  margin-left: 5px; "
 											onclick="javascript:popup(this.form);">
 									</form>
 							</c:when>

@@ -16,7 +16,7 @@
 <title>FAQ</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
-	
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -115,7 +115,9 @@
 </head>
 
 <body>
-	<div class="sub_visual"></div>
+	<div class="sub_visual">
+		<span style="color: white;">FAQ</span>
+	</div>
 
 
 	<div class="container">
@@ -131,7 +133,7 @@
 		</div>
 		<!-- 페이지에 대한 intro -->
 		<!-- <div class="faqIntro">자주하는 질문에 대한 답변입니다.</div> -->
-		<div class="pageIntro">FAQ</div>
+		<!-- <div class="pageIntro">FAQ</div> -->
 
 		<!-- FAQ 아코디언, 10개의 질문과 답변 -->
 		<div class="accordion accordion-flush" id="accordionFlushExample">
