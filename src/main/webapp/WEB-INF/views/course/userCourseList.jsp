@@ -10,7 +10,7 @@ request.setCharacterEncoding("UTF-8");
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>수강관리</title>
 
 <link rel="stylesheet" type="text/css"
