@@ -75,9 +75,9 @@ button {
 	<div class="container">
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
+				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/question/listQuestion.do">1
+				<li class="on"><a href="${contextPath}/question/listQuestion.do">1
 						: 1 문의</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on">문의 등록</li>

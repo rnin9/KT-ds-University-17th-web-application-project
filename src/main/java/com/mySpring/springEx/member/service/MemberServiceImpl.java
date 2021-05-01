@@ -24,292 +24,292 @@ import com.mySpring.springEx.partner.vo.PartnerVO;
 @Transactional(propagation = Propagation.REQUIRED)
 @PropertySource("classpath:mailkey.properties")
 public class MemberServiceImpl implements MemberService {
-	@Autowired
-	private MemberDAO memberDAO;
+   @Autowired
+   private MemberDAO memberDAO;
 
 
-	@Value("${hostSMTPid}")
-	public String hostSMTPId;
-	// https://m.blog.naver.com/monsterkn/221333152250 ³×ÀÌ¹ö SMTP¼³Á¤ÈÄ ÀÚ½ÅÀÇ ¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ±âÀÔ
+   @Value("${hostSMTPid}")
+   public String hostSMTPId;
+   // https://m.blog.naver.com/monsterkn/221333152250 ë„¤ì´ë²„ SMTPì„¤ì •í›„ ìì‹ ì˜ ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ê¸°ì…
 
-	// mailkey.properties hostSMTPpwd°ªÀ» ºÒ·¯¿È
-	@Value("${hostSMTPpwd}")
-	public String hostSMTPPwd;
+   // mailkey.properties hostSMTPpwdê°’ì„ ë¶ˆëŸ¬ì˜´
+   @Value("${hostSMTPpwd}")
+   public String hostSMTPPwd;
 
-	// mailkey.properties portNum°ªÀ» ºÒ·¯¿È
-	@Value("${portNum}")
-	public int portNum;
+   // mailkey.properties portNumê°’ì„ ë¶ˆëŸ¬ì˜´
+   @Value("${portNum}")
+   public int portNum;
 
-	@Override
-	public List listMembers() throws DataAccessException {
-		List membersList = null;
-		membersList = memberDAO.selectAllMemberList();
-		return membersList;
-	}
-	
-	@Override
-	public List listPartners() throws DataAccessException {
-		List partnersName = null;
-		partnersName = memberDAO.listPartners();
-		return partnersName;
-	}
+   @Override
+   public List listMembers() throws DataAccessException {
+      List membersList = null;
+      membersList = memberDAO.selectAllMemberList();
+      return membersList;
+   }
+   
+   @Override
+   public List listPartners() throws DataAccessException {
+      List partnersName = null;
+      partnersName = memberDAO.listPartners();
+      return partnersName;
+   }
 
-	@Override
-	public List listRecruitments() throws DataAccessException {
-		List recruitmentList = null;
-		recruitmentList = memberDAO.selectAllRecruitList();
-		return recruitmentList;
-	}
+   @Override
+   public List listRecruitments() throws DataAccessException {
+      List recruitmentList = null;
+      recruitmentList = memberDAO.selectAllRecruitList();
+      return recruitmentList;
+   }
 
-	@Override
-	public List listApplications(String id) throws DataAccessException {
-		List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
-		return applicationList;
-	}
+   @Override
+   public List listApplications(String id) throws DataAccessException {
+      List<HashMap<String, String>> applicationList = memberDAO.selectAllApplicationList(id);
+      return applicationList;
+   }
 
-	@Override
-	public List listSuggestions(String id) throws DataAccessException {
-		List<HashMap<String, String>> suggestionList = memberDAO.selectAllSuggestionList(id);
-		return suggestionList;
-	}
+   @Override
+   public List listSuggestions(String id) throws DataAccessException {
+      List<HashMap<String, String>> suggestionList = memberDAO.selectAllSuggestionList(id);
+      return suggestionList;
+   }
 
-	@Override
-	public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
-		return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
-	}
+   @Override
+   public int userApplyPartner(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+      return memberDAO.userApplyPartner(partnerApplyUserID, partnerApplyPartnerID);
+   }
 
-	@Override
-	public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
-		return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
-	}
+   @Override
+   public int deleteApplication(String partnerApplyUserID, String partnerApplyPartnerID) throws Exception {
+      return memberDAO.deleteApplication(partnerApplyUserID, partnerApplyPartnerID);
+   }
 
-	@Override
-	public int deleteSuggestion(String partnerID, String userID) throws Exception {
-		return memberDAO.deleteSuggestion(partnerID, userID);
-	}
+   @Override
+   public int deleteSuggestion(String partnerID, String userID) throws Exception {
+      return memberDAO.deleteSuggestion(partnerID, userID);
+   }
 
-	@Override
-	public int acceptSuggestion(String partnerID, String userID) throws Exception {
-		return memberDAO.acceptSuggestion(partnerID, userID);
-	}
+   @Override
+   public int acceptSuggestion(String partnerID, String userID) throws Exception {
+      return memberDAO.acceptSuggestion(partnerID, userID);
+   }
 
-	@Override
-	public int rejectSuggestion(String partnerID, String userID) throws Exception {
-		return memberDAO.rejectSuggestion(partnerID, userID);
-	}
-
-
-	/*
-	 * @Override public int addMember(MemberVO member) throws DataAccessException {
-	 * return memberDAO.insertMember(member); }
-	 */
+   @Override
+   public int rejectSuggestion(String partnerID, String userID) throws Exception {
+      return memberDAO.rejectSuggestion(partnerID, userID);
+   }
 
 
-	@Override
-	public int removeMember(String id) throws DataAccessException {
-		return memberDAO.deleteMember(id);
-	}
-
-	@Override
-	public MemberVO login(MemberVO memberVO) throws Exception {
-		return memberDAO.loginById(memberVO);
-	}
-
-	// ¿©±âºÎÅÍ ¼öÁ¤½ÃÀÛ
-	@Override
-	public void check_id(String id, HttpServletResponse response) throws Exception {
-		PrintWriter out = response.getWriter();
-		out.println(memberDAO.check_id(id));
-		out.close();
-	}
-
-	@Override
-	public void check_email(String email, HttpServletResponse response) throws Exception {
-		PrintWriter out = response.getWriter();
-		out.println(memberDAO.check_email(email));
-		System.out.println(out);
-		out.close();
-	}
-
-	@Override
-	public int join_member(MemberVO member, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		System.out.println("2");
-		if (memberDAO.check_id(member.getUserId()) == 1) {		// Áßº¹µÈ ¾ÆÀÌµğ
-			out.println(
-					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
-			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
-			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
-			out.println("<script language=JavaScript>");
-			out.println("$(document).ready(function(){");
-			out.println("swal('¾ÆÀÌµğ Áßº¹','Áßº¹ÀÌ ¾Æ´Ñ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä!','error')");
-			out.println(".then((result) => {");
-			out.println("history.go(-1);");
-			out.println("})");
-			out.println("});");
-			out.println("</script>");
-			out.close();
-			return 0;
-		} else if (memberDAO.check_email(member.getUserEmail()) == 1) { // Áßº¹µÈ ÀÌ¸ŞÀÏ
-			out.println(
-					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
-			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
-			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
-			out.println("<script language=JavaScript>");
-			out.println("$(document).ready(function(){");
-			out.println("swal('ÀÌ¸ŞÀÏ Áßº¹',' Áßº¹ÀÌ ¾Æ´Ñ ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä!','error')");
-			out.println(".then((result) => {");
-			out.println("history.go(-1);");
-			out.println("})");
-			out.println("});");
-			out.println("</script>");
-			out.close();
-			return 0;
-		} else {
-
-			// ÀÎÁõÅ° set
-			/* member.setApproval_key(create_key()); */
-			memberDAO.join_member(member);
-			// ÀÎÁõ ¸ŞÀÏ ¹ß¼Û
-			send_mail(member);
-			out.println(
-					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
-			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
-			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
-			
-			out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@9'></script>");
-			out.println("<script src='sweetalert2.min.js'></script>");
-			
-			out.println("<script language=JavaScript>");
-			out.println("$(document).ready(function(){");
-			
-			out.println("Swal.fire({title:'È¸¿ø°¡ÀÔÀ» ÃàÇÏµå¸³´Ï´Ù!!',	text: '¸ŞÀÏÀ» ÀÎÁõÀ» ¿Ï·áÇÏ¼¼¿ä!', icon:'success', backdrop: 'rgba(0,0,123,0.4) url(\"/springEx/resources/image/nyan.gif\") left top no-repeat'})");
-			//out.println("swal('¸ŞÀÏÀ» ÀÎÁõÀ» ¿Ï·áÇÏ¼¼¿ä','±âÀÔÇÑ ÀÌ¸ŞÀÏ·Î Àü¼ÛµÇ¾ú½À´Ï´Ù!','success')");
-			
-			out.println(".then((result) => {");
-			out.println("location.href='http://localhost:"+portNum+"/springEx/main.do';");
-			out.println("})");
-			out.println("});");
-			out.println("</script>");
-			out.close();
-			return 1;
-
-		}
-	}
-
-	@Override
-	public void approval_member(MemberVO member, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		if (memberDAO.approval_member(member) == 0) { // ÀÌ¸ŞÀÏ ÀÎÁõ¿¡ ½ÇÆĞÇÏ¿´À» °æ¿ì
-			out.println("<script>");
-			out.println("alert('Àß¸øµÈ Á¢±ÙÀÔ´Ï´Ù.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-		} else { // ÀÌ¸ŞÀÏ ÀÎÁõÀ» ¼º°øÇÏ¿´À» °æ¿ì
-			out.println(
-					"<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
-			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
-			out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
-			out.println("<script language=JavaScript>");
-			out.println("$(document).ready(function(){");
-			out.println("swal('ÀÎÁõ¼º°ø!!',' ÀÎÁõ¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù','success')");
-			out.println(".then((result) => {");
-			out.println("history.go(-2);");
-			out.println("})");
-			out.println("});");
-			
-			out.println("</script>");
-			out.close();
-		}
-	}
-
-	
-
-	@Override
-	public void send_mail(MemberVO member) throws Exception {
-		// Mail Server ¼³Á¤
-		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = hostSMTPId;
-		String hostSMTPpwd = hostSMTPPwd;
-
-		// º¸³»´Â »ç¶÷ EMail, Á¦¸ñ, ³»¿ë
-		String fromEmail = hostSMTPId;
-		String fromName = "KTDS-Spring Homepage ÀÌ¸ŞÀÏ ÀÎÁõ";
-		String subject = "ÀÎÁõ";
-		String msg = "°¡ÀÔÀ» È¯¿µÇÕ´Ï´Ù.";
-
-		// È¸¿ø°¡ÀÔ ¸ŞÀÏ ³»¿ë
-		subject = "KTDS Homepage È¸¿ø°¡ÀÔ ÀÎÁõ ¸ŞÀÏÀÔ´Ï´Ù.";
-		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-		msg += "<h3 style='color: blue;'>";
-		msg += member.getUserId() + "´Ô È¸¿ø°¡ÀÔÀ» È¯¿µÇÕ´Ï´Ù.</h3>";
-		msg += "<div style='font-size: 130%'>";
-		msg += "ÇÏ´ÜÀÇ ÀÎÁõ ¹öÆ° Å¬¸¯ ½Ã Á¤»óÀûÀ¸·Î È¸¿ø°¡ÀÔÀÌ ¿Ï·áµË´Ï´Ù.</div><br/>";
-		msg += "<form method='post' action='http://localhost:" + portNum + "/springEx/member/approval_member.do'>"; // mailkey.properties
-																													// ÀÇ
-																													// portNum
-		msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
-		msg += "<input type='submit' value='ÀÎÁõ'></form><br/></div>";
-		System.out.println(msg);
-
-	
-		String mail = member.getUserEmail();
-		System.out.println(mail);
-		try {
-			HtmlEmail email = new HtmlEmail();
-			email.setDebug(true);
-			email.setCharset(charSet);
-			email.setSSL(true);
-			email.setHostName(hostSMTP);
-			email.setSmtpPort(465);
-
-			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-			email.setTLS(true);
-			email.addTo(mail);
-			email.setFrom(fromEmail, fromName, charSet);
-			email.setSubject(subject);
-			email.setHtmlMsg(msg);
-			email.send();
-		} catch (Exception e) {
-			System.out.println("¸ŞÀÏ¹ß¼Û ½ÇÆĞ : " + e);
-		}
-	}
-
-	@Override
-	public MemberVO getMyInfo(String userID) throws Exception {
-		// TODO Auto-generated method stub
-		
-		return memberDAO.getMyInformation(userID);
-	}
-	
-	@Override
-	public int modMyInfo(MemberVO member) throws Exception{
-		memberDAO.modMyInfo(member);
-		return 0;
-	}
-	
-	@Override
-	public List listMyCourse(String userID) throws DataAccessException {
-		List myCourseList = null;
-		myCourseList = memberDAO.selectAllMyCourseList(userID);
-		return myCourseList;
-	}
-
-	@Override
-	public PartnerVO partnerLogin(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return memberDAO.partnerLogInById(memberVO);
-	}
+   /*
+    * @Override public int addMember(MemberVO member) throws DataAccessException {
+    * return memberDAO.insertMember(member); }
+    */
 
 
+   @Override
+   public int removeMember(String id) throws DataAccessException {
+      return memberDAO.deleteMember(id);
+   }
+
+   @Override
+   public MemberVO login(MemberVO memberVO) throws Exception {
+      return memberDAO.loginById(memberVO);
+   }
+
+   // ì—¬ê¸°ë¶€í„° ìˆ˜ì •ì‹œì‘
+   @Override
+   public void check_id(String id, HttpServletResponse response) throws Exception {
+      PrintWriter out = response.getWriter();
+      out.println(memberDAO.check_id(id));
+      out.close();
+   }
+
+   @Override
+   public void check_email(String email, HttpServletResponse response) throws Exception {
+      PrintWriter out = response.getWriter();
+      out.println(memberDAO.check_email(email));
+      System.out.println(out);
+      out.close();
+   }
+
+   @Override
+   public int join_member(MemberVO member, HttpServletResponse response) throws Exception {
+      // TODO Auto-generated method stub
+      response.setContentType("text/html;charset=utf-8");
+      PrintWriter out = response.getWriter();
+      System.out.println("2");
+      if (memberDAO.check_id(member.getUserId()) == 1) {      // ì¤‘ë³µëœ ì•„ì´ë””
+         out.println(
+               "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+         out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+         out.println("<script language=JavaScript>");
+         out.println("$(document).ready(function(){");
+         out.println("swal('ì•„ì´ë”” ì¤‘ë³µ','ì¤‘ë³µì´ ì•„ë‹Œ ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”!','error')");
+         out.println(".then((result) => {");
+         out.println("history.go(-1);");
+         out.println("})");
+         out.println("});");
+         out.println("</script>");
+         out.close();
+         return 0;
+      } else if (memberDAO.check_email(member.getUserEmail()) == 1) { // ì¤‘ë³µëœ ì´ë©”ì¼
+         out.println(
+               "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+         out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+         out.println("<script language=JavaScript>");
+         out.println("$(document).ready(function(){");
+         out.println("swal('ì´ë©”ì¼ ì¤‘ë³µ',' ì¤‘ë³µì´ ì•„ë‹Œ ì´ë©”ì¼ì„ ì…ë ¥í•˜ì„¸ìš”!','error')");
+         out.println(".then((result) => {");
+         out.println("history.go(-1);");
+         out.println("})");
+         out.println("});");
+         out.println("</script>");
+         out.close();
+         return 0;
+      } else {
+
+         // ì¸ì¦í‚¤ set
+         /* member.setApproval_key(create_key()); */
+         memberDAO.join_member(member);
+         // ì¸ì¦ ë©”ì¼ ë°œì†¡
+         send_mail(member);
+         out.println(
+               "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+         out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+         
+         out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@9'></script>");
+         out.println("<script src='sweetalert2.min.js'></script>");
+         
+         out.println("<script language=JavaScript>");
+         out.println("$(document).ready(function(){");
+         
+         out.println("Swal.fire({title:'íšŒì›ê°€ì…ì„ ì¶•í•˜ë“œë¦½ë‹ˆë‹¤!!',   text: 'ë©”ì¼ì„ ì¸ì¦ì„ ì™„ë£Œí•˜ì„¸ìš”!', icon:'success', backdrop: 'rgba(0,0,123,0.4) url(\"/ktu/resources/image/nyan.gif\") left top no-repeat'})");
+         //out.println("swal('ë©”ì¼ì„ ì¸ì¦ì„ ì™„ë£Œí•˜ì„¸ìš”','ê¸°ì…í•œ ì´ë©”ì¼ë¡œ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤!','success')");
+         
+         out.println(".then((result) => {");
+         out.println("location.href='http://localhost:"+portNum+"/ktu/main.do';");
+         out.println("})");
+         out.println("});");
+         out.println("</script>");
+         out.close();
+         return 1;
+
+      }
+   }
+
+   @Override
+   public void approval_member(MemberVO member, HttpServletResponse response) throws Exception {
+      response.setContentType("text/html;charset=utf-8");
+      PrintWriter out = response.getWriter();
+      if (memberDAO.approval_member(member) == 0) { // ì´ë©”ì¼ ì¸ì¦ì— ì‹¤íŒ¨í•˜ì˜€ì„ ê²½ìš°
+         out.println("<script>");
+         out.println("alert('ì˜ëª»ëœ ì ‘ê·¼ì…ë‹ˆë‹¤.');");
+         out.println("history.go(-1);");
+         out.println("</script>");
+         out.close();
+      } else { // ì´ë©”ì¼ ì¸ì¦ì„ ì„±ê³µí•˜ì˜€ì„ ê²½ìš°
+         out.println(
+               "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
+         out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
+         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+         out.println("<script language=JavaScript>");
+         out.println("$(document).ready(function(){");
+         out.println("swal('ì¸ì¦ì„±ê³µ!!',' ì¸ì¦ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤','success')");
+         out.println(".then((result) => {");
+         out.println("history.go(-2);");
+         out.println("})");
+         out.println("});");
+         
+         out.println("</script>");
+         out.close();
+      }
+   }
+
+   
+
+   @Override
+   public void send_mail(MemberVO member) throws Exception {
+      // Mail Server ì„¤ì •
+      String charSet = "utf-8";
+      String hostSMTP = "smtp.naver.com";
+      String hostSMTPid = hostSMTPId;
+      String hostSMTPpwd = hostSMTPPwd;
+
+      // ë³´ë‚´ëŠ” ì‚¬ëŒ EMail, ì œëª©, ë‚´ìš©
+      String fromEmail = hostSMTPId;
+      String fromName = "KTDS-Spring Homepage ì´ë©”ì¼ ì¸ì¦";
+      String subject = "ì¸ì¦";
+      String msg = "ê°€ì…ì„ í™˜ì˜í•©ë‹ˆë‹¤.";
+
+      // íšŒì›ê°€ì… ë©”ì¼ ë‚´ìš©
+      subject = "KTDS Homepage íšŒì›ê°€ì… ì¸ì¦ ë©”ì¼ì…ë‹ˆë‹¤.";
+      msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+      msg += "<h3 style='color: blue;'>";
+      msg += member.getUserId() + "ë‹˜ íšŒì›ê°€ì…ì„ í™˜ì˜í•©ë‹ˆë‹¤.</h3>";
+      msg += "<div style='font-size: 130%'>";
+      msg += "í•˜ë‹¨ì˜ ì¸ì¦ ë²„íŠ¼ í´ë¦­ ì‹œ ì •ìƒì ìœ¼ë¡œ íšŒì›ê°€ì…ì´ ì™„ë£Œë©ë‹ˆë‹¤.</div><br/>";
+      msg += "<form method='post' action='http://localhost:" + portNum + "/ktu/member/approval_member.do'>"; // mailkey.properties
+                                                                                       // ì˜
+                                                                                       // portNum
+      msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
+      msg += "<input type='submit' value='ì¸ì¦'></form><br/></div>";
+      System.out.println(msg);
+
+   
+      String mail = member.getUserEmail();
+      System.out.println(mail);
+      try {
+         HtmlEmail email = new HtmlEmail();
+         email.setDebug(true);
+         email.setCharset(charSet);
+         email.setSSL(true);
+         email.setHostName(hostSMTP);
+         email.setSmtpPort(465);
+
+         email.setAuthentication(hostSMTPid, hostSMTPpwd);
+         email.setTLS(true);
+         email.addTo(mail);
+         email.setFrom(fromEmail, fromName, charSet);
+         email.setSubject(subject);
+         email.setHtmlMsg(msg);
+         email.send();
+      } catch (Exception e) {
+         System.out.println("ë©”ì¼ë°œì†¡ ì‹¤íŒ¨ : " + e);
+      }
+   }
+
+   @Override
+   public MemberVO getMyInfo(String userID) throws Exception {
+      // TODO Auto-generated method stub
+      
+      return memberDAO.getMyInformation(userID);
+   }
+   
+   @Override
+   public int modMyInfo(MemberVO member) throws Exception{
+      memberDAO.modMyInfo(member);
+      return 0;
+   }
+   
+   @Override
+   public List listMyCourse(String userID) throws DataAccessException {
+      List myCourseList = null;
+      myCourseList = memberDAO.selectAllMyCourseList(userID);
+      return myCourseList;
+   }
+
+   @Override
+   public PartnerVO partnerLogin(MemberVO memberVO) throws Exception {
+      // TODO Auto-generated method stub
+      return memberDAO.partnerLogInById(memberVO);
+   }
 
 
-	
-	
+
+
+   
+   
 
 }

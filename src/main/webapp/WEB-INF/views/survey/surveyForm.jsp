@@ -145,9 +145,9 @@ $(document).ready(function(){
 
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
+				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/survey/listSurvey.do">설문조사
+				<li class="on"><a href="${contextPath}/survey/listSurvey.do">설문조사
 				</a></li>
 			</ul>
 		</div>

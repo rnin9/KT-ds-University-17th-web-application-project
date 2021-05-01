@@ -54,7 +54,7 @@ function deleteSyllabus(){
 	/*location.href='${contextPath}/syllabus/deleteSyllabus.do?syllabusID=${syllabusVO.syllabusID}'*/
 		console.log(${syllabusVO.syllabusID});
 		var syllabusID = ${syllabusVO.syllabusID};
-		url="/springEx/syllabus/deleteSyllabus.do";
+		url="${contextPath}/syllabus/deleteSyllabus.do";
 		$.ajax({
 			url : url,
 			type : 'POST',
@@ -146,7 +146,7 @@ function modifySyllabus(){
 		</div>
 		<div style="margin-top: 50px;">
 			<button class="btn btn-outline-danger" type="button"
-				onClick="location.href='/springEx/syllabus/syllabusList.do'">목록</button>
+				onClick="location.href='${contextPath}/syllabus/syllabusList.do'">목록</button>
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteSyllabus()">삭제</button>
 			<button class="btn btn-outline-danger" type="button"

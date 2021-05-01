@@ -233,7 +233,7 @@ p {
 			<div class="item">
 				<div class="card" style="margin: 1% 1%;">
 					<a id="cardHover"
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+						href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 						<div class="card-body">
 							<span class="card-title"
 								style="margin: 1% 1% 1% 1%; height: 25px;"><span
