@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.service.ResumeService;
 import com.mySpring.springEx.resume.vo.ResumeVO;
-
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
 
@@ -43,9 +45,15 @@ public class ResumeControllerImpl implements ResumeController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PartnerService partnerService;
+	
 	@Autowired
 	MemberVO memberVO;
-
+	
+	
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = "/resume/resumeList.do", method = RequestMethod.GET)
 	public ModelAndView resumeList(@RequestParam("resumeUser") String resumeUser, HttpServletRequest request,
@@ -63,18 +71,18 @@ public class ResumeControllerImpl implements ResumeController {
 	public ModelAndView resumeCheck(@RequestParam("resumeID") String resumeID,
 			@RequestParam("resumeUser") String resumeUser, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
-		
+
 		ResumeVO resumeVO = new ResumeVO();
 		resumeVO.setResumeID(resumeID);
 		resumeVO.setResumeUser(resumeUser);
 
 		resumeService.resumeCheck(resumeVO);
-		
-		ModelAndView mav = new ModelAndView("redirect:/resume/resumeList.do?resumeUser="+resumeUser);
+
+		ModelAndView mav = new ModelAndView("redirect:/resume/resumeList.do?resumeUser=" + resumeUser);
 		return mav;
 	}
-
+	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/resume/resumeAdmin.do", method = RequestMethod.GET)
 	public ModelAndView allResumeList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -85,29 +93,34 @@ public class ResumeControllerImpl implements ResumeController {
 		mav.addObject("resumeAdmin", allResumeList);
 		return mav;
 	}
-
+	
 	@Override
-	@RequestMapping(value = "/resume/resumeInfo.do", method = RequestMethod.GET)
-	public ModelAndView resumeInfo(@RequestParam("resumeID") String resumeID,
-			@RequestParam("resumeUser") String resumeUser, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ResumeVO resumeInfo = resumeService.resumeInfos(resumeID);
-		List resumeInfo_detail = resumeService.resumeInfos_detail(resumeUser);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("resumeInfo", resumeInfo);
-		System.out.println(resumeInfo);
-		mav.addObject("resumeInfo_career", resumeInfo_detail.get(0));
-		mav.addObject("resumeInfo_certificate", resumeInfo_detail.get(1));
-		mav.addObject("resumeInfo_foreign", resumeInfo_detail.get(2));
-		mav.addObject("resumeInfo_project", resumeInfo_detail.get(3));
-		System.out.println(resumeInfo_detail);
-		System.out.println(resumeInfo_detail.get(1));
-		return mav;
+	   @RequestMapping(value = "/resume/resumeInfo.do", method = RequestMethod.GET)
+	   public ModelAndView resumeInfo(@RequestParam("resumeID") String resumeID, @RequestParam("resumeUser") String resumeUser,
+	         HttpServletRequest request, HttpServletResponse response) throws Exception {
+	      String viewName = (String) request.getAttribute("viewName");
+	      ResumeVO resumeInfo = resumeService.resumeInfos(resumeID);
 
-	}
+	      ModelAndView mav = new ModelAndView();
+	      
+	      resumeVO = partnerService.getUserResume(resumeID);
+	      List cerList = partnerService.getUserCer(resumeID, resumeUser); // certificate
+	      List proList = partnerService.getUserPro(resumeID, resumeUser); // project
+	      List forList = partnerService.getUserFor(resumeID, resumeUser); // foreign
+	      List carrList = partnerService.getUserCarr(resumeID, resumeUser); // career
+
+	      mav.addObject("resume", resumeVO);
+	      mav.addObject("certificate", cerList);
+	      mav.addObject("project", proList);
+	      mav.addObject("foreign", forList);
+	      mav.addObject("career", carrList);
+	      mav.setViewName("jsonView");
+	      return mav;
+
+	   }
 
 	// 이력서 작성을 누루는 순간 실행 resume에 insert되고 동시에 userID값을 페이지에 넘겨준다.
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = { "/resume/resumeWrite.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView resumeWrite(@RequestParam("userID") String userID, HttpServletRequest request,
@@ -156,12 +169,12 @@ public class ResumeControllerImpl implements ResumeController {
 		resume.setResumeUser(resumeUser);
 		resumeService.addResume(resume);
 		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		System.out.println(file.getOriginalFilename());
 
-		if (file.isEmpty()){
-			
-		}else {
+		if (file.isEmpty()) {
+
+		} else {
 			File target = new File(filePath);
 
 			String orgFileName = file.getOriginalFilename();
@@ -195,8 +208,8 @@ public class ResumeControllerImpl implements ResumeController {
 		}
 		return mav;
 	}
-	
-	//page1 to page3
+
+	// page1 to page3
 	@Override
 	@RequestMapping(value = { "/resume/page1Topage3.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView page1Topage3(@RequestParam(value = "resume_eng_name") String resumeForeign,
@@ -210,12 +223,12 @@ public class ResumeControllerImpl implements ResumeController {
 		resume.setResumeUser(resumeUser);
 		resumeService.addResume(resume);
 		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		System.out.println(file.getOriginalFilename());
 
-		if (file.isEmpty()){
-			
-		}else {
+		if (file.isEmpty()) {
+
+		} else {
 			File target = new File(filePath);
 
 			String orgFileName = file.getOriginalFilename();
@@ -228,7 +241,7 @@ public class ResumeControllerImpl implements ResumeController {
 
 			resumeService.resumePic(resume);
 		}
-	
+
 		resume.setCareerUser(resumeUser);
 		resume.setCareerResume(resumeID);
 		List careerList = resumeService.selectCareerList(resume);
@@ -241,10 +254,11 @@ public class ResumeControllerImpl implements ResumeController {
 		if (educationList.size() != 1) {
 			mav.addObject("educationList", educationList.subList(1, educationList.size()));
 		}
-		
+
 		return mav;
 	}
-	//page1 to page4
+
+	// page1 to page4
 	@Override
 	@RequestMapping(value = { "/resume/page1Topage4.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView page1Topage4(@RequestParam(value = "resume_eng_name") String resumeForeign,
@@ -258,12 +272,12 @@ public class ResumeControllerImpl implements ResumeController {
 		resume.setResumeUser(resumeUser);
 		resumeService.addResume(resume);
 		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		System.out.println(file.getOriginalFilename());
 
-		if (file.isEmpty()){
-			
-		}else {
+		if (file.isEmpty()) {
+
+		} else {
 			File target = new File(filePath);
 
 			String orgFileName = file.getOriginalFilename();
@@ -278,7 +292,7 @@ public class ResumeControllerImpl implements ResumeController {
 		}
 		resume.setProjectUser(resumeUser);
 		resume.setProjectResume(resumeID);
-		
+
 		List projectList = resumeService.selectProjectList(resume);
 		mav.addObject("projectList1", projectList.get(0));
 		if (projectList.size() != 1) {
@@ -287,7 +301,8 @@ public class ResumeControllerImpl implements ResumeController {
 
 		return mav;
 	}
-	//page1 to page5
+
+	// page1 to page5
 	@Override
 	@RequestMapping(value = { "/resume/page1Topage5.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView page1Topage5(@RequestParam(value = "resume_eng_name") String resumeForeign,
@@ -301,12 +316,12 @@ public class ResumeControllerImpl implements ResumeController {
 		resume.setResumeUser(resumeUser);
 		resumeService.addResume(resume);
 		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		System.out.println(file.getOriginalFilename());
 
-		if (file.isEmpty()){
-			
-		}else {
+		if (file.isEmpty()) {
+
+		} else {
 			File target = new File(filePath);
 
 			String orgFileName = file.getOriginalFilename();
@@ -319,13 +334,13 @@ public class ResumeControllerImpl implements ResumeController {
 
 			resumeService.resumePic(resume);
 		}
-		
+
 		ResumeVO resumeVO = resumeService.resumeInfos(resumeID);
 		mav.addObject("resumeVO", resumeVO);
 		return mav;
 	}
 
-/* page2 */
+	/* page2 */
 
 	// page2 이전버튼 누르면 page1의 내용들을 selecet해서 넘어옴
 	@Override
@@ -352,12 +367,12 @@ public class ResumeControllerImpl implements ResumeController {
 	// page2 자격증 추가 버튼 누른 후 insert
 	@Override
 	@RequestMapping(value = "resume/page2InsertCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody int page2InsertCertificate(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public @ResponseBody int page2InsertCertificate(@RequestBody HashMap<String, Object> params,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		ResumeVO resume = new ResumeVO();
-		String ID=String.valueOf(params.get("ID"));
-		String resumeID=String.valueOf(params.get("resumeID"));
+		String ID = String.valueOf(params.get("ID"));
+		String resumeID = String.valueOf(params.get("resumeID"));
 		System.out.println(ID);
 		System.out.println(resumeID);
 		resume.setCertificateUser(ID);
@@ -385,8 +400,8 @@ public class ResumeControllerImpl implements ResumeController {
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		ResumeVO resume = new ResumeVO();
-		String ID=String.valueOf(params.get("ID"));
-		String resumeID=String.valueOf(params.get("resumeID"));
+		String ID = String.valueOf(params.get("ID"));
+		String resumeID = String.valueOf(params.get("resumeID"));
 		System.out.println(ID);
 		System.out.println(resumeID);
 		resume.setForeignUser(ID);
@@ -457,8 +472,8 @@ public class ResumeControllerImpl implements ResumeController {
 	// moveTopage3
 	@Override
 	@RequestMapping(value = "resume/moveToPage3.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView moveToPage3(@RequestParam("userID") String userID,@RequestParam("resumeID") String resumeID, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView moveToPage3(@RequestParam("userID") String userID, @RequestParam("resumeID") String resumeID,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
@@ -477,9 +492,9 @@ public class ResumeControllerImpl implements ResumeController {
 		}
 		return mav;
 	}
-/* page2 end */
+	/* page2 end */
 
-/* page3 */
+	/* page3 */
 
 	// insert Career
 	@Override
@@ -487,8 +502,8 @@ public class ResumeControllerImpl implements ResumeController {
 	public @ResponseBody int page3InsertCareer(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		String ID=String.valueOf(params.get("ID"));
-		String resumeID=String.valueOf(params.get("resumeID"));
+		String ID = String.valueOf(params.get("ID"));
+		String resumeID = String.valueOf(params.get("resumeID"));
 		ResumeVO resume = new ResumeVO();
 		resume.setCareerUser(ID);
 		resume.setCareerResume(resumeID);
@@ -499,11 +514,11 @@ public class ResumeControllerImpl implements ResumeController {
 	// insert education
 	@Override
 	@RequestMapping(value = "resume/page3InsertEducation.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody int page3InsertEducation(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public @ResponseBody int page3InsertEducation(@RequestBody HashMap<String, Object> params,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		String ID=String.valueOf(params.get("ID"));
-		String resumeID=String.valueOf(params.get("resumeID"));
+		String ID = String.valueOf(params.get("ID"));
+		String resumeID = String.valueOf(params.get("resumeID"));
 		ResumeVO resume = new ResumeVO();
 		resume.setCareerUser(ID);
 		resume.setCareerResume(resumeID);
@@ -574,7 +589,7 @@ public class ResumeControllerImpl implements ResumeController {
 		ResumeVO resumeVO = resumeService.resumeInfos(resumeID);
 
 		mav.addObject("resumeVO", resumeVO);
-		
+
 		resumeVO.setCertificateResume(resumeID);
 		resumeVO.setForeignResume(resumeID);
 		resumeVO.setCertificateUser(userID);
@@ -597,15 +612,15 @@ public class ResumeControllerImpl implements ResumeController {
 	// moveTopage4
 	@Override
 	@RequestMapping(value = "resume/moveToPage4.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView moveToPage4(@RequestParam("userID")String userID, @RequestParam("resumeID")String resumeID, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView moveToPage4(@RequestParam("userID") String userID, @RequestParam("resumeID") String resumeID,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		ResumeVO resumeVO = new ResumeVO();
 		resumeVO.setProjectUser(userID);
 		resumeVO.setProjectResume(resumeID);
-		
+
 		List projectList = resumeService.selectProjectList(resumeVO);
 		mav.addObject("projectList1", projectList.get(0));
 		if (projectList.size() != 1) {
@@ -615,9 +630,9 @@ public class ResumeControllerImpl implements ResumeController {
 		return mav;
 	}
 
-/* page3 end */
+	/* page3 end */
 
-/* page4 */
+	/* page4 */
 
 	// insert project
 	@Override
@@ -625,8 +640,8 @@ public class ResumeControllerImpl implements ResumeController {
 	public @ResponseBody int page4InsertProject(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		String ID=String.valueOf(params.get("ID"));
-		String resumeID=String.valueOf(params.get("resumeID"));
+		String ID = String.valueOf(params.get("ID"));
+		String resumeID = String.valueOf(params.get("resumeID"));
 		ResumeVO resume = new ResumeVO();
 		resume.setProjectUser(ID);
 		resume.setProjectResume(resumeID);
@@ -662,9 +677,9 @@ public class ResumeControllerImpl implements ResumeController {
 			resume.setProjectUser(String.valueOf(params.get("userID")));
 			resume.setProjectEnforcement(projectEnforcement.get(i));
 			resume.setProjectName(projectName.get(i));
-			resume.setProjectDev(projectDev.get(i));
-			resume.setProjectContent(projectContent.get(i));
-			resume.setProjectRole(projectRole.get(i));
+			resume.setProjectDev(projectDev.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+			resume.setProjectContent(projectContent.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+			resume.setProjectRole(projectRole.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 			resume.setProjectURL(projectURL.get(i));
 			resume.setProjectSEQ(Integer.parseInt(projectSEQ.get(i)));
 			resumeService.updatePage4Project(resume);
@@ -686,9 +701,9 @@ public class ResumeControllerImpl implements ResumeController {
 		return mav;
 	}
 
-/* page4 end */
+	/* page4 end */
 
-/* page5 */
+	/* page5 */
 
 	// update self
 	@Override
@@ -704,11 +719,11 @@ public class ResumeControllerImpl implements ResumeController {
 
 		ResumeVO resume = new ResumeVO();
 		resume.setResumeID(resumeID);
-		resume.setResumeContext1(resumeContext1);
-		resume.setResumeContext2(resumeContext2);
-		resume.setResumeContext3(resumeContext3);
-		resume.setResumeContext4(resumeContext4);
-		resume.setResumeContext5(resumeContext5);
+		resume.setResumeContext1(resumeContext1.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		resume.setResumeContext2(resumeContext2.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		resume.setResumeContext3(resumeContext3.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		resume.setResumeContext4(resumeContext4.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		resume.setResumeContext5(resumeContext5.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 		resumeService.updatePage5Self(resume);
 
 	}
@@ -730,7 +745,8 @@ public class ResumeControllerImpl implements ResumeController {
 
 	@Override
 	@RequestMapping(value = "/resume/deleteResume.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView deleteResume(@RequestParam("resumeID") String resumeID, RedirectAttributes rttr,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView deleteResume(@RequestParam("resumeID") String resumeID, RedirectAttributes rttr,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println(resumeID);
 		String getUser = String.valueOf(resumeService.deleteResume(resumeID));
@@ -739,10 +755,11 @@ public class ResumeControllerImpl implements ResumeController {
 		ModelAndView mav = new ModelAndView("redirect:/resume/resumeList.do?resumeUser=" + getUser + "");
 		return mav;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/resume/deleteResume2.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public void deleteResume2(@RequestBody HashMap<String, String> params,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void deleteResume2(@RequestBody HashMap<String, String> params, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		String resumeID = (String) params.get("resumeID");
 		System.out.println(resumeID);

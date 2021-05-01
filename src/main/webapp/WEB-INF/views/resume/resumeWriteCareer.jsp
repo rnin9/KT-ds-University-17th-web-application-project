@@ -333,7 +333,6 @@ div select {
 					add_div("career_list", result);
 				},
 				error : function() {
-					alert("로그인해주세요")
 
 				}
 			});
@@ -347,7 +346,6 @@ div select {
 					add_div("education_list", result);
 				},
 				error : function() {
-					alert("로그인해주세요")
 
 				}
 			});
@@ -447,8 +445,7 @@ div select {
 				data.userID = '<c:out value="${member.userId}"/>';
 
 				data.resumeID =
-<%=resumeID%>
-	;
+<%=resumeID%>;
 
 				data.careerCenter = careerCenter;
 				data.careerStartdate = careerStartdate;
@@ -484,7 +481,6 @@ div select {
 <body>
 
 	<div class="sub_visual">
-		<span style="color: white;">이력서 작성</span>
 	</div>
 
 	<div class="container">
@@ -504,23 +500,23 @@ div select {
 		</div>
 
 		<div id="title_area">
-			<button id="first" class="btn headbutton move none"
-				onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
-			<button id="second" class="btn headbutton move none"
-				onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
-			<div id="third" class="headbutton move">경력사항 / 교육수료사항</div>
-			<button id="forth" class="btn headbutton move none"
-				onClick="location.href='${contextPath}/resume/moveToPage4.do?userID=${member.userId}&resumeID=<%=resumeID%>'">프로젝트
-				관련사항</button>
-			<button id="last" class="btn headbutton move none"
-				onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
+				<button id="first" class="btn headbutton move none" 
+					onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
+				<button id="second" class="btn headbutton move none" 
+					onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
+				<div id="third" class="headbutton move" >경력사항 / 교육수료사항</div>
+				<button id="forth" class="btn headbutton move none" 
+					onClick="location.href='${contextPath}/resume/moveToPage4.do?userID=${member.userId}&resumeID=<%=resumeID%>'">프로젝트 관련사항</button>
+				<button id="last" class="btn headbutton move none" 
+					onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
+			</div>
+			<div class="pageIntro">
+			<h3>경력사항 / 교육수료 사항</h3>
 		</div>
-
-		<h3>경력사항 / 교육수료 사항</h3>
 
 		<div class="main">
 			<div id="title_area">
-				<h4>경력사항</h4>
+				<h5>경력사항</h5>
 			</div>
 			<div id="career_list" class="list_field careerList"
 				name="career_list" value="${careerList1.careerSEQ}">
@@ -603,7 +599,7 @@ div select {
 
 		<div class="main">
 			<div id="title_area">
-				<h4>교육수료 사항</h4>
+				<h5>교육수료 사항</h5>
 			</div>
 			<div id="education_list" class="list_field educationList"
 				name="education_list" value="${educationList1.careerSEQ}">

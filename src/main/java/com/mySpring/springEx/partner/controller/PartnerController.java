@@ -70,4 +70,6 @@ public interface PartnerController {
 			HttpServletResponse response) throws Exception;
 	/* partner-company method end */
 
+	void check_id(String partnerLicenseNum, HttpServletResponse response) throws Exception;
+
 }

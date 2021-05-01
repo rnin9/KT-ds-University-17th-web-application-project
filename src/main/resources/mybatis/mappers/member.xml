@@ -166,11 +166,21 @@
 		into t_member1(id,pwd, name, email,birth,phone,address,address_detail) values(#{id}, 
 		#{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail}) 
 		]]> </insert> -->
+		
+	<update id="userResume" parameterType="String">
+	<![CDATA[
+			update kt_user
+			set userResume = 'Y'
+			where userId = #{userId}
+      ]]>
+	</update>
+		
+	
 	<select id="check_resume" parameterType="String"
 		resultType="String">
 		select userresume
 		from kt_user
-		where userId = #{userId}
+		where userId = #{userId} and userresume = 'Y'
 	</select>
 
 	<!-- 아이디 중복 검사 -->
