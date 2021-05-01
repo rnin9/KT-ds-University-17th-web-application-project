@@ -3,6 +3,7 @@ package com.mySpring.springEx.syllabus.vo;
 import org.springframework.stereotype.Component;
 
 import com.mySpring.springEx.course.vo.CourseVO;
+import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 
 @Component("syllabusVO")
 public class SyllabusVO {
@@ -18,6 +19,7 @@ public class SyllabusVO {
     private String syllabusTarget;
     private String syllabusContent;
     private CourseVO courseVO;
+    private CourseTakeVO courseTakeVO;
 
 
 
@@ -27,7 +29,7 @@ public class SyllabusVO {
 	
 	public SyllabusVO(int syllabusID, String syllabusCategory1, String syllabusCategory2, String syllabusName, String syllabusReportName, 
 			                   int syllabusTotalTime, int syllabusTotalDays, String syllabusOutline, String syllabusPurpose, String syllabusTarget, 
-			                   String syllabusContent,CourseVO courseVO) {
+			                   String syllabusContent,CourseVO courseVO,CourseTakeVO courseTakeVO) {
 		      this.syllabusID = syllabusID;
 		      this.syllabusCategory1 = syllabusCategory1;
 		      this.syllabusCategory2 = syllabusCategory2;
@@ -40,6 +42,7 @@ public class SyllabusVO {
 		      this.syllabusTarget = syllabusTarget;
 		      this.syllabusContent = syllabusContent;
 		      this.courseVO = courseVO;
+		      this.courseTakeVO = courseTakeVO;
 		   }
 
 	public int getSyllabusID() {
@@ -136,6 +139,15 @@ public class SyllabusVO {
 	public void setCourseVO(CourseVO courseVO) {
 		this.courseVO = courseVO;
 	}
+
+	public CourseTakeVO getCourseTakeVO() {
+		return courseTakeVO;
+	}
+
+	public void setCourseTakeVO(CourseTakeVO courseTakeVO) {
+		this.courseTakeVO = courseTakeVO;
+	}
+	
 
 
 }

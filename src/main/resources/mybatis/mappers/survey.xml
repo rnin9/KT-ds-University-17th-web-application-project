@@ -203,10 +203,10 @@
 
 	<select id="listSurveyInfo" parameterType="surveyVO"
 		resultMap="surResult">
-		SELECT
-		A.syllabusID,B.syllabusName,A.syllabusID,B.syllabusID,S.*
-		FROM COURSE
-		A, SYLLABUS B, SURVEY1 S
+		select
+		A.courseID,A.syllabusID,B.syllabusName,S.Q1,S.Q2,S.Q3,S.Q4,S.Q5,S.Q6,S.Q7,S.Q8,S.Q9,S.Q10,S.Q11,S.Q12,S.Q13,S.Q14,S.Q15
+		FROM 
+        COURSE A, SYLLABUS B, SURVEY1 S
 		where A.syllabusID = B.syllabusID AND
 		A.courseID = S.courseID
 		AND A.courseID = #{courseID}

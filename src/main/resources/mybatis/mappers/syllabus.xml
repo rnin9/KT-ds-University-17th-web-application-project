@@ -24,6 +24,18 @@
 			<result property="courseEnd" column="courseEnd" />
 			<result property="questionYN" column="questionYN" />
 		</collection>
+		
+		<collection property="courseTakeVO" javaType="CourseTakeVO">
+		<result property="userID" column="userID" />
+		<result property="courseID" column="courseID" />
+		<result property="courseTake_State" column="courseTake_State" />
+		<result property="courseTake_ApplyDate"
+			column="courseTake_ApplyDate" />
+		<result property="courseTake_CompleteDate"
+			column="courseTake_CompleteDate" />
+		<result property="surveyYN" column="surveyYN" />
+		<result property="applyDate" column="applyDate" />
+		</collection>
 	</resultMap>
 	 
 	<select id="selectSyllabusList" resultMap="syllabusResult">
@@ -63,9 +75,12 @@
     <!--select surveyList  -->
     <select id="selectSurveyList" resultMap="syllabusResult">
 	 <![CDATA[
-	    select a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN,b.courseStart
-	    from syllabus a left outer join course b on a.syllabusID = b.syllabusID
-        WHERE b.questionYN='Y'
+	    select distinct a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN,b.courseStart,ct.surveyYN
+	    from  COURSE b, SYLLABUS a, course_take ct
+        WHERE b.syllabusID=a.syllabusID AND 
+        b.courseID = ct.courseID AND
+        b.questionYN='Y' AND
+        ct.surveyYN='Y'
         order by a.syllabusID desc
 	 ]]>
 	</select>

@@ -15,6 +15,7 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -580,7 +581,7 @@ request.setCharacterEncoding("UTF-8");
 $(function() { 
 	
 	$("#firstNav").click(function(){
-		$("#sidebar-left").css("height","9200px");
+		$("#sidebar-left").css("height","9000px");
 	});
 	
 	
@@ -672,11 +673,6 @@ a:link, a:visited, a:hover {
 	background-color: white !important;
 }
 
-button {
-	float: right;
-	margin-right: 10px;
-}
-
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
@@ -724,7 +720,7 @@ input:checked+label {
 #cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96,
 	#sexylee:checked ~ #sexylee, #yeohu:checked ~ #yeohu, #rhkd:checked ~
 	#rhkd, #kirstybang:checked ~ #kirstybang, #eunjinfizz:checked ~
-	#eunjinfizz, #kang:checked ~ #kang, #dain:checked ~ #dain {
+	#eunjinfizz, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
 	display: block;
 }
 
@@ -738,7 +734,7 @@ input:checked+label {
 		<div class="col-md-12">
 			<nav style="margin-top: 10px;">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
-
+				
 					<li class="nav-item"><a id="firstNav" href="#nav-home"
 						data-toggle="tab" class="nav-link active">요약</a></li>
 
