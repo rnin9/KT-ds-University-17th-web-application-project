@@ -70,7 +70,9 @@
 
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select partnerlicensenum from partner 	
+          select * 
+ 		  from partner
+ 		  where partnerLicenseNum not in('kt_ds_university') 
       ]]>
 	</select>
 
@@ -255,8 +257,8 @@
      <![CDATA[
 	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail},
-	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber}, userPosition=#{userPosition},
-	     userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, userMajor=#{userMajor}
+	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber},userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, 
+	     userMajor=#{userMajor}
 	     where
 	     userId=#{userId}
       ]]>

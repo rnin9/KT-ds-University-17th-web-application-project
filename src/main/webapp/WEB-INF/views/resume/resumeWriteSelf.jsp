@@ -197,8 +197,7 @@ textarea {
 	</script> <script>
 	$(document).on('click','#btn2',function(e){
 		 Swal.fire({
-  	        title:'저장',
-  	        text:'이력서를 저장하시겠습니까?',
+  	        title:'이력서를 저장하시겠습니까?',
 				icon:'warning',
   	        confirmButtonText: `저장`,
   	        showCancelButton: true,
@@ -229,7 +228,19 @@ textarea {
 
 	<div class="container">
 
-		
+		<div class="lnb">
+			<ul>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
+						작성</a></li>
+			</ul>
+		</div>
 
 		<div id="title_area">
 			<button id="first" class="btn headbutton move none"

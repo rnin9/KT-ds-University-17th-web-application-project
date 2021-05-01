@@ -464,7 +464,19 @@ div select {
 
 	<div class="container">
 
-	
+		<div class="lnb">
+			<ul>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
+						작성</a></li>
+			</ul>
+		</div>
 
 		<div id="title_area">
 		

@@ -14,7 +14,6 @@
 }
 
 .footer-upper {
-	transform: translateX(30%);
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -77,7 +76,7 @@
 	</div>
 	<div class="footer-upper">
 
-		<ul class="upper-right">
+		<ul class="upper-right" style="transform: translateX(45%);">
 			<li>
 				<h3>
 					<a href="https://twitter.com/ktds_university" target="_blank"><i class="fab fa-twitter-square"></i></a>

@@ -97,7 +97,7 @@ button {
 </script>
 <script>
    function showPopup() { 
-     window.open("/springEx/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); 
+     window.open("${contextPath}/course/syllabusList.do", "강의계획서 리스트", "width=1000, height=600, left=100, top=50"); 
    }
 </script>
 
@@ -112,9 +112,9 @@ button {
          <table class="table_" style="margin-top:100px;">
             <tr>
                <th>강의명</th>
-               <td><input type="text" class="form-control" placeholder="검색"
-                  id="hiddenThanksTogangsanim" onclick="showPopup();"> <input
-                  type="text" class="form-control" id="syllabusID" name="syllabusID"
+               <td>
+                  <input type="text" class="form-control" placeholder="검색" id="hiddenThanksTogangsanim" onclick="showPopup();"> 
+                  <input type="text" class="form-control" id="syllabusID" name="syllabusID"
                   style="display: none;"></td>
                <th></th>
                <th></th>

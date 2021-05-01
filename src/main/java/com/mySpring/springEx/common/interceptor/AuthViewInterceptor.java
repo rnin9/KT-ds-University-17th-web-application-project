@@ -20,7 +20,6 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
 					// return true이면  Controller에 있는 메서드가 아니므로, 그대로 컨트롤러로 진행
 					return true;
 				}
-
 				// 2.형 변환
 				HandlerMethod handlerMethod = (HandlerMethod)handler;
 				

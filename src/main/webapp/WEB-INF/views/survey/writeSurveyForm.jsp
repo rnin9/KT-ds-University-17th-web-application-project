@@ -13,11 +13,17 @@ request.setCharacterEncoding("UTF-8");
 <meta charset=UTF-8">
 <title>강의계획서 등록</title>
 
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style2.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/layoutAdmin.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
 	crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 a:link, a:visited, a:hover {
@@ -30,80 +36,14 @@ a:link, a:visited, a:hover {
 }
 
 .container {
-	width: 60%;
 	font-family: 'Noto Sans KR', sans-serif;
-}
-
-.well-searchbox {
-	min-height: 20px;
-	min-width: 400px;
-	padding: 19px;
-	top: 90px;
-	background: #f8f8f8;
-	margin-bottom: 20px;
-	padding-bottom: 0px;
-	border: 1px solid #e3e3e3;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-	margin-top: 30px;
-}
-
-.well-searchbox label {
-	/* color: #555; */
-	width: 20%;
-	margin: 10px;
-	text-align: right;
-}
-
-.btn {
-	color: white;
-	display: inline-block;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-color: tomato;
-	border-color: rgba(247, 94, 94, 0 .8);
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out,
-		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-.button_bottom {
-	background-color: tomato;
-	float: right;
-	margin-left: 10px;
-}
-
-.serarchSubject {
+	/* font-family: 'Noto Sans KR', sans-serif; */
 	display: flex;
-	flex-direction: row;
-}
-
-.subject {
-	display: flex;
-	flex-direction: row;
-}
-
-.form-control {
-	border: hidden;
-	margin-left: 20px;
-	width: 88%;
-}
-
-.form-select {
-	border: hidden;
-	width: 280px;
-	display: inline-block;
-	margin-right: 40px;
-	margin-left: 20px;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
 
 .table_syllabus {
@@ -160,41 +100,65 @@ a:link, a:visited, a:hover {
 	border: 1px solid #e4e4e4;
 }
 </style>
+<script>
+function handleModify() { 
+	   Swal.fire({            
+	     title:'등록',
+	     text: '해당 내용으로 등록하시겠습니까?',
+	     showCancelButton: true,
+	     icon:"warning",
+	     confirmButtonColor: '#3085d6',
+	     cancelButtonColor: '#d33',
+	     confirmButtonText: '등록하기'
+	   }).then((result) => {
+	     /* Read more about isConfirmed, isDenied below */
+	     if (result.isConfirmed) {
+	       Swal.fire('등록완료!', '', 'success').then(()=>{
+	           $("#insertSurveyForm").submit();
+	       })
+	     } else{
+	         return;     
+	     }
+	   })
+	}
+</script>
+
 
 </head>
 
 
 
+
 <body>
-	<form method="post" action="${contextPath}/survey/surveyInsert.do">
+	<form id="insertSurveyForm" method="post"
+		action="${contextPath}/survey/surveyInsert.do">
 
 		<div class="container">
-			<div class="lnb">
-				<ul>
-
-					<li><a href="/springEx/main.do">홈</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusList.do">강의계획서
-							관리</a></li>
-					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/syllabus/syllabusForm.do">강의계획서
-							등록</a></li>
-				</ul>
-			</div>
-
-			<table class="table_syllabus">
-				<h1>courseID=
-					${courseVO.courseID},${courseVO.syllabusVO.syllabusName}</h1>
-				<input type="hidden" name="courseID" value="${courseVO.courseID}">
-
-
-				<select id="questionSelect" name="question" size='1' style="width: 450px; float: right;">
-					<c:forEach var="question" items="${questionList}">
-						<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
-					</c:forEach>
-				</select>
+			<div class="pageIntro">설문 생성</div>
+			<input type="hidden" name="courseID" value="${courseVO.courseID}">
 			
-
+			<table class="table_" style="text-align: left">
+				<tr>
+					<th>강의명</th>
+					<td style="text-align: left">courseID=
+						${courseVO.courseID},${courseVO.syllabusVO.syllabusName}</td>
+				</tr>
+				<tr>
+				<th>질문분류</th>
+					<td><div class="selectBox" style="text-align: left;">
+							<select class="form-select" aria-label="Default select example"
+								id="questionSelect" name="question" size='1'
+								style="width: 100%; ">
+								<c:forEach var="question" items="${questionList}">
+									<option id="questionSelect" value="${question.questionName}">${question.questionName}</option>
+								</c:forEach>
+							</select>
+						</div></td>
+				</tr>
+				</table>
+				
+				
+				<table class="table_" style="text-align: left">
 				<tr>
 					<th>1번 질문</th>
 					<td><input type="text" class="form-control"
@@ -279,10 +243,12 @@ a:link, a:visited, a:hover {
 			</table>
 
 
-			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom" type="button"
+
+			<div style="margin-top: 50px; float: right; text-align: right;">
+				<input class="btn btn-outline-danger" id="submitbtn" type="button"
+					value="등록하기" onclick='handleModify()'>
+				<button class="btn btn-outline-danger" type="button"
 					onclick="history.back()">취소</button>
-				<button class="btn button_bottom" type="submit">등록</button>
 			</div>
 
 		</div>

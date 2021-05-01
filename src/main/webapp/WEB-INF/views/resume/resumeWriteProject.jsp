@@ -284,25 +284,28 @@ textarea {
 			}
 		});
 
-	});
-</script> <!-- delete --> <script>
-	$(document).on('click', '#del_button', function(e) {
-		var array = this.className.split(" ");
-		var seqNum = array[1];
-		$.ajax({
-			type : "POST",
-			url : "${contextPath}/resume/page4DeleteProject.do",
-			data : JSON.stringify(seqNum),
-			contentType : "application/json; charset=UTF-8",
-			success : function() {
-				alert("지워짐")
-			},
-			error : function() {
-				alert("왜 안지워짐")
-			}
-		});
-	});
-</script> <script>
+				});
+			
+</script> 
+<!-- delete -->
+ <script>
+		$(document).on('click','#del_button',function(e) {
+			var array = this.className.split(" ");
+			var seqNum = array[1];
+			$.ajax({
+					type : "POST",
+					url : "${contextPath}/resume/page4DeleteProject.do",
+					data : JSON.stringify(seqNum),
+					contentType : "application/json; charset=UTF-8",
+					success : function() {
+					},
+					error : function() {
+					}
+					});
+			});
+</script> 
+
+<script>
 	function resize(obj) {
 		obj.style.height = "5px";
 		obj.style.height = (2 + obj.scrollHeight) + "px";
@@ -390,7 +393,19 @@ textarea {
 
 	<div class="container">
 
-		
+		<div class="lnb">
+			<ul>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
+						작성</a></li>
+			</ul>
+		</div>
 
 		<div id="title_area">
 			<button id="first" class="btn headbutton move none"

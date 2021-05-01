@@ -177,7 +177,7 @@ $(document).ready(function(){
 <script>
 	function closeCheck(){
 		/*if (${isLogOn == true}){*/
-			var url = "/springEx/course/closeCheck.do";
+			var url = "${contextPath}/course/closeCheck.do";
 			var cnt = $("input[name='ab']:checked").length;
 			var valueArr = new Array();
 			$("input[name='ab']:checked").each(function(i){
@@ -213,7 +213,7 @@ $(document).ready(function(){
 <script>
 	function openCheck(){
 		/*if (${isLogOn == true}){*/
-			var url = "/springEx/course/openCheck.do";
+			var url = "${contextPath}/course/openCheck.do";
 			var cnt = $("input[name='ab']:checked").length;
 			var valueArr = new Array();
 			$("input[name='ab']:checked").each(function(i){
@@ -251,7 +251,7 @@ $(document).ready(function(){
 	function deleteCheck(){
 		
 		/*if (${isLogOn == true}){*/
-			var url = "/springEx/course/deleteCheck.do";
+			var url = "${contextPath}/course/deleteCheck.do";
 			var cnt = $("input[name='ab']:checked").length;
 			var valueArr = new Array();
 			$("input[name='ab']:checked").each(function(i){

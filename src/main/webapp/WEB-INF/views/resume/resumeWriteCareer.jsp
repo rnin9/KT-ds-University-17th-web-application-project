@@ -333,7 +333,6 @@ div select {
 					add_div("career_list", result);
 				},
 				error : function() {
-					alert("로그인해주세요")
 
 				}
 			});
@@ -347,7 +346,6 @@ div select {
 					add_div("education_list", result);
 				},
 				error : function() {
-					alert("로그인해주세요")
 
 				}
 			});
@@ -364,10 +362,9 @@ div select {
 			data : JSON.stringify(seqNum),
 			contentType : "application/json; charset=UTF-8",
 			success : function() {
-				alert("지워짐")
+				
 			},
 			error : function() {
-				alert("왜 안지워짐")
 			}
 		});
 	});
@@ -488,7 +485,19 @@ div select {
 
 	<div class="container">
 
-		
+		<div class="lnb">
+			<ul>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
+						관리</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeWrite.do?userID=${member.userId}">이력서
+						작성</a></li>
+			</ul>
+		</div>
 
 		<div id="title_area">
 				<button id="first" class="btn headbutton move none" 

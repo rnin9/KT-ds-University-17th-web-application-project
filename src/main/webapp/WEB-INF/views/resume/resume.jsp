@@ -10,7 +10,7 @@ request.setCharacterEncoding("UTF-8");
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>강의계획서 관리</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -683,34 +683,25 @@ $(document).on('click','.check',function(e){
 								</div>
 							</div>
 						</div>
-						<!-- <div class="partnerInfoModalBody" style="text-align: left">
-                        <div class="row">
-                           <div class="col-3" style="color: #444444; font-weight: bold">
-                              <p> Ұ </p>
-                              <p> ּ </p>
-                              <p>     </p>
-                              <p> ̸   </p>
-                              <p>      Ʈ</p>
-                           </div>
-                           <div class="col-8">
-                              <p id="partner_info"></p>
-                              <p id="partner_addr"></p>
-                              <p id="partner_headcnt"></p>
-                              <p id="partner_email"></p>
-                              <p id="partner_purl"></p>
-                           </div>
-                        </div>
-                     </div> -->
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" id="reset" class="btn btn-default"
 							data-dismiss="modal">확인</button>
 					</div>
 				</div>
-
 			</div>
 		</div>
-		<div class="pageIntro">이력서 관리</div>
+		<div class="lnb">
+			<ul>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서관리</a></li>
+			</ul>
+		</div>
+
+		<!--<div class="pageIntro">이력서 관리</div>-->
 		<form method="post" action="${contextPath}/resume/resumeWrite.do">
 
 
@@ -760,24 +751,14 @@ $(document).on('click','.check',function(e){
 				<button class="btn button_bottom" type="button"
 					onClick="location.href='${contextPath}/resume/resumeWrite.do?userID=${member.userId}'">
 					이력서 작성</button>
-				<button id="represent" class="btn button_bottom check" type="button">
-					대표 이력서 설정</button>
+				<button id="represent" class="btn button_bottom check" type="button">대표
+					이력서 설정</button>
 
 
 			</div>
 
 		</form>
 	</div>
-</body>
-<!--  
-<script>
-	
-		$(document).on("click", "input[name='check']:radio" ,function () {
-			var checked = $(this).attr("value");
-			
-			return checked;
-			
-		})
 
-</script>-->
+</body>
 </html>

@@ -272,11 +272,22 @@ div input[type="text"] { /* input type text 태그 지정*/
 	<div class="container">
 
 
+		
 
-
-
-		<form accept-charset="UTF-8" autocomplete="off"
-			enctype="multipart/form-data" name="page1Form">
+			<div class="lnb">
+				<ul>
+					<li><a href="${contextPath}/main.do">홈</a></li>
+					<li style="color: grey; font-weight: bold;">〉</li>
+					<li class="on"><a
+						href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
+							관리</a></li>
+					<li style="color: grey; font-weight: bold;">〉</li>
+					<li class="on"><a
+						href="${contextPath}/resume/resumeWrite.do?resumeUser=${member.userId}">이력서
+							작성</a></li>
+				</ul>
+			</div>
+			<form accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" name="page1Form">
 			<div id="title_area">
 
 				<div id="first" class="headbutton move">기본정보</div>

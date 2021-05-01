@@ -84,7 +84,7 @@ table.dataTable td {
 		<div class="pageIntro">수강관리</div>
 
 		<!-- 테이블(표, 리스트) -->
-		<table id="myTable" class="table_">
+		<table id="myTable" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td style="width: 10px;"><input type="checkbox"
@@ -113,11 +113,11 @@ table.dataTable td {
 						<td>${courseTake.memberVO.userEmail}</td>
 						<td>${courseTake.partnerVO.partnerName}</td>
 						<td><a
-							href="/springEx/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
+							href="${contextPath}/course/selectCourse.do?courseID=${courseTake.courseVO.courseID}">${courseTake.syllabusVO.syllabusName}</a></td>
 						<td>${courseTake.applyDate}</td>
 						<c:choose>
 							<c:when test="${courseTake.courseTake_State eq '수료'}">
-								<td style="display: flex; text-align: center; margin-left: 10%;">${courseTake.courseTake_State}
+								<td style="display: flex; text-align: center; justify-content: center;">${courseTake.courseTake_State}
 									<form name="formForCertificate"
 										action="${contextPath}/courseTake/certificate.do"
 										method="post">
@@ -139,7 +139,7 @@ table.dataTable td {
 											name="userBirthday" value="${courseTake.memberVO.birth}"
 											style="display: none;" /> <input type="image"
 											src="${pageContext.request.contextPath}/resources/image/icon/icon_print.png"
-											style="width: 17px; margin-top: 12px; margin-left: 5px;"
+											style="width: 17px;  margin-left: 5px; "
 											onclick="javascript:popup(this.form);">
 									</form>
 							</c:when>
@@ -282,7 +282,7 @@ $(document).ready(function(){
 <!--  잘못 승인을 눌렀을 때를 위한 승인->승인대기  -->
 <script>
    function consentCancelCheck(){
-      var url = "/springEx/courseTake/updateConsentCancelCheck.do";
+      var url = "${contextPath}/courseTake/updateConsentCancelCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -327,7 +327,7 @@ $(document).ready(function(){
 <!-- 수료대기->수료 -->
 <script>
    function completionCheck(){
-      var url = "/springEx/courseTake/updateCompletionCheck.do";
+      var url = "${contextPath}/courseTake/updateCompletionCheck.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -372,7 +372,7 @@ $(document).ready(function(){
 <!-- 삭제 -->
 <script>
    function deleteCheck(){
-      var url = "/springEx/courseTake/deleteCourseTake.do";
+      var url = "${contextPath}/courseTake/deleteCourseTake.do";
       var cnt = $("input[name='ab']:checked").length;
       var valueArr = new Array();
       $("input[name='ab']:checked").each(function(i){
@@ -420,7 +420,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 function popup(frm)
 {
-  var url    ="/springEx/courseTake/certificate.do";
+  var url    ="${contextPath}/courseTake/certificate.do";
   var title  = "certificate";
   var status = "width=1000px, height=1000px, status=no, menubar=no, toolbar=no, resizable=no"; 
   window.open('${pageContext.request.contextPath}/courseTake/certificate.do', title,status); //popup 열기
