@@ -125,7 +125,7 @@ table.dataTable td {
 
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">1:1 문의</span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -140,7 +140,7 @@ table.dataTable td {
 			</ul>
 		</div>
 
-		<div class="pageIntro">1:1 문의</div>
+		<!-- <div class="pageIntro">1:1 문의</div> -->
 
 		<table class="table_" id="table_id"
 			style="border-bottom: 1px solid #96988f;">
@@ -179,13 +179,13 @@ table.dataTable td {
 		</table>
 
 
-		<div style="margin-top: 50px;padding-bottm:30px;">
+		<div style="margin-top: 50px; padding-bottm: 30px;">
 			<button type="button" class="btn btn-outline-danger"
 				onclick="location.href='${contextPath}/question/questionForm.do' ">문의
 				등록</button>
 		</div>
 
-
+		<div style="height: 120px;"></div>
 
 	</div>
 </body>

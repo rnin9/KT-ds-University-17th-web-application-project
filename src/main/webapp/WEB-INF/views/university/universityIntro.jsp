@@ -124,7 +124,7 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">kt ds University</span>
 	</div>
 	<div class="container">
 
@@ -138,7 +138,7 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">회사 소개</div>
+		<!-- <div class="pageIntro">회사 소개</div> -->
 
 		<!-- 사업 소개 -->
 		<div class="main-intro">

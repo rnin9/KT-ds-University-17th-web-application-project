@@ -148,7 +148,7 @@ table.dataTable td {
 <body>
 
    <div class="sub_visual">
-         <span style="color: black;"></span>
+         <span style="color: white;">공지사항</span>
       </div>
 
    <div class="container">
@@ -161,7 +161,7 @@ table.dataTable td {
          </ul>
       </div>
 
-      <div class="pageIntro">공지사항</div>
+      <!-- <div class="pageIntro">공지사항</div> -->
 
       <div>
          <table id="myTable">

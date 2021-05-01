@@ -198,12 +198,20 @@ ul.join_box {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">회원가입</span>
 	</div>
 
 	<div class="container">
+	<div class="lnb" style="margin-bottom: 30px;font-family: 'Noto Sans KR', sans-serif;">
+			<ul>
+				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/member/joinAgreeForm.do">회원가입</a></li>
+			</ul>
+		</div>
 
-		<div class="pageIntro" style="margin-bottom: 30px;">회원가입</div>
+	<!-- 	<div class="pageIntro" style="margin-bottom: 30px;">회원가입</div> -->
 
 		<form action="${contextPath}/member/memberJoinForm.do" id="joinForm">
 			<ul class="join_box">
