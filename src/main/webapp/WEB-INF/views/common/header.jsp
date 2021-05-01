@@ -130,6 +130,7 @@ request.setCharacterEncoding("UTF-8");
 					<li class="nav-item"><a class="nav-link"
 						href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 				</c:when>
+				
 				<%--	  로그인 후		--%>
 				<%--		채용예정자		--%>
 				<c:when test="${isLogOn != null && member.userPosition == '채용예정자'}">

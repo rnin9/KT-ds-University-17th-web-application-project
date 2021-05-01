@@ -70,7 +70,7 @@
 
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select partnerlicensenum from partner 	
+         select * from partner 	
       ]]>
 	</select>
 

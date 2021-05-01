@@ -15,22 +15,14 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
+	  private static final String filePath ="C:\\Users\\mspak\\Downloads\\KTDS (1)\\file\\";
 
-	  private static final String filePath ="C:\\Users\\Suchan\\Desktop\\KT-ds-University-17th-web-application-project\\file\\";
 	  // 파일이 저장될 위치
 
-	 
+	 //추가
 	public List<Map<String, Object>> parseInsertFileInfo(NoticeVO noticeVO, 
 			MultipartHttpServletRequest mpRequest) throws Exception{
-		
-//		final String filePath = mpRequest.getSession().getServletContext().getRealPath("webapp\\resources\\attachmentFile\\");
-//		System.out.println(filePath);
-		/*
-			Iterator�� �곗�댄�곕�ㅼ�� 吏��⑹껜? ���� 而щ�����쇰�遺��� ��蹂대�� �살�댁�� �� ���� �명�고���댁�ㅼ������.
-			List�� 諛곗�댁�� ��李⑥���쇰� �곗�댄�곗�� ��洹쇱�� 媛��ν��吏�留�, Map�깆�� �대���ㅻ�ㅼ�� ��李⑥���쇰� ��洹쇳�� ��媛� ���듬����.
-			Iterator�� �댁�⑺���� Map�� ���� �곗�댄�곕�ㅼ�� while臾몄�� �댁�⑺���� ��李⑥���쇰� ��洹쇳�⑸����.
-		*/
-		
+	
 		Iterator<String> iterator = mpRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;

@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><tiles:insertAttribute name="title"/></title>
 </head>
 <body>
    <tiles:insertAttribute name="content" />   

@@ -149,4 +149,7 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/courseTake/certificate.jsp" />
 	</definition>
+	<definition name="/member/memberPartnerList" extends="empty">
+    	<put-attribute name="content" value="/WEB-INF/views/member/memberPartnerList.jsp" />
+	</definition>
 </tiles-definitions>

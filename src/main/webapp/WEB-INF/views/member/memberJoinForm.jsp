@@ -293,7 +293,6 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 }
 
 .btn {
-	width: 8.3%;
 	padding: 16px 10px;
 	display: inline-block;
 	border: 1px solid #c8c8c0;
@@ -344,7 +343,6 @@ hr {
 	overflow: visible;
 	width: 500px;
 	text-align: center;
-	margin-left: -15px;
 }
 
 /* .navbar-brand2 img {
@@ -487,8 +485,8 @@ hr {
 							  
 							})
 							return false;
-					}else if($("#com").val()==""){
-						$("#com").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
+					}else if($("#hiddenThanksTogangsanim").val()==""){
+						$("#hiddenThanksTogangsanim").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
 					}
 				});
 				
@@ -501,7 +499,9 @@ hr {
 				$("#position1").click(function(){
 					$("#company").hide();
 					$("#container1").css("height","1235px");
+					$("#hiddenThanksTogangsanim").val('');
 				});
+					
 			
 				<!--아이디 관련 jQuery-->
 				$("#id").click(function(){
@@ -577,6 +577,12 @@ hr {
 				});
 
 			})
+</script>
+<script>
+function showPopup() {
+	window.open("${contextPath}/member/memberPartnerList.do", "강의계획서 리스트",
+			"width=1000, height=600, left=100, top=50");
+}
 </script>
 </head>
 
@@ -686,19 +692,12 @@ hr {
 							</div>
 						</div>
 
-						<div id="company" style="display: none">
+						<div id="company" style="display: none" >
 							<label class="title">회사</label>
 							<!-- <input type="text" id="com"
 							name="userCompany" placeholder="회사명"> -->
-
-
-							<select name="userCompany">
-								<c:forEach var="partner" items="${partnersName}">
-									<option id="com" name="userCompany"
-										value='${partner.partnerLicenseNum}'>${partner.partnerLicenseNum}</option>
-								</c:forEach>
-							</select>
-
+						<input type="text"  name="userCompany" placeholder="검색" id="hiddenThanksTogangsanim" onclick="showPopup();" > 
+                 		 <input type="text" id="partnerID" style="display: none;">
 						</div>
 
 						<div>

@@ -120,8 +120,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer1"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer1" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer1" value="보통"> <input type="radio" id="Q"
+							name="answer1" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer1" value="그렇다"> <input type="radio" id="Q"
 							name="answer1" value="매우 그렇다">매우 그렇다
 					</div>
@@ -131,8 +130,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer2"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer2" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer2" value="보통"> <input type="radio" id="Q"
+							name="answer2" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer2" value="그렇다"> <input type="radio" id="Q"
 							name="answer2" value="매우 그렇다">매우 그렇다
 					</div>
@@ -142,8 +140,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer3"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer3" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer3" value="보통"> <input type="radio" id="Q"
+							name="answer3" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer3" value="그렇다"> <input type="radio" id="Q"
 							name="answer3" value="매우 그렇다">매우 그렇다
 					</div>
@@ -153,8 +150,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer4"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer4" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer4" value="보통"> <input type="radio" id="Q"
+							name="answer4" value="그렇지 않다"><input type="radio" id="Q"
 							name="answer4" value="그렇다"> <input type="radio" id="Q"
 							name="answer4" value="매우 그렇다">매우 그렇다
 					</div>
@@ -164,8 +160,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer5"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer5" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer5" value="보통"> <input type="radio" id="Q"
+							name="answer5" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer5" value="그렇다"> <input type="radio" id="Q"
 							name="answer5" value="매우 그렇다">매우 그렇다
 					</div>
@@ -176,7 +171,6 @@ input[type=radio] {
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer6"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
 							name="answer6" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer6" value="보통"> <input type="radio" id="Q"
 							name="answer6" value="그렇다"> <input type="radio" id="Q"
 							name="answer6" value="매우 그렇다">매우 그렇다
 					</div>
@@ -186,8 +180,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer7"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer7" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer7" value="보통"> <input type="radio" id="Q"
+							name="answer7" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer7" value="그렇다"> <input type="radio" id="Q"
 							name="answer7" value="매우 그렇다">매우 그렇다
 					</div>
@@ -197,8 +190,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer8"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer8" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer8" value="보통"> <input type="radio" id="Q"
+							name="answer8" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer8" value="그렇다"> <input type="radio" id="Q"
 							name="answer8" value="매우 그렇다">매우 그렇다
 					</div>
@@ -208,8 +200,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer9"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer9" value="그렇지 않다"> <input type="radio" id="Q"
-							name="answer9" value="보통"> <input type="radio" id="Q"
+							name="answer9" value="그렇지 않다">  <input type="radio" id="Q"
 							name="answer9" value="그렇다"> <input type="radio" id="Q"
 							name="answer9" value="매우 그렇다">매우 그렇다
 					</div>
@@ -219,8 +210,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer10"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer10" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer10" value="보통"> <input type="radio"
+							name="answer10" value="그렇지 않다">  <input type="radio"
 							id="Q" name="answer10" value="그렇다"> <input type="radio"
 							id="Q" name="answer10" value="매우 그렇다">매우 그렇다
 					</div>
@@ -230,8 +220,7 @@ input[type=radio] {
 					<div class="selectRadio" required>
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer11"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer11" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer11" value="보통"> <input type="radio"
+							name="answer11" value="그렇지 않다">  <input type="radio"
 							id="Q" name="answer11" value="그렇다"> <input type="radio"
 							id="Q" name="answer11" value="매우 그렇다">매우 그렇다
 					</div>
@@ -242,7 +231,6 @@ input[type=radio] {
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer12"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
 							name="answer12" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer12" value="보통"> <input type="radio"
 							id="Q" name="answer12" value="그렇다"> <input type="radio"
 							id="Q" name="answer12" value="매우 그렇다">매우 그렇다
 					</div>
@@ -252,8 +240,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer13"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer13" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer13" value="보통"> <input type="radio"
+							name="answer13" value="그렇지 않다">  <input type="radio"
 							id="Q" name="answer13" value="그렇다"> <input type="radio"
 							id="Q" name="answer13" value="매우 그렇다">매우 그렇다
 					</div>
@@ -263,8 +250,7 @@ input[type=radio] {
 					<div class="selectRadio">
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer14"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
-							name="answer14" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer14" value="보통"> <input type="radio"
+							name="answer14" value="그렇지 않다">  <input type="radio"
 							id="Q" name="answer14" value="그렇다"> <input type="radio"
 							id="Q" name="answer14" value="매우 그렇다">매우 그렇다
 					</div>
@@ -276,7 +262,6 @@ input[type=radio] {
 						전혀그렇지 않다 <input type="radio" id="Q" name="answer15"
 							value="전혀 그렇지 않다" required> <input type="radio" id="Q"
 							name="answer15" value="그렇지 않다"> <input type="radio"
-							id="Q" name="answer15" value="보통"> <input type="radio"
 							id="Q" name="answer15" value="그렇다"> <input type="radio"
 							id="Q" name="answer15" value="매우 그렇다">매우 그렇다
 					</div>
@@ -287,23 +272,21 @@ input[type=radio] {
 				<label> 16.본 교육과 나의 업무 연관 정도</label><br>
 				<div id="container2">
 					<div class="selectRadio">
-						100~81% <input type="radio" id="Q" name="answer16"
-							value="100~81%" required> 80~61% <input type="radio"
-							id="Q" name="answer16" value="80~61%"> 60~41% <input
-							type="radio" id="Q" name="answer16" value="60~41%"> 40~21% <input
-							type="radio" id="Q" name="answer16" value="40~21%"> 20미만 <input
-							type="radio" id="Q" name="answer16" value="20미만">
+						100~81% <input type="radio" id="Q" name="answer16" value="100~81%" required> 
+							80~61% <input type="radio" id="Q" name="answer16" value="80~61%"> 
+							60~41% <input type="radio" id="Q" name="answer16" value="60~41%"> 
+							40~21% <input type="radio" id="Q" name="answer16" value="40~21%"> 
+							20미만 <input type="radio" id="Q" name="answer16" value="20미만">
 					</div>
 				</div>
 				<label> 17.컨소시엄 교육과정을 알게 된 경로</label><br>
 				<div id="container2">
 					<div class="selectRadio">
-						회사 <input type="radio" id="Q" name="answer17"
-							value="회사" required> 컨소시엄 홈페이지 <input type="radio"
-							id="Q" name="answer17" value="컨소시엄 홈페이지"> ktds 홍보메일 <input
-							type="radio" id="Q" name="answer17" value="ktds 홍보메일"> SNS <input
-							type="radio" id="Q" name="answer17" value="SNS"> 기타 <input
-							type="radio" id="Q" name="answer17" value="기타">
+						회사 <input type="radio" id="Q" name="answer17" value="회사" required> 
+						컨소시엄 홈페이지 <input type="radio" id="Q" name="answer17" value="컨소시엄 홈페이지">  
+						ktds 홍보메일 <input type="radio" id="Q" name="answer17" value="ktds 홍보메일"> 
+						SNS <input type="radio" id="Q" name="answer17" value="SNS"> 
+						기타 <input type="radio" id="Q" name="answer17" value="기타">
 					</div>
 				</div>
 				<label> 18.본 과정의 좋았던 점</label><br>

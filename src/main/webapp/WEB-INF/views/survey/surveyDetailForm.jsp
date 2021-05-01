@@ -15,6 +15,7 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -71,7 +72,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q1}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				      
 				          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -101,7 +101,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q2}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				         
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -131,7 +130,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q3}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -161,7 +159,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q4}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -191,7 +188,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q5}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -221,7 +217,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q6}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				      
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -251,7 +246,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q7}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				         
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -281,8 +275,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q8}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
-				      
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
 								fontSize : 12, // or the number you want
@@ -311,7 +303,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q9}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -341,7 +332,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q10}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -371,7 +361,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q11}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -401,7 +390,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q12}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -431,7 +419,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q13}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -461,7 +448,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q14}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				    
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -491,7 +477,6 @@ request.setCharacterEncoding("UTF-8");
 				var options = {
 				          title: '${surveyVO.q15}',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -519,9 +504,8 @@ request.setCharacterEncoding("UTF-8");
 				});
 
 				var options = {
-				          title: '${surveyVO.q15}',
+				          title: '본 교육과 나의 업무 연관 정도',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				        
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -550,9 +534,8 @@ request.setCharacterEncoding("UTF-8");
 				});
 
 				var options = {
-				          title: '${surveyVO.q15}',
+				          title: '컨소시움 교육과정을 알게 된 경로',
 				          pieHole: 0.4,
-				          sliceVisibilityThreshold: .2,
 				       
 					          chartArea:{left:40,top:60,width:'100%',height:'100%'},
 				          titleTextStyle : {
@@ -576,41 +559,33 @@ request.setCharacterEncoding("UTF-8");
 		}
 	});
 </script>
-
-<SCRIPT>
-$("#id").click(function() {
-	$.ajax({
-		url : "${contextPath}/survey/getQuestionAnswer.do",
-		type : "POST",
-		data : {
-			userId : "${surveyVO.courseID}"
-		},
-		success : function(result) {
-			if (result == 1) {
-				$("#id_check").html("중복된 아이디가 있습니다.");
-				$("#joinBtn").attr("disabled", "disabled");
-			} else {
-				if($("#id").val()==""){
-					$("#id_check").html("필수 항목입니다.");
-					$("#joinBtn").attr("disabled", "disabled");
-				}else{
-				$("#id_check").html("");
-				$("#joinBtn").removeAttr("disabled");
-				}
-			}
-		},
-	})
+<script>
+$(function() { 
+	
+	$("#firstNav").click(function(){
+		$("#sidebar-left").css("height","9300px");
+	});
+	
+	
+	$("#secondNav").click(function(){
+		$("#sidebar-left").css("height","3540px");
+	});
+	
+	
 });
-</SCRIPT>
+</script>
+
+
 
 <style>
-
 .container {
 	width: 40%;
+	margin-top:20px;
 	font-family: 'Noto Sans KR', sans-serif;
-	background-color: lavender;
+	background-color: white;
 	border-radius: 8px;
 	padding-bottom: 12px;
+	border-style:groove;
 }
 
 .selectRadio {
@@ -682,11 +657,6 @@ a:link, a:visited, a:hover {
 	background-color: white !important;
 }
 
-button {
-	float: right;
-	margin-right: 10px;
-}
-
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
@@ -715,10 +685,11 @@ input {
 
 label {
 	display: inline-block;
-	padding: 15px 25px;
-	font-weight: 600;
-	color: #bbb;
-	border: 1px solid transparent;
+    padding: 5px 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #bbb;
+    border: 1px solid transparent;
 }
 
 label:hover {
@@ -728,15 +699,17 @@ label:hover {
 
 input:checked+label {
 	color: #555;
-	border-top: 2px solid red;
+	border-top: 3px solid red;
+	
 }
 
 #cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96,
 	#sexylee:checked ~ #sexylee, #yeohu:checked ~ #yeohu, #rhkd:checked ~
 	#rhkd, #kirstybang:checked ~ #kirstybang, #eunjinfizz:checked ~
-	#eunjinfizz, #kang:checked ~ #kang, #dain:checked ~ #dain {
+	#eunjinfizz,#rnsnenfn96:checked ~ #rnsnenfn96, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
 	display: block;
 }
+
 </style>
 
 <title>회원 정보 목록창</title>
@@ -747,12 +720,12 @@ input:checked+label {
 		<div class="col-md-12">
 			<nav style="margin-top: 10px;">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				
 					<li class="nav-item"><a id="firstNav" href="#nav-home"
-						data-toggle="tab" onclick="tabtab('#nav-home')"
-						class="nav-link active">요약</a></li>
+						data-toggle="tab" class="nav-link active">요약</a></li>
+
 					<li class="nav-item"><a id="secondNav" href="#nav-profile"
-						data-toggle="tab" onclick="tabtab('#nav-profile')"
-						class="nav-link">개별 보기</a></li>
+						data-toggle="tab" class="nav-link">개별 보기</a></li>
 				</ul>
 			</nav>
 			<div class="pageIntro">설문조사</div>
@@ -953,12 +926,12 @@ input:checked+label {
 				<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 					aria-labelledby="nav-profile-tab" style="overflow: hidden;">
 
-					<div class="container" style="display:block">
+					<div class="container">
 						<br>
 						<h3 style="text-align: center; margin-top: 10px;">${surveyVO.syllabusVO.syllabusName}</h3>
 
 						<c:forEach var="detailList" items="${detailList}">
-							<input id="${detailList.userId}" type="radio" name="tabs" checked="checked"
+							<input id="${detailList.userId}" type="radio" name="tabs"
 								value="${detailList.userId}">
 							<label for="${detailList.userId}">${detailList.userId}</label>
 						</c:forEach>
@@ -1054,6 +1027,7 @@ input:checked+label {
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
 

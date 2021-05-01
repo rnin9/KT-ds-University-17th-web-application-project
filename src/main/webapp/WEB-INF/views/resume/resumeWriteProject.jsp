@@ -300,10 +300,8 @@ textarea {
 					data : JSON.stringify(seqNum),
 					contentType : "application/json; charset=UTF-8",
 					success : function() {
-						alert("지워짐")
 					},
 					error : function() {
-						alert("왜 안지워짐")
 					}
 					});
 			});
