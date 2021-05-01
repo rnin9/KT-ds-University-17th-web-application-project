@@ -307,7 +307,7 @@
 <!-- 체크박스로 삭제 -->
 <script>
 	function deleteCheck(){
-		var url = "/springEx/partner/partnerCheck.do";
+		var url = "${contextPath}/partner/partnerCheck.do";
 		var cnt = $("input[name='ab']:checked").length;
 		var valueArr = new Array();
 		$("input[name='ab']:checked").each(function(i){

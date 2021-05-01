@@ -148,7 +148,7 @@ button {
 				valueArr.push(${courseVO.courseID});
 				valueArr.push("${member.userId}");
 				$.ajax({
-					url : "/springEx/course/insertCourseTable.do",
+					url : "${contextPath}/course/insertCourseTable.do",
 					type : 'POST',
 					traditional : true,
 					data : {
@@ -163,7 +163,7 @@ button {
 			        }
 				});
 				$.ajax({
-					url : "/springEx/course/updateCoursePeopleApplied.do",
+					url : "${contextPath}/course/updateCoursePeopleApplied.do",
 					type : 'POST',
 					traditional : true,
 					data : {
@@ -203,12 +203,12 @@ button {
 		<div class="container">
 			<div class="lnb">
 				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="${contextPath}/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/course/userCourseList.do">수강신청</a></li>
+					<li class="on"><a href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">강의정보</a></li>
+						href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">강의정보</a></li>
 				</ul>
 			</div>
 

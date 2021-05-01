@@ -154,9 +154,9 @@ table.dataTable td {
    <div class="container">
       <div class="lnb">
          <ul>
-            <li><a href="/springEx/main.do">홈</a></li>
+            <li><a href="${contextPath}/main.do">홈</a></li>
             <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="/springEx/notice/listNoticeUser.do">공지사항
+            <li class="on"><a href="${contextPath}/notice/listNoticeUser.do">공지사항
             </a></li>
          </ul>
       </div>

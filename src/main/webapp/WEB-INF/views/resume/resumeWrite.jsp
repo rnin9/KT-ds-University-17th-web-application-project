@@ -281,7 +281,7 @@ function getPost(mode)
 
 			<div class="lnb">
 				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="${contextPath}/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
 						href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서

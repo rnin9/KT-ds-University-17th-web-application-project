@@ -86,9 +86,9 @@ p {
 
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
-				<li>〉</li>
-				<li class="on"><a href="/springEx/course/userCourseList.do">수강신청</a></li>
+				<li><a href="${contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 			</ul>
 		</div>
 
@@ -121,7 +121,7 @@ p {
 						<c:forEach var="courseVO" items="${courseUserList}">
 							<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 								<a id="cardHover"
-									href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+									href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 									<div class="card-body">
 										<span class="card-title"
 											style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -171,7 +171,7 @@ p {
 
 								<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 									<a
-										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+										href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span
@@ -219,7 +219,7 @@ p {
 							<c:if test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
 								<div class="card" style="margin-left: 4%; margin-bottom: 2%;">
 									<a
-										href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+										href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">
 										<div class="card-body">
 											<span class="card-title"
 												style="margin: 1% 1% 1% 1%; height: 25px;"><span

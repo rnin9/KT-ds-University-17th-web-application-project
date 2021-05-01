@@ -99,9 +99,9 @@ button {
 
          <div class="lnb">
             <ul>
-               <li><a href="/springEx/main.do">홈</a></li>
+               <li><a href="${contextPath}/main.do">홈</a></li>
                <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="/springEx/notice/listNoticeUser.do">공지사항</a></li>
+               <li class="on"><a href="${contextPath}/notice/listNoticeUser.do">공지사항</a></li>
             </ul>
          </div>
 
@@ -152,7 +152,7 @@ button {
 
          <div style="margin-top: 50px; padding-bottom: 150px;">
             <button type="button" class="btn btn-outline-danger"
-               onClick="location.href='/springEx/notice/listNoticeUser.do'">목록</button>
+               onClick="location.href='${contextPath}/notice/listNoticeUser.do'">목록</button>
          </div>
       </div>
 

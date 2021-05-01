@@ -178,7 +178,28 @@ request.setCharacterEncoding("UTF-8");
 		<ul class="navbar-nav ml-auto">
 			<!-- 관리자가 아닌경우 시작 -->
 			<c:choose>
-				<c:when test="${member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER'}">
+				<c:when test="${ isLogOn == null }">
+<%--					<li class="nav-item"><a class="nav-link"--%>
+<%--						href="${contextPath}/location.do"> 교육장 안내 </a></li>--%>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+													 href="${contextPath}/location.do"> 교육장 안내 </a>
+						<ul class="dropdown-menu fade-up">
+
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>
+						</ul>
+					</li>
+          
+					<li class="nav-item dropdown"><a
+						class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">
+							고객지원 </a>
+						<ul class="dropdown-menu fade-up">
+							<li><a class="dropdown-item" href="${contextPath}/notice/listNoticeUser.do"> 공지사항</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/faq.do"> FAQ</a></li>
+						</ul></li>
+				</c:when>
+			
+				<c:when test="${ member.userPosition != 'ADMIN' && member.userPosition != 'PARTNER' }">
 <%--					<li class="nav-item"><a class="nav-link"--%>
 <%--						href="${contextPath}/location.do"> 교육장 안내 </a></li>--%>
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
@@ -199,6 +220,8 @@ request.setCharacterEncoding("UTF-8");
 							<li><a class="dropdown-item" href="${contextPath}/question/userListQuestion.do?userId=${member.userId}"> 1:1문의</a></li>
 						</ul></li>
 				</c:when>
+				
+				
 			</c:choose>
 			<!-- 관리자가 아닌경우 끝 -->
 			<!-- 로그인이 아닌경우 회원가입 보임 -->
