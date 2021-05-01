@@ -116,9 +116,7 @@ $(document).ready(function(){
    } );
 
    $('#myTable').DataTable({
-       dom : 'lBfrtip',
-         buttons: ['excel'],
-
+      
          language: {
             info : '',
             sInfoFiltered : '',

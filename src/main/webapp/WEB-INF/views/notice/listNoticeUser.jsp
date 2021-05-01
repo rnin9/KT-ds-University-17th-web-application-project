@@ -126,21 +126,15 @@ table.dataTable td {
 
 .sub_visual {
    font-family: 'Noto Sans KR', sans-serif;
-   /*    background-image:
-      url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
-   background-color: black;
-   background-repeat: no-repeat;
-   background-position: 50% 50%;
-   background-size: cover; */
    width: 100%;
    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("${pageContext.request.contextPath}/resources/image/sub_visual/notice.png");
+      url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
    border: 0;
    font-size: 32px;
    font-weight: 500;
    height: 190px;
    padding-top: 69px;
-   background-position: 50% 50%;
+   background-position: 50% 64%;
    background-size: cover;
    background-repeat: no-repeat;
 }
@@ -154,8 +148,8 @@ table.dataTable td {
 <body>
 
    <div class="sub_visual">
-      <span style="color: white;"></span>
-   </div>
+         <span style="color: black;"></span>
+      </div>
 
    <div class="container">
       <div class="lnb">
@@ -192,11 +186,12 @@ table.dataTable td {
                            ${noticeFixList.notice_title}</a> <c:if
                            test="${noticeFixList.nt_file_size gt 0}">
                            <i class="fas fa-file-alt"></i>
-                        </c:if> <c:if test="${noticeFixList.notice_date>=nowday}">
-                           <!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-                           <img
+                        </c:if> 
+                        <c:if test="${noticeFixList.notice_date>=nowday}">
+                           <span style = "color :darkred; margin-right:10px; font-size:12px;">[new]</span>
+                          <!--   <img
                               src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-                              width="30px" height="30px">
+                              width="30px" height="30px"> -->
                         </c:if></td>
 
 
@@ -218,10 +213,10 @@ table.dataTable td {
                            test="${noticeListUser.nt_file_size gt 0}">
                            <i class="fas fa-file-alt"></i>
                         </c:if> <c:if test="${noticeListUser.notice_date>=nowday}">
-                           <!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-                           <img
+                           <span style = "color :darkred; margin-right:10px; font-size:12px;">new</span>
+                          <!--   <img
                               src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-                              width="30px" height="30px">
+                              width="30px" height="30px"> -->
                         </c:if></td>
 
                      <td>${noticeListUser.notice_adminID}</td>

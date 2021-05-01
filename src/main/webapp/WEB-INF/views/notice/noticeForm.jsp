@@ -92,7 +92,7 @@ a:link, a:visited, a:hover {
 <script type="text/javascript">
    $(document).ready(function() {
       var formObj = $("form[name='writeForm']");
-      $(".write_btn").on("click", function() {
+      $("#write_btn").on("click", function() {
          if (fn_valiChk()) {
             return false;
          }
@@ -220,7 +220,7 @@ a:link, a:visited, a:hover {
          <button class="btn btn-outline-danger" id="fileAdd_btn" type="button">파일추가</button>
          <button class="btn btn-outline-danger" type="button"
             onclick="history.back()">취소</button>
-         <button class="btn btn-outline-danger" type="submit">글쓰기</button>
+         <button class="btn btn-outline-danger" id="write_btn" type="submit">글쓰기</button>
       </div>
    </div>
 

@@ -16,7 +16,7 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 public class FileUtils {
 	
 
-	  private static final String filePath ="C:\\Users\\user\\Desktop\\KT-ds-University-17th-web-application-project\\file";
+	  private static final String filePath ="C:\\Users\\Suchan\\Desktop\\KT-ds-University-17th-web-application-project\\file\\";
 	  // 파일이 저장될 위치
 
 	 
@@ -56,8 +56,6 @@ public class FileUtils {
 				str_nt_file_name = getRandomString() + originalFileExtension;
 				
 				file = new File(filePath + str_nt_file_name);
-				System.out.println("zzzzzzzzzzz"+file);
-				System.out.println("파일패스ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+filePath);
 				multipartFile.transferTo(file);
 				listMap = new HashMap<String, Object>();
 				listMap.put("NOTICE_NO", notice_no);
