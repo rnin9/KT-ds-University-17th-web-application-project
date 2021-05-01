@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.application.vo.ApplicationVO;
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
@@ -39,7 +41,7 @@ public class PartnerControllerImpl implements PartnerController {
 	
 	@Autowired
 	ResumeVO resumeVO;
-	
+		
 	
 	// select companyList
 	@Override
@@ -130,23 +132,26 @@ public class PartnerControllerImpl implements PartnerController {
 	
 	
 	/* ===================================Partner Company Method Start==============================*/
+	@Auth(role=Role.PA)
 	@RequestMapping(value = "/partner/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/main");
 		return mav;
 	}
 	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value = "/partner/company/companyEmployee.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/company/companyEmployee.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyEmployee(
 			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
-		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // 占쎈땾揶쏅벡夷뤄옙�뵥 占쎌돳占쎌뜚 �뵳�딅뮞占쎈뱜占쎈쑓占쎌뵠占쎄숲
+		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // �뜝�럥�빢�뤆�룆踰▼ㅇ琉꾩삕占쎈데 �뜝�럩�뤂�뜝�럩�쐸 占쎈뎨占쎈봾裕욃뜝�럥諭쒎뜝�럥�몥�뜝�럩逾졾뜝�럡�댉
 		return mav;
 	}
-
+	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
+	@RequestMapping(value="/partner/company/companyApplyManage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyApplyManage(String partnerLicenseNum,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
@@ -204,17 +209,27 @@ public class PartnerControllerImpl implements PartnerController {
 	}
 	
 	@RequestMapping(value="/partner/getResumeByID.do", method = RequestMethod.GET)
-	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, HttpServletRequest request,
+	public ModelAndView getResumeByID(@RequestParam("partnerApplyResumeID") String resumeID, @RequestParam("partnerApplyUserID") String userID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		ModelAndView mav = new ModelAndView();
 		resumeVO = partnerService.getUserResume(resumeID);
+		List cerList = partnerService.getUserCer(resumeID, userID);		//certificate
+		List proList = partnerService.getUserPro(resumeID, userID);      //project
+		List forList = partnerService.getUserFor(resumeID, userID);      //foreign
+		List carrList = partnerService.getUserCarr(resumeID, userID);    //career
+		
 		mav.addObject("resume", resumeVO);
+		mav.addObject("certificate", cerList); 
+		mav.addObject("project", proList);
+		mav.addObject("foreign", forList);
+		mav.addObject("career", carrList);
 		mav.setViewName("jsonView");
 		return mav;
 	}
 
 	//	post job opening
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningPost(
@@ -227,6 +242,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {

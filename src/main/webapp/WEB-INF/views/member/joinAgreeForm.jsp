@@ -35,14 +35,15 @@ ul>li {
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
-/* 	background-image:
+	/* 	background-image:
 		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
 	background-color: black;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: cover; */
-	width: 100%; 
-	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -61,12 +62,6 @@ a {
 	content: "";
 	display: block;
 	clear: both;
-}
-
-
-.container {
-	font-family: 'Noto Sans KR', sans-serif;
-	width: 80%;
 }
 
 #joinForm {
@@ -201,14 +196,15 @@ ul.join_box {
 			});
 </script>
 </head>
+<body>
+	<div class="sub_visual">
+		<span style="color: white;"></span>
+	</div>
 
-<div class="sub_visual">
-	<span style="color: white;">회원가입</span>
-</div>
+	<div class="container">
 
+		<div class="pageIntro" style="margin-bottom: 30px;">회원가입</div>
 
-<div class="container">
-	<body>
 		<form action="${contextPath}/member/memberJoinForm.do" id="joinForm">
 			<ul class="join_box">
 				<li class="checkBox check01">
@@ -528,7 +524,7 @@ o 보존기간 : 학습자 회원 탈퇴시까지
 						name="fpmgBt2">동의</button></li>
 			</ul>
 		</form>
-</div>
+	</div>
 </body>
 
 

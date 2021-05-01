@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <%
@@ -9,6 +10,8 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Kaushan Font -->
 <style>
@@ -114,13 +117,43 @@ request.setCharacterEncoding("UTF-8");
 
 .notice>h3 {
 	width: 20%;
-	padding: 10px;
+	padding: 10px; . card-body { width : 296px;
+	height: 296px;
+	/* margin: 2% 2% 2% 2%; */
+	display: inline-table;
+}
+
+.card-body {
+	width: 296px;
+	height: 296px;
+	/* margin: 2% 2% 2% 2%; */
+	display: inline-table;
+}
+
+p {
+	text-align: left;
+}
+
+.card-text {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	height: 120px;
+}
+
+}
+#cardHover:hover {
+	color: red;
 }
 </style>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/main/noticeRolling.js"></script>
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 </head>
 <body>
 	<!-- 캐러셀 시작 -->
@@ -194,13 +227,64 @@ request.setCharacterEncoding("UTF-8");
 	</div>
 	<!-- welcom Message 종료 -->
 
+	<div class="owl-carousel">
+
+		<c:forEach var="courseVO" items="${courseUserList}">
+			<div class="item">
+				<div class="card" style="margin: 1% 1%;">
+					<a id="cardHover"
+						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">
+						<div class="card-body">
+							<span class="card-title"
+								style="margin: 1% 1% 1% 1%; height: 25px;"><span
+								style="float: left; font-size: 17px; margin-top: 5px;"> <c:if
+										test="${courseVO.syllabusVO.syllabusCategory1=='채용예정자'}">
+                              채용예정자
+                              </c:if> <c:if
+										test="${courseVO.syllabusVO.syllabusCategory1 !='채용예정자'}">
+                              ${courseVO.syllabusVO.syllabusCategory1}</c:if>
+							</span><span style="float: right;"><span
+									style="color: lightgrey; font-weight: 550; font-size: 22px;">│</span>
+									<span class="dday"
+									style="color: red; height: 13px; width: 100px; font-weight: 500; font-size: 18px;">
+										<c:choose>
+											<c:when test="${courseVO.courseState eq '조기마감'}">
+
+                                    조기마감
+                                    </c:when>
+											<c:when test="${courseVO.dday > 0}">
+                                    D-${courseVO.dday}
+                                    </c:when>
+
+											<c:when test="${courseVO.dday < 0}">
+                                    접수마감
+                                    </c:when>
+										</c:choose>
+								</span> </span></span> <br> <br>
+							<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
+							<hr>
+							<p
+								style="heighth: 13px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 15px;">수강기간
+								${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+		</c:forEach>
+
+	</div>
+	<br>
 
 	<!-- 공지사항 시작-->
 	<div class="notice">
 		<h3>공지사항</h3>
 		<ul class="rolling">
-			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227"> [공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
-			<li><a href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222"> [공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=227">
+					[공지] 컨소시엄 교육 신청 및 협약체결 안내</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/notice/readNoticeUser.do?notice_no=222">
+					[공지] 개인정보 보호를 위한 패스워드 변경요청</a></li>
 		</ul>
 
 	</div>
@@ -244,7 +328,36 @@ request.setCharacterEncoding("UTF-8");
 		</div>
 	</div>
 	<!-- card deck 끝 -->
+	<!--OWL JS-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$(".owl-carousel").owlCarousel({
+
+				stagePadding : 50,
+				loop : true,
+				margin : 20,
+				nav : true,
+				dots : true,
+				autoplay : true,
+				autoplayTimeout : 2000,
+				autoplayHoverPause : true,
+				responsive : {
+					0 : {
+						items : 1
+					},
+
+					720 : {
+						items : 3
+					},
+
+					1280 : {
+						items : 7
+					}
+				}
+			});
+
+		});
+	</script>
 </body>
-
-
-

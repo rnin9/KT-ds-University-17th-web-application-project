@@ -50,6 +50,14 @@ public interface PartnerService {
 	//get Resume with Representative Resume
 	public ResumeVO getUserResume(String resumeID) throws Exception;
 	
+	public List getUserCer(String resumeID,String userID) throws Exception;
+	
+	public List getUserFor(String resumeID, String userID) throws Exception;
+	
+	public List getUserCarr(String resumeID, String userID) throws Exception;
+	
+	public List getUserPro(String resumeID, String userID) throws Exception;
+	
 	//handle Application from user
 	public void manageUserApply(ApplicationVO application) throws Exception;
 	

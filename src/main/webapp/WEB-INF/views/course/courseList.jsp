@@ -12,11 +12,11 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset=UTF-8">
 
-<script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+	
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -302,7 +302,7 @@ function register(){
 
 	<div class="pageIntro">과정관리</div>
 
-		<table  id="myTable">
+		<table  id="myTable" class="table_">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"

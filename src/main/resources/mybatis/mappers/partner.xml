@@ -198,6 +198,20 @@
        <result property="projectContent" column="projectContent" />
        <result property="projectRole" column="projectRole" />
        <result property="projectURL" column="projectURL" />
+       
+       <collection property="memberVO" javaType="MemberVO">
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userGender" column="userGender" />
+		<result property="userMajor" column="userMajor" />
+		<result property="userAddress1" column="userAddress1"/>
+		<result property="userAddress2" column="userAddress2"/>
+		<result property="birth" column="birth" />
+		<result property="toCharBirth" column="toCharBirth" />
+		<result property="toCharBirthKOR" column="toCharBirthKOR" />
+		<result property="userPhoneNumber" column="userPhoneNumber" />
+		<result property="userEmail" column="userEmail" />
+		</collection>
 	   </resultMap>
 	
 	<select  id="selectAllPartnerList2" resultMap="resResult" >
@@ -385,7 +399,31 @@
 	
 	<select id="getResume" parameterType="String" resultMap="resumeResult">
 	 <![CDATA[
-	 select * from Resume where resumeID = #{resumeID}
+	 select * from Resume r join kt_user m on r.resumeUser = m.userID where resumeID = #{resumeID}
+	]]>
+	</select>
+	
+	<select id="getCerResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_certificate where certificateResume = #{resumeID} and certificateUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getCarrResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_career where careerResume = #{resumeID} and careerUser = #{userID}
+	]]>
+	</select>
+	
+	<select id="getProResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_project where projectResume = #{resumeID} and projectUser = #{userID} 
+	]]>
+	</select>
+	
+	<select id="getForResume" parameterType="java.util.HashMap" resultMap="resumeResult">
+	 <![CDATA[
+	 select * from resume_foreign where foreignResume = #{resumeID} and foreignUser = #{userID}
 	]]>
 	</select>
 	

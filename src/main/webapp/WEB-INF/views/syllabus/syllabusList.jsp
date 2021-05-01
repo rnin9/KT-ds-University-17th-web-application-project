@@ -181,6 +181,17 @@ $(document).ready(function(){
 	$('#table_id').DataTable({
 		 dom : 'lBfrtip',
 	      buttons: ['excel'],
+	      
+	      columns : [
+		   		{ "width": "2%" },
+		   		{ "width": "6%" },
+		    	{ "width": "20%" },
+		    	null,
+		    	{ "width": "10%" },
+		    	{ "width": "10%" },
+		    
+		  	],
+		  	
 
 	      language: {
 	         info : '',
@@ -210,7 +221,7 @@ $(document).ready(function(){
 
 		<div class="pageIntro">강의계획서</div>
 
-		<table id="table_id" style="border-bottom: 1px solid #96988f;">
+		<table id="table_id" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"
@@ -220,6 +231,7 @@ $(document).ready(function(){
 					<td><b>강의명</b></td>
 					<td><b>교육일수</b></td>
 					<td><b>교육시간</b></td>
+            		  <td><b>설문</b></td>
 				</tr>
 			</thead>
 
@@ -235,6 +247,17 @@ $(document).ready(function(){
 							href="${contextPath}/syllabus/selectSyllabus.do?syllabusID=${syllabus.syllabusID}">${syllabus.syllabusName}</a></td>
 						<td>${syllabus.syllabusTotalDays}</td>
 						<td>${syllabus.syllabusTotalTime}</td>
+                  <c:if test="${syllabus.courseVO.questionYN eq 'N'}">
+								<td><a
+									href="${contextPath}/survey/writeSurveyForm.do?courseID=${syllabus.courseVO.courseID}&syllabusID=${syllabus.syllabusID}">설문생성</a></td>
+							</c:if>
+							<c:if test="${syllabus.courseVO.questionYN eq 'Y'}">
+								<td style="text-align: center; color: red;"><a style="color:red;"
+									href="${contextPath}/survey/surveyInfo.do?courseID=${syllabus.courseVO.courseID}">설문생성완료</a></td>
+							</c:if>
+							<c:if test="${syllabus.courseVO.questionYN eq NULL}">
+								<td style="text-align: center; color: red;">COURSE미등록</td>
+							</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>

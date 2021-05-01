@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="now" value="<%=new java.util.Date()%>"/>
+<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
+<%--<c:set var="ymd" value="<%=new java.util.Date()%>"/>--%>
 
 <!DOCTYPE html>
 <html>
@@ -122,63 +126,94 @@
 
         // Application delete function
         deleteApplication = (partnerApplyPartnerID) => {
-            fetch("${contextPath}/member/deleteApplication.do", {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "accept": "application/json"
-                },
-                body: JSON.stringify({
-                    partnerApplyUserID: '${member.userId}',
-                    partnerApplyPartnerID: partnerApplyPartnerID
-                })
+
+            Swal.fire({
+                title: '지원 내역을 삭제하겠습니까?',
+                text: '',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '삭제',
+                cancelButtonText: '취소'
+            }).then((result) => {
+                if (result.value) {
+                    fetch("${contextPath}/member/deleteApplication.do", {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            partnerApplyUserID: '${member.userId}',
+                            partnerApplyPartnerID: partnerApplyPartnerID
+                        })
+                    })
+                        .then(res => {
+                            // console.log(res);
+
+                            swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
+                            setTimeout(() => { // After 0.9sec
+                                location.reload();
+                            }, 900);
+
+                        })
+                        .catch(e => console.log(e));
+                }
             })
-                .then(res => {
-                    // console.log(res);
 
-                    swal("지원 삭제 완료.", "지원 삭제 완료.", "success");
-                    setTimeout(() => { // After 0.9sec
-                        location.reload();
-                    }, 900);
 
-                })
-                .catch(e => console.log(e));
         }
 
         // Apply function
-        chk_apply = (a, b, c) => {
+        chk_apply = (a, b, c, partnerName) => {
 
             // If the user's resume is registered
             if ('${member.resume}' === "Y") {
 
-                fetch("${contextPath}/member/userApplyPartner.do", {
-                    method: "POST",
-                    mode: "cors",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        partnerApplyUserID: b,
-                        partnerApplyPartnerID: c
-                    })
+
+                Swal.fire({
+                    title: partnerName + '에 지원하시겠습니까?',
+                    text: '',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '지원',
+                    cancelButtonText: '취소'
+                }).then((result) => {
+                    if (result.value) {
+                        fetch("${contextPath}/member/userApplyPartner.do", {
+                            method: "POST",
+                            mode: "cors",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "accept": "application/json"
+                            },
+                            body: JSON.stringify({
+                                partnerApplyUserID: b,
+                                partnerApplyPartnerID: c
+                            })
+                        })
+                            .then(res => {
+                                if (res.status == '500') {
+                                    swal("중복 지원.", "중복 지원.", "info");
+                                } else {
+                                    swal("지원 완료.", "지원 완료.", "success");
+                                    setTimeout(() => { // after 0.9sec
+                                        location.reload();
+                                    }, 900);
+                                }
+                            })
+                            .catch(e => console.log(e));
+                    }
                 })
-                    .then(res => {
-                        if (res.status == '500') {
-                            swal("중복 지원.", "중복 지원.", "info");
-                        } else {
-                            swal("지원 완료.", "지원 완료.", "success");
-                            setTimeout(() => { // after 0.9sec
-                                location.reload();
-                            }, 900);
-                        }
-                    })
-                    .catch(e => console.log(e));
+
 
                 // If the user's resume is not registered
             } else {
-                swal("등록 된 이력서 없음.", "이력서가 필요합니다.", "warning");
+                swal("등록 된 대표 이력서 없음.", "대표 이력서가 필요합니다.", "warning");
             }
         }
 
@@ -377,33 +412,11 @@
     </script>
     <style>
 
-        .buttonGroups {
+        button {
             float: right;
+            margin-right: 10px;
         }
 
-        .btn {
-            color: white;
-            display: inline-block;
-            font-weight: 400;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-color: tomato;
-            border-color: rgba(247, 94, 94, 0.8);
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: .25rem;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
-        .container {
-            font-family: 'Noto Sans KR', sans-serif;
-            width: 80%;
-            margin-left: 10%;
-        }
 
         .sub_visual {
             font-family: 'Noto Sans KR', sans-serif;
@@ -448,6 +461,22 @@
             background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
             background-repeat: no-repeat;
         }
+
+        .dataTables_wrapper {
+            margin-top: 30px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        table.dataTable thead th, table.dataTable thead td {
+            padding: 10px 18px;
+            border-bottom: 1px solid #96988f;
+            background-color: #f8f8f8;
+        }
+
+        table.dataTable td {
+            border-top: 1px solid lightgrey;
+        }
     </style>
 </head>
 <body>
@@ -459,11 +488,11 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
                 <li style="color: grey; font-weight: bold;">〉</li>
-                <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용공고</a></li>
+                <li class="on"><a href="${pageContext.request.contextPath}/member/apply.do">채용지원</a></li>
             </ul>
         </div>
 
-        <div class="pageIntro">협력사 지원</div>
+        <div class="pageIntro">채용지원</div>
 
         <!-- Modal for partner info -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -566,7 +595,7 @@
                     <%--                Table of first tab                --%>
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                          aria-labelledby="nav-home-tab">
-                        <table class="tableList" id="nav-home-table">
+                        <table class="table_" id="nav-home-table" style="border-bottom: 1px solid #96988f;">
                             <thead>
                             <tr>
                                 <td>기업명</td>
@@ -576,16 +605,19 @@
                             </thead>
                             <tbody>
                             <c:forEach var="recruit" items="${recruitsList}">
-                                <tr align="center">
-                                    <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
-                                           data-toggle="modal" href="#myModal"
-                                           onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
-                                    </td>
-                                    <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
-                                    <td><a style="text-decoration: underline" href="#"
-                                           onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}');return false;">지원하기</a>
-                                    </td>
-                                </tr>
+                                <c:set value="${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}" var="date"/>
+                                <c:if test="${date >= sysYear}">
+                                    <tr align="center">
+                                        <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                                               data-toggle="modal" href="#myModal"
+                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
+                                        </td>
+                                        <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
+                                        <td><a style="text-decoration: underline" href="#"
+                                               onclick="chk_apply('${member.resume}', '${member.userId}', '${recruit.partnerLicenseNum}', '${recruit.partnerName}');return false;">지원하기</a>
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -593,10 +625,11 @@
                     <%--                Table of second tab                --%>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                          aria-labelledby="nav-profile-tab">
-                        <table class="tableList" id="nav-profile-table" style="width: 100%">
+                        <table class="table_" id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td>기업명</td>
+                                <td>마감 날짜</td>
                                 <td>지원 날짜</td>
                                 <td>지원 상태</td>
                                 <td>삭제하기</td>
@@ -606,6 +639,18 @@
                             <c:forEach var="application" items="${applicationList}">
                                 <tr>
                                     <td>${application.partnerName}</td>
+                                    <c:set value="${fn:substring(application.partnerApplyFinishDate, 0, 11)}"
+                                           var="finishDate"/>
+                                        <%--                                    <td>${application.partnerApplyFinishDate}</td>--%>
+                                    <c:if test="${finishDate >= sysYear}">
+                                        <td>${finishDate}</td>
+                                    </c:if>
+                                    <c:if test="${finishDate < sysYear}">
+                                        <%--         Closed jobopenings are in red           --%>
+                                        <td><a style="color: #fc0038">${finishDate}</a></td>
+                                    </c:if>
+
+
                                     <td>${fn:substring(application.partnerApplyDate, 0, 11)}</td>
                                     <td><span>${application.partnerApplyState}</span></td>
                                     <td><a style="text-decoration: underline" href="#"
@@ -620,7 +665,7 @@
                     <%--                Table of third tab                --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
-                        <table class="tableList table-hover" id="nav-suggestion-table" style="width: 100%">
+                        <table class="table_" id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td><input type="checkbox" name="check-all"
@@ -646,8 +691,8 @@
                             </tbody>
                         </table>
 
-                        <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 30px;">
-                            <button type="button" class="btn" onclick="deleteSuggestion()">삭제</button>
+                        <div style="margin-top: 40px; padding-bottom: 30px;">
+                            <button type="button" class="btn btn-outline-danger" onclick="deleteSuggestion()">삭제</button>
                         </div>
                     </div>
 

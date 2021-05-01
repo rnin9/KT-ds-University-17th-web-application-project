@@ -9,7 +9,7 @@
 <c:set var="now" value="<%=new java.util.Date()%>"/>
 <c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd"/></c:set>
 <c:set var="ymd" value="<%=new java.util.Date()%>"/>
-<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>
+<%--<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>--%>
 
 <%
     request.setCharacterEncoding("UTF-8");
@@ -26,6 +26,11 @@
     <title>채용공고 관리</title>
 
     <style>
+        button {
+            float: right;
+            margin-right: 10px;
+        }
+
         .container {
             margin-left: 15%;
             position: relative;
@@ -61,51 +66,20 @@
             float: right;
         }
 
-        .btn {
-            color: white;
+        .dataTables_wrapper {
+            margin-top: 30px;
             display: inline-block;
-            font-weight: 400;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-color: tomato;
-            border-color: rgba(247, 94, 94, 0.8);
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: .25rem;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
-        .tableList {
-            border-collapse: collapse;
-            font-size: 14px;
-            line-height: 2.2;
-            margin-top: 40px;
-            text-align: center;
-            /* color: #555; */
             width: 100%;
-            line-height: 40px;
         }
 
-        .tableList thead {
-            border-top: 1px solid #e4e4e4;
-            border-bottom: 1px solid #e4e4e4;
+        table.dataTable thead th, table.dataTable thead td {
+            padding: 10px 18px;
+            border-bottom: 1px solid #96988f;
             background-color: #f8f8f8;
-            text-align: center;
         }
 
-        .pageIntro {
-            font-family: 'Noto Sans KR', sans-serif;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            text-align: left;
-            font-size: 34px;
-            font-weight: 450;
-            background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
-            background-repeat: no-repeat;
+        table.dataTable td {
+            border-top: 1px solid lightgrey;
         }
     </style>
     <script>
@@ -216,15 +190,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="lnb">
-        <ul>
-            <li><a href="${contextPath}/main.do">홈</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="${contextPath}/partner/partnerList.do">협력사 관리</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="${contextPath}/partner/jobOpeningList.do">채용공고 관리</a></li>
-        </ul>
-    </div>
 
     <!-- Modal for partner info -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -265,7 +230,7 @@
 
     <div class="pageIntro">채용공고 관리</div>
 
-    <table class="tableList" id="myTable">
+    <table class="table_" id="myTable" style="border-bottom: 1px solid #96988f;">
         <thead>
         <tr>
             <td><input type="checkbox" name="check-all"
@@ -290,7 +255,7 @@
                     <td>${date}</td>
                 </c:if>
                 <c:if test="${date < sysYear}">
-                    <%--         Closed announcements are in red           --%>
+                    <%--         Closed jobopenings are in red           --%>
                     <td><a style="color: #fc0038">${date}</a></td>
                 </c:if>
                 <td>${partner.applicationVO.applicantNum}</td>
@@ -298,8 +263,8 @@
         </c:forEach>
         </tbody>
     </table>
-    <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
-        <button type="button" class="btn" onclick="deleteJobOpening()">삭제</button>
+    <div style="margin-top: 40px; padding-bottom: 150px;">
+        <button type="button" class="btn btn-outline-danger" onclick="deleteJobOpening()">삭제</button>
     </div>
 
 </div>

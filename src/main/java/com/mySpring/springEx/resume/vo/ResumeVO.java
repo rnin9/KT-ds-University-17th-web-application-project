@@ -70,14 +70,6 @@ public class ResumeVO {
 	@Autowired
 	MemberVO memberVO;
 
-	public MemberVO getMemberVO() {
-		return memberVO;
-	}
-
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
-	}
-
 	public ResumeVO() {}
 	
 	public ResumeVO(String resumeID, String resumeUser, String resumeForeign, String resumeIDnumber, String resumePic, String resumeSchool, String resumeGrade, 
@@ -148,7 +140,13 @@ public class ResumeVO {
 			this.projectResume = projectResume;
 	}
 	
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 	
 	public String getResumeLastEdu() {
 		return resumeLastEdu;

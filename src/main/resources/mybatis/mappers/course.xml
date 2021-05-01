@@ -29,8 +29,17 @@
            <result property="syllabusTarget" column="syllabusTarget" />
            <result property="syllabusContent" column="syllabusContent" />
         </collection>
-     
-   </resultMap>
+
+	</resultMap>
+	
+	
+	
+	<select id="wirteSurvey" resultMap="courseResult">
+	 <![CDATA[
+	   select * from course a inner join syllabus b on a.syllabusID = b.syllabusID where a.courseID=#{courseID}
+	 ]]>
+	</select>
+	
    
    <select id="selectCourseList" resultMap="courseResult">
     <![CDATA[
@@ -115,4 +124,5 @@
 		where (courseid in (select courseid from course where courseapplyend < sysdate))
     ]]> 
    </update>
+
 </mapper>

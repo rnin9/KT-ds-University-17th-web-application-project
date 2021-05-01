@@ -23,4 +23,14 @@ public class ManageUserServiceImpl implements ManageUserService {
 		return userList;
 	}
 
+	@Override
+	public int resetPW(String userID) throws Exception {
+		return memberDAO.resetPW(userID);
+	}
+
+	@Override
+	public int positionModify(String newPosition, String userID) throws Exception {
+		return memberDAO.positionModify(newPosition, userID);
+	}
+
 }
