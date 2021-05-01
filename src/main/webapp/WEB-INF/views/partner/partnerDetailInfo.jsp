@@ -11,7 +11,7 @@ request.setCharacterEncoding("UTF-8");
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>회사 등록</title>
+<title>기업 수정</title>
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
@@ -189,7 +189,7 @@ button {
 						</div>
 						<div class="block2" style="margin-left: -4px;">
 							<label class="title"style="margin-left:2px;">협약 상태</label> <select id="partnerState"
-								name="partnerState" size="1" style="width: 20%;">
+								name="partnerState" size="1" style="width: 20%; height:45%;">
 								<option value="">선택하세요</option>
 								<option value="협력사"
 									<c:if test="${partnerVO.partnerState eq '협력사'}">selected</c:if>>협력사</option>
@@ -203,7 +203,7 @@ button {
 							
 							<label class="title" >근로자수</label> <input type="text"
 								id="partnerHeadCount" name="partnerHeadCount"
-								placeholder="숫자를 입력하세요." value="${partnerVO.partnerHeadCount}" style="width:10%;">
+								placeholder="" value="${partnerVO.partnerHeadCount}" style="width:10%;">
 							<div class="partnerHeadCount regex"></div>
 						
 							

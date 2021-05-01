@@ -27,6 +27,7 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
 <link id="bsdp-css"
 	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
 	rel="stylesheet">
@@ -92,8 +93,6 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 	margin-left: -5px;
 }
 
-
-
 .none {
 	display: inline-block;
 	background-color: white;
@@ -103,12 +102,13 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 }
 
 .must { /* 속성값 옆 필수라는 빨간색 문구 */
-   color: #dc3545;
-   font-size: 12px;
-   letter-spacing: -1px;
-   margin-left: -20px;
-   margin-right: 40px;
+	color: #dc3545;
+	font-size: 12px;
+	letter-spacing: -1px;
+	margin-left: -20px;
+	margin-right: 40px;
 }
+
 div input[type="text"] { /* input type text 태그 지정*/
 	width: 250px;
 	padding: 10px 20px;
@@ -190,7 +190,6 @@ div input[type="text"] { /* input type text 태그 지정*/
 	position: absolute;
 }
 
-
 /* 올바른 문자가 삽입 되었는지 확인하는 부분 */
 .regex {
 	font-size: 12px;
@@ -201,9 +200,10 @@ div input[type="text"] { /* input type text 태그 지정*/
 }
 
 #eng {
-   margin-left: 660px;
-   font-size: 13px;
+	margin-left: 660px;
+	font-size: 13px;
 }
+
 #detailAddress {
 	margin-top: 10px;
 	margin-left: 226px;
@@ -224,14 +224,12 @@ div input[type="text"] { /* input type text 태그 지정*/
 	height: 35px;
 	font-size: 1em;
 }
-
 </style>
 
 <!-- 날짜 관리 스크립트-->
 <script>
 	$(document).ready(function() {
-		var resumeID = 
-		$('#date input').datepicker({
+		var resumeID = $('#date input').datepicker({
 			format : "yyyymmdd",
 			language : "ko",
 			startView : 2,
@@ -242,8 +240,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 	});
 </script>
 <script>
-function getPost(mode)
-	{
+	function getPost(mode) {
 		var theForm = document.page1Form;
 		theForm.enctype = "multipart/form-data"
 		if (mode == "toPage2") {
@@ -253,11 +250,11 @@ function getPost(mode)
 		} else if (mode == "toPage3") {
 			theForm.method = "POST";
 			theForm.action = "${contextPath}/resume/page1Topage3.do?userID=${member.userId}&resumeID=${resumeVO.resumeID}";
-			
+
 		} else if (mode == "toPage4") {
 			theForm.method = "POST";
 			theForm.action = "${contextPath}/resume/page1Topage4.do?userID=${member.userId}&resumeID=${resumeVO.resumeID}";
-			
+
 		} else if (mode == "toPage5") {
 			theForm.method = "POST";
 			theForm.action = "${contextPath}/resume/page1Topage5.do?userID=${member.userId}&resumeID=${resumeVO.resumeID}";
@@ -271,18 +268,17 @@ function getPost(mode)
 
 
 <body>
-	<div class="sub_visual">
-	
-	</div>
+	<div class="sub_visual"></div>
 	<div class="container">
 
 
-		
 
-			
-			<form accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" name="page1Form">
+
+
+		<form accept-charset="UTF-8" autocomplete="off"
+			enctype="multipart/form-data" name="page1Form">
 			<div id="title_area">
-			
+
 				<div id="first" class="headbutton move">기본정보</div>
 				<button id="second" class="btn headbutton move none" type="submit"
 					onClick="getPost('toPage2')">상세정보</button>
@@ -294,7 +290,8 @@ function getPost(mode)
 					onClick="getPost('toPage5')">자기소개서</button>
 			</div>
 			<div class="pageIntro">
-			<h3>기본정보</h3></div>
+				<h3>기본정보</h3>
+			</div>
 			<div>
 				<label class="title">성명</label><span class="must">필수</span> <input
 					type="text" name="resume_name" id="name" placeholder="한글명"
@@ -303,7 +300,7 @@ function getPost(mode)
 				<div class="name regex"></div>
 				<input type="text" name="resume_eng_name" id="eng_name"
 					placeholder="영문명" onfocus="this.placeholder=''"
-					onblur="this.placeholder='영문명'" value="${resumeVO.resumeForeign}" >
+					onblur="this.placeholder='영문명'" value="${resumeVO.resumeForeign}">
 				<div class="eng_name regex" id="eng"></div>
 			</div>
 			<div id="date">
@@ -311,9 +308,12 @@ function getPost(mode)
 					type="text" name="resume_date" id="birthDate" placeholder="생년월일"
 					value='${resumeWrite.birth}' disabled>
 				<div class="toggle">
-					<input type="radio" id="male" name="sex" value="남" <c:if test="${resumeWrite.userGender eq '남자'}">checked="checked"</c:if> onclick="return(false);"/> <label
-						for="male">남</label> <input type="radio" id="female" name="sex"
-						value="여" <c:if test="${resumeWrite.userGender eq '여자'}">checked="checked"</c:if> onclick="return(false);"/> <label for="female">여</label>
+					<input type="radio" id="male" name="sex" value="남"
+						<c:if test="${resumeWrite.userGender eq '남자'}">checked="checked"</c:if>
+						onclick="return(false);" /> <label for="male">남</label> <input
+						type="radio" id="female" name="sex" value="여"
+						<c:if test="${resumeWrite.userGender eq '여자'}">checked="checked"</c:if>
+						onclick="return(false);" /> <label for="female">여</label>
 				</div>
 			</div>
 			<input type="text" style="display: none" name="resumeID"
@@ -349,14 +349,22 @@ function getPost(mode)
 			<div class="photo">
 				<input type="file" id="file1" class="pic" name="file"> <label
 					for="file1">사진추가</label>
-					<c:choose> 
-					<c:when test="${empty resumeVO.resumePic}"> <img id="img" style="display: none;" ></c:when>
-					<c:when test="${not empty resumeVO.resumePic}"> <img id="img" src="${pageContext.request.contextPath}/resources/image/resume/${resumeVO.resumePic}" style="display: black;" ></c:when>
-					</c:choose>
+				<c:choose>
+					<c:when test="${empty resumeVO.resumePic}">
+						<img id="img" style="display: none;">
+					</c:when>
+					<c:when test="${not empty resumeVO.resumePic}">
+						<img id="img"
+							src="${pageContext.request.contextPath}/resources/image/resume/${resumeVO.resumePic}"
+							style="display: black;">
+					</c:when>
+				</c:choose>
 
 			</div>
 			<div class="buttonGroups">
-				<button id="btn" class="btn button_bottom btn-outline-danger save btn-outline-danger" type="submit" onClick="getPost('toPage2')">다음</button>
+				<button id="btn"
+					class="btn button_bottom btn-outline-danger save btn-outline-danger"
+					type="submit" onClick="getPost('toPage2')">다음</button>
 			</div>
 
 
@@ -495,8 +503,23 @@ function getPost(mode)
 	<script>
 		$(document).ready(function() {
 			$("#img").on("click", function() {
-				$(this).attr("style", "display: none;");
-				$(this).removeAttr("src");
+				Swal.fire({
+					  icon:"warning",
+					  title: '이미지를 변경하시겠습니까?',
+					  width: '550px',
+					  showDenyButton: false,
+					  showCancelButton: true,
+					  confirmButtonText: '확인',
+					  cancelButtonText: '취소',
+					}).then((result) =>{
+						if (result.isConfirmed) {
+							$(this).attr("style", "display: none;");
+							$(this).removeAttr("src");
+						  } else if (result.isDenied) {
+						    
+						  }
+					})
+				
 			});
 		});
 	</script>

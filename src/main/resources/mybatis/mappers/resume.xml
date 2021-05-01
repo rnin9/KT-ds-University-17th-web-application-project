@@ -61,25 +61,21 @@
 	    <result property="projectURL" column="projectURL" />
 	    <result property="projectSEQ" column="projectSEQ"/>
 	    <result property="projectResume" column="projectResume"/>
-	</resultMap>
-	
-	<resultMap id="resumeAll" type="resumeVO">
-      <result property="resumeID" column="resumeID" />
-       <result property="resumeUser" column="resumeUser" />
-       <result property="resumeDate" column="resumeDate" />
-       <result property="resumeCheck" column="resumeCheck" />
-       
-       <collection property="memberVO" javaType="MemberVO">
+	    
+	    <collection property="memberVO" javaType="MemberVO">
       <result property="userId" column="userId" />
       <result property="userName" column="userName" />
+      
       </collection>
-   </resultMap>
+      
+	</resultMap>
    
 	<select id="selectResumeList" resultMap="resResult">
       <![CDATA[
-			select resumeID, resumeUser, resumeCheck, to_char(resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" from resume
-			where resumeUser = #{resumeUser}	
-			order by resumeCheck DESC,resumeDate 
+			select a.resumeID, a.resumeUser, a.resumeCheck, a.resumePic, b.userName, to_char(a.resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" 
+            from resume a join kt_user b on a.resumeUser = b.userId
+            where resumeUser = #{resumeUser} 
+            order by a.resumeCheck DESC, resumeDate 
       ]]>
 	</select>
 	
@@ -99,7 +95,7 @@
       ]]>
 	</update>
 	
-	<select id="selectAllResumeList" resultMap="resumeAll">
+	<select id="selectAllResumeList" resultMap="resResult">
       <![CDATA[
          select a.username, b.resumeID, b.resumeUser, b.resumeCheck, to_char(b.resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" 
             from resume b join kt_user a on a.userid = b.resumeuser

@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.partner.service.PartnerService;
 import com.mySpring.springEx.partner.vo.PartnerVO;
 import com.mySpring.springEx.resume.service.ResumeService;
 import com.mySpring.springEx.resume.vo.ResumeVO;
-
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
 
@@ -43,9 +45,15 @@ public class ResumeControllerImpl implements ResumeController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PartnerService partnerService;
+	
 	@Autowired
 	MemberVO memberVO;
-
+	
+	
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = "/resume/resumeList.do", method = RequestMethod.GET)
 	public ModelAndView resumeList(@RequestParam("resumeUser") String resumeUser, HttpServletRequest request,
@@ -73,7 +81,8 @@ public class ResumeControllerImpl implements ResumeController {
 		ModelAndView mav = new ModelAndView("redirect:/resume/resumeList.do?resumeUser=" + resumeUser);
 		return mav;
 	}
-
+	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/resume/resumeAdmin.do", method = RequestMethod.GET)
 	public ModelAndView allResumeList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -84,29 +93,34 @@ public class ResumeControllerImpl implements ResumeController {
 		mav.addObject("resumeAdmin", allResumeList);
 		return mav;
 	}
-
+	
 	@Override
-	@RequestMapping(value = "/resume/resumeInfo.do", method = RequestMethod.GET)
-	public ModelAndView resumeInfo(@RequestParam("resumeID") String resumeID,
-			@RequestParam("resumeUser") String resumeUser, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ResumeVO resumeInfo = resumeService.resumeInfos(resumeID);
-		List resumeInfo_detail = resumeService.resumeInfos_detail(resumeUser);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("resumeInfo", resumeInfo);
-		System.out.println(resumeInfo);
-		mav.addObject("resumeInfo_career", resumeInfo_detail.get(0));
-		mav.addObject("resumeInfo_certificate", resumeInfo_detail.get(1));
-		mav.addObject("resumeInfo_foreign", resumeInfo_detail.get(2));
-		mav.addObject("resumeInfo_project", resumeInfo_detail.get(3));
-		System.out.println(resumeInfo_detail);
-		System.out.println(resumeInfo_detail.get(1));
-		return mav;
+	   @RequestMapping(value = "/resume/resumeInfo.do", method = RequestMethod.GET)
+	   public ModelAndView resumeInfo(@RequestParam("resumeID") String resumeID, @RequestParam("resumeUser") String resumeUser,
+	         HttpServletRequest request, HttpServletResponse response) throws Exception {
+	      String viewName = (String) request.getAttribute("viewName");
+	      ResumeVO resumeInfo = resumeService.resumeInfos(resumeID);
 
-	}
+	      ModelAndView mav = new ModelAndView();
+	      
+	      resumeVO = partnerService.getUserResume(resumeID);
+	      List cerList = partnerService.getUserCer(resumeID, resumeUser); // certificate
+	      List proList = partnerService.getUserPro(resumeID, resumeUser); // project
+	      List forList = partnerService.getUserFor(resumeID, resumeUser); // foreign
+	      List carrList = partnerService.getUserCarr(resumeID, resumeUser); // career
+
+	      mav.addObject("resume", resumeVO);
+	      mav.addObject("certificate", cerList);
+	      mav.addObject("project", proList);
+	      mav.addObject("foreign", forList);
+	      mav.addObject("career", carrList);
+	      mav.setViewName("jsonView");
+	      return mav;
+
+	   }
 
 	// 이력서 작성을 누루는 순간 실행 resume에 insert되고 동시에 userID값을 페이지에 넘겨준다.
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = { "/resume/resumeWrite.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView resumeWrite(@RequestParam("userID") String userID, HttpServletRequest request,
@@ -663,9 +677,9 @@ public class ResumeControllerImpl implements ResumeController {
 			resume.setProjectUser(String.valueOf(params.get("userID")));
 			resume.setProjectEnforcement(projectEnforcement.get(i));
 			resume.setProjectName(projectName.get(i));
-			resume.setProjectDev(projectDev.get(i));
-			resume.setProjectContent(projectContent.get(i));
-			resume.setProjectRole(projectRole.get(i));
+			resume.setProjectDev(projectDev.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+			resume.setProjectContent(projectContent.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+			resume.setProjectRole(projectRole.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 			resume.setProjectURL(projectURL.get(i));
 			resume.setProjectSEQ(Integer.parseInt(projectSEQ.get(i)));
 			resumeService.updatePage4Project(resume);
