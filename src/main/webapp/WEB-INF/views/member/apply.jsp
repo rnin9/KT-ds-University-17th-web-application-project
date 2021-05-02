@@ -12,10 +12,10 @@
 <html>
 <head>
     <%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--%>
-    
+
     <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-	
+          href="${pageContext.request.contextPath}/resources/css/style.css"/>
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
@@ -118,7 +118,7 @@
             $("#partner_info").text(info);
             $("#partner_addr").text(addr);
             $("#partner_email").text(email);
-            $("#partner_headcnt").text(headcnt);
+            $("#partner_headcnt").text(headcnt + ' 명');
             $("#partner_purl").text(purl);
         }
 
@@ -286,7 +286,8 @@
             date = date.substr(0, 11);
             $(".modal-body div span").text("");
             $("#suggestion_partner_id").text(partnerID);
-            $("#suggestion_partner").text(name);
+            $("#modal_title2").text(name);
+            // $("#suggestion_partner").text(name);
             $("#suggestion_date").text(date);
             $("#suggestion_description").html(description);
             if (acception === '수락' || acception === '거절') {
@@ -480,18 +481,18 @@
         table.dataTable td {
             border-top: 1px solid lightgrey;
         }
-        
-        table{
-        
-        margin-top: 0;
+
+        table {
+
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
 <div id="applyContents">
     <div class="sub_visual">
-		<span style="color: white;">채용지원</span>
-	</div>
+        <span style="color: white;">채용지원</span>
+    </div>
     <div class="container" style="margin-bottom:30px; font-family: 'Noto Sans KR', sans-serif;">
         <div class="lnb" style="margin-bottom: 30px;font-family: 'Noto Sans KR', sans-serif;">
             <ul>
@@ -515,22 +516,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="partnerInfoModalBody" style="text-align: left">
-                            <div class="row">
-                                <div class="col-3" style="color: #444444; font-weight: bold">
-                                    <p>업종 · 업태</p>
-                                    <p>주소</p>
-                                    <p>사원수</p>
-                                    <p>이메일</p>
-                                    <p>웹사이트</p>
-                                </div>
-                                <div class="col-8">
-                                    <p id="partner_info"></p>
-                                    <p id="partner_addr"></p>
-                                    <p id="partner_headcnt"></p>
-                                    <p id="partner_email"></p>
-                                    <p id="partner_purl"></p>
-                                </div>
-                            </div>
+                            <h5>업종 · 업태</h5>
+                            <p id="partner_info"></p>
+                            <h5>주소</h5>
+                            <p id="partner_addr"></p>
+                            <h5>사원수</h5>
+                            <p id="partner_headcnt"></p>
+                            <h5>이메일</h5>
+                            <p id="partner_email"></p>
+                            <h5>웹사이트</h5>
+                            <p id="partner_purl"></p>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -555,17 +550,19 @@
                         <div class="suggestionModalBody" style="text-align: left">
                             <div class="row">
                                 <div class="col-3" style="color: #444444; font-weight: bold">
-                                    <p>기업명</p>
-                                    <p>날짜</p>
-                                    <p>내용</p>
+<%--                                    <p>기업명</p>--%>
+<%--                                    <p>받은 날짜</p>--%>
+<%--                                    <p>내용</p>--%>
                                 </div>
                                 <div class="col-8">
                                     <p id="suggestion_partner_id" style="display: none"></p>
-                                    <p id="suggestion_partner"></p>
-                                    <p id="suggestion_date"></p>
-                                    <p id="suggestion_description"></p>
+<%--                                    <p id="suggestion_partner"></p>--%>
+<%--                                    <p id="suggestion_date"></p>--%>
+<%--                                    <p id="suggestion_description"></p>--%>
                                 </div>
                             </div>
+                            <h6>메세지 내용</h6>
+                            <p id="suggestion_description"></p>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -603,7 +600,7 @@
                     <%--                Table of first tab                --%>
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                          aria-labelledby="nav-home-tab">
-                        <table  id="nav-home-table" style="border-bottom: 1px solid #96988f;">
+                        <table id="nav-home-table" style="border-bottom: 1px solid #96988f;">
                             <thead>
                             <tr>
                                 <th>기업명</th>
@@ -633,7 +630,7 @@
                     <%--                Table of second tab                --%>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                          aria-labelledby="nav-profile-tab">
-                        <table  id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
+                        <table id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <th>기업명</th>
@@ -700,7 +697,8 @@
                         </table>
 
                         <div style="margin-top: 40px; padding-bottom: 30px;">
-                            <button type="button" class="btn btn-outline-danger" onclick="deleteSuggestion()">삭제</button>
+                            <button type="button" class="btn btn-outline-danger" onclick="deleteSuggestion()">삭제
+                            </button>
                         </div>
                     </div>
 
