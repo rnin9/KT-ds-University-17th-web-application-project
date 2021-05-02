@@ -114,7 +114,7 @@ function deleteQuestion(){
 				<br> <br>
 
 				<div class="mb-3 row">
-					<label for="userId" class="col-sm-2 col-form-label">아이디</label>
+					<label for="userId" class="col-sm-2 col-form-label" style="margin-top:6px;">아이디</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext"
 							id="userId" name="userId" value="${readQuestion.userId}">
@@ -122,7 +122,7 @@ function deleteQuestion(){
 				</div>
 
 				<div class="mb-3 row">
-					<label for="questionRegDate" class="col-sm-2 col-form-label">등록일</label>
+					<label for="questionRegDate" class="col-sm-2 col-form-label" style="margin-top:6px;">등록일</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext"
 							id="questionRegDate" name="questionRegDate"
@@ -131,7 +131,7 @@ function deleteQuestion(){
 				</div>
 
 				<div class="mb-3 row">
-					<label for="question_del_YN" class="col-sm-2 col-form-label">유저
+					<label for="question_del_YN" class="col-sm-2 col-form-label" style="margin-top:6px;">유저
 						공개 여부</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext"
@@ -143,7 +143,7 @@ function deleteQuestion(){
 
 
 				<div class="mb-3 row" id="Title">
-					<label for="questionTitle" class="col-sm-2 col-form-label">제목</label>
+					<label for="questionTitle" class="col-sm-2 col-form-label" style="margin-top:6px;">제목</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext" style="padding-bottom:5px;"
 							id="questionTitle" name="questionTitle"

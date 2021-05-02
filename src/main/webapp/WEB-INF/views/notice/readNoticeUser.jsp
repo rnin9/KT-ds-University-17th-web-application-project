@@ -16,14 +16,6 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/css/style2.css" />
 
-
-<link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-   crossorigin="anonymous">
-
-
 <style>
 .bg-primary {
    background-color: white !important;
@@ -92,7 +84,7 @@ button {
          id="NT_FILE_NO" name="NT_FILE_NO" value="">
 
       <div class="sub_visual">
-         <span style="color: black;"></span>
+         <span style="color: white;">공지사항</span>
       </div>
 
       <div class="container">
@@ -105,7 +97,7 @@ button {
             </ul>
          </div>
 
-         <div class="pageIntro">공지사항</div>
+         <!-- <div class="pageIntro">공지사항</div> -->
 
 
 
@@ -135,7 +127,7 @@ button {
                   <div class="noticeContentText"
                      style="text-align: left; line-height: 30px; width: 70%; float: left">${readNoticeUser.notice_contents}</div>
                   <div class="noticeContentFile"
-                     style="text-align: right; width: 30%; float: right">
+                     style="text-align: right; width: 30%; float: right; font-size:15px;">
                      <c:forEach var="fileVO" items="${fileListUser}">
                         <a href="#"
                            onclick="fn_fileDown('${fileVO.NT_FILE_NO}'); return false;"><i

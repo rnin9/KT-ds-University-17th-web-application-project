@@ -108,7 +108,7 @@
                 viewMode: 'years',
                 format: "yyyymmdd",
                 language: "ko",
-                startView: 2,
+                startView: 1,
                 keyboardNavigation: false,
                 forceParse: false,
                 autoclose: true

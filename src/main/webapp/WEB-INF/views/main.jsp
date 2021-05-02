@@ -215,7 +215,7 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 		</div>
 
-		<div class="owl-carousel" style="z-index:0;">
+		<div class="owl-carousel" style="z-index: 0;">
 
 			<c:forEach var="courseVO" items="${courseUserList}">
 				<div class="item">
@@ -250,10 +250,10 @@ request.setCharacterEncoding("UTF-8");
 											</c:choose>
 									</span> </span></span> <br> <br>
 								<p class="card-text"
-									style="text-align: left; margin-top: 30px; margin-bottom: 10px; font-size: 20px; font-weight: bold; height: 120px;">${courseVO.syllabusVO.syllabusName}</p>
+									style="text-align: left; margin-top: 30px; margin-bottom: 10px; font-weight: bold; height: 120px; font-size: 22px;">${courseVO.syllabusVO.syllabusName}</p>
 								<hr>
 								<p
-									style="color: grey; font-weight: 200; font-size: 17px; text-align: left">수강기간
+									style="color: grey; font-weight: 200; font-size: 17px; text-align: left; margin: 0;">수강기간
 									${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 							</div>
 						</a>
