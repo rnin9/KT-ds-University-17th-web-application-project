@@ -182,10 +182,25 @@ public class SurveyControllerImpl implements SurveyController {
 		List detailList = surveyService.detailList(courseID);
 		SurveyVO surveyVO = surveyService.surveyVO(courseID);
 		DetailVO detailVO = surveyService.countParticipate(courseID);
+		CourseTakeVO AllPerson = surveyService.Allperson(courseID);
+		CourseTakeVO dontParticipateAllPerson = surveyService.dontParticipateAllPerson(courseID);
+		List AllPersonId = surveyService.AllPersonId(courseID);
+		List dontParticipateAllPersonId = surveyService.dontParticipateAllPersonId(courseID);
 		ModelAndView mav = new ModelAndView(viewName);
+		//응답 내역 불러오기
 		mav.addObject("detailList", detailList);
+		//질문 불러오기
 		mav.addObject("surveyVO", surveyVO);
+		//응답한사람중 총인원
 		mav.addObject("detailVO", detailVO);
+		//총인원 수 불러오기
+		mav.addObject("AllPerson", AllPerson);
+		//총 인원 불러오기
+		mav.addObject("AllPersonId", AllPersonId);
+		//응답 안한사람 총인원 수 불러오기
+		mav.addObject("dontParticipateAllPerson", dontParticipateAllPerson);
+		//응답 안한 사람 총 인원 불러오기
+		mav.addObject("dontParticipateAllPersonId", dontParticipateAllPersonId);
 		System.out.println(detailList.size());
 		return mav;
 	}
