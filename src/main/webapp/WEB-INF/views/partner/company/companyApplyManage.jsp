@@ -199,130 +199,148 @@ function getResumeInfo(resumeID, resumeUser, userName, resumePic) {
             }
             
             
-              if (resp.certificate != null) {
-               for(i=0; i<resp.certificate.length; i++) { // when Certificate is Exist
-                  var certificate_list = "";
-                  var c_yyyy=resp.certificate[i].certificateDate.substr(0,4);
-                  var c_mm = resp.certificate[i].certificateDate.substr(4,2);
-                  var c_dd = resp.certificate[i].certificateDate.substr(6,2);
-                  
-                  certificate_list += "<tr>";
-                  certificate_list += "<td>"+resp.certificate[i].certificateName+"</td>";
-                  certificate_list += "<td>"+resp.certificate[i].certificateEnforcement+"</td>";
-                  certificate_list += "<td>"+c_yyyy+"년 "+c_mm+"월 "+c_dd+"일"+"</td>";
-                  certificate_list += "</tr>";
-                  
-                  $("#resCert").append(certificate_list);
-                }
-              }
-            
-               
-                if (resp.foreign != null) {
-                   for(i=0; i<resp.foreign.length; i++) { // when Foreign Certificate is exist
-                      var foreign_list = "";
-                      var f_yyyy=resp.foreign[i].foreignDate.substr(0,4);
-                      var f_mm = resp.foreign[i].foreignDate.substr(4,2);
-                      var f_dd = resp.foreign[i].foreignDate.substr(6,2);
-                      
-                      foreign_list += "<tr>";
-                      foreign_list += "<td>"+resp.foreign[i].foreignCriteria+"</td>";
-                      foreign_list += "<td>"+resp.foreign[i].foreignName+"</td>";
-                      foreign_list += "<td>"+resp.foreign[i].foreignScore+"</td>";
-                      foreign_list += "<td>"+f_yyyy+"년 "+f_mm+"월 "+f_dd+"일 "+"</td>";
-                      foreign_list += "</tr>";
-                      
-                      $("#resFor").append(foreign_list);
-                    }    
+            if (resp.certificate != null) {
+                for(i=0; i<resp.certificate.length; i++) { // when Certificate is Exist
+                   var certificate_list = "";
+                   if(resp.certificate[i].certificateDate != null) {
+                   var c_yyyy=resp.certificate[i].certificateDate.substr(0,4);
+                   var c_mm = resp.certificate[i].certificateDate.substr(4,2);
+                   var c_dd = resp.certificate[i].certificateDate.substr(6,2);
+                   
+                   
+                   certificate_list += "<tr>";
+                   certificate_list += "<td>"+resp.certificate[i].certificateName+"</td>";
+                   certificate_list += "<td>"+resp.certificate[i].certificateEnforcement+"</td>";
+                   certificate_list += "<td>"+c_yyyy+"년 "+c_mm+"월 "+c_dd+"일"+"</td>";
+                   certificate_list += "</tr>";
+                   }
+                   
+                   $("#resCert").append(certificate_list);
+                 }
                }
-               
-                if (resp.career != null) {
-                    for(i=0; i<resp.career.length; i++) { // when career is Exist
-                       var career_list = "";
-                       var caStart_yyyy=resp.career[i].careerStartdate.substr(0,4);
-                       var caStart_mm = resp.career[i].careerStartdate.substr(4,2);
-                       var caStart_dd = resp.career[i].careerStartdate.substr(6,2);
-                       var caEnd_yyyy=resp.career[i].careerEnddate.substr(0,4);
-                       var caEnd_mm = resp.career[i].careerEnddate.substr(4,2);
-                       var caEnd_dd = resp.career[i].careerEnddate.substr(6,2);
+             
+                
+                 if (resp.foreign != null) {
+                    for(i=0; i<resp.foreign.length; i++) { // when Foreign Certificate is exist
+                       var foreign_list = "";
+                       if(resp.foreign[i].foreignDate != null) {
+                       var f_yyyy=resp.foreign[i].foreignDate.substr(0,4);
+                       var f_mm = resp.foreign[i].foreignDate.substr(4,2);
+                       var f_dd = resp.foreign[i].foreignDate.substr(6,2);
                        
-                       if(resp.career[i].careerCheck == "C"){
-                          
-                          career_list += "<tr>";
-                          career_list += "<th>"+"회사명"+"</th>";
-                           career_list += "<th>"+resp.career[i].careerCenter+"</th>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"경력기간"+"</td>";
-                           career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"직위"+"</td>";
-                           career_list += "<td>"+resp.career[i].careerPosition+"</td>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"고용형태"+"</td>";
-                           career_list += "<td>"+resp.career[i].careerType+"</td>";
-                           career_list += "</tr>";
-                           $("#resCarr_C").append(career_list);
-                        } else if(resp.career[i].careerCheck == "E") {
-                           career_list += "<tr>";
-                           career_list += "<th>"+"교육 기관"+"</th>";
-                           career_list += "<th>"+resp.career[i].careerCenter+"</th>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"교육 기간"+"</td>";
-                           career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"교육 시간"+"</td>";
-                           career_list += "<td>"+resp.career[i].careerHour+"</td>";
-                           career_list += "</tr>";
-                           career_list += "<tr>";
-                           career_list += "<td>"+"비고"+"</td>";
-                           if(resp.career[i].careerOther == null){
-                              career_list += "<td>"+" "+"</td>";
-                           }
-                           else{
-                              career_list += "<td>"+resp.career[i].careerOther+"</td>";
-                           }
-                           
-                           career_list += "</tr>";
-                           $("#resCarr_E").append(career_list);
-                      }
-                    }
+                       
+                       foreign_list += "<tr>";
+                       foreign_list += "<td>"+resp.foreign[i].foreignCriteria+"</td>";
+                       foreign_list += "<td>"+resp.foreign[i].foreignName+"</td>";
+                       foreign_list += "<td>"+resp.foreign[i].foreignScore+"</td>";
+                       foreign_list += "<td>"+f_yyyy+"년 "+f_mm+"월 "+f_dd+"일 "+"</td>";
+                       foreign_list += "</tr>";
+                       }
+                       
+                       $("#resFor").append(foreign_list);
+                     }    
                 }
-                         if (resp.project != null) {
-                            for(i=0; i<resp.project.length; i++) { // when project is Exist
-                               var project_list = "";
-                               
-                               project_list += "<tr>";
-                               project_list += "<th style="+"width:108px"+">"+"기관명"+"</th>";
-                               project_list += "<th>"+resp.project[i].projectEnforcement+"</th>";
-                               project_list += "</tr>";
-                               project_list += "<tr>";
-                               project_list += "<td>"+"프로젝트 명"+"</td>";
-                               project_list += "<td>"+resp.project[i].projectName+"</td>";
-                               project_list += "</tr>";
-                               project_list += "<tr>";
-                               project_list += "<td>"+"개발환경 및 사용기술"+"</td>";
-                               project_list += "<td>"+resp.project[i].projectDev+"</td>";
-                               project_list += "</tr>";
-                               project_list += "<tr>";
-                               project_list += "<td>"+"프로젝트 소개"+"</td>";
-                               project_list += "<td>"+resp.project[i].projectContent+"</td>";
-                               project_list += "</tr>";
-                               project_list += "<tr>";
-                               project_list += "<td>"+"담당한 역할"+"</td>";
-                               project_list += "<td>"+resp.project[i].projectRole+"</td>";
-                               project_list += "</tr>";
-                               project_list += "<tr>";
-                               project_list += "<td>"+"관련링크"+"</td>";
-                               project_list += "<td>"+resp.project[i].projectURL+"</td>";
-                               project_list += "</tr>";
-                               
-                               $("#resPro").append(project_list);
-                             }    
-                        } 
+                
+                 if (resp.career != null) {
+                     for(i=0; i<resp.career.length; i++) { // when career is Exist
+                        var career_list = "";
+                        if (resp.career[i].careerEnddate != null) {
+                            var caEnd_yyyy=resp.career[i].careerEnddate.substr(0,4);
+                            var caEnd_mm = resp.career[i].careerEnddate.substr(4,2);
+                            var caEnd_dd = resp.career[i].careerEnddate.substr(6,2);
+                            }
+                         if(resp.career[i].careerStartdate != null) {
+                        var caStart_yyyy=resp.career[i].careerStartdate.substr(0,4);
+                        var caStart_mm = resp.career[i].careerStartdate.substr(4,2);
+                        var caStart_dd = resp.career[i].careerStartdate.substr(6,2);
+                         
+                        
+                        
+                        if(resp.career[i].careerCheck == "C"){
+                           
+                            career_list += "<tr>";
+                            career_list += "<th>"+"회사명"+"</th>";
+                            career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"경력기간"+"</td>";
+                            if (caEnd_yyyy != null) {
+                               career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                            } else {
+                              career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ 재직중</td>";
+                            }
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"직위"+"</td>";
+                            career_list += "<td>"+resp.career[i].careerPosition+"</td>";
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"고용형태"+"</td>";
+                            career_list += "<td>"+resp.career[i].careerType+"</td>";
+                            career_list += "</tr>";
+                            $("#resCarr_C").append(career_list);
+                         } else if(resp.career[i].careerCheck == "E") {
+                            career_list += "<tr>";
+                            career_list += "<th>"+"교육 기관"+"</th>";
+                            career_list += "<th>"+resp.career[i].careerCenter+"</th>";
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"교육 기간"+"</td>";
+                            career_list += "<td>"+caStart_yyyy+"."+caStart_mm+"."+caStart_dd+" ~ "+caEnd_yyyy+"."+caEnd_mm+"."+caEnd_dd+"</td>";
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"교육 시간"+"</td>";
+                            career_list += "<td>"+resp.career[i].careerHour+"</td>";
+                            career_list += "</tr>";
+                            career_list += "<tr>";
+                            career_list += "<td>"+"비고"+"</td>";
+                            if(resp.career[i].careerOther == null){
+                               career_list += "<td>"+" "+"</td>";
+                            }
+                            else{
+                               career_list += "<td>"+resp.career[i].careerOther+"</td>";
+                            }
+                            
+                            career_list += "</tr>";
+                            $("#resCarr_E").append(career_list);
+                         }
+                       }
+                     }
+                 }
+                 if (resp.project != null) {
+                     for(i=0; i<resp.project.length; i++) { // when project is Exist
+                        var project_list = "";
+                         if(resp.project[i].projectEnforcement != null) {
+                        
+                        project_list += "<tr>";
+                        project_list += "<th style="+"width:108px"+">"+"기관명"+"</th>";
+                        project_list += "<th>"+resp.project[i].projectEnforcement+"</th>";
+                        project_list += "</tr>";
+                        project_list += "<tr>";
+                        project_list += "<td>"+"프로젝트 명"+"</td>";
+                        project_list += "<td>"+resp.project[i].projectName+"</td>";
+                        project_list += "</tr>";
+                        project_list += "<tr>";
+                        project_list += "<td>"+"개발환경 및 사용기술"+"</td>";
+                        project_list += "<td>"+resp.project[i].projectDev+"</td>";
+                        project_list += "</tr>";
+                        project_list += "<tr>";
+                        project_list += "<td>"+"프로젝트 소개"+"</td>";
+                        project_list += "<td>"+resp.project[i].projectContent+"</td>";
+                        project_list += "</tr>";
+                        project_list += "<tr>";
+                        project_list += "<td>"+"담당한 역할"+"</td>";
+                        project_list += "<td>"+resp.project[i].projectRole+"</td>";
+                        project_list += "</tr>";
+                        project_list += "<tr>";
+                        project_list += "<td>"+"관련링크"+"</td>";
+                        project_list += "<td>"+resp.project[i].projectURL+"</td>";
+                        project_list += "</tr>";
+                        
+                        $("#resPro").append(project_list);
+                         }
+                      }    
+                 }
             
         },
         error: (err) => {

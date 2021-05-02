@@ -721,7 +721,7 @@ $(document).on('click','.check',function(e){
             <li><a href="${contextPath}/main.do">홈</a></li>
             <li style="color: grey; font-weight: bold;">〉</li>
             <li class="on"><a
-               href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서관리</a></li>
+               href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서 관리</a></li>
          </ul>
       </div>
 
