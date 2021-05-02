@@ -704,8 +704,8 @@ input:checked+label {
 	
 }
 
-#cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96,
-	#sexylee:checked ~ #sexylee, #yeohu:checked ~ #yeohu, #rhkd:checked ~
+#cho:checked ~ #cho, #dain:checked ~ #dain, #mspak96:checked ~ #mspak96, #sexychan:checked ~ #sexychan, #parkmsms:checked ~ #parkmsms,
+	#eunjin0320:checked ~ #eunjin0320, #sexylee:checked ~ #sexylee, #yeohu:checked ~ #yeohu, #rhkd:checked ~
 	#rhkd, #kirstybang:checked ~ #kirstybang, #eunjinfizz:checked ~
 	#eunjinfizz,#rnsnenfn96:checked ~ #rnsnenfn96, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
 	display: block;
@@ -744,8 +744,8 @@ input:checked+label {
 						<h3 style="text-align: center; margin-top: 10px;">${surveyVO.syllabusVO.syllabusName}</h3>
 						
 						<div class="allPerson" >총 인원:${AllPerson.countAll}</div> 
-						<div class="participate">응답인원:${detailVO.count2}</div>
-						<div class="notParticipate" >미응답인원:${dontParticipateAllPerson.countAll2}</div> 
+						<div class="participate">응답 인원:${detailVO.count2}</div>
+						<div class="notParticipate" >미응답 인원:${dontParticipateAllPerson.countAll2}</div> 
 							<div class="text">
 								<c:forEach var="detailList" items="${detailList}">
 								<b>${detailList.userId},</b> 
