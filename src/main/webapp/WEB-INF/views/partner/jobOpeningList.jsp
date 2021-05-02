@@ -214,7 +214,7 @@
                     <div class="partnerInfoModalBody" style="text-align: left">
                         <div class="row">
                             <div class="col-3" style="color: #444444; font-weight: bold">
-                                <p>소개</p>
+                                <p>업종 · 업태</p>
                                 <p>주소</p>
                                 <p>사원수</p>
                                 <p>이메일</p>
@@ -258,7 +258,7 @@
                            onclick='checkSelectAll(this)'/></td>
                 <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
                        data-toggle="modal" href="#myModal"
-                       onclick="getPartnerInfo('${partner.partnerName}', '${partner.partnerInformation}', '${partner.partnerAddress}', '${partner.partnerEmail}', '${partner.partnerHeadCount}', '${partner.partnerURL}');">${partner.partnerName}</a>
+                       onclick="getPartnerInfo('${partner.partnerName}', '${partner.partnerIndustryType}', '${partner.partnerAddress}', '${partner.partnerEmail}', '${partner.partnerHeadCount}', '${partner.partnerURL}');">${partner.partnerName}</a>
                 </td>
                 <c:set var="date" value="${fn:substring(partner.partnerApplyFinishDate, 0, 11)}"/>
                 <c:if test="${date >= sysYear}">
