@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mySpring.springEx.manageUser.service.ManageUserService;
@@ -54,5 +55,28 @@ public class ManageUserControllerImpl implements ManageUserController{
 		request.setCharacterEncoding("utf-8");
 		System.out.println(body.get("newPosition")+"************************"+ body.get("userID"));
 		manageUserService.positionModify(body.get("newPosition"), body.get("userID"));
+	}
+
+	@Auth(role=Role.ADMIN)
+	@Override
+	@RequestMapping(value="/manageUser/userWithdrawalList.do", method=RequestMethod.GET)
+	public ModelAndView userWithdrawalList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName = (String)request.getAttribute("viewName");
+		List userWithdrawalList = manageUserService.userWithdrawalListrList();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("userWithdrawalList", userWithdrawalList);
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = { "/manageUser/deleteUser.do" }, method = { RequestMethod.POST })
+	public ModelAndView deleteUser(@RequestParam List<String> valueArr) throws Exception {
+		for (int i = 0; i < valueArr.size(); i++) {
+			System.out.println("-----------------");
+			System.out.println(valueArr.get(i)+"-----------------");
+			manageUserService.deleteUser(valueArr.get(i));
+		}
+		ModelAndView mav = new ModelAndView("redirect:/manageUser/userWithdrawalList.do");
+		return mav;
 	}
 }
