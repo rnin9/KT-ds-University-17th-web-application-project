@@ -42,7 +42,7 @@
 	 <![CDATA[
 	    select a.syllabusID, a.syllabusCategory1, a.syllabusCategory2, a.syllabusName, a.syllabusTotalDays, a.syllabusTotalTime,b.courseID,b.questionYN
 	    from syllabus a left outer join course b on a.syllabusID = b.syllabusID
-	    order by b.courseID desc
+	    order by a.syllabusID desc
 	 ]]>
 	</select>
 	<select id="selectSyllabus" parameterType="int" resultMap="syllabusResult">

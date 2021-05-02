@@ -517,7 +517,7 @@
                         <div class="partnerInfoModalBody" style="text-align: left">
                             <div class="row">
                                 <div class="col-3" style="color: #444444; font-weight: bold">
-                                    <p>소개</p>
+                                    <p>업종 · 업태</p>
                                     <p>주소</p>
                                     <p>사원수</p>
                                     <p>이메일</p>
@@ -618,7 +618,7 @@
                                     <tr align="center">
                                         <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
                                                data-toggle="modal" href="#myModal"
-                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
+                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerIndustryType}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
                                         </td>
                                         <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
                                         <td><a style="text-decoration: underline" href="#"
