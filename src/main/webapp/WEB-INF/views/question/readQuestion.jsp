@@ -35,6 +35,11 @@ textarea {
 	line-height: 1.6;
 }
 
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
@@ -131,14 +136,14 @@ function deleteQuestion(){
 			<p class="h2">문의 내용</p>
 			<form>
 				<div class="mb-3 row">
-					<label for="userId" class="col-sm-2 col-form-label">아이디</label>
+					<label for="userId" class="col-sm-2 col-form-label" style="margin-top:13px;">아이디</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext"
 							id="userId" name="userId" value="${member.userId}">
 					</div>
 				</div>
 				<div class="mb-3 row">
-					<label for="questionRegDate" class="col-sm-2 col-form-label">등록일</label>
+					<label for="questionRegDate" class="col-sm-2 col-form-label" style="margin-top:13px;">등록일</label>
 					<div class="col-sm-10">
 						<input type="text" readonly class="form-control-plaintext"
 							id="questionRegDate" name="questionRegDate"
@@ -146,7 +151,7 @@ function deleteQuestion(){
 					</div>
 				</div>
 				<div class="mb-3 row" id="Title">
-					<label for="questionTitle" class="col-sm-2 col-form-label">제목</label>
+					<label for="questionTitle" class="col-sm-2 col-form-label" style="margin-top:13px;">제목</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control-plaintext"
 							id="questionTitle" name="questionTitle" placeholder="제목을 입력해주세요"
@@ -195,7 +200,7 @@ function deleteQuestion(){
 				</div>
 
 				<button type="button" class="btn btn-outline-danger"
-					onclick="location.href='${contextPath}/question/userListQuestion.do?userId=${member.userId}'">목록</button>
+					onclick="location.href='${contextPath}/question/userListQuestion.do?userId=${member.userId}'">목록</button> 
 				<button type="button" class="btn btn-outline-danger"
 					onclick="deleteQuestion();">삭제</button>
 				<button type="button" class="btn btn-outline-danger"
