@@ -119,7 +119,7 @@ public class ResumeControllerImpl implements ResumeController {
 
 	   }
 
-	// ÀÌ·Â¼­ ÀÛ¼ºÀ» ´©·ç´Â ¼ø°£ ½ÇÇà resume¿¡ insertµÇ°í µ¿½Ã¿¡ userID°ªÀ» ÆäÀÌÁö¿¡ ³Ñ°ÜÁØ´Ù.
+	// ï¿½Ì·Â¼ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ resumeï¿½ï¿½ insertï¿½Ç°ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ userIDï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ø´ï¿½.
 	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = { "/resume/resumeWrite.do" }, method = { RequestMethod.GET, RequestMethod.POST })
@@ -153,9 +153,9 @@ public class ResumeControllerImpl implements ResumeController {
 	/* page1 */
 
 	// local_filepath
-	private static final String filePath = "C:\\KT-ds-University-17th-web-application-project\\src\\main\\webapp\\resources\\image\\resume";
+	private static final String filePath = "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\src\\main\\webapp\\resources\\image\\resume";
 
-	// page 1 ´ÙÀ½¹öÆ°À» ´©¸£¸é page1ÀÇ ³»¿ëµéÀÌ ¾÷µ¥ÀÌÆ®µÇ°í ´ÙÀ½ÆäÀÌÁöÀÇ Á¤º¸µéÀ» °°ÀÌ º¸³¿
+	// page 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ page1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@Override
 	@RequestMapping(value = { "/resume/resumeWriteDetail.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView resumeWriteDetail(@RequestParam(value = "resume_eng_name") String resumeForeign,
@@ -357,7 +357,7 @@ public class ResumeControllerImpl implements ResumeController {
 
 	/* page2 */
 
-	// page2 ÀÌÀü¹öÆ° ´©¸£¸é page1ÀÇ ³»¿ëµéÀ» selecetÇØ¼­ ³Ñ¾î¿È
+	// page2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ page1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ selecetï¿½Ø¼ï¿½ ï¿½Ñ¾ï¿½ï¿½
 	@Override
 	@RequestMapping(value = { "/resume/resumeBackPage1.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView resumeBackPage1(@RequestParam("userID") String userID,
@@ -377,9 +377,9 @@ public class ResumeControllerImpl implements ResumeController {
 		return mav;
 	}
 
-	/* ÀÚ°ÝÁõ */
+	/* ï¿½Ú°ï¿½ï¿½ï¿½ */
 
-	// page2 ÀÚ°ÝÁõ Ãß°¡ ¹öÆ° ´©¸¥ ÈÄ insert
+	// page2 ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ insert
 	@Override
 	@RequestMapping(value = "resume/page2InsertCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody int page2InsertCertificate(@RequestBody HashMap<String, Object> params,
@@ -396,7 +396,7 @@ public class ResumeControllerImpl implements ResumeController {
 		return resume.getCertificateSEQ();
 	}
 
-	// page2 ÀÚ°ÝÁõ »èÁ¦ ¹öÆ° ´©¸¥ ÈÄ delete
+	// page2 ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ delete
 	@Override
 	@RequestMapping(value = "resume/page2DeleteCertificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public void page2DeleteCertificate(@RequestBody String cerNum, HttpServletRequest request,
@@ -406,9 +406,9 @@ public class ResumeControllerImpl implements ResumeController {
 		resumeService.deleteCertificate(certificateSEQ);
 	}
 
-	/* ¿Ü±¹¾îÀÚ°ÝÁõ */
+	/* ï¿½Ü±ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ */
 
-	// page2 ¿Ü±¹¾îÀÚ°ÝÁõ Ãß°¡ ¹öÆ° ´©¸¥ ÈÄ insert
+	// page2 ï¿½Ü±ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ insert
 	@Override
 	@RequestMapping(value = "resume/page2InsertForeign.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody int page2InsertForeign(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
@@ -425,7 +425,7 @@ public class ResumeControllerImpl implements ResumeController {
 		return resume.getForeignSEQ();
 	}
 
-	// page2 ¿Ü±¹¾îÀÚ°ÝÁõ »èÁ¦ ¹öÆ° ´©¸¥ ÈÄ delete
+	// page2 ï¿½Ü±ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ delete
 	@Override
 	@RequestMapping(value = "resume/page2DeleteForeign.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public void page2DeleteForeign(@RequestBody String forNum, HttpServletRequest request, HttpServletResponse response)
@@ -435,7 +435,7 @@ public class ResumeControllerImpl implements ResumeController {
 		resumeService.deleteForeign(foreignSEQ);
 	}
 
-	// page2 ´ÙÀ½ ¹öÆ° ´©¸¥ ÈÄ ÆäÀÌÁöÀÇ ³»¿ëµé ¾÷µ¥ÀÌÆ®
+	// page2 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	@Override
 	@RequestMapping(value = "resume/page2Update.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public void page2Update(@RequestBody HashMap<String, Object> params, HttpServletRequest request,
@@ -445,14 +445,14 @@ public class ResumeControllerImpl implements ResumeController {
 		resume1.setResumeSchool(String.valueOf(params.get("resumeSchool")));
 		resume1.setResumeGrade(String.valueOf(params.get("resumeGrade")));
 		resume1.setResumeLastEdu(String.valueOf(params.get("resumeLastEdu")));
-		resumeService.updatePage2Education(resume1); // ÇÐ·Á»çÇ× update
+		resumeService.updatePage2Education(resume1); // ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ update
 
-		// ÀÚ°ÝÁõ update
+		// ï¿½Ú°ï¿½ï¿½ï¿½ update
 		ArrayList<String> certificateName = (ArrayList<String>) params.get("certificateName");
 		ArrayList<String> certificateEnforcement = (ArrayList<String>) params.get("certificateEnforcement");
 		ArrayList<String> certificateDate = (ArrayList<String>) params.get("certificateDate");
 		ArrayList<String> certificateSEQ = (ArrayList<String>) params.get("certificateSEQ");
-		for (int i = 0; i < certificateName.size(); i++) { // 0À¸·Î¹Ù²ã¾ßµÊ
+		for (int i = 0; i < certificateName.size(); i++) { // 0ï¿½ï¿½ï¿½Î¹Ù²ï¿½ßµï¿½
 			ResumeVO resume = new ResumeVO();
 			resume.setCertificateResume(String.valueOf(params.get("resumeID")));
 			resume.setCertificateUser(String.valueOf(params.get("userID")));
@@ -464,14 +464,14 @@ public class ResumeControllerImpl implements ResumeController {
 
 		}
 
-		// ¿Ü±¹¾î ÀÚ°ÝÁõ update
+		// ï¿½Ü±ï¿½ï¿½ï¿½ ï¿½Ú°ï¿½ï¿½ï¿½ update
 		ArrayList<String> foreignCriteria = (ArrayList<String>) params.get("foreignCriteria");
 		ArrayList<String> foreignName = (ArrayList<String>) params.get("foreignName");
 		ArrayList<String> foreignScore = (ArrayList<String>) params.get("foreignScore");
 		ArrayList<String> foreignDate = (ArrayList<String>) params.get("foreignDate");
 		ArrayList<String> foreignSEQ = (ArrayList<String>) params.get("foreignSEQ");
 
-		for (int i = 0; i < foreignCriteria.size(); i++) { // 0À¸·Î¹Ù²ã¾ßµÊ
+		for (int i = 0; i < foreignCriteria.size(); i++) { // 0ï¿½ï¿½ï¿½Î¹Ù²ï¿½ßµï¿½
 			ResumeVO resume = new ResumeVO();
 			resume.setForeignUser(String.valueOf(params.get("userID")));
 			resume.setForeignCriteria(foreignCriteria.get(i));
@@ -563,7 +563,7 @@ public class ResumeControllerImpl implements ResumeController {
 		ArrayList<String> careerPosition = (ArrayList<String>) params.get("careerPosition");
 		ArrayList<String> careerSEQ = (ArrayList<String>) params.get("careerSEQ");
 
-		for (int i = 0; i < careerCenter.size(); i++) { // 0À¸·Î¹Ù²ã¾ßµÊ
+		for (int i = 0; i < careerCenter.size(); i++) { // 0ï¿½ï¿½ï¿½Î¹Ù²ï¿½ßµï¿½
 			ResumeVO resume = new ResumeVO();
 			resume.setCareerUser(String.valueOf(params.get("userID")));
 			resume.setCareerCenter(careerCenter.get(i));
@@ -581,7 +581,7 @@ public class ResumeControllerImpl implements ResumeController {
 		ArrayList<String> educationOther = (ArrayList<String>) params.get("educationOther");
 		ArrayList<String> educationSEQ = (ArrayList<String>) params.get("educationSEQ");
 
-		for (int i = 0; i < educationCenter.size(); i++) { // 0À¸·Î¹Ù²ã¾ßµÊ
+		for (int i = 0; i < educationCenter.size(); i++) { // 0ï¿½ï¿½ï¿½Î¹Ù²ï¿½ßµï¿½
 			ResumeVO resume = new ResumeVO();
 			resume.setCareerUser(String.valueOf(params.get("userID")));
 			resume.setCareerCenter(educationCenter.get(i));
