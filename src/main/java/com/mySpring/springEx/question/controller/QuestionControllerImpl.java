@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.question.controller.QuestionController;
 import com.mySpring.springEx.question.service.QuestionService;
 import com.mySpring.springEx.question.vo.QuestionVO;
@@ -33,6 +35,7 @@ public class QuestionControllerImpl implements QuestionController {
 
 	
 	// 吏덈Ц 紐⑸줉 ADMIN
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/question/listQuestion.do" }, method = { RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView listQuestion(HttpServletRequest request, HttpServletResponse response)  throws Exception {
@@ -58,6 +61,7 @@ public class QuestionControllerImpl implements QuestionController {
 	}
 
 	// USER 吏덈Ц �엯�젰李�
+	@Auth
 	@Override
 	@RequestMapping(value = {"/question/questionForm.do"}, method = { RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView questionForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -68,6 +72,7 @@ public class QuestionControllerImpl implements QuestionController {
 
 	
 	// USER 吏덈Ц �엯�젰�썑 由ъ뒪�듃 �씠�룞
+	@Auth
 	@Override	
 	@RequestMapping(value = {"/question/insertQuestion.do"}, method = { RequestMethod.GET, RequestMethod.POST} )
 	public String insertQuestion(QuestionVO QuestionVO,HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -88,6 +93,7 @@ public class QuestionControllerImpl implements QuestionController {
 	}
 
 	// 吏덈Ц �긽�꽭 USER
+	@Auth
 	@Override
 	@RequestMapping(value = {"/question/readQuestion.do"}, method = {RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView readQuestion(@RequestParam("questionNum") int questionNum, HttpServletRequest request, HttpServletResponse response)throws Exception {
@@ -103,6 +109,7 @@ public class QuestionControllerImpl implements QuestionController {
 	}
 	
 	// ADMIN 吏덈Ц �긽�꽭
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = {"/question/adminReadQuestion.do"})
 	public ModelAndView adminReadQuestion(@RequestParam("questionNum") int questionNum, HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -115,6 +122,7 @@ public class QuestionControllerImpl implements QuestionController {
 	}
 	
 	// USER 吏덈Ц �닔�젙 �럹�씠吏�
+	@Auth
 	@Override
 	@RequestMapping(value = {"/question/modQuestionForm.do"}, method = {RequestMethod.GET})
 	public ModelAndView questionModPage(@RequestParam("questionNum") int questionNum,HttpServletRequest request, HttpServletResponse response)throws Exception {
@@ -128,6 +136,7 @@ public class QuestionControllerImpl implements QuestionController {
 	}
 	
 	// USER 吏덈Ц �닔�젙 �떎�뻾
+	@Auth
 	@Override
 	@RequestMapping(value = {"/question/doModQuestion.do"}, method = {RequestMethod.POST, RequestMethod.GET})
 	public String questionMod(@ModelAttribute QuestionVO modQuestion,@RequestParam("questionNum") int questionNum, HttpServletRequest request) throws Exception {

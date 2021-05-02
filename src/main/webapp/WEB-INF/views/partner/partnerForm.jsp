@@ -15,21 +15,13 @@ request.setCharacterEncoding("UTF-8");
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-
 <script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <style>
@@ -82,7 +74,7 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 .title { /* container 밑 속성값들의 이름 */
 	margin: 60px 0px 0px 40px;
 	display: inline-block;
-	width: 100px;
+	width: 110px;
 	position: relative;
 }
 
@@ -119,19 +111,6 @@ div input[type="text"] { /* input type text 태그 지정*/
 .block2 {
 	width: 90%;
 }
-
-.btn {
-	font-size: 1.5rem;
-	padding: 6px 12px;
-}
-.regex {
-	font-size: 12px;
-	text-align: center;
-	position: absolute;
-	margin-top: 5px;
-	margin-left: 391px;
-	color: red;
-}
 </style>
 <script type="text/javascript">
     	$('#partnerHeadCount').on("blur keyup", function() {
@@ -155,11 +134,11 @@ div input[type="text"] { /* input type text 태그 지정*/
 	</script>
 <script>
 
-$('#partnerAddress').on("blur keyup", function() {
+$("#partnerAddress").keyup(function() {
 	$(this).val($(this).val().replace(/[a-zA-Z0-9]/g, ''));
 });
 <!--ajax-->
-$('#partnerLicenseNum').keyup(function() {
+$("#partnerLicenseNum").keyup(function() {
 	$.ajax({
 		url : "${contextPath}/partner/check_licenseNum.do",
 		type : "POST",
@@ -202,17 +181,16 @@ $('#partnerLicenseNum').keyup(function() {
 								name="partnerLicenseNum" placeholder="사업자 등록번호"><div class="eng_name regex" id="id_check"></div>
 						</div>
 						<div class="block2" style="margin-left: -4px;">
-							<label class="title" style="margin-left:2px; ">협약 상태</label> <select id="partnerState"
-								name="partnerState" size="1"
-								style="width: 20% ; margin-left: 8px; margin-right: 10px; height:45%;">
+							<label class="title" style="margin-left: 2px;">협약 상태</label> <select
+								id="partnerState" name="partnerState" size="1"
+								style="width: 20%; height: 45%;">
 								<option value="">선택하세요</option>
-								<option value="협력사">협력사</option>
-								<option value="협약사">협약사</option>
-								<option value="협약서사본">협약서사본</option>
-								<option value="협약서없음">협약서없음</option>
+								<option value="협력사">
+								<option value="협약사">
+								<option value="협약서사본">
+								<option value="협약서없음">
 							</select> <label class="title">근로자수</label> <input type="text"
-								id="partnerHeadCount" name="partnerHeadCount" placeholder=""
-								style="width: 10%;">
+								id="partnerHeadCount" name="partnerHeadCount" placeholder="" style="width: 10%;">
 							<div class="partnerHeadCount regex"></div>
 
 						</div>
@@ -270,9 +248,9 @@ $('#partnerLicenseNum').keyup(function() {
 								name="partnerChargerEmail" placeholder="이메일">
 						</div>
 					</div>
-					<button type="submit" class="btn" style="margin-top: 5%;" id="joinBtn"
+					<button type="button" class="btn btn-outline-danger" style="margin-top: 5%;" id="back">이전</button>
+					<button type="submit" class="btn btn-outline-danger" style="margin-top: 5%;" id="joinBtn"
 						onClick="/partner/addPartner.do">등록</button>
-					<button type="button" class="btn" style="margin-top: 5%;" id="back">이전</button>
 				</div>
 			</div>
 		</form>

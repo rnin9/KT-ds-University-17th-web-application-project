@@ -97,7 +97,7 @@
 	
 	<select id="selectAllResumeList" resultMap="resResult">
       <![CDATA[
-         select a.username, b.resumeID, b.resumeUser, b.resumeCheck, to_char(b.resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" 
+         select a.username, b.resumeID, b.resumeUser, b.resumeCheck, b.resumePic, to_char(b.resumeDate, 'yyyy"년 "mm"월 "dd"일 "hh"시 "mm"분에 작성한 이력서입니다."') as "RESUMEDATE" 
             from resume b join kt_user a on a.userid = b.resumeuser
          where resumeCheck = 'Y'
          order by resumedate   

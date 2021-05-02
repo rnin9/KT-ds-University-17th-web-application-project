@@ -13,29 +13,18 @@ request.setCharacterEncoding("UTF-8");
 <meta charset="UTF-8">
 <title>기업 수정</title>
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-
-
-
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
-<link id="bsdp-css"
-	href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
-	rel="stylesheet">
-
-<script
-	src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <style>
 #main { /* 전체를 감싸서 적용 */
@@ -129,7 +118,6 @@ button {
 	float: right;
 	margin-right: 10px;
 }
-
 </style>
 <script type="text/javascript">
 	$('#partnerHeadCount').on("blur keyup", function() {
@@ -171,8 +159,6 @@ button {
 
 
 <body>
-
-
 	<div class="container">
 
 		<div class="pageIntro">협력사 정보</div>
@@ -188,8 +174,9 @@ button {
 								placeholder="" value="${partnerVO.partnerLicenseNum}" disabled>
 						</div>
 						<div class="block2" style="margin-left: -4px;">
-							<label class="title"style="margin-left:2px;">협약 상태</label> <select id="partnerState"
-								name="partnerState" size="1" style="width: 20%; height:45%;">
+							<label class="title" style="margin-left: 2px;">협약 상태</label> <select
+								id="partnerState" name="partnerState" size="1"
+								style="width: 20%; height: 45%;">
 								<option value="">선택하세요</option>
 								<option value="협력사"
 									<c:if test="${partnerVO.partnerState eq '협력사'}">selected</c:if>>협력사</option>
@@ -199,14 +186,12 @@ button {
 									<c:if test="${partnerVO.partnerState eq '협약서사본'}">selected</c:if>>협약서사본</option>
 								<option value="협약서없음"
 									<c:if test="${partnerVO.partnerState eq '헙약서없음'}">selected</c:if>>협약서없음</option>
-							</select>
-							
-							<label class="title" >근로자수</label> <input type="text"
-								id="partnerHeadCount" name="partnerHeadCount"
-								placeholder="" value="${partnerVO.partnerHeadCount}" style="width:10%;">
+							</select> <label class="title">근로자수</label> <input type="text"
+								id="partnerHeadCount" name="partnerHeadCount" placeholder=""
+								value="${partnerVO.partnerHeadCount}" style="width: 10%;">
 							<div class="partnerHeadCount regex"></div>
-						
-							
+
+
 						</div>
 					</div>
 
@@ -225,17 +210,17 @@ button {
 
 					</div>
 					<div class="block1">
-					<div class="block2">
+						<div class="block2">
 							<label class="title">대표자성명</label> <input type="text"
 								name="partnerCEO" placeholder="대표자성명"
 								value="${partnerVO.partnerCEO}">
 						</div>
-					<div class="block2">
+						<div class="block2">
 							<label class="title">홈페이지</label> <input type="text"
 								name="partnerURL" placeholder="홈페이지"
 								value="${partnerVO.partnerURL}">
 						</div>
-						
+
 
 
 					</div>
@@ -249,9 +234,9 @@ button {
 							<label class="title">업종형태</label> <input type="text"
 								name="partnerIndustryType" placeholder="업종형태"
 								value="${partnerVO.partnerIndustryType}">
-						
+
 						</div>
-						
+
 					</div>
 					<hr>
 					<h2 style="padding-top: 30px;">담당자 정보</h2>
@@ -281,12 +266,11 @@ button {
 					</div>
 
 				</div>
-
-				<button type="submit" class="btn btn-outline-danger"
-					onClick="getPost('01')">수정</button>
+				<button type="button" class="btn btn-outline-danger" id="back">이전</button>
 				<button type="submit" class="btn btn-outline-danger"
 					onClick="getPost('02')">삭제</button>
-				<button type="button" class="btn btn-outline-danger" id="back">이전</button>
+				<button type="submit" class="btn btn-outline-danger"
+					onClick="getPost('01')">수정</button>
 			</div>
 
 		</form>
