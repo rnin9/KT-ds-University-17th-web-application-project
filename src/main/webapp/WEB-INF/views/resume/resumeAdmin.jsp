@@ -11,7 +11,13 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset=UTF-8">
-<title>강의계획서 관리</title>
+<title>이력서 관리</title>
+
+<script type="text/javascript" charset="utf8"
+   src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+<link rel="stylesheet" type="text/css"
+   href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -20,130 +26,172 @@ request.setCharacterEncoding("UTF-8");
    crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
+   href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+<script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript"
+   src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 <style>
- 
-.sub_visual {
-	font-family: 'Noto Sans KR', sans-serif;
-	width: 100%;
-	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/resume.jpg");
-	border: 0;
-	font-size: 32px;
-	font-weight: 500;
-	height: 190px;
-	padding-top: 69px;
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
 
 a:link, a:visited, a:hover {
    color: black;
    text-decoration: none;
 }
 
-.bg-primary {
-   background-color: white !important;
-}
-
 .container {
-   width: 74.64%;
-   font-family: 'Noto Sans KR', sans-serif;
+   display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-bottom:200px;
+   margin-left: 15%;
 }
 
+button {
+   float: right;
+   margin-right: 10px;
+}
 
-.resumeList {
+.dataTables_wrapper {
+   margin-top: 30px;
+   display: inline-block;
+   width: 100%;
+}
+
+/* .resumeList {
    border-collapse: collapse;
    font-size: 14px;
    line-height: 2.2;
    margin-top: 40px;
    text-align: center;
-   /* color: #555; */
    width: 100%;
    line-height: 40px;
-}
+} */
 
 
 
 
 #item {
-	border-color: grey;
-	border-radius: .25rem;
-	border-size: 1px;
+   border-color: grey;
+   border-radius: .25rem;
+   border-size: 1px;
 }
 
 #btn {
-	margin-left : -20px;
+   margin-left : -20px;
 }
 
 </style>
-<script src="https://unpkg.com/sweetalert/dist/sweeta;ert.min.js">></script>
-    
-  <script type="text/javascript">
-               var result = '${msg}';
-               var name = '${resumeName}'
-               
-               if (result == 'modSuccess') {
-            	   window.onload=function() {
-                	   swal("수정 완료",(name + " 이력서 수정 완료"),"success")
-                	   
-            	   }
-               }else if (result == 'removeSuccess'){
-            	   window.onload=function() {
-            		   swal("삭제 완료",(name + " 이력서 삭제 완료"),"success");
-            	   }
-               }else if (result == 'addSuccess'){
-            	   window.onload=function() {
-            		   swal("등록 완료",(name + " 이력서 등록 완료"),"success");
-            	   }
-               }
-  </script>
+
 </head>
 
 
+<script type="text/javascript">
+   function checkSelectAll(checkbox)  {
+      const selectall 
+        = document.querySelector('input[name="check-all"]');
+      if(checkbox.checked == false)  {
+        selectall.checked = false;
+      }
+      
+    }
+
+    function selectAll(selectAll)  {
+      const checkboxes 
+         = document.getElementsByName('ab');
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
+</script>
+<script type="text/javascript">
+   function filter(){
+   
+       var value = document.getElementById("value").value.toUpperCase();
+       var item = document.getElementsByClassName("item");
+       
+       for(var i=0;i<item.length;i++){
+          var name = item[i].getElementsByClassName("name");
+          if(name[0].innerText.toUpperCase().indexOf(value) > -1){
+             item[i].style.display="table-row";
+         }else{
+            item[i].style.display="none";
+         }
+       }   
+   } 
+</script>
+<script type="text/javascript">
+   function enter(){
+       // 엔터키의 코드는 13입니다.
+      if(event.keyCode == 13){
+         filter()  // 실행할 이벤트
+      }
+   }
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+   $('#table_id').DataTable({
+       dom : 'lBfrtip',
+         buttons: [],
+
+         language: {
+            info : '',
+            sInfoFiltered : '',
+            infoEmpty : '',
+            emptyTable : '데이터가 없습니다.',
+            thousands : ',',
+            lengthMenu : '_MENU_ 개씩 보기',
+            loadingRecords : '데이터를 불러오는 중',
+            processing : '처리 중',
+            zeroRecords : '검색 결과 없음',
+            paginate : {
+               first : '처음',
+               last : '끝',
+               next : '다음',
+               previous : '이전'
+            },
+            search: '',
+            sSearchPlaceholder: '통합 검색',
+         
+         }
+   });
+});
+</script>
 
 <body>
-	<div class="sub_visual">
-		<span style="color: white;">이력서</span>
-	</div>
 
    <div class="container">
-      <form method="post" action="${contextPath}/resume/resumeWrite.do">
 
-         <div class="lnb">
-            <ul>
-               <li><a href="${contextPath}/main.do">홈</a></li>
-               <li style="color: grey; font-weight: bold;">〉</li>
-               <li class="on"><a href="${contextPath}/resume/resumeList.do?resumeUser=${member.userId}">이력서
-                     관리</a></li>
-            </ul>
-         </div>
+ 		<div class="pageIntro">대표이력서 관리</div>
  
- 
-         <table class="resumeList">
-
+         <table class="table_" id="table_id">
+         <thead>
+            <tr align="center">
+               <td>아이디</td>
+               <td>이름</td>
+               <td>대표 이력서</td>
+            </tr>
+         
             <tbody id="ajaxTable">
                <c:forEach var="resumeAdmin" items="${resumeAdmin}">
                   <tr id="item">
-                  	 <td>${resumeAdmin.resumeCheck}</td>     
+                      <td>${resumeAdmin.resumeUser}</td>                
+                     <td>${resumeAdmin.memberVO.userName}</td>
                      <td class="name"><a
                         href="${contextPath}/resume/resumeInfo.do?resumeID=${resumeAdmin.resumeID}&resumeUser=${resumeAdmin.resumeUser}">${resumeAdmin.resumeDate}</a></td>
-                     <td><button id="btn" class="btn button_bottom" type="button">수정</button></td>
-                     <td><button id="btn" class="btn button_bottom" type="button"
-                     onClick="location.href='${contextPath}/resume/deleteResume.do?resumeID=${resumeAdmin.resumeID}'">삭제</button></td>
                   </tr>
                </c:forEach>
             </tbody>
          </table>
 
-         <div style="margin-top: 50px; padding-bottom: 150px;">
-            <button class="btn button_bottom" type="button">이력서 작성</button>
-            
-         </div>
 
-      </form>
+
+
    </div>
 </body>
 </html>

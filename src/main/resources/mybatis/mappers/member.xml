@@ -70,7 +70,9 @@
 
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select * from partner 	
+          select * 
+ 		  from partner
+ 		  where partnerLicenseNum not in('kt_ds_university') 
       ]]>
 	</select>
 
@@ -164,11 +166,21 @@
 		into t_member1(id,pwd, name, email,birth,phone,address,address_detail) values(#{id}, 
 		#{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail}) 
 		]]> </insert> -->
+		
+	<update id="userResume" parameterType="String">
+	<![CDATA[
+			update kt_user
+			set userResume = 'Y'
+			where userId = #{userId}
+      ]]>
+	</update>
+		
+	
 	<select id="check_resume" parameterType="String"
 		resultType="String">
 		select userresume
 		from kt_user
-		where userId = #{userId}
+		where userId = #{userId} and userresume = 'Y'
 	</select>
 
 	<!-- 아이디 중복 검사 -->
@@ -245,8 +257,8 @@
      <![CDATA[
 	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail},
-	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber}, userPosition=#{userPosition},
-	     userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, userMajor=#{userMajor}
+	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber},userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, 
+	     userMajor=#{userMajor}
 	     where
 	     userId=#{userId}
       ]]>

@@ -3,6 +3,8 @@ package com.mySpring.springEx.partner.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.dao.DataAccessException;
 
 import com.mySpring.springEx.application.vo.ApplicationVO;
@@ -66,6 +68,8 @@ public interface PartnerService {
 	
 	//update Suggestion to delete
 	public void deleteCompanySuggest(SuggestionVO suggestion) throws Exception;
+
+	void check_licenseNum(String partnerLicenseNum, HttpServletResponse response) throws Exception;
 	
 	/* =================================company method End================================== */
 }

@@ -212,7 +212,7 @@ div select {
 <!-- 날짜 관리 스크립트--> 
 <script>
 	$(document).ready(function() {
-		$('#date input').datepicker({
+		$('.date input').datepicker({
 			format : "yyyymmdd",
 			language : "ko",
 			startView : 2,
@@ -459,7 +459,7 @@ div select {
 
 <body>
 	<div class="sub_visual">
-		<span style="color: white;">이력서 작성</span>
+
 	</div>
 
 	<div class="container">
@@ -490,10 +490,13 @@ div select {
 				<button id="last" class="btn headbutton move none" 
 					onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">자기소개서</button>
 			</div>
-		<h3>상세정보</h3>
+			<div class="pageIntro">
+			<h3>상세정보</h3>
+		</div>
+		
 		<div class="main">
 
-			<h4>학력사항</h4>
+			<h5>학력사항</h5>
 			<label class="title">최종학력 선택</label> <select id="finalEducation"
 				name="education_check">
 				<option value="elementry" style="text-align: center;">초등학교
@@ -526,7 +529,7 @@ div select {
 
 		<div class="main">
 			<div id="title_area">
-				<h4>자격증</h4>
+				<h5>자격증</h5>
 			</div>
 			<div id="certificate_list" class="list_field certificateList" name="certificate_list" value="${certificateList1.certificateSEQ}">
 				<button id="cer_add" class="btn addbutton" type="button">추가</button>
@@ -564,7 +567,7 @@ div select {
 
 		<div class="main">
 			<div id="title_area">
-				<h4>어학시험</h4>
+				<h5>어학시험</h5>
 			</div>
 			<div id="foreign_list" class="list_field foreignList" value="${foreignList1.foreignSEQ}">
 				<button id="for_add" class="btn addbutton" type="button">추가</button>

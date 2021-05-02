@@ -69,9 +69,6 @@ public class ResumeVO {
 	
 	@Autowired
 	MemberVO memberVO;
-	
-
-	
 
 	public ResumeVO() {}
 	

@@ -8,7 +8,7 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <%
-	String resumeID = request.getParameter("resumeID");
+String resumeID = request.getParameter("resumeID");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,8 +99,6 @@ h5 { /* main 밑 속성값들의 이름 */
 	margin-left: -5px;
 }
 
-
-
 .none {
 	display: inline-block;
 	background-color: white;
@@ -168,8 +166,7 @@ textarea {
 
 		});
 	});
-</script>
-<script>
+</script> <script>
 
 		$(document).on('click','.move',function(e) {
 		
@@ -197,12 +194,10 @@ textarea {
 						}
 					});
 				});
-	</script>
-<script>
+	</script> <script>
 	$(document).on('click','#btn2',function(e){
 		 Swal.fire({
-  	        title:'저장',
-  	        text:'이력서를 저장하시겠습니까?',
+  	        title:'이력서를 저장하시겠습니까?',
 				icon:'warning',
   	        confirmButtonText: `저장`,
   	        showCancelButton: true,
@@ -229,9 +224,7 @@ textarea {
 
 
 <body>
-	<div class="sub_visual">
-		<span style="color: white;">이력서 작성</span>
-	</div>
+	<div class="sub_visual"></div>
 
 	<div class="container">
 
@@ -250,21 +243,26 @@ textarea {
 		</div>
 
 		<div id="title_area">
-				<button id="first" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
-				<button id="second" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
-				<button id="third" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">경력사항 / 교육수료사항</button>
-				<button id="forth" class="btn headbutton move none" 
-					onClick="location.href='${contextPath}/resume/moveToPage4.do?userID=${member.userId}&resumeID=<%=resumeID%>'">프로젝트 관련사항</button>
-				<div id="last" class="headbutton move" >자기소개서</div>
-			</div>
+			<button id="first" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/resumeBackPage1.do?userID=${member.userId}&resumeID=<%=resumeID%>'">기본정보</button>
+			<button id="second" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/resumeBackPage2.do?userID=${member.userId}&resumeID=<%=resumeID%>'">상세정보</button>
+			<button id="third" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">경력사항
+				/ 교육수료사항</button>
+			<button id="forth" class="btn headbutton move none"
+				onClick="location.href='${contextPath}/resume/moveToPage4.do?userID=${member.userId}&resumeID=<%=resumeID%>'">프로젝트
+				관련사항</button>
+			<div id="last" class="headbutton move">자기소개서</div>
+		</div>
+		<div class="pageIntro">
+			<h3>자기소개서</h3>
+		</div>
 
-		<h3>자기소개서</h3>
 
 		<div class="main">
 			<div>
+
 				<h5>성장 과정</h5>
 				<div id="test_cnt" class="test1">(0 / 500)</div>
 			</div>

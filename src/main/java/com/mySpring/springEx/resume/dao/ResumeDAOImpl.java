@@ -25,6 +25,7 @@ public class ResumeDAOImpl implements ResumeDAO{
 	public void resumeCheck(ResumeVO resume) throws DataAccessException {
 		sqlSession.update("mapper.resume.resumeAllCheck", resume);
 		sqlSession.update("mapper.resume.resumeCheck", resume);
+		sqlSession.update("mapper.member.userResume",resume.getResumeUser());
 	}
 	
 	

@@ -44,6 +44,7 @@ public class PartnerControllerImpl implements PartnerController {
 		
 	
 	// select companyList
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
 	public ModelAndView partnerList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -77,7 +78,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
-	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/partnerForm.do", method = RequestMethod.GET)
 	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { 																											
@@ -87,6 +88,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/detailInfoPartner.do", method = RequestMethod.GET)
 	public ModelAndView detailInfoPartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
@@ -115,6 +117,14 @@ public class PartnerControllerImpl implements PartnerController {
 
 		return mav;
 	}
+	
+
+	@Override
+	@RequestMapping(value = "/member/check_licenseNum.do", method = RequestMethod.POST)
+	public void check_id(@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletResponse response) throws Exception {
+		partnerService.check_licenseNum(partnerLicenseNum, response);
+	}
+	
 
 	// Partner Information delete
 	@Override

@@ -213,6 +213,12 @@
 		<result property="userEmail" column="userEmail" />
 		</collection>
 	   </resultMap>
+	   
+	 <!-- 아이디 중복 검사 -->
+	<select id="check_licenseNum" parameterType="String" resultType="int">
+		select
+		count(*) from partner where partnerLicenseNum = #{partnerLicenseNum}
+	</select>
 	
 	<select  id="selectAllPartnerList2" resultMap="resResult" >
       <![CDATA[
@@ -242,7 +248,7 @@
 	<select id="selectIngPartner" resultType="int">
       <![CDATA[
         select count(*) from partner
-		where partnerState = '협약 진행중'	 	
+		where partnerState = '협약서사본'	 	
       ]]>
 	</select>
 	
@@ -250,7 +256,7 @@
 	<select id="selectNotPartner" resultType="int">
       <![CDATA[
         select count(*) from partner
-		where partnerState = '미협약'	 	
+		where partnerState = '협약사없음'	 	
       ]]>
 	</select>
 	
