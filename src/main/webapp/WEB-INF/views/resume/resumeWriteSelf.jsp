@@ -124,7 +124,7 @@ textarea {
    margin-left: 35px;
    margin-top: 30px;
 }
-
+    
 .buttonGroups {
    width: 100%;
 }
