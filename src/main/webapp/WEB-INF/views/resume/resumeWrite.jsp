@@ -272,6 +272,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 
 
 <body>
+
    <div class="sub_visual"></div>
    <div class="container">
 
@@ -538,7 +539,6 @@ div input[type="text"] { /* input type text 태그 지정*/
          });
       });
    </script>
-
 
 </body>
 

@@ -18,6 +18,13 @@ request.setCharacterEncoding("UTF-8");
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+                         
 <link rel="stylesheet" type="text/css"
    href="${pageContext.request.contextPath}/resources/css/modal.css" />
 
@@ -39,7 +46,7 @@ a:link, a:visited, a:hover {
 .container {
 	display: flex;
 	flex-wrap: wrap;
-	width: 75%;
+	width: 80%;
 	justify-content: space-around;
 	flex-direction: column;
 	padding-bottom: 200px;
@@ -661,6 +668,7 @@ $(document).ready(function(){
 						<td>${resumeAdmin.resumeUser}</td>
 						<td>${resumeAdmin.memberVO.userName}</td>
 						<td class="name"><a
+
 							 href="#myModal"
 							data-toggle="modal"
 							onclick="getResumeInfo('${resumeAdmin.resumeID}','${resumeAdmin.resumeUser}','${resumeAdmin.memberVO.userName}', '${resumeAdmin.resumePic}');">

@@ -510,9 +510,8 @@ $(document).on('click','.check',function(e){
 
 </head>
 
-
-
 <body>
+
    <div class="sub_visual"></div>
 
    <div class="container">
@@ -727,9 +726,6 @@ $(document).on('click','.check',function(e){
 
       <!--<div class="pageIntro">이력서 관리</div>-->
       <form method="post" action="${contextPath}/resume/resumeWrite.do">
-
-
-
 
          <table class="resumeList">
 
