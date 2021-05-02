@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -14,52 +14,51 @@ request.setCharacterEncoding("UTF-8");
 <title>이력서 관리</title>
 
 <script type="text/javascript" charset="utf8"
-   src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/css/style.css" />
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-   crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css"
-   href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
+	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
 <script type="text/javascript"
-   src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript"
-   src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript"
-   src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
+	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 <style>
-
 a:link, a:visited, a:hover {
-   color: black;
-   text-decoration: none;
+	color: black;
+	text-decoration: none;
 }
 
 .container {
-   display: flex;
-    flex-wrap: wrap;
-    width: 75%;
-    justify-content: space-around;
-    flex-direction: column;
-    padding-bottom:200px;
-   margin-left: 15%;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	padding-bottom: 200px;
+	margin-left: 15%;
 }
 
 button {
-   float: right;
-   margin-right: 10px;
+	float: right;
+	margin-right: 10px;
 }
 
 .dataTables_wrapper {
-   margin-top: 30px;
-   display: inline-block;
-   width: 100%;
+	margin-top: 30px;
+	display: inline-block;
+	width: 100%;
 }
 
 /* .resumeList {
@@ -71,20 +70,15 @@ button {
    width: 100%;
    line-height: 40px;
 } */
-
-
-
-
 #item {
-   border-color: grey;
-   border-radius: .25rem;
-   border-size: 1px;
+	border-color: grey;
+	border-radius: .25rem;
+	border-size: 1px;
 }
 
 #btn {
-   margin-left : -20px;
+	margin-left: -20px;
 }
-
 </style>
 
 </head>
@@ -165,33 +159,32 @@ $(document).ready(function(){
 
 <body>
 
-   <div class="container">
+	<div class="container">
 
- 		<div class="pageIntro">대표이력서 관리</div>
- 
-         <table class="table_" id="table_id">
-         <thead>
-            <tr align="center">
-               <td>아이디</td>
-               <td>이름</td>
-               <td>대표 이력서</td>
-            </tr>
-         
-            <tbody id="ajaxTable">
-               <c:forEach var="resumeAdmin" items="${resumeAdmin}">
-                  <tr id="item">
-                      <td>${resumeAdmin.resumeUser}</td>                
-                     <td>${resumeAdmin.memberVO.userName}</td>
-                     <td class="name"><a
-                        href="${contextPath}/resume/resumeInfo.do?resumeID=${resumeAdmin.resumeID}&resumeUser=${resumeAdmin.resumeUser}">${resumeAdmin.resumeDate}</a></td>
-                  </tr>
-               </c:forEach>
-            </tbody>
-         </table>
+		<div class="pageIntro">대표이력서 관리</div>
 
+		<table class="table_" id="table_id">
+			<thead>
+				<tr align="center">
+					<td>아이디</td>
+					<td>이름</td>
+					<td>대표 이력서</td>
+				</tr>
+			<tbody id="ajaxTable">
+				<c:forEach var="resumeAdmin" items="${resumeAdmin}">
+					<tr id="item">
+						<td>${resumeAdmin.resumeUser}</td>
+						<td>${resumeAdmin.memberVO.userName}</td>
+						<td class="name"><a
+							href="${contextPath}/resume/resumeInfo.do?resumeID=${resumeAdmin.resumeID}&resumeUser=${resumeAdmin.resumeUser}">${resumeAdmin.resumeDate}</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 
 
 
-   </div>
+
+	</div>
 </body>
 </html>

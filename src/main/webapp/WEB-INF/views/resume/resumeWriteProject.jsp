@@ -174,9 +174,6 @@ textarea {
 }
 
 .buttonGroups button {
-	width: 90px;
-	height: 35px;
-	font-size: 1em;
 	margin-bottom: 50px;
 }
 
@@ -426,7 +423,7 @@ textarea {
 		<div class="main">
 			<div id="project_list" class="list_field projectList"
 				name="project_list" value="${projectList1.projectSEQ}">
-				<button id="pro_add" class="btn addbutton" type="button">추가</button>
+				<button id="pro_add" class="btn btn-outline-danger addbutton" type="button">추가</button>
 				<div>
 					<label class="title">기관</label><input type="text"
 						name="project_center" id="project_center" placeholder="기관명 입력"
@@ -520,9 +517,9 @@ textarea {
 			<div id="profield" class="fieldset"></div>
 		</div>
 		<div class="buttonGroups">
-			<button id="btn1" class="btn save move " type="button"
+			<button id="btn1" class="btn btn-outline-danger save move " type="button"
 				onClick="location.href='${contextPath}/resume/moveToPage3.do?userID=${member.userId}&resumeID=<%=resumeID%>'">이전</button>
-			<button id="btn2" class="btn save move" type="button"
+			<button id="btn2" class="btn btn-outline-danger save move" type="button"
 				onClick="location.href='${contextPath}/resume/moveToPage5.do?userID=${member.userId}&resumeID=<%=resumeID%>'">다음</button>
 		</div>
 	</div>

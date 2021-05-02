@@ -116,8 +116,7 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-	<div class="container"
-		style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column;">
+	<div class="container">
 		<c:choose>
 			<c:when test="${partner.partnerName =='university'}">
 				<div class="pageIntro" style="margin-bottom: 30px;">kt ds

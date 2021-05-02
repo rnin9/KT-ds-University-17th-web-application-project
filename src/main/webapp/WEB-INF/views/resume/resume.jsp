@@ -746,12 +746,12 @@ $(document).on('click','.check',function(e){
 
 
 			<div style="margin-top: 50px; padding-bottom: 150px;">
-				<button class="btn button_bottom check" type="button" id="remove">삭제</button>
-				<button class="btn button_bottom check" type="button" id="mod">수정</button>
-				<button class="btn button_bottom" type="button"
+				<button class="btn btn-outline-danger check" type="button" id="remove">삭제</button>
+				<button class="btn btn-outline-danger check" type="button" id="mod">수정</button>
+				<button class="btn btn-outline-danger" type="button"
 					onClick="location.href='${contextPath}/resume/resumeWrite.do?userID=${member.userId}'">
 					이력서 작성</button>
-				<button id="represent" class="btn button_bottom check" type="button">대표
+				<button id="represent" class="btn btn-outline-danger check" type="button">대표
 					이력서 설정</button>
 
 

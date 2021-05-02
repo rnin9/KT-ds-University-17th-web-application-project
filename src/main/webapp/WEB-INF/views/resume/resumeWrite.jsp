@@ -212,7 +212,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 
 .buttonGroups {
 	margin-top: 55px;
-	margin-bottom: 50px;
+	margin-bottom: 120px;
 	width: 100%;
 	border-top: 1px solid #eeeeee;
 	padding-top: 30px;
@@ -220,9 +220,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 
 #btn {
 	float: right;
-	width: 90px;
-	height: 35px;
-	font-size: 1em;
+	margin-right:10px;
 }
 </style>
 
@@ -374,7 +372,7 @@ div input[type="text"] { /* input type text 태그 지정*/
 			</div>
 			<div class="buttonGroups">
 				<button id="btn"
-					class="btn button_bottom btn-outline-danger save btn-outline-danger"
+					class="btn btn-outline-danger save"
 					type="submit" onClick="getPost('toPage2')">다음</button>
 			</div>
 

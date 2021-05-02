@@ -131,10 +131,9 @@ textarea {
 }
 
 .buttonGroups button {
-	width: 90px;
-	height: 35px;
-	font-size: 1em;
-	margin-bottom: 50px;
+	margin-right: 10px;
+	margin-top: 50px;
+	margin-bottom: 120px;
 }
 
 #btn1 {
@@ -300,9 +299,9 @@ textarea {
 
 
 		<div class="buttonGroups">
-			<button id="btn1" class="btn save move" type="button"
+			<button id="btn1" class="btn btn-outline-danger save move" type="button"
 				onClick="location.href='${contextPath}/resume/moveToPage4.do?userID=${member.userId}&resumeID=<%=resumeID%>'">이전</button>
-			<button id="btn2" class="btn save move" type="button">저장</button>
+			<button id="btn2" class="btn btn-outline-danger save move" type="button">저장</button>
 		</div>
 
 	</div>

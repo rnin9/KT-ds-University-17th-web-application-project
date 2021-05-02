@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -7,81 +7,99 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/css/style.css" />
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css"
-   href="${pageContext.request.contextPath}/resources/css/modal.css" />
+	href="${pageContext.request.contextPath}/resources/css/modal.css" />
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <style>
-.table thead th {
-   width: 25%;
-   vertical-align: bottom;
-   border-bottom: 2px solid #dee2e6;
-}
 
 .flex-box {
-   display: flex;
-   justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .flex-col {
-   display: flex;
-   flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 #resumeTable {
-   color: black;
-   font-family: 'Noto Sans KR', sans-serif;
-   width: 600px;
-   margin-right: 40px;
+	color: black;
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 600px;
+	margin-right: 40px;
 }
 
 #resumeTable th {
-   text-align: center;
-   background-color: #eee;
+	text-align: center;
+	background-color: #eee;
 }
 
 #resumeTable td {
-   padding: 5px;
+	padding: 5px;
 }
 
 .d_divider {
-   border-left: 3px solid green;
-   height: 500px;
+	border-left: 3px solid green;
+	height: 500px;
 }
 
 .c_content {
-   float: left;
-   width: 770px;
-   word-break: keep-all;
-   word-wrap: break-word;
+	float: left;
+	width: 770px;
+	word-break: keep-all;
+	word-wrap: break-word;
 }
 
 .c_context {
-   width: 990px;
-   word-break: keep-all;
-   word-wrap: break-word;
+	width: 990px;
+	word-break: keep-all;
+	word-wrap: break-word;
 }
 
 .s_str {
-   float: left;
-   width: 200px;
+	float: left;
+	width: 200px;
 }
 
 .r_row {
-   clear: left;
+	clear: left;
 }
 
 .c_containerItem {
-   margin-top: 100px;
-   clear: left;
-   border-bottom: 1px solid black;
+	margin-top: 100px;
+	clear: left;
+	border-bottom: 1px solid black;
 }
 
 #resCarr>th {
-   colspan: 2;
+	colspan: 2;
+}
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	padding-bottom: 200px;
+	margin-left: 15%;
+}
+
+.table thead th {
+	width: 25%;
+	vertical-align: bottom;
+	border-bottom: 2px solid;
 }
 </style>
 <script>
@@ -624,207 +642,206 @@
         }
      </script>
 <body>
-   <div id="applyContents">
-      <div class="sub_visual">
-         <span style="color: white;"></span>
-      </div>
-      <div class="container"
-         style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
-
-         <!-- Modal -->
-         <!-- <div class="modal fade" id="myModal" role="dialog">
+	<div id="applyContents">
+		
+		<div class="container">
+		
+		<div class="pageIntro">채용 관리</div>
+		
+			<!-- Modal -->
+			<!-- <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-dialog-scrollable">
  -->
-         <div class="modal fade bd-example-modal-lg" id="myModal"
-            tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-               <!-- Modal content-->
-               <div class="modal-content">
+			<div class="modal fade bd-example-modal-lg" id="myModal"
+				tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-scrollable">
+					<!-- Modal content-->
+					<div class="modal-content">
 
-                  <div class="modal-header">
-                     <h5 class="modal-title" id="modal_title"></h5>
-                     <button type="button" class="close" data-dismiss="modal">X</button>
-                  </div>
-                  <div class="modal-body">
-                     <div class="container-fluid" id="grad1">
-                        <div class="row justify-content-center mt-0">
-                           <div>
-                              <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                                 <div class="row">
-                                    <div class="col-md-12 mx-0">
-                                       <form id="msform">
-                                          <!-- progressbar -->
-                                          <ul id="progressbar">
-                                             <li class="active" id="basic"><strong>기본정보</strong></li>
-                                             <li id="personal"><strong>상세정보</strong></li>
-                                             <li id="education"><strong>경력/교육사항</strong></li>
-                                             <li id="project"><strong>프로젝트</strong></li>
-                                             <li id="introduce"><strong>자기소개서</strong></li>
-                                          </ul>
-                                          <!-- fieldsets -->
-                                          <fieldset id="init">
-                                             <div class="form-card">
-                                                <h2 class="fs-title">기본정보</h2>
-                                                <table border id="resumeTable">
-                                                   <tr>
-                                                      <th rowspan="4"><img
-                                                         src="http://jjunstudio.com/zbxe/files/attach/images/351/652/85a698d051126aa4043e83f4ff2376a0.jpg"
-                                                         style="width: 122px; height: 163px;" /></th>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>성명</th>
-                                                      <td id="resName"></td>
-                                                      <th>영문명</th>
-                                                      <td id="resEngName"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <!-- &nbsp; = ?? -->
-                                                      <th colspan="1" style="width: 84px;">나이</th>
-                                                      <td colspan="1" style="width: 165px;" id="resAge"></td>
-                                                      <th colspan="1" width="15%">성별</th>
-                                                      <td colspan="1" width="200px" id="resGender"></td>
+						<div class="modal-header">
+							<h5 class="modal-title" id="modal_title"></h5>
+							<button type="button" class="close" data-dismiss="modal">X</button>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid" id="grad1">
+								<div class="row justify-content-center mt-0">
+									<div>
+										<div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+											<div class="row">
+												<div class="col-md-12 mx-0">
+													<form id="msform">
+														<!-- progressbar -->
+														<ul id="progressbar">
+															<li class="active" id="basic"><strong>기본정보</strong></li>
+															<li id="personal"><strong>상세정보</strong></li>
+															<li id="education"><strong>경력/교육사항</strong></li>
+															<li id="project"><strong>프로젝트</strong></li>
+															<li id="introduce"><strong>자기소개서</strong></li>
+														</ul>
+														<!-- fieldsets -->
+														<fieldset id="init">
+															<div class="form-card">
+																<h2 class="fs-title">기본정보</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th rowspan="4"><img
+																			src="http://jjunstudio.com/zbxe/files/attach/images/351/652/85a698d051126aa4043e83f4ff2376a0.jpg"
+																			style="width: 122px; height: 163px;" /></th>
+																	</tr>
+																	<tr>
+																		<th>성명</th>
+																		<td id="resName"></td>
+																		<th>영문명</th>
+																		<td id="resEngName"></td>
+																	</tr>
+																	<tr>
+																		<!-- &nbsp; = ?? -->
+																		<th colspan="1" style="width: 84px;">나이</th>
+																		<td colspan="1" style="width: 165px;" id="resAge"></td>
+																		<th colspan="1" width="15%">성별</th>
+																		<td colspan="1" width="200px" id="resGender"></td>
 
-                                                   </tr>
-                                                   <tr>
-                                                      <th colspan="1">생년월일</th>
-                                                      <td colspan="3" id="resBirth"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>주소</th>
-                                                      <td colspan="4" id="resAddress"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th rowspan="2">연락처</th>
-                                                      <th>H.P</th>
-                                                      <td colspan="4" id="resPhone">000-0000-0000</td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>Email</th>
-                                                      <td colspan="4" id="resEmail">test@test.com</td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th rowspan="3">학력사항</th>
-                                                      <th>최종학력</th>
-                                                      <td colspan="4" id="resLastEdu">대학교졸업</td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>전공</th>
-                                                      <td colspan="4" id="resMajor">컴퓨터공학과</td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>학점</th>
-                                                      <td colspan="4" id="resGrade">4.0/4.5</td>
-                                                   </tr>
+																	</tr>
+																	<tr>
+																		<th colspan="1">생년월일</th>
+																		<td colspan="3" id="resBirth"></td>
+																	</tr>
+																	<tr>
+																		<th>주소</th>
+																		<td colspan="4" id="resAddress"></td>
+																	</tr>
+																	<tr>
+																		<th rowspan="2">연락처</th>
+																		<th>H.P</th>
+																		<td colspan="4" id="resPhone">000-0000-0000</td>
+																	</tr>
+																	<tr>
+																		<th>Email</th>
+																		<td colspan="4" id="resEmail">test@test.com</td>
+																	</tr>
+																	<tr>
+																		<th rowspan="3">학력사항</th>
+																		<th>최종학력</th>
+																		<td colspan="4" id="resLastEdu">대학교졸업</td>
+																	</tr>
+																	<tr>
+																		<th>전공</th>
+																		<td colspan="4" id="resMajor">컴퓨터공학과</td>
+																	</tr>
+																	<tr>
+																		<th>학점</th>
+																		<td colspan="4" id="resGrade">4.0/4.5</td>
+																	</tr>
 
-                                                </table>
-                                             </div>
-                                             <input type="button" name="next"
-                                                class="next action-button" value="다음" />
-                                          </fieldset>
-                                          <fieldset>
-                                             <div class="form-card">
-                                                <h2 class="fs-title">자격증</h2>
-                                                <table border id="resumeTable">
-                                                   <tr>
-                                                      <th>자격증명</th>
-                                                      <th>발행처/기관</th>
-                                                      <th>취득일</th>
-                                                   </tr>
-                                                   <tbody id="resCert">
-                                                   </tbody>
-                                                </table>
+																</table>
+															</div>
+															<input type="button" name="next"
+																class="next action-button" value="다음" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">자격증</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th>자격증명</th>
+																		<th>발행처/기관</th>
+																		<th>취득일</th>
+																	</tr>
+																	<tbody id="resCert">
+																	</tbody>
+																</table>
 
-                                                <h2 class="fs-title" style="margin-top: 100px">어학시험</h2>
-                                                <table border id="resumeTable">
-                                                   <tr>
-                                                      <th>언어</th>
-                                                      <th>시험종류</th>
-                                                      <th>점수</th>
-                                                      <th>취득일</th>
-                                                   </tr>
-                                                   <tbody id="resFor">
-                                                   </tbody>
-                                                </table>
-                                             </div>
-                                             <input type="button" name="previous"
-                                                class="previous action-button-previous" value="이전" /> <input
-                                                type="button" name="next" class="next action-button"
-                                                value="다음" />
-                                          </fieldset>
-                                          <fieldset>
-                                             <div class="form-card">
-                                                <h2 class="fs-title">경력사항</h2>
-                                                <table border id="resumeTable">
-                                                   <tbody id="resCarr_C">
-                                                   </tbody>
-                                                </table>
-                                                <h2 class="fs-title" style="margin-top: 100px">교육사항</h2>
-                                                <table border id="resumeTable">
-                                                   <tbody id="resCarr_E">
-                                                   </tbody>
-                                                </table>
+																<h2 class="fs-title" style="margin-top: 100px">어학시험</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th>언어</th>
+																		<th>시험종류</th>
+																		<th>점수</th>
+																		<th>취득일</th>
+																	</tr>
+																	<tbody id="resFor">
+																	</tbody>
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">경력사항</h2>
+																<table border id="resumeTable">
+																	<tbody id="resCarr_C">
+																	</tbody>
+																</table>
+																<h2 class="fs-title" style="margin-top: 100px">교육사항</h2>
+																<table border id="resumeTable">
+																	<tbody id="resCarr_E">
+																	</tbody>
+																</table>
 
-                                             </div>
-                                             <input type="button" name="previous"
-                                                class="previous action-button-previous" value="이전" /> <input
-                                                type="button" name="next" class="next action-button"
-                                                value="다음" />
-                                          </fieldset>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
 
-                                          <fieldset>
-                                             <div class="form-card">
-                                                <h2 class="fs-title">프로젝트</h2>
-                                                <table border id="resumeTable">
-                                                   <tbody id="resPro">
-                                                   </tbody>
-                                                </table>
-                                             </div>
-                                             <input type="button" name="previous"
-                                                class="previous action-button-previous" value="이전" /> <input
-                                                type="button" name="next" class="next action-button"
-                                                value="다음" />
-                                          </fieldset>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">프로젝트</h2>
+																<table border id="resumeTable">
+																	<tbody id="resPro">
+																	</tbody>
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" /> <input
+																type="button" name="next" class="next action-button"
+																value="다음" />
+														</fieldset>
 
-                                          <fieldset>
-                                             <div class="form-card">
-                                                <h2 class="fs-title">자기소개서</h2>
-                                                <table border id="resumeTable">
-                                                   <tr>
-                                                      <th style="width: 98px;">성장과정</th>
-                                                      <td id="resCtx1"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>학교생활</th>
-                                                      <td id="resCtx2"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>성격(장/단점)</th>
-                                                      <td id="resCtx3"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>희망업무 및 장래포부</th>
-                                                      <td id="resCtx4"></td>
-                                                   </tr>
-                                                   <tr>
-                                                      <th>기타사항</th>
-                                                      <td id="resCtx5"></td>
-                                                   </tr>
+														<fieldset>
+															<div class="form-card">
+																<h2 class="fs-title">자기소개서</h2>
+																<table border id="resumeTable">
+																	<tr>
+																		<th style="width: 98px;">성장과정</th>
+																		<td id="resCtx1"></td>
+																	</tr>
+																	<tr>
+																		<th>학교생활</th>
+																		<td id="resCtx2"></td>
+																	</tr>
+																	<tr>
+																		<th>성격(장/단점)</th>
+																		<td id="resCtx3"></td>
+																	</tr>
+																	<tr>
+																		<th>희망업무 및 장래포부</th>
+																		<td id="resCtx4"></td>
+																	</tr>
+																	<tr>
+																		<th>기타사항</th>
+																		<td id="resCtx5"></td>
+																	</tr>
 
 
-                                                </table>
-                                             </div>
-                                             <input type="button" name="previous"
-                                                class="previous action-button-previous" value="이전" />
-                                          </fieldset>
-                                       </form>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- <div class="partnerInfoModalBody" style="text-align: left">
+																</table>
+															</div>
+															<input type="button" name="previous"
+																class="previous action-button-previous" value="이전" />
+														</fieldset>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="partnerInfoModalBody" style="text-align: left">
                         <div class="row">
                            <div class="col-3" style="color: #444444; font-weight: bold">
                               <p> Ұ </p>
@@ -842,150 +859,150 @@
                            </div>
                         </div>
                      </div> -->
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" id="reset" class="btn btn-default"
-                        data-dismiss="modal">확인</button>
-                  </div>
-               </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="reset" class="btn btn-default"
+								data-dismiss="modal">확인</button>
+						</div>
+					</div>
 
-            </div>
-         </div>
+				</div>
+			</div>
 
-         <section id="tabs" class="project-tab">
-            <div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <nav style="margin-top: 100px;">
+			<section id="tabs" class="project-tab">
+				<div>
+					<div class="row">
+						<div class="col-md-12">
+							<nav style="margin-top: 30px;">
 
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                           <li class="nav-item"><a id="firstNav" href="#nav-home"
-                              data-toggle="tab" onclick="tabtab('#nav-home')"
-                              class="nav-link active">지원서 목록</a></li>
-                           <li class="nav-item"><a id="secondNav" href="#nav-profile"
-                              data-toggle="tab" onclick="tabtab('#nav-profile')"
-                              class="nav-link">채용 제안</a></li>
-                        </ul>
-                     </nav>
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item"><a id="firstNav" href="#nav-home"
+										data-toggle="tab" onclick="tabtab('#nav-home')"
+										class="nav-link active">지원서 목록</a></li>
+									<li class="nav-item"><a id="secondNav" href="#nav-profile"
+										data-toggle="tab" onclick="tabtab('#nav-profile')"
+										class="nav-link">채용 제안</a></li>
+								</ul>
+							</nav>
 
-                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home"
-                           role="tabpanel" aria-labelledby="nav-home-tab">
-                           <%--                ù  °         ̺                 --%>
-                           <table class="table" cellspacing="0">
-                              <thead>
-                                 <tr>
-                                    <th>이름</th>
-                                    <th>이력서</th>
-                                    <th>합 · 불합</th>
-                                    <%-- <c:forEach var="apList" items="${applyList}">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home"
+									role="tabpanel" aria-labelledby="nav-home-tab">
+									<%--                ù  °         ̺                 --%>
+									<table class="table" cellspacing="0" >
+										<thead style="border-bottom: 2px solid #dee2e6;">
+											<tr>
+												<th style="border-bottom: 2px solid #dee2e6;">이름</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이력서</th>
+												<th style="border-bottom: 2px solid #dee2e6;">합 · 불합</th>
+												<%-- <c:forEach var="apList" items="${applyList}">
                                     <c:choose>
                                     <c:when test="${apList.partnerApplyState != '      '}">
                                      --%>
-                                    <th>결과 변경</th>
-                                    <%-- </c:when>
+												<th style="border-bottom: 2px solid #dee2e6;">결과 변경</th>
+												<%-- </c:when>
                                     </c:choose>
                                     </c:forEach>
                                   --%>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <c:forEach var="apList" items="${applyList}">
-                                    <tr align="center">
-                                       <td>${apList.memberVO.userName}</td>
-                                       <td><a class="info" data-toggle="modal"
-                                          href="#myModal"
-                                          onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}','${apList.memberVO.userName}');">
-                                             <i class="fas fa-search"></i>
-                                       </a></td>
-                                       <c:choose>
-                                          <c:when test="${apList.partnerApplyState == '진행중'}">
-                                             <td><a style="text-decoration: underline" href="#"
-                                                onclick="chk_passOrFail('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
-                                                   class="fas fa-user-check"></i></a></td>
-                                             <td></td>
-                                          </c:when>
-                                          <c:when test="${apList.partnerApplyState == '합격   '}">
-                                             <td style="color: blue;">${apList.partnerApplyState}</td>
-                                             <td><a style="text-decoration: underline" href="#"
-                                                onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
-                                                   class="fas fa-user-edit"></i></a>
-                                          </c:when>
-                                          <c:otherwise>
-                                             <td style="color: red;">${apList.partnerApplyState}</td>
-                                             <td><a style="text-decoration: underline" href="#"
-                                                onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
-                                                   class="fas fa-user-edit"></i></a>
-                                          </c:otherwise>
-                                       </c:choose>
-                                    </tr>
-                                 </c:forEach>
-                              </tbody>
-                           </table>
-                        </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                           aria-labelledby="nav-profile-tab">
-                           <%--                            --%>
-                           <table class="table" cellspacing="0">
-                              <thead>
-                                 <tr>
-                                    <th>이름</th>
-                                    <th>이력서</th>
-                                    <th>채용제안</th>
-                                    <th>삭제</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <c:forEach var="sugList" items="${suggestionList}">
-                                    <tr>
-                                       <td>${sugList.userName}</td>
-                                       <td><a class="info" data-toggle="modal"
-                                          href="#myModal"
-                                          onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}','${sugList.userName}');">
-                                             <i class="fas fa-search"></i>
-                                       </a></td>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="apList" items="${applyList}">
+												<tr align="center">
+													<td>${apList.memberVO.userName}</td>
+													<td><a class="info" data-toggle="modal"
+														href="#myModal"
+														onclick="getResumeInfo('${apList.partnerApplyResumeID}','${apList.memberVO.userId}','${apList.memberVO.userName}');">
+															<i class="fas fa-search"></i>
+													</a></td>
+													<c:choose>
+														<c:when test="${apList.partnerApplyState == '진행중'}">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_passOrFail('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-check"></i></a></td>
+															<td></td>
+														</c:when>
+														<c:when test="${apList.partnerApplyState == '합격   '}">
+															<td style="color: blue;">${apList.partnerApplyState}</td>
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-edit"></i></a>
+														</c:when>
+														<c:otherwise>
+															<td style="color: red;">${apList.partnerApplyState}</td>
+															<td><a style="text-decoration: underline" href="#"
+																onclick="chk_reset('${apList.memberVO.userId}','${apList.memberVO.userName}','${apList.partnerApplyPartnerID}');"><i
+																	class="fas fa-user-edit"></i></a>
+														</c:otherwise>
+													</c:choose>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+									aria-labelledby="nav-profile-tab">
+									<%--                            --%>
+									<table class="table" cellspacing="0">
+										<thead>
+											<tr>
+												<th style="border-bottom: 2px solid #dee2e6;">이름</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이력서</th>
+												<th style="border-bottom: 2px solid #dee2e6;">채용제안</th>
+												<th style="border-bottom: 2px solid #dee2e6;">삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="sugList" items="${suggestionList}">
+												<tr>
+													<td>${sugList.userName}</td>
+													<td><a class="info" data-toggle="modal"
+														href="#myModal"
+														onclick="getResumeInfo('${sugList.resumeVO.resumeID}','${sugList.userId}','${sugList.userName}');">
+															<i class="fas fa-search"></i>
+													</a></td>
 
-                                       <c:choose>
-                                          <c:when
-                                             test="${sugList.suggestionVO.partnerSuggestionAcception == null}">
-                                             <td><a style="text-decoration: underline" href="#"
-                                                onclick="suggestToUser('${sugList.userId}','${partner.partnerLicenseNum}','${sugList.userName}');return false;"><i
-                                                   class="fas fa-hands-helping"></i></a></td>
-                                          </c:when>
-                                          <c:when
-                                             test="${sugList.suggestionVO.partnerSuggestionAcception == '수락'}">
-                                             <td style="color: blue;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
-                                          </c:when>
-                                          <c:when
-                                             test="${sugList.suggestionVO.partnerSuggestionAcception == '대기'}">
-                                             <td style="color: green;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
-                                          </c:when>
-                                          <c:otherwise>
-                                             <td style="color: red;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
-                                          </c:otherwise>
-                                       </c:choose>
-                                       <c:choose>
-                                          <c:when
-                                             test="${sugList.suggestionVO.partnerSuggestionPartnerD != null }">
-                                             <td><a style="text-decoration: underline" href="#"
-                                                onclick="deleteSuggestion('${sugList.userId}','${partner.partnerLicenseNum}');"><i
-                                                   class="fas fa-user-times"></i></a></td>
-                                          </c:when>
-                                          <c:otherwise>
-                                             <td></td>
-                                          </c:otherwise>
-                                       </c:choose>
-                                    </tr>
-                                 </c:forEach>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-      </div>
-   </div>
+													<c:choose>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == null}">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="suggestToUser('${sugList.userId}','${partner.partnerLicenseNum}','${sugList.userName}');return false;"><i
+																	class="fas fa-hands-helping"></i></a></td>
+														</c:when>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == '수락'}">
+															<td style="color: blue;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:when>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionAcception == '대기'}">
+															<td style="color: green;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:when>
+														<c:otherwise>
+															<td style="color: red;">${sugList.suggestionVO.partnerSuggestionAcception}</td>
+														</c:otherwise>
+													</c:choose>
+													<c:choose>
+														<c:when
+															test="${sugList.suggestionVO.partnerSuggestionPartnerD != null }">
+															<td><a style="text-decoration: underline" href="#"
+																onclick="deleteSuggestion('${sugList.userId}','${partner.partnerLicenseNum}');"><i
+																	class="fas fa-user-times"></i></a></td>
+														</c:when>
+														<c:otherwise>
+															<td></td>
+														</c:otherwise>
+													</c:choose>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 </body>
 </html>
