@@ -610,6 +610,7 @@ a:link, a:visited, a:hover {
 
 #container1 { /* 이름 밑에 속성들을 감싸서 적용 */
 	margin: 39px;
+	margin-top:10px;
 	text-align: left;
 	margin-left: auto;
 	margin-right: auto;
@@ -709,12 +710,17 @@ input:checked+label {
 	#eunjinfizz,#rnsnenfn96:checked ~ #rnsnenfn96, #kang:checked ~ #kang, #yeohu:checked ~ #yeohu, #dain:checked ~ #dain {
 	display: block;
 }
-
+.text{display: none;}
+.text2{display: none;}
+.text3{display: none;}
+.participate:hover ~ .text{display:block; opacity:1; text-align: center;}
+.allPerson:hover ~ .text2{display:block; opacity:1; text-align: center;}
+.notParticipate:hover ~ .text3{display:block; opacity:1; text-align: center;}
 </style>
 
 <title>회원 정보 목록창</title>
 </head>
-<body>
+<body>	
 
 	<div class="row">
 		<div class="col-md-12">
@@ -736,7 +742,34 @@ input:checked+label {
 
 						<br>
 						<h3 style="text-align: center; margin-top: 10px;">${surveyVO.syllabusVO.syllabusName}</h3>
-
+						
+						<div class="allPerson" >총 인원:${AllPerson.countAll}</div> 
+						<div class="participate">응답인원:${detailVO.count2}</div>
+						<div class="notParticipate" >미응답인원:${dontParticipateAllPerson.countAll2}</div> 
+							<div class="text">
+								<c:forEach var="detailList" items="${detailList}">
+								<b>${detailList.userId},</b> 
+								</c:forEach>
+							</div>
+							<div class="text2">
+								<c:forEach var="detailList" items="${detailList}">
+								<b>${detailList.userId},</b> 
+								</c:forEach>
+								<c:forEach var="dontParticipateAllPersonId" items="${dontParticipateAllPersonId}">
+								<b style="color: red">${dontParticipateAllPersonId.userID},</b> 
+								</c:forEach>
+							</div>
+							<div class="text3">
+								<c:forEach var="dontParticipateAllPersonId" items="${dontParticipateAllPersonId}">
+								<b style="color: red">${dontParticipateAllPersonId.userID},</b> 
+								</c:forEach>
+							</div>
+							<div>
+							
+							
+							
+						
+						</div>
 
 						<div id="container1">
 							<h5>1.${surveyVO.q1}</h5>

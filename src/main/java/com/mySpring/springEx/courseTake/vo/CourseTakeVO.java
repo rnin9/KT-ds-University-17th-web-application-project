@@ -22,6 +22,8 @@ public class CourseTakeVO {
 	private int takeN; // Course inCompletion
 	private String takeYear; // Employee's courseTake Year
 	private String surveyYN;
+	private String countAll;
+	private String countAll2;
 	/*
 	 * private String userName; private String userPhoneNumber; private String
 	 * userEmail; private String userCompany;
@@ -202,4 +204,23 @@ public class CourseTakeVO {
 	public void setCourseApplyEndDay(String courseApplyEndDay) {
 		this.courseApplyEndDay = courseApplyEndDay;
 	}
+
+	public String getCountAll() {
+		return countAll;
+	}
+
+	public void setCountAll(String countAll) {
+		this.countAll = countAll;
+	}
+
+	public String getCountAll2() {
+		return countAll2;
+	}
+
+	public void setCountAll2(String countAll2) {
+		this.countAll2 = countAll2;
+	}
+
+	
+	
 }
