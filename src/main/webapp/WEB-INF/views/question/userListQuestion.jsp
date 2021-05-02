@@ -28,6 +28,11 @@ request.setCharacterEncoding("UTF-8");
 
 <title>사용자 질문 목록</title>
 <style>
+a:link, a:visited, a:hover {
+	color: black;
+	text-decoration: none;
+}
+
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
@@ -142,8 +147,7 @@ table.dataTable td {
 
 		<!-- <div class="pageIntro">1:1 문의</div> -->
 
-		<table class="table_" id="table_id"
-			style="border-bottom: 1px solid #96988f;">
+		<table id="table_id" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td><b>분류</b></td>

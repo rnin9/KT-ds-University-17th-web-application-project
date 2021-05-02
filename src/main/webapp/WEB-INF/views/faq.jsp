@@ -14,8 +14,6 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -90,7 +88,7 @@
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
-	width: 80%;
+	width: 67.15%;
 }
 
 .letterQ {

@@ -67,7 +67,7 @@ button {
 		$('#sandbox-container input').datepicker({
 			format : "yyyy-mm-dd",
 			language : "ko",
-			startView : 2,
+			startView : 1,
 			keyboardNavigation : false,
 			forceParse : false,
 			autoclose : true

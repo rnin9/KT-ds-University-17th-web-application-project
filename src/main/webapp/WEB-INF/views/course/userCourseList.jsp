@@ -150,7 +150,7 @@ p {
                                     </c:when>
 													</c:choose>
 											</span> </span></span>
-										<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
+										<p class="card-text" style="font-size: 22px;">${courseVO.syllabusVO.syllabusName}</p>
 										<hr>
 										<p style="color: grey; font-weight: 200; font-size: 17px;">수강기간
 											${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
@@ -200,7 +200,7 @@ p {
                                     </c:when>
 														</c:choose>
 												</span> </span></span>
-											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
+											<p class="card-text" style="font-size: 22px;">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
 											<p
 												style="height: 17px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
@@ -247,10 +247,10 @@ p {
                                     </c:when>
 														</c:choose>
 												</span> </span></span>
-											<p class="card-text">${courseVO.syllabusVO.syllabusName}</p>
+											<p class="card-text" style="font-size: 22px;">${courseVO.syllabusVO.syllabusName}</p>
 											<hr>
 											<p
-												style="height: 17px; color: grey; font-weight: 200; margin-bottom: 20px; font-size: 14px;">수강기간
+												style="color: grey; font-weight: 200; font-size: 17px; text-align: left; margin: 0;">수강기간
 												${courseVO.courseStart} ~ ${courseVO.courseEnd}</p>
 										</div>
 									</a>
