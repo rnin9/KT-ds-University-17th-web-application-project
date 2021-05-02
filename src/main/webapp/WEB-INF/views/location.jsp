@@ -17,7 +17,7 @@
             width: 80%;
             /*scroll-behavior: smooth;*/
         }
-      
+
         .sub_visual {
             font-family: 'Noto Sans KR', sans-serif;
             width: 100%;
@@ -80,8 +80,8 @@
 </head>
 <body>
 <div class="sub_visual">
-		<span style="color: white;">교육장 안내</span>
-	</div>
+    <span style="color: white;">교육장 안내</span>
+</div>
 <div class="container">
 
     <div class="lnb">
@@ -96,11 +96,11 @@
 
 
     <div class="mapContainer" style="background-color: white">
-        
-        <div  style="margin-top: 20px; text-align: left">
+
+        <div style="margin-top: 20px; text-align: left">
             <div></div>
         </div>
-        <div class="pageIntro" style="margin-bottom:30px;">교육장 시설</div>
+        <div class="pageIntro" style="margin-bottom:30px;">강의실 안내</div>
 
 
         <!-- 캐러셀 시작 -->
@@ -175,7 +175,7 @@
                     width="800" height="646">
         </div>
 
-        <div id="scrollLocation" style="height: 25px"></div>
+        <div id="scrollLocation" style="height: 20px"></div>
         <div class="pageIntro">오시는 길</div>
         <div class="row" style="padding-top: 50px">
             <div class="col">
@@ -221,12 +221,13 @@
                 </div>
             </div>
         </div>
+        <div style="height: 100px">
+        </div>
     </div>
-	</div>
-	</div>
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key%>"></script>
-	<script>
+</div>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=map_api_key%>"></script>
+<script>
     var container = document.getElementById('map');
     var options = {
         // 서울 서초구 효령로 174 (37.481961, 127.003104)
