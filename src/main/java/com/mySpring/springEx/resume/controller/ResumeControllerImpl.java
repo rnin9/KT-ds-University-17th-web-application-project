@@ -139,6 +139,8 @@ public class ResumeControllerImpl implements ResumeController {
 		resumeVO.setForeignResume(resumeVO.getResumeID());
 		resumeVO.setCareerResume(resumeVO.getResumeID());
 		resumeVO.setProjectResume(resumeVO.getResumeID());
+		resumeVO.setResumePic("");
+	    resumeVO.setResumeForeign("");
 		resumeService.insertCertificate(resumeVO);
 		resumeService.insertForeign(resumeVO);
 		resumeService.insertCareer(resumeVO);

@@ -272,7 +272,11 @@ $(document).ready(function(){
              
              $("#modal_title").text(userName+"의 이력서");
               $("#resName").text(resp.resume.memberVO.userName);
-              $("#resPic").attr('src', '${pageContext.request.contextPath}/resources/image/resume/'+resumePic)
+              if(resumePic != "") {
+                  $("#resPic").attr('src', '${pageContext.request.contextPath}/resources/image/resume/'+resumePic)
+                  } else if(resumePic == "") {
+                  $("#resPic").attr('src', '${pageContext.request.contextPath}/resources/image/resume/img.jpg')
+                  }
               $("#resEngName").text(resp.resume.resumeForeign);
               $("#resAge").text(age);
               $("#resGender").text(resp.resume.memberVO.userGender);
@@ -489,7 +493,7 @@ $(document).ready(function(){
 															<table border id="resumeTable">
 																<tr>
 																	<th rowspan="4"><img id="resPic"
-																		src="http://jjunstudio.com/zbxe/files/attach/images/351/652/85a698d051126aa4043e83f4ff2376a0.jpg"
+																		src="${pageContext.request.contextPath}/resources/image/resume/img.jpg"
 																		style="width: 122px; height: 163px;" /></th>
 																</tr>
 																<tr>
