@@ -28,6 +28,9 @@ request.setCharacterEncoding("UTF-8");
 
 <title>사용자 질문 목록</title>
 <style>
+.container {
+}
+
 a:link, a:visited, a:hover {
 	color: black;
 	text-decoration: none;

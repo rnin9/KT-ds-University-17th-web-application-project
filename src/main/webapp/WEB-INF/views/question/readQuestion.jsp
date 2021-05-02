@@ -83,6 +83,11 @@ label {
 	font-weight: bold;
 	margin-top:5px;
 }
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 67.15%;
+}
 </style>
 
 
@@ -115,7 +120,7 @@ function deleteQuestion(){
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">1:1 문의</span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -123,8 +128,7 @@ function deleteQuestion(){
 				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
-					href="${contextPath}/question/userListQuestion.do?userId=${member.userId}">1
-						: 1 문의</a></li>
+					href="${contextPath}/question/userListQuestion.do?userId=${member.userId}">1:1 문의</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on">문의 열람</li>
 

@@ -11,15 +11,16 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/modal.css" />
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <style>
-.table thead th {
-	width: 25%;
-	vertical-align: bottom;
-	border-bottom: 2px solid #dee2e6;
-}
 
 .flex-box {
 	display: flex;
@@ -83,6 +84,18 @@
 #resCarr>th {
 	colspan: 2;
 }
+
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	padding-bottom: 200px;
+	margin-left: 15%;
+}
+
 </style>
 <script>
 $(document).ready(function () {
@@ -631,12 +644,11 @@ function tabtab(h) {
      </script>
 <body>
 	<div id="applyContents">
-		<div class="sub_visual">
-			<span style="color: white;"></span>
-		</div>
-		<div class="container"
-			style="display: flex; flex-wrap: wrap; width: 75%; justify-content: space-around; flex-direction: column; padding-bottom: 200px;">
-
+		
+		<div class="container">
+		
+		<div class="pageIntro">채용 관리</div>
+		
 			<!-- Modal -->
 			<!-- <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-dialog-scrollable">
@@ -862,7 +874,7 @@ function tabtab(h) {
 				<div>
 					<div class="row">
 						<div class="col-md-12">
-							<nav style="margin-top: 100px;">
+							<nav style="margin-top: 30px;">
 
 								<ul class="nav nav-tabs" id="myTab" role="tablist">
 									<li class="nav-item"><a id="firstNav" href="#nav-home"
@@ -878,17 +890,18 @@ function tabtab(h) {
 								<div class="tab-pane fade show active" id="nav-home"
 									role="tabpanel" aria-labelledby="nav-home-tab">
 									<%--                ù  °         ̺                 --%>
-									<table class="table" cellspacing="0">
-										<thead>
+									<table class="table" cellspacing="0" >
+										<thead style="border-bottom: 2px solid #dee2e6;">
 											<tr>
-												<th>이름</th>
-												<th>이력서</th>
-												<th>합 · 불합</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이름</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이력서</th>
+												<th style="border-bottom: 2px solid #dee2e6;">합 · 불합</th>
 												<%-- <c:forEach var="apList" items="${applyList}">
                                     <c:choose>
                                     <c:when test="${apList.partnerApplyState != '      '}">
                                      --%>
-												<th>결과 변경</th>
+												<th style="border-bottom: 2px solid #dee2e6;">결과 변경</th>
+
 												<%-- </c:when>
                                     </c:choose>
                                     </c:forEach>
@@ -935,10 +948,11 @@ function tabtab(h) {
 									<table class="table" cellspacing="0">
 										<thead>
 											<tr>
-												<th>이름</th>
-												<th>이력서</th>
-												<th>채용제안</th>
-												<th>삭제</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이름</th>
+												<th style="border-bottom: 2px solid #dee2e6;">이력서</th>
+												<th style="border-bottom: 2px solid #dee2e6;">채용제안</th>
+												<th style="border-bottom: 2px solid #dee2e6;">삭제</th>
+
 											</tr>
 										</thead>
 										<tbody>
