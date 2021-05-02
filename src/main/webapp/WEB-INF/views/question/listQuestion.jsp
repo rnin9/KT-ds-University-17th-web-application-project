@@ -36,14 +36,11 @@ request.setCharacterEncoding("UTF-8");
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$.extend($.fn.dataTable.defaults, {
-			ordering : false
-
-		});
+		
 
 		$('#adminListQuestion').DataTable({
 			dom : 'lfrtp',
-
+			order: [[ 5, "desc" ]],
 			language : {
 				info : '총 _TOTAL_ 개의 질문 중 _START_번 부터 _END_번',
 				infoEmpty : '데이터가 없습니다.',
