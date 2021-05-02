@@ -273,7 +273,9 @@ div input[type="text"] { /* input type text 태그 지정*/
 
 <body>
 
-   <div class="sub_visual"></div>
+   <div class="sub_visual">
+   <span style="color: white;">이력서 작성</span>
+   </div>
    <div class="container">
 
 
