@@ -165,7 +165,7 @@ public class MemberControllerImpl implements MemberController {
 	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
 								 HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+//		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
 		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 
@@ -175,7 +175,7 @@ public class MemberControllerImpl implements MemberController {
 	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
 								 HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+//		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
 		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 	
@@ -363,5 +363,20 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	@RequestMapping(value = "/member/handleWithdrawal.do", method = RequestMethod.POST)
+	public ModelAndView handleWithdrawal(@RequestBody Map<String, String> body, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		memberService.handleWithdrawal(body.get("userID"));
+		session.removeAttribute("member");
+		session.removeAttribute("partner");
+		session.removeAttribute("isLogOn");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/main.do");
+		return mav;
+//		return "main.jsp";
+	}
+
 
 }

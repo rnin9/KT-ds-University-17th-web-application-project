@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ManageUserController {
@@ -16,4 +18,8 @@ public interface ManageUserController {
 
 	public void positionModify(@RequestBody Map<String, String> body, HttpServletRequest request,
 							   HttpServletResponse response) throws Exception;
+
+	public ModelAndView userWithdrawalList(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	public ModelAndView deleteUser(@RequestParam List<String> valueArr) throws Exception;
 }

@@ -82,26 +82,6 @@
 
 </head>
 
-
-<script type="text/javascript">
-    function checkSelectAll(checkbox) {
-        const selectall
-            = document.querySelector('input[name="check-all"]');
-        if (checkbox.checked == false) {
-            selectall.checked = false;
-        }
-
-    }
-
-    function selectAll(selectAll) {
-        const checkboxes
-            = document.getElementsByName('ab');
-
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = selectAll.checked
-        })
-    }
-</script>
 <script type="text/javascript">
     function filter() {
 

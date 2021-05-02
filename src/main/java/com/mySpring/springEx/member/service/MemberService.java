@@ -57,4 +57,6 @@ public interface MemberService {
 
 	public List listPartners() throws DataAccessException;
 
+	public int handleWithdrawal(String userID) throws Exception;
+
 }
