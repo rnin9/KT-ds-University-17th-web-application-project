@@ -294,6 +294,14 @@ public class ResumeControllerImpl implements ResumeController {
 		resume.setProjectResume(resumeID);
 
 		List projectList = resumeService.selectProjectList(resume);
+		for (int i=0; i < projectList.size(); i++) {
+			ResumeVO resumeVO1 = (ResumeVO) projectList.get(i);
+			if (resumeVO1.getProjectContent() != null) {
+			resumeVO1.setProjectContent((resumeVO1.getProjectContent()).replace("<br>", "\r\n"));
+			resumeVO1.setProjectRole((resumeVO1.getProjectRole()).replace("<br>", "\r\n"));
+			projectList.set(i, resumeVO1);
+			}
+		}
 		mav.addObject("projectList1", projectList.get(0));
 		if (projectList.size() != 1) {
 			mav.addObject("projectList", projectList.subList(1, projectList.size()));
@@ -336,6 +344,13 @@ public class ResumeControllerImpl implements ResumeController {
 		}
 
 		ResumeVO resumeVO = resumeService.resumeInfos(resumeID);
+		if (resumeVO.getResumeContext1() != null && resumeVO.getResumeContext2() != null && resumeVO.getResumeContext3() != null && resumeVO.getResumeContext4() != null && resumeVO.getResumeContext5() != null) {
+		resumeVO.setResumeContext1((resumeVO.getResumeContext1()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext2((resumeVO.getResumeContext2()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext3((resumeVO.getResumeContext3()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext4((resumeVO.getResumeContext4()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext5((resumeVO.getResumeContext5()).replace("<br>", "\r\n"));
+		}
 		mav.addObject("resumeVO", resumeVO);
 		return mav;
 	}
@@ -622,6 +637,15 @@ public class ResumeControllerImpl implements ResumeController {
 		resumeVO.setProjectResume(resumeID);
 
 		List projectList = resumeService.selectProjectList(resumeVO);
+		
+		for (int i=0; i < projectList.size(); i++) {
+			ResumeVO resumeVO1 = (ResumeVO) projectList.get(i);
+			if (resumeVO1.getProjectContent() != null) {
+			resumeVO1.setProjectContent((resumeVO1.getProjectContent()).replace("<br>", "\r\n"));
+			resumeVO1.setProjectRole((resumeVO1.getProjectRole()).replace("<br>", "\r\n"));
+			projectList.set(i, resumeVO1);
+			}
+		}
 		mav.addObject("projectList1", projectList.get(0));
 		if (projectList.size() != 1) {
 			mav.addObject("projectList", projectList.subList(1, projectList.size()));
@@ -677,9 +701,9 @@ public class ResumeControllerImpl implements ResumeController {
 			resume.setProjectUser(String.valueOf(params.get("userID")));
 			resume.setProjectEnforcement(projectEnforcement.get(i));
 			resume.setProjectName(projectName.get(i));
-			resume.setProjectDev(projectDev.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-			resume.setProjectContent(projectContent.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-			resume.setProjectRole(projectRole.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+			resume.setProjectDev(projectDev.get(i));
+			resume.setProjectContent(projectContent.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
+			resume.setProjectRole(projectRole.get(i).replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
 			resume.setProjectURL(projectURL.get(i));
 			resume.setProjectSEQ(Integer.parseInt(projectSEQ.get(i)));
 			resumeService.updatePage4Project(resume);
@@ -687,7 +711,7 @@ public class ResumeControllerImpl implements ResumeController {
 
 	}
 
-	// moveTopage4
+	// moveTopage5
 	@Override
 	@RequestMapping(value = "resume/moveToPage5.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView moveToPage5(@RequestParam("userID") String userID, @RequestParam("resumeID") String resumeID,
@@ -697,6 +721,13 @@ public class ResumeControllerImpl implements ResumeController {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		ResumeVO resumeVO = resumeService.resumeInfos(resumeID);
+		if (resumeVO.getResumeContext1() != null && resumeVO.getResumeContext2() != null && resumeVO.getResumeContext3() != null && resumeVO.getResumeContext4() != null && resumeVO.getResumeContext5() != null) {
+		resumeVO.setResumeContext1((resumeVO.getResumeContext1()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext2((resumeVO.getResumeContext2()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext3((resumeVO.getResumeContext3()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext4((resumeVO.getResumeContext4()).replace("<br>", "\r\n"));
+		resumeVO.setResumeContext5((resumeVO.getResumeContext5()).replace("<br>", "\r\n"));
+		}
 		mav.addObject("resumeVO", resumeVO);
 		return mav;
 	}
@@ -719,11 +750,11 @@ public class ResumeControllerImpl implements ResumeController {
 
 		ResumeVO resume = new ResumeVO();
 		resume.setResumeID(resumeID);
-		resume.setResumeContext1(resumeContext1.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-		resume.setResumeContext2(resumeContext2.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-		resume.setResumeContext3(resumeContext3.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-		resume.setResumeContext4(resumeContext4.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-		resume.setResumeContext5(resumeContext5.replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		resume.setResumeContext1(resumeContext1.replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
+		resume.setResumeContext2(resumeContext2.replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
+		resume.setResumeContext3(resumeContext3.replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
+		resume.setResumeContext4(resumeContext4.replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
+		resume.setResumeContext5(resumeContext5.replace("\r\n", "<br>").replace(" ", "&nbsp;").replace("\r", "<br>").replace("\n", "<br>"));
 		resumeService.updatePage5Self(resume);
 
 	}

@@ -44,46 +44,38 @@ request.setCharacterEncoding("UTF-8");
 	flex-direction: column;
 	margin-left: 15%;
 }
-
 .line {
 	height: 5px;
 	border: none;
 	background-color: rgba(190, 190, 190, 0.8);
 }
-
 form {
 	margin: auto;
 }
-
 .well-searchbox label {
 	color: #555;
 	width: 20%;
 	margin: 10px;
 	text-align: right;
 }
-
 .serarchSubject {
 	display: flex;
 	flex-direction: row;
 	width: 250px;
 	float: right;
 }
-
 .subject {
 	display: flex;
 	flex-direction: row;
 }
-
 .col {
 	font-size: 13px;
 }
-
 .dataTables_wrapper {
 	margin-top: 30px;
 	display: inline-block;
 	width: 100%;
 }
-
 .button_approve {
 	display: inline-block;
 	margin-bottom: 0;
@@ -106,11 +98,9 @@ form {
 	background-color: #28a745;
 	border-color: #28a745;
 }
-
 .form-control {
 	width: 180px;
 }
-
 .pageNav {
 	position: absolute;
 	left: 50%;
@@ -118,11 +108,9 @@ form {
 	transform: translate(-50%, -50%);
 	margin-top: 5%;
 }
-
 .informationNow {
 	text-align: center;
 }
-
 .informationAll {
 	text-align: center;
 	display: flex;
@@ -131,23 +119,19 @@ form {
 	margin-top: 5%;
 	margin-bottom: -115px;
 }
-
 .card {
 	height: 10%;
 }
-
 .cardContent1 {
 	font-size: 26px;
 	font-weight: 400;
 	color: rgba(255, 255, 255, 0.7);
 }
-
 .cardContent2 {
 	font-weight: bolder;
 	font-size: 40px;
 	color: rgba(255, 255, 255, 0.7);
 }
-
 .partnerStateNum {
 	border-left: 10px solid red;
 	height: 30%;
@@ -157,7 +141,6 @@ form {
 	text-shadow: 2px 2px 2px gray;
 	font-size: 30px;
 }
-
 .status_cooperation {
 	height: 30px;
 	width: 77px;
@@ -166,7 +149,6 @@ form {
 	line-height: 30px;
 	color: rgba(255, 255, 255, 0.7);
 }
-
 .status_convention {
 	height: 30px;
 	width: 77px;
@@ -175,7 +157,6 @@ form {
 	line-height: 30px;
 	color: rgba(255, 255, 255, 0.7);
 }
-
 .status_ing {
 	line-height: 30px;
 	height: 30px;
@@ -188,7 +169,6 @@ form {
 	margin-bottom: 3px;
 	margin-top: 3px;
 }
-
 .status_not {
 	height: 30px;
 	width: 77px;
@@ -197,38 +177,31 @@ form {
 	line-height: 30px;
 	color: rgba(255, 255, 255, 0.7);
 }
-
 button {
 	float: right;
 	margin-right: 10px;
 }
-
 .card {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
-
 .card:hover {
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
 		rgba(0, 0, 0, 0.22);
 }
-
 .table_id {
 	width: 80%;
 }
-
 .dataTables_wrapper {
 	display: inline-block;
 	width: 100%;
 	margin-top: 30px;
 }
-
 table.dataTable thead th, table.dataTable thead td {
 	padding: 10px 18px;
 	border-bottom: 1px solid #96988f;
 	background-color: #f8f8f8;
 }
-
 table.dataTable td {
 	border-top: 1px solid lightgrey;
 }
@@ -288,7 +261,6 @@ table.dataTable td {
         selectall.checked = false;
       }
     }
-
     function selectAll(selectAll)  {
       const checkboxes 
          = document.getElementsByName('ab');
@@ -334,7 +306,6 @@ $(document).ready(function(){
 	   
 	   dom : 'lBfrtip',
 	   buttons: ['excel'],
-
    
       language: {
          info : '',
@@ -473,6 +444,7 @@ $(document).ready(function(){
 						<td>${partner.partnerChargerEmail}</td>
 						<td>${partner.partnerPhoneNumber}</td>
 						<td>${partner.partnerRegisterDate}</td>
+						<td style="display:none">${partner.partnerState}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

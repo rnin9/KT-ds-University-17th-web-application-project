@@ -189,6 +189,31 @@ public class SurveyDAOImpl implements SurveyDAO {
 		return surveyList;
 	}
 
+	@Override
+	public CourseTakeVO Allperson(String courseID) {
+		return sqlSession.selectOne("mapper.survey.Allperson",courseID);
+	}
+
+	@Override
+	public List AllPersonId(String courseID) {
+		List AllPersonId = null;
+		AllPersonId = sqlSession.selectList("mapper.survey.AllPersonId",courseID);
+		return AllPersonId;
+	}
+
+	@Override
+	public CourseTakeVO dontParticipateAllPerson(String courseID) {
+		return sqlSession.selectOne("mapper.survey.dontParticipateAllPerson",courseID);
+	}
+
+	@Override
+	public List dontParticipateAllPersonId(String courseID) {
+		List dontParticipateAllPersonId = null;
+		dontParticipateAllPersonId = sqlSession.selectList("mapper.survey.dontParticipateAllPersonId",courseID);
+		return dontParticipateAllPersonId;
+	}
+
+
 
 	
 	

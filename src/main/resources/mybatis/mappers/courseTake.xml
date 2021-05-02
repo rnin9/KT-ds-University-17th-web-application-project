@@ -16,7 +16,6 @@
 		<result property="applyDate" column="applyDate" />
 
 
-
 		<!-- join 할 VO를 데이터매핑 -->
 		<collection property="memberVO" javaType="MemberVO">
 			<id property="userId" column="userId" />
