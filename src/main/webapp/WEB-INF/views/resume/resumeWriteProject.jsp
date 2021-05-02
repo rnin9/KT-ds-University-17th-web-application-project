@@ -193,7 +193,7 @@ textarea {
    position: relative;
    width: 82%;
    margin-left: 30px;
-   margin-top: -570px;
+   margin-top: 30px;
    margin-bottom: 10px;
 }
 
@@ -231,7 +231,7 @@ textarea {
       var div = document.createElement('div');
       var line = document.createElement('div');
 
-      line.setAttribute('class', 'div_line');
+      line.setAttribute('class', 'div_line '+ result);
       obj.innerHTML = "삭제";
       obj.setAttribute('id', 'del_button')
 
