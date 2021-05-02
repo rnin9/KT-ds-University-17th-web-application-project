@@ -517,7 +517,7 @@
                         <div class="partnerInfoModalBody" style="text-align: left">
                             <div class="row">
                                 <div class="col-3" style="color: #444444; font-weight: bold">
-                                    <p>소개</p>
+                                    <p>업종 · 업태</p>
                                     <p>주소</p>
                                     <p>사원수</p>
                                     <p>이메일</p>
@@ -603,12 +603,12 @@
                     <%--                Table of first tab                --%>
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                          aria-labelledby="nav-home-tab">
-                        <table class="table_" id="nav-home-table" style="border-bottom: 1px solid #96988f;">
+                        <table  id="nav-home-table" style="border-bottom: 1px solid #96988f;">
                             <thead>
                             <tr>
-                                <td>기업명</td>
-                                <td>마감 날짜</td>
-                                <td>지원하기</td>
+                                <th>기업명</th>
+                                <th>마감 날짜</th>
+                                <th>지원하기</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -618,7 +618,7 @@
                                     <tr align="center">
                                         <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
                                                data-toggle="modal" href="#myModal"
-                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerInformation}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
+                                               onclick="getPartnerInfo('${recruit.partnerName}', '${recruit.partnerIndustryType}', '${recruit.partnerAddress}', '${recruit.partnerEmail}', '${recruit.partnerHeadCount}', '${recruit.partnerURL}');">${recruit.partnerName}</a>
                                         </td>
                                         <td>${fn:substring(recruit.partnerApplyFinishDate, 0, 11)}</td>
                                         <td><a style="text-decoration: underline" href="#"
@@ -633,14 +633,14 @@
                     <%--                Table of second tab                --%>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                          aria-labelledby="nav-profile-tab">
-                        <table class="table_" id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
+                        <table  id="nav-profile-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
-                                <td>기업명</td>
-                                <td>마감 날짜</td>
-                                <td>지원 날짜</td>
-                                <td>지원 상태</td>
-                                <td>삭제하기</td>
+                                <th>기업명</th>
+                                <th>마감 날짜</th>
+                                <th>지원 날짜</th>
+                                <th>지원 상태</th>
+                                <th>삭제하기</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -673,15 +673,15 @@
                     <%--                Table of third tab                --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
-                        <table class="table_" id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
+                        <table id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td><input type="checkbox" name="check-all"
                                            onclick='selectAll(this)'/></td>
-                                <td>기업명</td>
-                                <td>메세지</td>
-                                <td>받은 날짜</td>
-                                <td>상태</td>
+                                <th>기업명</th>
+                                <th>메세지</th>
+                                <th>받은 날짜</th>
+                                <th>상태</th>
                             </tr>
                             </thead>
                             <tbody>

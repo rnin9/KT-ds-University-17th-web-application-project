@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mySpring.springEx.member.vo.MemberVO;
+import com.mySpring.springEx.resume.vo.ResumeVO;
 
 @Component("applicationVO")
 public class ApplicationVO {
@@ -16,6 +17,17 @@ public class ApplicationVO {
 
     @Autowired
 	MemberVO memberVO;
+    
+    @Autowired
+  	ResumeVO resumeVO;
+
+	public ResumeVO getResumeVO() {
+		return resumeVO;
+	}
+
+	public void setResumeVO(ResumeVO resumeVO) {
+		this.resumeVO = resumeVO;
+	}
 
 	public ApplicationVO() {
 

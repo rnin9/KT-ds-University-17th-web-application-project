@@ -41,6 +41,7 @@
 		<result property="partnerInformation" column="partnerInformation"/>
 		<result property="partnerAddress" column="partnerAddress"/>
 		<result property="partnerEmail" column="partnerEmail"/>
+		<result property="partnerIndustryType" column="partnerIndustryType"/>
 		<result property="partnerHeadCount" column="partnerHeadCount"/>
 		<result property="partnerURL" column="partnerURL"/>
 
@@ -121,6 +122,15 @@
 		<result property="userEmail" column="userEmail" />
 		<result property="userCompany" column="userCompany" />
 		</collection>
+		
+		<collection property="resumeVO" javaType="resumeVO">
+		<result property="resumeID" column="resumeID" />
+       	<result property="resumeUser" column="resumeUser" />
+       	<result property="resumePic" column="resumePic" />
+       	<result property="resumeCheck" column="resumeCheck" />
+		</collection>
+		
+		
 	</resultMap>
 	<!-- suggestionColumn -->
 	<resultMap id="suggestionResult" type="suggestionVO">
@@ -140,6 +150,7 @@
 		
 		<collection property="resumeVO" javaType="ResumeVO">
 		<result property="resumeID" column="resumeID" />
+		<result property="resumePic" column="resumePic" />
 		</collection>
 		
 		<collection property="suggestionVO" javaType="SuggestionVO">
@@ -348,14 +359,16 @@
 		,p.partnerAddress
 		,p.partnerEmail
 		,p.partnerHeadCount
+		,p.partnerIndustryType
 		,p.partnerURL
 		,count(a.PARTNER_APPLY_USERID) as applicantNum
 		FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
-		where p.PARTNERAPPLYYN = 'Y'
+		where p.PARTNERAPPLYYN = 'Y' and p.partnerLicenseNum not in('kt_ds_university')
 		group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate,p.partnerInformation
 							  ,p.partnerAddress
 							  ,p.partnerEmail
 							  ,p.partnerHeadCount
+							  ,p.partnerIndustryType
 							  ,p.partnerURL
 		order by p.partnerName
 	</select>
@@ -390,14 +403,14 @@
 	
 	<select id="companyApplyList" parameterType="String" resultMap="applicationResult">
 	 <![CDATA[
-	 select m.userID, m.userName, pa.partner_apply_partnerID, pa.partner_apply_resumeID, pa.partner_apply_state from kt_user m join partner_apply pa on pa.partner_apply_userID = m.userID 
-  	 				 where pa.partner_apply_partnerID =#{partnerLicenseNum}
+  	 select m.userID, m.userName, pa.partner_apply_partnerID, pa.partner_apply_resumeID, pa.partner_apply_state, r.resumePic from kt_user m join partner_apply pa on pa.partner_apply_userID = m.userID join resume r  on m.userID = r.resumeUser
+  	 				 where pa.partner_apply_partnerID = #{partnerLicenseNum} and r.resumeCheck = 'Y'
   	 ]]>
 	</select>
 	
 	<select id="companyRecruitment" parameterType="String" resultMap="recruitResult">
 	 <![CDATA[
-	 select m.userID, m.userName, r.resumeId, ps.acception, ps.partnerdeletion 
+	 select m.userID, m.userName, r.resumeId, r.resumePic, ps.acception, ps.partnerdeletion 
 	 from kt_user m join resume r on m.userID = r.resumeUser left outer join partner_suggestion ps on (ps.userID = m.userID and ps.partnerID =#{partnerLicenseNum}) 
 	 where m.userPosition='채용예정자' and m.userResume='Y' and r.resumeCheck ='Y' and (ps.partnerDeletion not in('N') or ps.partnerDeletion is null)
 	 ]]>
