@@ -11,7 +11,8 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>회사 관리</title>
-
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
@@ -30,6 +31,7 @@ request.setCharacterEncoding("UTF-8");
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript"
+	
 	src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css" />
@@ -392,6 +394,7 @@ $(document).ready(function(){
 					<th><b>이메일</b></th>
 					<th><b>전화번호</b></th>
 					<th><b>등록/수정일</b></th>
+					<td style="display:none"></td>
 				</tr>
 			</thead>
 
