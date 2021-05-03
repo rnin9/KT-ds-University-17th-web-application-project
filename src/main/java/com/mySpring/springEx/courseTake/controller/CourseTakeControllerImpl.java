@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.courseTake.service.CourseTakeService;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
@@ -43,8 +45,8 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	 */
 
 	@Override
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = "/courseTake/courseApplyList.do", method = RequestMethod.GET)
-	
 	public ModelAndView courseCApplyList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String) request.getAttribute("viewName");
 		List courseApplyList =  courseTakeService.SelectAllCourseApplyList();

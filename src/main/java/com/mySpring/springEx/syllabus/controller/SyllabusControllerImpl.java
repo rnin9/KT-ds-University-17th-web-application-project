@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.syllabus.service.SyllabusService;
 import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 
@@ -27,8 +29,9 @@ public class SyllabusControllerImpl implements SyllabusController {
 	@Autowired
 	SyllabusVO syllabusVO;
 
-	// ���ǰ�ȹ�� ����Ʈ�� ������
+	// 占쏙옙占실곤옙획占쏙옙 占쏙옙占쏙옙트占쏙옙 占쏙옙占쏙옙占쏙옙
 	@Override
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = "/syllabus/syllabusList.do", method = RequestMethod.GET)
 	public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -38,7 +41,7 @@ public class SyllabusControllerImpl implements SyllabusController {
 		return mav;
 	}
 
-	// ������ ���ǰ�ȹ�� ������ ������
+	// 占쏙옙占쏙옙占쏙옙 占쏙옙占실곤옙획占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 	@Override
 	@RequestMapping(value = "/syllabus/selectSyllabus.do", method = RequestMethod.GET)
 	public ModelAndView selectSyllabus(@RequestParam("syllabusID") int syllabusID, HttpServletRequest request,
@@ -52,7 +55,7 @@ public class SyllabusControllerImpl implements SyllabusController {
 		return mav;
 	}
 
-	// ���ǰ�ȹ�� ����ϴ� ��
+	// 占쏙옙占실곤옙획占쏙옙 占쏙옙占쏙옙求占� 占쏙옙
 	@RequestMapping(value = "/syllabus/syllabusForm.do", method = RequestMethod.GET)
 	private ModelAndView form(@RequestParam(value = "result", required = false) String result,
 			@RequestParam(value = "action", required = false) String action, HttpServletRequest request,
@@ -68,7 +71,7 @@ public class SyllabusControllerImpl implements SyllabusController {
 		return mav;
 	}
 
-	// ���ǰ�ȹ�� ���
+	// 占쏙옙占실곤옙획占쏙옙 占쏙옙占�
 	@Override
 	@RequestMapping(value = "/syllabus/insertSyllabus.do", method = RequestMethod.POST)
 	public ModelAndView insertSyllabus(@ModelAttribute("syllabus") SyllabusVO syllabusVO, HttpServletRequest request,

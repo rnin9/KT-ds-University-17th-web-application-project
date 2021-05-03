@@ -191,7 +191,7 @@ p {
 
                                     조기마감
                                     </c:when>
-															<c:when test="${courseVO.dday > 0}">
+															<c:when test="${courseVO.dday >= 0}">
                                     D-${courseVO.dday}
                                     </c:when>
 

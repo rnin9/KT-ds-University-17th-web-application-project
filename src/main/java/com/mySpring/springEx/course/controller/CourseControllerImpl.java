@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.course.service.CourseService;
 import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.syllabus.service.SyllabusService;
@@ -31,6 +33,7 @@ public class CourseControllerImpl implements CourseController {
 	CourseVO courseVO;
 	
 	@Override
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value="/course/courseList.do", method=RequestMethod.GET)
 	public ModelAndView courseList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
