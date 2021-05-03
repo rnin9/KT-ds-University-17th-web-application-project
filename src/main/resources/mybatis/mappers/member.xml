@@ -64,13 +64,18 @@
 
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from kt_user order by userJoindate desc	 	
+         select *
+         from kt_user
+         where USERQUIT = 'N'
+         order by userJoindate desc
       ]]>
 	</select>
 
 	<select id="selectAllPartnerList" resultMap="resResult">
       <![CDATA[
-         select partnerlicensenum from partner 	
+          select * 
+ 		  from partner
+ 		  where partnerLicenseNum not in('kt_ds_university') 
       ]]>
 	</select>
 
@@ -164,11 +169,21 @@
 		into t_member1(id,pwd, name, email,birth,phone,address,address_detail) values(#{id}, 
 		#{pwd}, #{name}, #{email},#{birth},#{phone},#{address},#{address_detail}) 
 		]]> </insert> -->
+		
+	<update id="userResume" parameterType="String">
+	<![CDATA[
+			update kt_user
+			set userResume = 'Y'
+			where userId = #{userId}
+      ]]>
+	</update>
+		
+	
 	<select id="check_resume" parameterType="String"
 		resultType="String">
 		select userresume
 		from kt_user
-		where userId = #{userId}
+		where userId = #{userId} and userresume = 'Y'
 	</select>
 
 	<!-- 아이디 중복 검사 -->
@@ -192,7 +207,7 @@
 	<insert id="join_member" parameterType="memberVO">
 		insert into kt_user
 		values(#{userId},#{userPassword},#{userName},#{userMajor},#{userGender},#{userPosition},#{userCompany},
-		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false')
+		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false','N')
 	</insert>
 
 	<!-- 이메일 인증 -->
@@ -226,7 +241,7 @@
 		parameterType="String">
 	<![CDATA[
 		select * from kt_user
-		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
+		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword} and USERQUIT = 'N'
 	]]>
 	</select>
 
@@ -245,8 +260,8 @@
      <![CDATA[
 	     update kt_user
 	     set userPassword=#{userPassword}, userName=#{userName}, userEmail=#{userEmail},
-	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber}, userPosition=#{userPosition},
-	     userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, userMajor=#{userMajor}
+	     birth=#{birth}, userPhoneNumber=#{userPhoneNumber},userAddress1=#{userAddress1}, userAddress2=#{userAddress2}, 
+	     userMajor=#{userMajor}
 	     where
 	     userId=#{userId}
       ]]>
@@ -263,4 +278,27 @@
 		set USERPOSITION = #{newPosition}
 		where USERID = #{userID}
 	</update>
+
+	<update id="handleWithdrawal" parameterType="String">
+		update kt_user
+		set USERQUIT = 'Y'
+		where USERID = #{userID}
+	</update>
+
+	<select id="userWithdrawalList" resultMap="memResult">
+      <![CDATA[
+		select *
+		from kt_user
+		where USERQUIT = 'Y'
+		order by userJoindate desc
+		]]>
+	</select>
+
+	<delete id="deleteUser" parameterType="String">
+	<![CDATA[
+		delete from  kt_user
+		where
+			userId=#{userID} and userquit = 'Y'
+		]]>
+	</delete>
 </mapper> 

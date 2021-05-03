@@ -32,14 +32,7 @@ public class MemberVO {
 	private String approval_status;
 	private String resume;
 	private String toCharBirth;
-
-	public String getToCharBirth() {
-		return toCharBirth;
-	}
-
-	public void setToCharBirth(String toCharBirth) {
-		this.toCharBirth = toCharBirth;
-	}
+	private String toCharBirthKOR;
 
 	@Autowired
 	private CourseVO courseVO;
@@ -63,6 +56,22 @@ public class MemberVO {
 		this.userEmail = userEmail;
 	}
 	
+	public String getToCharBirthKOR() {
+		return toCharBirthKOR;
+	}
+
+	public void setToCharBirthKOR(String toCharBirthKOR) {
+		this.toCharBirthKOR = toCharBirthKOR;
+	}
+
+	public String getToCharBirth() {
+		return toCharBirth;
+	}
+
+	public void setToCharBirth(String toCharBirth) {
+		this.toCharBirth = toCharBirth;
+	}
+
 	public SuggestionVO getSuggestionVO() {
 		return suggestionVO;
 	}

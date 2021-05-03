@@ -9,7 +9,6 @@
 request.setCharacterEncoding("UTF-8");
 %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
  <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/university/UniversityConsortium.css" />
@@ -20,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
 	font-family: 'Noto Sans KR', sans-serif;
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityConsortiums.jpg");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/universityIntro.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -61,7 +60,7 @@ request.setCharacterEncoding("UTF-8");
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
-	width: 64%;
+	width: 80%;
 }
 
 
@@ -130,7 +129,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">kt ds University</span>
 	</div>
 	<div class="container">
 		<div class="lnb">
@@ -138,12 +137,12 @@ $(document).ready(function() {
 				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
 				<li class="on"><a
-					href="${pageContext.request.contextPath}/universityConsortium.do">컨소시엄</a></li>
+					href="${pageContext.request.contextPath}/universityConsortium.do">컨소시엄소개</a></li>
 			</ul>
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">컨소시엄 소개</div>
+		<!-- <div class="pageIntro">컨소시엄 소개</div> -->
 
 		<!-- 사업 소개 -->
 		<br>
@@ -176,15 +175,15 @@ $(document).ready(function() {
 		
 		<div class="card card-2" >
 		<br>
-		<h5><span style="color:rgb(238,28,36);">교육 시간</span></h5>
-		<img class="studytime-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
+		<!-- <h5><span>교육 시간</span></h5> -->
+		<img class="studytime-image" width="80%" height="75%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-studytime.png" />
 		<br>
 		</div>
 		
 		<div class="card card-2">
 		<br>
-		<h5><span style="color:rgb(238,28,36);">연락처</span></h5>
-		<img class="address-image" width="90%" height="85%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
+		<!-- <h5><span style="color:rgb(238,28,36);">연락처</span></h5> -->
+		<img class="address-image" width="80%" height="75%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/consortium-address.png" />
 		<br>
 		</div>
 		<br>

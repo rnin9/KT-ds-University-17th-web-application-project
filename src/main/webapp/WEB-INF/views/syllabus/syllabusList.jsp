@@ -127,7 +127,7 @@ $(document).ready( function () {
 	function deleteCheck(){
 		
 		/*if (${isLogOn == true}){*/
-			var url = "/springEx/syllabus/deleteCheck.do";
+			var url = "${contextPath}/syllabus/deleteCheck.do";
 			var cnt = $("input[name='ab']:checked").length;
 			var valueArr = new Array();
 			$("input[name='ab']:checked").each(function(i){
@@ -181,6 +181,18 @@ $(document).ready(function(){
 	$('#table_id').DataTable({
 		 dom : 'lBfrtip',
 	      buttons: ['excel'],
+	      
+	      columns : [
+		   		{ "width": "2%" },
+		   		{ "width": "6%" },
+		    	{ "width": "20%" },
+		    	null,
+		    	{ "width": "10%" },
+		    	{ "width": "10%" },
+		    	{ "width": "20%" }
+		    
+		  	],
+		  	
 
 	      language: {
 	         info : '',
@@ -210,7 +222,7 @@ $(document).ready(function(){
 
 		<div class="pageIntro">강의계획서</div>
 
-		<table id="table_id" style="border-bottom: 1px solid #96988f;">
+		<table id="table_id" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr align="center">
 					<td><input type="checkbox" name="check-all"

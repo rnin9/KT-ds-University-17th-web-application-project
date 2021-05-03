@@ -2,7 +2,6 @@
 package com.mySpring.springEx.survey.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.mySpring.springEx.common.pagination.Pagination;
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.course.vo.CourseVO;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.vo.MemberVO;
@@ -55,35 +55,7 @@ public class SurveyControllerImpl implements SurveyController {
 	@Autowired
 	SurveyQuestionVO questionVO;
 
-	// 리스트
-	/*
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/survey/listSurvey.do", method = RequestMethod.GET)
-	 * public ModelAndView listSurvey(
-	 * 
-	 * @RequestParam(value = "currentPage", required = false, defaultValue = "1")
-	 * int currentPage,
-	 * 
-	 * @RequestParam(value = "cntPerPage", required = false, defaultValue = "10")
-	 * int cntPerPage,
-	 * 
-	 * @RequestParam(value = "pageSize", required = false, defaultValue = "10") int
-	 * pageSize, Map<String, Object> map, HttpServletRequest request,
-	 * HttpServletResponse response) throws Exception { String viewName = (String)
-	 * request.getAttribute("viewName"); // 데이터의 총 갯수를 받아옴 surveyServiceImpl
-	 * testTableCount()-pagination.xml의 // testTableCount 쿼리를 담은 값을 surveyList에
-	 * 담음(int형) int surveyList = surveyService.testTableCount(); // Pagination에
-	 * request한 currentPage,cntPerPage,pageSize을 파라미터값으로 받는 객체를 생성 Pagination
-	 * pagination = new Pagination(currentPage, cntPerPage, pageSize); // 총 레코드 수에
-	 * 따른 페이지 처리 method에 데이터의 총 갯수를 전달 pagination.setTotalRecordCount(surveyList);
-	 * ModelAndView mav = new ModelAndView(viewName); // 추가할 항목을 미리 세션에 저장시키기 위한
-	 * surveyList= insertList mav.addObject("insertSurvey",
-	 * surveyService.SelectInsertList()); // 처리된 부분을 화면에 전달
-	 * mav.addObject("pagination", pagination); mav.addObject("surveyList",
-	 * surveyService.SelectAllList(pagination)); mav.setViewName(viewName); return
-	 * mav; }
-	 */
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/survey/listSurvey.do", method = RequestMethod.GET)
 	public ModelAndView listSurvey( HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -119,7 +91,7 @@ public class SurveyControllerImpl implements SurveyController {
 		ModelAndView mav = new ModelAndView("redirect:/survey/listSurvey.do");
 		return mav;
 	}
-
+	
 	// 설문지 작성
 	@RequestMapping(value = "/survey/surveyWriteForm.do", method = RequestMethod.GET)
 	public ModelAndView surveyWriteForm(@SessionAttribute("member") MemberVO member,
@@ -149,6 +121,7 @@ public class SurveyControllerImpl implements SurveyController {
 	}
 
 	// 설문지 생성
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/survey/writeSurveyForm.do", method = RequestMethod.GET)
 	public ModelAndView writeSurvey(@RequestParam("courseID") String courseID, HttpServletRequest request,
@@ -169,11 +142,12 @@ public class SurveyControllerImpl implements SurveyController {
 			RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		surveyService.surveyInsert(surveyVO);
-		ModelAndView mav = new ModelAndView("redirect:/main.do");
+		ModelAndView mav = new ModelAndView("redirect:/syllabus/syllabusList.do");
 		return mav;
 	}
 
 	// 설문조사 수정
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = { "/survey/surveyInfo.do" }, method = RequestMethod.GET)
 	public ModelAndView surveyInfoList(@RequestParam("courseID") String courseID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -200,6 +174,7 @@ public class SurveyControllerImpl implements SurveyController {
 	}
 
 	// 설문조사 항목 결과 폼
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = "/survey/surveyDetailForm.do", method = RequestMethod.GET)
 	public ModelAndView listMembers(@RequestParam("courseID") String courseID, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -207,10 +182,25 @@ public class SurveyControllerImpl implements SurveyController {
 		List detailList = surveyService.detailList(courseID);
 		SurveyVO surveyVO = surveyService.surveyVO(courseID);
 		DetailVO detailVO = surveyService.countParticipate(courseID);
+		CourseTakeVO AllPerson = surveyService.Allperson(courseID);
+		CourseTakeVO dontParticipateAllPerson = surveyService.dontParticipateAllPerson(courseID);
+		List AllPersonId = surveyService.AllPersonId(courseID);
+		List dontParticipateAllPersonId = surveyService.dontParticipateAllPersonId(courseID);
 		ModelAndView mav = new ModelAndView(viewName);
+		//응답 내역 불러오기
 		mav.addObject("detailList", detailList);
+		//질문 불러오기
 		mav.addObject("surveyVO", surveyVO);
+		//응답한사람중 총인원
 		mav.addObject("detailVO", detailVO);
+		//총인원 수 불러오기
+		mav.addObject("AllPerson", AllPerson);
+		//총 인원 불러오기
+		mav.addObject("AllPersonId", AllPersonId);
+		//응답 안한사람 총인원 수 불러오기
+		mav.addObject("dontParticipateAllPerson", dontParticipateAllPerson);
+		//응답 안한 사람 총 인원 불러오기
+		mav.addObject("dontParticipateAllPersonId", dontParticipateAllPersonId);
 		System.out.println(detailList.size());
 		return mav;
 	}

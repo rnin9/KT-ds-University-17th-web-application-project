@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mySpring.springEx.common.interceptor.Auth;
 import com.mySpring.springEx.common.interceptor.Auth.Role;
+import com.mySpring.springEx.course.service.CourseService;
 import com.mySpring.springEx.courseTake.vo.CourseTakeVO;
 import com.mySpring.springEx.member.service.MemberService;
 import com.mySpring.springEx.member.vo.MemberVO;
@@ -30,6 +31,8 @@ public class MemberControllerImpl implements MemberController {
 	MemberVO memberVO;
 	@Autowired
 	PartnerVO partnerVO;
+	@Autowired
+	CourseService courseService;
 
 	@RequestMapping(value = {"/noAuth.do"}, method = RequestMethod.GET )
 	public ModelAndView noAuth(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -37,10 +40,13 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 	
+	
 	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
 	private ModelAndView main(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
+		List courseUserList = courseService.courseUserList();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("courseUserList", courseUserList);
 		mav.setViewName(viewName);
 		return mav;
 	}
@@ -63,7 +69,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	@Auth(role = Role.NON_PA)
 	@Override
 	@RequestMapping(value = { "/universityIntro.do" }, method = RequestMethod.GET)
 	public ModelAndView universityIntro(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -72,7 +79,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
+	@Auth(role = Role.NON_PA)
 	@Override
 	@RequestMapping(value = { "/universityConsortium.do" }, method = RequestMethod.GET)
 	public ModelAndView universityConsortium(HttpServletRequest request, HttpServletResponse response)
@@ -106,6 +114,7 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 	// list all recruitments, suggestions
+	@Auth(role=Role.CREW)
 	@Override
 	@RequestMapping(value = { "/member/apply.do" }, method = RequestMethod.GET)
 	public ModelAndView apply(@SessionAttribute("member") MemberVO member, HttpServletRequest request,
@@ -156,7 +165,7 @@ public class MemberControllerImpl implements MemberController {
 	public void acceptSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
 								 HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+//		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
 		memberService.acceptSuggestion(body.get("partnerID"), body.get("userId"));
 	}
 
@@ -166,10 +175,11 @@ public class MemberControllerImpl implements MemberController {
 	public void rejectSuggestion(@RequestBody Map<String, String> body, HttpServletRequest request,
 								 HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
+//		System.out.println(body.get("partnerID")+"************************"+ body.get("userId"));
 		memberService.rejectSuggestion(body.get("partnerID"), body.get("userId"));
 	}
-
+	
+	@Auth
 	@RequestMapping(value = { "/member/modMyInfo" }, method = RequestMethod.POST)
 	public ModelAndView modMyInfo(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -337,6 +347,15 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 	
+	 @RequestMapping(value="/member/memberPartnerList.do", method=RequestMethod.GET)
+	 public ModelAndView syllabusList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	    String viewName = (String)request.getAttribute("viewName");
+	    List partnersName = memberService.listPartners();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("partnersName", partnersName);
+	    return mav;
+	 }
+	
 	//수료과목 설문조사 뽑기
 	@Override
 	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
@@ -344,5 +363,20 @@ public class MemberControllerImpl implements MemberController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	@RequestMapping(value = "/member/handleWithdrawal.do", method = RequestMethod.POST)
+	public ModelAndView handleWithdrawal(@RequestBody Map<String, String> body, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		memberService.handleWithdrawal(body.get("userID"));
+		session.removeAttribute("member");
+		session.removeAttribute("partner");
+		session.removeAttribute("isLogOn");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/main.do");
+		return mav;
+//		return "main.jsp";
+	}
+
 
 }

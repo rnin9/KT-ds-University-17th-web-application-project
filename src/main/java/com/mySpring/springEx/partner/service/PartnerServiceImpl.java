@@ -1,8 +1,11 @@
 package com.mySpring.springEx.partner.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -92,6 +95,14 @@ public class PartnerServiceImpl implements PartnerService {
 	public int deleteJobOpening(String partnerLicenseNum) throws DataAccessException{
 		return partnerDAO.deleteJobOpening(partnerLicenseNum);
 	}
+	
+	@Override
+	public void check_licenseNum(String partnerLicenseNum, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		out.println(partnerDAO.check_licenseNum(partnerLicenseNum));
+		out.close();
+	}
+	
 
 	/* =================================湲곗뾽 愿��젴 �떆�옉======================= */
 	@Override						 

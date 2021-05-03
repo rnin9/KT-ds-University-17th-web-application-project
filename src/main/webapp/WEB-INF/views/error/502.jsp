@@ -8,8 +8,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html lang="en">
 <head itemscope="" itemtype="http://schema.org/WebSite">
-<title itemprop="name">Preview Bootstrap snippets. 404 error
-	page with particles</title>
+<title itemprop="name">502 Error Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description"
 	content="Preview Bootstrap snippets. 404 error page with particles. Copy and paste the html, css and js code for save time, build your app faster and responsive">
@@ -70,8 +69,16 @@ request.setCharacterEncoding("UTF-8");
 								class="inner-detail" style="color: #fff;"> 게이트웨이가 서버로 부터 잘못된 응답을 받았습니다.
 							<br>
 							<br>
-							<a href="${contextPath}/main.do" class="btn btn-info mtl"><i
-									class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+							<c:choose>
+                     <c:when test ="${member.userPosition == 'ADMIN' || member.userPosition == 'PARTNER'}">
+                     <a href="${contextPath}/partner/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:when>
+                     <c:otherwise>
+                     <a href="${contextPath}/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:otherwise>
+                     </c:choose>
 							</span>
 						</div>
 					</div>

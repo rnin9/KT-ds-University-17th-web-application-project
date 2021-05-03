@@ -24,13 +24,6 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
-
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -41,41 +34,41 @@ request.setCharacterEncoding("UTF-8");
 
 
 <script>
-	function deleteCheck(){
-		var url = "${contextPath}/notice/deleteNotice.do";
-		var cnt = $("input[name='ab']:checked").length;
-		var valueArr = new Array();
-		$("input[name='ab']:checked").each(function(i){
-			valueArr.push($(this).val());
-		});
-		$.ajax({
-			url : url,
-			type : 'POST',
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(data){
-				console.log("success");
-				window.location.reload();
-				/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-			},
-			error : function(data) { 
-	            console.log("fail");
-	            console.log(${noticeList});
-	        }
-		});
-	};
+   function deleteCheck(){
+      var url = "${contextPath}/notice/deleteNotice.do";
+      var cnt = $("input[name='ab']:checked").length;
+      var valueArr = new Array();
+      $("input[name='ab']:checked").each(function(i){
+         valueArr.push($(this).val());
+      });
+      $.ajax({
+         url : url,
+         type : 'POST',
+         traditional : true,
+         data : {
+            valueArr : valueArr
+         },
+         success : function(data){
+            console.log("success");
+            window.location.reload();
+            /*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+         },
+         error : function(data) { 
+               console.log("fail");
+               console.log(${noticeList});
+           }
+      });
+   };
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	$.extend( $.fn.dataTable.defaults, {
-	    ordering:  false
-	} );
+   
+   $.extend( $.fn.dataTable.defaults, {
+       ordering:  false
+   } );
 
    $('#myTable').DataTable({
-	  
+     
          
       language: {
          info : '',
@@ -133,21 +126,15 @@ table.dataTable td {
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
-	/* 	background-image:
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
-	background-color: black;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	background-size: cover; */
 	width: 100%;
 	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url("${pageContext.request.contextPath}/resources/image/sub_visual/notice.png");
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/courseApply.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
 	height: 190px;
 	padding-top: 69px;
-	background-position: 50% 50%;
+	background-position: 50% 64%;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -155,26 +142,30 @@ table.dataTable td {
 .fas {
 	margin-left: 10px;
 }
+
+.container {
+	min-height: 811px;
+}
 </style>
 </head>
 
 <body>
 
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">공지사항</span>
 	</div>
 
 	<div class="container">
 		<div class="lnb">
 			<ul>
-				<li><a href="/springEx/main.do">홈</a></li>
+				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="/springEx/notice/listNoticeUser.do">공지사항
-				</a></li>
+				<li class="on"><a
+					href="${contextPath}/notice/listNoticeUser.do">공지사항 </a></li>
 			</ul>
 		</div>
 
-		<div class="pageIntro">공지사항</div>
+		<!-- <div class="pageIntro">공지사항</div> -->
 
 		<div>
 			<table id="myTable">
@@ -192,7 +183,7 @@ table.dataTable td {
 					<c:forEach var="noticeFixList" items="${noticeFixList}">
 
 						<tr>
-							<td style="color: red;font-weight: bold">${noticeFixList.notice_category}</td>
+							<td style="color: red; font-weight: bold">${noticeFixList.notice_category}</td>
 
 							<td class="name" style="text-align: left;"><a
 								href="${contextPath}/notice/readNoticeUser.do?notice_no=${noticeFixList.notice_no}">
@@ -200,10 +191,11 @@ table.dataTable td {
 									test="${noticeFixList.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if> <c:if test="${noticeFixList.notice_date>=nowday}">
-									<!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-									<img
-										src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-										width="30px" height="30px">
+									<span
+										style="color: darkred; margin-right: 10px; font-size: 12px;">[new]</span>
+									<!--   <img
+                              src="${pageContext.request.contextPath}/resources/image/icon/new.png"
+                              width="30px" height="30px"> -->
 								</c:if></td>
 
 
@@ -225,10 +217,11 @@ table.dataTable td {
 									test="${noticeListUser.nt_file_size gt 0}">
 									<i class="fas fa-file-alt"></i>
 								</c:if> <c:if test="${noticeListUser.notice_date>=nowday}">
-									<!-- span style = "color :darkred; margin-right:10px; font-size:12px;">new</span -->
-									<img
-										src="${pageContext.request.contextPath}/resources/image/icon/new.png"
-										width="30px" height="30px">
+									<span
+										style="color: darkred; margin-right: 10px; font-size: 12px;">new</span>
+									<!--   <img
+                              src="${pageContext.request.contextPath}/resources/image/icon/new.png"
+                              width="30px" height="30px"> -->
 								</c:if></td>
 
 							<td>${noticeListUser.notice_adminID}</td>
@@ -250,4 +243,3 @@ table.dataTable td {
 	</div>
 </body>
 </html>
-

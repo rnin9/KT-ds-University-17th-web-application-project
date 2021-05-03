@@ -83,5 +83,14 @@ public interface SurveyService {
 	
 	public List<Map<String, Object>> infoGraph17(String courseID) throws Exception;
 
-	public List check_suerveyQuestion()throws DataAccessException; 
+	public List check_suerveyQuestion()throws DataAccessException;
+
+	public CourseTakeVO Allperson(String courseID);
+
+	public List AllPersonId(String courseID);
+
+	public CourseTakeVO dontParticipateAllPerson(String courseID);
+
+	public List dontParticipateAllPersonId(String courseID);
+
 }

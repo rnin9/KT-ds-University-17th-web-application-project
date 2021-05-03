@@ -30,6 +30,10 @@ request.setCharacterEncoding("UTF-8");
 	background-repeat: no-repeat;
 }
 
+.bg-primary {
+	background-color: white !important;
+}
+
 .main-intro {
 	display: flex;
 	margin: 60px;
@@ -60,7 +64,7 @@ request.setCharacterEncoding("UTF-8");
 
 .container {
 	font-family: 'Noto Sans KR', sans-serif;
-	width: 80%;
+	width: 100%;
 }
 
 .pageIntro {
@@ -112,14 +116,15 @@ request.setCharacterEncoding("UTF-8");
 .intro dl dd {
 	font-size: 10px;
 }
+
 .sansil {
-width : 100%
+	width: 100%
 }
 </style>
 </head>
 <body>
 	<div class="sub_visual">
-		<span style="color: white;"></span>
+		<span style="color: white;">kt ds University</span>
 	</div>
 	<div class="container">
 
@@ -133,14 +138,14 @@ width : 100%
 		</div>
 
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">회사 소개</div>
+		<!-- <div class="pageIntro">회사 소개</div> -->
 
 		<!-- 사업 소개 -->
 		<div class="main-intro">
-				<img class="sansil"
-					src="${pageContext.request.contextPath}/resources/image/mainPage/Introduce/sansil.jpg" />
-				
-			
+			<img class="sansil"
+				src="${pageContext.request.contextPath}/resources/image/mainPage/Introduce/sansil.jpg" />
+
+
 		</div>
 		<!-- 사업 끝 -->
 

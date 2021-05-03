@@ -1,6 +1,10 @@
 package com.mySpring.springEx.resume.vo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.mySpring.springEx.member.vo.MemberVO;
+
 import java.sql.Date;
 
 @Component("resumeVO")
@@ -63,6 +67,8 @@ public class ResumeVO {
 	private int projectSEQ;
 	private String projectResume;
 	
+	@Autowired
+	MemberVO memberVO;
 
 	public ResumeVO() {}
 	
@@ -134,7 +140,13 @@ public class ResumeVO {
 			this.projectResume = projectResume;
 	}
 	
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
 
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
 	
 	public String getResumeLastEdu() {
 		return resumeLastEdu;

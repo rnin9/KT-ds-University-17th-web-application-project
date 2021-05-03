@@ -181,4 +181,22 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("mapper.member.positionModify", map);
 	}
 
+	@Override
+	public int handleWithdrawal(String userID) throws Exception {
+		return sqlSession.update("mapper.member.handleWithdrawal", userID);
+	}
+
+	@Override
+	public List userWithdrawalList() throws DataAccessException {
+		List<MemberVO> userWithdrawalList = null;
+		userWithdrawalList = sqlSession.selectList("mapper.member.userWithdrawalList");
+		return userWithdrawalList;
+	}
+
+	@Override
+	public int deleteUser(String userID) throws DataAccessException {
+		int result = sqlSession.delete("mapper.member.deleteUser", userID);
+		return result;
+	}
+
 }

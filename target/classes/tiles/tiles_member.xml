@@ -70,7 +70,7 @@
 	</definition>
 
 	<definition name="/member/apply" extends="baseLayout">
-		<put-attribute name="title" value="협력사 지원" />
+		<put-attribute name="title" value="채용지원" />
 		<put-attribute name="body"
 					   value="/WEB-INF/views/member/apply.jsp" />
 	</definition>
@@ -148,5 +148,8 @@
 	<definition name="/member/myCertificate" extends="empty">
 		<put-attribute name="content"
 			value="/WEB-INF/views/courseTake/certificate.jsp" />
+	</definition>
+	<definition name="/member/memberPartnerList" extends="empty">
+    	<put-attribute name="content" value="/WEB-INF/views/member/memberPartnerList.jsp" />
 	</definition>
 </tiles-definitions>

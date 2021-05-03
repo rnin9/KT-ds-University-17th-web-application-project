@@ -44,6 +44,7 @@ public class PartnerControllerImpl implements PartnerController {
 		
 	
 	// select companyList
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/partnerList.do", method = RequestMethod.GET)
 	public ModelAndView partnerList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -77,7 +78,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
-	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/partnerForm.do", method = RequestMethod.GET)
 	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception { 																											
@@ -87,6 +88,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 	
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/detailInfoPartner.do", method = RequestMethod.GET)
 	public ModelAndView detailInfoPartner(@RequestParam("partnerLicenseNum") String partnerLicenseNum,
@@ -115,6 +117,14 @@ public class PartnerControllerImpl implements PartnerController {
 
 		return mav;
 	}
+	
+
+	@Override
+	@RequestMapping(value = "/member/check_licenseNum.do", method = RequestMethod.POST)
+	public void check_id(@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletResponse response) throws Exception {
+		partnerService.check_licenseNum(partnerLicenseNum, response);
+	}
+	
 
 	// Partner Information delete
 	@Override
@@ -139,17 +149,19 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value = "/partner/company/companyEmployee.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/company/companyEmployee.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyEmployee(
 			@RequestParam("partnerLicenseNum") String partnerLicenseNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyEmployee");
 		mav.addObject("companyEmployeeList",partnerService.SelectAllListCompanyEmployee(partnerLicenseNum)); // �뜝�럥�빢�뤆�룆踰▼ㅇ琉꾩삕占쎈데 �뜝�럩�뤂�뜝�럩�쐸 占쎈뎨占쎈봾裕욃뜝�럥諭쒎뜝�럥�몥�뜝�럩逾졾뜝�럡�댉
 		return mav;
 	}
-
+	
+	@Auth(role=Role.PARTNER)
 	@Override
-	@RequestMapping(value="/partner/company/companyApplyManage.do", method = RequestMethod.GET)
+	@RequestMapping(value="/partner/company/companyApplyManage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView companyApplyManage(String partnerLicenseNum,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/partner/company/companyApplyManage");
@@ -218,7 +230,7 @@ public class PartnerControllerImpl implements PartnerController {
 		List carrList = partnerService.getUserCarr(resumeID, userID);    //career
 		
 		mav.addObject("resume", resumeVO);
-		mav.addObject("certificate", cerList);
+		mav.addObject("certificate", cerList); 
 		mav.addObject("project", proList);
 		mav.addObject("foreign", forList);
 		mav.addObject("career", carrList);
@@ -227,6 +239,7 @@ public class PartnerControllerImpl implements PartnerController {
 	}
 
 	//	post job opening
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningPost.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningPost(
@@ -239,6 +252,7 @@ public class PartnerControllerImpl implements PartnerController {
 		return mav;
 	}
 
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = "/partner/jobOpeningList.do", method = RequestMethod.GET)
 	public ModelAndView jobOpeningList (Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -252,7 +266,7 @@ public class PartnerControllerImpl implements PartnerController {
 	@RequestMapping(value = "/partner/postJobOpening.do", method = RequestMethod.POST)
 	public ModelAndView postJobOpening(@RequestParam List<String> valueArr) {
 		String date = valueArr.get(0);
-		for (int i = 1; i < valueArr.size(); i++) {
+		for(int i = 1; i < valueArr.size(); i++) {
 			partnerService.postJobOpening(valueArr.get(i), date);
 		}
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningPost.do");
@@ -262,7 +276,7 @@ public class PartnerControllerImpl implements PartnerController {
 	@Override
 	@RequestMapping(value = "/partner/deleteJobOpening.do", method = RequestMethod.POST)
 	public ModelAndView deleteJobOpening(@RequestParam List<String> valueArr) {
-		for (int i = 0; i < valueArr.size(); i++) {
+		for(int i = 0; i < valueArr.size(); i++) {
 			partnerService.deleteJobOpening(valueArr.get(i));
 		}
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");

@@ -35,8 +35,8 @@ request.setCharacterEncoding("UTF-8");
 					</li>
 					<ul class="sub-menu collapse" id="user">
 						<li><a href="${contextPath}/manageUser/userList.do">회원 관리</a></li>
-						<li><a href="#">이력서 관리</a></li>
-						<li><a href="#">지원서 관리</a></li>
+						<li><a href="${contextPath}/manageUser/userWithdrawalList.do">탈퇴 회원 관리</a></li>
+						<li><a href="${contextPath}/resume/resumeAdmin.do">이력서 관리</a></li>
 
 					</ul>
 
@@ -45,7 +45,7 @@ request.setCharacterEncoding("UTF-8");
 								class="fas fa-chevron-down"></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="partner">
-						<li><a href="#"> 기업정보</a></li>
+						<li><a href="${contextPath}/partner/partnerList.do"> 기업정보</a></li>
 						<li><a href="${contextPath}/partner/jobOpeningPost.do"> 채용공고 등록</a></li>
 						<li><a href="${contextPath}/partner/jobOpeningList.do"> 채용공고 관리</a></li>
 					</ul>
@@ -56,13 +56,11 @@ request.setCharacterEncoding("UTF-8");
 							class="fas fa-chevron-down"></i></a>
 					</li>
 					<ul class="sub-menu collapse" id="course">
-						<li><a href="/springEx/syllabus/syllabusList.do"> 강의계획서</a></li>
-						<li><a href="/springEx/course/courseList.do"> 과정 관리</a></li>
-						<li><a href="/springEx/courseTake/courseApplyList.do"> 수강
+						<li><a href="${contextPath}/syllabus/syllabusList.do"> 강의계획서</a></li>
+						<li><a href="${contextPath}/course/courseList.do"> 과정 관리</a></li>
+						<li><a href="${contextPath}/courseTake/courseApplyList.do"> 수강
 								관리</a></li>
 					</ul>
-
-
 					<li><a href="${contextPath}/notice/listNotice.do" style="margin-right: 20px;"> <i
 							class="fas fa-file-alt" style="margin-right: 4px;"></i> 공지사항
 					</a></li>

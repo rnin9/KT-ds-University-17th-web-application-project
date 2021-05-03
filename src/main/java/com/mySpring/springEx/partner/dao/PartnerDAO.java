@@ -59,4 +59,6 @@ public interface PartnerDAO {
 
 	public List<Map<String, Object>> selectJobOpeningList() throws DataAccessException;
 
+	int check_licenseNum(String partnerLicenseNum) throws Exception;
+
 }

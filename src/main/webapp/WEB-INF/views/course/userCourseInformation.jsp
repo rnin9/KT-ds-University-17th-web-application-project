@@ -17,13 +17,33 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style2.css" />
 
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+	crossorigin="anonymous"> -->
 
 <style>
+.btn {
+	color: #DC3545;
+	background-color: white;
+	border-color: rgba(247, 94, 94, 0 .8);
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
 .bg-primary {
 	background-color: white !important;
 }
@@ -128,7 +148,7 @@ button {
 				valueArr.push(${courseVO.courseID});
 				valueArr.push("${member.userId}");
 				$.ajax({
-					url : "/springEx/course/insertCourseTable.do",
+					url : "${contextPath}/course/insertCourseTable.do",
 					type : 'POST',
 					traditional : true,
 					data : {
@@ -143,7 +163,7 @@ button {
 			        }
 				});
 				$.ajax({
-					url : "/springEx/course/updateCoursePeopleApplied.do",
+					url : "${contextPath}/course/updateCoursePeopleApplied.do",
 					type : 'POST',
 					traditional : true,
 					data : {
@@ -173,7 +193,7 @@ button {
 
 <body>
 	<div class="sub_visual">
-		<span style="color: black;"></span>
+		<span style="color: white;">수강신청</span>
 	</div>
 
 	<form method="post"
@@ -183,16 +203,14 @@ button {
 		<div class="container">
 			<div class="lnb">
 				<ul>
-					<li><a href="/springEx/main.do">홈</a></li>
+					<li><a href="${contextPath}/main.do">홈</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
-					<li class="on"><a href="/springEx/course/userCourseList.do">과정신청</a></li>
+					<li class="on"><a href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 					<li style="color: grey; font-weight: bold;">〉</li>
 					<li class="on"><a
-						href="/springEx/course/selectUserCourse.do?courseID=${courseVO.courseID}">과정정보</a></li>
+						href="${contextPath}/course/selectUserCourse.do?courseID=${courseVO.courseID}">강의정보</a></li>
 				</ul>
 			</div>
-
-			<div class="pageIntro">과정신청</div>
 
 			<table class="table_">
 				<tr>
@@ -201,19 +219,19 @@ button {
 						${courseVO.syllabusVO.syllabusCategory2}]
 						${courseVO.syllabusVO.syllabusName}</td>
 					<th>강의실</th>
-					<td>${courseVO.courseRoomNumber}호</td>
+					<td style="width:20%;">${courseVO.courseRoomNumber}호</td>
 				</tr>
 				<tr>
 					<th>교육기간</th>
 					<td>${courseVO.courseStart}~${courseVO.courseEnd}</td>
 					<th>신청기간</th>
-					<td>${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
+					<td style="width:20%;">${courseVO.courseApplyStart}~${courseVO.courseApplyEnd}</td>
 				</tr>
 				<tr>
 					<th>교육시간</th>
 					<td>${courseVO.courseTime}</td>
 					<th>교육비</th>
-					<td>${courseVO.courseFee}</td>
+					<td style="width:20%;">${courseVO.courseFee}</td>
 				</tr>
 			</table>
 
@@ -249,7 +267,7 @@ button {
 			</div>
 			<div style="margin-top: 50px; padding-bottom: 150px;">
 				<button class="btn btn-outline-danger" type="button"
-					onClick="location.href='/springEx/course/userCourseList.do'">목록</button>
+					onClick="location.href='${contextPath}/course/userCourseList.do'">목록</button>
 				<button class="btn btn-outline-danger" type="button"
 					onClick="apply();">신청</button>
 			</div>

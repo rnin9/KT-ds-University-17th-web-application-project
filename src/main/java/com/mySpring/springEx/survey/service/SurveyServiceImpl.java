@@ -222,4 +222,34 @@ public class SurveyServiceImpl implements SurveyService {
 		return surveyDAO.getInfoGraph17(courseID);
 	}
 
+
+	@Override
+	public CourseTakeVO Allperson(String courseID) {
+		CourseTakeVO AllPerson = surveyDAO.Allperson(courseID);
+		return AllPerson;
+	}
+
+
+	@Override
+	public List AllPersonId(String courseID) {
+		List AllPersonId = null;
+		AllPersonId = surveyDAO.AllPersonId(courseID);
+		return AllPersonId;
+	}
+
+
+	@Override
+	public CourseTakeVO dontParticipateAllPerson(String courseID) {
+		CourseTakeVO dontParticipateAllPerson = surveyDAO.dontParticipateAllPerson(courseID);
+		return dontParticipateAllPerson;
+	}
+
+
+	@Override
+	public List dontParticipateAllPersonId(String courseID) {
+		List dontParticipateAllPersonId = null;
+		dontParticipateAllPersonId = surveyDAO.dontParticipateAllPersonId(courseID);
+		return dontParticipateAllPersonId;
+	}
+
 }

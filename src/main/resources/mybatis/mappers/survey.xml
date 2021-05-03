@@ -26,6 +26,7 @@
 		<collection property="courseTakeVO" javaType="CourseTakeVO">
 			<result property="userID" column="userID" />
 			<result property="courseID" column="courseID" />
+			<result property="courseTake_State" column="courseTake_State" />
 		</collection>
 		<!-- course join -->
 		<collection property="courseVO" javaType="CourseVO">
@@ -113,6 +114,8 @@
 		<result property="courseTake_CompleteDate"
 			column="courseTake_CompleteDate" />
 		<result property="surveyYN" column="surveyYN" />
+		<result property="countAll" column="countAll" />
+		<result property="countAll2" column="countAll2" />
 	</resultMap>
 
 	<resultMap id="courseResult" type="courseVO">
@@ -126,12 +129,13 @@
 		<result property="courseFee" column="courseFee" />
 		<result property="courseRoomNumber" column="courseRoomNumber" />
 		<result property="coursePeopleMax" column="coursePeopleMax" />
-		<result property="coursePeopleApplied" column="coursePeopleApplied" />
+		<result property="coursePeopleApplied"
+			column="coursePeopleApplied" />
 		<result property="courseState" column="courseState" />
 		<result property="courseShow" column="courseShow" />
 		<result property="questionYN" column="questionYN" />
 	</resultMap>
-	
+
 	<resultMap id="questionResult" type="surveyQuestionVO">
 		<result property="question_Name" column="question_Name" />
 		<result property="question1" column="question1" />
@@ -151,7 +155,7 @@
 		<result property="question15" column="question15" />
 		<result property="qNumber" column="qNumber" />
 	</resultMap>
-	
+
 
 	<delete id="deleteSurvey" parameterType="String">
 		delete from survey1
@@ -203,10 +207,10 @@
 
 	<select id="listSurveyInfo" parameterType="surveyVO"
 		resultMap="surResult">
-		SELECT
-		A.syllabusID,B.syllabusName,A.syllabusID,B.syllabusID,S.*
-		FROM COURSE
-		A, SYLLABUS B, SURVEY1 S
+		select
+		A.courseID,A.syllabusID,B.syllabusName,S.Q1,S.Q2,S.Q3,S.Q4,S.Q5,S.Q6,S.Q7,S.Q8,S.Q9,S.Q10,S.Q11,S.Q12,S.Q13,S.Q14,S.Q15
+		FROM
+		COURSE A, SYLLABUS B, SURVEY1 S
 		where A.syllabusID = B.syllabusID AND
 		A.courseID = S.courseID
 		AND A.courseID = #{courseID}
@@ -242,7 +246,8 @@
 		WHERE
 		A.syllabusID = B.syllabusID
 		AND A.courseID = S.courseID
-		AND A.courseID = SW.courseID
+		AND A.courseID =
+		SW.courseID
 		AND A.courseID = #{courseID}
 	</select>
 
@@ -255,69 +260,106 @@
 		where courseID =#{courseID}
 		group by courseID
 	</select>
+	
+	<select id="Allperson" parameterType="courseTakeVO"
+		resultMap="courseTakeResult2">
+		SELECT COUNT(*) countAll FROM COURSE_TAKE
+		WHERE courseTake_State ='수료'
+		AND courseID =#{courseID}
+	</select>
+	
+	<select id="AllPersonId" parameterType="courseTakeVO"
+		resultMap="courseTakeResult2">
+		SELECT userID  FROM COURSE_TAKE
+		WHERE courseTake_State ='수료'
+		AND courseID =#{courseID}
+	</select>
+	
+	<select id="dontParticipateAllPerson" parameterType="courseTakeVO"
+		resultMap="courseTakeResult2">
+		SELECT COUNT(*) countAll2 FROM COURSE_TAKE
+		WHERE courseTake_State ='수료' and surveyYN='N'
+		AND courseID =#{courseID}
+	</select>
+	
+	<select id="dontParticipateAllPersonId" parameterType="courseTakeVO"
+		resultMap="courseTakeResult2">
+		SELECT userID  FROM COURSE_TAKE
+		WHERE courseTake_State ='수료' AND surveyYN='N'
+		AND courseID =#{courseID}
+	</select>
 
 
 	<select id="surveyGraphInfo" parameterType="String"
 		resultMap="answerResult">
 		select answer1,count(answer1)count1
 		from survey_answer1
-		where courseID=#{courseID}
-		group by answer1	
+		where
+		courseID=#{courseID}
+		group by answer1
 	</select>
 	<select id="surveyGraphInfo2" parameterType="String"
 		resultMap="answerResult">
 		select answer2,count(answer2)count2
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer2
 	</select>
 	<select id="surveyGraphInfo3" parameterType="String"
 		resultMap="answerResult">
 		select answer3,count(answer3)count3
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer3
 	</select>
 	<select id="surveyGraphInfo4" parameterType="String"
 		resultMap="answerResult">
 		select answer4,count(answer4)count4
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer4
 	</select>
 	<select id="surveyGraphInfo5" parameterType="String"
 		resultMap="answerResult">
 		select answer5,count(answer5)count5
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer5
 	</select>
 	<select id="surveyGraphInfo6" parameterType="String"
 		resultMap="answerResult">
 		select answer6,count(answer6)count6
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer6
 	</select>
 	<select id="surveyGraphInfo7" parameterType="String"
 		resultMap="answerResult">
 		select answer7,count(answer7)count7
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer7
 	</select>
 	<select id="surveyGraphInfo8" parameterType="String"
 		resultMap="answerResult">
 		select answer8,count(answer8)count8
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer8
 	</select>
 	<select id="surveyGraphInfo9" parameterType="String"
 		resultMap="answerResult">
 		select answer9,count(answer9)count9
 		from survey_answer1
-		where courseID=#{courseID}
+		where
+		courseID=#{courseID}
 		group by answer9
 	</select>
 	<select id="surveyGraphInfo10" parameterType="String"
@@ -376,13 +418,13 @@
 		where courseID=#{courseID}
 		group by answer17
 	</select>
-	
-	
+
+
 	<select id="check_suerveyQuestion" parameterType="String"
 		resultMap="questionResult">
 		select * from survey_question order by qNumber
 	</select>
-	
+
 
 	<!-- <select id="surveyGraphInfo22" parameterType="String" resultMap="answerResult"> 
 		select count(case when answer1 = '매우 그렇다' then 1 end) count1, count(case 

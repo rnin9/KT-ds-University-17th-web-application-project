@@ -12,6 +12,15 @@
 <head>
     <title>채용공고 등록</title>
 
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/resources/css/style.css"/>
+          
+          <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
+          
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
@@ -26,11 +35,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <style>
+        button {
+            float: right;
+            margin-right: 10px;
+        }
+
         .container {
-            margin-left: 15%;
-            position: relative;
-            font-family: 'Noto Sans KR', sans-serif;
+        	font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-wrap: wrap;
             width: 80%;
+            justify-content: space-around;
+            flex-direction: column;
+            padding-bottom: 200px;
+            margin-left: 15%;
         }
 
         .well-searchbox label {
@@ -40,45 +58,12 @@
             text-align: right;
         }
 
-        .table_partnerList {
-            border-collapse: collapse;
-            font-size: 14px;
-            line-height: 2.2;
-            margin-top: 12px;
-            color: #555;
-            width: 100%;
-            margin: auto;
-            line-height: 40px;
-        }
-
         .table_partnerList thead > tr > th {
             border-top: 1px solid #e4e4e4;
             border-bottom: 1px solid #e4e4e4;
             background-color: #f8f8f8;
         }
 
-        .buttonGroups {
-            float: right;
-        }
-
-        .btn {
-            color: white;
-            display: inline-block;
-            font-weight: 400;
-            text-align: center;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-color: tomato;
-            border-color: rgba(247, 94, 94, 0.8);
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border-radius: .25rem;
-            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
 
         #datepicker {
             width: 207px;
@@ -92,34 +77,21 @@
             border-radius: 3px;
         }
 
-        .tableList {
-            border-collapse: collapse;
-            font-size: 14px;
-            line-height: 2.2;
-            margin-top: 40px;
-            text-align: center;
-            /* color: #555; */
+
+        .dataTables_wrapper {
+            margin-top: 30px;
+            display: inline-block;
             width: 100%;
-            line-height: 40px;
         }
 
-        .tableList thead {
-            border-top: 1px solid #e4e4e4;
-            border-bottom: 1px solid #e4e4e4;
-            /*border-bottom-color: #fc0038;*/
+        table.dataTable thead th, table.dataTable thead td {
+            padding: 10px 18px;
+            border-bottom: 1px solid #96988f;
             background-color: #f8f8f8;
-            text-align: center;
         }
 
-        .pageIntro {
-            font-family: 'Noto Sans KR', sans-serif;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            text-align: left;
-            font-size: 34px;
-            font-weight: 450;
-            background: url("${pageContext.request.contextPath}/resources/image/icon/ico_title_bar.png") no-repeat;
-            background-repeat: no-repeat;
+        table.dataTable td {
+            border-top: 1px solid lightgrey;
         }
     </style>
 
@@ -136,7 +108,7 @@
                 viewMode: 'years',
                 format: "yyyymmdd",
                 language: "ko",
-                startView: 2,
+                startView: 1,
                 keyboardNavigation: false,
                 forceParse: false,
                 autoclose: true
@@ -258,15 +230,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="lnb">
-        <ul>
-            <li><a href="${contextPath}/main.do">홈</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="${contextPath}/partner/partnerList.do">협력사 관리</a></li>
-            <li style="color: grey; font-weight: bold;">〉</li>
-            <li class="on"><a href="${contextPath}/partner/jobOpeningPost.do">채용공고 등록</a></li>
-        </ul>
-    </div>
 
     <!-- Modal for date picker -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -294,7 +257,7 @@
 
     <div class="pageIntro">채용공고 등록</div>
 
-    <table style="border-bottom-color: #fc0038" class="tableList" id="myTable" rules="groups">
+    <table class="table_" id="myTable" style="border-bottom: 1px solid #96988f;" rules="groups">
         <thead>
         <tr align="center">
             <td><input type="checkbox" name="check-all"
@@ -321,8 +284,8 @@
         </c:forEach>
         </tbody>
     </table>
-    <div class="buttonGroups" style="margin-top: 40px; padding-bottom: 150px;">
-        <button type="button" class="btn" id="modalLink" data-toggle="modal" href="#" onclick="postJobOpening()">
+    <div style="margin-top: 40px; padding-bottom: 150px;">
+        <button type="button" class="btn btn-outline-danger" id="modalLink" data-toggle="modal" href="#" onclick="postJobOpening()">
             공고 등록
         </button>
     </div>

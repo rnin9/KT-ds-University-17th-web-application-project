@@ -8,8 +8,7 @@ request.setCharacterEncoding("UTF-8");
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html lang="en">
 <head itemscope="" itemtype="http://schema.org/WebSite">
-<title itemprop="name">Preview Bootstrap snippets. 404 error
-	page with particles</title>
+<title itemprop="name">503 Error Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description"
 	content="Preview Bootstrap snippets. 404 error page with particles. Copy and paste the html, css and js code for save time, build your app faster and responsive">
@@ -70,8 +69,16 @@ request.setCharacterEncoding("UTF-8");
 								class="inner-detail" style="color: #fff;"> 서버 점검 또는 과부하로 인한 일시적 장애가 발생했습니다.
 							<br>
 							<br>
-							<a href="${contextPath}/main.do" class="btn btn-info mtl"><i
-									class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+							<c:choose>
+                     <c:when test ="${member.userPosition == 'ADMIN' || member.userPosition == 'PARTNER'}">
+                     <a href="${contextPath}/partner/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:when>
+                     <c:otherwise>
+                     <a href="${contextPath}/main.do" class="btn btn-info mtl"><i
+                           class="fa fa-home"></i>&nbsp; 홈으로 이동 </a>
+                     </c:otherwise>
+                     </c:choose>
 							</span>
 						</div>
 					</div>

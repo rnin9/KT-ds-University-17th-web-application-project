@@ -74,5 +74,14 @@ public interface SurveyDAO {
 	public List check_suerveyQuestion() throws DataAccessException;
 
 	public List SelectAllList() throws DataAccessException;
+
+	public CourseTakeVO Allperson(String courseID);
+
+	public List AllPersonId(String courseID);
+
+	public CourseTakeVO dontParticipateAllPerson(String courseID);
+
+	public List dontParticipateAllPersonId(String courseID);
+
 	
 }

@@ -63,14 +63,15 @@ div.formtag { /* div 속 폼태그 전체 적용 */
 
 .sub_visual {
 	font-family: 'Noto Sans KR', sans-serif;
-/* 	background-image:
+	/* 	background-image:
 		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
 	background-color: black;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: cover; */
-	width: 100%; 
-	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url("${pageContext.request.contextPath}/resources/image/sub_visual/faq.jpg");
 	border: 0;
 	font-size: 32px;
 	font-weight: 500;
@@ -292,15 +293,14 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 }
 
 .btn {
-	width: 8.3%;
-    padding: 16px 10px;
-    display: inline-block;
-    border: 1px solid #c8c8c0;
-    box-sizing: border-box;
-    margin-left: 38px;
-    line-height: 13px;
-    color: #DEE1E6;
-    background-color: #FF0000;
+	padding: 16px 10px;
+	display: inline-block;
+	border: 1px solid #c8c8c0;
+	box-sizing: border-box;
+	margin-left: 38px;
+	line-height: 13px;
+	color: #DEE1E6;
+	background-color: #FF0000;
 }
 
 #datepicker {
@@ -343,7 +343,6 @@ hr {
 	overflow: visible;
 	width: 500px;
 	text-align: center;
-	margin-left: -15px;
 }
 
 /* .navbar-brand2 img {
@@ -484,10 +483,10 @@ hr {
 							  title: '과정구분을 선택해주세요!',
 							  text: 'Something went wrong!'
 							  
-							})
+							})	
 							return false;
-					}else if($("#com").val()==""){
-						$("#com").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
+					}else if($("#hiddenThanksTogangsanim").val()==""){
+						$("#hiddenThanksTogangsanim").val("kt_ds_university"); //채용예정자일경우 그냥 직업명을 KTDSUNIVERSITY로 설정
 					}
 				});
 				
@@ -500,7 +499,9 @@ hr {
 				$("#position1").click(function(){
 					$("#company").hide();
 					$("#container1").css("height","1235px");
+					$("#partnerID").val('');
 				});
+					
 			
 				<!--아이디 관련 jQuery-->
 				$("#id").click(function(){
@@ -577,144 +578,158 @@ hr {
 
 			})
 </script>
+<script>
+function showPopup() {
+	window.open("${contextPath}/member/memberPartnerList.do", "강의계획서 리스트",
+			"width=1000, height=600, left=100, top=50");
+}
+</script>
 </head>
 
 
 <body>
-<div class="sub_visual">
-	<span style="color: white;">회원가입</span>
-</div>
-<div class="container">
+	<div class="sub_visual">
+		<span style="color: white;">회원가입</span>
+	</div>
+	<div class="container">
 
-<%-- 	<a class="navbar-brand2" href="${contextPath}/main.do"><img
+		<div class="lnb"
+			style="margin-bottom: 30px; font-family: 'Noto Sans KR', sans-serif;">
+			<ul>
+				<li><a href="${pageContext.request.contextPath}/main.do">홈</a></li>
+				<li style="color: grey; font-weight: bold;">〉</li>
+				<li class="on"><a
+					href="${pageContext.request.contextPath}/member/joinAgreeForm.do">회원가입</a></li>
+			</ul>
+		</div>
+
+		<%-- 	<a class="navbar-brand2" href="${contextPath}/main.do"><img
 						src="${pageContext.request.contextPath}/resources/image/header/logo/KTds_logo2.png"
 						alt="로고" /></a> --%>
-	<form action="${contextPath}/member/join_member.do" id="joinForm"
-		accept-charset="UTF-8" name="basic" method="POST">
-		<div id="main">
-			<div id="title_area"></div>
+		<form action="${contextPath}/member/join_member.do" id="joinForm"
+			accept-charset="UTF-8" name="basic" method="POST">
+			<div id="main">
+				<div id="title_area"></div>
 
-			<div id="container1">
-				<div id="container2">
+				<div id="container1">
+					<div id="container2">
 
 
-					
-					<div>
-						<label class="title">아이디</label> <input type="text" name="userId"
-							id="id">
-						<div class="eng_name regex" id="id_check"></div>
-					</div>
-					<div>
-						<label class="title">비밀번호</label> <input type="password"
-							class="pw" id="pw" name="userPassword" placeholder="8자 이상, 공백 불허">
-					</div>
-					<div>
-						<label class="title">비밀번호 확인</label>
-						<!-- <span class="must">필수</span> -->
-						<input type="password" class="pw" id="pw2" name="userPassword2"
-							placeholder="비밀번호 확인">
-					</div>
 
-					<div>
-						<label class="title">성명</label> <input type="text" name="userName"
-							id="name" placeholder="한글명" onfocus="this.placeholder=''"
-							onblur="this.placeholder='한글명'">
-						<div class="name regex"></div>
-					</div>
-					<div>
-						<label class="title">이메일</label> <input type="text"
-							name="userEmail" id="email">
-						<div class="email regex" id="email_check"></div>
-					</div>
-					<div id="date">
-						<label class="title" id="c1">생년월일</label> <input type="text"
-							name="birth" class="birth" id="datepicker" placeholder="생년월일">
-
-						<div id="toggle">
-							<input type="radio" id="male" name="userGender" value="남자">
-							<label for="male">남</label> <input type="radio" id="female"
-								name="userGender" value="여자"> <label for="female">여</label>
-						</div>
-					</div>
-					<div>
-						<label class="title">전공구분</label>
-						<div id="toggle2">
-							<input type="radio" id="major" name="userMajor" value="전공">
-							<label for="major">전공</label> <input type="radio" id="nomajor"
-								name="userMajor" value="비전공"> <label for="nomajor">비전공</label>
-						</div>
-					</div>
-
-					<div>
-						<label class="title">직업</label> 
-						<select id="position" name="userJob" size='1'>
-							<option name="userJob" value="">직업선택</option>
-							<option name="userJob" value="학생">학생</option>
-							<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
-							<option name="userJob" value="언론">언론</option>
-							<option name="userJob" value="공무원">공무원</option>
-							<option name="userJob" value="군인">군인</option>
-							<option name="userJob" value="서비스업">서비스업</option>
-							<option name="userJob" value="교육">교육</option>
-							<option name="userJob" value="금융/증권/보험업">금융/증권/보험업</option>
-							<option name="userJob" value="유통업">유통업</option>
-							<option name="userJob" value="예술">예술</option>
-							<option name="userJob" value="의료">의료</option>
-						</select>
-
-					</div>
-					<div>
-						<label class="title">과정구분</label>
-						<div id="toggle3">
-							<input type="radio" id="position1" name="userPosition"
-								value="일반회원"> <label for="position1">채용예정자</label> <input
-								type="radio" id="position2" name="userPosition" value="재직자">
-							<label for="position2">재직자과정</label>
-
-						</div>
-					</div>
-					
-					<div id="company" style="display: none">
-						<label class="title">회사</label> <!-- <input type="text" id="com"
-							name="userCompany" placeholder="회사명"> -->
-							
-							
-							<select name="userCompany">
-							<c:forEach var="partner" items="${partnersName}" >
-							<option id="com" name="userCompany" value='${partner.partnerLicenseNum}'>${partner.partnerLicenseNum}</option>
-							</c:forEach>
-							</select>
-							
-					</div>
-
-					<div>
-						<label class="title">휴대폰</label> <input type="text"
-							name="userPhoneNumber" id="phone" placeholder="휴대폰 번호 입력"
-							onfocus="this.placeholder=''"
-							onblur="this.placeholder='휴대폰 번호 입력'">
-						<div class="phone regex"></div>
-					</div>
-
-					<div>
-						<label class="title">주소</label> <input type="text"
-							name="userAddress1" id="roadAddress" placeholder="도로명 주소">
-						<input type="button" onclick="sample4_execDaumPostcode()"
-							class="address_detail" value="주소 찾기">
 						<div>
-							<input type="text" name="userAddress2" id="detailAddress"
-								placeholder="상세 주소">
+							<label class="title">아이디</label> <input type="text" name="userId"
+								id="id">
+							<div class="eng_name regex" id="id_check"></div>
+						</div>
+						<div>
+							<label class="title">비밀번호</label> <input type="password"
+								class="pw" id="pw" name="userPassword"
+								placeholder="8자 이상, 공백 불허">
+						</div>
+						<div>
+							<label class="title">비밀번호 확인</label>
+							<!-- <span class="must">필수</span> -->
+							<input type="password" class="pw" id="pw2" name="userPassword2"
+								placeholder="비밀번호 확인">
+						</div>
+
+						<div>
+							<label class="title">성명</label> <input type="text"
+								name="userName" id="name" placeholder="한글명"
+								onfocus="this.placeholder=''" onblur="this.placeholder='한글명'">
+							<div class="name regex"></div>
+						</div>
+						<div>
+							<label class="title">이메일</label> <input type="text"
+								name="userEmail" id="email">
+							<div class="email regex" id="email_check"></div>
+						</div>
+						<div id="date">
+							<label class="title" id="c1">생년월일</label> <input type="text"
+								name="birth" class="birth" id="datepicker" placeholder="생년월일">
+
+							<div id="toggle">
+								<input type="radio" id="male" name="userGender" value="남자">
+								<label for="male">남</label> <input type="radio" id="female"
+									name="userGender" value="여자"> <label for="female">여</label>
+							</div>
+						</div>
+						<div>
+							<label class="title">전공구분</label>
+							<div id="toggle2">
+								<input type="radio" id="major" name="userMajor" value="전공">
+								<label for="major">전공</label> <input type="radio" id="nomajor"
+									name="userMajor" value="비전공"> <label for="nomajor">비전공</label>
+							</div>
+						</div>
+
+						<div>
+							<label class="title">직업</label> <select id="position"
+								name="userJob" size='1'>
+								<option name="userJob" value="">직업선택</option>
+								<option name="userJob" value="학생">학생</option>
+								<option name="userJob" value="컴퓨터/인터넷">컴퓨터/인터넷</option>
+								<option name="userJob" value="언론">언론</option>
+								<option name="userJob" value="공무원">공무원</option>
+								<option name="userJob" value="군인">군인</option>
+								<option name="userJob" value="서비스업">서비스업</option>
+								<option name="userJob" value="교육">교육</option>
+								<option name="userJob" value="금융/증권/보험업">금융/증권/보험업</option>
+								<option name="userJob" value="유통업">유통업</option>
+								<option name="userJob" value="예술">예술</option>
+								<option name="userJob" value="의료">의료</option>
+							</select>
+
+						</div>
+						<div>
+							<label class="title">과정구분</label>
+							<div id="toggle3">
+								<input type="radio" id="position1" name="userPosition"
+									value="일반회원"> <label for="position1">채용예정자</label> <input
+									type="radio" id="position2" name="userPosition" value="재직자">
+								<label for="position2">재직자과정</label>
+
+							</div>
+						</div>
+
+						<div id="company" style="display: none" >
+							<label class="title">회사</label>
+							<!-- <input type="text" id="com"
+							name="userCompany" placeholder="회사명"> -->
+						<input type="text" placeholder="검색" id="partnerID" onclick="showPopup();" > 
+                 		 <input type="text" name="userCompany" id="hiddenThanksTogangsanim" style="display: none;">
+						</div>
+
+						<div>
+							<label class="title">휴대폰</label> <input type="text"
+								name="userPhoneNumber" id="phone" placeholder="휴대폰 번호 입력"
+								onfocus="this.placeholder=''"
+								onblur="this.placeholder='휴대폰 번호 입력'">
+							<div class="phone regex"></div>
+						</div>
+
+						<div>
+							<label class="title">주소</label> <input type="text"
+								name="userAddress1" id="roadAddress" placeholder="도로명 주소">
+							<input type="button" onclick="sample4_execDaumPostcode()"
+								class="address_detail" value="주소 찾기">
+							<div>
+								<input type="text" name="userAddress2" id="detailAddress"
+									placeholder="상세 주소">
+							</div>
+						</div>
+						<hr>
+						<div>
+							<input type="submit" class="btn" id="joinBtn" value="회원가입" />
 						</div>
 					</div>
-					<hr>
-					<input type="submit" class="btn" id="joinBtn" value="회원가입" />
 				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 
 
-	<!-- daum 우편번호,주소 검색 api  -->
-	<script>
+		<!-- daum 우편번호,주소 검색 api  -->
+		<script>
 		function sample4_execDaumPostcode() {
 			new daum.Postcode({
 				oncomplete : function(data) {
@@ -780,6 +795,6 @@ hr {
 			}
 		})
 	</script>
-</div>
+	</div>
 </body>
 </html>

@@ -30,6 +30,7 @@ import com.mySpring.springEx.syllabus.vo.SyllabusVO;
 @Controller("courseTakeController")
 //@EnableAspectJAutoProxy
 public class CourseTakeControllerImpl implements CourseTakeController {
+
 	@Autowired
 	private CourseTakeService courseTakeService;
 	@Autowired
@@ -45,11 +46,11 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	 */
 
 	@Override
-	@Auth(role=Role.ADMIN)
+	@Auth(role = Role.ADMIN)
 	@RequestMapping(value = "/courseTake/courseApplyList.do", method = RequestMethod.GET)
-	public ModelAndView courseCApplyList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView courseCApplyList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		List courseApplyList =  courseTakeService.SelectAllCourseApplyList();
+		List courseApplyList = courseTakeService.SelectAllCourseApplyList();
 		ModelAndView mav = new ModelAndView(viewName);
 		// 처리된 부분을 화면에 전달
 		mav.addObject("courseApplyList", courseApplyList);
@@ -69,80 +70,80 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 //			courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
 //			courseTakeVO.setCourseTake_State(arr[2]);
 //
-//			courseTakeService.updateApplyConsent(courseTakeVO);
-//			courseTakeService.updatePosition1(courseTakeVO);
-//			
-//			System.out.println(courseTakeVO);
-//			System.out.println(courseTakeVO.getCourseTake_State());
-//		}
-//		return mav;
-//	}
-	
+//         courseTakeService.updateApplyConsent(courseTakeVO);
+//         courseTakeService.updatePosition1(courseTakeVO);
+//         
+//         System.out.println(courseTakeVO);
+//         System.out.println(courseTakeVO.getCourseTake_State());
+//      }
+//      return mav;
+//   }
+
 	@RequestMapping(value = "/courseTake/updateConsentCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsent(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
-		@RequestParam List<String> valueArr) throws Exception {
-		
+			@RequestParam List<String> valueArr) throws Exception {
+
 		List<String> TF = new ArrayList<String>();
 		String ox1 = "o";
-		
+
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			TF.add(arr[2]);			
+			TF.add(arr[2]);
 		}
-		
-		for(int i=0; i<TF.size(); i++) {
-			if(!TF.get(i).equals("승인대기")){
+
+		for (int i = 0; i < TF.size(); i++) {
+			if (!TF.get(i).equals("승인대기")) {
 				ox1 = "x";
 			}
 		}
-		
-		if(ox1=="o") {
+
+		if (ox1 == "o") {
 			for (int i = 0; i < valueArr.size(); i++) {
 				String arr[] = valueArr.get(i).split(" ");
 				courseTakeVO.setUserID(arr[0]);
 				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-				
+
 				courseTakeService.updateApplyConsent(courseTakeVO);
-				courseTakeService.updatePosition1(courseTakeVO);	
+				courseTakeService.updatePosition1(courseTakeVO);
 			}
 		}
 		ModelAndView mav = new ModelAndView("redirect:/courseTake/courseApplyList.do");
-		
+
 		mav.addObject("ox1", ox1);
-		
+
 		mav.setViewName("jsonView");
-		
+
 		return mav;
 	}
-	
+
 	// 승인->승인대기로 update
 
 	@RequestMapping(value = "/courseTake/updateConsentCancelCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateApplyConsentCancel(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
-		
+
 		List<String> TF = new ArrayList<String>();
 		String ox2 = "o";
-		
+
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			TF.add(arr[2]);			
+			TF.add(arr[2]);
 		}
-		
-		for(int i=0; i<TF.size(); i++) {
-			if(!TF.get(i).equals("승인")){
+
+		for (int i = 0; i < TF.size(); i++) {
+			if (!TF.get(i).equals("승인")) {
 				ox2 = "x";
 			}
 		}
-		
-		if(ox2=="o") {
+
+		if (ox2 == "o") {
 			for (int i = 0; i < valueArr.size(); i++) {
 				String arr[] = valueArr.get(i).split(" ");
 				courseTakeVO.setUserID(arr[0]);
 				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-				
+
 				courseTakeService.updateApplyConsentCancel(courseTakeVO);
-				courseTakeService.updatePosition2(courseTakeVO);	
+				courseTakeService.updatePosition2(courseTakeVO);
 			}
 		}
 
@@ -157,28 +158,28 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 	@RequestMapping(value = "/courseTake/updateCompletionCheck.do", method = RequestMethod.POST)
 	public ModelAndView updateCompletion(@ModelAttribute("courseTake") CourseTakeVO courseTakeVO,
 			@RequestParam List<String> valueArr) throws Exception {
-		
+
 		List<String> TF = new ArrayList<String>();
 		String ox3 = "o";
-		
+
 		for (int i = 0; i < valueArr.size(); i++) {
 			String arr[] = valueArr.get(i).split(" ");
-			TF.add(arr[2]);			
+			TF.add(arr[2]);
 		}
-		
-		for(int i=0; i<TF.size(); i++) {
-			if(!TF.get(i).equals("수료대기")){
+
+		for (int i = 0; i < TF.size(); i++) {
+			if (!TF.get(i).equals("수료대기")) {
 				ox3 = "x";
 			}
 		}
-		
-		if(ox3=="o") {
+
+		if (ox3 == "o") {
 			for (int i = 0; i < valueArr.size(); i++) {
 				String arr[] = valueArr.get(i).split(" ");
 				courseTakeVO.setUserID(arr[0]);
 				courseTakeVO.setCourseID(Integer.parseInt(arr[1]));
-				
-				courseTakeService.updateCompletion(courseTakeVO);	
+
+				courseTakeService.updateCompletion(courseTakeVO);
 			}
 		}
 
@@ -204,12 +205,13 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 		return mav;
 
 	}
-	//수료증 페이지
-	@RequestMapping(value = "/courseTake/certificate.do", method= {RequestMethod.GET, RequestMethod.POST})
+
+	// 수료증 페이지
+	@RequestMapping(value = "/courseTake/certificate.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewCertificate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		System.out.println("============"+request.getParameter("userName"));
+		System.out.println("============" + request.getParameter("userName"));
 		return mav;
 	}
 
@@ -220,9 +222,9 @@ public class CourseTakeControllerImpl implements CourseTakeController {
 		ModelAndView mav = new ModelAndView(viewName);
 		return mav;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/course/insertCourseTable.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/course/insertCourseTable.do", method = RequestMethod.POST)
 	public ModelAndView insertCourseTable(@RequestParam List<String> valueArr) throws Exception {
 		courseTakeVO.setCourseID(Integer.parseInt(valueArr.get(0)));
 		courseTakeVO.setUserID(valueArr.get(1));

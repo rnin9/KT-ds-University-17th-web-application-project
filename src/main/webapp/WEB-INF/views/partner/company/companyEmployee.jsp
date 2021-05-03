@@ -10,29 +10,55 @@ request.setCharacterEncoding("UTF-8");
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.css"/>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-html5-1.7.0/b-print-1.7.0/datatables.min.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+	crossorigin="anonymous">
 
 <style>
-.partnerInfo>dl>dt {
-	float: left;
+.container {
+	font-family: 'Noto Sans KR', sans-serif;
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	justify-content: space-around;
+	flex-direction: column;
+	margin-left: 15%;
 }
 
-.empInfo {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	font-size: 25px;
-	text-align: left;
-	width: 50%;
+.dataTables_wrapper {
+	margin-top: 30px;
+	display: inline-block;
+	width: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #96988f;
+	background-color: #f8f8f8;
+}
+
+table.dataTable td {
+	border-top: 1px solid lightgrey;
 }
 </style>
 <!--   $('#myTable tfoot th').each( function () {
@@ -61,7 +87,8 @@ request.setCharacterEncoding("UTF-8");
 		$('#myTable').DataTable({
 
 			dom : 'lBfrtip',
-			buttons : [ 'excel' ],
+			buttons : ['excel'],
+			
 			language : {
 				info : '',
 				sInfoFiltered : '',
@@ -89,10 +116,10 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-	<div class="container"
-		style="float: left; width: 75%; padding-bottom: 200px; margin-left: 5%;">
-		<h2>직원관리페이지</h2>
-		<table id="myTable">
+	<div class="container">
+
+		<div class="pageIntro">수강 직원 명단</div>
+		<table id="myTable" class="table_" style="border-bottom: 1px solid #96988f;">
 			<thead>
 				<tr>
 					<td><b>이름</b></td>
