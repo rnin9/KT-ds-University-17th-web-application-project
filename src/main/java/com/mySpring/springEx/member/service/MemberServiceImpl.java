@@ -31,13 +31,13 @@ public class MemberServiceImpl implements MemberService {
 
    @Value("${hostSMTPid}")
    public String hostSMTPId;
-   // https://m.blog.naver.com/monsterkn/221333152250 �ㅼ�대� SMTP�ㅼ���� ������ ���대�� 鍮�諛�踰��� 湲곗��
+   // https://m.blog.naver.com/monsterkn/221333152250 네이버 SMTP설정후 자신의 아이디 비밀번호 기입
 
-   // mailkey.properties hostSMTPpwd媛��� 遺��ъ��
+   // mailkey.properties hostSMTPpwd값을 불러옴
    @Value("${hostSMTPpwd}")
    public String hostSMTPPwd;
 
-   // mailkey.properties portNum媛��� 遺��ъ��
+   // mailkey.properties portNum값을 불러옴
    @Value("${portNum}")
    public int portNum;
 
@@ -116,7 +116,7 @@ public class MemberServiceImpl implements MemberService {
       return memberDAO.loginById(memberVO);
    }
 
-   // �ш린遺��� ��������
+   // 여기부터 수정시작
    @Override
    public void check_id(String id, HttpServletResponse response) throws Exception {
       PrintWriter out = response.getWriter();
@@ -138,14 +138,14 @@ public class MemberServiceImpl implements MemberService {
       response.setContentType("text/html;charset=utf-8");
       PrintWriter out = response.getWriter();
       System.out.println("2");
-      if (memberDAO.check_id(member.getUserId()) == 1) {      // 以�蹂듬�� ���대��
+      if (memberDAO.check_id(member.getUserId()) == 1) {      // 중복된 아이디
          out.println(
                "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
          out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
          out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
          out.println("<script language=JavaScript>");
          out.println("$(document).ready(function(){");
-         out.println("swal('���대�� 以�蹂�','以�蹂듭�� ���� ���대��瑜� ���ν���몄��!','error')");
+         out.println("swal('아이디 중복','중복이 아닌 아이디를 입력하세요!','error')");
          out.println(".then((result) => {");
          out.println("history.go(-1);");
          out.println("})");
@@ -153,14 +153,14 @@ public class MemberServiceImpl implements MemberService {
          out.println("</script>");
          out.close();
          return 0;
-      } else if (memberDAO.check_email(member.getUserEmail()) == 1) { // 以�蹂듬�� �대���
+      } else if (memberDAO.check_email(member.getUserEmail()) == 1) { // 중복된 이메일
          out.println(
                "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
          out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
          out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
          out.println("<script language=JavaScript>");
          out.println("$(document).ready(function(){");
-         out.println("swal('�대��� 以�蹂�',' 以�蹂듭�� ���� �대��쇱�� ���ν���몄��!','error')");
+         out.println("swal('이메일 중복',' 중복이 아닌 이메일을 입력하세요!','error')");
          out.println(".then((result) => {");
          out.println("history.go(-1);");
          out.println("})");
@@ -170,10 +170,10 @@ public class MemberServiceImpl implements MemberService {
          return 0;
       } else {
 
-         // �몄��� set
+         // 인증키 set
          /* member.setApproval_key(create_key()); */
          memberDAO.join_member(member);
-         // �몄� 硫��� 諛���
+         // 인증 메일 발송
          send_mail(member);
          out.println(
                "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
@@ -186,8 +186,8 @@ public class MemberServiceImpl implements MemberService {
          out.println("<script language=JavaScript>");
          out.println("$(document).ready(function(){");
          
-         out.println("Swal.fire({title:'����媛����� 異�����由쎈����!!',   text: '硫��� �몄��� ��猷����몄��!', icon:'success', backdrop: 'rgba(0,0,123,0.4) url(\"/ktu/resources/image/nyan.gif\") left top no-repeat'})");
-         //out.println("swal('硫��쇱�� �몄��� ��猷����몄��','湲곗���� �대��쇰� ���〓�����듬����!','success')");
+         out.println("Swal.fire({title:'회원가입을 축하드립니다!!',   text: '메일 인증을 완료하세요!', icon:'success', backdrop: 'rgba(0,0,123,0.4) url(\"/ktu/resources/image/nyan.gif\") left top no-repeat'})");
+         //out.println("swal('메일을 인증을 완료하세요','기입한 이메일로 전송되었습니다!','success')");
          
          out.println(".then((result) => {");
          out.println("location.href='http://localhost:"+portNum+"/ktu/main.do';");
@@ -204,20 +204,20 @@ public class MemberServiceImpl implements MemberService {
    public void approval_member(MemberVO member, HttpServletResponse response) throws Exception {
       response.setContentType("text/html;charset=utf-8");
       PrintWriter out = response.getWriter();
-      if (memberDAO.approval_member(member) == 0) { // �대��� �몄��� �ㅽ�⑦������ 寃쎌��
+      if (memberDAO.approval_member(member) == 0) { // 이메일 인증에 실패하였을 경우
          out.println("<script>");
-         out.println("alert('��紐삳�� ��洹쇱������.');");
+         out.println("alert('잘못된 접근입니다.');");
          out.println("history.go(-1);");
          out.println("</script>");
          out.close();
-      } else { // �대��� �몄��� �깃났������ 寃쎌��
+      } else { // 이메일 인증을 성공하였을 경우
          out.println(
                "<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'></script>");
          out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>");
          out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
          out.println("<script language=JavaScript>");
          out.println("$(document).ready(function(){");
-         out.println("swal('�몄��깃났!!',' �몄��� �깃났���⑥�듬����','success')");
+         out.println("swal('인증성공!!',' 인증에 성공하셨습니다','success')");
          out.println(".then((result) => {");
          out.println("history.go(-2);");
          out.println("})");
@@ -232,30 +232,30 @@ public class MemberServiceImpl implements MemberService {
 
    @Override
    public void send_mail(MemberVO member) throws Exception {
-      // Mail Server �ㅼ��
+      // Mail Server 설정
       String charSet = "utf-8";
       String hostSMTP = "smtp.naver.com";
       String hostSMTPid = hostSMTPId;
       String hostSMTPpwd = hostSMTPPwd;
 
-      // 蹂대�대�� �щ�� EMail, ��紐�, �댁��
+      // 보내는 사람 EMail, 제목, 내용
       String fromEmail = hostSMTPId;
-      String fromName = "KTDS-Spring Homepage �대��� �몄�";
-      String subject = "�몄�";
-      String msg = "媛����� �����⑸����.";
+      String fromName = "KTDS-Spring Homepage 이메일 인증";
+      String subject = "인증";
+      String msg = "가입을 환영합니다.";
 
-      // ����媛��� 硫��� �댁��
-      subject = "KTDS Homepage ����媛��� �몄� 硫��쇱������.";
+      // 회원가입 메일 내용
+      subject = "KTDS Homepage 회원가입 인증 메일입니다.";
       msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
       msg += "<h3 style='color: blue;'>";
-      msg += member.getUserId() + "�� ����媛����� �����⑸����.</h3>";
+      msg += member.getUserId() + "님 회원가입을 환영합니다.</h3>";
       msg += "<div style='font-size: 130%'>";
-      msg += "���⑥�� �몄� 踰��� �대┃ �� �������쇰� ����媛����� ��猷��⑸����.</div><br/>";
+      msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
       msg += "<form method='post' action='http://localhost:" + portNum + "/ktu/member/approval_member.do'>"; // mailkey.properties
-                                                                                       // ��
+                                                                                       // 의
                                                                                        // portNum
       msg += "<input type='hidden' name='userEmail' value='" + member.getUserEmail() + "'>";
-      msg += "<input type='submit' value='�몄�'></form><br/></div>";
+      msg += "<input type='submit' value='인증'></form><br/></div>";
       System.out.println(msg);
 
    
@@ -277,7 +277,7 @@ public class MemberServiceImpl implements MemberService {
          email.setHtmlMsg(msg);
          email.send();
       } catch (Exception e) {
-         System.out.println("硫��쇰��� �ㅽ�� : " + e);
+         System.out.println("메일발송 실패 : " + e);
       }
    }
 
@@ -308,9 +308,10 @@ public class MemberServiceImpl implements MemberService {
    }
 
 
+   @Override
+   public int handleWithdrawal(String userID) throws Exception {
+      return memberDAO.handleWithdrawal(userID);
+   }
 
-
-   
-   
 
 }

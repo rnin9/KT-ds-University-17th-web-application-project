@@ -8,7 +8,6 @@
 		<result property="partnerLicenseNum" column="partnerLicenseNum" />
 	    <result property="partnerState" column="partnerState" />
 	    <result property="partnerName" column="partnerName" />
-	    <result property="partnerInformation" column="partnerInformation" />
 	    <result property="partnerAddress" column="partnerAddress" />
 	    <result property="partnerPhoneNumber" column="partnerPhoneNumber" />
 	    <result property="partnerEmail" column="partnerEmail" />
@@ -41,6 +40,7 @@
 		<result property="partnerInformation" column="partnerInformation"/>
 		<result property="partnerAddress" column="partnerAddress"/>
 		<result property="partnerEmail" column="partnerEmail"/>
+		<result property="partnerIndustryType" column="partnerIndustryType"/>
 		<result property="partnerHeadCount" column="partnerHeadCount"/>
 		<result property="partnerURL" column="partnerURL"/>
 
@@ -354,18 +354,19 @@
 		SELECT p.partnerName
 		,p.partnerLicenseNum
 		,p.partnerApplyFinishDate
-		,p.partnerInformation
 		,p.partnerAddress
 		,p.partnerEmail
 		,p.partnerHeadCount
+		,p.partnerIndustryType
 		,p.partnerURL
 		,count(a.PARTNER_APPLY_USERID) as applicantNum
 		FROM partner p left outer join partner_apply a on p.partnerLicenseNum = a.PARTNER_APPLY_PARTNERID
-		where p.PARTNERAPPLYYN = 'Y'
+		where p.PARTNERAPPLYYN = 'Y' and p.partnerLicenseNum not in('kt_ds_university')
 		group by p.partnerName, p.partnerLicenseNum, p.partnerApplyFinishDate,p.partnerInformation
 							  ,p.partnerAddress
 							  ,p.partnerEmail
 							  ,p.partnerHeadCount
+							  ,p.partnerIndustryType
 							  ,p.partnerURL
 		order by p.partnerName
 	</select>

@@ -246,6 +246,9 @@ textarea {
          document.getElementById('profield').style.display = "block";
 
          div.setAttribute('id', result); //제일 밖에 id
+         div.setAttribute('name', "project_list");
+         div.setAttribute('value', result);
+         div.setAttribute('class', 'list_field projectList');
 
          obj.setAttribute('class', 'btn btn-outline-danger ' + result + ' addition');
          obj.setAttribute('onclick', 'remove_div(' + result + ')');
@@ -253,6 +256,7 @@ textarea {
          $(div).find(".test1").html("(0 / 1000)");
          $(div).find(".test1").attr("class", "test" + result);
          $(div).find("#test1" + result).attr("id", "test" + result);
+         $(div).find("#test1").attr("id", "test" + result);
 
       }
 
@@ -389,7 +393,9 @@ textarea {
 
 
 <body>
-   <div class="sub_visual"></div>
+   <div class="sub_visual">
+   <span style="color: white;">이력서 작성</span>
+   </div>
 
    <div class="container">
 

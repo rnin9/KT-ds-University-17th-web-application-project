@@ -56,4 +56,10 @@ public interface MemberDAO {
 
 	public int positionModify(String newPotision, String userID) throws Exception;
 
+	public int handleWithdrawal(String userID) throws Exception;
+
+	public List userWithdrawalList() throws DataAccessException;
+
+	public int deleteUser(String userID) throws DataAccessException;
+
 }

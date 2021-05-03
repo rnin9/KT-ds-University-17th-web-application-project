@@ -7,4 +7,9 @@
       <put-attribute name="title" value="회원 관리" />
       <put-attribute name="body" value="/WEB-INF/views/manageUser/userList.jsp" />
    </definition>
+
+    <definition name="/manageUser/userWithdrawalList" extends="adminLayout">
+        <put-attribute name="title" value="탈퇴 회원 관리" />
+        <put-attribute name="body" value="/WEB-INF/views/manageUser/userWithdrawalList.jsp" />
+    </definition>
 </tiles-definitions>

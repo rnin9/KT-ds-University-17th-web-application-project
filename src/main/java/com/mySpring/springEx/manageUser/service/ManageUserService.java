@@ -10,5 +10,9 @@ public interface ManageUserService {
 	public int resetPW(String userID) throws Exception;
 
 	public int positionModify(String newPosition, String userID) throws Exception;
+
+	public List userWithdrawalListrList() throws DataAccessException;
+
+	public int deleteUser(String userID) throws Exception;
 }
 

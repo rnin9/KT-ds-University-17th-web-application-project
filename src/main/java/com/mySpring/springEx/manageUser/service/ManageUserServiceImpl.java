@@ -33,4 +33,14 @@ public class ManageUserServiceImpl implements ManageUserService {
 		return memberDAO.positionModify(newPosition, userID);
 	}
 
+	@Override
+	public List userWithdrawalListrList() throws DataAccessException {
+		List userWithdrawalList = memberDAO.userWithdrawalList();
+		return userWithdrawalList;
+	}
+
+	@Override
+	public int deleteUser(String userID) throws Exception {
+		return memberDAO.deleteUser(userID);
+	}
 }

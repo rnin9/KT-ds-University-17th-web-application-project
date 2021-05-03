@@ -2,6 +2,7 @@
 <<<<<<<=HEAD
 >>>>>>>=1f66edb20a80ade49583dfa999467672b5579102
 eclipse.preferences.version=1
+encoding//src/main/java/com/mySpring/springEx/common/interceptor/AuthViewInterceptor.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/common/pagination/mapper/PageMapper.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/common/util/FileUtils.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/courseTake/service/CourseTakeService.java=UTF-8
