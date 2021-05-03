@@ -17,21 +17,23 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css" />
-	
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/resources/css/style.css"/>
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
+            
+            
+	   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    
+
     <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+            crossorigin="anonymous">
 
     <title>채용공고 관리</title>
 
@@ -126,7 +128,7 @@
         deleteJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
-                swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
+                Swal.fire("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
                 return;
             } else {
                 Swal.fire({
@@ -173,7 +175,7 @@
             $("#partner_info").text(info);
             $("#partner_addr").text(addr);
             $("#partner_email").text(email);
-            $("#partner_headcnt").text(headcnt);
+            $("#partner_headcnt").text(headcnt + ' 명');
             $("#partner_purl").text(purl);
         }
     </script>
@@ -203,7 +205,7 @@
 
     <!-- Modal for partner info -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -212,22 +214,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="partnerInfoModalBody" style="text-align: left">
-                        <div class="row">
-                            <div class="col-3" style="color: #444444; font-weight: bold">
-                                <p>업종 · 업태</p>
-                                <p>주소</p>
-                                <p>사원수</p>
-                                <p>이메일</p>
-                                <p>웹사이트</p>
-                            </div>
-                            <div class="col-8">
-                                <p id="partner_info"></p>
-                                <p id="partner_addr"></p>
-                                <p id="partner_headcnt"></p>
-                                <p id="partner_email"></p>
-                                <p id="partner_purl"></p>
-                            </div>
-                        </div>
+                        <h5>업종 · 업태</h5>
+                        <p id="partner_info"></p>
+                        <h5>주소</h5>
+                        <p id="partner_addr"></p>
+                        <h5>사원수</h5>
+                        <p id="partner_headcnt"></p>
+                        <h5>이메일</h5>
+                        <p id="partner_email"></p>
+                        <h5>웹사이트</h5>
+                        <p id="partner_purl"></p>
                     </div>
                 </div>
                 <div class="modal-footer">

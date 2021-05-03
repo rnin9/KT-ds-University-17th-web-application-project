@@ -94,7 +94,6 @@ public class NoticeServiceImpl implements NoticeService {
 			System.out.println(tempMap);
 			if (tempMap.get("IS_NEW").equals("Y")) {
 				noticeDAO.insertFile(tempMap);
-				System.out.println("정복");
 			} else {
 				noticeDAO.updateFile(tempMap);
 

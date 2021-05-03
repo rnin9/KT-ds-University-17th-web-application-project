@@ -76,6 +76,11 @@ table.dataTable thead th, table.dataTable thead td {
 table.dataTable td {
 	border-top: 1px solid lightgrey;
 }
+
+#sidebar-left{
+	height: 300.2px;
+}
+}
 </style>
 <script type="text/javascript">
    function checkSelectAll(checkbox)  {
