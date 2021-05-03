@@ -35,6 +35,7 @@ request.setCharacterEncoding("UTF-8");
 					</li>
 					<ul class="sub-menu collapse" id="user">
 						<li><a href="${contextPath}/manageUser/userList.do">회원 관리</a></li>
+						<li><a href="${contextPath}/manageUser/userWithdrawalList.do">탈퇴 회원 관리</a></li>
 						<li><a href="${contextPath}/resume/resumeAdmin.do">이력서 관리</a></li>
 
 					</ul>
