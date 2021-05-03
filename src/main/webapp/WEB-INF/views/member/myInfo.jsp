@@ -167,7 +167,7 @@ a { /* 프로필 사진 첨부 관련 사진추가 라는 링크 */
 
 #detailAddress {
 	margin-top: 10px;
-	margin-left: 138px;
+	margin-left: 279px;
 	width: 413px;
 }
 
@@ -300,7 +300,7 @@ function handleModify() {
 			</ul>
 		</div>
 		<!-- 페이지에 대한 intro -->
-		<div class="pageIntro">${myInfo.userName}님의 정보</div>
+		<div class="pageIntro">${myInfo.userName}님의정보</div>
 
 		<!-- 내정보/수강정보 탭 -->
 		<section id="tabs" class="project-tab">
@@ -356,9 +356,9 @@ function handleModify() {
 										</div>
 										<div class="phone_regex_valid"></div>
 										<div>
-											<label class="title">이메일</label><span class="must">필수</span>
-											<input type="text" name="userEmail" id="email"
-												value='${myInfo.userEmail}'>
+											<label class="title" style="margin-left: 57px;">이메일</label><span
+												class="must">필수</span> <input type="text" name="userEmail"
+												id="email" value='${myInfo.userEmail}'>
 											<div class="email_regex"></div>
 											<c:choose>
 												<c:when test="${myInfo.userMajor =='전공'}">
@@ -383,11 +383,11 @@ function handleModify() {
 										</div>
 										<div style="display: flex;">
 											<div style="transform: translateX(-20%); width: 120%;">
-												<label class="title">주소</label><span class="must">필수</span>
-												<input type="text" name="userAddress1" id="roadAddress"
-													placeholder="도로명 주소" value='${myInfo.userAddress1}'>
-
-												<input type="button" class="btn btn-outline-danger"
+												<label class="title" style="margin-left: 57px;">주소</label><span
+													class="must">필수</span> <input type="text"
+													name="userAddress1" id="roadAddress" placeholder="도로명 주소"
+													value='${myInfo.userAddress1}'> <input
+													type="button" class="btn btn-outline-danger"
 													onclick="sample4_execDaumPostcode()" value="주소 찾기">
 												<div>
 													<input type="text" name="userAddress2" id="detailAddress"
@@ -590,9 +590,10 @@ function handleModify() {
 					</div>
 				</div>
 			</div>
+		</section>
 	</div>
 
-	</section>
+
 </body>
 <script type="text/javascript">
 function popup(frm)

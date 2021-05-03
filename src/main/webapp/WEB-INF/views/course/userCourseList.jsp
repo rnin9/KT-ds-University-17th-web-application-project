@@ -144,6 +144,9 @@ p {
 														<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
+                                    <c:when test="${courseVO.dday == 0}">
+                                    오늘마감
+                                    </c:when>
 
 														<c:when test="${courseVO.dday < 0}">
                                     접수마감

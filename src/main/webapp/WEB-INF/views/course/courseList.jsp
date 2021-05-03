@@ -337,7 +337,7 @@ function register(){
 			</tbody>
 		</table>
 
-		<div style="margin-top: 50px;">
+		<div style="margin-top: 50px; margin-bottom:120px;">
 			<button class="btn btn-outline-danger" type="button"
 				onClick="closeCheck();">선택과정 조기마감</button>
 			<button class="btn btn-outline-danger" type="button"

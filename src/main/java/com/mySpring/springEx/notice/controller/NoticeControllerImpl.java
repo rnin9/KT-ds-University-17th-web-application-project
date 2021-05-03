@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.apache.commons.io.FileUtils;
 
+import com.mySpring.springEx.common.interceptor.Auth;
+import com.mySpring.springEx.common.interceptor.Auth.Role;
 import com.mySpring.springEx.common.pagination.Pagination;
 import com.mySpring.springEx.notice.dao.NoticeDAO;
 import com.mySpring.springEx.notice.service.NoticeService;
@@ -38,6 +40,7 @@ public class NoticeControllerImpl implements NoticeController {
 	private NoticeDAO noticeDAO;
 
 	// 공지사항 리스트
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/listNotice.do" }, method = RequestMethod.GET)
 	public ModelAndView listNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -84,6 +87,7 @@ public class NoticeControllerImpl implements NoticeController {
 
 
 	// 공지사항 작성 창
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = { "/notice/noticeForm.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView noticeForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -92,6 +96,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 입력
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/insertNotice.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String insertNotice(NoticeVO noticeVO, MultipartHttpServletRequest mpRequest) throws Exception {
@@ -102,6 +107,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 조회 창
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/readNotice.do" }, method = RequestMethod.GET)
 	public ModelAndView readNotice(@RequestParam("notice_no") int notice_no, HttpServletRequest request,
@@ -210,6 +216,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 수정 창
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/updateView.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 
@@ -228,6 +235,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 수정
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/updateNotice.do" }, method = RequestMethod.POST)
 	public String updateNotice(NoticeVO noticeVO, RedirectAttributes rttr,
@@ -240,6 +248,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 삭제
+	@Auth(role=Role.ADMIN)
 	@Override
 	@RequestMapping(value = { "/notice/deleteNotice.do" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteNotice(NoticeVO noticeVO) throws Exception {
@@ -248,6 +257,7 @@ public class NoticeControllerImpl implements NoticeController {
 	}
 
 	// 공지사항 일괄삭제
+	@Auth(role=Role.ADMIN)
 	@RequestMapping(value = "/notice/deleteCheck.do", method = RequestMethod.POST)
 	public ModelAndView deleteCheck(@RequestParam List<Integer> valueArr) {
 		for (int i = 0; i < valueArr.size(); i++) {

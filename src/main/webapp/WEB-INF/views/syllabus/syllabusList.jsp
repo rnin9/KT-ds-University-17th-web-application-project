@@ -264,7 +264,7 @@ $(document).ready(function(){
 			</tbody>
 		</table>
 
-		<div style="margin-top: 50px;">
+		<div style="margin-top: 50px; margin-bottom:120px;">
 			<button class="btn btn-outline-danger" type="button"
 				onClick="deleteCheck()">선택강의 삭제</button>
 			<button class="btn btn-outline-danger" type="button"
