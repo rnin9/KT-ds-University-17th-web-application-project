@@ -126,7 +126,7 @@
         deleteJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
-                swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
+                Swal.fire("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
                 return;
             } else {
                 Swal.fire({

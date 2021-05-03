@@ -670,7 +670,7 @@
                     <%--                Table of third tab                --%>
                     <div class="tab-pane fade" id="nav-suggestion" role="tabpanel"
                          aria-labelledby="nav-suggestion-tab">
-                        <table id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
+                        <table class="table table-hover" id="nav-suggestion-table" style="border-bottom: 1px solid #96988f; width: 100%;">
                             <thead>
                             <tr>
                                 <td><input type="checkbox" name="check-all"
