@@ -34,6 +34,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+
     <style>
         button {
             float: right;
@@ -142,6 +143,7 @@
             $('#myModal').on('hide.bs.modal', function (e) {
 
                 date = $("#datepicker").data("datepicker").getDate();
+                // $(this).data('bs.modal', null);
                 // window['postJobOpening2']();
 
             });
@@ -152,17 +154,18 @@
         postJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
-                swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
-                return;
+                Swal.fire("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
+                // console.log(cnt + '0000000000000000');
+                $("#modalLink").attr("href", "#");
             } else {
+                // console.log(cnt + '??????????????????????????');
                 $("#modalLink").attr("href", "#myModal");
             }
         }
 
         postJobOpening2 = () => {
             if (date == null || date.length < 6) {
-                swal("올바른 날짜를 선택하세요.", "", "info");
-                return;
+                Swal.fire("올바른 날짜를 선택하세요.", "", "info");
             } else {
                 formatted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
                 valueArr = [];
@@ -233,7 +236,7 @@
 
     <!-- Modal for date picker -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -274,7 +277,7 @@
             <tr>
                 <td><input type="checkbox" name="cb" value="${partner.partnerLicenseNum}"
                            onclick='checkSelectAll(this)'/></td>
-                <td><a title="기업정보 보기" style="text-decoration: underline" class="info"
+                <td><a title="기업정보 보기" style="text-decoration: underline" class="info" href="#"
                        onClick="location.href='${contextPath}/partner/detailInfoPartner.do?partnerLicenseNum=${partner.partnerLicenseNum}'">${partner.partnerName}</a>
                 </td>
                 <td>${partner.partnerEmail}</td>
