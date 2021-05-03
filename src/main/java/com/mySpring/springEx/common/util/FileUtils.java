@@ -15,7 +15,7 @@ import com.mySpring.springEx.notice.vo.NoticeVO;
 @Repository("fileUtils")
 public class FileUtils {
 	
-	  private static final String filePath ="C:\\Users\\mspak\\Downloads\\KTDS (1)\\file\\";
+	  private static final String filePath ="C:\\Users\\mspak\\Downloads\\KTDS2 -\\file\\";
 
 	  // 파일이 저장될 위치
 

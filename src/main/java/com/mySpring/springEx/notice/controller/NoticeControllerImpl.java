@@ -274,7 +274,7 @@ public class NoticeControllerImpl implements NoticeController {
 		// 파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다.
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(
 
-				new File("C:\\Users\\mspak\\Downloads\\KTDS (1)\\file\\"
+				new File("C:\\Users\\mspak\\Downloads\\KTDS2 -\\file\\"
 						+ str_nt_file_name));
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);

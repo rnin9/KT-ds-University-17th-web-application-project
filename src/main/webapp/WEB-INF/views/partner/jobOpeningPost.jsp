@@ -33,6 +33,7 @@
             src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style>
         button {
@@ -108,12 +109,13 @@
                 viewMode: 'years',
                 format: "yyyymmdd",
                 language: "ko",
-                startView: 1,
+                startView: 2,
                 keyboardNavigation: false,
                 forceParse: false,
                 autoclose: true
             });
 
+            
             $('#myTable').DataTable({
                 language: {
                     info: '',
@@ -152,9 +154,14 @@
         postJobOpening = () => {
             const cnt = $("input[name='cb']:checked").length;
             if (cnt === 0) {
+            	console.log(cnt);
+            	$("#modalLink").removeAttr("#href");
+            	$("#myModal").hide();
                 swal("선택된 항목이 없습니다.", "공고를 선택하세요.", "warning");
-                return;
+                
+                return false;
             } else {
+            	console.log(cnt);
                 $("#modalLink").attr("href", "#myModal");
             }
         }
