@@ -65,7 +65,7 @@
 			from notice a, nt_file b 
 		    where a.notice_no = b.notice_no(+)
 		        and notice_category = any('[일반]','[안내]','[모집]','[추가모집]','[채용예정자]')
-		    order by a.notice_no desc
+		    order by a.notice_date desc
 		)
 		where rn = 1
 	</select>
