@@ -12,93 +12,93 @@ import com.mySpring.springEx.member.vo.MemberVO;
 
 
 public class AuthViewInterceptor extends HandlerInterceptorAdapter {
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// 1. handler Á¾·ù È®ÀÎ
-				// ¿ì¸®°¡ °ü½É ÀÖ´Â °ÍÀº Controller¿¡ ÀÖ´Â ¸Ş¼­µåÀÌ¹Ç·Î HandlerMethod Å¸ÀÔÀÎÁö Ã¼Å©
-				if( handler instanceof HandlerMethod == false ) {
-					// return trueÀÌ¸é  Controller¿¡ ÀÖ´Â ¸Ş¼­µå°¡ ¾Æ´Ï¹Ç·Î, ±×´ë·Î ÄÁÆ®·Ñ·¯·Î ÁøÇà
-					return true;
-				}
-				// 2.Çü º¯È¯
-				HandlerMethod handlerMethod = (HandlerMethod)handler;
-				
-				// 3. @Auth ¹Ş¾Æ¿À±â
-				Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
-				
-				// 4. method¿¡ @Auth°¡ ¾ø´Â °æ¿ì, Áï ÀÎÁõÀÌ ÇÊ¿ä ¾ø´Â ¿äÃ»
-				if( auth == null ) {
-					return true;
-				}
-				
-				// 5. @Auth°¡ ÀÖ´Â °æ¿ìÀÌ¹Ç·Î, ¼¼¼ÇÀÌ ÀÖ´ÂÁö Ã¼Å©
-				HttpSession session = request.getSession();
-				if( session == null ) {
-					// È­¸é ¾øÀ½ ÆäÀÌÁö·Î ÀÌµ¿
-					response.sendRedirect(request.getContextPath() + "/noAuth.do");
-					return false;
-				}
-				
-				// 6. ¼¼¼ÇÀÌ Á¸ÀçÇÏ¸é À¯È¿ÇÑ À¯ÀúÀÎÁö È®ÀÎ
-				MemberVO authUser = (MemberVO)session.getAttribute("member");
-				if ( authUser == null ) {
-					// È­¸é ¾øÀ½ ÆäÀÌÁö·Î ÀÌµ¿
-					response.sendRedirect(request.getContextPath() + "/noAuth.do");
-					return false;
-				}
+   @Override
+   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+      // 1. handler ì¢…ë¥˜ í™•ì¸
+            // ìš°ë¦¬ê°€ ê´€ì‹¬ ìˆëŠ” ê²ƒì€ Controllerì— ìˆëŠ” ë©”ì„œë“œì´ë¯€ë¡œ HandlerMethod íƒ€ì…ì¸ì§€ ì²´í¬
+            if( handler instanceof HandlerMethod == false ) {
+               // return trueì´ë©´  Controllerì— ìˆëŠ” ë©”ì„œë“œê°€ ì•„ë‹ˆë¯€ë¡œ, ê·¸ëŒ€ë¡œ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ ì§„í–‰
+               return true;
+            }
+            // 2.í˜• ë³€í™˜
+            HandlerMethod handlerMethod = (HandlerMethod)handler;
+            
+            // 3. @Auth ë°›ì•„ì˜¤ê¸°
+            Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
+            
+            // 4. methodì— @Authê°€ ì—†ëŠ” ê²½ìš°, ì¦‰ ì¸ì¦ì´ í•„ìš” ì—†ëŠ” ìš”ì²­
+            if( auth == null ) {
+               return true;
+            }
+            
+            // 5. @Authê°€ ìˆëŠ” ê²½ìš°ì´ë¯€ë¡œ, ì„¸ì…˜ì´ ìˆëŠ”ì§€ ì²´í¬
+            HttpSession session = request.getSession();
+            if( session == null ) {
+               // í™”ë©´ ì—†ìŒ í˜ì´ì§€ë¡œ ì´ë™
+               response.sendRedirect(request.getContextPath() + "/noAuth.do");
+               return false;
+            }
+            
+            // 6. ì„¸ì…˜ì´ ì¡´ì¬í•˜ë©´ ìœ íš¨í•œ ìœ ì €ì¸ì§€ í™•ì¸
+            MemberVO authUser = (MemberVO)session.getAttribute("member");
+            if ( authUser == null ) {
+               // í™”ë©´ ì—†ìŒ í˜ì´ì§€ë¡œ ì´ë™
+               response.sendRedirect(request.getContextPath() + "/noAuth.do");
+               return false;
+            }
 
-				// 7. adminÀÏ °æ¿ì
-				String role = auth.role().toString();
-				System.out.println("ÇöÀç ±ÇÇÑ============="+role+"Æ÷Áö¼Ç============"+authUser.getUserPosition());
-				if( "ADMIN".equals(role) ) {
-					// adminÀÓÀ» ¾Ë ¼ö ÀÖ´Â Á¶°ÇÀ» ÀÛ¼ºÇÑ´Ù.
-					// ex) ¼­ºñ½ºÀÇ id°¡ rootÀÌ¸é adminÀÌ´Ù.
-					if( "ADMIN".equals(authUser.getUserPosition()) == false ){   // adminÀÌ ¾Æ´Ï¹Ç·Î return false
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					}
-				} else if("PARTNER".equals(role)) {
-					// Çù·Â»çÀÓÀ» ¾Ë ¼ö ÀÖ´Â Á¶°ÇÀ» ÀÛ¼ºÇÑ´Ù.
-					// ex) ¼­ºñ½ºÀÇ id°¡ rootÀÌ¸é adminÀÌ´Ù.
-					if( "PARTNER".equals(authUser.getUserPosition()) == false ){   // partner°¡ ¾Æ´Ï¹Ç·Î return false
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					}
-				} else if("CREW".equals(role)) {
-					if("Ã¤¿ë¿¹Á¤ÀÚ".equals(authUser.getUserPosition()) == false) {
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					}
-				} else if("USER".equals(role)) {
-						if( "ADMIN".equals(authUser.getUserPosition()) == true ){   // ADMIN°ú PARTNERÀÎ °æ¿ì, ±ÇÇÑÀÌ ¾øÀ½ ÇÏ³ª·Î Ã¼Å©ÇÒ ¼ö ¾ø¾î¼­ true·Î Ã¼Å©
-							response.sendRedirect(request.getContextPath() + "/noAuth.do");
-							return false;
-						} else if( "PARTNER".equals(authUser.getUserPosition()) == true) {
-							response.sendRedirect(request.getContextPath() + "/noAuth.do");
-							return false;
-						}
-				} else if("PA".equals(role)) {
-					if( "ÀçÁ÷ÀÚ".equals(authUser.getUserPosition()) == true ){   // UserÁß Ã¤¿ë¿¹Á¤ÀÚ, ÀçÁ÷ÀÚ, ÀÏ¹İÈ¸¿øÀÌ ¾Æ´Ñ°æ¿ì, ÇÏ³ª·Î Ã¼Å©ÇÒ ¼ö ¾ø¾î¼­ true·Î Ã¼Å©
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					} else if( "Ã¤¿ë¿¹Á¤ÀÚ".equals(authUser.getUserPosition()) == true) {
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					} else if("ÀçÁ÷ÀÚ".equals(authUser.getUserPosition()) == true) {
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					
-					}
-				} else if("NON_PA".equals(role)) {
-					if( "PARTNER".equals(authUser.getUserPosition()) == true ){   // UserÁß Ã¤¿ë¿¹Á¤ÀÚ, ÀçÁ÷ÀÚ, ÀÏ¹İÈ¸¿øÀÌ ¾Æ´Ñ°æ¿ì, ÇÏ³ª·Î Ã¼Å©ÇÒ ¼ö ¾ø¾î¼­ true·Î Ã¼Å©
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					} else if( "ADMIN".equals(authUser.getUserPosition()) == true) {
-						response.sendRedirect(request.getContextPath() + "/noAuth.do");
-						return false;
-					}
-				}
-				// 8. Á¢±ÙÇã°¡, Áï ¸Ş¼­µå¸¦ ½ÇÇàÇÏµµ·Ï ÇÔ
-				return true;
-	}
+            // 7. adminì¼ ê²½ìš°
+            String role = auth.role().toString();
+            System.out.println("í˜„ì¬ ê¶Œí•œ============="+role+"í¬ì§€ì…˜============"+authUser.getUserPosition());
+            if( "ADMIN".equals(role) ) {
+               // adminì„ì„ ì•Œ ìˆ˜ ìˆëŠ” ì¡°ê±´ì„ ì‘ì„±í•œë‹¤.
+               // ex) ì„œë¹„ìŠ¤ì˜ idê°€ rootì´ë©´ adminì´ë‹¤.
+               if( "ADMIN".equals(authUser.getUserPosition()) == false ){   // adminì´ ì•„ë‹ˆë¯€ë¡œ return false
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               }
+            } else if("PARTNER".equals(role)) {
+               // í˜‘ë ¥ì‚¬ì„ì„ ì•Œ ìˆ˜ ìˆëŠ” ì¡°ê±´ì„ ì‘ì„±í•œë‹¤.
+               // ex) ì„œë¹„ìŠ¤ì˜ idê°€ rootì´ë©´ adminì´ë‹¤.
+               if( "PARTNER".equals(authUser.getUserPosition()) == false ){   // partnerê°€ ì•„ë‹ˆë¯€ë¡œ return false
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               }
+            } else if("CREW".equals(role)) {
+               if("ì±„ìš©ì˜ˆì •ì".equals(authUser.getUserPosition()) == false) {
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               }
+            } else if("USER".equals(role)) {
+                  if( "ADMIN".equals(authUser.getUserPosition()) == true ){   // ADMINê³¼ PARTNERì¸ ê²½ìš°, ê¶Œí•œì´ ì—†ìŒ í•˜ë‚˜ë¡œ ì²´í¬í•  ìˆ˜ ì—†ì–´ì„œ trueë¡œ ì²´í¬
+                     response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                     return false;
+                  } else if( "PARTNER".equals(authUser.getUserPosition()) == true) {
+                     response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                     return false;
+                  }
+            } else if("PA".equals(role)) {
+               if( "ì¬ì§ì".equals(authUser.getUserPosition()) == true ){   // Userì¤‘ ì±„ìš©ì˜ˆì •ì, ì¬ì§ì, ì¼ë°˜íšŒì›ì´ ì•„ë‹Œê²½ìš°, í•˜ë‚˜ë¡œ ì²´í¬í•  ìˆ˜ ì—†ì–´ì„œ trueë¡œ ì²´í¬
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               } else if( "ì±„ìš©ì˜ˆì •ì".equals(authUser.getUserPosition()) == true) {
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               } else if("ì¬ì§ì".equals(authUser.getUserPosition()) == true) {
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               
+               }
+            } else if("NON_PA".equals(role)) {
+               if( "PARTNER".equals(authUser.getUserPosition()) == true ){   // Userì¤‘ ì±„ìš©ì˜ˆì •ì, ì¬ì§ì, ì¼ë°˜íšŒì›ì´ ì•„ë‹Œê²½ìš°, í•˜ë‚˜ë¡œ ì²´í¬í•  ìˆ˜ ì—†ì–´ì„œ trueë¡œ ì²´í¬
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               } else if( "ADMIN".equals(authUser.getUserPosition()) == true) {
+                  response.sendRedirect(request.getContextPath() + "/noAuth.do");
+                  return false;
+               }
+            }
+            // 8. ì ‘ê·¼í—ˆê°€, ì¦‰ ë©”ì„œë“œë¥¼ ì‹¤í–‰í•˜ë„ë¡ í•¨
+            return true;
+   }
 }
