@@ -193,9 +193,9 @@ $(document).ready(function() {
 		<c:choose>
 		<c:when test="${isLogOn == true  && member.userPosition == '재직자'}">
 		<div id="floatMenu">
-			<a href="https://c11.kr/ktdscon"><p style="font-size:15px; margin-bottom:0px;">재직자향상교육<br>카카오톡 오픈채팅</p></a>
-			<a href="https://c11.kr/ktdscon"><img class="kakao-QR" width="100%" height="80%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/kakao-QR.png" /></a>
-			<button type="button" class="btn btn-outline-danger" onclick="location.href='https://c11.kr/ktdscon'">입장</button>
+			<a href="https://c11.kr/ktdscon" target="_blank"><p style="font-size:15px; margin-bottom:0px;">재직자향상교육<br>카카오톡 오픈채팅</p></a>
+			<a href="https://c11.kr/ktdscon" target="_blank"><img class="kakao-QR" width="100%" height="80%" src="${pageContext.request.contextPath}/resources/image/mainPage/consortium/kakao-QR.png" /></a>
+			<button type="button" class="btn btn-outline-danger" onclick="window.open('https://c11.kr/ktdscon')">입장</button>
 		</div>
 		</c:when>
 		</c:choose>
