@@ -393,7 +393,9 @@ textarea {
 
 
 <body>
-   <div class="sub_visual"></div>
+   <div class="sub_visual">
+   <span style="color: white;">이력서 작성</span>
+   </div>
 
    <div class="container">
 

@@ -64,7 +64,10 @@
 
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
-         select * from kt_user order by userJoindate desc	 	
+         select *
+         from kt_user
+         where USERQUIT = 'N'
+         order by userJoindate desc
       ]]>
 	</select>
 
@@ -204,7 +207,7 @@
 	<insert id="join_member" parameterType="memberVO">
 		insert into kt_user
 		values(#{userId},#{userPassword},#{userName},#{userMajor},#{userGender},#{userPosition},#{userCompany},
-		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false')
+		#{userEmail},#{userPhoneNumber},#{userAddress1},#{userAddress2},'N',#{birth},#{userJob},to_char(sysdate),'false','N')
 	</insert>
 
 	<!-- 이메일 인증 -->
@@ -238,7 +241,7 @@
 		parameterType="String">
 	<![CDATA[
 		select * from kt_user
-		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword}
+		where userId=#{userId} and approval_status='true' and userPassword=#{userPassword} and USERQUIT = 'N'
 	]]>
 	</select>
 
@@ -275,4 +278,27 @@
 		set USERPOSITION = #{newPosition}
 		where USERID = #{userID}
 	</update>
+
+	<update id="handleWithdrawal" parameterType="String">
+		update kt_user
+		set USERQUIT = 'Y'
+		where USERID = #{userID}
+	</update>
+
+	<select id="userWithdrawalList" resultMap="memResult">
+      <![CDATA[
+		select *
+		from kt_user
+		where USERQUIT = 'Y'
+		order by userJoindate desc
+		]]>
+	</select>
+
+	<delete id="deleteUser" parameterType="String">
+	<![CDATA[
+		delete from  kt_user
+		where
+			userId=#{userID} and userquit = 'Y'
+		]]>
+	</delete>
 </mapper> 

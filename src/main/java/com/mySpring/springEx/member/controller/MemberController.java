@@ -44,4 +44,5 @@ public interface MemberController {
 	public ModelAndView myInfo(@RequestParam("userID") String userID,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView modMyInfo(@ModelAttribute MemberVO member, RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView joinMembers(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView handleWithdrawal(@RequestBody Map<String, String> body, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

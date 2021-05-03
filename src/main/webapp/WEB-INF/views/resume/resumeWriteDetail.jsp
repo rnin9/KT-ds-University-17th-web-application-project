@@ -192,7 +192,7 @@ div select {
    width: 100%;
    margin-top: -10px;
 }
-
+\
 .buttonGroups button {
    width: 90px;
    height: 35px;
@@ -461,7 +461,7 @@ div select {
 
 <body>
    <div class="sub_visual">
-
+<span style="color: white;">이력서 작성</span>
    </div>
 
    <div class="container">
@@ -516,7 +516,7 @@ div select {
                onfocus="this.placeholder=''" onblur="this.placeholder='학교명 입력'" value="${resumeVO.resumeSchool}">
             <label class="title">전공</label> <input type="text"
                name="resume_major" id="major" placeholder="전공 입력"
-               onfocus="this.placeholder=''" onblur="this.placeholder='전공 입력'" value="${member.userMajor}">
+               onfocus="this.placeholder=''" onblur="this.placeholder='전공 입력'" value="${member.userMajor}" disabled>
             <label class="title">학점</label> <input type="text"
                placeholder="학점 입력" onfocus="this.placeholder=''"
                onblur="this.placeholder='학점 입력'" name="resume_grade" id="grade" value="${resumeVO.resumeGrade}">

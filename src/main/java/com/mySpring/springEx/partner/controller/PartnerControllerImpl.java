@@ -266,7 +266,7 @@ public class PartnerControllerImpl implements PartnerController {
 	@RequestMapping(value = "/partner/postJobOpening.do", method = RequestMethod.POST)
 	public ModelAndView postJobOpening(@RequestParam List<String> valueArr) {
 		String date = valueArr.get(0);
-		for (int i = 1; i < valueArr.size(); i++) {
+		for(int i = 1; i < valueArr.size(); i++) {
 			partnerService.postJobOpening(valueArr.get(i), date);
 		}
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningPost.do");
@@ -276,7 +276,7 @@ public class PartnerControllerImpl implements PartnerController {
 	@Override
 	@RequestMapping(value = "/partner/deleteJobOpening.do", method = RequestMethod.POST)
 	public ModelAndView deleteJobOpening(@RequestParam List<String> valueArr) {
-		for (int i = 0; i < valueArr.size(); i++) {
+		for(int i = 0; i < valueArr.size(); i++) {
 			partnerService.deleteJobOpening(valueArr.get(i));
 		}
 		ModelAndView mav = new ModelAndView("redirect:/partner/jobOpeningList.do");

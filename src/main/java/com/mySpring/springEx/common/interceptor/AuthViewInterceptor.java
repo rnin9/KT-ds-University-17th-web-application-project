@@ -27,6 +27,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
             Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
             
             // 4. method에 @Auth가 없는 경우, 즉 인증이 필요 없는 요청
+
             if( auth == null ) {
                return true;
             }
@@ -35,6 +36,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
             HttpSession session = request.getSession();
             if( session == null ) {
                // 화면 없음 페이지로 이동
+
                response.sendRedirect(request.getContextPath() + "/noAuth.do");
                return false;
             }
@@ -43,6 +45,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
             MemberVO authUser = (MemberVO)session.getAttribute("member");
             if ( authUser == null ) {
                // 화면 없음 페이지로 이동
+
                response.sendRedirect(request.getContextPath() + "/noAuth.do");
                return false;
             }
@@ -54,6 +57,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
                // admin임을 알 수 있는 조건을 작성한다.
                // ex) 서비스의 id가 root이면 admin이다.
                if( "ADMIN".equals(authUser.getUserPosition()) == false ){   // admin이 아니므로 return false
+
                   response.sendRedirect(request.getContextPath() + "/noAuth.do");
                   return false;
                }
@@ -61,6 +65,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
                // 협력사임을 알 수 있는 조건을 작성한다.
                // ex) 서비스의 id가 root이면 admin이다.
                if( "PARTNER".equals(authUser.getUserPosition()) == false ){   // partner가 아니므로 return false
+
                   response.sendRedirect(request.getContextPath() + "/noAuth.do");
                   return false;
                }
@@ -91,6 +96,7 @@ public class AuthViewInterceptor extends HandlerInterceptorAdapter {
                }
             } else if("NON_PA".equals(role)) {
                if( "PARTNER".equals(authUser.getUserPosition()) == true ){   // User중 채용예정자, 재직자, 일반회원이 아닌경우, 하나로 체크할 수 없어서 true로 체크
+
                   response.sendRedirect(request.getContextPath() + "/noAuth.do");
                   return false;
                } else if( "ADMIN".equals(authUser.getUserPosition()) == true) {

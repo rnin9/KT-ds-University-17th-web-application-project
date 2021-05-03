@@ -307,10 +307,10 @@ public class MemberServiceImpl implements MemberService {
       return memberDAO.partnerLogInById(memberVO);
    }
 
+   @Override
+   public int handleWithdrawal(String userID) throws Exception {
+      return memberDAO.handleWithdrawal(userID);
+   }
 
-
-
-   
-   
 
 }

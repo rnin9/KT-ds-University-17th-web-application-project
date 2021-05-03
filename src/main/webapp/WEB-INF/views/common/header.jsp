@@ -187,7 +187,7 @@ request.setCharacterEncoding("UTF-8");
 						<ul class="dropdown-menu fade-up">
 
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
-							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 안내</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길</a></li>
 						</ul>
 					</li>
           
@@ -207,7 +207,7 @@ request.setCharacterEncoding("UTF-8");
 													 href="${contextPath}/location.do"> 교육장 안내 </a>
 						<ul class="dropdown-menu fade-up">
 
-							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">교육장 시설</a></li>
+							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollClass">강의실 안내</a></li>
 							<li><a class="dropdown-item" href="${contextPath}/location.do#scrollLocation">오시는 길 </a></li>
 						</ul>
 					</li>
