@@ -203,6 +203,8 @@ textarea {
              confirmButtonText: `저장`,
              showCancelButton: true,
              cancelButtonText: `취소`,
+             confirmButtonColor: '#3085d6',
+       	  	 cancelButtonColor: '#d33'
              }).then((res) =>{
                 if(res.isConfirmed){
                    Swal.fire({ icon: 'success', 

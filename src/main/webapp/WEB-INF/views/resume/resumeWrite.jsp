@@ -529,6 +529,8 @@ div input[type="text"] { /* input type text 태그 지정*/
                  showCancelButton: true,
                  confirmButtonText: '확인',
                  cancelButtonText: '취소',
+                 confirmButtonColor: '#3085d6',
+           	  cancelButtonColor: '#d33'
                }).then((result) =>{
                   if (result.isConfirmed) {
                      $(this).attr("style", "display: none;");

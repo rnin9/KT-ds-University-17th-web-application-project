@@ -488,6 +488,8 @@ $(document).on('click','.check',function(e){
            showCancelButton: true,
            confirmButtonText: '예',
            cancelButtonText: '취소',
+           confirmButtonColor: '#3085d6',
+     	  cancelButtonColor: '#d33'
            
          }).then((result) => {
             if (result.isConfirmed) {

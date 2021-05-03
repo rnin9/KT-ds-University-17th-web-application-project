@@ -88,7 +88,13 @@ button {
                               "click",
                               function() {
 
-                                 var deleteYN = confirm("삭제하시겠습니까?");
+                                 var deleteYN = Swal.fire({title:'삭제하시겠습니까?',
+                                         icon:'warning',
+                                         confirmButtonText: `삭제`,
+                                         showCancelButton: true,
+                                         cancelButtonText: '취소',
+                                         confirmButtonColor: '#3085d6',
+                                   	     cancelButtonColor: '#d33'});
                                  if (deleteYN == true) {
 
                                     formObj
