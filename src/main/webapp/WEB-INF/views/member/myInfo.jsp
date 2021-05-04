@@ -291,7 +291,10 @@
             const url = "${contextPath}/member/handleWithdrawal.do";
 
             Swal.fire({
-                title: '회원 탈퇴하시겠습니까?',
+                title: '회원 
+              
+              
+              하시겠습니까?',
                 text: "복구할 수 없습니다.",
                 icon: 'info',
                 showCancelButton: true,
@@ -401,7 +404,7 @@
                                     </div>
                                     <div class="phone_regex_valid"></div>
                                     <div>
-                                        <label class="title">이메일</label><span class="must">필수</span>
+                                        <label class="title" style="margin-left: 57px;">이메일</label><span class="must">필수</span>
                                         <input type="text" name="userEmail" id="email"
                                                value='${myInfo.userEmail}'>
                                         <div class="email_regex"></div>
@@ -430,7 +433,7 @@
                                     </div>
                                     <div style="display: flex;">
                                         <div style="transform: translateX(-20%); width: 120%;">
-                                            <label class="title">주소</label><span class="must">필수</span>
+                                            <label class="title"  style="margin-left: 57px;">주소</label><span class="must">필수</span>
                                             <input type="text" name="userAddress1" id="roadAddress"
                                                    placeholder="도로명 주소" value='${myInfo.userAddress1}'>
 

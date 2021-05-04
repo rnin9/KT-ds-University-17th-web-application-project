@@ -186,7 +186,7 @@ $(document).ready(function(){
 	    	{ "width": "7%" },
 	    	{ "width": "10%" },
 	    	{ "width": "13%" },
-	    	null,
+	    	{ "width": "31%" },
 	    	{ "width": "10%" },
 	    	{ "width": "10%" }
 	  	],

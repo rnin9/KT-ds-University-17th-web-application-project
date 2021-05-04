@@ -155,6 +155,8 @@ table.dataTable td {
 			</tbody>
 
 		</table>
+		
+		<br><br>
 
 	</div>
 </body>

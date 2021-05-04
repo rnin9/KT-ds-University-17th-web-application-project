@@ -207,7 +207,7 @@ request.setCharacterEncoding("UTF-8");
 		<div
 			style="height: 80px; width: 80%; margin-left: 11%; font-family: 'Noto Sans KR', sans-serif;">
 			<div
-				style="float: left; font-size: 26px; font-weight: 500; margin-top: 20px;">#접수중
+				style="float: left; font-size: 26px; font-weight: 600; margin-top: 20px;">#접수중
 				강좌</div>
 			<div style="float: right; vertical-align: bottom; margin-top: 20px;">
 				<a href="${contextPath}/course/userCourseList.do"
@@ -218,6 +218,7 @@ request.setCharacterEncoding("UTF-8");
 		<div class="owl-carousel" style="z-index: 0;">
 
 			<c:forEach var="courseVO" items="${courseUserList}">
+			<c:if test="${courseVO.dday ge 0}">
 				<div class="item">
 					<div class="card" style="margin-right: 2%; width: 310px;">
 						<a id="cardHover"
@@ -243,6 +244,9 @@ request.setCharacterEncoding("UTF-8");
 												<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
+                                     <c:when test="${courseVO.dday == 0}">
+                                    오늘마감
+                                    </c:when>
 
 												<c:when test="${courseVO.dday < 0}">
                                     접수마감
@@ -259,6 +263,7 @@ request.setCharacterEncoding("UTF-8");
 						</a>
 					</div>
 				</div>
+				</c:if>
 			</c:forEach>
 
 		</div>
