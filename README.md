@@ -1,6 +1,10 @@
 # KT-ds-University-17th-web-application-project
 
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle DB-F80000?style=flat-square&logo=Oracle&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/>
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle DB-F80000?style=flat&logo=Oracle&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Jquery-0769AD?style=flat&logo=Jquery&logoColor=white"/> <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat&logo=tomcat&logoColor=white"/> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat&logo=amazonaws&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white"/>
+
+
 ## How to Run
 
 1. clone to your Project Folder
@@ -12,3 +16,22 @@
 4. setting Tomcat in Project Folder
 
 5. start our Project!
+
+
+
+
+
+
+Servers > server.xml = [156번 째 줄에 추가] <Context docBase="springEx" path="/ktu" reloadable="true" source="org.eclipse.jst.jee.server:springEx"/></Host>
+
+springEx> [file폴더 생성]
+FileUtils.java = [18번째줄에 추가] "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\file\\";
+NoticeController.java = [277번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\file\\" (=본인 workspace file 폴더경로)
+
+springEx>src>main>webapp>resources>[resume 폴더생성]
+ResumeController.java = [158번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\src\\main\\webapp\\resources\\image\\resume\\"; (=본인 workspace resume 폴더경로)
+
+mailkey
+
+kakao api
+
