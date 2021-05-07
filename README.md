@@ -15,15 +15,13 @@
 
 4. setting Tomcat in Project Folder
 
-5. start our Project!
+5. make 'mailkey.properties' in path [springEx/src/main/resources]
 
-6. make 'mailkey.properties' in path [springEx/src/main/resources]
+6. make 'global.jsp' in path [springEx/src/main/webapp/WEB-INF/config] kakao api setting
 
-7. make 'global.jsp' in path [springEx/src/main/webapp/WEB-INF/config] kakao api setting
+7. Servers > server.xml = [156번 째 줄에 추가] <Context docBase="springEx" path="/ktu" reloadable="true" source="org.eclipse.jst.jee.server:springEx"/></Host>
 
-9. Servers > server.xml = [156번 째 줄에 추가] <Context docBase="springEx" path="/ktu" reloadable="true" source="org.eclipse.jst.jee.server:springEx"/></Host>
-
-10. File upload Settings
+8. File upload Settings
 
 springEx> [file폴더 생성]
 FileUtils.java = [18번째줄에 추가] "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\file\\";
@@ -32,6 +30,14 @@ NoticeController.java = [277번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\
 springEx>src>main>webapp>resources>[resume 폴더생성]
 ResumeController.java = [158번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\projectTest\\KT-ds-University-17th-web-application-project\\src\\main\\webapp\\resources\\image\\resume\\"; (=본인 workspace resume 폴더경로)
 
+9. Start our Project!!
+
+## ER - Diagram
+
+![er-Diagram](https://user-images.githubusercontent.com/62874963/117421871-edb5d900-af59-11eb-98ba-9c2f04d69b05.png)
 
 
+## Main Page
+
+![image](https://user-images.githubusercontent.com/62874963/117422138-3bcadc80-af5a-11eb-8a91-727aabbec1b2.png)
 
