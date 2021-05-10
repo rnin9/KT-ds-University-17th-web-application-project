@@ -32,11 +32,6 @@ ResumeController.java = [158번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\
 
 9. Start our Project!!
 
-## ER - Diagram
-
-![er-Diagram](https://user-images.githubusercontent.com/62874963/117421871-edb5d900-af59-11eb-98ba-9c2f04d69b05.png)
-
-
 ## Main Page
 
 ![image](https://user-images.githubusercontent.com/62874963/117422138-3bcadc80-af5a-11eb-8a91-727aabbec1b2.png)
