@@ -1,6 +1,6 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=1f66edb20a80ade49583dfa999467672b5579102
+>>>>>>>=9f8580f3fe8b97d72e2e55cc58a05b408d1419b7
 eclipse.preferences.version=1
 encoding//src/main/java/com/mySpring/springEx/common/interceptor/AuthViewInterceptor.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/common/pagination/mapper/PageMapper.java=UTF-8
@@ -8,10 +8,12 @@ encoding//src/main/java/com/mySpring/springEx/common/util/FileUtils.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/courseTake/service/CourseTakeService.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/courseTake/vo/CourseTakeVO.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/member/controller/MemberControllerImpl.java=UTF-8
+encoding//src/main/java/com/mySpring/springEx/member/service/MemberServiceImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/notice/controller/NoticeControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/partner/controller/PartnerControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/partner/dao/PartnerDAOImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/partner/service/PartnerServiceImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/question/controller/QuestionControllerImpl.java=UTF-8
 encoding//src/main/java/com/mySpring/springEx/survey/controller/SurveyControllerImpl.java=UTF-8
+encoding//src/main/java/com/mySpring/springEx/syllabus/controller/SyllabusControllerImpl.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/partner/company/companyApplyManage.jsp=UTF-8

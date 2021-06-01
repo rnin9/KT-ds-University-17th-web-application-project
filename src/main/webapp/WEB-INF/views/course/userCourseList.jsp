@@ -88,7 +88,8 @@ p {
 			<ul>
 				<li><a href="${contextPath}/main.do">홈</a></li>
 				<li style="color: grey; font-weight: bold;">〉</li>
-				<li class="on"><a href="${contextPath}/course/userCourseList.do">수강신청</a></li>
+				<li class="on"><a
+					href="${contextPath}/course/userCourseList.do">수강신청</a></li>
 			</ul>
 		</div>
 
@@ -144,6 +145,9 @@ p {
 														<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
                                     </c:when>
+														<c:when test="${courseVO.dday == 0}">
+                                    오늘마감
+                                    </c:when>
 
 														<c:when test="${courseVO.dday < 0}">
                                     접수마감
@@ -195,6 +199,10 @@ p {
                                     D-${courseVO.dday}
                                     </c:when>
 
+															<c:when test="${courseVO.dday == 0}">
+                                    오늘마감
+                                    </c:when>
+
 															<c:when test="${courseVO.dday < 0}">
                                     접수마감
                                     </c:when>
@@ -240,6 +248,9 @@ p {
                                     </c:when>
 															<c:when test="${courseVO.dday > 0}">
                                     D-${courseVO.dday}
+                                    </c:when>
+															<c:when test="${courseVO.dday == 0}">
+                                    오늘마감
                                     </c:when>
 
 															<c:when test="${courseVO.dday < 0}">

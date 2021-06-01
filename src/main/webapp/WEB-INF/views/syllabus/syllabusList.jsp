@@ -126,39 +126,56 @@ $(document).ready( function () {
 <script>
 	function deleteCheck(){
 		
-		/*if (${isLogOn == true}){*/
+		
 			var url = "${contextPath}/syllabus/deleteCheck.do";
 			var cnt = $("input[name='ab']:checked").length;
 			var valueArr = new Array();
 			$("input[name='ab']:checked").each(function(i){
 				valueArr.push($(this).val());
 			});
+			
 			if (cnt==0){
 				Swal.fire("선택된 강의계획서가 없습니다.","","warning");
 			}else{
-				$.ajax({
-					url : url,
-					type : 'POST',
-					traditional : true,
-					data : {
-						valueArr : valueArr
-					},
-					success : function(data){
-						console.log("success");
-						window.location.reload();
-						/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
-					},
-					error : function(data) {
-						Swal.fire("선택한 강의계획서를 사용하는 강의가 있습니다.","","error");
-						console.log("fail");
-			        }
-				})
+				deleteYN = Swal.fire({
+	                title: '삭제하겠습니까?',
+	                text: '',
+	                icon: 'warning',
+	                showCancelButton: true,
+	                confirmButtonColor: '#3085d6',
+	                cancelButtonColor: '#d33',
+	                confirmButtonText: '삭제',
+	                cancelButtonText: '취소'
+	            }).then((result) => {
+	                if (result.value) {
+				
+					$.ajax({
+						url : url,
+						type : 'POST',
+						traditional : true,
+						data : {
+							valueArr : valueArr
+						},
+						success : function(data){
+							console.log("success");
+							Swal.fire("삭제되었습니다.","","success").then(()=>{
+								location.reload();
+							})
+								
+			                
+							/*$("#container").load("${contextPath}/syllabus/syllabusList.do");*/
+						},
+						error : function(data) {
+							Swal.fire("선택한 강의계획서를 사용하는 강의가 있습니다.","","error");
+							console.log("fail");
+				        }
+					})
+				}
+
+                
+	            })
 			}
-		/*}
-		else{
-			alert("로그인 후 시도해주세요.");
-		}*/
-	};		
+	};
 </script>
 <script>
 	function register(){
