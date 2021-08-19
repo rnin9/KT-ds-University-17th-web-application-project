@@ -37,7 +37,7 @@
 
 <img width="70%" src="https://user-images.githubusercontent.com/56222478/129480821-67939a02-a202-43e0-98cc-7e8e6a2905dc.gif"/>
 
-### 💡 
+### 💡 채용 제안
 > .
 
 ### 💡.
