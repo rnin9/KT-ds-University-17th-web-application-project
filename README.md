@@ -37,9 +37,21 @@
 
 <img width="70%" src="https://user-images.githubusercontent.com/56222478/129480821-67939a02-a202-43e0-98cc-7e8e6a2905dc.gif"/>
 
-### 💡 채용 제안
-> .
+### 💡 관리자 메인 페이지
+> 연도별 수료 인원을 그래프로 보여줍니다.
+<img width="70%" src="https://user-images.githubusercontent.com/56222478/130246147-d5d6fd60-d5ee-4554-b6ef-06794d317d2a.gif"/>
 
+|회원 관리|협력사 관리|
+|:-:|:-:|
+|![First Image](https://user-images.githubusercontent.com/56222478/130247573-bd51912d-f52a-4806-816c-103a9a7f313e.jpg)|![Second Image](https://user-images.githubusercontent.com/56222478/130248177-48ee34f1-619f-4a49-9ad0-c1c3bf39eb78.jpg)|
+
+|채용공고 관리|강의 관리|
+|:-:|:-:|
+|![First Image](https://user-images.githubusercontent.com/56222478/130248715-43b6b0cd-4d7f-4800-b4e1-b8a0b8496776.jpg)|![Second Image](https://user-images.githubusercontent.com/56222478/130248487-a9d5cac2-cf84-4db7-8d0a-9b1a8a2cea5a.jpg)|
+
+|1:1문의 관리|공지사항 관리|
+|:-:|:-:|
+|![First Image](https://user-images.githubusercontent.com/56222478/130248807-7dae7ff7-c096-45cd-b713-dde38d279bce.jpg)|![Second Image](https://user-images.githubusercontent.com/56222478/130248888-c355758c-59ff-4a7e-981e-0eb6f6627570.jpg)|
 ### 💡.
 > .
 
