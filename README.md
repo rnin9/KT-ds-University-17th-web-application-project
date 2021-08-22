@@ -37,8 +37,8 @@
 
 <img width="70%" src="https://user-images.githubusercontent.com/56222478/129480821-67939a02-a202-43e0-98cc-7e8e6a2905dc.gif"/>
 
-### 💡 관리자 메인 페이지
-> 연도별 전체 수료 인원을 그래프로 보여줍니다.
+### 💡 관리자 페이지
+> 메인 화면에서 연도별 전체 수료 인원을 그래프로 보여줍니다.
 <img width="70%" src="https://user-images.githubusercontent.com/56222478/130246147-d5d6fd60-d5ee-4554-b6ef-06794d317d2a.gif"/>
 
 |회원 관리|협력사 관리|
@@ -52,8 +52,8 @@
 |1:1문의 관리|공지사항 관리|
 |:-:|:-:|
 |![First Image](https://user-images.githubusercontent.com/56222478/130248807-7dae7ff7-c096-45cd-b713-dde38d279bce.jpg)|![Second Image](https://user-images.githubusercontent.com/56222478/130248888-c355758c-59ff-4a7e-981e-0eb6f6627570.jpg)|
-### 💡 협력사 메인 페이지
-> 해당 회사 재직자의 연도별 수료 인원을 그래프로 보여줍니다.
+### 💡 협력사 페이지
+> 메인 화면에서 해당 회사 재직자의 연도별 수료 인원을 그래프로 보여줍니다.
 
 <img width="70%" src="https://user-images.githubusercontent.com/56222478/130353280-5e944003-b965-4a12-9433-1768a80afb82.gif"/>
 
@@ -61,15 +61,6 @@
 |:-:|:-:|
 |![First Image](https://user-images.githubusercontent.com/56222478/130353311-195f1a30-862f-4b84-bb67-61364386766b.jpg)|![Second Image](https://user-images.githubusercontent.com/56222478/130353331-4d825a7f-8749-45ba-9919-07c916a1980b.jpg)|
 
-
-### 💡.
-> .
-
-### 💡.
-> .
-
-### 💡.
-> .
 
 <!-- ## How to Run
 
@@ -98,10 +89,10 @@ ResumeController.java = [158번째 줄에 추가] "C:\\Users\\rkdal\\Downloads\\
 
 9. Start our Project!!
  -->
-## 📃 ER - Diagram
+<!-- ## 📃 ER - Diagram
 
 ![er-Diagram](https://user-images.githubusercontent.com/62874963/117421871-edb5d900-af59-11eb-98ba-9c2f04d69b05.png)
-
+ -->
 <!-- 
 ## Main Page
 
